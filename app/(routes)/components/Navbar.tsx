@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { useState, useRef, useEffect } from 'react';
-import { Menu, X, ChevronDown } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { UserButton, useUser } from '@clerk/nextjs';
+import Link from "next/link";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { useState, useRef, useEffect } from "react";
+import { Menu, X, ChevronDown } from "lucide-react";
+import { Button } from "../../../components/ui/button";
+import { SignOutButton, useUser } from "@clerk/nextjs";
 
 export default function Navbar() {
   const { isSignedIn } = useUser();
@@ -22,24 +22,24 @@ export default function Navbar() {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const navItems = [
-    { label: 'News & IPOs', href: '/news' },
-    { label: 'Work With Us', href: '/work-with-us' },
-    { label: 'Reports', href: '/reports' }
+    { label: "News & IPOs", href: "/news" },
+    { label: "Work With Us", href: "/work-with-us" },
+    { label: "Reports", href: "/reports" },
   ];
 
   const servicesDropdown = [
-    'Loan',
-    'Insurance',
-    'Saving Account',
-    'Stock Investment',
-    'Mutual Funds',
-    'Credit Card',
-    'Govt Bonds & FD'
+    "Loan",
+    "Insurance",
+    "Saving Account",
+    "Stock Investment",
+    "Mutual Funds",
+    "Credit Card",
+    "Govt Bonds & FD",
   ];
 
   return (
@@ -56,7 +56,7 @@ export default function Navbar() {
           {/* Services Dropdown */}
           <div ref={dropdownRef} className="relative group">
             <div
-              onClick={() => setServicesOpen(prev => !prev)}
+              onClick={() => setServicesOpen((prev) => !prev)}
               className="flex items-center gap-1 cursor-pointer hover:text-green-600 relative"
             >
               Services <ChevronDown size={16} />
@@ -72,7 +72,9 @@ export default function Navbar() {
                     transition={{ delay: 0.05 * i }}
                   >
                     <Link
-                      href={`/services/${service.toLowerCase().replace(/\s+/g, '-')}`}
+                      href={`/services/${service
+                        .toLowerCase()
+                        .replace(/\s+/g, "-")}`}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-100 hover:text-green-900"
                     >
                       {service}
@@ -97,9 +99,40 @@ export default function Navbar() {
 
           {/* User Auth */}
           {isSignedIn ? (
-            <UserButton afterSwitchSessionUrl="/" />
+            <div className="relative">
+              <div
+                onClick={() => setMobileMenuOpen((prev) => !prev)}
+                className="cursor-pointer"
+              >
+                <Image
+                  src={"/globe.svg"}
+                  alt="User Avatar"
+                  className="rounded-full h-8 w-8 object-cover"
+                  width={32}
+                  height={32}
+                />
+              </div>
+
+              {mobileMenuOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white text-green-900 border shadow-lg rounded-md z-50 p-2 space-y-1">
+                  <Link
+                    href="/dashboard"
+                    className="block px-4 py-2 hover:bg-green-100 rounded"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Dashboard
+                  </Link>
+
+                  <SignOutButton>
+                    <button className="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600 rounded">
+                      Sign Out
+                    </button>
+                  </SignOutButton>
+                </div>
+              )}
+            </div>
           ) : (
-            <Link href="/register">
+            <Link href="/sign-up">
               <Button className="bg-gradient-to-r from-green-600 to-green-400 text-white hover:from-green-700 hover:to-green-500 px-5 py-2 rounded-full">
                 Register
               </Button>
@@ -107,9 +140,13 @@ export default function Navbar() {
           )}
         </div>
 
+
         {/* Mobile Toggle */}
         <div className="md:hidden">
-          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-green-700">
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="text-green-700"
+          >
             {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>

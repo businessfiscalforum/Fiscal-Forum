@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import { GlowCursor } from "./components/GlowCursor";
-import Navbar from "./components/Navbar";
+import { GlowCursor } from "./(routes)/components/GlowCursor";
+import Navbar from "./(routes)/components/Navbar";
 import Provider from "./provider";
-import Footer from "./components/Footer";
-import Hero from "./components/Hero";
+import Footer from "./(routes)/components/Footer";
+import Hero from "./(routes)/components/Hero";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,13 +22,15 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" className="scroll-smooth">
         <body
-          className={'antialiased min-h-screen bg-gradient-to-br from-green-900 via-emerald-800 to-green-500 text-white'}
+          className={
+            "antialiased min-h-screen bg-gradient-to-br from-green-900 via-emerald-800 to-green-500 text-white"
+          }
         >
           <GlowCursor />
-          <Navbar/>
-          <Hero/>
+          <Navbar />
+          <Hero />
           <Provider>{children}</Provider>
-          <Footer/>
+          <Footer />
         </body>
       </html>
     </ClerkProvider>
