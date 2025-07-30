@@ -26,30 +26,23 @@ interface NewsItem {
   tags?: string[];
 }
 
-// Define component props interface
-interface NewsPageProps {
-  newsData?: NewsItem[];
-  itemsPerPage?: number;
-}
+const NewsPage = () => {
+  const newsData: NewsItem[] = financialNewsData;
+  const itemsPerPage = 9;
 
-const NewsPage: React.FC<NewsPageProps> = ({ newsData = financialNewsData, itemsPerPage = 9 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('latest');
 
-  // Use provided newsData or fallback to imported data
   const allNews: NewsItem[] = newsData.length > 0 ? newsData : financialNewsData;
-
-  // Get unique categories from news data
   const categories = ['all', ...new Set(allNews.map(news => news.category))];
 
-  // Filter and sort news
   const filteredNews = allNews
-    .filter(news => 
+    .filter(news =>
       (selectedCategory === 'all' || news.category === selectedCategory) &&
       (news.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-       news.description.toLowerCase().includes(searchTerm.toLowerCase()))
+        news.description.toLowerCase().includes(searchTerm.toLowerCase()))
     )
     .sort((a, b) => {
       if (sortBy === 'latest') {
@@ -60,7 +53,6 @@ const NewsPage: React.FC<NewsPageProps> = ({ newsData = financialNewsData, items
       return 0;
     });
 
-  // Pagination
   const totalPages = Math.ceil(filteredNews.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentNews = filteredNews.slice(startIndex, startIndex + itemsPerPage);
@@ -94,7 +86,7 @@ const NewsPage: React.FC<NewsPageProps> = ({ newsData = financialNewsData, items
       <div className="relative z-10">
         {/* Header Section */}
         <section className="bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white py-20 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
+          <div className="absolute inset-0 opacity-10"></div>
           <div className="absolute inset-0">
             <div className="absolute top-10 left-10 w-64 h-64 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
             <div className="absolute bottom-10 right-10 w-80 h-80 bg-gradient-to-r from-emerald-500/20 to-teal-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
