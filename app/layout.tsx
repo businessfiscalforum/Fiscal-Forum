@@ -6,6 +6,7 @@ import { GlowCursor } from "./components/GlowCursor";
 import Navbar from "./components/Navbar";
 import Provider from "./provider";
 import Footer from "./components/Footer";
+import Hero from "./components/Hero";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,6 +26,7 @@ export default function RootLayout({
         >
           <GlowCursor />
           <Navbar/>
+          <Hero/>
           <Provider>{children}</Provider>
           <Footer/>
         </body>

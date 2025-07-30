@@ -28,7 +28,7 @@ export default function Navbar() {
 
   const navItems = [
     { label: 'News & IPOs', href: '/news' },
-    { label: 'Work With Us', href: '/careers' },
+    { label: 'Work With Us', href: '/work-with-us' },
     { label: 'Reports', href: '/reports' }
   ];
 

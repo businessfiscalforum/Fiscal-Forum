@@ -1,66 +1,104 @@
 "use client";
 
-import { motion } from 'framer-motion';
-import { 
-  FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube,
-  FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaArrowUp,
-  FaShieldAlt, FaLock, FaAward, FaCertificate, FaGlobe,
-  FaApple, FaGooglePlay, FaQrcode, FaRocket, FaHeart,
-  FaUniversity, FaCreditCard, FaPiggyBank, FaChartLine
-} from 'react-icons/fa';
+import { motion } from "framer-motion";
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaLinkedinIn,
+  FaInstagram,
+  FaYoutube,
+  FaPhone,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaClock,
+  FaArrowUp,
+  FaShieldAlt,
+  FaLock,
+  FaAward,
+  FaCertificate,
+  FaGlobe,
+  FaApple,
+  FaGooglePlay,
+  FaQrcode,
+  // FaRocket,
+  FaHeart,
+  FaUniversity,
+  FaCreditCard,
+  FaPiggyBank,
+  FaChartLine,
+} from "react-icons/fa";
 
 const Footer = () => {
   const quickLinks = [
-    { name: 'About Us', href: '/about' },
-    { name: 'Our Services', href: '/services' },
-    { name: 'Investment Plans', href: '/investments' },
-    { name: 'Insurance Products', href: '/insurance' },
-    { name: 'Loan Services', href: '/loans' },
-    { name: 'Career Opportunities', href: '/careers' },
+    { name: "About Us", href: "/about" },
+    { name: "Our Services", href: "/services" },
+    { name: "Investment Plans", href: "/investments" },
+    { name: "Insurance Products", href: "/insurance" },
+    { name: "Loan Services", href: "/loans" },
+    { name: "Career Opportunities", href: "/careers" },
   ];
 
   const financialServices = [
-    { name: 'Personal Banking', href: '/personal-banking', icon: FaPiggyBank },
-    { name: 'Business Banking', href: '/business-banking', icon: FaUniversity },
-    { name: 'Credit Cards', href: '/credit-cards', icon: FaCreditCard },
-    { name: 'Investment Advisory', href: '/investment-advisory', icon: FaChartLine },
+    { name: "Personal Banking", href: "/personal-banking", icon: FaPiggyBank },
+    { name: "Business Banking", href: "/business-banking", icon: FaUniversity },
+    { name: "Credit Cards", href: "/credit-cards", icon: FaCreditCard },
+    {
+      name: "Investment Advisory",
+      href: "/investment-advisory",
+      icon: FaChartLine,
+    },
   ];
 
   const supportLinks = [
-    { name: 'Help Center', href: '/help' },
-    { name: 'Contact Support', href: '/support' },
-    { name: 'Live Chat', href: '/chat' },
-    { name: 'Document Upload', href: '/upload' },
-    { name: 'Branch Locator', href: '/branches' },
-    { name: 'ATM Locator', href: '/atm' },
+    { name: "Help Center", href: "/help" },
+    { name: "Contact Support", href: "/support" },
+    { name: "Live Chat", href: "/chat" },
+    { name: "Document Upload", href: "/upload" },
+    { name: "Branch Locator", href: "/branches" },
+    { name: "ATM Locator", href: "/atm" },
   ];
 
   const legalLinks = [
-    { name: 'Privacy Policy', href: '/privacy' },
-    { name: 'Terms of Service', href: '/terms' },
-    { name: 'Cookie Policy', href: '/cookies' },
-    { name: 'Compliance', href: '/compliance' },
-    { name: 'Regulatory Disclosures', href: '/disclosures' },
-    { name: 'Grievance Redressal', href: '/grievance' },
+    { name: "Privacy Policy", href: "/privacy" },
+    { name: "Terms of Service", href: "/terms" },
+    { name: "Cookie Policy", href: "/cookies" },
+    { name: "Compliance", href: "/compliance" },
+    { name: "Regulatory Disclosures", href: "/disclosures" },
+    { name: "Grievance Redressal", href: "/grievance" },
   ];
 
   const certifications = [
-    { name: 'ISO 27001', icon: FaShieldAlt, desc: 'Information Security' },
-    { name: 'PCI DSS', icon: FaLock, desc: 'Payment Security' },
-    { name: 'SEBI Registered', icon: FaAward, desc: 'Investment Advisory' },
-    { name: 'RBI Licensed', icon: FaCertificate, desc: 'Banking Operations' },
+    { name: "ISO 27001", icon: FaShieldAlt, desc: "Information Security" },
+    { name: "PCI DSS", icon: FaLock, desc: "Payment Security" },
+    { name: "SEBI Registered", icon: FaAward, desc: "Investment Advisory" },
+    { name: "RBI Licensed", icon: FaCertificate, desc: "Banking Operations" },
   ];
 
   const socialLinks = [
-    { name: 'Facebook', icon: FaFacebookF, href: '#', color: 'hover:bg-blue-600' },
-    { name: 'Twitter', icon: FaTwitter, href: '#', color: 'hover:bg-sky-500' },
-    { name: 'LinkedIn', icon: FaLinkedinIn, href: '#', color: 'hover:bg-blue-700' },
-    { name: 'Instagram', icon: FaInstagram, href: '#', color: 'hover:bg-pink-600' },
-    { name: 'YouTube', icon: FaYoutube, href: '#', color: 'hover:bg-red-600' },
+    {
+      name: "Facebook",
+      icon: FaFacebookF,
+      href: "#",
+      color: "hover:bg-blue-600",
+    },
+    { name: "Twitter", icon: FaTwitter, href: "#", color: "hover:bg-sky-500" },
+    {
+      name: "LinkedIn",
+      icon: FaLinkedinIn,
+      href: "#",
+      color: "hover:bg-blue-700",
+    },
+    {
+      name: "Instagram",
+      icon: FaInstagram,
+      href: "#",
+      color: "hover:bg-pink-600",
+    },
+    { name: "YouTube", icon: FaYoutube, href: "#", color: "hover:bg-red-600" },
   ];
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -78,9 +116,8 @@ const Footer = () => {
         <div className="border-b border-white/10">
           <div className="max-w-7xl mx-auto px-6 py-16">
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
-              
               {/* Company Info */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
@@ -91,13 +128,15 @@ const Footer = () => {
                     Fiscal Forum
                   </h2>
                   <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                    Your trusted partner in financial growth. We provide comprehensive financial solutions with transparency, innovation, and customer-first approach.
+                    Your trusted partner in financial growth. We provide
+                    comprehensive financial solutions with transparency,
+                    innovation, and customer-first approach.
                   </p>
                 </div>
 
                 {/* Contact Info */}
                 <div className="space-y-4 mb-8">
-                  <motion.div 
+                  <motion.div
                     whileHover={{ x: 5 }}
                     className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors group"
                   >
@@ -110,7 +149,7 @@ const Footer = () => {
                     </div>
                   </motion.div>
 
-                  <motion.div 
+                  <motion.div
                     whileHover={{ x: 5 }}
                     className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors group"
                   >
@@ -123,7 +162,7 @@ const Footer = () => {
                     </div>
                   </motion.div>
 
-                  <motion.div 
+                  <motion.div
                     whileHover={{ x: 5 }}
                     className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors group"
                   >
@@ -136,7 +175,7 @@ const Footer = () => {
                     </div>
                   </motion.div>
 
-                  <motion.div 
+                  <motion.div
                     whileHover={{ x: 5 }}
                     className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors group"
                   >
@@ -152,7 +191,9 @@ const Footer = () => {
 
                 {/* Social Links */}
                 <div>
-                  <h4 className="text-lg font-semibold mb-4 text-white">Follow Us</h4>
+                  <h4 className="text-lg font-semibold mb-4 text-white">
+                    Follow Us
+                  </h4>
                   <div className="flex gap-3">
                     {socialLinks.map((social, index) => (
                       <motion.a
@@ -170,20 +211,19 @@ const Footer = () => {
               </motion.div>
 
               {/* Quick Links */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
               >
-                <h3 className="text-xl font-bold mb-6 text-white">Quick Links</h3>
+                <h3 className="text-xl font-bold mb-6 text-white">
+                  Quick Links
+                </h3>
                 <ul className="space-y-3">
                   {quickLinks.map((link, index) => (
-                    <motion.li 
-                      key={index}
-                      whileHover={{ x: 5 }}
-                    >
-                      <a 
-                        href={link.href} 
+                    <motion.li key={index} whileHover={{ x: 5 }}>
+                      <a
+                        href={link.href}
                         className="text-gray-300 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
                       >
                         <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:w-2 group-hover:bg-white transition-all duration-300"></div>
@@ -195,20 +235,19 @@ const Footer = () => {
               </motion.div>
 
               {/* Financial Services */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <h3 className="text-xl font-bold mb-6 text-white">Financial Services</h3>
+                <h3 className="text-xl font-bold mb-6 text-white">
+                  Financial Services
+                </h3>
                 <ul className="space-y-4">
                   {financialServices.map((service, index) => (
-                    <motion.li 
-                      key={index}
-                      whileHover={{ x: 5 }}
-                    >
-                      <a 
-                        href={service.href} 
+                    <motion.li key={index} whileHover={{ x: 5 }}>
+                      <a
+                        href={service.href}
                         className="text-gray-300 hover:text-white transition-colors duration-300 flex items-center gap-3 group"
                       >
                         <div className="w-8 h-8 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-lg flex items-center justify-center group-hover:from-blue-500 group-hover:to-purple-600 transition-all duration-300">
@@ -222,20 +261,19 @@ const Footer = () => {
               </motion.div>
 
               {/* Support */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
-                <h3 className="text-xl font-bold mb-6 text-white">Customer Support</h3>
+                <h3 className="text-xl font-bold mb-6 text-white">
+                  Customer Support
+                </h3>
                 <ul className="space-y-3">
                   {supportLinks.map((link, index) => (
-                    <motion.li 
-                      key={index}
-                      whileHover={{ x: 5 }}
-                    >
-                      <a 
-                        href={link.href} 
+                    <motion.li key={index} whileHover={{ x: 5 }}>
+                      <a
+                        href={link.href}
                         className="text-gray-300 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
                       >
                         <div className="w-1 h-1 bg-emerald-400 rounded-full group-hover:w-2 group-hover:bg-white transition-all duration-300"></div>
@@ -252,7 +290,7 @@ const Footer = () => {
         {/* Mobile App Section */}
         <div className="border-b border-white/10">
           <div className="max-w-7xl mx-auto px-6 py-12">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -264,7 +302,9 @@ const Footer = () => {
                     📱 Download Our Mobile App
                   </h3>
                   <p className="text-gray-300 text-lg mb-6">
-                    Experience seamless banking on the go with our award-winning mobile application. Available for both iOS and Android devices.
+                    Experience seamless banking on the go with our award-winning
+                    mobile application. Available for both iOS and Android
+                    devices.
                   </p>
                   <div className="flex flex-wrap gap-4">
                     <motion.button
@@ -292,7 +332,7 @@ const Footer = () => {
                   </div>
                 </div>
                 <div className="flex justify-center lg:justify-end">
-                  <motion.div 
+                  <motion.div
                     whileHover={{ scale: 1.05, rotate: 5 }}
                     className="w-32 h-32 bg-white rounded-2xl flex items-center justify-center shadow-2xl"
                   >
@@ -307,7 +347,7 @@ const Footer = () => {
         {/* Certifications & Security */}
         <div className="border-b border-white/10">
           <div className="max-w-7xl mx-auto px-6 py-12">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -317,7 +357,8 @@ const Footer = () => {
                 🔒 Security & Certifications
               </h3>
               <p className="text-gray-300 max-w-2xl mx-auto">
-                Your security is our priority. We maintain the highest standards of data protection and regulatory compliance.
+                Your security is our priority. We maintain the highest standards
+                of data protection and regulatory compliance.
               </p>
             </motion.div>
 
@@ -345,7 +386,7 @@ const Footer = () => {
         {/* Legal Links */}
         <div className="border-b border-white/10">
           <div className="max-w-7xl mx-auto px-6 py-8">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -368,21 +409,22 @@ const Footer = () => {
         {/* Bottom Section */}
         <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               className="text-center lg:text-left"
             >
               <p className="text-gray-400 text-sm">
-                © 2025 Fiscal Forum. All rights reserved. | Made with <FaHeart className="inline text-red-500 mx-1" /> in India
+                © 2025 Fiscal Forum. All rights reserved. | Made with{" "}
+                <FaHeart className="inline text-red-500 mx-1" /> in India
               </p>
               <p className="text-gray-500 text-xs mt-1">
                 SEBI Registration No: INZ000123456 | CIN: U74999DL2020PTC123456
               </p>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
