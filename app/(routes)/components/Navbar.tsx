@@ -43,7 +43,14 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-white/40 backdrop-blur-md border border-green-200 shadow-lg rounded-full px-8 py-4 max-w-7xl w-full">
+    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 
+  bg-white/40 md:bg-white/40 
+  backdrop-blur-md md:backdrop-blur-md 
+  border border-green-200 shadow-lg 
+  md:rounded-full rounded-md 
+  px-4 md:px-8 py-3 md:py-4 
+  max-w-7xl w-full"
+    >
       <div className="flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center gap-3">
@@ -140,7 +147,6 @@ export default function Navbar() {
           )}
         </div>
 
-
         {/* Mobile Toggle */}
         <div className="md:hidden">
           <button
@@ -151,6 +157,60 @@ export default function Navbar() {
           </button>
         </div>
       </div>
+      {/* Mobile Nav Drawer */}
+      {mobileMenuOpen && (
+        <div className="mt-4 p-4 rounded-xl bg-white shadow-lg md:hidden z-50">
+          <div className="mb-4">
+            <p className="font-semibold text-green-800 mb-2">Services</p>
+            {servicesDropdown.map((service) => (
+              <Link
+                key={service}
+                href={`/services/${service.toLowerCase().replace(/\s+/g, "-")}`}
+                className="block py-2 px-4 text-sm text-gray-700 hover:bg-green-100 rounded"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {service}
+              </Link>
+            ))}
+          </div>
+
+          <div className="mb-4  ">
+            {navItems.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                className=" block py-2 font-semibold text-green-800 mb-2 "
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+
+          {isSignedIn ? (
+            <div>
+              <Link
+                href="/dashboard"
+                className="block px-4 py-2 text-green-800 hover:bg-green-100 rounded"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Dashboard
+              </Link>
+              <SignOutButton>
+                <button className="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600 rounded">
+                  Sign Out
+                </button>
+              </SignOutButton>
+            </div>
+          ) : (
+            <Link href="/sign-up" onClick={() => setMobileMenuOpen(false)}>
+              <Button className="w-full bg-gradient-to-r from-green-600 to-green-400 text-white hover:from-green-700 hover:to-green-500 py-2 mt-2">
+                Register
+              </Button>
+            </Link>
+          )}
+        </div>
+      )}
     </nav>
   );
 }
