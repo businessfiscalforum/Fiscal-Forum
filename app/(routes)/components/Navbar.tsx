@@ -157,6 +157,30 @@ export default function Navbar() {
           </button>
         </div>
       </div>
+
+      {isSignedIn ? (
+            <div>
+              <Link
+                href="/dashboard"
+                className="block px-4 py-2 text-green-800 hover:bg-green-100 rounded"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Dashboard
+              </Link>
+              <SignOutButton>
+                <button className="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600 rounded">
+                  Sign Out
+                </button>
+              </SignOutButton>
+            </div>
+          ) : (
+            <Link href="/sign-up" onClick={() => setMobileMenuOpen(false)}>
+              <Button className="w-full bg-gradient-to-r from-green-600 to-green-400 text-white hover:from-green-700 hover:to-green-500 py-2 mt-2">
+                Register
+              </Button>
+            </Link>
+          )}
+
       {/* Mobile Nav Drawer */}
       {mobileMenuOpen && (
         <div className="mt-4 p-4 rounded-xl bg-white shadow-lg md:hidden z-50">
