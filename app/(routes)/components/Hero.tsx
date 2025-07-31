@@ -86,7 +86,7 @@ export default function Hero() {
       </div>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white py-20 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white py-50 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 z-0"></div>
         <div className="absolute inset-0">
           <div className="absolute top-10 left-10 w-64 h-64 bg-gradient-to-r from-blue-500/30 to-purple-600/30 rounded-full blur-3xl animate-pulse"></div>
