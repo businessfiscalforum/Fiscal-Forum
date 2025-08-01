@@ -155,11 +155,11 @@ export default function HomePage() {
   return (
     <div className="text-gray-800 font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 min-h-screen">
       {/* Floating Background Elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+      {/* <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-blue-400/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute top-1/2 right-20 w-96 h-96 bg-gradient-to-r from-emerald-400/20 to-teal-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
         <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-gradient-to-r from-pink-400/20 to-rose-600/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
-      </div>
+      </div> */}
 
 
       {/* Top Stories */}
@@ -211,10 +211,10 @@ export default function HomePage() {
 
       {/* Services Section */}
       <section className="py-24 bg-gradient-to-br from-slate-50 to-white relative overflow-hidden">
-        <div className="absolute inset-0">
+        {/* <div className="absolute inset-0">
           <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-r from-blue-200/50 to-purple-300/50 rounded-full blur-3xl"></div>
           <div className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-r from-emerald-200/50 to-teal-300/50 rounded-full blur-3xl"></div>
-        </div>
+        </div> */}
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <motion.h2
@@ -266,10 +266,10 @@ export default function HomePage() {
 
       {/* Why Fiscal Forum */}
       <section className="py-24 bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-50 relative overflow-hidden">
-        <div className="absolute inset-0">
+        {/* <div className="absolute inset-0">
           <div className="absolute top-1/4 left-10 w-96 h-96 bg-gradient-to-r from-indigo-200/40 to-purple-300/40 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-1/4 right-10 w-80 h-80 bg-gradient-to-r from-cyan-200/40 to-blue-300/40 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        </div>
+        </div> */}
 
         <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
           <motion.h2
@@ -371,10 +371,10 @@ export default function HomePage() {
 
       {/* Testimonials Section */}
       <section className="py-24 bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100 relative overflow-hidden">
-        <div className="absolute inset-0">
+        {/* <div className="absolute inset-0">
           <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-blue-200/30 to-indigo-300/30 rounded-full blur-3xl"></div>
           <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-purple-200/30 to-pink-300/30 rounded-full blur-3xl"></div>
-        </div>
+        </div> */}
 
         <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
           <motion.h2
@@ -483,11 +483,11 @@ export default function HomePage() {
 
       {/* Newsletter Section */}
       <section className="py-24 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white text-center relative overflow-hidden">
-        <div className="absolute inset-0">
+        {/* <div className="absolute inset-0">
           <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-blue-500/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-pink-500/20 to-rose-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-r from-cyan-500/10 to-blue-600/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
-        </div>
+        </div> */}
 
         <div className="max-w-3xl mx-auto px-6 relative z-10">
           <motion.div
@@ -558,9 +558,9 @@ export default function HomePage() {
 
       {/* Footer CTA */}
       <section className="py-16 bg-gradient-to-r from-slate-900 to-indigo-900 text-white text-center relative overflow-hidden">
-        <div className="absolute inset-0">
+        {/* <div className="absolute inset-0">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-indigo-600/10 to-purple-600/10"></div>
-        </div>
+        </div> */}
 
         <div className="max-w-4xl mx-auto px-6 relative z-10">
           <motion.div

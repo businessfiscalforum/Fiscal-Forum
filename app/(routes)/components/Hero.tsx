@@ -79,21 +79,21 @@ export default function Hero() {
   return (
     <div className="text-gray-800 font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 ">
       {/* Floating Background Elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+      {/* <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-blue-400/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute top-1/2 right-20 w-96 h-96 bg-gradient-to-r from-emerald-400/20 to-teal-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
         <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-gradient-to-r from-pink-400/20 to-rose-600/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
-      </div>
+      </div> */}
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white py-50 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 z-0"></div>
+      <section className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white pt-32 pb-16 sm:pt-40 sm:pb-20 md:pt-52 md:pb-24 lg:pt-45 lg:pb-28 xl:pt-45 xl:pb-32 relative overflow-hidden">
+        {/* <div className="absolute inset-0 opacity-10 z-0"></div>
         <div className="absolute inset-0">
           <div className="absolute top-10 left-10 w-64 h-64 bg-gradient-to-r from-blue-500/30 to-purple-600/30 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-10 right-10 w-80 h-80 bg-gradient-to-r from-emerald-500/30 to-teal-600/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        </div>
+        </div> */}
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="max-w-[1700px] mx-auto px-6 relative z-10">
           <Swiper
             spaceBetween={30}
             slidesPerView={1}
@@ -101,7 +101,7 @@ export default function Hero() {
             autoplay={{ delay: 4000, disableOnInteraction: false }}
             pagination={{ clickable: true }}
             modules={[Autoplay, Pagination]}
-            className="rounded-3xl overflow-hidden shadow-2xl"
+            className="rounded-3xl overflow-hidden shadow-2xl "
           >
             {slides.map((slide, index) => (
               <SwiperSlide key={index}>
@@ -109,7 +109,8 @@ export default function Hero() {
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
-                  className={`flex flex-col lg:flex-row h-[650px] items-center justify-between backdrop-blur-xl bg-gradient-to-r ${slide.gradient}/90 p-8 rounded-3xl shadow-2xl border border-white/20`}
+                  className={`flex flex-col lg:flex-row h-[800px] items-center justify-between backdrop-blur-xl bg-gradient-to-r ${slide.gradient}/90 p-8 rounded-3xl shadow-2xl border border-white/20
+`}
                 >
                   <div className="w-full lg:w-1/2 space-y-8">
                     <motion.p

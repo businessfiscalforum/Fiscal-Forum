@@ -7,15 +7,15 @@ import {
   Gift,
   Smartphone,
   CheckCircle,
-  ArrowRight,
   Clock,
   User,
   Award,
 } from "lucide-react";
+import { useRouter } from 'next/navigation';
+
 
 const CreditCardApplyPage = () => {
-  const [selectedCard, setSelectedCard] = useState('premium');
-  const [showApplication, setShowApplication] = useState(false);
+  const router = useRouter();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -32,6 +32,8 @@ const CreditCardApplyPage = () => {
     pincode: '',
     cardType: 'premium'
   });
+
+  
 
   const creditCards = [
     {
@@ -298,18 +300,6 @@ const CreditCardApplyPage = () => {
     }
   ];
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = () => {
-    // Handle form submission logic here
-    console.log('Form submitted:', formData);
-    alert('Application submitted successfully! We will contact you within 24 hours.');
-  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -388,7 +378,7 @@ const CreditCardApplyPage = () => {
               <div 
                 key={card.id} 
                 className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden ${
-                  selectedCard === card.id ? 'ring-4 ring-blue-500 transform scale-[1.02]' : ''
+                  card.id ? 'ring-4 ring-blue-500 transform scale-[1.02]' : ''
                 } ${card.popular ? 'border-2 border-purple-500' : ''}`}
               >
                 {card.popular && (
@@ -491,28 +481,19 @@ const CreditCardApplyPage = () => {
                       <div className="space-y-3 mt-6">
                         <button
                           onClick={() => {
-                            setSelectedCard(card.id);
                             setFormData({ ...formData, cardType: card.id });
+                            router.push('/services/credit-card/apply');
                           }}
-                          className={`w-full py-3 px-4 rounded-lg font-semibold transition-all ${
-                            selectedCard === card.id
+                          className={`w-full py-3 px-4 rounded-lg font-semibold transition-all hover:cursor-pointer ${
+                            card.id
                               ? 'bg-blue-500 text-white hover:bg-blue-600'
                               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                           }`}
                         >
-                          {selectedCard === card.id ? 'Selected' : 'Select Card'}
-                        </button>
-                        
-                        <button
-                          onClick={() => {
-                            setSelectedCard(card.id);
-                            setFormData({ ...formData, cardType: card.id });
-                            setShowApplication(true);
-                          }}
-                          className="w-full py-3 px-4 rounded-lg font-semibold bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 transition-all hover:cursor-pointer"
-                        >
                           Apply Now
                         </button>
+                        
+                    
                       </div>
                     </div>
                   </div>
@@ -581,232 +562,6 @@ const CreditCardApplyPage = () => {
           </div>
         </div>
       </section>
-
-      {/* Application Form */}
-      {showApplication && (
-        <section className="py-16 bg-white text-black">
-          <div className="max-w-4xl mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Credit Card Application</h2>
-              <p className="text-gray-600">Fill in your details to apply for your selected credit card</p>
-            </div>
-
-            <div className="bg-gray-50 p-8 rounded-2xl">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Personal Information */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Personal Information</h3>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
-                    <input
-                      type="text"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
-                    <input
-                      type="text"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Date of Birth *</label>
-                    <input
-                      type="date"
-                      name="dateOfBirth"
-                      value={formData.dateOfBirth}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">PAN Number *</label>
-                    <input
-                      type="text"
-                      name="panNumber"
-                      value={formData.panNumber}
-                      onChange={handleInputChange}
-                      required
-                      placeholder="ABCDE1234F"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                  </div>
-                </div>
-
-                {/* Employment & Financial Information */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Employment & Financial Details</h3>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Employment Type *</label>
-                    <select
-                      name="employmentType"
-                      value={formData.employmentType}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    >
-                      <option value="">Select Employment Type</option>
-                      <option value="salaried">Salaried</option>
-                      <option value="self-employed">Self Employed</option>
-                      <option value="business">Business Owner</option>
-                      <option value="professional">Professional</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Company/Organization *</label>
-                    <input
-                      type="text"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Annual Income *</label>
-                    <select
-                      name="annualIncome"
-                      value={formData.annualIncome}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    >
-                      <option value="">Select Annual Income</option>
-                      <option value="3-5">₹3-5 Lakhs</option>
-                      <option value="5-10">₹5-10 Lakhs</option>
-                      <option value="10-15">₹10-15 Lakhs</option>
-                      <option value="15-25">₹15-25 Lakhs</option>
-                      <option value="25+">₹25+ Lakhs</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Address *</label>
-                    <textarea
-                      name="address"
-                      value={formData.address}
-                      onChange={handleInputChange}
-                      required
-                      rows={3}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">City *</label>
-                      <input
-                        type="text"
-                        name="city"
-                        value={formData.city}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">PIN Code *</label>
-                      <input
-                        type="text"
-                        name="pincode"
-                        value={formData.pincode}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Terms and Submit */}
-              <div className="mt-8 pt-6 border-t border-gray-200">
-                <div className="flex items-center mb-6">
-                  <input
-                    type="checkbox"
-                    id="terms"
-                    required
-                    className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <label htmlFor="terms" className="ml-2 text-sm text-gray-700">
-                    I agree to the <span className="text-blue-600 underline">Terms & Conditions</span> and 
-                    <span className="text-blue-600 underline"> Privacy Policy</span>
-                  </label>
-                </div>
-
-                <button
-                  onClick={handleSubmit}
-                  className="w-full bg-blue-500 text-white py-4 px-8 rounded-lg font-semibold hover:bg-blue-600 transition-colors flex items-center justify-center"
-                >
-                  Submit Application
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* CTA Section */}
-      {!showApplication && (
-        <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <h2 className="text-3xl font-bold mb-4">Ready to Apply?</h2>
-            <p className="text-xl text-blue-100 mb-8">
-              Join thousands of satisfied customers and start enjoying premium credit card benefits today
-            </p>
-            <button
-              onClick={() => setShowApplication(true)}
-              className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center"
-            >
-              Apply Now
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </button>
-          </div>
-        </section>
-      )}
     </div>
   );
 };
