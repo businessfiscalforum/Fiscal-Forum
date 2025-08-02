@@ -6,7 +6,6 @@ import { GlowCursor } from "./(routes)/components/GlowCursor";
 import Navbar from "./(routes)/components/Navbar";
 import Provider from "./provider";
 import Footer from "./(routes)/components/Footer";
-import Hero from "./(routes)/components/Hero";
 
 export const metadata: Metadata = {
   title: "Fiscal Forum",
@@ -28,7 +27,6 @@ export default function RootLayout({
         >
           <GlowCursor />
           <Navbar />
-          <Hero />
           <Provider>{children}</Provider>
           <Footer />
         </body>

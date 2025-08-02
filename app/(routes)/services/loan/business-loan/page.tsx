@@ -325,7 +325,7 @@ const BusinessLoanPage = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
-              onClick={() => router.push('/services/loan/business/apply')}
+              onClick={() => router.push('/services/loan/business-loan/apply')}
               className="bg-white text-orange-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center gap-2"
             >
               Apply Now

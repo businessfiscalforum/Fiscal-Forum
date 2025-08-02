@@ -13,12 +13,20 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
 
+  // Close dropdowns on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const path = event.composedPath();
+
+      // Close services dropdown
       if (dropdownRef.current && !path.includes(dropdownRef.current)) {
         setServicesOpen(false);
+      }
+
+      // Close mobile menu
+      if (userMenuRef.current && !path.includes(userMenuRef.current)) {
         setMobileMenuOpen(false);
       }
     };
@@ -44,13 +52,13 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 
-  bg-white/40 md:bg-white/40 
-  backdrop-blur-md md:backdrop-blur-md 
-  border border-green-200 shadow-lg 
-  md:rounded-full rounded-md 
-  px-4 md:px-8 py-3 md:py-4 
-  max-w-7xl w-full"
+    <nav
+      className="fixed top-4 left-1/2 -translate-x-1/2 z-50 
+      bg-white/40 backdrop-blur-md 
+      border border-green-200 shadow-lg 
+      md:rounded-full rounded-md 
+      px-4 md:px-8 py-3 md:py-4 
+      max-w-7xl w-full"
     >
       <div className="flex justify-between items-center">
         {/* Logo */}
@@ -80,10 +88,9 @@ export default function Navbar() {
                     transition={{ delay: 0.05 * i }}
                   >
                     <Link
-                      href={`/services/${service
-                        .toLowerCase()
-                        .replace(/\s+/g, "-")}`}
+                      href={`/services/${service.toLowerCase().replace(/\s+/g, "-")}`}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-100 hover:text-green-900"
+                      onClick={() => setServicesOpen(false)}
                     >
                       {service}
                     </Link>
@@ -99,6 +106,7 @@ export default function Navbar() {
               key={i}
               href={item.href}
               className="hover:text-green-600 transition-colors relative group"
+              onClick={() => setServicesOpen(false)}
             >
               {item.label}
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-500 transition-all duration-300 group-hover:w-full" />
@@ -107,13 +115,13 @@ export default function Navbar() {
 
           {/* User Auth */}
           {isSignedIn ? (
-            <div className="relative">
+            <div className="relative" ref={userMenuRef}>
               <div
-                onClick={() => setMobileMenuOpen((prev) => !prev)}
                 className="cursor-pointer"
+                onClick={() => setMobileMenuOpen((prev) => !prev)}
               >
                 <Image
-                  src={"/globe.svg"}
+                  src="/globe.svg"
                   alt="User Avatar"
                   className="rounded-full h-8 w-8 object-cover"
                   width={32}
@@ -123,16 +131,24 @@ export default function Navbar() {
 
               {mobileMenuOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white text-green-900 border shadow-lg rounded-md z-50 p-2 space-y-1">
+                  {/* Dashboard Link */}
                   <Link
                     href="/dashboard"
-                    className="block px-4 py-2 hover:bg-green-100 rounded"
-                    onClick={() => setMobileMenuOpen(false)}
+                    className="block px-4 py-2 hover:bg-green-100 rounded text-sm"
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent parent click
+                      setMobileMenuOpen(false);
+                    }}
                   >
                     Dashboard
                   </Link>
 
+                  {/* Sign Out Button */}
                   <SignOutButton>
-                    <button className="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600 rounded">
+                    <button
+                      className="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600 rounded text-sm"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
                       Sign Out
                     </button>
                   </SignOutButton>
@@ -158,6 +174,7 @@ export default function Navbar() {
           </button>
         </div>
       </div>
+
       {/* Mobile Nav Drawer */}
       {mobileMenuOpen && (
         <div className="mt-4 p-4 rounded-xl bg-white shadow-lg md:hidden z-50">
@@ -175,12 +192,12 @@ export default function Navbar() {
             ))}
           </div>
 
-          <div className="mb-4  ">
+          <div className="mb-4">
             {navItems.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
-                className=" block py-2 font-semibold text-green-800 mb-2 "
+                className="block py-2 font-semibold text-green-800"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {item.label}
@@ -192,13 +209,19 @@ export default function Navbar() {
             <div>
               <Link
                 href="/dashboard"
-                className="block px-4 py-2 text-green-800 hover:bg-green-100 rounded"
-                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-2 text-green-800 hover:bg-green-100 rounded text-sm"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setMobileMenuOpen(false);
+                }}
               >
                 Dashboard
               </Link>
               <SignOutButton>
-                <button className="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600 rounded">
+                <button
+                  className="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600 rounded text-sm"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
                   Sign Out
                 </button>
               </SignOutButton>

@@ -15,7 +15,7 @@ import {
 export const roleEnum = pgEnum('role', ['USER', 'ADMIN', 'AGENT', 'PARTNER']);
 export const statusEnum = pgEnum('status', ['PENDING', 'APPROVED', 'REJECTED', 'BANNED']);
 
-// 🔄 Fixed: Use kebab-case to match frontend (e.g., 'home-loan')
+// 🔄 Loan Type Enum
 export const loanTypeEnum = pgEnum('loan_type', [
   'home-loan',
   'lap',
@@ -36,7 +36,7 @@ export const insuranceTypeEnum = pgEnum('insurance_type', [
   'PROPERTY',
 ]);
 
-// 🆕 Added: Employment Type Enum
+// 🆕 Employment Type Enum
 export const employmentTypeEnum = pgEnum('employment_type', [
   'salaried',
   'self-employed',
@@ -44,7 +44,7 @@ export const employmentTypeEnum = pgEnum('employment_type', [
   'professional',
 ]);
 
-// 🆕 Added: Annual Income Range Enum
+// 🆕 Annual Income Range Enum
 export const incomeRangeEnum = pgEnum('annual_income', [
   '3-5',
   '5-10',
@@ -90,7 +90,7 @@ export const usersTable = pgTable('users_table', {
   status: statusEnum('status').default('PENDING').notNull(),
 });
 
-// Applications Table
+// Generic Applications Table (for all loan types)
 export const applicationsTable = pgTable('applications_table', {
   id: uuid('id').defaultRandom().primaryKey().notNull(),
   userId: uuid('user_id')
@@ -130,6 +130,59 @@ export const applicationsTable = pgTable('applications_table', {
   updatedAt: timestamp('updated_at').notNull().$onUpdateFn(() => new Date()),
 });
 
+// ✅ NEW: Business-Specific Application Table
+export const businessApplicationTable = pgTable('business_applications_table', {
+  id: uuid('id').defaultRandom().primaryKey().notNull(),
+  userId: uuid('user_id')
+    .notNull()
+    .references(() => usersTable.id, { onDelete: 'cascade' }),
+
+  // Foreign Key to applicationsTable (optional, if you want 1:1)
+  applicationId: uuid('application_id')
+    .notNull()
+    .references(() => applicationsTable.id, { onDelete: 'cascade' }),
+
+  // Business Details
+  businessName: text('business_name').notNull(),
+  gstNumber: text('gst_number').notNull(),
+  businessVintage: text('business_vintage').notNull(), // e.g., '3-5'
+  natureOfBusiness: text('nature_of_business').notNull(), // e.g., 'manufacturing'
+  businessAddress: text('business_address').notNull(),
+  businessCity: text('business_city').notNull(),
+  businessPincode: text('business_pincode').notNull(),
+
+  // Loan Request
+  loanPurpose: text('loan_purpose').notNull(), // e.g., 'working-capital'
+  loanAmount: integer('loan_amount').notNull(),
+  preferredTenure: text('preferred_tenure').notNull(), // e.g., '5'
+  repaymentSource: text('repayment_source').notNull(), // e.g., 'business-revenue'
+  existingLoan: text('existing_loan').notNull(), // 'yes'/'no'
+  existingLoanAmount: integer('existing_loan_amount'), // nullable
+
+  // Use of Funds (₹)
+  useOfFundsEquipment: integer('use_of_funds_equipment').default(0),
+  useOfFundsWorkingCapital: integer('use_of_funds_working_capital').default(0),
+  useOfFundsExpansion: integer('use_of_funds_expansion').default(0),
+  useOfFundsMarketing: integer('use_of_funds_marketing').default(0),
+  useOfFundsOther: integer('use_of_funds_other').default(0),
+
+  // Co-Applicant
+  hasCoApplicant: text('has_co_applicant').default('no').notNull(), // 'yes'/'no'
+  coApplicantFirstName: text('co_applicant_first_name'),
+  coApplicantLastName: text('co_applicant_last_name'),
+  coApplicantEmail: text('co_applicant_email'),
+  coApplicantPhone: text('co_applicant_phone'),
+  coApplicantRelationship: text('co_applicant_relationship'),
+  coApplicantIncome: text('co_applicant_income'), // income range
+  coApplicantPanNumber: text('co_applicant_pan_number'),
+
+  // Status & Metadata
+  applicationStatus: applicationStatusEnum('application_status')
+    .default('SUBMITTED')
+    .notNull(),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().$onUpdateFn(() => new Date()),
+});
 
 // Types
 export type InsertUser = typeof usersTable.$inferInsert;
@@ -137,3 +190,7 @@ export type SelectUser = typeof usersTable.$inferSelect;
 
 export type InsertApplication = typeof applicationsTable.$inferInsert;
 export type SelectApplication = typeof applicationsTable.$inferSelect;
+
+// ✅ New: Business Application Types
+export type InsertBusinessApplication = typeof businessApplicationTable.$inferInsert;
+export type SelectBusinessApplication = typeof businessApplicationTable.$inferSelect;
