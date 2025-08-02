@@ -7,7 +7,7 @@ export default function LoanLayout({
   return (
     <div className="">
       {/* Wrap children with common styles */}
-      <div className="max-w-7xl mx-auto px-4 pb-16">
+      <div className="w-full mx-auto">
         <main>{children}</main>
       </div>
     </div>

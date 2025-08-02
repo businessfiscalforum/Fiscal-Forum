@@ -1,153 +1,275 @@
 "use client";
 
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { 
-  FaPiggyBank, FaShieldAlt, FaChartLine, FaWallet, FaCreditCard, FaCoins, 
-  FaUniversity, FaHandshake, FaUsers, FaBuilding, FaStar, FaQuoteLeft,
-  FaArrowUp, FaLock, FaRocket, FaGem, FaHeart, FaLightbulb, FaAward,
-  FaCheckCircle, FaGlobe, FaMobile, FaHeadset
-} from 'react-icons/fa';
+import Image from "next/image";
+import { motion } from "framer-motion";
+import "swiper/css";
+import "swiper/css/pagination";
+import {
+  FaPiggyBank,
+  FaShieldAlt,
+  FaChartLine,
+  FaWallet,
+  FaCreditCard,
+  FaCoins,
+  FaUniversity,
+  FaHandshake,
+  FaUsers,
+  FaBuilding,
+  FaStar,
+  FaQuoteLeft,
+  FaArrowUp,
+  FaLock,
+  FaRocket,
+  FaGem,
+  FaHeart,
+  FaLightbulb,
+  FaAward,
+  FaCheckCircle,
+  FaGlobe,
+  FaMobile,
+  FaHeadset,
+} from "react-icons/fa";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import Link from "next/link";
+
+const slides = [
+  {
+    title: "Car Insurance",
+    subtitle: "Protect Your Drive with",
+    description:
+      "Get comprehensive car insurance that covers accidents, theft, and third-party liabilities — drive worry-free.",
+    image: "/asset1.jpg",
+    gradient: "from-blue-600 via-blue-500 to-purple-600",
+    path: "/car-insurance",
+  },
+  {
+    title: "Health",
+    subtitle: "Safeguard Your Health",
+    description:
+      "Stay financially prepared for medical emergencies with customizable health insurance plans for individuals and families.",
+    image: "/asset3.jpg",
+    gradient: "from-emerald-600 via-teal-500 to-cyan-600",
+    path: "/health-insurance",
+  },
+  {
+    title: "Life Insurance",
+    subtitle: "Explore",
+    description:
+      "Plan for tomorrow with life insurance solutions designed to support your loved ones even in your absence.",
+    image: "/asset4.jpg",
+    gradient: "from-indigo-600 via-purple-500 to-pink-600",
+    path: "/life-insurance",
+  },
+  {
+    title: "Savings Account",
+    subtitle: "Open a High-Interest",
+    description:
+      "Grow your money safely with easy access and competitive interest rates. Perfect for everyday banking needs.",
+    image: "/asset5.jpg",
+    gradient: "from-green-600 via-emerald-500 to-teal-600",
+    path: "/savings-account",
+  },
+  {
+    title: "Credit Card",
+    subtitle: "Power Your Spending with the Right",
+    description:
+      "Enjoy cashback, rewards, and easy EMIs with credit cards suited to your lifestyle and spending habits.",
+    image: "/asset2.jpg",
+    gradient: "from-orange-600 via-red-500 to-pink-600",
+    path: "/credit-card",
+  },
+  {
+    title: "Stock Market",
+    subtitle: "Start Investing in the",
+    description:
+      "Tap into long-term growth by investing in equity markets. Build wealth through diversified stocks tailored to your financial goals.",
+    image: "/asset6.jpg",
+    gradient: "from-violet-600 via-purple-500 to-indigo-600",
+    path: "/stock-investment",
+  },
+  {
+    title: "Mutual Funds",
+    subtitle: "Explore",
+    description:
+      "Choose from a range of mutual fund schemes managed by experts to suit your investment horizon and risk appetite.",
+    image: "/asset7.jpg",
+    gradient: "from-cyan-600 via-blue-500 to-indigo-600",
+    path: "/mutual-funds",
+  },
+];
 
 const services = [
-  { 
-    name: 'Loan', 
-    icon: FaWallet, 
-    desc: 'Flexible and quick loans for every need.',
-    gradient: 'from-blue-500 to-indigo-600',
-    bgGradient: 'from-blue-50 to-indigo-100',
+  {
+    name: "Loan",
+    icon: FaWallet,
+    desc: "Flexible and quick loans for every need.",
+    gradient: "from-blue-500 to-indigo-600",
+    bgGradient: "from-blue-50 to-indigo-100",
   },
-  { 
-    name: 'Insurance', 
-    icon: FaShieldAlt, 
-    desc: 'Comprehensive health and life coverage.',
-    gradient: 'from-emerald-500 to-teal-600',
-    bgGradient: 'from-emerald-50 to-teal-100',
+  {
+    name: "Insurance",
+    icon: FaShieldAlt,
+    desc: "Comprehensive health and life coverage.",
+    gradient: "from-emerald-500 to-teal-600",
+    bgGradient: "from-emerald-50 to-teal-100",
   },
-  { 
-    name: 'Saving Account', 
-    icon: FaPiggyBank, 
-    desc: 'High-interest, zero-minimum balance accounts.',
-    gradient: 'from-pink-500 to-rose-600',
-    bgGradient: 'from-pink-50 to-rose-100',
+  {
+    name: "Saving Account",
+    icon: FaPiggyBank,
+    desc: "High-interest, zero-minimum balance accounts.",
+    gradient: "from-pink-500 to-rose-600",
+    bgGradient: "from-pink-50 to-rose-100",
   },
-  { 
-    name: 'Stock Investment', 
-    icon: FaChartLine, 
-    desc: 'Direct stock market access and tools.',
-    gradient: 'from-purple-500 to-violet-600',
-    bgGradient: 'from-purple-50 to-violet-100',
+  {
+    name: "Stock Investment",
+    icon: FaChartLine,
+    desc: "Direct stock market access and tools.",
+    gradient: "from-purple-500 to-violet-600",
+    bgGradient: "from-purple-50 to-violet-100",
   },
-  { 
-    name: 'Mutual Funds', 
-    icon: FaCoins, 
-    desc: 'Diversified expert-managed portfolios.',
-    gradient: 'from-amber-500 to-orange-600',
-    bgGradient: 'from-amber-50 to-orange-100',
+  {
+    name: "Mutual Funds",
+    icon: FaCoins,
+    desc: "Diversified expert-managed portfolios.",
+    gradient: "from-amber-500 to-orange-600",
+    bgGradient: "from-amber-50 to-orange-100",
   },
-  { 
-    name: 'Credit Card', 
-    icon: FaCreditCard, 
-    desc: 'Rewards, cashback, and easy EMIs.',
-    gradient: 'from-red-500 to-pink-600',
-    bgGradient: 'from-red-50 to-pink-100',
+  {
+    name: "Credit Card",
+    icon: FaCreditCard,
+    desc: "Rewards, cashback, and easy EMIs.",
+    gradient: "from-red-500 to-pink-600",
+    bgGradient: "from-red-50 to-pink-100",
   },
-  { 
-    name: 'Govt Bonds & FD', 
-    icon: FaUniversity, 
-    desc: 'Stable income with guaranteed returns.',
-    gradient: 'from-green-500 to-emerald-600',
-    bgGradient: 'from-green-50 to-emerald-100',
+  {
+    name: "Govt Bonds & FD",
+    icon: FaUniversity,
+    desc: "Stable income with guaranteed returns.",
+    gradient: "from-green-500 to-emerald-600",
+    bgGradient: "from-green-50 to-emerald-100",
   },
 ];
 
 const partners = [
-  { 
-    title: 'Business Partner', 
-    icon: FaBuilding, 
-    desc: 'Join us in expanding financial services across the country.',
-    gradient: 'from-blue-600 to-indigo-700',
+  {
+    title: "Business Partner",
+    icon: FaBuilding,
+    desc: "Join us in expanding financial services across the country.",
+    gradient: "from-blue-600 to-indigo-700",
   },
-  { 
-    title: 'Referral Partner', 
-    icon: FaUsers, 
-    desc: 'Refer and earn with our trusted partnership model.',
-    gradient: 'from-emerald-600 to-teal-700',
+  {
+    title: "Referral Partner",
+    icon: FaUsers,
+    desc: "Refer and earn with our trusted partnership model.",
+    gradient: "from-emerald-600 to-teal-700",
   },
-  { 
-    title: 'B2B Partner', 
-    icon: FaHandshake, 
-    desc: 'Collaborate with us to deliver seamless financial integration.',
-    gradient: 'from-purple-600 to-violet-700',
+  {
+    title: "B2B Partner",
+    icon: FaHandshake,
+    desc: "Collaborate with us to deliver seamless financial integration.",
+    gradient: "from-purple-600 to-violet-700",
   },
 ];
 
 const testimonials = [
-  { 
-    name: 'Ravi Kumar', 
-    text: 'Fiscal Forum made banking easier for my startup! Their support team is incredible and the platform is so intuitive.', 
-    role: 'Entrepreneur',
+  {
+    name: "Ravi Kumar",
+    text: "Fiscal Forum made banking easier for my startup! Their support team is incredible and the platform is so intuitive.",
+    role: "Entrepreneur",
     rating: 5,
-    image: '/user1.jpg',
-    gradient: 'from-blue-500 to-purple-600',
+    image: "/user1.jpg",
+    gradient: "from-blue-500 to-purple-600",
   },
-  { 
-    name: 'Priya Mehta', 
-    text: 'Great financial guidance, I invested with confidence. The returns have exceeded my expectations completely.', 
-    role: 'Investor',
+  {
+    name: "Priya Mehta",
+    text: "Great financial guidance, I invested with confidence. The returns have exceeded my expectations completely.",
+    role: "Investor",
     rating: 5,
-    image: '/user2.jpg',
-    gradient: 'from-pink-500 to-rose-600',
+    image: "/user2.jpg",
+    gradient: "from-pink-500 to-rose-600",
   },
-  { 
-    name: 'Ankit Shah', 
-    text: 'Their loan process was fast and transparent. Got approved within 24 hours with minimal documentation.', 
-    role: 'Customer',
+  {
+    name: "Ankit Shah",
+    text: "Their loan process was fast and transparent. Got approved within 24 hours with minimal documentation.",
+    role: "Customer",
     rating: 5,
-    image: '/user3.jpg',
-    gradient: 'from-emerald-500 to-teal-600',
+    image: "/user3.jpg",
+    gradient: "from-emerald-500 to-teal-600",
   },
-  { 
-    name: 'Neha Jain', 
-    text: 'Amazing service! I trust them for all money matters. Best financial platform I have ever used.', 
-    role: 'Freelancer',
+  {
+    name: "Neha Jain",
+    text: "Amazing service! I trust them for all money matters. Best financial platform I have ever used.",
+    role: "Freelancer",
     rating: 5,
-    image: '/user4.jpg',
-    gradient: 'from-indigo-500 to-purple-600',
+    image: "/user4.jpg",
+    gradient: "from-indigo-500 to-purple-600",
   },
 ];
 
 const features = [
-  { title: 'Transparency', icon: FaLock, desc: 'Complete transparency in all transactions' },
-  { title: 'Expert Advisors', icon: FaAward, desc: 'Certified financial experts at your service' },
-  { title: 'Tech Enabled', icon: FaRocket, desc: 'Cutting-edge technology for seamless experience' },
-  { title: '24/7 Support', icon: FaHeadset, desc: 'Round-the-clock customer support' },
-  { title: 'Global Reach', icon: FaGlobe, desc: 'International financial services' },
-  { title: 'Mobile First', icon: FaMobile, desc: 'Optimized for mobile banking' },
+  {
+    title: "Transparency",
+    icon: FaLock,
+    desc: "Complete transparency in all transactions",
+  },
+  {
+    title: "Expert Advisors",
+    icon: FaAward,
+    desc: "Certified financial experts at your service",
+  },
+  {
+    title: "Tech Enabled",
+    icon: FaRocket,
+    desc: "Cutting-edge technology for seamless experience",
+  },
+  {
+    title: "24/7 Support",
+    icon: FaHeadset,
+    desc: "Round-the-clock customer support",
+  },
+  {
+    title: "Global Reach",
+    icon: FaGlobe,
+    desc: "International financial services",
+  },
+  {
+    title: "Mobile First",
+    icon: FaMobile,
+    desc: "Optimized for mobile banking",
+  },
 ];
 
-const logos = ['/alice-blue.png', '/choice.png', '/motilal-oswal.png', '/Nj-wealth.jpeg', '/prudent.png', '/upstox.svg'];
+const logos = [
+  "/alice-blue.png",
+  "/choice.png",
+  "/motilal-oswal.png",
+  "/Nj-wealth.jpeg",
+  "/prudent.png",
+  "/upstox.svg",
+];
 
 const newsStories = [
   {
-    title: 'Market Surge: Tech Stocks Hit All-Time High',
-    desc: 'Technology sector leads the bull run with unprecedented growth rates.',
+    title: "Market Surge: Tech Stocks Hit All-Time High",
+    desc: "Technology sector leads the bull run with unprecedented growth rates.",
     icon: FaArrowUp,
-    gradient: 'from-green-500 to-emerald-600',
+    gradient: "from-green-500 to-emerald-600",
   },
   {
-    title: 'New Investment Opportunities in Green Energy',
-    desc: 'Sustainable investments showing promising returns for long-term growth.',
+    title: "New Investment Opportunities in Green Energy",
+    desc: "Sustainable investments showing promising returns for long-term growth.",
     icon: FaLightbulb,
-    gradient: 'from-blue-500 to-cyan-600',
+    gradient: "from-blue-500 to-cyan-600",
   },
   {
-    title: 'Digital Banking Revolution Continues',
-    desc: 'Fintech innovations are reshaping the traditional banking landscape.',
+    title: "Digital Banking Revolution Continues",
+    desc: "Fintech innovations are reshaping the traditional banking landscape.",
     icon: FaRocket,
-    gradient: 'from-purple-500 to-indigo-600',
+    gradient: "from-purple-500 to-indigo-600",
   },
 ];
 
@@ -161,6 +283,90 @@ export default function HomePage() {
         <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-gradient-to-r from-pink-400/20 to-rose-600/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
       </div> */}
 
+      {/* Hero Section */}
+      <section className="relative w-full h-screen overflow-hidden">
+        {/* Swiper will control background image and content */}
+        <Swiper
+          spaceBetween={30}
+          slidesPerView={1}
+          loop
+          autoplay={{ delay: 4000, disableOnInteraction: false }}
+          pagination={{ clickable: true }}
+          modules={[Autoplay, Pagination]}
+          className="w-full h-full"
+        >
+          {slides.map((slide, index) => (
+            <SwiperSlide key={index}>
+              {/* Background Image */}
+              <div className="absolute inset-0 z-0">
+                {/* <Image
+                  src={slide.image}
+                  alt={slide.title}
+                  fill
+                  sizes="100vw"
+                  className="object-cover object-center"
+                  priority
+                /> */}
+                {/* Gradient Overlay */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}/80`}
+                ></div>
+              </div>
+
+              {/* Content */}
+              <div className="relative z-10 h-full flex items-center px-6 sm:px-12 md:px-20 lg:px-32">
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="text-white max-w-xl"
+                >
+                  <motion.p
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="uppercase tracking-widest text-sm text-yellow-200 font-semibold mb-2"
+                  >
+                    {slide.subtitle}
+                  </motion.p>
+                  <motion.h2
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6"
+                  >
+                    {slide.title}
+                  </motion.h2>
+                  <motion.p
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.6 }}
+                    className="text-lg sm:text-xl mb-8 opacity-90 leading-relaxed"
+                  >
+                    {slide.description}
+                  </motion.p>
+                  <Link href={slide.path}>
+                    <motion.button
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.8 }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition-all duration-300 flex items-center gap-3"
+                    >
+                      Know More
+                      <FaRocket className="group-hover:translate-x-1 transition-transform" />
+                    </motion.button>
+                  </Link>
+                </motion.div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        {/* Swiper Pagination is now styled */}
+        <div className="swiper-pagination absolute bottom-8 w-full flex justify-center z-20"></div>
+      </section>
 
       {/* Top Stories */}
       <section className="py-24 bg-gradient-to-br from-white via-blue-50 to-indigo-100 relative">

@@ -18,7 +18,6 @@ import { Autoplay, Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
-import Image from "next/image";
 import { FaRocket } from "react-icons/fa";
 import Link from "next/link";
 
@@ -397,93 +396,88 @@ const CreditCardApplyPage = () => {
       </div> */}
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white pt-32 pb-16 sm:pt-40 sm:pb-20 md:pt-52 md:pb-24 lg:pt-45 lg:pb-28 xl:pt-45 xl:pb-32 relative overflow-hidden">
-        {/* <div className="absolute inset-0 opacity-10 z-0"></div>
-        <div className="absolute inset-0">
-          <div className="absolute top-10 left-10 w-64 h-64 bg-gradient-to-r from-blue-500/30 to-purple-600/30 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-10 right-10 w-80 h-80 bg-gradient-to-r from-emerald-500/30 to-teal-600/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        </div> */}
+      <section className="relative w-full h-screen overflow-hidden">
+        {/* Swiper will control background image and content */}
+        <Swiper
+          spaceBetween={30}
+          slidesPerView={1}
+          loop
+          autoplay={{ delay: 4000, disableOnInteraction: false }}
+          pagination={{ clickable: true }}
+          modules={[Autoplay, Pagination]}
+          className="w-full h-full"
+        >
+          {slides.map((slide, index) => (
+            <SwiperSlide key={index}>
+              {/* Background Image */}
+              <div className="absolute inset-0 z-0">
+                {/* <Image
+                  src={slide.image}
+                  alt={slide.title}
+                  fill
+                  sizes="100vw"
+                  className="object-cover object-center"
+                  priority
+                /> */}
+                {/* Gradient Overlay */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}/80`}
+                ></div>
+              </div>
 
-        <div className="max-w-[1700px] mx-auto px-6 relative z-10">
-          <Swiper
-            spaceBetween={30}
-            slidesPerView={1}
-            loop
-            autoplay={{ delay: 4000, disableOnInteraction: false }}
-            pagination={{ clickable: true }}
-            modules={[Autoplay, Pagination]}
-            className="rounded-3xl overflow-hidden shadow-2xl "
-          >
-            {slides.map((slide, index) => (
-              <SwiperSlide key={index}>
+              {/* Content */}
+              <div className="relative z-10 h-full flex items-center px-6 sm:px-12 md:px-20 lg:px-32">
                 <motion.div
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
-                  className={`flex flex-col lg:flex-row h-[800px] items-center justify-between backdrop-blur-xl bg-gradient-to-r ${slide.gradient}/90 p-8 rounded-3xl shadow-2xl border border-white/20
-`}
+                  className="text-white max-w-xl"
                 >
-                  <div className="w-full lg:w-1/2 space-y-8">
-                    <motion.p
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2 }}
-                      className="uppercase tracking-widest text-sm text-yellow-200 font-semibold"
-                    >
-                      {slide.subtitle}
-                    </motion.p>
-                    <motion.h2
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.4 }}
-                      className="text-5xl font-bold bg-gradient-to-r from-white to-yellow-200 bg-clip-text text-transparent"
-                    >
-                      {slide.title}
-                    </motion.h2>
-                    <motion.p
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.6 }}
-                      className="text-xl text-white/90 leading-relaxed"
-                    >
-                      {slide.description}
-                    </motion.p>
-                    <Link href={slide.path}>
-                      <motion.button
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                        whileHover={{ scale: 1.05, y: -2 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-slate-900 px-6 py-3 rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center gap-2 group"
-                      >
-                        Know More
-                        <FaRocket className="group-hover:translate-x-1 transition-transform" />
-                      </motion.button>
-                    </Link>
-                  </div>
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.4 }}
-                    className="w-full lg:w-1/2 h-full relative"
+                  <motion.p
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="uppercase tracking-widest text-sm text-yellow-200 font-semibold mb-2"
                   >
-                    <div className="relative h-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20">
-                      <Image
-                        src={slide.image}
-                        alt={slide.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover hover:scale-105 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                    </div>
-                  </motion.div>
+                    {slide.subtitle}
+                  </motion.p>
+                  <motion.h2
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6"
+                  >
+                    {slide.title}
+                  </motion.h2>
+                  <motion.p
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.6 }}
+                    className="text-lg sm:text-xl mb-8 opacity-90 leading-relaxed"
+                  >
+                    {slide.description}
+                  </motion.p>
+                  <Link href={slide.path}>
+                    <motion.button
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.8 }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition-all duration-300 flex items-center gap-3"
+                    >
+                      Know More
+                      <FaRocket className="group-hover:translate-x-1 transition-transform" />
+                    </motion.button>
+                  </Link>
                 </motion.div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        {/* Swiper Pagination is now styled */}
+        <div className="swiper-pagination absolute bottom-8 w-full flex justify-center z-20"></div>
       </section>
     </div>
     <div className="min-h-screen bg-gray-50">
