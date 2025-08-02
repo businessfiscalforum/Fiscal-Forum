@@ -554,12 +554,12 @@ const CreditCardApplyPage = () => {
               </button>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-12">
               {creditCards.map((card, index) => (
                 <div
                   key={card.id}
                   className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden ${
-                    card.id ? "ring-4 ring-blue-500 transform scale-[1.02]" : ""
+                    card.id ? " transform scale-[1.02]" : ""
                   } ${card.popular ? "border-2 border-purple-500" : ""}`}
                 >
                   {card.popular && (
