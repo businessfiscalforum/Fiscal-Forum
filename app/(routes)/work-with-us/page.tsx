@@ -14,80 +14,82 @@ import {
   FaAward,
   FaRocket,
   FaLightbulb,
-  FaDollarSign,
+  FaDollarSign
 } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Link } from "lucide-react";
+import Link from "next/link";
+
 
 const slides = [
   {
-    title: "Car Insurance",
-    subtitle: "Protect Your Drive with",
+    title: "Loan Services",
+    subtitle: "Get Instant Access to",
     description:
-      "Get comprehensive car insurance that covers accidents, theft, and third-party liabilities — drive worry-free.",
-    image: "/asset1.jpg",
+      "Choose from personal, home, or education loans with low interest rates and flexible repayment options.",
+    image: "/asset-loan.jpg",
     gradient: "from-blue-600 via-blue-500 to-purple-600",
-    path: "/car-insurance",
+    path: "services/loan",
   },
   {
-    title: "Health",
-    subtitle: "Safeguard Your Health",
+    title: "Insurance Plans",
+    subtitle: "Protect Your Future with",
     description:
-      "Stay financially prepared for medical emergencies with customizable health insurance plans for individuals and families.",
-    image: "/asset3.jpg",
+      "Health, car, and life insurance plans tailored to your needs — secure your family and assets today.",
+    image: "/asset-insurance.jpg",
     gradient: "from-emerald-600 via-teal-500 to-cyan-600",
-    path: "/health-insurance",
-  },
-  {
-    title: "Life Insurance",
-    subtitle: "Explore",
-    description:
-      "Plan for tomorrow with life insurance solutions designed to support your loved ones even in your absence.",
-    image: "/asset4.jpg",
-    gradient: "from-indigo-600 via-purple-500 to-pink-600",
-    path: "/life-insurance",
+    path: "services/insurance",
   },
   {
     title: "Savings Account",
-    subtitle: "Open a High-Interest",
+    subtitle: "Grow Your Wealth with a",
     description:
-      "Grow your money safely with easy access and competitive interest rates. Perfect for everyday banking needs.",
-    image: "/asset5.jpg",
+      "High-interest savings accounts with zero balance requirements and easy online access.",
+    image: "/asset-saving.jpg",
     gradient: "from-green-600 via-emerald-500 to-teal-600",
-    path: "/savings-account",
+    path: "services/saving-account",
   },
   {
-    title: "Credit Card",
-    subtitle: "Power Your Spending with the Right",
+    title: "Stock Investment",
+    subtitle: "Invest Smartly in the",
     description:
-      "Enjoy cashback, rewards, and easy EMIs with credit cards suited to your lifestyle and spending habits.",
-    image: "/asset2.jpg",
-    gradient: "from-orange-600 via-red-500 to-pink-600",
-    path: "/credit-card",
-  },
-  {
-    title: "Stock Market",
-    subtitle: "Start Investing in the",
-    description:
-      "Tap into long-term growth by investing in equity markets. Build wealth through diversified stocks tailored to your financial goals.",
-    image: "/asset6.jpg",
+      "Build a diversified portfolio and start investing in the stock market with expert guidance.",
+    image: "/asset-stock.jpg",
     gradient: "from-violet-600 via-purple-500 to-indigo-600",
-    path: "/stock-investment",
+    path: "services/stock-investment",
   },
   {
     title: "Mutual Funds",
-    subtitle: "Explore",
+    subtitle: "Explore High-Return",
     description:
-      "Choose from a range of mutual fund schemes managed by experts to suit your investment horizon and risk appetite.",
-    image: "/asset7.jpg",
+      "Access professionally managed mutual funds to meet your financial goals across risk profiles.",
+    image: "/asset-mutual.jpg",
     gradient: "from-cyan-600 via-blue-500 to-indigo-600",
-    path: "/mutual-funds",
+    path: "services/mutual-funds",
+  },
+  {
+    title: "Credit Card",
+    subtitle: "Power Your Spending with a",
+    description:
+      "Choose the right credit card for rewards, cashback, and low-interest EMIs.",
+    image: "/asset-credit.jpg",
+    gradient: "from-orange-600 via-red-500 to-pink-600",
+    path: "services/credit-card",
+  },
+  {
+    title: "Govt Bonds & FDs",
+    subtitle: "Secure Investments with",
+    description:
+      "Low-risk government bonds and fixed deposits to preserve capital and earn steady returns.",
+    image: "/asset-bondfd.jpg",
+    gradient: "from-yellow-600 via-amber-500 to-orange-600",
+    path: "services/govts-bond-&-fd",
   },
 ];
+
 
 const WorkWithUsPage = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);

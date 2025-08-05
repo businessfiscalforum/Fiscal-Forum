@@ -129,6 +129,18 @@ export const securitiesTypeEnum = pgEnum('securities_type', [
   'fixed-deposits',
 ]);
 
+//news
+export const newsCategoryEnum = pgEnum('news_category', [
+  'blockchain',
+  'fintech',
+  'market-news',
+  'research',
+  'regulation',
+  'crypto',
+  'banking',
+]);
+
+
 // Users Table
 export const usersTable = pgTable('users', {
   id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
@@ -455,15 +467,37 @@ export const businessApplicationTable = pgTable('business_applications_table', {
 
 
 export const quoteRequestsTable = pgTable('quote_requests', {
+  id: uuid('id').defaultRandom().primaryKey().notNull(),
   name: text('name').notNull(),
-  email: text('email').notNull(), // Optional: use `.unique()` if needed
+  email: text('email').notNull(), 
   phone: text('phone').notNull(),
   loanType: text('loan_type').notNull(),
   loanAmount: integer('loan_amount').notNull(),
+
   tenure: integer('tenure').notNull(), // in years
   emi: integer('emi'), // pre-calculated EMI (optional)
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().$onUpdateFn(() => new Date()),
+});
+
+
+export const newsTable = pgTable('news', {
+  id: uuid('id').defaultRandom().primaryKey().notNull(),
+  title: text('title').notNull(),
+  description: text('description').notNull(),
+  content: text('content').notNull(), // full article
+  image: text('image').notNull(), // URL
+  category: newsCategoryEnum('category').notNull(),
+  author: text('author').notNull(),
+  publishDate: timestamp('publish_date', { mode: 'string' }).notNull(),
+  readTime: text('read_time').notNull(), // e.g., "6 min read"
+  views: text('views').default('0'), // e.g., "15.2K"
+  link: text('link'), // optional external link
+  featured: boolean('featured').default(false),
+  tags: text('tags').array(), // stores array of strings
+  published: boolean('published').default(true),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().$onUpdateFn(() => new Date()),
 });
 
 // Types
@@ -499,3 +533,6 @@ export type SelectPersonalLoanApplication = typeof personalLoanApplicationTable.
 
 export type InsertQuoteRequest = typeof quoteRequestsTable.$inferInsert;
 export type SelectQuoteRequest = typeof quoteRequestsTable.$inferSelect;
+
+export type InsertNews = typeof newsTable.$inferInsert;
+export type SelectNews = typeof newsTable.$inferSelect;

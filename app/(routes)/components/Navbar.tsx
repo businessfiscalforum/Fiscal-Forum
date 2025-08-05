@@ -58,7 +58,7 @@ export default function Navbar() {
       border border-green-200 shadow-lg 
       md:rounded-full rounded-md 
       px-4 md:px-8 py-3 md:py-4 
-      max-w-7xl w-full"
+      max-w-7xl w-full "
     >
       <div className="flex justify-between items-center">
         {/* Logo */}
@@ -72,7 +72,7 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-green-900">
+        <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-green-900 ">
           {/* Services Dropdown */}
           <div ref={dropdownRef} className="relative group">
             <div

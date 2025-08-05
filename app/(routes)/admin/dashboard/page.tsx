@@ -26,7 +26,7 @@ export default async function AdminDashboard() {
   const allUsers = await db.select().from(usersTable);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-20">
       {/* Header */}
       <header className="bg-white shadow-sm border-b px-8 py-6">
         <div className="flex items-center justify-between">
