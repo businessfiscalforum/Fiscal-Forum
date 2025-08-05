@@ -1,11 +1,11 @@
+
 import { db } from "../../../config/db";
 import { usersTable } from "../../../config/schema";
 import { currentUser } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
-import bcrypt from "bcryptjs"; // assuming you hash passwords later
+import bcrypt from "bcryptjs";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function POST(req: NextRequest) {
   const clerkUser = await currentUser();
 
@@ -13,7 +13,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const userEmail = clerkUser.emailAddresses[0].emailAddress;
+  const userEmail = clerkUser.emailAddresses[0]?.emailAddress ?? "";
+  const userName = clerkUser.fullName ?? "Anonymous";
+
+  if (!userEmail) {
+    return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
+  }
 
   try {
     const existing = await db
@@ -25,12 +30,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(existing[0], { status: 200 });
     }
 
-    const hashedPassword = await bcrypt.hash("defaultpassword123", 10); // for now
+    const hashedPassword = await bcrypt.hash("defaultpassword123", 10);
 
     const [newUser] = await db
       .insert(usersTable)
       .values({
-        name: clerkUser.fullName || "Anonymous",
+        name: userName,
         email: userEmail,
         age: 18,
         password: hashedPassword,

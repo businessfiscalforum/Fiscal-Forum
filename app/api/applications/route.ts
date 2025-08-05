@@ -71,10 +71,8 @@ export async function POST(req: NextRequest) {
     const [application] = await db
       .insert(applicationsTable)
       .values({
-        // Remove userId if not in schema, otherwise keep it if present in applicationsTable
-        // userId: user.id, // Uncomment if userId exists in applicationsTable schema
-        type: "loan", // hardcoded for loan apps
-        loanType, // e.g., 'home-loan', 'personal'
+        type: "loan",
+        loanType,
         firstName,
         lastName,
         email,

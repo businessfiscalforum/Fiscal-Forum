@@ -20,11 +20,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className="scroll-smooth">
-        <body
-          className={
-            ""
-          }
-        >
+        <body className={""}>
           <GlowCursor />
           <Navbar />
           <Provider>{children}</Provider>

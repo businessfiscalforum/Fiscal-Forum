@@ -19,8 +19,7 @@ import {
   Calendar,
   CreditCard,
   MapPin,
-  DollarSign,
-  File,
+  IndianRupee,
   AlertCircle,
   Check,
 } from "lucide-react";
@@ -701,7 +700,7 @@ const LoanApplicationForm = () => {
                     Annual Income (₹) *
                   </label>
                   <div className="relative">
-                    <DollarSign className="absolute left-3 top-1/2 h-4 w-4 text-gray-400 -translate-y-1/2" />
+                    <IndianRupee className="absolute left-3 top-1/2 h-4 w-4 text-gray-400 -translate-y-1/2" />
                     <input
                       type="number"
                       value={formData.annualIncome}

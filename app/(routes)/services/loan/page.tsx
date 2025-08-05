@@ -383,36 +383,6 @@ const LoanLandingPage = () => {
       </div>
 
       <div className="bg-white shadow-2xl overflow-hidden">
-        {/* Hero Section */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-700 text-white p-12 md:p-20 text-center relative overflow-hidden">
-          <div className="absolute inset-0 bg-black opacity-10"></div>
-          <div className="relative z-10">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Find Your Perfect Loan
-            </h2>
-            <p className="text-xl mb-12 opacity-95 max-w-3xl mx-auto">
-              Compare rates, check eligibility, and get instant approvals across
-              all loan categories. Your financial dreams are just one click
-              away.
-            </p>
-            {/* Trust Indicators */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-              <div className="flex flex-col items-center">
-                <div className="text-3xl font-bold mb-2">50L+</div>
-                <div className="opacity-90">Happy Customers</div>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="text-3xl font-bold mb-2">₹10K Cr+</div>
-                <div className="opacity-90">Loans Disbursed</div>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="text-3xl font-bold mb-2">4.8★</div>
-                <div className="opacity-90">Customer Rating</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Loan Types Section */}
         <div className="p-12 md:p-20 bg-gray-50">
           <div className="text-center mb-16">

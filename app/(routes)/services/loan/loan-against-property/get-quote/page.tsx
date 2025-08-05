@@ -44,6 +44,7 @@ const LapLoanGetQuotePage = () => {
         phone: formData.phone.trim(),
         loanAmount: Number(formData.loanAmount),
         tenure: Number(formData.tenure),
+        loanType: "lap"
       };
 
       console.log("Sending payload:", payload); // 🟡 Log what you're sending
@@ -101,12 +102,11 @@ const LapLoanGetQuotePage = () => {
           <div className="flex items-center justify-center mb-4">
             <Calculator className="w-8 h-8 mr-3" />
             <h1 className="text-3xl md:text-4xl font-bold">
-              Get Your Property Loan Quote
+              Get Your Loan Quote
             </h1>
           </div>
           <p className="text-lg opacity-90 max-w-2xl mx-auto">
-            Fill in your details below and we&apos;ll email you a personalized
-            Property loan quote with EMI, interest, and eligibility.
+            Fill in your details below and we&apos;ll email you a personalized loan quote with EMI, interest, and eligibility.
           </p>
         </div>
       </div>
@@ -298,10 +298,10 @@ const LapLoanGetQuotePage = () => {
                 Request Another Quote
               </button>
               <button
-                onClick={() => router.push("/services/loan/home-loan")}
+                onClick={() => router.push("/")}
                 className="border border-gray-300 hover:bg-gray-50 text-gray-700 px-6 py-3 rounded-xl font-semibold"
               >
-                Back to Home Loan
+                Back
               </button>
             </div>
           </div>

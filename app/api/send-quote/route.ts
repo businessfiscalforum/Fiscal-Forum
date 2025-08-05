@@ -1,49 +1,69 @@
-// app/api/send-quote/route.ts
-import { NextRequest, NextResponse } from 'next/server';
-import { Resend } from 'resend';
+import { db } from "../../../config/db";
+import { quoteRequestsTable } from "../../../config/schema";
+import { NextRequest, NextResponse } from "next/server";
 
-// ✅ Correct import
-import LoanQuoteEmail from '../../emails/LoanQuoteEmail'; // ✅ Now works
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
-    const body = await request.json();
-    const { name, email, loanAmount, tenure } = body;
+    const body = await req.json();
+    const { name, email, phone, loanAmount, tenure, loanType } = body;
 
-    if (!name || !email || !loanAmount || !tenure) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    if (!name || !email || !phone || !loanAmount || !tenure || !loanType) {
+      return NextResponse.json(
+        {
+          error:
+            "Missing required fields: name, email, phone, loanAmount, tenure, loanType",
+        },
+        { status: 400 }
+      );
     }
 
+    const validLoanTypes = [
+      "lap",
+      "home-loan",
+      "personal",
+      "business",
+      "gold",
+      "car",
+      "education",
+      "securities",
+    ] as const;
+
+    if (!validLoanTypes.includes(loanType)) {
+      return NextResponse.json(
+        {
+          error: `Invalid loan type. Must be one of: ${validLoanTypes.join(", ")}`,
+        },
+        { status: 400 }
+      );
+    }
+
+    // EMI Calculation
     const rate = 8.5 / 12 / 100;
     const time = tenure * 12;
-    const emi = Math.round(loanAmount * rate * Math.pow(1 + rate, time) / (Math.pow(1 + rate, time) - 1));
-    const totalPayment = emi * time;
-    const totalInterest = totalPayment - loanAmount;
+    const emi = Math.round(
+      (loanAmount * rate * Math.pow(1 + rate, time)) /
+        (Math.pow(1 + rate, time) - 1)
+    );
 
-    const { data, error } = await resend.emails.send({
-      from: `Fiscal Forum <${process.env.SENDER_EMAIL}>`,
-      to: [email],
-      subject: `Your Home Loan Quote - ₹${loanAmount.toLocaleString()} | EMI: ₹${emi.toLocaleString()}`,
-      react: LoanQuoteEmail({
+    const [inserted] = await db
+      .insert(quoteRequestsTable)
+      .values({
         name,
+        email,
+        phone,
+        loanType,
         loanAmount,
         tenure,
         emi,
-        interestRate: 8.5,
-        totalInterest,
-        totalPayment,
-      }),
-    });
+      })
+      .returning();
 
-    if (error) {
-      return NextResponse.json({ error }, { status: 400 });
-    }
-
-    return NextResponse.json({ message: 'Quote sent!', data }, { status: 200 });
-  } catch (error: unknown) {
-    console.error('API Error:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json(
+      { message: "Quote saved successfully", data: inserted },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("Error saving quote:", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

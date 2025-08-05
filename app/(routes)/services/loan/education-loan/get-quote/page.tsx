@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import {
   Calculator,
-  GraduationCap,
+  Building,
   Mail,
   User,
   Phone,
@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-const EducationLoanGetQuotePage = () => {
+const LapLoanGetQuotePage = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
@@ -44,6 +44,7 @@ const EducationLoanGetQuotePage = () => {
         phone: formData.phone.trim(),
         loanAmount: Number(formData.loanAmount),
         tenure: Number(formData.tenure),
+        loanType: "education-loan"
       };
 
       console.log("Sending payload:", payload); // 🟡 Log what you're sending
@@ -101,12 +102,11 @@ const EducationLoanGetQuotePage = () => {
           <div className="flex items-center justify-center mb-4">
             <Calculator className="w-8 h-8 mr-3" />
             <h1 className="text-3xl md:text-4xl font-bold">
-              Get Your Education Loan Quote
+              Get Your Loan Quote
             </h1>
           </div>
           <p className="text-lg opacity-90 max-w-2xl mx-auto">
-            Fill in your details below and we&apos;ll email you a personalized
-            education loan quote with EMI, interest, and eligibility.
+            Fill in your details below and we&apos;ll email you a personalized loan quote with EMI, interest, and eligibility.
           </p>
         </div>
       </div>
@@ -185,7 +185,7 @@ const EducationLoanGetQuotePage = () => {
                   {parseInt(formData.loanAmount.toString()).toLocaleString()}
                 </label>
                 <div className="relative mt-2">
-                  <GraduationCap className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                  <Building className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                   <input
                     type="range"
                     name="loanAmount"
@@ -298,10 +298,10 @@ const EducationLoanGetQuotePage = () => {
                 Request Another Quote
               </button>
               <button
-                onClick={() => router.push("/services/loan/home-loan")}
+                onClick={() => router.push("/")}
                 className="border border-gray-300 hover:bg-gray-50 text-gray-700 px-6 py-3 rounded-xl font-semibold"
               >
-                Back to Home Loan
+                Back
               </button>
             </div>
           </div>
@@ -311,4 +311,4 @@ const EducationLoanGetQuotePage = () => {
   );
 };
 
-export default EducationLoanGetQuotePage;
+export default LapLoanGetQuotePage;
