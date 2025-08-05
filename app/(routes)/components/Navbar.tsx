@@ -63,8 +63,12 @@ export default function Navbar() {
       <div className="flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center gap-3">
-          <Image src="/logo.png" alt="Fiscal Forum" width={40} height={40} />
-          <span className="text-xl font-bold text-green-900">Fiscal Forum</span>
+          <Link href="/" className="flex items-center gap-3">
+            <Image src="/logo.png" alt="Fiscal Forum" width={40} height={40} />
+            <span className="text-xl font-bold text-green-900">
+              Fiscal Forum
+            </span>
+          </Link>
         </div>
 
         {/* Desktop Nav */}
