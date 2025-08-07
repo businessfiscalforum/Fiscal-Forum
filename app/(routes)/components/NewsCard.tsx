@@ -28,7 +28,7 @@ export function NewsCard({
   featured,
 }: NewsCardProps) {
   return (
-    <div className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 flex flex-col h-full">
+    <div className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 flex flex-col h-full py-20">
       {/* Image */}
       <div className="relative h-48 overflow-hidden">
         {image ? (

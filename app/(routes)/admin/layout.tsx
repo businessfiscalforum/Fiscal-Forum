@@ -1,4 +1,3 @@
-
 export default async function AdminLayout({
   children,
 }: {
@@ -6,7 +5,7 @@ export default async function AdminLayout({
 }) {
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex ">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex py-20">
       {/* Sidebar */}
       <aside className="w-64 bg-white shadow-lg h-screen sticky top-0 py-20">
         <div className="p-6 border-b border-gray-200">

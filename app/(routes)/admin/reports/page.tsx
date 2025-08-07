@@ -1,65 +1,3 @@
-// // app/(routes)/admin/reports/page.tsx
-// import Link from "next/link";
-// import { db } from "../../../../config/db";
-// import { researchReportsTable } from "../../../../config/schema";
-// import { ReportCard, ResearchReport } from "../../components/ReportCard";
-
-// export default async function ReportsListPage() {
-//   const reports = await db
-//     .select()
-//     .from(researchReportsTable)
-//     .orderBy(researchReportsTable.date);
-
-//   // ✅ Convert Date to string
-//   const formattedReports = reports.map((report) => ({
-//     ...report,
-//     date: report.date.toString().split("T")[0],
-//   })) as ResearchReport[]; 
-
-//   return (
-//     <div className="max-w-full mx-auto py-20">
-//       <h1 className="text-2xl font-bold mb-6">Research Reports</h1>
-//       <Link
-//         href="/admin/reports/create"
-//         className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
-//       >
-//         + Add Report
-//       </Link>
-
-//       <div className="mt-8 overflow-x-auto">
-//         <table className="w-full text-left border border-gray-200">
-//           <thead className="bg-gray-50">
-//             <tr>
-//               <th className="px-4 py-3">Report Details</th>
-//               <th className="px-4 py-3">Company / Sector</th>
-//               <th className="px-4 py-3">Author</th>
-//               <th className="px-4 py-3">Date</th>
-//               <th className="px-4 py-3">Rating & Target</th>
-//               <th className="px-4 py-3">Performance</th>
-//               <th className="px-4 py-3">Actions</th>
-//             </tr>
-
-//           </thead>
-//           <tbody>
-//             {formattedReports.length === 0 ? (
-//               <tr>
-//                 <td colSpan={7} className="px-4 py-10 text-center text-gray-500">
-//                   No research reports found.
-//                 </td>
-//               </tr>
-//             ) : (
-//               formattedReports.map((report) => (
-//                 <ReportCard key={report.id} report={report} />
-//               ))
-//             )}
-//           </tbody>
-//         </table>
-        
-//       </div>
-//     </div>
-//   );
-// }
-
 // app/(routes)/admin/news/page.tsx
 import { db } from "../../../../config/db";
 import { researchReportsTable } from "../../../../config/schema";
@@ -76,12 +14,12 @@ export default async function NewsListPage() {
   return (
     <div>
       <div className="flex justify-between items-center mb-6 py-20">
-        <h1 className="text-2xl font-bold text-gray-800">News Articles</h1>
+        <h1 className="text-2xl font-bold text-gray-800">Research</h1>
         <Link
-          href="/admin/news/create"
+          href="/admin/reports/create"
           className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
         >
-          + Add News
+          + Add Research
         </Link>
       </div>
 

@@ -171,7 +171,7 @@ export default function ClientReportsPage({
   return (
     <>
       {/* Hero Slider */}
-      <section className="relative w-full h-screen overflow-hidden">
+      <section className="relative w-full h-screen overflow-hidden py-20">
         <Swiper
           spaceBetween={30}
           slidesPerView={1}
@@ -237,7 +237,6 @@ export default function ClientReportsPage({
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className="swiper-pagination absolute bottom-8 w-full flex justify-center z-20"></div>
       </section>
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-12">
         <div className="max-w-7xl mx-auto px-6">
