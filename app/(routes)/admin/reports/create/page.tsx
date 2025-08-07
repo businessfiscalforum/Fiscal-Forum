@@ -155,7 +155,6 @@ export default async function CreateReportPage() {
             className="w-full border border-gray-300 rounded-lg p-2"
           >
             <option value="Quarterly Results">Quarterly Results</option>
-            <option value="Sector Analysis">Sector Analysis</option>
             <option value="Industry Report">Industry Report</option>
             <option value="Thematic Report">Thematic Report</option>
             <option value="Company Analysis">Company Analysis</option>
