@@ -84,7 +84,7 @@ export default async function EditNewsPage({
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto p-6 py-20">
       <h1 className="text-2xl font-bold mb-6">Edit News Article</h1>
       <form action={update} className="space-y-6">
         <div>

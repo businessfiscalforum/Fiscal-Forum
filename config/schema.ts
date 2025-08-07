@@ -140,6 +140,15 @@ export const newsCategoryEnum = pgEnum('news_category', [
   'banking',
 ]);
 
+//research
+export const reportTypeEnum = pgEnum('report_type', [
+  'Quarterly Results',
+  'Industry Analysis',
+  'Thematic Report',
+  'Company Analysis',
+]);
+
+export const ratingEnum = pgEnum("rating", ["BUY", "HOLD", "SELL"]);
 
 // Users Table
 export const usersTable = pgTable('users', {
@@ -485,19 +494,46 @@ export const newsTable = pgTable('news', {
   id: uuid('id').defaultRandom().primaryKey().notNull(),
   title: text('title').notNull(),
   description: text('description').notNull(),
-  content: text('content').notNull(), // full article
-  image: text('image').notNull(), // URL
+  content: text('content').notNull(), 
+  image: text('image').notNull(),
   category: newsCategoryEnum('category').notNull(),
   author: text('author').notNull(),
   publishDate: timestamp('publish_date', { mode: 'string' }).notNull(),
-  readTime: text('read_time').notNull(), // e.g., "6 min read"
-  views: text('views').default('0'), // e.g., "15.2K"
-  link: text('link'), // optional external link
+  readTime: text('read_time').notNull(), 
+  views: text('views').default('0'),
+  link: text('link'),
   featured: boolean('featured').default(false),
-  tags: text('tags').array(), // stores array of strings
+  tags: text('tags').array(),
   published: boolean('published').default(true),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().$onUpdateFn(() => new Date()),
+});
+
+//research
+
+export const researchReportsTable = pgTable("research_reports", {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  title: text("title").notNull(),
+  stock: text("stock").notNull(),
+  company: text("company").notNull(),
+  author: text("author").notNull(),
+  authorFirm: text("author_firm").notNull(),
+  date: timestamp("date", { mode: "string" }).notNull(), // "2024-01-25"
+  sector: text("sector").notNull(),
+  reportType: reportTypeEnum("report_type").notNull(),
+  rating: ratingEnum("rating").notNull(),
+  targetPrice: text("target_price").notNull(),
+  currentPrice: text("current_price").notNull(),
+  upside: text("upside").notNull(),
+  pages: integer("pages").notNull(),
+  views: integer("views").notNull().default(0),
+  recommendation: text("recommendation").notNull(),
+  tags: text("tags").array(), // ["Banking", "NPA Analysis"]
+  summary: text("summary").notNull(),
+  pdfUrl: text("pdf_url").notNull(),
+  published: boolean("published").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").$onUpdateFn(() => new Date()),
 });
 
 // Types
@@ -536,3 +572,6 @@ export type SelectQuoteRequest = typeof quoteRequestsTable.$inferSelect;
 
 export type InsertNews = typeof newsTable.$inferInsert;
 export type SelectNews = typeof newsTable.$inferSelect;
+
+export type InsertResearchReport = typeof researchReportsTable.$inferInsert;
+export type SelectResearchReport = typeof researchReportsTable.$inferSelect;

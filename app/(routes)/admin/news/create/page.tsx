@@ -41,6 +41,7 @@ export default async function CreateNewsPage() {
       .map(tag => tag.trim())
       .filter(Boolean);
 
+    // ✅ Validate category
     if (!isValidCategory(rawCategory)) {
       throw new Error(`Invalid category: ${rawCategory}. Must be one of [${allowedCategories.join(", ")}]`);
     }

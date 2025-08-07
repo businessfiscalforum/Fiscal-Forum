@@ -9,13 +9,13 @@ export default async function QuoteRequestsPage() {
     .orderBy(quoteRequestsTable.createdAt);
 
   return (
-    <div>
+    <div className="py-20">
       <h1 className="text-2xl font-bold text-gray-800 mb-6">
         Loan Quote Requests
       </h1>
       <p className="text-gray-600 mb-8">Total: {quotes.length} request(s)</p>
 
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-white p-6 rounded-xl shadow border">
             <p className="text-sm font-medium text-gray-500">Total Requests</p>

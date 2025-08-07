@@ -2,7 +2,7 @@
 
 export default async function AdminDashboard() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-12 px-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-20 px-6">
       <div className="max-w-6xl mx-auto">
         <header className="mb-10">
           <h1 className="text-4xl font-bold text-green-800">Welcome, Admin 👋</h1>

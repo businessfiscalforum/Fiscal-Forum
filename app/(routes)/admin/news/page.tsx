@@ -13,7 +13,7 @@ export default async function NewsListPage() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-6 py-20">
         <h1 className="text-2xl font-bold text-gray-800">News Articles</h1>
         <Link
           href="/admin/news/create"
@@ -28,7 +28,7 @@ export default async function NewsListPage() {
           <p className="text-gray-500">No news articles found.</p>
         ) : (
           news.map((item) => (
-            <div key={item.id} className="border p-4 rounded-lg bg-white shadow flex justify-between items-start">
+            <div key={item.id} className="border p-4 rounded-lg bg-white shadow flex justify-between items-start py-12">
               <div className="flex-1">
                 <h3 className="text-lg font-semibold">{item.title}</h3>
                 <p className="text-gray-600 mt-1 line-clamp-2">{item.description}</p>

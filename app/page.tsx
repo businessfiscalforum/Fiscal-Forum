@@ -17,12 +17,10 @@ import {
   FaBuilding,
   FaStar,
   FaQuoteLeft,
-  FaArrowUp,
   FaLock,
   FaRocket,
   FaGem,
   FaHeart,
-  FaLightbulb,
   FaAward,
   FaCheckCircle,
   FaGlobe,
@@ -35,6 +33,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const slides = [
   {
@@ -101,7 +100,6 @@ const slides = [
     path: "services/govts-bond-&-fd",
   },
 ];
-
 
 const services = [
   {
@@ -253,28 +251,80 @@ const logos = [
   "/upstox.svg",
 ];
 
-const newsStories = [
-  {
-    title: "Market Surge: Tech Stocks Hit All-Time High",
-    desc: "Technology sector leads the bull run with unprecedented growth rates.",
-    icon: FaArrowUp,
-    gradient: "from-green-500 to-emerald-600",
-  },
-  {
-    title: "New Investment Opportunities in Green Energy",
-    desc: "Sustainable investments showing promising returns for long-term growth.",
-    icon: FaLightbulb,
-    gradient: "from-blue-500 to-cyan-600",
-  },
-  {
-    title: "Digital Banking Revolution Continues",
-    desc: "Fintech innovations are reshaping the traditional banking landscape.",
-    icon: FaRocket,
-    gradient: "from-purple-500 to-indigo-600",
-  },
-];
+// Define the shape of the news item from API
+interface NewsItem {
+  id: string;
+  title: string;
+  description: string;
+  link: string | null;
+}
+
+// const newsStories = [
+//   {
+//     title: "Market Surge: Tech Stocks Hit All-Time High",
+//     desc: "Technology sector leads the bull run with unprecedented growth rates.",
+//     icon: FaArrowUp,
+//     gradient: "from-green-500 to-emerald-600",
+//   },
+//   {
+//     title: "New Investment Opportunities in Green Energy",
+//     desc: "Sustainable investments showing promising returns for long-term growth.",
+//     icon: FaLightbulb,
+//     gradient: "from-blue-500 to-cyan-600",
+//   },
+//   {
+//     title: "Digital Banking Revolution Continues",
+//     desc: "Fintech innovations are reshaping the traditional banking landscape.",
+//     icon: FaRocket,
+//     gradient: "from-purple-500 to-indigo-600",
+//   },
+// ];
 
 export default function HomePage() {
+  const [activeTab, setActiveTab] = useState("News Buzz");
+  const tabs = ["News Buzz", "Research Report"];
+
+  const [newsStories, setNewsStories] = useState<
+    Array<{
+      title: string;
+      desc: string;
+      gradient: string;
+      link: string;
+    }>
+  >([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const res = await fetch("/api/news");
+        const data = await res.json();
+        const formatted = data.map((item: NewsItem) => ({
+          title: item.title,
+          desc: item.description,
+          gradient: "from-blue-500 to-cyan-600", // You can randomize or map by category
+          link: item.link || `/news/${item.id}`,
+        }));
+        setNewsStories(formatted);
+      } catch (error) {
+        console.error("Failed to load news:", error);
+        // Fallback to dummy data if needed
+        setNewsStories([
+          {
+            title: "Market Surge: Tech Stocks Hit All-Time High",
+            desc: "Technology sector leads the bull run with unprecedented growth rates.",
+            gradient: "from-green-500 to-emerald-600",
+            link: "/news/tech-stocks",
+          },
+          // Add more fallbacks if needed
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNews();
+  }, []);
   return (
     <div className="text-gray-800 font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 min-h-screen">
       {/* Floating Background Elements */}
@@ -380,39 +430,85 @@ export default function HomePage() {
           >
             📈 Top Financial Stories
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {newsStories.map((story, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.2 }}
-                whileHover={{ scale: 1.05, y: -5 }}
-                className="group relative"
+
+          <div className="flex justify-center gap-6 mb-10 border-b border-gray-200">
+            {tabs.map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`pb-3 text-lg font-medium transition-colors ${
+                  activeTab === tab
+                    ? "text-emerald-600 border-b-2 border-emerald-500"
+                    : "text-gray-500 hover:text-emerald-600"
+                }`}
               >
-                <div
-                  className={`bg-gradient-to-br ${story.gradient} p-1 rounded-3xl shadow-xl`}
-                >
-                  <div className="bg-white p-8 rounded-3xl h-full hover:bg-gradient-to-br hover:from-white hover:to-gray-50 transition-all duration-300">
-                    <div
-                      className={`w-16 h-16 bg-gradient-to-r ${story.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}
-                    >
-                      <story.icon className="text-white text-2xl" />
-                    </div>
-                    <h4 className="font-bold text-xl mb-4 text-slate-800 group-hover:text-indigo-600 transition-colors">
-                      {story.title}
-                    </h4>
-                    <p className="text-gray-600 leading-relaxed">
-                      {story.desc}
-                    </p>
-                    <motion.div className="mt-4 text-indigo-600 font-semibold flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                      Read More <FaRocket className="text-sm" />
-                    </motion.div>
-                  </div>
-                </div>
-              </motion.div>
+                {tab}
+              </button>
             ))}
           </div>
+
+          {loading ? (
+            <div className="text-center py-16">
+              <p className="text-gray-500">Loading news...</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {newsStories.length > 0 ? (
+                newsStories.map((story, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    whileHover={{ y: -5 }}
+                    className="group cursor-pointer"
+                    onClick={() => {
+                      if (story.link.startsWith("http")) {
+                        window.open(
+                          story.link,
+                          "_blank",
+                          "noopener,noreferrer"
+                        );
+                      } else {
+                        window.location.href = story.link;
+                      }
+                    }}
+                  >
+                    <div>
+                      <div
+                        className={`h-auto rounded-2xl p-8 bg-gradient-to-br ${story.gradient} text-white shadow-lg transition-all duration-500 group-hover:shadow-2xl flex flex-col justify-between`}
+                      >
+                        <div>
+                          <h4 className="font-bold text-xl mb-4">
+                            {story.title}
+                          </h4>
+                          <p className="text-white/90 leading-relaxed">
+                            {story.desc}
+                          </p>
+                        </div>
+
+                        <motion.div
+                          className="text-white font-semibold flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                          initial={{ opacity: 0 }}
+                          whileHover={{ opacity: 1 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          Read More <FaRocket className="text-sm" />
+                        </motion.div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))
+              ) : (
+                <div className="col-span-2 text-center py-16">
+                  <p className="text-gray-500">
+                    No news articles published yet.
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+          <h2>Read</h2>
         </div>
       </section>
 
