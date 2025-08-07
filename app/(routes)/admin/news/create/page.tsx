@@ -1,4 +1,5 @@
 // app/(routes)/admin/news/create/page.tsx
+import { revalidatePath } from "next/cache";
 import { db } from "../../../../../config/db";
 import { newsTable } from "../../../../../config/schema";
 import { redirect } from "next/navigation";
@@ -62,7 +63,10 @@ export default async function CreateNewsPage() {
       tags,
     });
 
-    redirect("/admin/news");
+      revalidatePath("/news");
+      revalidatePath("/admin/news");
+
+      redirect("/admin/news");
   }
 
   return (

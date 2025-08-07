@@ -1,4 +1,5 @@
 // app/(routes)/admin/reports/create/page.tsx
+import { revalidatePath } from "next/cache";
 import { db } from "../../../../../config/db";
 import { researchReportsTable } from "../../../../../config/schema";
 import { redirect } from "next/navigation";
@@ -82,8 +83,10 @@ export default async function CreateReportPage() {
       summary,
       pdfUrl,
     });
-
+    revalidatePath("/reports");
+    revalidatePath("/admin/reports");
     redirect("/admin/reports");
+
   }
 
   return (

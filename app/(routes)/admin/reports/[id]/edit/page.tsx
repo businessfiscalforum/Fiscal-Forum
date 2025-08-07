@@ -1,4 +1,5 @@
 // app/(routes)/admin/reports/[id]/edit/page.tsx
+import { revalidatePath } from "next/cache";
 import { db } from "../../../../../../config/db";
 import { researchReportsTable } from "../../../../../../config/schema";
 import { eq } from "drizzle-orm";
@@ -100,7 +101,11 @@ export default async function EditReportPage({
       })
       .where(eq(researchReportsTable.id, id));
 
-    redirect("/admin/reports");
+      revalidatePath("/reports");
+      revalidatePath(`/reports/${id}`); 
+      revalidatePath("/admin/reports");
+
+      redirect("/admin/reports");
   }
 
   return (

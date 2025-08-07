@@ -30,7 +30,7 @@ export default async function ReportDetailPage(context: { params: Promise<{ id: 
   };
 
   return (
-    <article className="max-w-4xl mx-auto px-6 py-12">
+    <article className="max-w-4xl mx-auto px-6 py-25">
       {/* Header */}
       <div className="text-center mb-8">
         <div className="flex flex-wrap items-center justify-center gap-3 mb-4">

@@ -3,6 +3,7 @@ import { db } from "../../../../../../config/db";
 import { newsTable } from "../../../../../../config/schema";
 import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 
 // ✅ Define allowed categories
 const allowedCategories = [
@@ -80,7 +81,11 @@ export default async function EditNewsPage({
       })
       .where(eq(newsTable.id, id));
 
-    redirect("/admin/news");
+      revalidatePath("/news");
+      revalidatePath(`/news/${id}`); // detail page
+      revalidatePath("/admin/news");
+
+      redirect("/admin/news");
   }
 
   return (
