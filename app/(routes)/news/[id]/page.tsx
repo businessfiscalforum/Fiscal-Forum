@@ -7,11 +7,12 @@ import Image from "next/image";
 import {format} from 'date-fns';
 
 
-export default async function NewsDetailPage({ params }: { params: { id: string } }) {
+export default async function NewsDetailPage(context: { params: Promise<{ id: string }> }) {
+  const { id } = await context.params;
   const [news] = await db
     .select()
     .from(newsTable)
-    .where(eq(newsTable.id, params.id));
+    .where(eq(newsTable.id, id));
 
   if (!news) {
     return notFound();
