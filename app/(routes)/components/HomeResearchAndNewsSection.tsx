@@ -138,9 +138,9 @@ export default function HomeNewsAndResearchSection() {
           fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/news`),
           fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/reports`),
         ]);
-        if (!newsRes.ok) throw new Error(`News API error: ${newsRes.status}`);
-        if (!reportsRes.ok)
-          throw new Error(`Reports API error: ${reportsRes.status}`);
+        // if (!newsRes.ok) throw new Error(`News API error: ${newsRes.status}`);
+        // if (!reportsRes.ok)
+        //   throw new Error(`Reports API error: ${reportsRes.status}`);
         const newsData: NewsItem[] = await newsRes.json();
         const reportData: ResearchReport[] = await reportsRes.json();
         setNewsItems(newsData.filter((n) => n.id));

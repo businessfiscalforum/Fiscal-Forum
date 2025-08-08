@@ -1,4 +1,4 @@
-
+//api/news/route.ts
 import { db } from "../../../config/db";
 import { newsTable } from "../../../config/schema";
 import { NextResponse } from "next/server";
@@ -13,6 +13,7 @@ export async function GET() {
         description: newsTable.description,
         image: newsTable.image,
         publishDate: newsTable.publishDate,
+        published: newsTable.published,
         link: newsTable.link,
         category: newsTable.category,
         author: newsTable.author,
