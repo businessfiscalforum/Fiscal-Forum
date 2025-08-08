@@ -15,7 +15,7 @@ export function DeleteReportButton({ id }: { id: string }) {
     setIsDeleting(true);
 
     try {
-      const res = await fetch(`/api/reports/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/reports/${id}`, {
         method: "DELETE",
       });
 

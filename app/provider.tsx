@@ -28,7 +28,7 @@ function Provider({ children }: { children: React.ReactNode }) {
 
   const createNewUser = async () => {
     try {
-      const res = await axios.post("/api/users");
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/users`);
       setUserDetail(res.data); 
       console.log(res.data);
     } catch (error) {

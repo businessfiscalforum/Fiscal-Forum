@@ -135,8 +135,8 @@ export default function HomeNewsAndResearchSection() {
     const fetchData = async () => {
       try {
         const [newsRes, reportsRes] = await Promise.all([
-          fetch("/api/news"),
-          fetch("/api/reports"),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/news`),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/reports`),
         ]);
         if (!newsRes.ok) throw new Error(`News API error: ${newsRes.status}`);
         if (!reportsRes.ok)

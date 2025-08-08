@@ -451,7 +451,7 @@ const LoanApplicationForm: React.FC = () => {
         setCurrentStep(currentStep + 1);
       } else {
         try {
-          const response = await fetch("/api/applications", {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/applications`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

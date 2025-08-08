@@ -49,7 +49,7 @@ const LapLoanGetQuotePage = () => {
 
       console.log("Sending payload:", payload); // 🟡 Log what you're sending
 
-      const response = await fetch("/api/send-quote", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/send-quote`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
