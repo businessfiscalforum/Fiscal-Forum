@@ -37,6 +37,13 @@ export async function GET() {
       ...report,
       date: report.date.toString(),
     }));
+    const response = NextResponse.json(sanitizedReports);
+
+    // --- CORS Configuration ---
+    // Allow requests from your other domain
+    response.headers.set('Access-Control-Allow-Origin', 'https://wwww.fiscalforum.in');
+    response.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
     return NextResponse.json(sanitizedReports);
   } catch (error) {
