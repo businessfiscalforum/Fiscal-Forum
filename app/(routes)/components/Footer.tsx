@@ -17,9 +17,6 @@ import {
   FaAward,
   FaCertificate,
   FaGlobe,
-  FaApple,
-  FaGooglePlay,
-  FaQrcode,
   // FaRocket,
   FaHeart,
   FaUniversity,
@@ -288,7 +285,7 @@ const Footer = () => {
         </div>
 
         {/* Mobile App Section */}
-        <div className="border-b border-white/10">
+        {/* <div className="border-b border-white/10">
           <div className="max-w-7xl mx-auto px-6 py-12">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -342,7 +339,7 @@ const Footer = () => {
               </div>
             </motion.div>
           </div>
-        </div>
+        </div> */}
 
         {/* Certifications & Security */}
         <div className="border-b border-white/10">

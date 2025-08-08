@@ -5,7 +5,6 @@ import {
   FaUsers,
   FaHandshake,
   FaArrowRight,
-  FaCheckCircle,
   FaStar,
   FaPhoneAlt,
   FaEnvelope,
@@ -14,7 +13,6 @@ import {
   FaAward,
   FaRocket,
   FaLightbulb,
-  FaDollarSign
 } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
@@ -22,7 +20,6 @@ import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
 import Link from "next/link";
-
 
 const slides = [
   {
@@ -89,7 +86,6 @@ const slides = [
     path: "services/govts-bond-&-fd",
   },
 ];
-
 
 const WorkWithUsPage = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
@@ -386,7 +382,7 @@ const WorkWithUsPage = () => {
                       </div>
 
                       {/* Features */}
-                      <div className="mb-8">
+                      {/* <div className="mb-8">
                         <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
                           <FaCheckCircle className="text-emerald-500" />
                           Key Features
@@ -402,10 +398,10 @@ const WorkWithUsPage = () => {
                             </li>
                           ))}
                         </ul>
-                      </div>
+                      </div> */}
 
                       {/* Benefits */}
-                      <div className="mb-8">
+                      {/* <div className="mb-8">
                         <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
                           <FaDollarSign className="text-green-500" />
                           Benefits & Rewards
@@ -421,15 +417,24 @@ const WorkWithUsPage = () => {
                             </li>
                           ))}
                         </ul>
-                      </div>
+                      </div> */}
 
                       {/* CTA Button */}
-                      <button
-                        className={`w-full bg-gradient-to-r ${partnership.color} text-white py-4 px-6 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:shadow-lg transition-all duration-300 group/btn hover:cursor-pointer`}
+
+                      <Link
+                        href={
+                          partnership.id === 1
+                            ? "/work-with-us/bdp"
+                            : partnership.id === 2
+                              ? "/work-with-us/rp"
+                              : "/work-with-us/b2b" // Assuming id 3 is B2B
+                        }
+                        className={`w-full bg-gradient-to-r ${partnership.color} text-white py-4 px-6 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:shadow-lg transition-all duration-300 group/btn`}
+                        // Removed hover:cursor-pointer as links are naturally clickable
                       >
                         Learn More
                         <FaArrowRight className="group-hover/btn:translate-x-1 transition-transform" />
-                      </button>
+                      </Link>
                     </div>
 
                     {/* Floating Badge */}

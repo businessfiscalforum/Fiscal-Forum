@@ -23,8 +23,6 @@ import {
   FaHeart,
   FaAward,
   FaCheckCircle,
-  FaGlobe,
-  FaMobile,
   FaHeadset,
 } from "react-icons/fa";
 
@@ -211,35 +209,26 @@ const testimonials = [
 
 const features = [
   {
-    title: "Transparency",
+    title: "Certified Market Updates",
     icon: FaLock,
-    desc: "Complete transparency in all transactions",
+    desc: "Stay ahead with timely, verified market news and insights so you can make smart decisions with confidence.",
   },
   {
-    title: "Expert Advisors",
+    title: "Research Reports That Guide Your Next Move",
     icon: FaAward,
-    desc: "Certified financial experts at your service",
+    desc: "Make informed choices with the best researcg reports designed to empower your next intevtment-clear, actionable, and easy to trust.",
   },
   {
-    title: "Tech Enabled",
+    title: "Everything in One Place",
     icon: FaRocket,
-    desc: "Cutting-edge technology for seamless experience",
+    desc: "Enjoy all your financial services under one trusted roof-the more you see, the more you use, the more rewards you unlock.",
   },
   {
-    title: "24/7 Support",
+    title: "Trusted Partners & Dedicated Support",
     icon: FaHeadset,
-    desc: "Round-the-clock customer support",
+    desc: "We're connected with prominent companies and back you with reliable, friendly support whenever you need a helping hand.",
   },
-  {
-    title: "Global Reach",
-    icon: FaGlobe,
-    desc: "International financial services",
-  },
-  {
-    title: "Mobile First",
-    icon: FaMobile,
-    desc: "Optimized for mobile banking",
-  },
+
 ];
 
 const logos = [
@@ -427,13 +416,10 @@ export default function HomePage() {
             transition={{ duration: 0.8 }}
             className="text-xl text-gray-700 max-w-4xl mx-auto mb-16 leading-relaxed"
           >
-            We bring transparency, trust, and tailor-made financial solutions
-            under one roof — powered by cutting-edge technology and a
-            customer-first approach that puts your success at the center of
-            everything we do.
+
           </motion.p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
@@ -443,7 +429,7 @@ export default function HomePage() {
                 whileHover={{ scale: 1.05, y: -5 }}
                 className="group relative"
               >
-                <div className="bg-gradient-to-br from-white to-indigo-50 p-8 rounded-3xl shadow-xl border border-indigo-100 hover:shadow-2xl hover:border-indigo-200 transition-all duration-300">
+                <div className="bg-gradient-to-br from-white to-indigo-50 p-8 rounded-3xl shadow-xl border border-indigo-100 hover:shadow-2xl hover:border-indigo-200 transition-all duration-300 h-full">
                   <div className="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
                     <feature.icon className="text-white text-2xl" />
                   </div>

@@ -8,7 +8,6 @@ import {
   FaArrowUp,
   FaArrowDown,
   FaClock,
-  FaSearch,
   FaUser,
 } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
@@ -55,27 +54,27 @@ interface ResearchReport {
 }
 
 // Categories from schema
-const newsCategories = [
-  "All",
-  "Blockchain",
-  "Fintech",
-  "Market News",
-  "Research",
-  "Regulation",
-  "Crypto",
-  "Banking",
-];
-const sectors = [
-  "All",
-  "Technology",
-  "Finance",
-  "Healthcare",
-  "Energy",
-  "Consumer Goods",
-  "Real Estate",
-  "Automotive",
-  "Telecom",
-];
+// const newsCategories = [
+//   "All",
+//   "Blockchain",
+//   "Fintech",
+//   "Market News",
+//   "Research",
+//   "Regulation",
+//   "Crypto",
+//   "Banking",
+// ];
+// const sectors = [
+//   "All",
+//   "Technology",
+//   "Finance",
+//   "Healthcare",
+//   "Energy",
+//   "Consumer Goods",
+//   "Real Estate",
+//   "Automotive",
+//   "Telecom",
+// ];
 
 // Helper functions
 function getRatingColor(rating: string) {
@@ -249,7 +248,7 @@ export default function HomeNewsAndResearchSection() {
         </div>
 
         {/* Filters */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+        {/* <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
           <div className="relative w-full md:w-96">
             <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <input
@@ -288,7 +287,7 @@ export default function HomeNewsAndResearchSection() {
               <option value="popular">Most Viewed</option>
             </select>
           </div>
-        </div>
+        </div> */}
 
         {loading ? (
           <div className="text-center py-20">
