@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // components/HomeNewsAndResearchSection.tsx
 "use client";
 import { useEffect, useState } from "react";

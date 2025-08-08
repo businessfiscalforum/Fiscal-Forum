@@ -228,7 +228,11 @@ const features = [
     icon: FaHeadset,
     desc: "We're connected with prominent companies and back you with reliable, friendly support whenever you need a helping hand.",
   },
-
+  {
+    title: "Exclusive Rewards & Cashback",
+    icon: FaCoins,
+    desc: "Every services you choose brings unique perks,, tailored rewards, and cashback benefits that add extra value to your journey",
+  }
 ];
 
 const logos = [
