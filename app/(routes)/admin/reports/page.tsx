@@ -1,11 +1,12 @@
 // app/(routes)/admin/news/page.tsx
+export const revalidate = 0;
 import { db } from "../../../../config/db";
 import { researchReportsTable } from "../../../../config/schema";
 
 import Link from "next/link";
+import { DeleteReportButton } from "../../components/DeleteReportButton";
 
 export default async function NewsListPage() {
-
   const reports = await db
     .select()
     .from(researchReportsTable)
@@ -28,7 +29,10 @@ export default async function NewsListPage() {
           <p className="text-gray-500">No reports articles found.</p>
         ) : (
           reports.map((item) => (
-            <div key={item.id} className="border p-4 rounded-lg bg-white shadow flex justify-between items-start py-12">
+            <div
+              key={item.id}
+              className="border p-4 rounded-lg bg-white shadow flex justify-between items-start py-12"
+            >
               <div className="flex-1">
                 <h3 className="text-lg font-semibold">{item.title}</h3>
                 <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
@@ -45,6 +49,7 @@ export default async function NewsListPage() {
                 >
                   Edit
                 </Link>
+                <DeleteReportButton id={item.id} />
               </div>
             </div>
           ))

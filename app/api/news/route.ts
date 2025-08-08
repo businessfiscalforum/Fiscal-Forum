@@ -1,7 +1,8 @@
-// app/api/news/route.ts
+
 import { db } from "../../../config/db";
 import { newsTable } from "../../../config/schema";
 import { NextResponse } from "next/server";
+
 
 export async function GET() {
   try {
@@ -13,14 +14,29 @@ export async function GET() {
         image: newsTable.image,
         publishDate: newsTable.publishDate,
         link: newsTable.link,
+        category: newsTable.category,
+        author: newsTable.author,
+        readTime: newsTable.readTime,
+        views: newsTable.views,
+        featured: newsTable.featured,
+        tags: newsTable.tags,
       })
       .from(newsTable)
       .orderBy(newsTable.publishDate)
-      .limit(6); // Get latest 6
+      .limit(6);
 
-    return NextResponse.json(news);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // ✅ Sanitize dates
+    const sanitizedNews = news.map((item) => ({
+      ...item,
+      publishDate: item.publishDate.toString(),
+    }));
+
+    return NextResponse.json(sanitizedNews);
   } catch (error) {
-    return NextResponse.json({ error: "Failed to fetch news" }, { status: 500 });
+    console.error("API Error - GET /api/news:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch news", details: error instanceof Error ? error.message : "Unknown error" },
+      { status: 500 }
+    );
   }
 }

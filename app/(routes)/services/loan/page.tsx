@@ -30,7 +30,7 @@ const slides = [
       "Choose from personal, home, or education loans with low interest rates and flexible repayment options.",
     image: "/asset-loan.jpg",
     gradient: "from-blue-600 via-blue-500 to-purple-600",
-    path: "services/loan",
+    path: "/services/loan",
   },
   {
     title: "Insurance Plans",
@@ -39,7 +39,7 @@ const slides = [
       "Health, car, and life insurance plans tailored to your needs — secure your family and assets today.",
     image: "/asset-insurance.jpg",
     gradient: "from-emerald-600 via-teal-500 to-cyan-600",
-    path: "services/insurance",
+    path: "/services/insurance",
   },
   {
     title: "Savings Account",
@@ -48,7 +48,7 @@ const slides = [
       "High-interest savings accounts with zero balance requirements and easy online access.",
     image: "/asset-saving.jpg",
     gradient: "from-green-600 via-emerald-500 to-teal-600",
-    path: "services/saving-account",
+    path: "/services/saving-account",
   },
   {
     title: "Stock Investment",
@@ -57,7 +57,7 @@ const slides = [
       "Build a diversified portfolio and start investing in the stock market with expert guidance.",
     image: "/asset-stock.jpg",
     gradient: "from-violet-600 via-purple-500 to-indigo-600",
-    path: "services/stock-investment",
+    path: "/services/stock-investment",
   },
   {
     title: "Mutual Funds",
@@ -66,7 +66,7 @@ const slides = [
       "Access professionally managed mutual funds to meet your financial goals across risk profiles.",
     image: "/asset-mutual.jpg",
     gradient: "from-cyan-600 via-blue-500 to-indigo-600",
-    path: "services/mutual-funds",
+    path: "/services/mutual-funds",
   },
   {
     title: "Credit Card",
@@ -75,7 +75,7 @@ const slides = [
       "Choose the right credit card for rewards, cashback, and low-interest EMIs.",
     image: "/asset-credit.jpg",
     gradient: "from-orange-600 via-red-500 to-pink-600",
-    path: "services/credit-card",
+    path: "/services/credit-card",
   },
   {
     title: "Govt Bonds & FDs",
@@ -84,7 +84,7 @@ const slides = [
       "Low-risk government bonds and fixed deposits to preserve capital and earn steady returns.",
     image: "/asset-bondfd.jpg",
     gradient: "from-yellow-600 via-amber-500 to-orange-600",
-    path: "services/govts-bond-&-fd",
+    path: "/services/govts-bond-&-fd",
   },
 ];
 

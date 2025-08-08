@@ -171,7 +171,7 @@ export default function ClientReportsPage({
   return (
     <>
       {/* Hero Slider */}
-      <section className="relative w-full h-screen overflow-hidden py-20">
+      <section className="relative w-full h-screen overflow-hidden">
         <Swiper
           spaceBetween={30}
           slidesPerView={1}
