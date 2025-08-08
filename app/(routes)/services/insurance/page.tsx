@@ -276,7 +276,7 @@ const InsuranceLandingPage = () => {
     <div className="min-h-screen">
       <div className="text-gray-800 font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
         {/* Hero Section */}
-        <section className="relative w-full h-screen overflow-hidden">
+        <section className="relative w-full h-[40vh] overflow-hidden">
           <Swiper
             spaceBetween={30}
             slidesPerView={1}
@@ -348,7 +348,7 @@ const InsuranceLandingPage = () => {
 
       {/* Header */}
       <div className="w-full bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white">
-        <div className="text-center text-white py-12 px-4">
+        {/* <div className="text-center text-white py-12 px-4">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent leading-tight">
             Complete Insurance Solutions
           </h1>
@@ -359,12 +359,12 @@ const InsuranceLandingPage = () => {
             From life insurance to business protection - comprehensive coverage 
             for all your insurance needs with competitive premiums and quick claims
           </p>
-        </div>
+        </div> */}
       </div>
 
       <div className="bg-white shadow-2xl overflow-hidden">
         {/* Hero Section */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-700 text-white py-16 text-center relative overflow-hidden">
+        {/* <div className="bg-gradient-to-r from-blue-600 to-purple-700 text-white py-16 text-center relative overflow-hidden">
           <div className="absolute inset-0 bg-black opacity-10"></div>
           <div className="relative z-10 px-4">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
@@ -374,7 +374,7 @@ const InsuranceLandingPage = () => {
               Compare plans, check coverage, and get instant quotes across all insurance 
               categories. Your peace of mind is just one click away.
             </p>
-            {/* Trust Indicators */}
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center max-w-4xl mx-auto">
               <div className="flex flex-col items-center">
                 <div className="text-2xl lg:text-3xl font-bold mb-2">1Cr+</div>
@@ -390,7 +390,7 @@ const InsuranceLandingPage = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Insurance Types Section */}
         <div className="py-16 bg-gray-50 px-4 sm:px-6 lg:px-8">
@@ -405,7 +405,7 @@ const InsuranceLandingPage = () => {
           </div>
 
           {/* Insurance Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {insuranceTypes.map((insurance) => {
               const IconComponent = insurance.icon;
               return (

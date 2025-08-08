@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
@@ -17,6 +18,8 @@ import {
   ShieldCheck,
   CheckCircle,
   BanknoteArrowUp,
+  Clock,
+  Percent,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -88,9 +91,100 @@ const slides = [
   },
 ];
 
-
 const LoanLandingPage = () => {
   const router = useRouter();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    loanAmount: 7500000,
+    tenure: 20,
+    interestRate: 8.5, // 👈 New: Dynamic interest rate
+  });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]:
+        name === "interestRate" || name === "loanAmount" || name === "tenure"
+          ? Number(value)
+          : value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      const payload = {
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
+        loanAmount: formData.loanAmount,
+        tenure: formData.tenure,
+        interestRate: formData.interestRate, // Include in payload
+        loanType: "home-loan",
+      };
+
+      console.log("Sending payload:", payload);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/send-quote`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      console.log("Response status:", response.status);
+      const result = await response.json();
+      console.log("Response data:", result);
+
+      setIsSubmitted(true);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        alert(`Error: ${error.message}`);
+      } else {
+        alert("An unknown error occurred.");
+      }
+      console.error("Submit error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleBackToForm = () => {
+    setIsSubmitted(false);
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      loanAmount: 7500000,
+      tenure: 20,
+      interestRate: 8.5,
+    });
+  };
+
+  // EMI Calculation: (P * R * (1+R)^N) / ((1+R)^N - 1)
+  const calculateEMI = () => {
+    const principal = formData.loanAmount;
+    const monthlyRate = formData.interestRate / 12 / 100; // Convert annual to monthly
+    const totalMonths = formData.tenure * 12;
+
+    if (principal <= 0 || monthlyRate <= 0 || totalMonths <= 0) return 0;
+
+    return Math.round(
+      (principal * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) /
+        (Math.pow(1 + monthlyRate, totalMonths) - 1)
+    );
+  };
+
+  const monthlyEMI = calculateEMI();
 
   type LoanType = {
     id: string;
@@ -278,7 +372,7 @@ const LoanLandingPage = () => {
       </div> */}
 
         {/* Hero Section */}
-        <section className="relative w-full h-screen overflow-hidden">
+        <section className="relative w-full h-[40vh] overflow-hidden">
           {/* Swiper will control background image and content */}
           <Swiper
             spaceBetween={30}
@@ -363,7 +457,7 @@ const LoanLandingPage = () => {
         </section>
       </div>
       {/* Header */}
-      <div className="w-full bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white">
+      {/* <div className="w-full bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white">
         <div className="text-center text-white pt-16 pb-12 px-4">
           <h1
             className="text-5xl md:text-7xl font-bold mb-6 
@@ -381,7 +475,7 @@ const LoanLandingPage = () => {
             needs covered with competitive rates and quick approvals
           </p>
         </div>
-      </div>
+      </div> */}
 
       <div className="bg-white shadow-2xl overflow-hidden">
         {/* Loan Types Section */}
@@ -467,34 +561,116 @@ const LoanLandingPage = () => {
             })}
           </div>
 
-          {/* Application Process */}
+          {/*emi*/}
+          {/* EMI Calculator */}
           <section className="py-16 bg-white">
-            <div className=" mx-auto px-6">
+            <div className="max-w-3xl mx-auto px-6">
               <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                  Simple Application Process
+                  Calculate Your EMI
                 </h2>
                 <p className="text-gray-600">
-                  Get your loan in just 4 easy steps
+                  Adjust the sliders to estimate your monthly payment
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                {applicationSteps.map((step, index) => (
-                  <div key={index} className="text-center">
-                    <div className="relative mb-6">
-                      <div className="bg-blue-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto">
-                        <step.icon className="h-8 w-8 text-white" />
-                      </div>
-                      <div className="absolute -top-2 -right-2 bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">
-                        {step.step}
-                      </div>
+
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-100 shadow-lg">
+                {/* Loan Amount */}
+                <div className="mb-8">
+                  <label className="block text-sm font-medium text-gray-700 mb-3">
+                    Loan Amount (₹):{" "}
+                    <span className="font-semibold text-gray-900">
+                      {parseInt(
+                        formData.loanAmount.toString()
+                      ).toLocaleString()}
+                    </span>
+                  </label>
+                  <div className="relative">
+                    <Building className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                    <input
+                      type="range"
+                      name="loanAmount"
+                      min="100000"
+                      max="50000000"
+                      step="200000"
+                      value={formData.loanAmount}
+                      onChange={handleChange}
+                      className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer pl-10"
+                    />
+                    <div className="flex justify-between text-xs text-gray-500 mt-2 px-1">
+                      <span>₹1 Lakh</span>
+                      <span>₹5 Crore</span>
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                      {step.title}
-                    </h3>
-                    <p className="text-gray-600 text-sm">{step.description}</p>
                   </div>
-                ))}
+                </div>
+
+                {/* Tenure */}
+                <div className="mb-8">
+                  <label className="block text-sm font-medium text-gray-700 mb-3">
+                    Loan Tenure:{" "}
+                    <span className="font-semibold text-gray-900">
+                      {formData.tenure} years
+                    </span>
+                  </label>
+                  <div className="relative">
+                    <Clock className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                    <input
+                      type="range"
+                      name="tenure"
+                      min="5"
+                      max="30"
+                      step="1"
+                      value={formData.tenure}
+                      onChange={handleChange}
+                      className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer pl-10"
+                    />
+                    <div className="flex justify-between text-xs text-gray-500 mt-2 px-1">
+                      <span>5 Years</span>
+                      <span>30 Years</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Interest Rate */}
+                <div className="mb-8">
+                  <label className="block text-sm font-medium text-gray-700 mb-3">
+                    Interest Rate:{" "}
+                    <span className="font-semibold text-gray-900">
+                      {formData.interestRate.toFixed(2)}% p.a.
+                    </span>
+                  </label>
+                  <div className="relative">
+                    <Percent className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                    <input
+                      type="range"
+                      name="interestRate"
+                      min="6"
+                      max="15"
+                      step="0.1"
+                      value={formData.interestRate}
+                      onChange={handleChange}
+                      className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer pl-10"
+                    />
+                    <div className="flex justify-between text-xs text-gray-500 mt-2 px-1">
+                      <span>6%</span>
+                      <span>15%</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* EMI Summary */}
+                <div className="bg-white border-2 border-blue-200 rounded-xl p-6 text-center shadow-md">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                    Estimated Monthly EMI
+                  </h3>
+                  <div className="text-3xl font-bold text-blue-600 mb-2">
+                    ₹{monthlyEMI.toLocaleString()}
+                  </div>
+                  <p className="text-sm text-gray-600">
+                    At {formData.interestRate}% interest for {formData.tenure}{" "}
+                    years
+                  </p>
+                </div>
               </div>
             </div>
           </section>

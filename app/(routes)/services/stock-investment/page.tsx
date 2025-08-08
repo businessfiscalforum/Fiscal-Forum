@@ -407,7 +407,7 @@ const CreditCardApplyPage = () => {
       </div> */}
 
         {/* Hero Section */}
-        <section className="relative w-full h-screen overflow-hidden">
+        <section className="relative w-full h-[40vh] overflow-hidden">
           {/* Swiper will control background image and content */}
           <Swiper
             spaceBetween={30}
