@@ -1,236 +1,190 @@
-// app/api/applications/route.ts
-import { db } from "../../../config/db";
-import { applicationsTable, usersTable } from "../../../config/schema";
-import { currentUser } from "@clerk/nextjs/server";
-import { eq } from "drizzle-orm";
-import { NextRequest, NextResponse } from "next/server";
+// app/api/loan-applications/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
+import { db } from '../../../config/db'; // adjust path
+import { applicationsTable } from '../../../config/schema'; // adjust path
+
+// Zod schema for validation (must match applicationsTable)
+const LoanApplicationSchema = z.object({
+  userId: z.string(),
+  loanType: z.string(),
+  loanAmountRequired: z.string().optional(),
+  firstName: z.string(),
+  middleName: z.string(),
+  lastName: z.string(),
+  fathersName: z.string(),
+  pan: z.string(),
+  dob: z.string(),
+  maritalStatus: z.string().optional(),
+  gender: z.string().optional(),
+  mobile: z.string(),
+  email: z.string(),
+  currentAddress1: z.string(),
+  currentAddress2: z.string().optional(),
+  residenceType: z.string().optional(),
+  currentPincode: z.string(),
+  currentCity: z.string(),
+  currentState: z.string(),
+  permanenSameAsCurrent: z.boolean().optional(),
+  permanentAddress1: z.string().optional(),
+  permanentAddress2: z.string().optional(),
+  permanentPincode: z.string().optional(),
+  permanentCity: z.string().optional(),
+  permanentState: z.string().optional(),
+  employmentType: z.string().optional(),
+  companyName: z.string().optional(),
+  designation: z.string().optional(),
+  netMonthlySalary: z.string().optional(),
+  companyAddress1: z.string().optional(),
+  companyAddress2: z.string().optional(),
+  companyPincode: z.string().optional(),
+  companyCity: z.string().optional(),
+  companyState: z.string().optional(),
+  currentJobStability: z.string().optional(),
+  totalJobStability: z.string().optional(),
+  propertyType: z.string().optional(),
+  propertyAddress1: z.string().optional(),
+  propertyAddress2: z.string().optional(),
+  propertyCity: z.string().optional(),
+  transactionType: z.string().optional(),
+  agreementValue: z.string().optional(),
+  downPayment: z.string().optional(),
+  carType: z.string().optional(),
+  carYear: z.number().optional(),
+  carLoanType: z.string().optional(),
+  courseName: z.string().optional(),
+  countryName: z.string().optional(),
+  goldWeightGram: z.string().optional(),
+  goldPurityKarat: z.string().optional(),
+  securityType: z.string().optional(),
+  securityValue: z.string().optional(),
+  currentLoansCount: z.number().optional(),
+  buildersName: z.string().optional(),
+  residenceSince: z.string().optional(),
+  specialName: z.string().optional(),
+  businessName: z.string().optional(),
+  businessType: z.string().optional(),
+  yearsInBusiness: z.string().optional(),
+  annualTurnover: z.string().optional(),
+  monthlyProfit: z.string().optional(),
+  gstNumber: z.string().optional(),
+  reference1Name: z.string().optional(),
+  reference1Mobile: z.string().optional(),
+  reference1Address: z.string().optional(),
+  reference2Name: z.string().optional(),
+  reference2Mobile: z.string().optional(),
+  reference2Address: z.string().optional(),
+  applicationStatus: z.string().optional(),
+  paymentMethod: z.string().optional(),
+});
 
 export async function POST(req: NextRequest) {
-  const clerkUser = await currentUser();
-  if (!clerkUser || !clerkUser.emailAddresses.length) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  const userEmail = clerkUser.emailAddresses[0].emailAddress;
-  const body = await req.json();
-
   try {
-    // Find logged-in user in DB
-    const [user] = await db
-      .select()
-      .from(usersTable)
-      .where(eq(usersTable.email, userEmail));
+    const body = await req.json();
+    const parsed = LoanApplicationSchema.parse(body);
 
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
-    }
-
-    // Map every field exactly to DB columns
-    const dataToInsert = {
-      userId: user.id,
-
-      // Main category
-      type: body.type || "loan",
-      loanType: body.loanType || null,
-
-      // Applicant personal info
-      firstName: body.firstName || "",
-      lastName: body.lastName || "",
-      email: body.email || "",
-      phone: body.phone || "",
-      dateOfBirth: body.dateOfBirth ?? new Date(body.dateOfBirth).toISOString(),
-      panNumber: body.panNumber || "",
-      maritalStatus: body.maritalStatus || null,
-      gender: body.gender || null,
-
-      // Current address
-      currentAddressLine1: body.currentAddressLine1 || "",
-      currentAddressLine2: body.currentAddressLine2 || null,
-      currentPincode: body.currentPincode || "",
-      currentCity: body.currentCity || "",
-      currentState: body.currentState || "",
-      residenceType: body.residenceType || null,
-
-      // Permanent address
-      isPermanentAddressSameAsCurrent: body.isPermanentAddressSameAsCurrent ?? true,
-      permanentAddressLine1: body.permanentAddressLine1 || null,
-      permanentAddressLine2: body.permanentAddressLine2 || null,
-      permanentPincode: body.permanentPincode || null,
-      permanentCity: body.permanentCity || null,
-      permanentState: body.permanentState || null,
-
-      // Employment
-      employmentType: body.employmentType || null,
-      companyName: body.companyName || null,
-      businessName: body.businessName || null,
-      designation: body.designation || null,
-      natureOfBusiness: body.natureOfBusiness || null,
-      annualIncome: body.annualIncome || null,
-      monthlyIncome: body.monthlyIncome || null,
-      workExperience: body.workExperience || null,
-
-      // Co-applicant
-      hasCoApplicant: body.hasCoApplicant ?? false,
-      coApplicantFirstName: body.coApplicantFirstName || null,
-      coApplicantLastName: body.coApplicantLastName || null,
-      coApplicantEmail: body.coApplicantEmail || null,
-      coApplicantPhone: body.coApplicantPhone || null,
-      coApplicantPan: body.coApplicantPan || null,
-      coApplicantDateOfBirth: body.coApplicantDateOfBirth
-        ? new Date(body.coApplicantDateOfBirth).toISOString()
-        : null,
-      coApplicantGender: body.coApplicantGender || null,
-      coApplicantRelationship: body.coApplicantRelationship || null,
-      coApplicantEmploymentType: body.coApplicantEmploymentType || null,
-      coApplicantCompany: body.coApplicantCompany || null,
-      coApplicantBusiness: body.coApplicantBusiness || null,
-      coApplicantAnnualIncome: body.coApplicantAnnualIncome || null,
-      coApplicantMonthlyIncome: body.coApplicantMonthlyIncome || null,
-
-      // Property details
-      propertyType: body.propertyType || null,
-      propertyUsage: body.propertyUsage || null,
-      propertyAge: body.propertyAge || null,
-      propertyValue: body.propertyValue || null,
-      propertyAddress: body.propertyAddress || null,
-      propertyCity: body.propertyCity || null,
-      propertyPincode: body.propertyPincode || null,
-      propertyState: body.propertyState || null,
-      transactionType: body.transactionType || null,
-      agreementValue: body.agreementValue || null,
-      downPayment: body.downPayment || null,
-
-      // Car loan
-      carType: body.carType || null,
-      carMake: body.carMake || null,
-      carModel: body.carModel || null,
-      carVariant: body.carVariant || null,
-      manufacturingYear: body.manufacturingYear || null,
-      carPrice: body.carPrice || null,
-      dealerName: body.dealerName || null,
-      dealerLocation: body.dealerLocation || null,
-
-      // Education loan
-      educationLevel: body.educationLevel || null,
-      courseType: body.courseType || null,
-      courseName: body.courseName || null,
-      courseDuration: body.courseDuration || null,
-      institutionName: body.institutionName || null,
-      institutionLocation: body.institutionLocation || null,
-      institutionCountry: body.institutionCountry || null,
-      totalCourseFee: body.totalCourseFee || null,
-      previousEducation: body.previousEducation || null,
-      previousMarks: body.previousMarks || null,
-
-      // Gold loan
-      goldWeight: body.goldWeight || null,
-      goldPurity: body.goldPurity || null,
-      goldType: body.goldType || null,
-      estimatedValue: body.estimatedValue || null,
-      goldItemsDescription: body.goldItemsDescription || null,
-      preferredBranch: body.preferredBranch || null,
-      appointmentDate: body.appointmentDate
-        ? new Date(body.appointmentDate).toISOString()
-        : null,
-
-      // Securities loan
-      securitiesType: body.securitiesType || null,
-      securitiesValue: body.securitiesValue || null,
-      portfolioDetails: body.portfolioDetails || null,
-      dematAccountNumber: body.dematAccountNumber || null,
-      brokerName: body.brokerName || null,
-      pledgeableSecurities: body.pledgeableSecurities || null,
-      averageHoldingPeriod: body.averageHoldingPeriod || null,
-
-      // Business loan
-      gstNumber: body.gstNumber || null,
-      businessVintage: body.businessVintage || null,
-      businessAddress: body.businessAddress || null,
-      businessCity: body.businessCity || null,
-      businessPincode: body.businessPincode || null,
-      businessState: body.businessState || null,
-      repaymentSource: body.repaymentSource || null,
-      useOfFundsEquipment: body.useOfFundsEquipment || null,
-      useOfFundsWorkingCapital: body.useOfFundsWorkingCapital || null,
-      useOfFundsExpansion: body.useOfFundsExpansion || null,
-      useOfFundsMarketing: body.useOfFundsMarketing || null,
-      useOfFundsOther: body.useOfFundsOther || null,
-
-      // Loan request
-      loanAmount: body.loanAmount || null,
-      loanTenure: body.loanTenure || null,
-      loanPurpose: body.loanPurpose || null,
-
-      // Credit & financial
-      creditScore: body.creditScore || null,
-      existingEMIs: body.existingEMIs || "0",
-
-      // Banking
-      salaryAccount: body.salaryAccount || null,
-      bankName: body.bankName || null,
-      accountNumber: body.accountNumber || null,
-
-      // References
-      reference1Name: body.reference1Name || null,
-      reference1Phone: body.reference1Phone || null,
-      reference1Relation: body.reference1Relation || null,
-      reference2Name: body.reference2Name || null,
-      reference2Phone: body.reference2Phone || null,
-      reference2Relation: body.reference2Relation || null,
-
-      // Status
-      applicationStatus: body.applicationStatus || "INITIATED",
-      paymentMethod: body.paymentMethod || null,
-    };
+    const permanentData = parsed.permanenSameAsCurrent
+      ? {
+          permanentAddress1: parsed.currentAddress1,
+          permanentAddress2: parsed.currentAddress2,
+          permanentPincode: parsed.currentPincode,
+          permanentState: parsed.currentState,
+          permanentCity: parsed.currentCity,
+        }
+      : {
+          permanentAddress1: parsed.permanentAddress1,
+          permanentAddress2: parsed.permanentAddress2,
+          permanentPincode: parsed.permanentPincode,
+          permanentState: parsed.permanentState,
+          permanentCity: parsed.permanentCity,
+        };
 
     const [application] = await db
       .insert(applicationsTable)
-      .values(dataToInsert)
+      .values({
+        ...parsed,
+        ...permanentData,
+        loanAmountRequired: parsed.loanAmountRequired
+          ? parseFloat(parsed.loanAmountRequired)
+          : null,
+        netMonthlySalary: parsed.netMonthlySalary
+          ? parseFloat(parsed.netMonthlySalary)
+          : null,
+        agreementValue: parsed.agreementValue
+          ? parseFloat(parsed.agreementValue)
+          : null,
+        downPayment: parsed.downPayment
+          ? parseFloat(parsed.downPayment)
+          : null,
+        goldWeightGram: parsed.goldWeightGram
+          ? parseFloat(parsed.goldWeightGram)
+          : null,
+        goldPurityKarat: parsed.goldPurityKarat
+          ? parseFloat(parsed.goldPurityKarat)
+          : null,
+        securityValue: parsed.securityValue
+          ? parseFloat(parsed.securityValue)
+          : null,
+        annualTurnover: parsed.annualTurnover
+          ? parseFloat(parsed.annualTurnover)
+          : null,
+        monthlyProfit: parsed.monthlyProfit
+          ? parseFloat(parsed.monthlyProfit)
+          : null,
+      } as typeof applicationsTable.$inferInsert)
       .returning();
 
-    return NextResponse.json(application, { status: 201 });
-  } catch (err) {
-    console.error("Application insert error:", err);
     return NextResponse.json(
-      { error: "Failed to save application", details: String(err) },
+      { success: true, message: 'Application submitted!', id: application.id },
+      { status: 201 }
+    );
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: 'Validation failed',
+          errors: error.issues.map((e) => ({
+            field: e.path.join('.'),
+            message: e.message,
+          })),
+        },
+        { status: 400 }
+      );
+    }
+    console.error(error);
+    return NextResponse.json(
+      { success: false, message: 'Internal server error' },
       { status: 500 }
     );
   }
 }
 
-
 export async function GET() {
-  const clerkUser = await currentUser();
-  if (!clerkUser || !clerkUser.emailAddresses.length) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  const userEmail = clerkUser.emailAddresses[0].emailAddress;
-
   try {
-    const [user] = await db
-      .select()
-      .from(usersTable)
-      .where(eq(usersTable.email, userEmail));
-
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
-    }
-
     const applications = await db
-      .select()
+      .select({
+        id: applicationsTable.id,
+        firstName: applicationsTable.firstName,
+        lastName: applicationsTable.lastName,
+        loanType: applicationsTable.loanType,
+        loanAmountRequired: applicationsTable.loanAmountRequired,
+        mobile: applicationsTable.mobile,
+        email: applicationsTable.email,
+        applicationStatus: applicationsTable.applicationStatus,
+        createdAt: applicationsTable.createdAt,
+      })
       .from(applicationsTable)
-      .where(eq(applicationsTable.userId, user.id))
-      .orderBy(applicationsTable.createdAt);
+      .limit(100);
 
-    return NextResponse.json(applications, { status: 200 });
-  } catch (err) {
-    console.error("Application fetch error:", err);
     return NextResponse.json(
-      {
-        error: "Server error",
-        details: err instanceof Error ? err.message : String(err),
-      },
+      { success: true, data: applications },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { success: false, message: 'Failed to fetch applications' },
       { status: 500 }
     );
   }

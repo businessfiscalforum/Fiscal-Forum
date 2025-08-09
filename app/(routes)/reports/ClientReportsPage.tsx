@@ -12,12 +12,8 @@ import {
   FaArrowUp,
   FaArrowDown,
   FaUser,
-  FaRocket,
 } from "react-icons/fa";
 import Link from "next/link";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
-import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
 
@@ -147,31 +143,31 @@ export default function ClientReportsPage({
     });
   };
 
-  const slides = [
-    {
-      title: "Market Trends",
-      subtitle: "Stay Ahead with",
-      description:
-        "Get the latest insights on stock markets, crypto, and global finance.",
-      image: "/hero1.jpg",
-      gradient: "from-blue-600 via-blue-500 to-purple-600",
-      path: "/news",
-    },
-    {
-      title: "Investing",
-      subtitle: "Grow Your Wealth with Smart",
-      description:
-        "Learn how to build a diversified portfolio and achieve financial freedom.",
-      image: "/hero2.jpg",
-      gradient: "from-emerald-600 via-teal-500 to-cyan-600",
-      path: "services/stock-investment",
-    },
-  ];
+  // const slides = [
+  //   {
+  //     title: "Market Trends",
+  //     subtitle: "Stay Ahead with",
+  //     description:
+  //       "Get the latest insights on stock markets, crypto, and global finance.",
+  //     image: "/hero1.jpg",
+  //     gradient: "from-blue-600 via-blue-500 to-purple-600",
+  //     path: "/news",
+  //   },
+  //   {
+  //     title: "Investing",
+  //     subtitle: "Grow Your Wealth with Smart",
+  //     description:
+  //       "Learn how to build a diversified portfolio and achieve financial freedom.",
+  //     image: "/hero2.jpg",
+  //     gradient: "from-emerald-600 via-teal-500 to-cyan-600",
+  //     path: "services/stock-investment",
+  //   },
+  // ];
 
   return (
     <>
       {/* Hero Slider */}
-      <section className="relative w-full h-screen overflow-hidden">
+      {/* <section className="relative w-full h-screen overflow-hidden">
         <Swiper
           spaceBetween={30}
           slidesPerView={1}
@@ -237,8 +233,8 @@ export default function ClientReportsPage({
             </SwiperSlide>
           ))}
         </Swiper>
-      </section>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-12">
+      </section> */}
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-30">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
             <div>

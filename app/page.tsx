@@ -32,6 +32,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import Link from "next/link";
 import HomeResearchAndNewsSection from "./(routes)/components/HomeResearchAndNewsSection";
+import { useState } from "react";
+import { BarChart3, BookOpen, Shield, TrendingUp, Wallet } from "lucide-react";
 
 const slides = [
   {
@@ -245,7 +247,99 @@ const logos = [
 ];
 
 
+  
+
 export default function HomePage() {
+  type TabKey = "investment-products" | "banking-products" | "research-reports";
+const [activeTab, setActiveTab] = useState<TabKey>("investment-products");
+
+  // Tabs Data
+  const tabs = [
+    { id: "investment-products", label: "Investment Products" },
+    { id: "banking-products", label: "Banking Products" },
+    { id: "research-reports", label: "Research Reports" },
+  ];
+
+  // Content for each tab
+  const content = {
+    "investment-products": [
+      {
+        title: "Stock Investment",
+        icon: BarChart3,
+        description:
+          "Step into the stock market with confidence and curiosity. Grow your wealth one smart choice at a time, guided by insights and people who genuinely care about your progress. Start where you are, invest wisely, and build your tomorrow.",
+        link: "/demo/investment-products/stock-investment",
+      },
+      {
+        title: "Mutual Funds",
+        icon: TrendingUp,
+        description:
+          "Invest in mutual funds with the comfort of knowing you're never alone on the journey. Let your money work gently, balancing risk and opportunity, as you focus on living life fully today while planning for tomorrow's dreams.",
+        link: "/demo/investment-products/mutual-funds",
+      },
+      {
+        title: "Insurance (Motor, Health, Life)",
+        icon: Shield,
+        description:
+          "Life can be unpredictable, but your peace of mind shouldn't be. From your car to your health to your family's future, our insurance solutions stand by you — protecting what matters most, every single day, with care and trust.",
+        link: "/demo/investment-products/insurance",
+      },
+      {
+        title: "FD & Government Bonds",
+        icon: Wallet,
+        description:
+          "Grow your savings safely with a thoughtful mix of Fixed Deposits and Government Bonds. Enjoy steady growth and dependable protection, giving you the calm confidence that your hard-earned money is secure while quietly working for your future goals.",
+        link: "/demo/investment-products/fd-gov-bonds",
+      },
+    ],
+    "banking-products": [
+      {
+        title: "Credit Card",
+        icon: Wallet,
+        description:
+          "Enjoy life's moments with a credit card that matches your lifestyle. From everyday essentials to special treats, spend smartly, earn rewards, and manage your money with ease — all while knowing you have support whenever you need it.",
+        link: "/demo/banking-products/credit-card",
+      },
+      {
+        title: "Savings Account",
+        icon: Wallet,
+        description:
+          "Open a savings account that does more than just hold money — let your everyday savings gently grow, giving you freedom to plan, spend wisely, and handle life's surprises with a sense of security and confidence in the future.",
+        link: "/demo/banking-products/savings-account",
+      },
+      {
+        title: "Loans",
+        icon: Wallet,
+        description:
+          "Turn your plans into reality with a loan that understands your needs. Whether it's your dream home, a new venture, or unexpected expenses, we're here to help you move forward with clarity, comfort, and a trusted helping hand.",
+        link: "/demo/banking-products/loans",
+      },
+    ],
+    "research-reports": [
+      {
+        title: "Pre-Market Research Report",
+        icon: BookOpen,
+        description:
+          "Start your trading day informed and prepared. Our pre-market research reports give you key insights, trends, and data before the bell rings — helping you make timely, confident financial decisions while others are still guessing.",
+        link: "/demo/research-reports/pre-market-report",
+      },
+      {
+        title: "Thematic Report",
+        icon: BarChart3,
+        description:
+          "Stay ahead of the curve with in-depth thematic reports that spotlight emerging trends and sectors. Understand the bigger picture, identify new opportunities, and align your investments with themes shaping tomorrow's markets and industries.",
+        link: "/demo/research-reports/thematic-report",
+      },
+      {
+        title: "Equity Research Report",
+        icon: BookOpen,
+        description:
+          "Invest smarter with detailed equity research reports crafted to decode company performance, growth potential, and market positioning. Get clear, unbiased insights that help you evaluate stocks with confidence and make informed calls that suit your goals.",
+        link: "/demo/research-reports/equity-report",
+      },
+    ],
+  };
+
   return (
     <div className="text-gray-800 font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 min-h-screen">
       {/* Floating Background Elements */}
@@ -344,57 +438,101 @@ export default function HomePage() {
       <HomeResearchAndNewsSection/>
 
       {/* Services Section */}
-      <section className="py-24 bg-gradient-to-br from-slate-50 to-white relative overflow-hidden">
+      <section className=" bg-gradient-to-br from-slate-50 to-white relative overflow-hidden">
         {/* <div className="absolute inset-0">
           <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-r from-blue-200/50 to-purple-300/50 rounded-full blur-3xl"></div>
           <div className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-r from-emerald-200/50 to-teal-300/50 rounded-full blur-3xl"></div>
         </div> */}
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <motion.h2
+        <div className="mx-auto relative z-10">
+          {/* <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-slate-800 to-indigo-600 bg-clip-text text-transparent"
           >
             💼 Our Premium Services
-          </motion.h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((service, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                whileHover={{ scale: 1.05, y: -10 }}
-                className="group relative"
-              >
-                <div
-                  className={`bg-gradient-to-br ${service.gradient} p-1 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300`}
-                >
-                  <div
-                    className={`bg-gradient-to-br ${service.bgGradient} p-8 rounded-3xl h-full hover:bg-white transition-all duration-300`}
-                  >
-                    <div
-                      className={`w-16 h-16 bg-gradient-to-r ${service.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg`}
-                    >
-                      <service.icon className="text-white text-2xl" />
-                    </div>
-                    <h4 className="text-xl font-bold mb-4 text-slate-800 group-hover:text-indigo-600 transition-colors">
-                      {service.name}
-                    </h4>
-                    <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors">
-                      {service.desc}
-                    </p>
-                    <motion.div className="mt-6 flex items-center gap-2 text-indigo-600 font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300">
-                      Learn More{" "}
-                      <FaRocket className="text-sm group-hover:translate-x-1 transition-transform" />
-                    </motion.div>
+          </motion.h2> */}
+          <main className="min-h-screen bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 px-4 md:px-8 py-16">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12 max-w-3xl mx-auto"
+        >
+          <h1 className="text-4xl font-bold text-blue-700 mb-4">
+            Our Financial Premium Services
+          </h1>
+          <p className="text-xl font-bold text-gray-800">
+            Tools For Every Financial Move
+          </p>
+        </motion.div>
+
+        {/* Tabs */}
+        <div className="flex flex-wrap justify-center gap-4 mb-8">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as TabKey)}
+              className={`bg-blue-200 hover:bg-blue-300 text-blue-700 px-4 py-2 rounded-full font-medium transition-colors duration-300 ${
+                activeTab === tab.id ? "bg-blue-500 text-white" : ""
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Content Grid */}
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+          {content[activeTab].map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="relative rounded-2xl shadow-lg overflow-hidden transition-all duration-300 transform bg-white"
+            >
+              <Link href={item.link} passHref>
+                <div className="p-6 space-y-4">
+                  {/* Icon */}
+                  <div className="p-3 rounded-xl bg-blue-100 flex-shrink-0">
+                    {item.icon && (
+                      <item.icon className="w-8 h-8 text-blue-700" />
+                    )}
                   </div>
+
+                  {/* Title */}
+                  <h2 className="text-xl font-bold text-gray-800">{item.title}</h2>
+
+                  {/* Description */}
+                  <p className="text-sm leading-relaxed text-gray-600">
+                    {item.description}
+                  </p>
+
+                  {/* Learn More Button */}
+                  <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full font-medium flex items-center gap-2 transition-colors duration-300">
+                    Learn More
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      className="w-4 h-4"
+                    >
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </button>
                 </div>
-              </motion.div>
-            ))}
-          </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </main>
+
         </div>
       </section>
 
@@ -405,7 +543,7 @@ export default function HomePage() {
           <div className="absolute bottom-1/4 right-10 w-80 h-80 bg-gradient-to-r from-cyan-200/40 to-blue-300/40 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div> */}
 
-        <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
+        <div className="max-w-8xl mx-auto px-6 text-center relative z-10">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

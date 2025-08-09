@@ -2,8 +2,6 @@
 "use client";
 
 import { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -22,10 +20,8 @@ import {
   FaArrowUp,
   FaGlobe,
   FaNewspaper,
-  FaRocket,
 } from "react-icons/fa";
 import Image from "next/image";
-import Link from "next/link";
 
 interface NewsItem {
   id: string;
@@ -47,14 +43,22 @@ interface ClientNewsPageProps {
 }
 
 const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
+  const tabs = [
+    { id: "news-buzz", label: "News Buzz" },
+    { id: "corp-pulse", label: "Corp Pulse" },
+    { id: "ipo-scoop", label: "IPO Scoop" },
+  ];
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState<"latest" | "popular">("latest"); // Correct type
-
+  const [activeTab, setActiveTab] = useState("news-buzz");
   const itemsPerPage = 9;
 
-  const categories = ["all", ...new Set(initialNews.map((news) => news.category))];
+  const categories = [
+    "all",
+    ...new Set(initialNews.map((news) => news.category)),
+  ];
 
   const filteredNews = initialNews
     .filter(
@@ -102,29 +106,29 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
     }
   };
 
-  const slides = [
-    {
-      title: "Market Trends",
-      subtitle: "Stay Ahead with",
-      description: "Get the latest insights on stock markets, crypto, and global finance.",
-      image: "/hero1.jpg",
-      gradient: "from-blue-600 via-blue-500 to-purple-600",
-      path: "/news",
-    },
-    {
-      title: "Investing",
-      subtitle: "Grow Your Wealth with Smart",
-      description: "Learn how to build a diversified portfolio and achieve financial freedom.",
-      image: "/hero2.jpg",
-      gradient: "from-emerald-600 via-teal-500 to-cyan-600",
-      path: "/investing",
-    },
-  ];
+  // const slides = [
+  //   {
+  //     title: "Market Trends",
+  //     subtitle: "Stay Ahead with",
+  //     description: "Get the latest insights on stock markets, crypto, and global finance.",
+  //     image: "/hero1.jpg",
+  //     gradient: "from-blue-600 via-blue-500 to-purple-600",
+  //     path: "/news",
+  //   },
+  //   {
+  //     title: "Investing",
+  //     subtitle: "Grow Your Wealth with Smart",
+  //     description: "Learn how to build a diversified portfolio and achieve financial freedom.",
+  //     image: "/hero2.jpg",
+  //     gradient: "from-emerald-600 via-teal-500 to-cyan-600",
+  //     path: "/investing",
+  //   },
+  // ];
 
   return (
     <>
       {/* Hero Slider */}
-      <section className="relative w-full h-screen overflow-hidden">
+      {/* <section className="relative w-full h-screen overflow-hidden">
         <Swiper
           spaceBetween={30}
           slidesPerView={1}
@@ -191,7 +195,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
           ))}
         </Swiper>
         <div className="swiper-pagination absolute bottom-8 w-full flex justify-center z-20"></div>
-      </section>
+      </section> */}
 
       {/* News Content */}
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
@@ -216,11 +220,28 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                 </h1>
               </div>
               <p className="text-xl text-blue-200 max-w-3xl mx-auto leading-relaxed">
-                Stay updated with the latest financial news, market trends, and expert insights from around the world
+                Stay updated with the latest financial news, market trends, and
+                expert insights from around the world
               </p>
             </motion.div>
           </div>
         </section>
+
+        <div className="flex justify-center mb-6 h-20 ">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-4 py-2 mx-2 relative text-xl font-medium transition-colors duration-300 
+        ${activeTab === tab.id ? "text-blue-600" : "text-gray-600 hover:text-blue-500"}`}
+            >
+              {tab.label}
+              {activeTab === tab.id && (
+                <span className="absolute left-0 bottom-0 w-full h-[2px] bg-blue-600 rounded-full"></span>
+              )}
+            </button>
+          ))}
+        </div>
 
         {/* Search & Filter */}
         <section className="py-12 bg-white border-b border-gray-200">
@@ -259,7 +280,9 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                 <select
                   value={sortBy}
                   // ✅ Fix: Cast to correct type
-                  onChange={(e) => setSortBy(e.target.value as "latest" | "popular")}
+                  onChange={(e) =>
+                    setSortBy(e.target.value as "latest" | "popular")
+                  }
                   className="px-4 py-2 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 bg-white text-black"
                 >
                   <option value="latest">Latest First</option>
@@ -280,7 +303,9 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
               className="mb-8 flex items-center justify-between"
             >
               <p className="text-gray-600">
-                Showing {startIndex + 1}-{Math.min(startIndex + itemsPerPage, filteredNews.length)} of {filteredNews.length} articles
+                Showing {startIndex + 1}-
+                {Math.min(startIndex + itemsPerPage, filteredNews.length)} of{" "}
+                {filteredNews.length} articles
               </p>
               <div className="flex items-center gap-2 text-gray-500">
                 <FaArrowUp className="text-green-500" />
@@ -323,7 +348,9 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                           ) : (
                             <div className="text-center">
                               <FaGlobe className="text-4xl text-gray-400 mb-2" />
-                              <p className="text-gray-500 text-sm">News Article</p>
+                              <p className="text-gray-500 text-sm">
+                                News Article
+                              </p>
                             </div>
                           )}
                         </div>
@@ -370,8 +397,12 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                               <FaUser />
                             </div>
                             <div>
-                              <p className="text-sm font-semibold text-gray-800">{news.author}</p>
-                              <p className="text-xs text-gray-500">{formatDate(news.publishDate)}</p>
+                              <p className="text-sm font-semibold text-gray-800">
+                                {news.author}
+                              </p>
+                              <p className="text-xs text-gray-500">
+                                {formatDate(news.publishDate)}
+                              </p>
                             </div>
                           </div>
                           <div className="flex items-center gap-2">
@@ -419,7 +450,9 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                 <div className="w-24 h-24 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full flex items-center justify-center mx-auto mb-6">
                   <FaNewspaper className="text-3xl text-gray-500" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-4">No News Articles Found</h3>
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                  No News Articles Found
+                </h3>
                 <p className="text-gray-600 mb-6">
                   {searchTerm || selectedCategory !== "all"
                     ? "Try adjusting your search or filter criteria"
@@ -479,9 +512,15 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                           {page}
                         </motion.button>
                       );
-                    } else if (page === currentPage - 3 || page === currentPage + 3) {
+                    } else if (
+                      page === currentPage - 3 ||
+                      page === currentPage + 3
+                    ) {
                       return (
-                        <span key={page} className="flex items-center px-2 text-gray-400">
+                        <span
+                          key={page}
+                          className="flex items-center px-2 text-gray-400"
+                        >
                           ...
                         </span>
                       );

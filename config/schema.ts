@@ -1,6 +1,7 @@
 // config/schema.ts
 import {
   boolean,
+  date,
   decimal,
   integer,
   pgEnum,
@@ -20,7 +21,7 @@ export const statusEnum = pgEnum('status', ['PENDING', 'APPROVED', 'REJECTED', '
 // 🔄 Loan Type Enum
 export const loanTypeEnum = pgEnum('loan_type', [
   'home-loan',
-  'lap',
+  'property',
   'personal',
   'business',
   'gold',
@@ -42,8 +43,6 @@ export const insuranceTypeEnum = pgEnum('insurance_type', [
 export const employmentTypeEnum = pgEnum('employment_type', [
   'salaried',
   'self-employed',
-  'business',
-  'professional',
 ]);
 
 // 🆕 Annual Income Range Enum
@@ -83,9 +82,7 @@ export const transactionTypeEnum = pgEnum('transaction_type', [
 
 // 🆕 Property Type Enum (for Home Loan & LAP)
 export const propertyTypeEnum = pgEnum('property_type', [
-  'apartment',
-  'villa',
-  'plot',
+  'residential',
   'commercial',
   'industrial',
 ]);
@@ -170,31 +167,40 @@ export const applicationsTable = pgTable('applications_table', {
     .references(() => usersTable.id, { onDelete: 'cascade' }),
 
   // 🔽 Loan Type Selection
-  type: text('type').notNull().$type<'loan' | 'insurance'>().default('loan'), // main category
+  // type: text('type').notNull().$type<'loan' | 'insurance'>().default('loan'), // main category
   loanType: loanTypeEnum('loan_type'), // 'home-loan', 'personal', etc.
-
+   loanAmountRequired: decimal('loan_amount_required', {
+    precision: 14,
+    scale: 2,
+  }),
   // 👤 APPLICANT PERSONAL INFO
   firstName: text('first_name').notNull(),
+  middleName: text('middle_name').notNull(),
   lastName: text('last_name').notNull(),
-  email: text('email').notNull(),
-  phone: text('phone').notNull(),
-  dateOfBirth: timestamp('date_of_birth', { mode: 'string' }).notNull(),
-  panNumber: text('pan_number').notNull(),
-  maritalStatus: text('marital_status').$type<'Married' | 'Unmarried'>(), // or enum if preferred
+  fathersName: text('father_name').notNull(),
+  // email: text('email').notNull(),
+  // phone: text('phone').notNull(),
+  pan:varchar('pan').unique().notNull(),
+  dob:date('dob').notNull(),
+  
+  maritalStatus: text('marital_status').$type<'Married' | 'Unmarried' |'Divorced' | 'Widowed'>(), // or enum if preferred
   gender: text('gender').$type<'Male' | 'Female' | 'Other'>(),
+  mobile: varchar('mobile').notNull().unique(),
+  email: text('email').notNull(),
 
   // 🏠 CURRENT ADDRESS
-  currentAddressLine1: text('current_address_line1').notNull(),
-  currentAddressLine2: text('current_address_line2'),
+  currentAddress1: text('current_address_line1').notNull(),
+  currentAddress2: text('current_address_line2'),
+  residenceType: text('residence_type').$type<'Rented' | 'Owned' | 'Leased'>(),
   currentPincode: text('current_pincode').notNull(),
   currentCity: text('current_city').notNull(),
   currentState: text('current_state').notNull(),
-  residenceType: text('residence_type').$type<'Rented' | 'Owned' | 'Leased'>(),
+ 
 
   // 🏡 PERMANENT ADDRESS (Conditional)
-  isPermanentAddressSameAsCurrent: boolean('is_permanent_address_same').default(true),
-  permanentAddressLine1: text('permanent_address_line1'),
-  permanentAddressLine2: text('permanent_address_line2'),
+  permanenSameAsCurrent: boolean('is_permanent_address_same').default(true),
+  permanentAddress1: text('permanent_address_line1'),
+  permanentAddress2: text('permanent_address_line2'),
   permanentPincode: text('permanent_pincode'),
   permanentCity: text('permanent_city'),
   permanentState: text('permanent_state'),
@@ -202,117 +208,138 @@ export const applicationsTable = pgTable('applications_table', {
   // 💼 EMPLOYMENT
   employmentType: employmentTypeEnum('employment_type'),
   companyName: text('company_name'),
-  businessName: text('business_name'),
   designation: text('designation'),
-  natureOfBusiness: text('nature_of_business'),
-  annualIncome: incomeRangeEnum('annual_income'),
-  monthlyIncome: decimal('monthly_income', { precision: 10, scale: 2 }),
-  workExperience: integer('work_experience'), // in years
+  netMonthlySalary: decimal('net_monthly_salary', { precision: 12, scale: 2 }),
+
+  // Employment Address (Detailed)
+  companyAddress1: text('company_address1'),
+  companyAddress2: text('company_address2'),
+  companyPincode: varchar('company_pincode', { length: 10 }),
+  companyCity: varchar('company_city', { length: 100 }),
+  companyState: varchar('company_state', { length: 100 }),
+  currentJobStability: varchar('current_job_stability', {
+    enum: ['less_than_6_months', '6_12_months', '1_2_years', '2_plus_years'],
+  }),
+  totalJobStability: varchar('total_job_stability', {
+    enum: ['less_than_1_year', '1_3_years', '3_5_years', '5_plus_years'],
+  }),
 
   // 🤝 CO-APPLICANT (Optional)
-  hasCoApplicant: boolean('has_co_applicant').default(false),
-  coApplicantFirstName: text('co_applicant_first_name'),
-  coApplicantLastName: text('co_applicant_last_name'),
-  coApplicantEmail: text('co_applicant_email'),
-  coApplicantPhone: text('co_applicant_phone'),
-  coApplicantPan: text('co_applicant_pan'),
-  coApplicantDateOfBirth: timestamp('co_applicant_dob', { mode: 'string' }),
-  coApplicantGender: text('co_applicant_gender').$type<'Male' | 'Female' | 'Other'>(),
-  coApplicantRelationship: text('co_applicant_relationship'),
-  coApplicantEmploymentType: employmentTypeEnum('co_applicant_employment_type'),
-  coApplicantCompany: text('co_applicant_company'),
-  coApplicantBusiness: text('co_applicant_business'),
-  coApplicantAnnualIncome: incomeRangeEnum('co_applicant_annual_income'),
-  coApplicantMonthlyIncome: decimal('co_applicant_monthly_income', { precision: 10, scale: 2 }),
+  // hasCoApplicant: boolean('has_co_applicant').default(false),
+  // coApplicantFirstName: text('co_applicant_first_name'),
+  // coApplicantLastName: text('co_applicant_last_name'),
+  // coApplicantEmail: text('co_applicant_email'),
+  // coApplicantPhone: text('co_applicant_phone'),
+  // coApplicantPan: text('co_applicant_pan'),
+  // coApplicantDateOfBirth: timestamp('co_applicant_dob', { mode: 'string' }),
+  // coApplicantGender: text('co_applicant_gender').$type<'Male' | 'Female' | 'Other'>(),
+  // coApplicantRelationship: text('co_applicant_relationship'),
+  // coApplicantEmploymentType: employmentTypeEnum('co_applicant_employment_type'),
+  // coApplicantCompany: text('co_applicant_company'),
+  // coApplicantBusiness: text('co_applicant_business'),
+  // coApplicantAnnualIncome: incomeRangeEnum('co_applicant_annual_income'),
+  // coApplicantMonthlyIncome: decimal('co_applicant_monthly_income', { precision: 10, scale: 2 }),
 
   // 🏘️ PROPERTY DETAILS (Home Loan, LAP)
   propertyType: propertyTypeEnum('property_type'),
-  propertyUsage: propertyUsageEnum('property_usage'),
-  propertyAge: integer('property_age'), // for LAP
-  propertyValue: decimal('property_value', { precision: 15, scale: 2 }),
-  propertyAddress: text('property_address'),
+  // propertyUsage: propertyUsageEnum('property_usage'),
+  // propertyAge: integer('property_age'), // for LAP
+  propertyAddress1: text('property_address'),
+  propertyAddress2: text('property_address'),
   propertyCity: text('property_city'),
-  propertyPincode: text('property_pincode'),
-  propertyState: text('property_state'),
   transactionType: text('transaction_type').$type<'New' | 'Resale'>(), // Home Loan
-  agreementValue: decimal('agreement_value', { precision: 15, scale: 2 }),
+  agreementValue: decimal('agreement_value', { precision: 14, scale: 2 }),
   downPayment: decimal('down_payment', { precision: 15, scale: 2 }),
 
   // 🚗 CAR LOAN
   carType: carTypeEnum('car_type'),
-  carMake: text('car_make'),
-  carModel: text('car_model'),
-  carVariant: text('car_variant'),
-  manufacturingYear: integer('manufacturing_year'),
-  carPrice: decimal('car_price', { precision: 12, scale: 2 }),
-  dealerName: text('dealer_name'),
-  dealerLocation: text('dealer_location'),
+  carYear: integer('car_year'), 
+   carLoanType: varchar('car_loan_type', { enum: ['personal', 'commercial'] }),
+  // carModel: text('car_model'),
+  // carVariant: text('car_variant'),
+  // manufacturingYear: integer('manufacturing_year'),
+  // carPrice: decimal('car_price', { precision: 12, scale: 2 }),
+  // dealerName: text('dealer_name'),
+  // dealerLocation: text('dealer_location'),
 
   // 🎓 EDUCATION LOAN
-  educationLevel: educationLevelEnum('education_level'),
-  courseType: courseTypeEnum('course_type'),
+  // educationLevel: educationLevelEnum('education_level'),
+  // courseType: courseTypeEnum('course_type'),
   courseName: text('course_name'),
-  courseDuration: integer('course_duration'), // in years
-  institutionName: text('institution_name'),
-  institutionLocation: text('institution_location'),
-  institutionCountry: text('institution_country'),
-  totalCourseFee: decimal('total_course_fee', { precision: 12, scale: 2 }),
-  previousEducation: text('previous_education'),
-  previousMarks: decimal('previous_marks', { precision: 5, scale: 2 }),
+  countryName:varchar('country_name', { length: 100 }),
+  // courseDuration: integer('course_duration'), // in years
+  // institutionName: text('institution_name'),
+  // institutionLocation: text('institution_location'),
+  // institutionCountry: text('institution_country'),
+  // totalCourseFee: decimal('total_course_fee', { precision: 12, scale: 2 }),
+  // previousEducation: text('previous_education'),
+  // previousMarks: decimal('previous_marks', { precision: 5, scale: 2 }),
 
   // 🪙 GOLD LOAN
-  goldWeight: decimal('gold_weight', { precision: 8, scale: 3 }), // grams
-  goldPurity: decimal('gold_purity', { precision: 4, scale: 2 }), // karats
-  goldType: text('gold_type'), // jewelry, coins, bars
-  estimatedValue: decimal('estimated_value', { precision: 12, scale: 2 }),
-  goldItemsDescription: text('gold_items_description'),
-  preferredBranch: text('preferred_branch'),
-  appointmentDate: timestamp('appointment_date', { mode: 'string' }),
+  goldWeightGram: decimal('gold_weight_grams', { precision: 8, scale: 3 }), // grams
+  goldPurityKarat: decimal('gold_purity_Karat', { precision: 4, scale: 2 }), // karats
+  // goldType: text('gold_type'), // jewelry, coins, bars
+  // estimatedValue: decimal('estimated_value', { precision: 12, scale: 2 }),
+  // goldItemsDescription: text('gold_items_description'),
+  // preferredBranch: text('preferred_branch'),
+  // appointmentDate: timestamp('appointment_date', { mode: 'string' }),
 
   // 📈 SECURITIES LOAN
-  securitiesType: securitiesTypeEnum('securities_type'),
-  securitiesValue: decimal('securities_value', { precision: 15, scale: 2 }),
-  portfolioDetails: text('portfolio_details'),
-  dematAccountNumber: text('demat_account_number'),
-  brokerName: text('broker_name'),
-  pledgeableSecurities: text('pledgeable_securities'),
-  averageHoldingPeriod: integer('average_holding_period'), // in months
+  securityType: varchar('security_type', {
+    enum: ['shares', 'mutual_funds', 'bonds', 'fixed_deposits'],
+  }),
+  securityValue: decimal('security_value', { precision: 14, scale: 2 }),
+
+  // === EXISTING OBLIGATIONS ===
+  currentLoansCount: integer('current_loans_count').default(0).notNull(),
+
+  // === ADDITIONAL DETAILS (Home Loan) ===
+  buildersName: varchar('builders_name', { length: 255 }),
+  residenceSince: varchar('residence_since', {
+    enum: ['less_than_1_year', '1_3_years', '3_5_years', '5_plus_years'],
+  }),
+  specialName: varchar('special_name', { length: 100 }),
+
+  // portfolioDetails: text('portfolio_details'),
+  // dematAccountNumber: text('demat_account_number'),
+  // brokerName: text('broker_name'),
+  // pledgeableSecurities: text('pledgeable_securities'),
+  // averageHoldingPeriod: integer('average_holding_period'), // in months
 
   // 💼 BUSINESS LOAN
-  gstNumber: text('gst_number'),
-  businessVintage: text('business_vintage'),
-  businessAddress: text('business_address'),
-  businessCity: text('business_city'),
-  businessPincode: text('business_pincode'),
-  businessState: text('business_state'),
-  repaymentSource: text('repayment_source'),
-  useOfFundsEquipment: integer('use_of_funds_equipment'),
-  useOfFundsWorkingCapital: integer('use_of_funds_working_capital'),
-  useOfFundsExpansion: integer('use_of_funds_expansion'),
-  useOfFundsMarketing: integer('use_of_funds_marketing'),
-  useOfFundsOther: integer('use_of_funds_other'),
+  businessName: varchar('business_name', { length: 255 }),
+  businessType: varchar('business_type', {
+    enum: ['proprietorship', 'partnership', 'private_limited', 'public_limited'],
+  }),
+  yearsInBusiness: varchar('years_in_business', {
+    enum: ['less_than_1_year', '1_3_years', '3_5_years', '5_plus_years'],
+  }),
+  annualTurnover: decimal('annual_turnover', { precision: 14, scale: 2 }),
+  monthlyProfit: decimal('monthly_profit', { precision: 12, scale: 2 }),
+  gstNumber: varchar('gst_number', { length: 15 }),
 
   // 💰 LOAN REQUEST (Universal)
-  loanAmount: decimal('loan_amount', { precision: 15, scale: 2 }),
-  loanTenure: integer('loan_tenure'), // in months or years (contextual)
-  loanPurpose: text('loan_purpose'),
+  // loanAmount: decimal('loan_amount', { precision: 15, scale: 2 }),
+  // loanTenure: integer('loan_tenure'), // in months or years (contextual)
+  // loanPurpose: text('loan_purpose'),
 
   // 📉 CREDIT & FINANCIAL
-  creditScore: integer('credit_score'),
-  existingEMIs: decimal('existing_emis', { precision: 10, scale: 2 }).default('0'),
+  // creditScore: integer('credit_score'),
+  // existingEMIs: decimal('existing_emis', { precision: 10, scale: 2 }).default('0'),
 
   // 🏦 BANKING DETAILS
-  salaryAccount: text('salary_account'),
-  bankName: text('bank_name'),
-  accountNumber: text('account_number'),
+  // salaryAccount: text('salary_account'),
+  // bankName: text('bank_name'),
+  // accountNumber: text('account_number'),
 
   // 📞 REFERENCES
-  reference1Name: text('reference1_name'),
-  reference1Phone: text('reference1_phone'),
-  reference1Relation: text('reference1_relation'),
-  reference2Name: text('reference2_name'),
-  reference2Phone: text('reference2_phone'),
-  reference2Relation: text('reference2_relation'),
+  reference1Name: varchar('reference1_name', { length: 100 }),
+  reference1Mobile: varchar('reference1_mobile', { length: 15 }),
+  reference1Address: text('reference1_address'),
+
+  reference2Name: varchar('reference2_name', { length: 100 }),
+  reference2Mobile: varchar('reference2_mobile', { length: 15 }),
+  reference2Address: text('reference2_address'),
 
   // 📊 STATUS & METADATA
   applicationStatus: applicationStatusEnum('application_status')

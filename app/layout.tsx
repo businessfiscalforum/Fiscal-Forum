@@ -10,6 +10,9 @@ import Footer from "./(routes)/components/Footer";
 export const metadata: Metadata = {
   title: "Fiscal Forum",
   description: "Financial discussions and insights",
+  icons:{
+    icon: '/favicon.ico',
+  }
 };
 
 export default function RootLayout({
