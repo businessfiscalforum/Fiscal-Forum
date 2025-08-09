@@ -8,9 +8,7 @@ import {
   Smartphone,
   CheckCircle,
   ArrowRight,
-  Clock,
   User,
-  Award,
 } from "lucide-react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -397,8 +395,7 @@ const CreditCardApplyPage = () => {
       </div> */}
 
       {/* Hero Section */}
-      <section className="relative w-full h-[40vh] overflow-hidden">
-        {/* Swiper will control background image and content */}
+      <section className="relative w-full h-[50vh] overflow-hidden">
         <Swiper
           spaceBetween={30}
           slidesPerView={1}
@@ -410,23 +407,11 @@ const CreditCardApplyPage = () => {
         >
           {slides.map((slide, index) => (
             <SwiperSlide key={index}>
-              {/* Background Image */}
               <div className="absolute inset-0 z-0">
-                {/* <Image
-                  src={slide.image}
-                  alt={slide.title}
-                  fill
-                  sizes="100vw"
-                  className="object-cover object-center"
-                  priority
-                /> */}
-                {/* Gradient Overlay */}
                 <div
                   className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}/80`}
                 ></div>
               </div>
-
-              {/* Content */}
               <div className="relative z-10 h-full flex items-center px-6 sm:px-12 md:px-20 lg:px-32">
                 <motion.div
                   initial={{ opacity: 0, y: 50 }}
@@ -483,7 +468,7 @@ const CreditCardApplyPage = () => {
     </div>
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 text-white py-20">
+      {/* <section className="relative bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 text-white py-20">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative max-w-7xl mx-auto px-6">
           <div className="text-center">
@@ -510,7 +495,7 @@ const CreditCardApplyPage = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Key Benefits */}
       <section className="py-16 bg-white">

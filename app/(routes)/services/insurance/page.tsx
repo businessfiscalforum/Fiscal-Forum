@@ -276,7 +276,7 @@ const InsuranceLandingPage = () => {
     <div className="min-h-screen">
       <div className="text-gray-800 font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
         {/* Hero Section */}
-        <section className="relative w-full h-[40vh] overflow-hidden">
+        <section className="relative w-full h-[50vh] overflow-hidden">
           <Swiper
             spaceBetween={30}
             slidesPerView={1}

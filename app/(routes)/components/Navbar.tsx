@@ -42,12 +42,12 @@ export default function Navbar() {
   ];
 
   const servicesDropdown = [
-    "Loan",
-    "Insurance",
-    "Saving Account",
     "Stock Investment",
     "Mutual Funds",
+    "Insurance",
     "Credit Card",
+    "Saving Account",
+    "Loan",
     "Govt Bonds & FD",
   ];
 

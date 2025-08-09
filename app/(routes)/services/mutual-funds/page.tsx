@@ -8,9 +8,7 @@ import {
   Smartphone,
   CheckCircle,
   ArrowRight,
-  Clock,
   User,
-  Award,
 } from "lucide-react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -18,7 +16,6 @@ import { Autoplay, Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
-import Image from "next/image";
 import { FaRocket } from "react-icons/fa";
 import Link from "next/link";
 
@@ -87,7 +84,6 @@ const slides = [
     path: "services/govts-bond-&-fd",
   },
 ];
-
 
 const CreditCardApplyPage = () => {
   const [selectedCard, setSelectedCard] = useState("premium");
@@ -408,8 +404,7 @@ const CreditCardApplyPage = () => {
       </div> */}
 
         {/* Hero Section */}
-        <section className="relative w-full h-[40vh] overflow-hidden">
-          {/* Swiper will control background image and content */}
+        <section className="relative w-full h-[50vh] overflow-hidden">
           <Swiper
             spaceBetween={30}
             slidesPerView={1}
@@ -421,23 +416,11 @@ const CreditCardApplyPage = () => {
           >
             {slides.map((slide, index) => (
               <SwiperSlide key={index}>
-                {/* Background Image */}
                 <div className="absolute inset-0 z-0">
-                  {/* <Image
-                  src={slide.image}
-                  alt={slide.title}
-                  fill
-                  sizes="100vw"
-                  className="object-cover object-center"
-                  priority
-                /> */}
-                  {/* Gradient Overlay */}
                   <div
                     className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}/80`}
                   ></div>
                 </div>
-
-                {/* Content */}
                 <div className="relative z-10 h-full flex items-center px-6 sm:px-12 md:px-20 lg:px-32">
                   <motion.div
                     initial={{ opacity: 0, y: 50 }}
@@ -492,22 +475,9 @@ const CreditCardApplyPage = () => {
           <div className="swiper-pagination absolute bottom-8 w-full flex justify-center z-20"></div>
         </section>
       </div>
-      <div className="text-gray-800 font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 ">
-        {/* Floating Background Elements */}
-        {/* <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-blue-400/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-1/2 right-20 w-96 h-96 bg-gradient-to-r from-emerald-400/20 to-teal-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-gradient-to-r from-pink-400/20 to-rose-600/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
-      </div> */}
-
-        {/* Hero Section */}
+      {/* <div className="text-gray-800 font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 ">
+        
         <section className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white pt-32 pb-16 sm:pt-40 sm:pb-20 md:pt-52 md:pb-24 lg:pt-45 lg:pb-28 xl:pt-45 xl:pb-32 relative overflow-hidden">
-          {/* <div className="absolute inset-0 opacity-10 z-0"></div>
-        <div className="absolute inset-0">
-          <div className="absolute top-10 left-10 w-64 h-64 bg-gradient-to-r from-blue-500/30 to-purple-600/30 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-10 right-10 w-80 h-80 bg-gradient-to-r from-emerald-500/30 to-teal-600/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        </div> */}
-
           <div className="max-w-[1700px] mx-auto px-6 relative z-10">
             <Swiper
               spaceBetween={30}
@@ -589,10 +559,10 @@ const CreditCardApplyPage = () => {
             </Swiper>
           </div>
         </section>
-      </div>
+      </div> */}
       <div className="min-h-screen bg-gray-50">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 text-white py-20">
+        {/* <section className="relative bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 text-white py-20">
           <div className="absolute inset-0 bg-black/20"></div>
           <div className="relative max-w-7xl mx-auto px-6">
             <div className="text-center">
@@ -619,7 +589,7 @@ const CreditCardApplyPage = () => {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Key Benefits */}
         <section className="py-16 bg-white">

@@ -7,9 +7,7 @@ import {
   Gift,
   Smartphone,
   CheckCircle,
-  Clock,
-  User,
-  Award,
+  User
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -378,7 +376,7 @@ const CreditCardApplyPage = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative w-full h-[40vh] overflow-hidden">
+      <section className="relative w-full h-[50vh] overflow-hidden">
         {/* Swiper will control background image and content */}
         <Swiper
           spaceBetween={30}
@@ -463,7 +461,7 @@ const CreditCardApplyPage = () => {
       </section>
       <div className="min-h-screen bg-gray-50">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 text-white py-20">
+        {/* <section className="relative bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 text-white py-20">
           <div className="absolute inset-0 bg-black/20"></div>
           <div className="relative max-w-7xl mx-auto px-6">
             <div className="text-center">
@@ -490,7 +488,7 @@ const CreditCardApplyPage = () => {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Key Benefits */}
         <section className="py-16 bg-white">
