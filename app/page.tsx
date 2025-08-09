@@ -5,13 +5,7 @@ import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
 import {
-  FaPiggyBank,
-  FaShieldAlt,
-  FaChartLine,
-  FaWallet,
-  FaCreditCard,
   FaCoins,
-  FaUniversity,
   FaHandshake,
   FaUsers,
   FaBuilding,
@@ -101,57 +95,57 @@ const slides = [
   },
 ];
 
-const services = [
-  {
-    name: "Loan Services",
-    icon: FaWallet,
-    desc: "Flexible and quick loans for every need.",
-    gradient: "from-blue-500 to-indigo-600",
-    bgGradient: "from-blue-50 to-indigo-100",
-  },
-  {
-    name: "Insurance Plans",
-    icon: FaShieldAlt,
-    desc: "Comprehensive health and life coverage.",
-    gradient: "from-emerald-500 to-teal-600",
-    bgGradient: "from-emerald-50 to-teal-100",
-  },
-  {
-    name: "Savings Account",
-    icon: FaPiggyBank,
-    desc: "High-interest, zero-minimum balance accounts.",
-    gradient: "from-pink-500 to-rose-600",
-    bgGradient: "from-pink-50 to-rose-100",
-  },
-  {
-    name: "Stock Investment",
-    icon: FaChartLine,
-    desc: "Direct stock market access and tools.",
-    gradient: "from-purple-500 to-violet-600",
-    bgGradient: "from-purple-50 to-violet-100",
-  },
-  {
-    name: "Mutual Funds",
-    icon: FaCoins,
-    desc: "Diversified expert-managed portfolios.",
-    gradient: "from-amber-500 to-orange-600",
-    bgGradient: "from-amber-50 to-orange-100",
-  },
-  {
-    name: "Credit Card",
-    icon: FaCreditCard,
-    desc: "Rewards, cashback, and easy EMIs.",
-    gradient: "from-red-500 to-pink-600",
-    bgGradient: "from-red-50 to-pink-100",
-  },
-  {
-    name: "Govt Bonds & FD",
-    icon: FaUniversity,
-    desc: "Stable income with guaranteed returns.",
-    gradient: "from-green-500 to-emerald-600",
-    bgGradient: "from-green-50 to-emerald-100",
-  },
-];
+// const services = [
+//   {
+//     name: "Loan Services",
+//     icon: FaWallet,
+//     desc: "Flexible and quick loans for every need.",
+//     gradient: "from-blue-500 to-indigo-600",
+//     bgGradient: "from-blue-50 to-indigo-100",
+//   },
+//   {
+//     name: "Insurance Plans",
+//     icon: FaShieldAlt,
+//     desc: "Comprehensive health and life coverage.",
+//     gradient: "from-emerald-500 to-teal-600",
+//     bgGradient: "from-emerald-50 to-teal-100",
+//   },
+//   {
+//     name: "Savings Account",
+//     icon: FaPiggyBank,
+//     desc: "High-interest, zero-minimum balance accounts.",
+//     gradient: "from-pink-500 to-rose-600",
+//     bgGradient: "from-pink-50 to-rose-100",
+//   },
+//   {
+//     name: "Stock Investment",
+//     icon: FaChartLine,
+//     desc: "Direct stock market access and tools.",
+//     gradient: "from-purple-500 to-violet-600",
+//     bgGradient: "from-purple-50 to-violet-100",
+//   },
+//   {
+//     name: "Mutual Funds",
+//     icon: FaCoins,
+//     desc: "Diversified expert-managed portfolios.",
+//     gradient: "from-amber-500 to-orange-600",
+//     bgGradient: "from-amber-50 to-orange-100",
+//   },
+//   {
+//     name: "Credit Card",
+//     icon: FaCreditCard,
+//     desc: "Rewards, cashback, and easy EMIs.",
+//     gradient: "from-red-500 to-pink-600",
+//     bgGradient: "from-red-50 to-pink-100",
+//   },
+//   {
+//     name: "Govt Bonds & FD",
+//     icon: FaUniversity,
+//     desc: "Stable income with guaranteed returns.",
+//     gradient: "from-green-500 to-emerald-600",
+//     bgGradient: "from-green-50 to-emerald-100",
+//   },
+// ];
 
 const partners = [
   {
