@@ -81,8 +81,8 @@ const BusinessLoanPage = () => {
     switch (activeTab) {
       case 'overview':
         return (
-          <div className="space-y-8">
-            <div className="bg-gradient-to-r from-orange-50 via-amber-50 to-yellow-50 p-8 rounded-2xl">
+          <div className="space-y-6">
+            <div className="bg-gradient-to-r from-orange-50 via-amber-50 to-yellow-50 p-8 rounded-2xl ">
               <h3 className="text-2xl font-bold text-gray-800 mb-4">Business Loan Overview</h3>
               <p className="text-gray-700 text-lg leading-relaxed mb-6">
                 Fuel your business growth with our tailored Business Loan solutions. Whether you&apos;re expanding operations, 
@@ -267,10 +267,10 @@ const BusinessLoanPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-100">
+    <div className="bg-gradient-to-br from-orange-50 to-amber-100">
       {/* Header */}
-      <div className="bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 py-16">
+      <div className="bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 text-white ">
+        <div className="max-w-7xl mx-auto px-4 py-16 h-[40vh] flex items-center">
           <div className="flex items-center gap-4 mb-6">
             <div className="bg-white/20 p-3 rounded-xl">
               <Briefcase className="w-8 h-8" />
@@ -331,7 +331,9 @@ const BusinessLoanPage = () => {
               Apply Now
               <ArrowRight className="w-4 h-4" />
             </button>
-            <button className="border-2 border-white/30 px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
+            <button 
+            onClick={() => router.push('/services/loan/business-loan/call')}
+            className="border-2 border-white/30 px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
               <Phone className="w-4 h-4" />
               Talk to Expert
             </button>

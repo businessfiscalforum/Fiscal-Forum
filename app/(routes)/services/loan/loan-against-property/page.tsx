@@ -270,7 +270,7 @@ const LoanAgainstPropertyPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100">
       {/* Header */}
       <div className="bg-gradient-to-r from-emerald-600 via-teal-600 to-green-700 text-white">
-        <div className="max-w-7xl mx-auto px-4 py-16">
+        <div className="max-w-7xl mx-auto px-4 py-16 h-[40vh] flex items-center">
           <div className="flex items-center gap-4 mb-6">
             <div className="bg-white/20 p-3 rounded-xl">
               <Building2 className="w-8 h-8" />
@@ -331,7 +331,8 @@ const LoanAgainstPropertyPage = () => {
               Apply Now
               <ArrowRight className="w-4 h-4" />
             </button>
-            <button className="border-2 border-white/30 px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
+            <button onClick={() => router.push('/services/loan/loan-against-property/call')}
+            className="border-2 border-white/30 px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
               <Phone className="w-4 h-4" />
               Talk to Expert
             </button>
