@@ -28,6 +28,7 @@ import Link from "next/link";
 import HomeResearchAndNewsSection from "./(routes)/components/HomeResearchAndNewsSection";
 import { useState } from "react";
 import { BarChart3, BookOpen, Shield, TrendingUp, Wallet } from "lucide-react";
+import ResearchReportsSection from "./(routes)/components/ResearchReportsSection";
 
 const slides = [
   {
@@ -251,7 +252,7 @@ const [activeTab, setActiveTab] = useState<TabKey>("investment-products");
   const tabs = [
     { id: "investment-products", label: "Investment Products" },
     { id: "banking-products", label: "Banking Products" },
-    { id: "research-reports", label: "Research Reports" },
+    // { id: "research-reports", label: "Research Reports" },
   ];
 
   // Content for each tab
@@ -431,6 +432,9 @@ const [activeTab, setActiveTab] = useState<TabKey>("investment-products");
       {/* Top Stories */}
       <HomeResearchAndNewsSection/>
 
+      {/* Research */ }
+      <ResearchReportsSection/>
+
       {/* Services Section */}
       <section className=" bg-gradient-to-br from-slate-50 to-white relative overflow-hidden">
         {/* <div className="absolute inset-0">
@@ -447,7 +451,7 @@ const [activeTab, setActiveTab] = useState<TabKey>("investment-products");
           >
             💼 Our Premium Services
           </motion.h2> */}
-          <main className="min-h-screen bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 px-4 md:px-8 py-16">
+          <main className="bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 px-4 md:px-8 py-16">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -479,7 +483,7 @@ const [activeTab, setActiveTab] = useState<TabKey>("investment-products");
         </div>
 
         {/* Content Grid */}
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
           {content[activeTab].map((item, index) => (
             <motion.div
               key={index}
@@ -537,7 +541,7 @@ const [activeTab, setActiveTab] = useState<TabKey>("investment-products");
           <div className="absolute bottom-1/4 right-10 w-80 h-80 bg-gradient-to-r from-cyan-200/40 to-blue-300/40 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div> */}
 
-        <div className="max-w-8xl mx-auto px-6 text-center relative z-10">
+        <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -555,7 +559,7 @@ const [activeTab, setActiveTab] = useState<TabKey>("investment-products");
 
           </motion.p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <motion.div
                 key={index}

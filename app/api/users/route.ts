@@ -44,7 +44,6 @@ export async function POST(req: NextRequest) {
         status: "PENDING",
       })
       .returning();
-
     return NextResponse.json(newUser, { status: 201 });
   } catch (error) {
     console.error("User insert error:", error);

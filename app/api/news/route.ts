@@ -36,7 +36,6 @@ export async function GET() {
     // --- CORS Configuration ---
     // Allow requests from your other domain
     response.headers.set('Access-Control-Allow-Origin', 'https://fiscalforum.in');
-    response.headers.set('Access-Control-Allow-Origin', 'https://www.fiscalforum.in');
     response.headers.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
     response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 

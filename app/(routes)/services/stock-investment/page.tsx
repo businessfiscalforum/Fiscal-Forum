@@ -14,6 +14,8 @@ import {
   Sparkles,
   TrendingUp,
   BarChart3,
+  FolderOpen,
+  UserCheck,
 } from "lucide-react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -89,7 +91,6 @@ const slides = [
     path: "services/govts-bond-&-fd",
   },
 ];
-
 
 const CreditCardApplyPage = () => {
   // const [formData, setFormData] = useState({
@@ -374,7 +375,7 @@ const CreditCardApplyPage = () => {
   //   }
   // ];
 
-   const investmentOptions = [
+  const investmentOptions = [
     {
       id: "equity-etfs",
       title: "Equity & ETFs",
@@ -443,7 +444,6 @@ const CreditCardApplyPage = () => {
     },
   ];
 
-
   // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
   //   setFormData({
   //     ...formData,
@@ -459,87 +459,87 @@ const CreditCardApplyPage = () => {
 
   return (
     <>
-    <div className="text-gray-800 font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 ">
-      {/* Floating Background Elements */}
-      {/* <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+      <div className="text-gray-800 font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 ">
+        {/* Floating Background Elements */}
+        {/* <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-blue-400/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute top-1/2 right-20 w-96 h-96 bg-gradient-to-r from-emerald-400/20 to-teal-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
         <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-gradient-to-r from-pink-400/20 to-rose-600/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
       </div> */}
 
-      {/* Hero Section */}
-      <section className="relative w-full h-[50vh] overflow-hidden">
-        <Swiper
-          spaceBetween={30}
-          slidesPerView={1}
-          loop
-          autoplay={{ delay: 4000, disableOnInteraction: false }}
-          pagination={{ clickable: true }}
-          modules={[Autoplay, Pagination]}
-          className="w-full h-full"
-        >
-          {slides.map((slide, index) => (
-            <SwiperSlide key={index}>
-              <div className="absolute inset-0 z-0">
-                <div
-                  className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}/80`}
-                ></div>
-              </div>
-              <div className="relative z-10 h-full flex items-center px-6 sm:px-12 md:px-20 lg:px-32">
-                <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                  className="text-white max-w-xl"
-                >
-                  <motion.p
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="uppercase tracking-widest text-sm text-yellow-200 font-semibold mb-2"
+        {/* Hero Section */}
+        <section className="relative w-full h-[50vh] overflow-hidden">
+          <Swiper
+            spaceBetween={30}
+            slidesPerView={1}
+            loop
+            autoplay={{ delay: 4000, disableOnInteraction: false }}
+            pagination={{ clickable: true }}
+            modules={[Autoplay, Pagination]}
+            className="w-full h-full"
+          >
+            {slides.map((slide, index) => (
+              <SwiperSlide key={index}>
+                <div className="absolute inset-0 z-0">
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}/80`}
+                  ></div>
+                </div>
+                <div className="relative z-10 h-full flex items-center px-6 sm:px-12 md:px-20 lg:px-32">
+                  <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="text-white max-w-xl"
                   >
-                    {slide.subtitle}
-                  </motion.p>
-                  <motion.h2
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.4 }}
-                    className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6"
-                  >
-                    {slide.title}
-                  </motion.h2>
-                  <motion.p
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.6 }}
-                    className="text-lg sm:text-xl mb-8 opacity-90 leading-relaxed"
-                  >
-                    {slide.description}
-                  </motion.p>
-                  <Link href={slide.path}>
-                    <motion.button
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.8 }}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition-all duration-300 flex items-center gap-3"
+                    <motion.p
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="uppercase tracking-widest text-sm text-yellow-200 font-semibold mb-2"
                     >
-                      Know More
-                      <FaRocket className="group-hover:translate-x-1 transition-transform" />
-                    </motion.button>
-                  </Link>
-                </motion.div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+                      {slide.subtitle}
+                    </motion.p>
+                    <motion.h2
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.4 }}
+                      className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6"
+                    >
+                      {slide.title}
+                    </motion.h2>
+                    <motion.p
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.6 }}
+                      className="text-lg sm:text-xl mb-8 opacity-90 leading-relaxed"
+                    >
+                      {slide.description}
+                    </motion.p>
+                    <Link href={slide.path}>
+                      <motion.button
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.8 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition-all duration-300 flex items-center gap-3"
+                      >
+                        Know More
+                        <FaRocket className="group-hover:translate-x-1 transition-transform" />
+                      </motion.button>
+                    </Link>
+                  </motion.div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
 
-        {/* Swiper Pagination is now styled */}
-        <div className="swiper-pagination absolute bottom-8 w-full flex justify-center z-20"></div>
-      </section>
-    </div>
-     <main className="min-h-screen bg-gray-50 px-4 md:px-8 py-16">
+          {/* Swiper Pagination is now styled */}
+          <div className="swiper-pagination absolute bottom-8 w-full flex justify-center z-20"></div>
+        </section>
+      </div>
+      <main className="min-h-screen bg-gray-50 px-4 md:px-8 py-16">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -551,7 +551,8 @@ const CreditCardApplyPage = () => {
             Stock Investment
           </h1>
           <p className="text-lg text-gray-600 leading-relaxed">
-            Choose the right investment path to grow your wealth with confidence and clarity.
+            Choose the right investment path to grow your wealth with confidence
+            and clarity.
           </p>
         </motion.div>
 
@@ -573,9 +574,13 @@ const CreditCardApplyPage = () => {
                   <Link href={option.link} passHref>
                     <div className="p-6 space-y-4 h-full flex flex-col cursor-pointer bg-white">
                       {/* Icon */}
-                      <div className={`p-3 rounded-xl ${option.iconBgColor} flex-shrink-0 w-12 h-12 flex items-center justify-center`}>
+                      <div
+                        className={`p-3 rounded-xl ${option.iconBgColor} flex-shrink-0 w-12 h-12 flex items-center justify-center`}
+                      >
                         {IconComponent && (
-                          <IconComponent className={`w-6 h-6 ${option.iconColor}`} />
+                          <IconComponent
+                            className={`w-6 h-6 ${option.iconColor}`}
+                          />
                         )}
                       </div>
 
@@ -612,8 +617,43 @@ const CreditCardApplyPage = () => {
             })}
           </div>
         </div>
-      </main>
 
+        <section className="bg-white py-16">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
+            {/* Open Demat Account */}
+            <div className="bg-blue-600 rounded-3xl p-10 flex flex-col justify-between shadow-xl min-h-[250px] hover:-translate-y-2 transition-transform duration-300 group">
+              <div className="flex items-center gap-4">
+                <FolderOpen className="w-10 h-10 text-white transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
+                <h2 className="text-white text-3xl md:text-4xl font-bold leading-snug">
+                  Open Demat Account.
+                </h2>
+              </div>
+              <button
+                onClick={() => alert("Open Demat Account clicked")}
+                className="mt-8 w-fit border border-white text-white px-6 py-3 rounded-full text-base font-medium hover:bg-white hover:text-blue-600 transition-all duration-300"
+              >
+                Click here
+              </button>
+            </div>
+
+            {/* Already Have An Account */}
+            <div className="bg-white rounded-3xl p-10 flex flex-col justify-between border shadow-xl min-h-[250px] hover:-translate-y-2 transition-transform duration-300 group">
+              <div className="flex items-center gap-4">
+                <UserCheck className="w-10 h-10 text-blue-600 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
+                <h2 className="text-blue-900 text-3xl md:text-4xl font-bold leading-snug">
+                  Already Have An Account
+                </h2>
+              </div>
+              <button
+                onClick={() => alert("Already Have An Account clicked")}
+                className="mt-8 w-fit border border-blue-600 text-blue-600 px-6 py-3 rounded-full text-base font-medium hover:bg-blue-600 hover:text-white transition-all duration-300"
+              >
+                Click here
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
     </>
   );
 };

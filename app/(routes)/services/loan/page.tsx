@@ -549,11 +549,11 @@ const LoanLandingPage = () => {
                     </button>
                     <button
                       onClick={() =>
-                        router.push(`/services/loan/${loan.id}/get-quote`)
+                        router.push(`/services/loan/${loan.id}/apply`)
                       }
                       className={`flex-1 bg-gradient-to-r ${loan.gradient} hover:scale-105 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl`}
                     >
-                      Get Quote
+                      Apply Now
                     </button>
                   </div>
                 </div>
