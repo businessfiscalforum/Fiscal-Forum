@@ -9,6 +9,8 @@ import {
   CheckCircle,
   ArrowRight,
   User,
+  UserCheck,
+  FolderOpen,
 } from "lucide-react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -16,7 +18,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
-import { FaRocket } from "react-icons/fa";
+import { FaAward, FaBalanceScale, FaChartLine, FaGem, FaHandHoldingUsd, FaRegBuilding, FaRegClock, FaRocket, FaUsers } from "react-icons/fa";
 import Link from "next/link";
 
 const slides = [
@@ -374,6 +376,30 @@ const CreditCardApplyPage = () => {
     },
   ];
 
+  const cards = [
+    {
+      id: 1,
+      title: "All Mutual Funds",
+      description: "Invest together, diversify easily, and let professionals grow your money for any goal, big or small.",
+      icon: <FaChartLine className="text-2xl" />,
+      link: "/mutual-funds/all"
+    },
+    {
+      id: 2,
+      title: "Loan Against Mutual Funds",
+      description: "Unlock quick cash by pledging funds. Cover expenses smartly without selling your long-term mutual fund investments.",
+      icon: <FaHandHoldingUsd className="text-2xl" />,
+      link: "/mutual-funds/loan"
+    },
+    {
+      id: 3,
+      title: "Sovereign Gold Bonds (SGBs)",
+      description: "Grow wealth safely in gold. Earn interest, skip storage worries, and keep your portfolio shining bright.",
+      icon: <FaGem className="text-2xl" />,
+      link: "/mutual-funds/sgb"
+    }
+  ];
+
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -475,377 +501,67 @@ const CreditCardApplyPage = () => {
           <div className="swiper-pagination absolute bottom-8 w-full flex justify-center z-20"></div>
         </section>
       </div>
-      {/* <div className="text-gray-800 font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 ">
-        
-        <section className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white pt-32 pb-16 sm:pt-40 sm:pb-20 md:pt-52 md:pb-24 lg:pt-45 lg:pb-28 xl:pt-45 xl:pb-32 relative overflow-hidden">
-          <div className="max-w-[1700px] mx-auto px-6 relative z-10">
-            <Swiper
-              spaceBetween={30}
-              slidesPerView={1}
-              loop
-              autoplay={{ delay: 4000, disableOnInteraction: false }}
-              pagination={{ clickable: true }}
-              modules={[Autoplay, Pagination]}
-              className="rounded-3xl overflow-hidden shadow-2xl "
-            >
-              {slides.map((slide, index) => (
-                <SwiperSlide key={index}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className={`flex flex-col lg:flex-row h-[800px] items-center justify-between backdrop-blur-xl bg-gradient-to-r ${slide.gradient}/90 p-8 rounded-3xl shadow-2xl border border-white/20
-`}
-                  >
-                    <div className="w-full lg:w-1/2 space-y-8">
-                      <motion.p
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.2 }}
-                        className="uppercase tracking-widest text-sm text-yellow-200 font-semibold"
-                      >
-                        {slide.subtitle}
-                      </motion.p>
-                      <motion.h2
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.4 }}
-                        className="text-5xl font-bold bg-gradient-to-r from-white to-yellow-200 bg-clip-text text-transparent"
-                      >
-                        {slide.title}
-                      </motion.h2>
-                      <motion.p
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.6 }}
-                        className="text-xl text-white/90 leading-relaxed"
-                      >
-                        {slide.description}
-                      </motion.p>
-                      <Link href={slide.path}>
-                        <motion.button
-                          initial={{ opacity: 0, y: 20 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.2 }}
-                          whileHover={{ scale: 1.05, y: -2 }}
-                          whileTap={{ scale: 0.95 }}
-                          className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-slate-900 px-6 py-3 rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center gap-2 group"
-                        >
-                          Know More
-                          <FaRocket className="group-hover:translate-x-1 transition-transform" />
-                        </motion.button>
-                      </Link>
-                    </div>
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.4 }}
-                      className="w-full lg:w-1/2 h-full relative"
-                    >
-                      <div className="relative h-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20">
-                        <Image
-                          src={slide.image}
-                          alt={slide.title}
-                          fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          className="object-cover hover:scale-105 transition-transform duration-700"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                      </div>
-                    </motion.div>
-                  </motion.div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        </section>
-      </div> */}
       <div className="min-h-screen bg-gray-50">
-        {/* Hero Section */}
-        {/* <section className="relative bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 text-white py-20">
-          <div className="absolute inset-0 bg-black/20"></div>
-          <div className="relative max-w-7xl mx-auto px-6">
-            <div className="text-center">
-              <h1 className="text-5xl font-bold mb-6">
-                Apply for Credit Card Online
-              </h1>
-              <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                Get instant approval and unlock a world of financial freedom
-                with exclusive rewards, cashback, and premium benefits
-              </p>
-              <div className="flex justify-center items-center space-x-8 text-sm">
-                <div className="flex items-center">
-                  <Clock className="h-5 w-5 mr-2" />
-                  <span>Instant Approval</span>
+
+
+        {/* Credit Cards List */}
+        <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-blue-900 mb-4">Mutual Funds</h2>
+          <p className="text-lg text-blue-700 max-w-2xl mx-auto">
+            Smart investment solutions tailored to your financial goals
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {cards.map((card) => (
+            <div 
+              key={card.id}
+              className="bg-white rounded-2xl shadow-xl overflow-hidden border border-blue-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 group"
+            >
+              <div className="p-1 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
+              
+              <div className="p-8">
+                <div className="flex justify-center mb-6">
+                  <div className="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                    {card.icon}
+                  </div>
                 </div>
-                <div className="flex items-center">
-                  <Shield className="h-5 w-5 mr-2" />
-                  <span>100% Secure</span>
-                </div>
-                <div className="flex items-center">
-                  <Award className="h-5 w-5 mr-2" />
-                  <span>Premium Benefits</span>
+                
+                <h3 className="text-2xl font-bold text-center text-blue-900 mb-4 group-hover:text-blue-700 transition-colors">
+                  {card.title}
+                </h3>
+                
+                <p className="text-gray-600 text-center mb-6 leading-relaxed">
+                  {card.description}
+                </p>
+                
+                <div className="text-center">
+                  <a 
+                    href={card.link}
+                    className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:from-blue-600 hover:to-indigo-700 hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  >
+                    Learn More
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      className="h-5 w-5" 
+                      viewBox="0 0 20 20" 
+                      fill="currentColor"
+                    >
+                      <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </a>
                 </div>
               </div>
             </div>
-          </div>
-        </section> */}
-
-        {/* Key Benefits */}
-        <section className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Why Choose Our Credit Cards?
-              </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Experience the perfect blend of convenience, security, and
-                rewards with our premium credit card offerings
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {benefits.map((benefit, index) => (
-                <div
-                  key={index}
-                  className="text-center p-6 rounded-xl bg-gray-50 hover:bg-blue-50 transition-colors"
-                >
-                  <div className="bg-blue-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <benefit.icon className="h-8 w-8 text-white" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm">{benefit.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Credit Cards List */}
-        <section className="py-16 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Choose Your Perfect Credit Card
-              </h2>
-              <p className="text-gray-600">
-                Explore our comprehensive range of 10 credit cards designed for
-                different lifestyles and needs
-              </p>
-            </div>
-
-            {/* Quick Filter */}
-            <div className="flex flex-wrap justify-center gap-4 mb-8">
-              <button className="px-4 py-2 bg-blue-500 text-white rounded-full text-sm font-medium">
-                All Cards
-              </button>
-              <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-300">
-                Cashback
-              </button>
-              <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-300">
-                Travel
-              </button>
-              <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-300">
-                Fuel
-              </button>
-              <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-300">
-                Premium
-              </button>
-            </div>
-
-            <div className="space-y-6">
-              {creditCards.map((card, index) => (
-                <div
-                  key={card.id}
-                  className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden ${
-                    selectedCard === card.id
-                      ? "ring-4 ring-blue-500 transform scale-[1.02]"
-                      : ""
-                  } ${card.popular ? "border-2 border-purple-500" : ""}`}
-                >
-                  {card.popular && (
-                    <div className="absolute top-6 right-6 bg-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold z-10">
-                      Most Popular
-                    </div>
-                  )}
-
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 p-6">
-                    {/* Card Visual */}
-                    <div className="lg:col-span-3">
-                      <div
-                        className={`h-48 bg-gradient-to-br ${card.gradient} p-6 text-white relative rounded-xl`}
-                      >
-                        <div className="absolute top-4 left-6">
-                          <CreditCard className="h-8 w-8" />
-                        </div>
-                        <div className="absolute bottom-6 left-6">
-                          <h3 className="text-lg font-bold">{card.name}</h3>
-                          <p className="text-sm opacity-90">{card.type}</p>
-                        </div>
-                        <div className="absolute bottom-6 right-6">
-                          <div className="w-16 h-10 bg-white/20 rounded backdrop-blur-sm flex items-center justify-center">
-                            <span className="text-xs font-bold">VISA</span>
-                          </div>
-                        </div>
-                        <div className="absolute top-4 right-6">
-                          <div className="text-right">
-                            <div className="text-sm opacity-75">
-                              Card #{index + 1}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Card Details */}
-                    <div className="lg:col-span-6">
-                      <div className="h-full flex flex-col">
-                        <h3 className="text-xl font-bold text-gray-900 mb-2">
-                          {card.name}
-                        </h3>
-                        <p className="text-gray-600 mb-4">
-                          {card.type} Credit Card
-                        </p>
-
-                        {/* Key Highlights */}
-                        <div className="grid grid-cols-3 gap-4 mb-4 p-4 bg-gray-50 rounded-lg">
-                          <div className="text-center">
-                            <div className="font-bold text-lg text-blue-600">
-                              {card.highlights.cashback}
-                            </div>
-                            <div className="text-xs text-gray-600">
-                              Max Cashback
-                            </div>
-                          </div>
-                          <div className="text-center">
-                            <div className="font-bold text-lg text-green-600">
-                              {card.highlights.creditLimit}
-                            </div>
-                            <div className="text-xs text-gray-600">
-                              Credit Limit
-                            </div>
-                          </div>
-                          <div className="text-center">
-                            <div className="font-bold text-lg text-purple-600">
-                              {card.highlights.rewardPoints}
-                            </div>
-                            <div className="text-xs text-gray-600">Rewards</div>
-                          </div>
-                        </div>
-
-                        {/* Key Features - First 3 */}
-                        <div className="space-y-2 flex-1">
-                          {card.features.slice(0, 3).map((feature, fIndex) => (
-                            <div
-                              key={fIndex}
-                              className="flex items-start text-sm"
-                            >
-                              <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                              <span className="text-gray-700">{feature}</span>
-                            </div>
-                          ))}
-                          {card.features.length > 3 && (
-                            <div className="text-sm text-blue-600 font-medium">
-                              +{card.features.length - 3} more benefits
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Pricing & Action */}
-                    <div className="lg:col-span-3">
-                      <div className="h-full flex flex-col justify-between">
-                        {/* Pricing */}
-                        <div className="space-y-4">
-                          <div className="bg-gray-50 p-4 rounded-lg">
-                            <div className="flex justify-between items-center mb-2">
-                              <span className="text-sm text-gray-600">
-                                Joining Fee:
-                              </span>
-                              <span className="font-bold text-gray-900">
-                                {card.joiningFee}
-                              </span>
-                            </div>
-                            <div className="flex justify-between items-center">
-                              <span className="text-sm text-gray-600">
-                                Annual Fee:
-                              </span>
-                              <span className="font-bold text-gray-900">
-                                {card.annualFee}
-                              </span>
-                            </div>
-                          </div>
-
-                          {/* Special Offers */}
-                          {card.joiningFee === "₹0" && (
-                            <div className="bg-green-50 border border-green-200 p-3 rounded-lg">
-                              <div className="flex items-center">
-                                <Gift className="h-4 w-4 text-green-600 mr-2" />
-                                <span className="text-sm text-green-800 font-medium">
-                                  Lifetime Free
-                                </span>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Action Buttons */}
-                        <div className="space-y-3 mt-6">
-                          <button
-                            onClick={() => {
-                              setSelectedCard(card.id);
-                              setFormData({ ...formData, cardType: card.id });
-                            }}
-                            className={`w-full py-3 px-4 rounded-lg font-semibold transition-all ${
-                              selectedCard === card.id
-                                ? "bg-blue-500 text-white hover:bg-blue-600"
-                                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                            }`}
-                          >
-                            {selectedCard === card.id
-                              ? "Selected"
-                              : "Select Card"}
-                          </button>
-
-                          <button
-                            onClick={() => {
-                              setSelectedCard(card.id);
-                              setFormData({ ...formData, cardType: card.id });
-                              setShowApplication(true);
-                            }}
-                            className="w-full py-3 px-4 rounded-lg font-semibold bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 transition-all hover:cursor-pointer"
-                          >
-                            Apply Now
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Expandable Features Section */}
-                  <div className="border-t border-gray-100 p-6 bg-gray-50">
-                    <h4 className="font-semibold text-gray-900 mb-3">
-                      Complete Benefits & Features:
-                    </h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      {card.features.map((feature, fIndex) => (
-                        <div key={fIndex} className="flex items-start text-sm">
-                          <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span className="text-gray-700">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+          ))}
+        </div>
+      </div>
+    </section>
 
         {/* Application Process */}
-        <section className="py-16 bg-white">
+        {/* <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">
@@ -875,7 +591,7 @@ const CreditCardApplyPage = () => {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Eligibility Criteria */}
         <section className="py-16 bg-gray-50">
@@ -905,257 +621,44 @@ const CreditCardApplyPage = () => {
           </div>
         </section>
 
-        {/* Application Form */}
-        {showApplication && (
-          <section className="py-16 bg-white text-black">
-            <div className="max-w-4xl mx-auto px-6">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                  Credit Card Application
+                <section className="bg-white py-16">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
+            {/* Open Demat Account */}
+            <div className="bg-blue-600 rounded-3xl p-10 flex flex-col justify-between shadow-xl min-h-[250px] hover:-translate-y-2 transition-transform duration-300 group">
+              <div className="flex items-center gap-4">
+                <FolderOpen className="w-10 h-10 text-white transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
+                <h2 className="text-white text-3xl md:text-4xl font-bold leading-snug">
+                  Open Demat Account.
                 </h2>
-                <p className="text-gray-600">
-                  Fill in your details to apply for your selected credit card
-                </p>
               </div>
-
-              <div className="bg-gray-50 p-8 rounded-2xl">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Personal Information */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                      Personal Information
-                    </h3>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        First Name *
-                      </label>
-                      <input
-                        type="text"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Last Name *
-                      </label>
-                      <input
-                        type="text"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Email *
-                      </label>
-                      <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Phone Number *
-                      </label>
-                      <input
-                        type="tel"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Date of Birth *
-                      </label>
-                      <input
-                        type="date"
-                        name="dateOfBirth"
-                        value={formData.dateOfBirth}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        PAN Number *
-                      </label>
-                      <input
-                        type="text"
-                        name="panNumber"
-                        value={formData.panNumber}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="ABCDE1234F"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Employment & Financial Information */}
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                      Employment & Financial Details
-                    </h3>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Employment Type *
-                      </label>
-                      <select
-                        name="employmentType"
-                        value={formData.employmentType}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      >
-                        <option value="">Select Employment Type</option>
-                        <option value="salaried">Salaried</option>
-                        <option value="self-employed">Self Employed</option>
-                        <option value="business">Business Owner</option>
-                        <option value="professional">Professional</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Company/Organization *
-                      </label>
-                      <input
-                        type="text"
-                        name="company"
-                        value={formData.company}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Annual Income *
-                      </label>
-                      <select
-                        name="annualIncome"
-                        value={formData.annualIncome}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      >
-                        <option value="">Select Annual Income</option>
-                        <option value="3-5">₹3-5 Lakhs</option>
-                        <option value="5-10">₹5-10 Lakhs</option>
-                        <option value="10-15">₹10-15 Lakhs</option>
-                        <option value="15-25">₹15-25 Lakhs</option>
-                        <option value="25+">₹25+ Lakhs</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Address *
-                      </label>
-                      <textarea
-                        name="address"
-                        value={formData.address}
-                        onChange={handleInputChange}
-                        required
-                        rows={3}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          City *
-                        </label>
-                        <input
-                          type="text"
-                          name="city"
-                          value={formData.city}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          PIN Code *
-                        </label>
-                        <input
-                          type="text"
-                          name="pincode"
-                          value={formData.pincode}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Terms and Submit */}
-                <div className="mt-8 pt-6 border-t border-gray-200">
-                  <div className="flex items-center mb-6">
-                    <input
-                      type="checkbox"
-                      id="terms"
-                      required
-                      className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="ml-2 text-sm text-gray-700"
-                    >
-                      I agree to the{" "}
-                      <span className="text-blue-600 underline">
-                        Terms & Conditions
-                      </span>{" "}
-                      and
-                      <span className="text-blue-600 underline">
-                        {" "}
-                        Privacy Policy
-                      </span>
-                    </label>
-                  </div>
-
-                  <button
-                    onClick={handleSubmit}
-                    className="w-full bg-blue-500 text-white py-4 px-8 rounded-lg font-semibold hover:bg-blue-600 transition-colors flex items-center justify-center"
-                  >
-                    Submit Application
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </button>
-                </div>
-              </div>
+              <button
+                onClick={() => alert("Open Demat Account clicked")}
+                className="mt-8 w-fit border border-white text-white px-6 py-3 rounded-full text-base font-medium hover:bg-white hover:text-blue-600 transition-all duration-300"
+              >
+                Click here
+              </button>
             </div>
-          </section>
-        )}
+
+            {/* Already Have An Account */}
+            <div className="bg-white rounded-3xl p-10 flex flex-col justify-between border shadow-xl min-h-[250px] hover:-translate-y-2 transition-transform duration-300 group">
+              <div className="flex items-center gap-4">
+                <UserCheck className="w-10 h-10 text-blue-600 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
+                <h2 className="text-blue-900 text-3xl md:text-4xl font-bold leading-snug">
+                  Already Have An Account
+                </h2>
+              </div>
+              <button
+                onClick={() => alert("Already Have An Account clicked")}
+                className="mt-8 w-fit border border-blue-600 text-blue-600 px-6 py-3 rounded-full text-base font-medium hover:bg-blue-600 hover:text-white transition-all duration-300"
+              >
+                Click here
+              </button>
+            </div>
+          </div>
+        </section>
 
         {/* CTA Section */}
-        {!showApplication && (
+        {/* {!showApplication && (
           <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
             <div className="max-w-4xl mx-auto px-6 text-center">
               <h2 className="text-3xl font-bold mb-4">Ready to Apply?</h2>
@@ -1172,8 +675,52 @@ const CreditCardApplyPage = () => {
               </button>
             </div>
           </section>
-        )}
+        )} */}
       </div>
+              <section className="py-16 bg-gradient-to-r from-emerald-800 to-teal-800 text-white">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-12">
+      <h2 className="text-3xl md:text-4xl font-bold mb-4">Grow Your Wealth Smartly</h2>
+      <p className="text-xl text-emerald-200 max-w-3xl mx-auto">
+        Diversified investment solutions tailored to your financial goals
+      </p>
+    </div>
+    
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaBalanceScale />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Risk-Adjusted Returns</h3>
+        <p className="text-emerald-100">Portfolio optimization for maximum returns with controlled risk</p>
+      </div>
+      
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaUsers />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Expert Management</h3>
+        <p className="text-emerald-100">Professional fund managers with proven track records</p>
+      </div>
+      
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaRegClock />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Flexible SIP Options</h3>
+        <p className="text-emerald-100">Start investing with as little as ₹500 per month</p>
+      </div>
+      
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaAward />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Referral Rewards</h3>
+        <p className="text-emerald-100">Earn 1% commission on friends&apos; investment amounts</p>
+      </div>
+    </div>
+  </div>
+</section>
     </>
   );
 };

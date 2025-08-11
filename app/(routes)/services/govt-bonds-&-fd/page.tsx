@@ -15,7 +15,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
-import { FaRocket } from "react-icons/fa";
+import { FaAward, FaRegClock, FaRegMoneyBillAlt, FaRocket, FaUniversity } from "react-icons/fa";
 import Link from "next/link";
 
 const slides = [
@@ -1083,7 +1083,7 @@ const CreditCardApplyPage = () => {
         )}
 
         {/* CTA Section */}
-        {!showApplication && (
+        {/* {!showApplication && (
           <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
             <div className="max-w-4xl mx-auto px-6 text-center">
               <h2 className="text-3xl font-bold mb-4">Ready to Apply?</h2>
@@ -1100,7 +1100,51 @@ const CreditCardApplyPage = () => {
               </button>
             </div>
           </section>
-        )}
+        )} */}
+        <section className="py-16 bg-gradient-to-r from-green-800 to-emerald-800 text-white">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-12">
+      <h2 className="text-3xl md:text-4xl font-bold mb-4">Preserve and Grow Your Wealth</h2>
+      <p className="text-xl text-green-200 max-w-3xl mx-auto">
+        Secure investment options with guaranteed returns and stability
+      </p>
+    </div>
+    
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaUniversity />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Government Backed</h3>
+        <p className="text-green-100">100% capital guarantee with sovereign security</p>
+      </div>
+      
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaRegClock />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Flexible Tenures</h3>
+        <p className="text-green-100">Investment periods from 7 days to 20 years</p>
+      </div>
+      
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaRegMoneyBillAlt />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Regular Income</h3>
+        <p className="text-green-100">Monthly/quarterly interest payout options</p>
+      </div>
+      
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaAward />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Referral Rewards</h3>
+        <p className="text-green-100">Earn 1% commission on friends&apos; investment amounts</p>
+      </div>
+    </div>
+  </div>
+</section>
       </div>
     </>
   );

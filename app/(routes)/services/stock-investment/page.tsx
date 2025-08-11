@@ -23,7 +23,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
-import { FaRocket } from "react-icons/fa";
+import { FaAward, FaChartLine, FaHeadset, FaRocket } from "react-icons/fa";
 import Link from "next/link";
 
 const slides = [
@@ -485,7 +485,7 @@ const CreditCardApplyPage = () => {
                     className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}/80`}
                   ></div>
                 </div>
-                <div className="relative z-10 h-full flex items-center px-6 sm:px-12 md:px-20 lg:px-32">
+                <div className="relative z-10 h-full flex items-center ">
                   <motion.div
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -539,7 +539,7 @@ const CreditCardApplyPage = () => {
           <div className="swiper-pagination absolute bottom-8 w-full flex justify-center z-20"></div>
         </section>
       </div>
-      <main className="min-h-screen bg-gray-50 px-4 md:px-8 py-16">
+      <main className="min-h-screen bg-gray-50 pt-20">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -653,6 +653,50 @@ const CreditCardApplyPage = () => {
             </div>
           </div>
         </section>
+        <section className="py-16 bg-gradient-to-r from-blue-900 to-indigo-900 text-white">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-12">
+      <h2 className="text-3xl md:text-4xl font-bold mb-4">Master the Markets with Confidence</h2>
+      <p className="text-xl text-blue-200 max-w-3xl mx-auto">
+        Empower your investment journey with expert tools and insights
+      </p>
+    </div>
+    
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaChartLine />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Advanced Analytics</h3>
+        <p className="text-blue-100">Real-time data and technical indicators for informed decisions</p>
+      </div>
+      
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaHeadset />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Expert Support</h3>
+        <p className="text-blue-100">Dedicated relationship managers for your trading needs</p>
+      </div>
+      
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaRocket />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Fast Execution</h3>
+        <p className="text-blue-100">Lightning-fast order execution with minimal slippage</p>
+      </div>
+      
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaAward />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Referral Rewards</h3>
+        <p className="text-blue-100">Earn ₹500 for every friend who starts trading with us</p>
+      </div>
+    </div>
+  </div>
+</section>
       </main>
     </>
   );

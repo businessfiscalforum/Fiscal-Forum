@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { FaRocket } from "react-icons/fa";
+import { FaAward, FaBalanceScale, FaBolt, FaRegMoneyBillAlt, FaRocket } from "react-icons/fa";
 
 const slides = [
   {
@@ -479,7 +479,7 @@ const LoanLandingPage = () => {
 
       <div className="bg-white shadow-2xl overflow-hidden">
         {/* Loan Types Section */}
-        <div className="p-12 md:p-20 bg-gray-50">
+        <div className="pt-20 bg-gray-50">
           <div className="text-center mb-16">
             <h3 className="text-4xl font-bold text-gray-800 mb-4">
               Choose Your Loan Type
@@ -582,7 +582,7 @@ const LoanLandingPage = () => {
                     <span className="font-semibold text-gray-900">
                       {parseInt(
                         formData.loanAmount.toString()
-                      ).toLocaleString()}
+                      ).toLocaleString("en-IN")}
                     </span>
                   </label>
                   <div className="relative">
@@ -703,6 +703,50 @@ const LoanLandingPage = () => {
               </div>
             </div>
           </section>
+          <section className="py-16 bg-gradient-to-r from-amber-800 to-orange-800 text-white">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-12">
+      <h2 className="text-3xl md:text-4xl font-bold mb-4">Turn Dreams into Reality</h2>
+      <p className="text-xl text-amber-200 max-w-3xl mx-auto">
+        Flexible financing solutions tailored to your life goals
+      </p>
+    </div>
+    
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaBolt />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Instant Approval</h3>
+        <p className="text-amber-100">Get approved within 24 hours with minimal documentation</p>
+      </div>
+      
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaRegMoneyBillAlt />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Competitive Rates</h3>
+        <p className="text-amber-100">Interest rates starting from 8.4% for qualified borrowers</p>
+      </div>
+      
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaBalanceScale />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Flexible Tenure</h3>
+        <p className="text-amber-100">Repayment options from 12 months to 30 years</p>
+      </div>
+      
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaAward />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Referral Rewards</h3>
+        <p className="text-amber-100">Earn 0.5% of loan amount as cashback for referrals</p>
+      </div>
+    </div>
+  </div>
+</section>
         </div>
       </div>
     </>

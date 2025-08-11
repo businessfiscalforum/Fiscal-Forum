@@ -16,7 +16,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
-import { FaRocket } from "react-icons/fa";
+import { FaAward, FaMobileAlt, FaPiggyBank, FaRocket, FaWallet } from "react-icons/fa";
 import Link from "next/link";
 
 const slides = [
@@ -944,23 +944,51 @@ const CreditCardApplyPage = () => {
       )}
 
       {/* CTA Section */}
-      {!showApplication && (
-        <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <h2 className="text-3xl font-bold mb-4">Ready to Apply?</h2>
-            <p className="text-xl text-blue-100 mb-8">
-              Join thousands of satisfied customers and start enjoying premium credit card benefits today
-            </p>
-            <button
-              onClick={() => setShowApplication(true)}
-              className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center"
-            >
-              Apply Now
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </button>
-          </div>
-        </section>
-      )}
+<section className="py-16 bg-gradient-to-r from-cyan-800 to-blue-800 text-white">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-12">
+      <h2 className="text-3xl md:text-4xl font-bold mb-4">Maximize Your Savings Potential</h2>
+      <p className="text-xl text-cyan-200 max-w-3xl mx-auto">
+        Smart banking solutions that grow with your financial journey
+      </p>
+    </div>
+    
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaPiggyBank />
+        </div>
+        <h3 className="text-lg font-bold mb-2">High Interest Rates</h3>
+        <p className="text-cyan-100">Earn up to 7% interest on your savings balance</p>
+      </div>
+      
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaMobileAlt />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Digital Banking</h3>
+        <p className="text-cyan-100">24/7 mobile access with instant notifications</p>
+      </div>
+      
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaWallet />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Zero Fees</h3>
+        <p className="text-cyan-100">No minimum balance requirements or hidden charges</p>
+      </div>
+      
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaAward />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Referral Rewards</h3>
+        <p className="text-cyan-100">Earn ₹500 for every friend who opens an account</p>
+      </div>
+    </div>
+  </div>
+</section>
+
     </div>
     </>
   );

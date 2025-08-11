@@ -18,6 +18,7 @@ import {
   FaAward,
   FaCheckCircle,
   FaHeadset,
+  FaRegLightbulb,
 } from "react-icons/fa";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -32,69 +33,189 @@ import ResearchReportsSection from "./(routes)/components/ResearchReportsSection
 
 const slides = [
   {
-    title: "Loan Services",
-    subtitle: "Get Instant Access to",
-    description:
-      "Choose from personal, home, or education loans with low interest rates and flexible repayment options.",
-    image: "/asset-loan.jpg",
-    gradient: "from-blue-600 via-blue-500 to-purple-600",
-    path: "services/loan",
-  },
-  {
-    title: "Insurance Plans",
-    subtitle: "Protect Your Future with",
-    description:
-      "Health, car, and life insurance plans tailored to your needs — secure your family and assets today.",
-    image: "/asset-insurance.jpg",
-    gradient: "from-emerald-600 via-teal-500 to-cyan-600",
-    path: "services/insurance",
-  },
-  {
-    title: "Savings Account",
-    subtitle: "Grow Your Wealth with a",
-    description:
-      "High-interest savings accounts with zero balance requirements and easy online access.",
-    image: "/asset-saving.jpg",
-    gradient: "from-green-600 via-emerald-500 to-teal-600",
-    path: "services/saving-account",
-  },
-  {
     title: "Stock Investment",
-    subtitle: "Invest Smartly in the",
-    description:
-      "Build a diversified portfolio and start investing in the stock market with expert guidance.",
-    image: "/asset-stock.jpg",
-    gradient: "from-violet-600 via-purple-500 to-indigo-600",
+    subtitle: "Empower Your Portfolio",
+    description: "Access real-time market data, advanced charting tools, and expert research to make informed investment decisions. Trade in equities, derivatives, and currencies with confidence.",
+    image: "/stock.jpg",
+    cta: "Start Trading",
+    features: [
+      "Zero brokerage on equity delivery",
+      "Advanced charting tools",
+      "Real-time market alerts",
+      "Expert research & recommendations"
+    ],
     path: "services/stock-investment",
+    stats: [
+      { value: "1M+", label: "Active Traders" },
+      { value: "5000+", label: "Stocks & ETFs" },
+      { value: "24/7", label: "Market Support" }
+    ],
+    benefits: [
+      "High liquidity markets",
+      "Diverse investment options",
+      "Professional research tools",
+      "Secure trading platform"
+    ],
+    tagline: "Trade Smarter, Grow Faster"
   },
   {
     title: "Mutual Funds",
-    subtitle: "Explore High-Return",
-    description:
-      "Access professionally managed mutual funds to meet your financial goals across risk profiles.",
-    image: "/asset-mutual.jpg",
-    gradient: "from-cyan-600 via-blue-500 to-indigo-600",
+    subtitle: "Smart Investment Solutions",
+    description: "Diversify your portfolio with our expert-curated mutual fund options. Systematic investment plans, goal-based investing, and professional fund management.",
+    image: "/mutual.jpg",
+    cta: "Start Investing",
+    features: [
+      "500+ fund options",
+      "SIP starting from ₹500",
+      "Expert research reports",
+      "Zero commission plans"
+    ],
     path: "services/mutual-funds",
+    stats: [
+      { value: "₹2.5L Cr", label: "Assets Under Management" },
+      { value: "15+", label: "AMC Partners" },
+      { value: "98%", label: "Customer Satisfaction" }
+    ],
+    benefits: [
+      "Professional fund management",
+      "Diversification benefits",
+      "Flexible investment options",
+      "Regular performance tracking"
+    ],
+    tagline: "Invest Wisely, Prosper Always"
   },
   {
-    title: "Credit Card",
-    subtitle: "Power Your Spending with a",
-    description:
-      "Choose the right credit card for rewards, cashback, and low-interest EMIs.",
-    image: "/asset-credit.jpg",
-    gradient: "from-orange-600 via-red-500 to-pink-600",
+    title: "Insurance",
+    subtitle: "Comprehensive Protection",
+    description: "Protect your family's future with our extensive insurance plans. Cashless hospitalization, wide network of hospitals, and coverage for critical illnesses.",
+    image: "/insurance.jpg",
+    cta: "Get Quote",
+    features: [
+      "Coverage up to ₹1 crore",
+      "6,000+ network hospitals",
+      "No claim bonus up to 50%",
+      "Family floater plans"
+    ],
+    path: "services/insurance",
+    stats: [
+      { value: "95%", label: "Claim Settlement Ratio" },
+      { value: "24x7", label: "Customer Support" },
+      { value: "15+", label: "Insurance Partners" }
+    ],
+    benefits: [
+      "Comprehensive health coverage",
+      "Life protection plans",
+      "Motor insurance solutions",
+      "Quick claim settlement"
+    ],
+    tagline: "Secure Today, Empower Tomorrow"
+  },
+  {
+    title: "Credit Cards",
+    subtitle: "Premium Financial Companion",
+    description: "Choose from our range of credit cards with exclusive rewards, cashback offers, and lifestyle benefits. Build credit history while enjoying premium privileges.",
+    image: "/stock2.jpg",
+    cta: "Apply Now",
+    features: [
+      "Reward points on every purchase",
+      "Airport lounge access",
+      "Zero liability protection",
+      "EMI conversion facility"
+    ],
     path: "services/credit-card",
+    stats: [
+      { value: "50+", label: "Credit Card Variants" },
+      { value: "₹10Cr+", label: "Rewards Distributed" },
+      { value: "24x7", label: "Fraud Monitoring" }
+    ],
+    benefits: [
+      "Exclusive lifestyle benefits",
+      "Travel perks & lounge access",
+      "Cashback on every transaction",
+      "EMI options for big purchases"
+    ],
+    tagline: "Spend Smart, Earn More"
+  },
+  {
+    title: "Savings Accounts",
+    subtitle: "Grow Your Wealth",
+    description: "Maximize your savings with our high-interest savings accounts. Enjoy zero balance requirements, easy online access, and a range of value-added services.",
+    image: "/savings.jpg",
+    cta: "Open Account",
+    features: [
+      "Interest rates up to 7%",
+      "Zero minimum balance",
+      "24/7 mobile banking",
+      "Free ATM withdrawals"
+    ],
+    path: "services/savings-account",
+    stats: [
+      { value: "50L+", label: "Happy Customers" },
+      { value: "₹1000 Cr+", label: "Deposits Managed" },
+      { value: "99.9%", label: "Uptime Guarantee" }
+    ],
+    benefits: [
+      "Competitive interest rates",
+      "Digital banking solutions",
+      "Multiple account variants",
+      "24/7 customer support"
+    ],
+    tagline: "Save Today, Prosper Tomorrow"
+  },
+  {
+    title: "Loans",
+    subtitle: "Flexible Financing Solutions",
+    description: "Get instant access to personal, home, and business loans with competitive interest rates, minimal documentation, and quick disbursal tailored to your needs.",
+    image: "/loans.jpg",
+    cta: "Apply Now",
+    features: [
+      "Interest rates from 8.4%",
+      "Loan amount up to ₹5 Cr",
+      "Instant approval in 24 hours",
+      "Flexible repayment tenure"
+    ],
+    path: "services/loans",
+    stats: [
+      { value: "₹50,000 Cr+", label: "Loans Disbursed" },
+      { value: "95%", label: "Customer Approval" },
+      { value: "24 hrs", label: "Fastest Approval" }
+    ],
+    benefits: [
+      "Competitive interest rates",
+      "Quick processing & disbursal",
+      "Minimal documentation",
+      "Flexible repayment options"
+    ],
+    tagline: "Your Dreams, Our Commitment"
   },
   {
     title: "Govt Bonds & FDs",
-    subtitle: "Secure Investments with",
-    description:
-      "Low-risk government bonds and fixed deposits to preserve capital and earn steady returns.",
-    image: "/asset-bondfd.jpg",
-    gradient: "from-yellow-600 via-amber-500 to-orange-600",
-    path: "services/govts-bond-&-fd",
+    subtitle: "Secure Investment Growth",
+    description: "Maximize your savings with our competitive fixed deposit and government bond schemes. Guaranteed returns, flexible tenures, and multiple payout options for your financial security.",
+    image: "/govt.jpg",
+    cta: "View Rates",
+    features: [
+      "Interest rates up to 7.5%",
+      "Tenure from 7 days to 20 years",
+      "Monthly/Quarterly interest payout",
+      "Loan against FD facility"
+    ],
+    path: "/govt.jpg",
+    stats: [
+      { value: "₹1 Lakh Cr+", label: "Deposits Managed" },
+      { value: "AAA", label: "Credit Rating" },
+      { value: "100%", label: "Capital Guarantee" }
+    ],
+    benefits: [
+      "Guaranteed returns",
+      "Government-backed security",
+      "Flexible investment tenures",
+      "Regular interest payouts"
+    ],
+    tagline: "Stability You Can Trust"
   },
 ];
+
 
 // const services = [
 //   {
@@ -372,88 +493,174 @@ const [activeTab, setActiveTab] = useState<TabKey>("investment-products");
 
       {/* Hero Section */}
       <section className="relative w-full h-screen overflow-hidden">
-        {/* Swiper will control background image and content */}
-        <Swiper
-          spaceBetween={30}
-          slidesPerView={1}
-          loop
-          autoplay={{ delay: 4000, disableOnInteraction: false }}
-          pagination={{ clickable: true }}
-          modules={[Autoplay, Pagination]}
-          className="w-full h-full"
-        >
-          {slides.map((slide, index) => (
-            <SwiperSlide key={index}>
-              {/* Background Image */}
-              <div className="absolute inset-0 z-0">
-                {/* <Image
-                  src={slide.image}
-                  alt={slide.title}
-                  fill
-                  sizes="100vw"
-                  className="object-cover object-center"
-                  priority
-                /> */}
-                {/* Gradient Overlay */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}/80`}
-                ></div>
-              </div>
+  <Swiper
+    spaceBetween={30}
+    slidesPerView={1}
+    loop
+    autoplay={{ delay: 6000, disableOnInteraction: false }}
+    pagination={{ clickable: true }}
+    modules={[Autoplay, Pagination]}
+    className="w-full h-full"
+  >
+    {slides.map((slide, index) => (
+      <SwiperSlide key={index} className="relative">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={slide.image}
+            alt={slide.title}
+            fill
+            sizes="100vw"
+            className="object-cover object-center"
+            priority
+          />
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-black/20"></div>
+        </div>
 
-              {/* Content */}
-              <div className="relative z-10 h-full flex items-center px-6 sm:px-12 md:px-20 lg:px-32">
-                <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                  className="text-white max-w-xl"
-                >
-                  <motion.p
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="uppercase tracking-widest text-sm text-yellow-200 font-semibold mb-2"
+        {/* Content Container */}
+        <div className="relative z-10 h-full flex flex-col lg:flex-row p-4 sm:p-6 md:p-8">
+          {/* Left Content Column */}
+          <div className="w-full lg:w-1/2 flex items-center py-20">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-white w-full max-w-2xl"
+            >
+              <motion.p
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 }}
+                className="uppercase tracking-wider text-[10px] sm:text-xs md:text-sm text-yellow-300 font-bold mb-2 sm:mb-3"
+              >
+                {slide.subtitle}
+              </motion.p>
+              <motion.h2
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 leading-tight"
+              >
+                {slide.title}
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 }}
+                className="text-xs sm:text-sm md:text-base mb-4 sm:mb-5 opacity-90 leading-relaxed"
+              >
+                {slide.description}
+              </motion.p>
+
+              {/* Features List */}
+              <motion.ul
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-5 sm:mb-6"
+              >
+                {slide.features.map((feature, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <FaCheckCircle className="text-green-400 flex-shrink-0 mt-0.5 text-xs sm:text-sm" />
+                    <span className="text-[10px] sm:text-xs md:text-sm font-medium">{feature}</span>
+                  </li>
+                ))}
+              </motion.ul>
+
+              {/* Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link href={slide.path}>
+                  <motion.button
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg font-bold shadow-lg transition-all duration-300 flex items-center justify-center gap-2 text-xs sm:text-sm"
                   >
-                    {slide.subtitle}
-                  </motion.p>
-                  <motion.h2
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.4 }}
-                    className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6"
-                  >
-                    {slide.title}
-                  </motion.h2>
-                  <motion.p
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    {slide.cta}
+                    <FaRocket className="transition-transform text-xs sm:text-sm" />
+                  </motion.button>
+                </Link>
+                <Link href="/contact">
+                  <motion.button
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 }}
-                    className="text-lg sm:text-xl mb-8 opacity-90 leading-relaxed"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full sm:w-auto bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg font-bold shadow-lg transition-all duration-300 border border-white/30 text-xs sm:text-sm"
                   >
-                    {slide.description}
-                  </motion.p>
-                  <Link href={slide.path}>
-                    <motion.button
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.8 }}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition-all duration-300 flex items-center gap-3"
-                    >
-                      Know More
-                      <FaRocket className="group-hover:translate-x-1 transition-transform" />
-                    </motion.button>
-                  </Link>
-                </motion.div>
+                    Talk to Expert
+                  </motion.button>
+                </Link>
               </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+            </motion.div>
+          </div>
 
-        {/* Swiper Pagination is now styled */}
-        <div className="swiper-pagination absolute bottom-8 w-full flex justify-center z-20"></div>
-      </section>
+          {/* Right Content Column */}
+          <div className="w-full lg:w-1/2 flex flex-col justify-center mt-6 lg:mt-0 lg:pl-8">
+            <div className="flex flex-col gap-4 sm:gap-5">
+              {/* Top Right - Stats */}
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-5 border border-white/20"
+              >
+                <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-3 sm:mb-4">Key Statistics</h3>
+                <div className="grid grid-cols-3 gap-3">
+                  {slide.stats.map((stat, i) => (
+                    <div key={i} className="text-center">
+                      <div className="text-lg sm:text-xl md:text-2xl font-extrabold text-yellow-300">{stat.value}</div>
+                      <div className="text-[10px] xs:text-xs sm:text-sm text-white/80 mt-1 leading-tight">{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Middle Right - Benefits */}
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-5 border border-white/20"
+              >
+                <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-3 sm:mb-4">Perks Of Connecting with us!</h3>
+                <ul className="space-y-2">
+                  {slide.benefits.map((benefit, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <FaRegLightbulb className="text-yellow-300 mt-0.5 flex-shrink-0 text-xs sm:text-sm" />
+                      <span className="text-[10px] xs:text-xs sm:text-sm text-white/90 leading-tight">{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+
+              {/* Bottom Right - Tagline */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
+                className="text-right"
+              >
+                <div className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white leading-tight">
+                  {slide.tagline}
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </SwiperSlide>
+    ))}
+  </Swiper>
+
+  {/* Custom Pagination */}
+  <div className="swiper-pagination absolute bottom-4 sm:bottom-6 w-full flex justify-center z-20 gap-1 sm:gap-2"></div>
+</section>
+
+      
 
       {/* Top Stories */}
       <HomeResearchAndNewsSection/>

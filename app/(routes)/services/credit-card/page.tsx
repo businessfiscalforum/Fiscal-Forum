@@ -15,7 +15,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
-import { FaRocket } from "react-icons/fa";
+import { FaAward, FaCreditCard, FaPlane, FaRegMoneyBillAlt, FaRocket } from "react-icons/fa";
 import Link from "next/link";
 
 const slides = [
@@ -788,6 +788,50 @@ const CreditCardApplyPage = () => {
             </div>
           </div>
         </section>
+        <section className="py-16 bg-gradient-to-r from-purple-800 to-indigo-800 text-white">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-12">
+      <h2 className="text-3xl md:text-4xl font-bold mb-4">Unlock Premium Lifestyle Benefits</h2>
+      <p className="text-xl text-purple-200 max-w-3xl mx-auto">
+        Reward yourself with exclusive privileges and cashback offers
+      </p>
+    </div>
+    
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaCreditCard />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Reward Points</h3>
+        <p className="text-purple-100">Earn up to 10X points on dining and travel spends</p>
+      </div>
+      
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaPlane />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Travel Perks</h3>
+        <p className="text-purple-100">Airport lounge access and travel insurance benefits</p>
+      </div>
+      
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaRegMoneyBillAlt />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Cashback Offers</h3>
+        <p className="text-purple-100">Up to 5% cashback on monthly transactions</p>
+      </div>
+      
+      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+        <div className="text-yellow-400 text-2xl mb-4">
+          <FaAward />
+        </div>
+        <h3 className="text-lg font-bold mb-2">Referral Rewards</h3>
+        <p className="text-purple-100">Get ₹2000 and your friend gets ₹1000 joining bonus</p>
+      </div>
+    </div>
+  </div>
+</section>
       </div>
     </>
   );
