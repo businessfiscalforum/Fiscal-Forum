@@ -43,7 +43,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error('Subscription error:', error);
     return NextResponse.json(
-      { error: 'Failed to subscribe. Please try again.' },
+      { error: 'Failed to subscribe. Please sign-in to subscribe.' },
       { status: 500 }
     );
   }

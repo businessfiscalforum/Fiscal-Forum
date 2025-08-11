@@ -228,17 +228,43 @@ const features = [
   {
     title: "Exclusive Rewards & Cashback",
     icon: FaCoins,
-    desc: "Every services you choose brings unique perks,, tailored rewards, and cashback benefits that add extra value to your journey",
+    desc: "Every services you choose brings unique perks, tailored rewards, and cashback benefits that add extra value to your journey",
   }
 ];
 
 const logos = [
   "/alice-blue.png",
+  "/angel-one.png",
   "/choice.png",
   "/motilal-oswal.png",
-  "/Nj-wealth.jpeg",
+  "/Nj-wealth.png",
   "/prudent.png",
-  "/upstox.svg",
+  "/upstox.png",
+  "/navuma.png",
+  "/alice-blue.png",
+  "/angel-one.png",
+  "/choice.png",
+  "/motilal-oswal.png",
+  "/Nj-wealth.png",
+  "/prudent.png",
+  "/upstox.png",
+  "/navuma.png",
+  "/alice-blue.png",
+  "/angel-one.png",
+  "/choice.png",
+  "/motilal-oswal.png",
+  "/Nj-wealth.png",
+  "/prudent.png",
+  "/upstox.png",
+  "/navuma.png",
+  "/alice-blue.png",
+  "/angel-one.png",
+  "/choice.png",
+  "/motilal-oswal.png",
+  "/Nj-wealth.png",
+  "/prudent.png",
+  "/upstox.png",
+  "/navuma.png",
 ];
 
 
@@ -708,50 +734,43 @@ const [activeTab, setActiveTab] = useState<TabKey>("investment-products");
       </section>
 
       {/* Affiliations Section */}
-      <section className="py-20 bg-gradient-to-r from-white via-indigo-50 to-purple-50 overflow-hidden relative">
-        <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-gradient-to-r from-indigo-200/20 to-purple-300/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-gradient-to-r from-blue-200/20 to-cyan-300/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        </div>
+<section className="py-20 bg-gradient-to-r from-white via-indigo-50 to-purple-50 overflow-hidden relative">
+  {/* Background gradient blobs */}
+  <div className="absolute inset-0">
+    <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-gradient-to-r from-indigo-200/20 to-purple-300/20 rounded-full blur-3xl animate-pulse"></div>
+    <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-gradient-to-r from-blue-200/20 to-cyan-300/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+  </div>
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="text-center text-3xl font-bold mb-12 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"
-          >
-            🏢 Our Trusted Affiliations
-          </motion.h2>
-          <div className="relative">
-            <div
-              className="flex space-x-16"
-              style={{
-                animation: "scroll 5s linear infinite",
-              }}
-            >
-              {[...logos, ...logos].map((logo, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ scale: 1.1, y: -5 }}
-                  className="flex-shrink-0 w-40 h-24 relative group"
-                >
-                  <div className="">
-                    <div className="w-full h-full relative group flex items-center justify-center">
-                      <Image
-                        src={logo}
-                        alt={`Partner ${i}`}
-                        width={150}
-                        height={100}
-                        className="object-cover opacity-70 group-hover:opacity-100 transition-opacity "
-                      />
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+<div className="relative overflow-hidden">
+  <div
+    className="flex animate-scroll"
+    style={{
+      animation: "scroll 10s linear infinite",
+    }}
+  >
+    {[...logos, ...logos].map((logo, i) => (
+      <motion.div
+        key={i}
+        whileHover={{ scale: 1.1, y: -5 }}
+        className="flex-shrink-0 w-28 h-20 flex items-center justify-center mr-12"
+      >
+        <Image
+          src={logo}
+          alt={`Partner ${i}`}
+          width={110}
+          height={80}
+          className="object-cover opacity-70 hover:opacity-100 transition-opacity"
+        />
+      </motion.div>
+    ))}
+  </div>
+
+</div>
+
+
+  {/* Keyframes for smooth infinite scroll */}
+</section>
+
 
       {/* Newsletter Section */}
       <section className="py-24 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white text-center relative overflow-hidden">
@@ -862,41 +881,15 @@ const [activeTab, setActiveTab] = useState<TabKey>("investment-products");
 
       {/* Custom Styles */}
       <style jsx>{`
-        @keyframes scroll {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-
-        // .animate-scroll {
-        //   animation: scroll 5s linear infinite;
-        // }
-
-        .animate-scroll:hover {
-          animation-play-state: paused;
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-          width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-          background: #f1f5f9;
-        }
-
-        ::-webkit-scrollbar-thumb {
-          background: linear-gradient(to bottom, #6366f1, #8b5cf6);
-          border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(to bottom, #4f46e5, #7c3aed);
-        }
-      `}</style>
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+  `}</style>
     </div>
   );
 }

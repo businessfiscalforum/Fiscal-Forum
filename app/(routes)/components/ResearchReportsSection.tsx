@@ -152,7 +152,7 @@ const ResearchReportsSection = () => {
       }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      setMessage({ text: 'Subscription failed. Please try again.', type: 'error' });
+      setMessage({ text: 'Subscription failed. Please sign-in to subscribe.', type: 'error' });
     } finally {
       setIsSubmitting(false);
     }
