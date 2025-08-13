@@ -230,7 +230,7 @@ export default function HomeNewsAndResearchSection() {
         {/* Header */}
         <div className="mb-10 text-center">
           <h2 className="text-4xl font-bold text-blue-800 mb-4">
-            Financial Intelligence Hub
+            Financial News Hub
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Curated insights and breaking news from global markets
@@ -241,7 +241,7 @@ export default function HomeNewsAndResearchSection() {
         <div className="flex flex-wrap justify-center gap-1 md:gap-2 mb-10 border-b border-gray-200 pb-2">
           {[
             { id: "NewsBuzz", label: "Market Mania" },
-            { id: "CorpPulse", label: "Corporate Pulse" },
+            { id: "CorpPulse", label: "Corp Pulse" },
             { id: "IPOScoop", label: "IPO Scoop" }
           ].map((tab) => (
             <button

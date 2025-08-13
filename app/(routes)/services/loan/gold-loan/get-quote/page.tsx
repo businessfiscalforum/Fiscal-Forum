@@ -1,10 +1,8 @@
-import React from 'react'
-import GetQuote from '../../../../components/GetQuote'
+import React from "react";
+import GetQuote from "../../../../_components/GetQuote";
 
 const page = () => {
-  return (
-    <GetQuote/>
-  )
-}
+  return <GetQuote />;
+};
 
-export default page
+export default page;

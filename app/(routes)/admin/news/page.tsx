@@ -4,7 +4,7 @@ import { db } from "../../../../config/db";
 import { newsTable } from "../../../../config/schema";
 
 import Link from "next/link";
-import { DeleteNewsButton } from "../../components/DeleteNewsButton";
+import { DeleteNewsButton } from "../../_components/DeleteNewsButton";
 
 export default async function NewsListPage() {
   const news = await db.select().from(newsTable).orderBy(newsTable.publishDate);

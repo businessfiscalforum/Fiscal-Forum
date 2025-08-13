@@ -23,7 +23,13 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { FaAward, FaBolt, FaHeadset, FaRocket, FaShieldAlt } from "react-icons/fa";
+import {
+  FaAward,
+  FaBolt,
+  FaHeadset,
+  FaRocket,
+  FaShieldAlt,
+} from "react-icons/fa";
 
 const slides = [
   {
@@ -90,7 +96,6 @@ const slides = [
     path: "services/govts-bond-&-fd",
   },
 ];
-
 
 const InsuranceLandingPage = () => {
   const router = useRouter();
@@ -393,14 +398,14 @@ const InsuranceLandingPage = () => {
         </div> */}
 
         {/* Insurance Types Section */}
-        <div className=" bg-gray-50 pt-20">
-          <div className="text-center mb-12">
+        <div className=" bg-gray-50 pt-20 p-20">
+          <div className="text-center  ">
             <h3 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
               Choose Your Insurance Type
             </h3>
             <p className="text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto">
-              Explore our comprehensive range of insurance products designed to protect 
-              what matters most to you
+              Explore our comprehensive range of insurance products designed to
+              protect what matters most to you
             </p>
           </div>
 
@@ -418,7 +423,7 @@ const InsuranceLandingPage = () => {
                       Popular
                     </div>
                   )}
-                  
+
                   {/* Icon and Header */}
                   <div className="flex items-center mb-4">
                     <div
@@ -482,7 +487,7 @@ const InsuranceLandingPage = () => {
           </div>
 
           {/* Why Choose Us */}
-          <section className="py-12 bg-white mt-16 rounded-2xl shadow-lg">
+          {/* <section className="py-12 bg-white mt-16 rounded-2xl shadow-lg">
             <div className="mx-auto px-6">
               <div className="text-center mb-8">
                 <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">
@@ -506,7 +511,7 @@ const InsuranceLandingPage = () => {
                 ))}
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* Claim Process */}
           <section className="py-12 bg-gray-100 mt-8 rounded-2xl">
@@ -539,52 +544,63 @@ const InsuranceLandingPage = () => {
               </div>
             </div>
           </section>
-          <section className="py-16 bg-gradient-to-r from-red-800 to-rose-800 text-white">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="text-center mb-12">
-      <h2 className="text-3xl md:text-4xl font-bold mb-4">Secure Your Tomorrow Today</h2>
-      <p className="text-xl text-red-200 max-w-3xl mx-auto">
-        Comprehensive protection plans for every stage of life
-      </p>
-    </div>
-    
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-        <div className="text-yellow-400 text-2xl mb-4">
-          <FaShieldAlt />
-        </div>
-        <h3 className="text-lg font-bold mb-2">Complete Coverage</h3>
-        <p className="text-red-100">Protection against health, life, and property risks</p>
-      </div>
-      
-      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-        <div className="text-yellow-400 text-2xl mb-4">
-          <FaBolt />
-        </div>
-        <h3 className="text-lg font-bold mb-2">Instant Claims</h3>
-        <p className="text-red-100">95% claim settlement ratio with 24-hour processing</p>
-      </div>
-      
-      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-        <div className="text-yellow-400 text-2xl mb-4">
-          <FaHeadset />
-        </div>
-        <h3 className="text-lg font-bold mb-2">24/7 Support</h3>
-        <p className="text-red-100">Round-the-clock assistance for all your insurance needs</p>
-      </div>
-      
-      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-        <div className="text-yellow-400 text-2xl mb-4">
-          <FaAward />
-        </div>
-        <h3 className="text-lg font-bold mb-2">Referral Rewards</h3>
-        <p className="text-red-100">Earn ₹1000 cashback for every successful policy referral</p>
-      </div>
-    </div>
-  </div>
-</section>
+          
         </div>
       </div>
+      <section className="py-16 bg-gradient-to-r from-red-800 to-rose-800 text-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                  Secure Your Tomorrow Today
+                </h2>
+                <p className="text-xl text-red-200 max-w-3xl mx-auto">
+                  Comprehensive protection plans for every stage of life
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+                  <div className="text-yellow-400 text-2xl mb-4">
+                    <FaShieldAlt />
+                  </div>
+                  <h3 className="text-lg font-bold mb-2">Complete Coverage</h3>
+                  <p className="text-red-100">
+                    Protection against health, life, and property risks
+                  </p>
+                </div>
+
+                <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+                  <div className="text-yellow-400 text-2xl mb-4">
+                    <FaBolt />
+                  </div>
+                  <h3 className="text-lg font-bold mb-2">Instant Claims</h3>
+                  <p className="text-red-100">
+                    95% claim settlement ratio with 24-hour processing
+                  </p>
+                </div>
+
+                <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+                  <div className="text-yellow-400 text-2xl mb-4">
+                    <FaHeadset />
+                  </div>
+                  <h3 className="text-lg font-bold mb-2">24/7 Support</h3>
+                  <p className="text-red-100">
+                    Round-the-clock assistance for all your insurance needs
+                  </p>
+                </div>
+
+                <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+                  <div className="text-yellow-400 text-2xl mb-4">
+                    <FaAward />
+                  </div>
+                  <h3 className="text-lg font-bold mb-2">Referral Rewards</h3>
+                  <p className="text-red-100">
+                    Earn ₹1000 cashback for every successful policy referral
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
     </div>
   );
 };

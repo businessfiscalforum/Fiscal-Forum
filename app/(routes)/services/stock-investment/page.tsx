@@ -558,10 +558,11 @@ const CreditCardApplyPage = () => {
 
         {/* Investment Cards Grid */}
         <div className="max-w-7xl mx-auto">
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {investmentOptions.map((option, index) => {
               const IconComponent = option.icon;
-
+                          
               return (
                 <motion.div
                   key={option.id}
@@ -571,6 +572,7 @@ const CreditCardApplyPage = () => {
                   whileHover={{ y: -8, scale: 1.02 }}
                   className="relative rounded-2xl shadow-lg overflow-hidden transition-all duration-300 transform hover:shadow-xl bg-white"
                 >
+                  <div className="p-1 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
                   <Link href={option.link} passHref>
                     <div className="p-6 space-y-4 h-full flex flex-col cursor-pointer bg-white">
                       {/* Icon */}

@@ -4,7 +4,7 @@ import { db } from "../../../../config/db";
 import { researchReportsTable } from "../../../../config/schema";
 
 import Link from "next/link";
-import { DeleteReportButton } from "../../components/DeleteReportButton";
+import { DeleteReportButton } from "../../_components/DeleteReportButton";
 
 export default async function NewsListPage() {
   const reports = await db

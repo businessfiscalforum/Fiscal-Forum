@@ -218,7 +218,11 @@ const ResearchReportsSection = () => {
 
         {/* Subscribe Section */}
         <div className="mb-8">
-          <h3 className="text-xl text-blue-900 mb-4">Stay Updated</h3>
+          <h3 className="text-xl text-blue-900 mb-4">Stay Connected With Us</h3>
+          <p className="text-xl text-blue-900 leading-relaxed">
+                Subscribe to our newsletter for exclusive financial tips, market
+                insights, and special offers tailored just for you.
+              </p>
           <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
             <input 
               type="email" 

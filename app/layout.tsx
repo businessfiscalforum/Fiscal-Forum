@@ -3,16 +3,16 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 // import { GlowCursor } from "./(routes)/components/GlowCursor";
-import Navbar from "./(routes)/components/Navbar";
+import Navbar from "./(routes)/_components/Navbar";
 import Provider from "./provider";
-import Footer from "./(routes)/components/Footer";
+import Footer from "./(routes)/_components/Footer";
 
 export const metadata: Metadata = {
   title: "Fiscal Forum",
   description: "Financial discussions and insights",
-  icons:{
-    icon: '/favicon.ico',
-  }
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

@@ -26,196 +26,202 @@ import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import Link from "next/link";
-import HomeResearchAndNewsSection from "./(routes)/components/HomeResearchAndNewsSection";
+import HomeResearchAndNewsSection from "./(routes)/_components/HomeResearchAndNewsSection";
 import { useState } from "react";
 import { BarChart3, BookOpen, Shield, TrendingUp, Wallet } from "lucide-react";
-import ResearchReportsSection from "./(routes)/components/ResearchReportsSection";
+import ResearchReportsSection from "./(routes)/_components/ResearchReportsSection";
 
 const slides = [
   {
     title: "Stock Investment",
     subtitle: "Empower Your Portfolio",
-    description: "Access real-time market data, advanced charting tools, and expert research to make informed investment decisions. Trade in equities, derivatives, and currencies with confidence.",
+    description:
+      "Access real-time market data, advanced charting tools, and expert research to make informed investment decisions. Trade in equities, derivatives, and currencies with confidence.",
     image: "/stock.jpg",
     cta: "Start Trading",
     features: [
       "Zero brokerage on equity delivery",
       "Advanced charting tools",
       "Real-time market alerts",
-      "Expert research & recommendations"
+      "Expert research & recommendations",
     ],
     path: "services/stock-investment",
     stats: [
       { value: "1M+", label: "Active Traders" },
       { value: "5000+", label: "Stocks & ETFs" },
-      { value: "24/7", label: "Market Support" }
+      { value: "24/7", label: "Market Support" },
     ],
     benefits: [
       "High liquidity markets",
       "Diverse investment options",
       "Professional research tools",
-      "Secure trading platform"
+      "Secure trading platform",
     ],
-    tagline: "Trade Smarter, Grow Faster"
+    tagline: "Trade Smarter, Grow Faster",
   },
   {
     title: "Mutual Funds",
     subtitle: "Smart Investment Solutions",
-    description: "Diversify your portfolio with our expert-curated mutual fund options. Systematic investment plans, goal-based investing, and professional fund management.",
+    description:
+      "Diversify your portfolio with our expert-curated mutual fund options. Systematic investment plans, goal-based investing, and professional fund management.",
     image: "/mutual.jpg",
     cta: "Start Investing",
     features: [
       "500+ fund options",
       "SIP starting from ₹500",
       "Expert research reports",
-      "Zero commission plans"
+      "Zero commission plans",
     ],
     path: "services/mutual-funds",
     stats: [
       { value: "₹2.5L Cr", label: "Assets Under Management" },
       { value: "15+", label: "AMC Partners" },
-      { value: "98%", label: "Customer Satisfaction" }
+      { value: "98%", label: "Customer Satisfaction" },
     ],
     benefits: [
       "Professional fund management",
       "Diversification benefits",
       "Flexible investment options",
-      "Regular performance tracking"
+      "Regular performance tracking",
     ],
-    tagline: "Invest Wisely, Prosper Always"
+    tagline: "Invest Wisely, Prosper Always",
   },
   {
     title: "Insurance",
     subtitle: "Comprehensive Protection",
-    description: "Protect your family's future with our extensive insurance plans. Cashless hospitalization, wide network of hospitals, and coverage for critical illnesses.",
+    description:
+      "Protect your family's future with our extensive insurance plans. Cashless hospitalization, wide network of hospitals, and coverage for critical illnesses.",
     image: "/insurance.jpg",
     cta: "Get Quote",
     features: [
       "Coverage up to ₹1 crore",
       "6,000+ network hospitals",
       "No claim bonus up to 50%",
-      "Family floater plans"
+      "Family floater plans",
     ],
     path: "services/insurance",
     stats: [
       { value: "95%", label: "Claim Settlement Ratio" },
       { value: "24x7", label: "Customer Support" },
-      { value: "15+", label: "Insurance Partners" }
+      { value: "15+", label: "Insurance Partners" },
     ],
     benefits: [
       "Comprehensive health coverage",
       "Life protection plans",
       "Motor insurance solutions",
-      "Quick claim settlement"
+      "Quick claim settlement",
     ],
-    tagline: "Secure Today, Empower Tomorrow"
+    tagline: "Secure Today, Empower Tomorrow",
   },
   {
     title: "Credit Cards",
     subtitle: "Premium Financial Companion",
-    description: "Choose from our range of credit cards with exclusive rewards, cashback offers, and lifestyle benefits. Build credit history while enjoying premium privileges.",
+    description:
+      "Choose from our range of credit cards with exclusive rewards, cashback offers, and lifestyle benefits. Build credit history while enjoying premium privileges.",
     image: "/stock2.jpg",
     cta: "Apply Now",
     features: [
       "Reward points on every purchase",
       "Airport lounge access",
       "Zero liability protection",
-      "EMI conversion facility"
+      "EMI conversion facility",
     ],
     path: "services/credit-card",
     stats: [
       { value: "50+", label: "Credit Card Variants" },
       { value: "₹10Cr+", label: "Rewards Distributed" },
-      { value: "24x7", label: "Fraud Monitoring" }
+      { value: "24x7", label: "Fraud Monitoring" },
     ],
     benefits: [
       "Exclusive lifestyle benefits",
       "Travel perks & lounge access",
       "Cashback on every transaction",
-      "EMI options for big purchases"
+      "EMI options for big purchases",
     ],
-    tagline: "Spend Smart, Earn More"
+    tagline: "Spend Smart, Earn More",
   },
   {
     title: "Savings Accounts",
     subtitle: "Grow Your Wealth",
-    description: "Maximize your savings with our high-interest savings accounts. Enjoy zero balance requirements, easy online access, and a range of value-added services.",
+    description:
+      "Maximize your savings with our high-interest savings accounts. Enjoy zero balance requirements, easy online access, and a range of value-added services.",
     image: "/savings.jpg",
     cta: "Open Account",
     features: [
       "Interest rates up to 7%",
       "Zero minimum balance",
       "24/7 mobile banking",
-      "Free ATM withdrawals"
+      "Free ATM withdrawals",
     ],
     path: "services/savings-account",
     stats: [
       { value: "50L+", label: "Happy Customers" },
       { value: "₹1000 Cr+", label: "Deposits Managed" },
-      { value: "99.9%", label: "Uptime Guarantee" }
+      { value: "99.9%", label: "Uptime Guarantee" },
     ],
     benefits: [
       "Competitive interest rates",
       "Digital banking solutions",
       "Multiple account variants",
-      "24/7 customer support"
+      "24/7 customer support",
     ],
-    tagline: "Save Today, Prosper Tomorrow"
+    tagline: "Save Today, Prosper Tomorrow",
   },
   {
     title: "Loans",
     subtitle: "Flexible Financing Solutions",
-    description: "Get instant access to personal, home, and business loans with competitive interest rates, minimal documentation, and quick disbursal tailored to your needs.",
+    description:
+      "Get instant access to personal, home, and business loans with competitive interest rates, minimal documentation, and quick disbursal tailored to your needs.",
     image: "/loans.jpg",
     cta: "Apply Now",
     features: [
       "Interest rates from 8.4%",
       "Loan amount up to ₹5 Cr",
       "Instant approval in 24 hours",
-      "Flexible repayment tenure"
+      "Flexible repayment tenure",
     ],
     path: "services/loans",
     stats: [
       { value: "₹50,000 Cr+", label: "Loans Disbursed" },
       { value: "95%", label: "Customer Approval" },
-      { value: "24 hrs", label: "Fastest Approval" }
+      { value: "24 hrs", label: "Fastest Approval" },
     ],
     benefits: [
       "Competitive interest rates",
       "Quick processing & disbursal",
       "Minimal documentation",
-      "Flexible repayment options"
+      "Flexible repayment options",
     ],
-    tagline: "Your Dreams, Our Commitment"
+    tagline: "Your Dreams, Our Commitment",
   },
   {
     title: "Govt Bonds & FDs",
     subtitle: "Secure Investment Growth",
-    description: "Maximize your savings with our competitive fixed deposit and government bond schemes. Guaranteed returns, flexible tenures, and multiple payout options for your financial security.",
+    description:
+      "Maximize your savings with our competitive fixed deposit and government bond schemes. Guaranteed returns, flexible tenures, and multiple payout options for your financial security.",
     image: "/govt.jpg",
     cta: "View Rates",
     features: [
       "Interest rates up to 7.5%",
       "Tenure from 7 days to 20 years",
       "Monthly/Quarterly interest payout",
-      "Loan against FD facility"
+      "Loan against FD facility",
     ],
     path: "/govt.jpg",
     stats: [
       { value: "₹1 Lakh Cr+", label: "Deposits Managed" },
       { value: "AAA", label: "Credit Rating" },
-      { value: "100%", label: "Capital Guarantee" }
+      { value: "100%", label: "Capital Guarantee" },
     ],
     benefits: [
       "Guaranteed returns",
       "Government-backed security",
       "Flexible investment tenures",
-      "Regular interest payouts"
+      "Regular interest payouts",
     ],
-    tagline: "Stability You Can Trust"
+    tagline: "Stability You Can Trust",
   },
 ];
-
 
 // const services = [
 //   {
@@ -350,7 +356,7 @@ const features = [
     title: "Exclusive Rewards & Cashback",
     icon: FaCoins,
     desc: "Every services you choose brings unique perks, tailored rewards, and cashback benefits that add extra value to your journey",
-  }
+  },
 ];
 
 const logos = [
@@ -388,12 +394,9 @@ const logos = [
   "/navuma.png",
 ];
 
-
-  
-
 export default function HomePage() {
   type TabKey = "investment-products" | "banking-products" | "research-reports";
-const [activeTab, setActiveTab] = useState<TabKey>("investment-products");
+  const [activeTab, setActiveTab] = useState<TabKey>("investment-products");
 
   // Tabs Data
   const tabs = [
@@ -493,180 +496,190 @@ const [activeTab, setActiveTab] = useState<TabKey>("investment-products");
 
       {/* Hero Section */}
       <section className="relative w-full h-screen overflow-hidden">
-  <Swiper
-    spaceBetween={30}
-    slidesPerView={1}
-    loop
-    autoplay={{ delay: 6000, disableOnInteraction: false }}
-    pagination={{ clickable: true }}
-    modules={[Autoplay, Pagination]}
-    className="w-full h-full"
-  >
-    {slides.map((slide, index) => (
-      <SwiperSlide key={index} className="relative">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src={slide.image}
-            alt={slide.title}
-            fill
-            sizes="100vw"
-            className="object-cover object-center"
-            priority
-          />
-          {/* Dark overlay for text readability */}
-          <div className="absolute inset-0 bg-black/20"></div>
-        </div>
-
-        {/* Content Container */}
-        <div className="relative z-10 h-full flex flex-col lg:flex-row p-4 sm:p-6 md:p-8">
-          {/* Left Content Column */}
-          <div className="w-full lg:w-1/2 flex items-center py-20">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-white w-full max-w-2xl"
-            >
-              <motion.p
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 }}
-                className="uppercase tracking-wider text-[10px] sm:text-xs md:text-sm text-yellow-300 font-bold mb-2 sm:mb-3"
-              >
-                {slide.subtitle}
-              </motion.p>
-              <motion.h2
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 leading-tight"
-              >
-                {slide.title}
-              </motion.h2>
-              <motion.p
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-                className="text-xs sm:text-sm md:text-base mb-4 sm:mb-5 opacity-90 leading-relaxed"
-              >
-                {slide.description}
-              </motion.p>
-
-              {/* Features List */}
-              <motion.ul
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-5 sm:mb-6"
-              >
-                {slide.features.map((feature, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <FaCheckCircle className="text-green-400 flex-shrink-0 mt-0.5 text-xs sm:text-sm" />
-                    <span className="text-[10px] sm:text-xs md:text-sm font-medium">{feature}</span>
-                  </li>
-                ))}
-              </motion.ul>
-
-              {/* Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Link href={slide.path}>
-                  <motion.button
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg font-bold shadow-lg transition-all duration-300 flex items-center justify-center gap-2 text-xs sm:text-sm"
-                  >
-                    {slide.cta}
-                    <FaRocket className="transition-transform text-xs sm:text-sm" />
-                  </motion.button>
-                </Link>
-                <Link href="/contact">
-                  <motion.button
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 }}
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full sm:w-auto bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg font-bold shadow-lg transition-all duration-300 border border-white/30 text-xs sm:text-sm"
-                  >
-                    Talk to Expert
-                  </motion.button>
-                </Link>
+        <Swiper
+          spaceBetween={30}
+          slidesPerView={1}
+          loop
+          autoplay={{ delay: 6000, disableOnInteraction: false }}
+          pagination={{ clickable: true }}
+          modules={[Autoplay, Pagination]}
+          className="w-full h-full"
+        >
+          {slides.map((slide, index) => (
+            <SwiperSlide key={index} className="relative">
+              {/* Background Image */}
+              <div className="absolute inset-0 z-0">
+                <Image
+                  src={slide.image}
+                  alt={slide.title}
+                  fill
+                  sizes="100vw"
+                  className="object-cover object-center"
+                  priority
+                />
+                {/* Dark overlay for text readability */}
+                <div className="absolute inset-0 bg-black/20"></div>
               </div>
-            </motion.div>
-          </div>
 
-          {/* Right Content Column */}
-          <div className="w-full lg:w-1/2 flex flex-col justify-center mt-6 lg:mt-0 lg:pl-8">
-            <div className="flex flex-col gap-4 sm:gap-5">
-              {/* Top Right - Stats */}
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-5 border border-white/20"
-              >
-                <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-3 sm:mb-4">Key Statistics</h3>
-                <div className="grid grid-cols-3 gap-3">
-                  {slide.stats.map((stat, i) => (
-                    <div key={i} className="text-center">
-                      <div className="text-lg sm:text-xl md:text-2xl font-extrabold text-yellow-300">{stat.value}</div>
-                      <div className="text-[10px] xs:text-xs sm:text-sm text-white/80 mt-1 leading-tight">{stat.label}</div>
+              {/* Content Container */}
+              <div className="relative z-10 h-full flex flex-col lg:flex-row p-4 sm:p-6 md:p-8">
+                {/* Left Content Column */}
+                <div className="w-full lg:w-1/2 flex items-center py-20">
+                  <motion.div
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="text-white w-full max-w-2xl"
+                  >
+                    <motion.p
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 }}
+                      className="uppercase tracking-wider text-[10px] sm:text-xs md:text-sm text-yellow-300 font-bold mb-2 sm:mb-3"
+                    >
+                      {slide.subtitle}
+                    </motion.p>
+                    <motion.h2
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 leading-tight"
+                    >
+                      {slide.title}
+                    </motion.h2>
+                    <motion.p
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.3 }}
+                      className="text-xs sm:text-sm md:text-base mb-4 sm:mb-5 opacity-90 leading-relaxed"
+                    >
+                      {slide.description}
+                    </motion.p>
+
+                    {/* Features List */}
+                    <motion.ul
+                      initial={{ opacity: 0, y: 15 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4 }}
+                      className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-5 sm:mb-6"
+                    >
+                      {slide.features.map((feature, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <FaCheckCircle className="text-green-400 flex-shrink-0 mt-0.5 text-xs sm:text-sm" />
+                          <span className="text-[10px] sm:text-xs md:text-sm font-medium">
+                            {feature}
+                          </span>
+                        </li>
+                      ))}
+                    </motion.ul>
+
+                    {/* Buttons */}
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <Link href={slide.path}>
+                        <motion.button
+                          initial={{ opacity: 0, y: 15 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.5 }}
+                          whileHover={{ scale: 1.03 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg font-bold shadow-lg transition-all duration-300 flex items-center justify-center gap-2 text-xs sm:text-sm"
+                        >
+                          {slide.cta}
+                          <FaRocket className="transition-transform text-xs sm:text-sm" />
+                        </motion.button>
+                      </Link>
+                      <Link href="/contact">
+                        <motion.button
+                          initial={{ opacity: 0, y: 15 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.6 }}
+                          whileHover={{ scale: 1.03 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="w-full sm:w-auto bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg font-bold shadow-lg transition-all duration-300 border border-white/30 text-xs sm:text-sm"
+                        >
+                          Talk to Expert
+                        </motion.button>
+                      </Link>
                     </div>
-                  ))}
+                  </motion.div>
                 </div>
-              </motion.div>
 
-              {/* Middle Right - Benefits */}
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-5 border border-white/20"
-              >
-                <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-3 sm:mb-4">Perks Of Connecting with us!</h3>
-                <ul className="space-y-2">
-                  {slide.benefits.map((benefit, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <FaRegLightbulb className="text-yellow-300 mt-0.5 flex-shrink-0 text-xs sm:text-sm" />
-                      <span className="text-[10px] xs:text-xs sm:text-sm text-white/90 leading-tight">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
+                {/* Right Content Column */}
+                <div className="w-full lg:w-1/2 flex flex-col justify-center mt-6 lg:mt-0 lg:pl-8">
+                  <div className="flex flex-col gap-4 sm:gap-5">
+                    {/* Top Right - Stats */}
+                    <motion.div
+                      initial={{ opacity: 0, y: -20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                      className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-5 border border-white/20"
+                    >
+                      <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-3 sm:mb-4">
+                        Key Statistics
+                      </h3>
+                      <div className="grid grid-cols-3 gap-3">
+                        {slide.stats.map((stat, i) => (
+                          <div key={i} className="text-center">
+                            <div className="text-lg sm:text-xl md:text-2xl font-extrabold text-yellow-300">
+                              {stat.value}
+                            </div>
+                            <div className="text-[10px] xs:text-xs sm:text-sm text-white/80 mt-1 leading-tight">
+                              {stat.label}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
 
-              {/* Bottom Right - Tagline */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 }}
-                className="text-right"
-              >
-                <div className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white leading-tight">
-                  {slide.tagline}
+                    {/* Middle Right - Benefits */}
+                    <motion.div
+                      initial={{ opacity: 0, y: -20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5 }}
+                      className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-5 border border-white/20"
+                    >
+                      <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-3 sm:mb-4">
+                        Perks Of Connecting with us!
+                      </h3>
+                      <ul className="space-y-2">
+                        {slide.benefits.map((benefit, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <FaRegLightbulb className="text-yellow-300 mt-0.5 flex-shrink-0 text-xs sm:text-sm" />
+                            <span className="text-[10px] xs:text-xs sm:text-sm text-white/90 leading-tight">
+                              {benefit}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+
+                    {/* Bottom Right - Tagline */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.7 }}
+                      className="text-right"
+                    >
+                      <div className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white leading-tight">
+                        {slide.tagline}
+                      </div>
+                    </motion.div>
+                  </div>
                 </div>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </SwiperSlide>
-    ))}
-  </Swiper>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
-  {/* Custom Pagination */}
-  <div className="swiper-pagination absolute bottom-4 sm:bottom-6 w-full flex justify-center z-20 gap-1 sm:gap-2"></div>
-</section>
-
-      
+        {/* Custom Pagination */}
+        <div className="swiper-pagination absolute bottom-4 sm:bottom-6 w-full flex justify-center z-20 gap-1 sm:gap-2"></div>
+      </section>
 
       {/* Top Stories */}
-      <HomeResearchAndNewsSection/>
+      <HomeResearchAndNewsSection />
 
-      {/* Research */ }
-      <ResearchReportsSection/>
+      {/* Research */}
+      <ResearchReportsSection />
 
       {/* Services Section */}
       <section className=" bg-gradient-to-br from-slate-50 to-white relative overflow-hidden">
@@ -685,85 +698,86 @@ const [activeTab, setActiveTab] = useState<TabKey>("investment-products");
             💼 Our Premium Services
           </motion.h2> */}
           <main className="bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 px-4 md:px-8 py-16">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12 max-w-3xl mx-auto"
-        >
-          <h1 className="text-4xl font-bold text-blue-700 mb-4">
-            Our Financial Premium Services
-          </h1>
-          <p className="text-xl font-bold text-gray-800">
-            Tools For Every Financial Move
-          </p>
-        </motion.div>
-
-        {/* Tabs */}
-        <div className="flex flex-wrap justify-center gap-4 mb-8">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as TabKey)}
-              className={`bg-blue-200 hover:bg-blue-300 text-blue-700 px-4 py-2 rounded-full font-medium transition-colors duration-300 ${
-                activeTab === tab.id ? "bg-blue-500 text-white" : ""
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Content Grid */}
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
-          {content[activeTab].map((item, index) => (
+            {/* Header */}
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -8, scale: 1.02 }}
-              className="relative rounded-2xl shadow-lg overflow-hidden transition-all duration-300 transform bg-white"
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12 max-w-3xl mx-auto"
             >
-              <Link href={item.link} passHref>
-                <div className="p-6 space-y-4">
-                  {/* Icon */}
-                  <div className="p-3 rounded-xl bg-blue-100 flex-shrink-0">
-                    {item.icon && (
-                      <item.icon className="w-8 h-8 text-blue-700" />
-                    )}
-                  </div>
-
-                  {/* Title */}
-                  <h2 className="text-xl font-bold text-gray-800">{item.title}</h2>
-
-                  {/* Description */}
-                  <p className="text-sm leading-relaxed text-gray-600">
-                    {item.description}
-                  </p>
-
-                  {/* Learn More Button */}
-                  <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full font-medium flex items-center gap-2 transition-colors duration-300">
-                    Learn More
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      className="w-4 h-4"
-                    >
-                      <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                </div>
-              </Link>
+              <h1 className="text-4xl font-bold text-blue-700 mb-4">
+                Our Financial Premium Services
+              </h1>
+              <p className="text-xl font-bold text-gray-800">
+                Tools For Every Financial Move
+              </p>
             </motion.div>
-          ))}
-        </div>
-      </main>
 
+            {/* Tabs */}
+            <div className="flex flex-wrap justify-center gap-4 mb-8">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as TabKey)}
+                  className={`bg-blue-200 hover:bg-blue-300 text-blue-700 px-4 py-2 rounded-full font-medium transition-colors duration-300 ${
+                    activeTab === tab.id ? "bg-blue-500 text-white" : ""
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Content Grid */}
+            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
+              {content[activeTab].map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  className="relative rounded-2xl shadow-lg overflow-hidden transition-all duration-300 transform bg-white"
+                >
+                  <Link href={item.link} passHref>
+                    <div className="p-6 space-y-4">
+                      {/* Icon */}
+                      <div className="p-3 rounded-xl bg-blue-100 flex-shrink-0">
+                        {item.icon && (
+                          <item.icon className="w-8 h-8 text-blue-700" />
+                        )}
+                      </div>
+
+                      {/* Title */}
+                      <h2 className="text-xl font-bold text-gray-800">
+                        {item.title}
+                      </h2>
+
+                      {/* Description */}
+                      <p className="text-sm leading-relaxed text-gray-600">
+                        {item.description}
+                      </p>
+
+                      {/* Learn More Button */}
+                      <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full font-medium flex items-center gap-2 transition-colors duration-300">
+                        Learn More
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          className="w-4 h-4"
+                        >
+                          <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                      </button>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </main>
         </div>
       </section>
 
@@ -788,9 +802,7 @@ const [activeTab, setActiveTab] = useState<TabKey>("investment-products");
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
             className="text-xl text-gray-700 max-w-4xl mx-auto mb-16 leading-relaxed"
-          >
-
-          </motion.p>
+          ></motion.p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
@@ -941,43 +953,40 @@ const [activeTab, setActiveTab] = useState<TabKey>("investment-products");
       </section>
 
       {/* Affiliations Section */}
-<section className="py-20 bg-gradient-to-r from-white via-indigo-50 to-purple-50 overflow-hidden relative">
-  {/* Background gradient blobs */}
-  <div className="absolute inset-0">
-    <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-gradient-to-r from-indigo-200/20 to-purple-300/20 rounded-full blur-3xl animate-pulse"></div>
-    <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-gradient-to-r from-blue-200/20 to-cyan-300/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-  </div>
+      <section className="py-20 bg-gradient-to-r from-white via-indigo-50 to-purple-50 overflow-hidden relative">
+        {/* Background gradient blobs */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-gradient-to-r from-indigo-200/20 to-purple-300/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-gradient-to-r from-blue-200/20 to-cyan-300/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
 
-<div className="relative overflow-hidden">
-  <div
-    className="flex animate-scroll"
-    style={{
-      animation: "scroll 10s linear infinite",
-    }}
-  >
-    {[...logos, ...logos].map((logo, i) => (
-      <motion.div
-        key={i}
-        whileHover={{ scale: 1.1, y: -5 }}
-        className="flex-shrink-0 w-28 h-20 flex items-center justify-center mr-12"
-      >
-        <Image
-          src={logo}
-          alt={`Partner ${i}`}
-          width={110}
-          height={80}
-          className="object-cover opacity-70 hover:opacity-100 transition-opacity"
-        />
-      </motion.div>
-    ))}
-  </div>
+        <div className="relative overflow-hidden">
+          <div
+            className="flex animate-scroll"
+            style={{
+              animation: "scroll 10s linear infinite",
+            }}
+          >
+            {[...logos, ...logos].map((logo, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ scale: 1.1, y: -5 }}
+                className="flex-shrink-0 w-28 h-20 flex items-center justify-center mr-12"
+              >
+                <Image
+                  src={logo}
+                  alt={`Partner ${i}`}
+                  width={110}
+                  height={80}
+                  className="object-cover opacity-100 hover:opacity-100 transition-opacity"
+                />
+              </motion.div>
+            ))}
+          </div>
+        </div>
 
-</div>
-
-
-  {/* Keyframes for smooth infinite scroll */}
-</section>
-
+        {/* Keyframes for smooth infinite scroll */}
+      </section>
 
       {/* Newsletter Section */}
       <section className="py-24 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white text-center relative overflow-hidden">
@@ -1088,15 +1097,15 @@ const [activeTab, setActiveTab] = useState<TabKey>("investment-products");
 
       {/* Custom Styles */}
       <style jsx>{`
-    @keyframes scroll {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-50%);
-      }
-    }
-  `}</style>
+        @keyframes scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+      `}</style>
     </div>
   );
 }

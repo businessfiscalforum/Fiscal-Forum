@@ -9,6 +9,8 @@ import {
   CheckCircle,
   ArrowRight,
   User,
+  Building2,
+  Bell,
 } from "lucide-react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -18,6 +20,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { FaAward, FaMobileAlt, FaPiggyBank, FaRocket, FaWallet } from "react-icons/fa";
 import Link from "next/link";
+import Image from "next/image";
 
 const slides = [
   {
@@ -466,530 +469,123 @@ const CreditCardApplyPage = () => {
         <div className="swiper-pagination absolute bottom-8 w-full flex justify-center z-20"></div>
       </section>
     </div>
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      {/* <section className="relative bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 text-white py-20">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative max-w-7xl mx-auto px-6">
-          <div className="text-center">
-            <h1 className="text-5xl font-bold mb-6">
-              Apply for Credit Card Online
-            </h1>
-            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-              Get instant approval and unlock a world of financial freedom with exclusive rewards, 
-              cashback, and premium benefits
-            </p>
-            <div className="flex justify-center items-center space-x-8 text-sm">
-              <div className="flex items-center">
-                <Clock className="h-5 w-5 mr-2" />
-                <span>Instant Approval</span>
+    <section className="bg-blue-50 pt-16 pb-20 px-4 md:px-10">
+      <div className="max-w-7xl mx-auto">
+        
+        {/* Top Section */}
+        <div className="grid md:grid-cols-2 gap-8 items-center mb-14">
+          <div className="rounded-lg overflow-hidden shadow-lg">
+            <Image
+              src="/team-meeting.jpg" // Replace with your image
+              alt="Banking team"
+              width={600}
+              height={400}
+              className="object-cover w-full h-full"
+            />
+          </div>
+
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
+              Enjoy <span className="text-blue-600">Zero Fee Banking</span> on your Saving Account
+            </h2>
+            <ul className="space-y-3 text-blue-800">
+              <li className="flex items-center gap-3">
+                <Building2 className="text-blue-600" size={20} />
+                RTGS, NEFT, IMPS
+              </li>
+              <li className="flex items-center gap-3">
+                <CreditCard className="text-blue-600" size={20} />
+                ATM Transactions, Debit Card
+              </li>
+              <li className="flex items-center gap-3">
+                <Bell className="text-blue-600" size={20} />
+                SMS Alerts & <span className="underline cursor-pointer">30 more services</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bank Cards */}
+        <div className="grid md:grid-cols-3 gap-8">
+          {/* IndusInd Bank */}
+          <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full overflow-hidden">
+                <Image src="/indusind-logo.png" alt="IndusInd Bank" width={40} height={40} />
               </div>
-              <div className="flex items-center">
-                <Shield className="h-5 w-5 mr-2" />
-                <span>100% Secure</span>
+              <h3 className="text-3xl font-semibold text-blue-900">IndusInd Bank</h3>
+            </div>
+            <ul className="list-disc list-inside text-blue-800 text-sm space-y-2">
+              <li>Choose your phone number as your account number.</li>
+              <li>Zero AMC charges on your digital card.</li>
+              <li>Complete application support.</li>
+              <li>Minimum initial deposit ₹5,000.</li>
+              <li>Withdrawals allowed after funding completion.</li>
+              <li>No hidden charges.</li>
+            </ul>
+            <div className="flex gap-3 mt-5">
+              <Link href="#" className="px-4 py-2 border border-blue-600 rounded-full text-blue-600 hover:bg-blue-600 hover:text-white transition text-sm">
+                Learn More
+              </Link>
+              <Link href="#" className="px-4 py-2 bg-blue-600 rounded-full text-white hover:bg-blue-700 transition text-sm">
+                Apply
+              </Link>
+            </div>
+          </div>
+
+          {/* Axis Bank */}
+          <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full overflow-hidden">
+                <Image src="/axis-logo.png" alt="Axis Bank" width={40} height={40} />
               </div>
-              <div className="flex items-center">
-                <Award className="h-5 w-5 mr-2" />
-                <span>Premium Benefits</span>
+              <h3 className="text-3xl font-semibold text-blue-900">Axis Bank</h3>
+            </div>
+            <ul className="list-disc list-inside text-blue-800 text-sm space-y-2">
+              <li>Balance requirements vary by branch.</li>
+              <li>Range ₹2,500 to ₹10,000 for regular accounts.</li>
+              <li>Metro branches require ₹5,000 average balance.</li>
+              <li>Lower requirements in rural branches.</li>
+              <li>Full application support.</li>
+              <li>No hidden charges.</li>
+            </ul>
+            <div className="flex gap-3 mt-5">
+              <Link href="#" className="px-4 py-2 border border-blue-600 rounded-full text-blue-600 hover:bg-blue-600 hover:text-white transition text-sm">
+                Learn More
+              </Link>
+              <Link href="#" className="px-4 py-2 bg-blue-600 rounded-full text-white hover:bg-blue-700 transition text-sm">
+                Apply
+              </Link>
+            </div>
+          </div>
+
+          {/* Fi Bank */}
+          <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full overflow-hidden">
+                <Image src="/fi-logo.png" alt="Fi Bank" width={40} height={40} />
               </div>
+              <h3 className="text-3xl font-semibold text-blue-900">Fi Bank</h3>
+            </div>
+            <ul className="list-disc list-inside text-blue-800 text-sm space-y-2">
+              <li>No minimum balance, total freedom.</li>
+              <li>Keep money flexible, no balance requirements.</li>
+              <li>Zero balance account option.</li>
+              <li>Simple, convenient banking.</li>
+            </ul>
+            <div className="flex gap-3 mt-5">
+              <Link href="#" className="px-4 py-2 border border-blue-600 rounded-full text-blue-600 hover:bg-blue-600 hover:text-white transition text-sm">
+                Learn More
+              </Link>
+              <Link href="#" className="px-4 py-2 bg-blue-600 rounded-full text-white hover:bg-blue-700 transition text-sm">
+                Apply
+              </Link>
             </div>
           </div>
         </div>
-      </section> */}
 
-      {/* Key Benefits */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Why Choose Our Credit Cards?</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Experience the perfect blend of convenience, security, and rewards with our premium credit card offerings
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {benefits.map((benefit, index) => (
-              <div key={index} className="text-center p-6 rounded-xl bg-gray-50 hover:bg-blue-50 transition-colors">
-                <div className="bg-blue-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <benefit.icon className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{benefit.title}</h3>
-                <p className="text-gray-600 text-sm">{benefit.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Credit Cards List */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Choose Your Perfect Credit Card</h2>
-            <p className="text-gray-600">Explore our comprehensive range of 10 credit cards designed for different lifestyles and needs</p>
-          </div>
-          
-          {/* Quick Filter */}
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <button className="px-4 py-2 bg-blue-500 text-white rounded-full text-sm font-medium">All Cards</button>
-            <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-300">Cashback</button>
-            <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-300">Travel</button>
-            <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-300">Fuel</button>
-            <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-300">Premium</button>
-          </div>
-          
-          <div className="space-y-6">
-            {creditCards.map((card, index) => (
-              <div 
-                key={card.id} 
-                className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden ${
-                  selectedCard === card.id ? 'ring-4 ring-blue-500 transform scale-[1.02]' : ''
-                } ${card.popular ? 'border-2 border-purple-500' : ''}`}
-              >
-                {card.popular && (
-                  <div className="absolute top-6 right-6 bg-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold z-10">
-                    Most Popular
-                  </div>
-                )}
-                
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 p-6">
-                  {/* Card Visual */}
-                  <div className="lg:col-span-3">
-                    <div className={`h-48 bg-gradient-to-br ${card.gradient} p-6 text-white relative rounded-xl`}>
-                      <div className="absolute top-4 left-6">
-                        <CreditCard className="h-8 w-8" />
-                      </div>
-                      <div className="absolute bottom-6 left-6">
-                        <h3 className="text-lg font-bold">{card.name}</h3>
-                        <p className="text-sm opacity-90">{card.type}</p>
-                      </div>
-                      <div className="absolute bottom-6 right-6">
-                        <div className="w-16 h-10 bg-white/20 rounded backdrop-blur-sm flex items-center justify-center">
-                          <span className="text-xs font-bold">VISA</span>
-                        </div>
-                      </div>
-                      <div className="absolute top-4 right-6">
-                        <div className="text-right">
-                          <div className="text-sm opacity-75">Card #{index + 1}</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Card Details */}
-                  <div className="lg:col-span-6">
-                    <div className="h-full flex flex-col">
-                      <h3 className="text-xl font-bold text-gray-900 mb-2">{card.name}</h3>
-                      <p className="text-gray-600 mb-4">{card.type} Credit Card</p>
-                      
-                      {/* Key Highlights */}
-                      <div className="grid grid-cols-3 gap-4 mb-4 p-4 bg-gray-50 rounded-lg">
-                        <div className="text-center">
-                          <div className="font-bold text-lg text-blue-600">{card.highlights.cashback}</div>
-                          <div className="text-xs text-gray-600">Max Cashback</div>
-                        </div>
-                        <div className="text-center">
-                          <div className="font-bold text-lg text-green-600">{card.highlights.creditLimit}</div>
-                          <div className="text-xs text-gray-600">Credit Limit</div>
-                        </div>
-                        <div className="text-center">
-                          <div className="font-bold text-lg text-purple-600">{card.highlights.rewardPoints}</div>
-                          <div className="text-xs text-gray-600">Rewards</div>
-                        </div>
-                      </div>
-
-                      {/* Key Features - First 3 */}
-                      <div className="space-y-2 flex-1">
-                        {card.features.slice(0, 3).map((feature, fIndex) => (
-                          <div key={fIndex} className="flex items-start text-sm">
-                            <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                            <span className="text-gray-700">{feature}</span>
-                          </div>
-                        ))}
-                        {card.features.length > 3 && (
-                          <div className="text-sm text-blue-600 font-medium">
-                            +{card.features.length - 3} more benefits
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Pricing & Action */}
-                  <div className="lg:col-span-3">
-                    <div className="h-full flex flex-col justify-between">
-                      {/* Pricing */}
-                      <div className="space-y-4">
-                        <div className="bg-gray-50 p-4 rounded-lg">
-                          <div className="flex justify-between items-center mb-2">
-                            <span className="text-sm text-gray-600">Joining Fee:</span>
-                            <span className="font-bold text-gray-900">{card.joiningFee}</span>
-                          </div>
-                          <div className="flex justify-between items-center">
-                            <span className="text-sm text-gray-600">Annual Fee:</span>
-                            <span className="font-bold text-gray-900">{card.annualFee}</span>
-                          </div>
-                        </div>
-
-                        {/* Special Offers */}
-                        {card.joiningFee === '₹0' && (
-                          <div className="bg-green-50 border border-green-200 p-3 rounded-lg">
-                            <div className="flex items-center">
-                              <Gift className="h-4 w-4 text-green-600 mr-2" />
-                              <span className="text-sm text-green-800 font-medium">Lifetime Free</span>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Action Buttons */}
-                      <div className="space-y-3 mt-6">
-                        <button
-                          onClick={() => {
-                            setSelectedCard(card.id);
-                            setFormData({ ...formData, cardType: card.id });
-                          }}
-                          className={`w-full py-3 px-4 rounded-lg font-semibold transition-all ${
-                            selectedCard === card.id
-                              ? 'bg-blue-500 text-white hover:bg-blue-600'
-                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                          }`}
-                        >
-                          {selectedCard === card.id ? 'Selected' : 'Select Card'}
-                        </button>
-                        
-                        <button
-                          onClick={() => {
-                            setSelectedCard(card.id);
-                            setFormData({ ...formData, cardType: card.id });
-                            setShowApplication(true);
-                          }}
-                          className="w-full py-3 px-4 rounded-lg font-semibold bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 transition-all hover:cursor-pointer"
-                        >
-                          Apply Now
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Expandable Features Section */}
-                <div className="border-t border-gray-100 p-6 bg-gray-50">
-                  <h4 className="font-semibold text-gray-900 mb-3">Complete Benefits & Features:</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {card.features.map((feature, fIndex) => (
-                      <div key={fIndex} className="flex items-start text-sm">
-                        <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                        <span className="text-gray-700">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Application Process */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Simple Application Process</h2>
-            <p className="text-gray-600">Get your credit card in just 4 easy steps</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {applicationSteps.map((step, index) => (
-              <div key={index} className="text-center">
-                <div className="relative mb-6">
-                  <div className="bg-blue-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto">
-                    <step.icon className="h-8 w-8 text-white" />
-                  </div>
-                  <div className="absolute -top-2 -right-2 bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">
-                    {step.step}
-                  </div>
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{step.title}</h3>
-                <p className="text-gray-600 text-sm">{step.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Eligibility Criteria */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Eligibility Criteria</h2>
-            <p className="text-gray-600">Check if you meet our simple eligibility requirements</p>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {eligibilityCriteria.map((criteria, index) => (
-              <div key={index} className="bg-white p-6 rounded-xl text-center shadow-sm">
-                <h3 className="font-semibold text-gray-900 mb-2">{criteria.label}</h3>
-                <p className="text-blue-600 font-medium">{criteria.value}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Application Form */}
-      {showApplication && (
-        <section className="py-16 bg-white text-black">
-          <div className="max-w-4xl mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Credit Card Application</h2>
-              <p className="text-gray-600">Fill in your details to apply for your selected credit card</p>
-            </div>
-
-            <div className="bg-gray-50 p-8 rounded-2xl">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Personal Information */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Personal Information</h3>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
-                    <input
-                      type="text"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
-                    <input
-                      type="text"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Date of Birth *</label>
-                    <input
-                      type="date"
-                      name="dateOfBirth"
-                      value={formData.dateOfBirth}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">PAN Number *</label>
-                    <input
-                      type="text"
-                      name="panNumber"
-                      value={formData.panNumber}
-                      onChange={handleInputChange}
-                      required
-                      placeholder="ABCDE1234F"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                  </div>
-                </div>
-
-                {/* Employment & Financial Information */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Employment & Financial Details</h3>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Employment Type *</label>
-                    <select
-                      name="employmentType"
-                      value={formData.employmentType}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    >
-                      <option value="">Select Employment Type</option>
-                      <option value="salaried">Salaried</option>
-                      <option value="self-employed">Self Employed</option>
-                      <option value="business">Business Owner</option>
-                      <option value="professional">Professional</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Company/Organization *</label>
-                    <input
-                      type="text"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Annual Income *</label>
-                    <select
-                      name="annualIncome"
-                      value={formData.annualIncome}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    >
-                      <option value="">Select Annual Income</option>
-                      <option value="3-5">₹3-5 Lakhs</option>
-                      <option value="5-10">₹5-10 Lakhs</option>
-                      <option value="10-15">₹10-15 Lakhs</option>
-                      <option value="15-25">₹15-25 Lakhs</option>
-                      <option value="25+">₹25+ Lakhs</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Address *</label>
-                    <textarea
-                      name="address"
-                      value={formData.address}
-                      onChange={handleInputChange}
-                      required
-                      rows={3}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">City *</label>
-                      <input
-                        type="text"
-                        name="city"
-                        value={formData.city}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">PIN Code *</label>
-                      <input
-                        type="text"
-                        name="pincode"
-                        value={formData.pincode}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Terms and Submit */}
-              <div className="mt-8 pt-6 border-t border-gray-200">
-                <div className="flex items-center mb-6">
-                  <input
-                    type="checkbox"
-                    id="terms"
-                    required
-                    className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <label htmlFor="terms" className="ml-2 text-sm text-gray-700">
-                    I agree to the <span className="text-blue-600 underline">Terms & Conditions</span> and 
-                    <span className="text-blue-600 underline"> Privacy Policy</span>
-                  </label>
-                </div>
-
-                <button
-                  onClick={handleSubmit}
-                  className="w-full bg-blue-500 text-white py-4 px-8 rounded-lg font-semibold hover:bg-blue-600 transition-colors flex items-center justify-center"
-                >
-                  Submit Application
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* CTA Section */}
-<section className="py-16 bg-gradient-to-r from-cyan-800 to-blue-800 text-white">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="text-center mb-12">
-      <h2 className="text-3xl md:text-4xl font-bold mb-4">Maximize Your Savings Potential</h2>
-      <p className="text-xl text-cyan-200 max-w-3xl mx-auto">
-        Smart banking solutions that grow with your financial journey
-      </p>
-    </div>
-    
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-        <div className="text-yellow-400 text-2xl mb-4">
-          <FaPiggyBank />
-        </div>
-        <h3 className="text-lg font-bold mb-2">High Interest Rates</h3>
-        <p className="text-cyan-100">Earn up to 7% interest on your savings balance</p>
       </div>
-      
-      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-        <div className="text-yellow-400 text-2xl mb-4">
-          <FaMobileAlt />
-        </div>
-        <h3 className="text-lg font-bold mb-2">Digital Banking</h3>
-        <p className="text-cyan-100">24/7 mobile access with instant notifications</p>
-      </div>
-      
-      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-        <div className="text-yellow-400 text-2xl mb-4">
-          <FaWallet />
-        </div>
-        <h3 className="text-lg font-bold mb-2">Zero Fees</h3>
-        <p className="text-cyan-100">No minimum balance requirements or hidden charges</p>
-      </div>
-      
-      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-        <div className="text-yellow-400 text-2xl mb-4">
-          <FaAward />
-        </div>
-        <h3 className="text-lg font-bold mb-2">Referral Rewards</h3>
-        <p className="text-cyan-100">Earn ₹500 for every friend who opens an account</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-    </div>
+    </section>
     </>
   );
 };
