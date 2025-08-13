@@ -35,7 +35,7 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 
-      bg-white/80 backdrop-blur-md 
+      bg-white/40 backdrop-blur-md 
       border border-blue-200 shadow-lg 
       md:rounded-full rounded-lg 
       px-4 md:px-6 py-3 md:py-4 

@@ -476,7 +476,7 @@ const CreditCardApplyPage = () => {
         <div className="grid md:grid-cols-2 gap-8 items-center mb-14">
           <div className="rounded-lg overflow-hidden shadow-lg">
             <Image
-              src="/team-meeting.jpg" // Replace with your image
+              src="/people.png" // Replace with your image
               alt="Banking team"
               width={600}
               height={400}
@@ -511,7 +511,7 @@ const CreditCardApplyPage = () => {
           <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-full overflow-hidden">
-                <Image src="/indusind-logo.png" alt="IndusInd Bank" width={40} height={40} />
+                <Image src="/indus.png" alt="IndusInd Bank" width={40} height={40} />
               </div>
               <h3 className="text-3xl font-semibold text-blue-900">IndusInd Bank</h3>
             </div>
@@ -537,7 +537,7 @@ const CreditCardApplyPage = () => {
           <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-full overflow-hidden">
-                <Image src="/axis-logo.png" alt="Axis Bank" width={40} height={40} />
+                <Image src="/axis.png" alt="Axis Bank" width={40} height={40} />
               </div>
               <h3 className="text-3xl font-semibold text-blue-900">Axis Bank</h3>
             </div>
@@ -563,7 +563,7 @@ const CreditCardApplyPage = () => {
           <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-full overflow-hidden">
-                <Image src="/fi-logo.png" alt="Fi Bank" width={40} height={40} />
+                <Image src="/fi.png" alt="Fi Bank" width={40} height={40} />
               </div>
               <h3 className="text-3xl font-semibold text-blue-900">Fi Bank</h3>
             </div>
