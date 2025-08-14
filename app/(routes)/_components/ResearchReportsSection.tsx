@@ -11,6 +11,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
+import { useRouter } from "next/navigation";
 
 // Register Chart.js components
 Chart.register(BarController, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
@@ -46,6 +47,7 @@ const ResearchReportsSection = () => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{text: string, type: string} | null>(null);
+  const router = useRouter();
 
   // Initialize chart
   useEffect(() => {
@@ -191,8 +193,8 @@ const ResearchReportsSection = () => {
         {/* Responsive Buttons */}
         <div className="flex flex-wrap gap-3 mb-8">
           <button 
-            onClick={() => handleButtonClick('Get More Research')}
-            className="px-4 py-3 bg-blue-50 text-blue-600 border border-blue-100 font-semibold text-sm md:text-base uppercase tracking-wide hover:bg-blue-100 transition-colors w-full sm:w-auto"
+            onClick={() => router.push("/reports")}
+            className="px-4 py-3 bg-blue-50 text-blue-600 border border-blue-100 font-semibold text-sm md:text-base uppercase tracking-wide hover:bg-blue-100 transition-colors w-full sm:w-auto cursor-pointer"
           >
             Get More Research
           </button>
@@ -217,35 +219,48 @@ const ResearchReportsSection = () => {
         </div>
 
         {/* Subscribe Section */}
-        <div className="mb-8">
-          <h3 className="text-xl text-blue-900 mb-4">Stay Connected With Us</h3>
-          <p className="text-xl text-blue-900 leading-relaxed">
-                Subscribe to our newsletter for exclusive financial tips, market
-                insights, and special offers tailored just for you.
-              </p>
-          <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
-            <input 
-              type="email" 
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email" 
-              className="flex-1 px-4 py-3 border border-gray-300 bg-gray-50 text-sm"
-              disabled={isSubmitting}
-            />
-            <button 
-              type="submit"
-              disabled={isSubmitting}
-              className="px-6 py-3 bg-blue-600 text-white font-semibold uppercase tracking-wide hover:bg-blue-900 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isSubmitting ? 'Subscribing...' : 'Subscribe'}
-            </button>
-          </form>
-          {message && (
-            <div className={`mt-3 text-sm ${message.type === 'success' ? 'text-green-600' : 'text-red-600'}`}>
-              {message.text}
-            </div>
-          )}
-        </div>
+        <div className="mb-12 p-8 bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl shadow-md">
+  <h3 className="text-2xl font-bold text-blue-900 mb-3">
+    Stay Connected With Us
+  </h3>
+
+  <p className="text-lg text-blue-800 leading-relaxed mb-6">
+    Subscribe to our newsletter for exclusive financial tips, market insights,
+    and special offers tailored just for you.
+  </p>
+
+  <form
+    onSubmit={handleSubscribe}
+    className="flex flex-col sm:flex-row gap-4"
+  >
+    <input
+      type="email"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+      placeholder="Enter your email"
+      className="flex-1 px-5 py-3 border border-blue-200 rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm"
+      disabled={isSubmitting}
+    />
+    <button
+      type="submit"
+      disabled={isSubmitting}
+      className="px-8 py-3 bg-blue-600 text-white font-semibold uppercase tracking-wide rounded-full hover:bg-blue-700 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      {isSubmitting ? "Subscribing..." : "Subscribe"}
+    </button>
+  </form>
+
+  {message && (
+    <div
+      className={`mt-4 text-sm font-medium ${
+        message.type === "success" ? "text-green-600" : "text-red-600"
+      }`}
+    >
+      {message.text}
+    </div>
+  )}
+</div>
+
       </div>
 
       <aside className="hidden lg:flex flex-1 flex-col gap-6">

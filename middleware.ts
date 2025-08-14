@@ -13,7 +13,8 @@ const isPublicRoute = createRouteMatcher(['/',
   '/api/send-quote', 
   '/api/users',
   '/api/applications', 
-  '/work-with-us'
+  '/work-with-us',
+  '/ipo'
 ])
 
 const isAdminRoute = createRouteMatcher(['/admin(.*)']);

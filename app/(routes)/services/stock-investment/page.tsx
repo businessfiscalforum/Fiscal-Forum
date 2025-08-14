@@ -25,6 +25,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { FaAward, FaChartLine, FaHeadset, FaRocket } from "react-icons/fa";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const slides = [
   {
@@ -93,6 +94,7 @@ const slides = [
 ];
 
 const CreditCardApplyPage = () => {
+  const router = useRouter();
   // const [formData, setFormData] = useState({
   //   firstName: '',
   //   lastName: '',
@@ -459,6 +461,7 @@ const CreditCardApplyPage = () => {
 
   return (
     <>
+    
       <div className="text-gray-800 font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 ">
         {/* Floating Background Elements */}
         {/* <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -631,7 +634,7 @@ const CreditCardApplyPage = () => {
                 </h2>
               </div>
               <button
-                onClick={() => alert("Open Demat Account clicked")}
+                onClick={()=>{router.push("/services/stock-investment/open-demat-account")}}
                 className="mt-8 w-fit border border-white text-white px-6 py-3 rounded-full text-base font-medium hover:bg-white hover:text-blue-600 transition-all duration-300"
               >
                 Click here
@@ -647,7 +650,7 @@ const CreditCardApplyPage = () => {
                 </h2>
               </div>
               <button
-                onClick={() => alert("Already Have An Account clicked")}
+                onClick={()=>{router.push("/services/stock-investment/already-have-an-account")}}
                 className="mt-8 w-fit border border-blue-600 text-blue-600 px-6 py-3 rounded-full text-base font-medium hover:bg-blue-600 hover:text-white transition-all duration-300"
               >
                 Click here

@@ -367,7 +367,7 @@ const logos = [
   "/Nj-wealth.png",
   "/prudent.png",
   "/upstox.png",
-  "/navuma.png",
+  "/nuvama.png",
   "/alice-blue.png",
   "/angel-one.png",
   "/choice.png",
@@ -375,7 +375,7 @@ const logos = [
   "/Nj-wealth.png",
   "/prudent.png",
   "/upstox.png",
-  "/navuma.png",
+  "/nuvama.png",
   "/alice-blue.png",
   "/angel-one.png",
   "/choice.png",
@@ -383,7 +383,7 @@ const logos = [
   "/Nj-wealth.png",
   "/prudent.png",
   "/upstox.png",
-  "/navuma.png",
+  "/nuvama.png",
   "/alice-blue.png",
   "/angel-one.png",
   "/choice.png",
@@ -391,7 +391,7 @@ const logos = [
   "/Nj-wealth.png",
   "/prudent.png",
   "/upstox.png",
-  "/navuma.png",
+  "/nuvama.png",
 ];
 
 export default function HomePage() {
@@ -495,185 +495,125 @@ export default function HomePage() {
       </div> */}
 
       {/* Hero Section */}
-      <section className="relative w-full h-screen overflow-hidden">
-        <Swiper
-          spaceBetween={30}
-          slidesPerView={1}
-          loop
-          autoplay={{ delay: 6000, disableOnInteraction: false }}
-          pagination={{ clickable: true }}
-          modules={[Autoplay, Pagination]}
-          className="w-full h-full"
-        >
-          {slides.map((slide, index) => (
-            <SwiperSlide key={index} className="relative">
-              {/* Background Image */}
-              <div className="absolute inset-0 z-0">
-                <Image
-                  src={slide.image}
-                  alt={slide.title}
-                  fill
-                  sizes="100vw"
-                  className="object-cover object-center"
-                  priority
-                />
-                {/* Dark overlay for text readability */}
-                <div className="absolute inset-0 bg-black/20"></div>
+<section className="relative w-full h-screen overflow-hidden">
+  <Swiper
+    spaceBetween={30}
+    slidesPerView={1}
+    loop
+    autoplay={{ delay: 6000, disableOnInteraction: false }}
+    pagination={{ clickable: true }}
+    modules={[Autoplay, Pagination]}
+    className="w-full h-full"
+  >
+    {slides.map((slide, index) => (
+      <SwiperSlide key={index} className="relative">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={slide.image}
+            alt={slide.title}
+            fill
+            sizes="100vw"
+            className="object-cover "
+            priority
+          />
+          {/* Stronger gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
+        </div>
+
+        {/* Content Container */}
+        <div className="relative z-10 h-full flex flex-col lg:flex-row p-4 sm:p-6 md:p-12">
+          {/* Left Content */}
+          <div className="w-full lg:w-1/2 flex items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-white w-full max-w-2xl"
+            >
+              <p className="uppercase tracking-wider text-yellow-300 font-semibold mb-3 text-sm sm:text-base">
+                {slide.subtitle}
+              </p>
+
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-4">
+                {slide.title}
+              </h2>
+
+              <p className="text-sm sm:text-base md:text-lg opacity-90 mb-6 leading-relaxed max-w-xl">
+                {slide.description}
+              </p>
+
+              {/* Features */}
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+                {slide.features.map((feature, i) => (
+                  <li key={i} className="flex items-center gap-2 text-sm sm:text-base">
+                    <FaCheckCircle className="text-green-400 flex-shrink-0" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link href={slide.path}>
+                  <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold shadow-lg transition-all text-sm sm:text-base">
+                    {slide.cta} <FaRocket className="inline ml-2" />
+                  </button>
+                </Link>
+                <Link href="/contact">
+                  <button className="px-6 py-3 border-2 border-white text-white rounded-lg font-bold hover:bg-white hover:text-black transition-all text-sm sm:text-base">
+                    Talk to Expert
+                  </button>
+                </Link>
               </div>
+            </motion.div>
+          </div>
 
-              {/* Content Container */}
-              <div className="relative z-10 h-full flex flex-col lg:flex-row p-4 sm:p-6 md:p-8">
-                {/* Left Content Column */}
-                <div className="w-full lg:w-1/2 flex items-center py-20">
-                  <motion.div
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="text-white w-full max-w-2xl"
-                  >
-                    <motion.p
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 }}
-                      className="uppercase tracking-wider text-[10px] sm:text-xs md:text-sm text-yellow-300 font-bold mb-2 sm:mb-3"
-                    >
-                      {slide.subtitle}
-                    </motion.p>
-                    <motion.h2
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2 }}
-                      className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 leading-tight"
-                    >
-                      {slide.title}
-                    </motion.h2>
-                    <motion.p
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.3 }}
-                      className="text-xs sm:text-sm md:text-base mb-4 sm:mb-5 opacity-90 leading-relaxed"
-                    >
-                      {slide.description}
-                    </motion.p>
-
-                    {/* Features List */}
-                    <motion.ul
-                      initial={{ opacity: 0, y: 15 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 }}
-                      className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-5 sm:mb-6"
-                    >
-                      {slide.features.map((feature, i) => (
-                        <li key={i} className="flex items-start gap-2">
-                          <FaCheckCircle className="text-green-400 flex-shrink-0 mt-0.5 text-xs sm:text-sm" />
-                          <span className="text-[10px] sm:text-xs md:text-sm font-medium">
-                            {feature}
-                          </span>
-                        </li>
-                      ))}
-                    </motion.ul>
-
-                    {/* Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-3">
-                      <Link href={slide.path}>
-                        <motion.button
-                          initial={{ opacity: 0, y: 15 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.5 }}
-                          whileHover={{ scale: 1.03 }}
-                          whileTap={{ scale: 0.98 }}
-                          className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg font-bold shadow-lg transition-all duration-300 flex items-center justify-center gap-2 text-xs sm:text-sm"
-                        >
-                          {slide.cta}
-                          <FaRocket className="transition-transform text-xs sm:text-sm" />
-                        </motion.button>
-                      </Link>
-                      <Link href="/contact">
-                        <motion.button
-                          initial={{ opacity: 0, y: 15 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.6 }}
-                          whileHover={{ scale: 1.03 }}
-                          whileTap={{ scale: 0.98 }}
-                          className="w-full sm:w-auto bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg font-bold shadow-lg transition-all duration-300 border border-white/30 text-xs sm:text-sm"
-                        >
-                          Talk to Expert
-                        </motion.button>
-                      </Link>
+          {/* Right Content */}
+          <div className="w-full lg:w-1/2 flex flex-col justify-center mt-8 lg:mt-0 lg:pl-10 text-white gap-6">
+            {/* Stats */}
+            <div>
+              <h3 className="text-lg sm:text-xl font-bold mb-4">Key Statistics</h3>
+              <div className="grid grid-cols-3 gap-4">
+                {slide.stats.map((stat, i) => (
+                  <div key={i} className="text-center">
+                    <div className="text-2xl sm:text-3xl font-extrabold text-yellow-300">
+                      {stat.value}
                     </div>
-                  </motion.div>
-                </div>
-
-                {/* Right Content Column */}
-                <div className="w-full lg:w-1/2 flex flex-col justify-center mt-6 lg:mt-0 lg:pl-8">
-                  <div className="flex flex-col gap-4 sm:gap-5">
-                    {/* Top Right - Stats */}
-                    <motion.div
-                      initial={{ opacity: 0, y: -20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 }}
-                      className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-5 border border-white/20"
-                    >
-                      <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-3 sm:mb-4">
-                        Key Statistics
-                      </h3>
-                      <div className="grid grid-cols-3 gap-3">
-                        {slide.stats.map((stat, i) => (
-                          <div key={i} className="text-center">
-                            <div className="text-lg sm:text-xl md:text-2xl font-extrabold text-yellow-300">
-                              {stat.value}
-                            </div>
-                            <div className="text-[10px] xs:text-xs sm:text-sm text-white/80 mt-1 leading-tight">
-                              {stat.label}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </motion.div>
-
-                    {/* Middle Right - Benefits */}
-                    <motion.div
-                      initial={{ opacity: 0, y: -20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 }}
-                      className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-5 border border-white/20"
-                    >
-                      <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-3 sm:mb-4">
-                        Perks Of Connecting with us!
-                      </h3>
-                      <ul className="space-y-2">
-                        {slide.benefits.map((benefit, i) => (
-                          <li key={i} className="flex items-start gap-2">
-                            <FaRegLightbulb className="text-yellow-300 mt-0.5 flex-shrink-0 text-xs sm:text-sm" />
-                            <span className="text-[10px] xs:text-xs sm:text-sm text-white/90 leading-tight">
-                              {benefit}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </motion.div>
-
-                    {/* Bottom Right - Tagline */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.7 }}
-                      className="text-right"
-                    >
-                      <div className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white leading-tight">
-                        {slide.tagline}
-                      </div>
-                    </motion.div>
+                    <div className="text-xs sm:text-sm opacity-80">{stat.label}</div>
                   </div>
-                </div>
+                ))}
               </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+            </div>
 
-        {/* Custom Pagination */}
-        <div className="swiper-pagination absolute bottom-4 sm:bottom-6 w-full flex justify-center z-20 gap-1 sm:gap-2"></div>
-      </section>
+            {/* Benefits */}
+            <div>
+              <h3 className="text-lg sm:text-xl font-bold mb-4">Perks of Connecting</h3>
+              <ul className="space-y-2">
+                {slide.benefits.map((benefit, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm sm:text-base">
+                    <FaRegLightbulb className="text-yellow-300 mt-0.5" />
+                    <span>{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Tagline */}
+            <div className="text-xl sm:text-2xl md:text-3xl font-extrabold leading-tight text-right">
+              {slide.tagline}
+            </div>
+          </div>
+        </div>
+      </SwiperSlide>
+    ))}
+  </Swiper>
+
+  {/* Custom Pagination */}
+  <div className="swiper-pagination absolute bottom-4 sm:bottom-6 w-full flex justify-center z-20 gap-2"></div>
+</section>
+
+
 
       {/* Top Stories */}
       <HomeResearchAndNewsSection />
