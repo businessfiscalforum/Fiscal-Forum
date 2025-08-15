@@ -166,7 +166,7 @@ const ResearchReportsSection = () => {
       <div className="flex-1">
         <div className="mb-8">
           <h2 className="text-2xl md:text-3xl font-bold text-emerald-900 mb-2 flex items-center gap-2">
-            📊 Research Reports
+            Research Reports
           </h2>
           <p className="text-gray-600">Latest insights and findings from our expert research team</p>
         </div>
@@ -200,18 +200,18 @@ const ResearchReportsSection = () => {
           >
             View All Reports
           </button>
-          <button
+          {/* <button
             onClick={() => router.push("/research-subscription")}
             className="px-5 py-3 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white font-semibold text-sm md:text-base uppercase tracking-wide transition-all rounded-full flex-1 sm:flex-none shadow-md"
           >
             Subscribe Now
-          </button>
+          </button> */}
         </div>
 
         {/* Subscribe Section */}
         <div className="p-8 bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl shadow-md border border-emerald-100">
           <h3 className="text-2xl font-bold text-emerald-900 mb-3 flex items-center gap-2">
-            💌 Stay Connected With Us
+            Stay Connected With Us
           </h3>
 
           <p className="text-lg text-emerald-800 leading-relaxed mb-6">
@@ -260,7 +260,7 @@ const ResearchReportsSection = () => {
         {/* Metrics */}
         <div className="bg-white border border-emerald-200 p-6 rounded-xl shadow-sm">
           <h3 className="text-lg font-semibold text-emerald-900 mb-5 flex items-center gap-2">
-            📈 Research Metrics
+            Research Metrics
           </h3>
           <ul className="space-y-4">
             <li className="flex justify-between pb-3 border-b border-emerald-100">

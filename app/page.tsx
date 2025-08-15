@@ -38,6 +38,7 @@ import HomeResearchAndNewsSection from "./(routes)/_components/HomeResearchAndNe
 import { useState } from "react";
 import { BarChart3, BookOpen, Shield, TrendingUp, Wallet } from "lucide-react";
 import ResearchReportsSection from "./(routes)/_components/ResearchReportsSection";
+import { useRouter } from "next/navigation";
 
 const slides = [
   {
@@ -238,6 +239,7 @@ const partners = [
     desc: "Join us in expanding financial services across the country.",
     gradient: "from-emerald-500 to-teal-600",
     hoverGradient: "from-emerald-600 to-teal-700",
+    path:"/work-with-us/bdp"
   },
   {
     title: "Angel Remisorship",
@@ -245,6 +247,7 @@ const partners = [
     desc: "Start referral by Angel remisorship to get benefits.",
     gradient: "from-green-500 to-emerald-600",
     hoverGradient: "from-green-600 to-emerald-700",
+    path:"/work-with-us/rp"
   },
   {
     title: "B2B Partner",
@@ -252,6 +255,7 @@ const partners = [
     desc: "Collaborate with us to deliver seamless financial integration.",
     gradient: "from-teal-500 to-cyan-600",
     hoverGradient: "from-teal-600 to-cyan-700",
+    path:"/work-with-us/b2b"
   },
 ];
 
@@ -315,6 +319,11 @@ const features = [
     title: "Exclusive Rewards & Cashback",
     icon: FaCoins,
     desc: "Every services you choose brings unique perks, tailored rewards, and cashback benefits that add extra value to your journey",
+  },
+  {
+    title: "24X7 Call Support",
+    icon: FaCoins,
+    desc: "Get your queries solved by scheduling a call, we will call you on your preferred scheduled time",
   },
 ];
 
@@ -391,6 +400,59 @@ const securityFeatures = [
 ];
 
 export default function HomePage() {
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState<{
+    text: string;
+    type: "success" | "error";
+  } | null>(null);
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) {
+      setMessage({ text: "Please enter your email address", type: "error" });
+      return;
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setMessage({ text: "Please enter a valid email address", type: "error" });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setMessage(null);
+
+    try {
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setMessage({
+          text: data.message || "Successfully subscribed!",
+          type: "success",
+        });
+        setEmail("");
+      } else {
+        setMessage({
+          text: data.error || "Subscription failed",
+          type: "error",
+        });
+      }
+    } catch (error) {
+      setMessage({
+        text: "Subscription failed. Please try again.",
+        type: "error",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   type TabKey = "investment-products" | "banking-products" | "research-reports";
   const [activeTab, setActiveTab] = useState<TabKey>("investment-products");
 
@@ -409,28 +471,28 @@ export default function HomePage() {
         icon: BarChart3,
         description:
           "Step into the stock market with confidence and curiosity. Grow your wealth one smart choice at a time, guided by insights and people who genuinely care about your progress. Start where you are, invest wisely, and build your tomorrow.",
-        link: "/demo/investment-products/stock-investment",
+        link: "/services/stock-investment",
       },
       {
         title: "Mutual Funds",
         icon: TrendingUp,
         description:
           "Invest in mutual funds with the comfort of knowing you're never alone on the journey. Let your money work gently, balancing risk and opportunity, as you focus on living life fully today while planning for tomorrow's dreams.",
-        link: "/demo/investment-products/mutual-funds",
+        link: "/services/mutual-funds",
       },
       {
-        title: "Insurance (Motor, Health, Life)",
+        title: "Insurance",
         icon: Shield,
         description:
           "Life can be unpredictable, but your peace of mind shouldn't be. From your car to your health to your family's future, our insurance solutions stand by you — protecting what matters most, every single day, with care and trust.",
-        link: "/demo/investment-products/insurance",
+        link: "/services/insurance",
       },
       {
-        title: "FD & Government Bonds",
+        title: "FD & Govt. Bonds",
         icon: Wallet,
         description:
-          "Grow your savings safely with a thoughtful mix of Fixed Deposits and Government Bonds. Enjoy steady growth and dependable protection, giving you the calm confidence that your hard-earned money is secure while quietly working for your future goals.",
-        link: "/demo/investment-products/fd-gov-bonds",
+          "Grow your savings safely with a thoughtful mix of Fixed Deposits and Government Bonds. Enjoy steady growth and dependable protection, giving you the calm confidence that your hard-earned money is secure while you're working.",
+        link: "/services/govt-bonds-&-funds",
       },
     ],
     "banking-products": [
@@ -439,21 +501,21 @@ export default function HomePage() {
         icon: Wallet,
         description:
           "Enjoy life's moments with a credit card that matches your lifestyle. From everyday essentials to special treats, spend smartly, earn rewards, and manage your money with ease — all while knowing you have support whenever you need it.",
-        link: "/demo/banking-products/credit-card",
+        link: "/services/credit-card",
       },
       {
         title: "Savings Account",
         icon: Wallet,
         description:
           "Open a savings account that does more than just hold money — let your everyday savings gently grow, giving you freedom to plan, spend wisely, and handle life's surprises with a sense of security and confidence in the future.",
-        link: "/demo/banking-products/savings-account",
+        link: "/services/saving-account",
       },
       {
         title: "Loans",
         icon: Wallet,
         description:
           "Turn your plans into reality with a loan that understands your needs. Whether it's your dream home, a new venture, or unexpected expenses, we're here to help you move forward with clarity, comfort, and a trusted helping hand.",
-        link: "/demo/banking-products/loans",
+        link: "/services/loan",
       },
     ],
     "research-reports": [
@@ -482,14 +544,14 @@ export default function HomePage() {
   };
 
   return (
-    <div className="text-gray-800 font-sans bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100 min-h-screen">
+    <div className="text-gray-800 font-sans min-h-screen">
       {/* Hero Section with Enhanced Carousel */}
       <section className="relative w-full h-screen overflow-hidden">
         {/* Floating decorative elements */}
-        <div className="absolute inset-0 z-[5] pointer-events-none">
+        {/* <div className="absolute inset-0 z-[5] pointer-events-none">
           <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-emerald-400/20 to-teal-400/20 rounded-full blur-2xl animate-pulse"></div>
           <div className="absolute bottom-20 right-10 w-40 h-40 bg-gradient-to-r from-green-400/20 to-emerald-400/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
-        </div>
+        </div> */}
 
         <Swiper
           spaceBetween={30}
@@ -585,7 +647,7 @@ export default function HomePage() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="bg-white/10 p-6 rounded-2xl backdrop-blur-md border border-white/20"
+                    className=" p-6 rounded-2xl border border-white/20"
                   >
                     <h3 className="text-lg sm:text-xl font-bold mb-4 text-emerald-200">
                       Key Statistics
@@ -609,7 +671,7 @@ export default function HomePage() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="bg-white/10 p-6 rounded-2xl backdrop-blur-md border border-white/20"
+                    className="p-6 rounded-2xl border border-white/20"
                   >
                     <h3 className="text-lg sm:text-xl font-bold mb-4 text-emerald-200">
                       Perks of Connecting
@@ -701,7 +763,11 @@ export default function HomePage() {
                     <motion.div
                       layoutId="activeTab"
                       className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                      transition={{
+                        type: "spring",
+                        bounce: 0.2,
+                        duration: 0.6,
+                      }}
                     />
                   )}
                   <span className="relative z-10">{tab.label}</span>
@@ -718,37 +784,32 @@ export default function HomePage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   whileHover={{ y: -12, scale: 1.03 }}
-                  className="group relative rounded-3xl shadow-2xl overflow-hidden transition-all duration-500 transform bg-white/80 backdrop-blur-sm border border-emerald-100 hover:border-emerald-300"
+                  className="group relative rounded-3xl shadow-2xl overflow-hidden transition-all duration-500 transform bg-white/80 backdrop-blur-sm border border-emerald-100 hover:border-emerald-300 flex flex-col h-full"
                 >
-                  {/* Gradient overlay on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/50 to-teal-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  
                   <Link href={item.link} passHref>
-                    <div className="relative z-10 p-8 space-y-6">
-                      {/* Icon with enhanced styling */}
-                      <div className="relative">
-                        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity"></div>
-                        <div className="relative p-4 rounded-2xl bg-gradient-to-r from-emerald-100 to-teal-100 group-hover:from-emerald-500 group-hover:to-teal-600 transition-all duration-500">
+                    <div className="p-8 space-y-6 flex flex-col h-full">
+                      {/* Icon - Centered, No Background */}
+                      <div className="flex flex-col items-center justify-center space-y-4 flex-1">
+                        <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center shadow-lg">
                           {item.icon && (
-                            <item.icon className="w-10 h-10 text-emerald-700 group-hover:text-white transition-colors duration-500" />
+                            <item.icon className="w-8 h-8 text-white" />
                           )}
                         </div>
+
+                        {/* Title */}
+                        <h2 className="text-2xl font-bold text-gray-800 text-center leading-tight">
+                          {item.title}
+                        </h2>
                       </div>
 
-                      {/* Title */}
-                      <h2 className="text-2xl font-bold text-gray-800 group-hover:text-emerald-700 transition-colors duration-500">
-                        {item.title}
-                      </h2>
-
                       {/* Description */}
-                      <p className="text-sm leading-relaxed text-gray-600 group-hover:text-gray-700 transition-colors duration-500">
+                      <p className="text-sm leading-relaxed text-gray-600 text-center flex-grow">
                         {item.description}
                       </p>
 
-                      {/* Enhanced Learn More Button */}
-                      <div className="relative">
-                        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl blur-md opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
-                        <button className="relative bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-6 py-3 rounded-2xl font-bold flex items-center gap-3 transition-all duration-500 shadow-lg group-hover:shadow-2xl transform group-hover:scale-105">
+                      {/* Learn More Button */}
+                      <div className="mt-4">
+                        <button className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-6 py-3 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 shadow-lg group-hover:shadow-2xl transform group-hover:scale-105">
                           Learn More
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -756,7 +817,7 @@ export default function HomePage() {
                             fill="none"
                             stroke="currentColor"
                             strokeWidth="2"
-                            className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
+                            className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
                           >
                             <path d="M5 12h14M12 5l7 7-7 7" />
                           </svg>
@@ -794,7 +855,8 @@ export default function HomePage() {
               ✨ Why Choose Fiscal Forum?
             </h2>
             <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed bg-white/60 p-6 rounded-2xl backdrop-blur-sm">
-              Experience the difference with our comprehensive financial ecosystem designed for your success
+              Experience the difference with our comprehensive financial
+              ecosystem designed for your success
             </p>
           </motion.div>
 
@@ -811,7 +873,7 @@ export default function HomePage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-teal-600/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="relative bg-white/90 backdrop-blur-md p-10 rounded-3xl shadow-2xl border border-emerald-100 hover:border-emerald-300 hover:shadow-emerald-500/25 transition-all duration-500 h-full">
                   <div className="relative mb-8">
-                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-3xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity"></div>
+                    {/* <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-3xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity"></div> */}
                     <div className="relative w-20 h-20 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-3xl flex items-center justify-center mx-auto group-hover:from-emerald-500 group-hover:to-teal-600 transition-all duration-500 shadow-xl group-hover:scale-110 group-hover:rotate-6">
                       <feature.icon className="text-emerald-700 group-hover:text-white text-3xl transition-colors duration-500" />
                     </div>
@@ -822,7 +884,7 @@ export default function HomePage() {
                   <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors text-lg">
                     {feature.desc}
                   </p>
-                  
+
                   {/* Decorative element */}
                   <div className="absolute bottom-6 right-6 w-2 h-2 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
@@ -831,7 +893,7 @@ export default function HomePage() {
           </div>
 
           {/* Additional Enhanced Features */}
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
@@ -850,17 +912,21 @@ export default function HomePage() {
                   <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-lg">
                     <service.icon className="text-white text-2xl" />
                   </div>
-                  <h4 className="text-xl font-bold text-emerald-700 mb-4">{service.title}</h4>
-                  <p className="text-gray-600 leading-relaxed">{service.desc}</p>
+                  <h4 className="text-xl font-bold text-emerald-700 mb-4">
+                    {service.title}
+                  </h4>
+                  <p className="text-gray-600 leading-relaxed">
+                    {service.desc}
+                  </p>
                 </motion.div>
               ))}
             </div>
-          </motion.div>
+          </motion.div> */}
         </div>
       </section>
 
       {/* Enhanced Security & Trust Section */}
-      <section className="py-20 bg-gradient-to-br from-emerald-100 to-teal-100 relative">
+      {/* <section className="py-20 bg-gradient-to-br from-emerald-100 to-teal-100 relative">
         <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -874,7 +940,7 @@ export default function HomePage() {
               🛡️ Your Security is Our Priority
             </h2>
           </motion.div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {securityFeatures.map((security, index) => (
               <motion.div
@@ -888,13 +954,15 @@ export default function HomePage() {
                 <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mb-6 mx-auto">
                   <security.icon className="text-white text-2xl" />
                 </div>
-                <h4 className="text-xl font-bold text-emerald-700 mb-4">{security.title}</h4>
+                <h4 className="text-xl font-bold text-emerald-700 mb-4">
+                  {security.title}
+                </h4>
                 <p className="text-gray-600">{security.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Enhanced Work With Us Section */}
       <section className="py-24 bg-gradient-to-br from-white via-emerald-50 to-green-50 relative">
@@ -908,50 +976,56 @@ export default function HomePage() {
               <FaHandshake className="text-white text-4xl" />
             </div>
             <h2 className="text-5xl font-bold mb-8 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-              🤝 Work With Us
+              Work With Us
             </h2>
             <p className="text-xl text-gray-700 max-w-3xl mx-auto bg-white/60 p-6 rounded-2xl backdrop-blur-sm">
-              Join our growing network of partners and unlock new opportunities together
+              Join our growing network of partners and unlock new opportunities
+              together
             </p>
           </motion.div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {partners.map((partner, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.2 }}
-                whileHover={{ scale: 1.08, y: -8 }}
-                className="group relative"
+         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+  {partners.map((partner, i) => (
+    <Link href={partner.path} key={i} className="group relative">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: i * 0.2 }}
+        whileHover={{ scale: 1.08, y: -8 }}
+        className="relative w-full"
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-teal-600/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div
+          className={`relative bg-gradient-to-br ${partner.gradient} p-1 rounded-3xl shadow-2xl`}
+        >
+          <div className="bg-white p-10 rounded-3xl hover:bg-gradient-to-br hover:from-white hover:to-emerald-50 transition-all duration-500">
+            <div className="relative mb-8">
+              <div
+                className={`relative w-24 h-24 bg-gradient-to-r ${partner.gradient} rounded-3xl flex items-center justify-center mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl`}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-teal-600/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className={`relative bg-gradient-to-br ${partner.gradient} p-1 rounded-3xl shadow-2xl`}>
-                  <div className="bg-white p-10 rounded-3xl hover:bg-gradient-to-br hover:from-white hover:to-emerald-50 transition-all duration-500">
-                    <div className="relative mb-8">
-                      <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-3xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity"></div>
-                      <div className={`relative w-24 h-24 bg-gradient-to-r ${partner.gradient} rounded-3xl flex items-center justify-center mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl`}>
-                        <partner.icon className="text-white text-4xl" />
-                      </div>
-                    </div>
-                    <h4 className="text-2xl font-bold mb-6 text-slate-800 group-hover:text-emerald-600 transition-colors">
-                      {partner.title}
-                    </h4>
-                    <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors text-lg mb-8">
-                      {partner.desc}
-                    </p>
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className={`bg-gradient-to-r ${partner.gradient} hover:${partner.hoverGradient} text-white px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-2xl transition-all duration-300 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0`}
-                    >
-                      Join Now
-                    </motion.button>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                <partner.icon className="text-white text-4xl" />
+              </div>
+            </div>
+            <h4 className="text-2xl font-bold mb-6 text-slate-800 group-hover:text-emerald-600 transition-colors">
+              {partner.title}
+            </h4>
+            <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors text-lg mb-8">
+              {partner.desc}
+            </p>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`bg-gradient-to-r ${partner.gradient} hover:${partner.hoverGradient} text-white px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-2xl transition-all duration-300 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0`}
+            >
+              Join Now
+            </motion.button>
           </div>
+        </div>
+      </motion.div>
+    </Link>
+  ))}
+</div>
+
         </div>
       </section>
 
@@ -976,10 +1050,11 @@ export default function HomePage() {
               💬 What Our Clients Say
             </h2>
             <p className="text-xl text-gray-700 max-w-3xl mx-auto bg-white/60 p-6 rounded-2xl backdrop-blur-sm">
-              Real stories from real people who trust us with their financial journey
+              Real stories from real people who trust us with their financial
+              journey
             </p>
           </motion.div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {testimonials.map((testimonial, i) => (
               <motion.div
@@ -991,12 +1066,16 @@ export default function HomePage() {
                 className="group relative"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-teal-600/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className={`relative bg-gradient-to-br ${testimonial.gradient} p-1 rounded-3xl shadow-2xl hover:shadow-emerald-500/25 transition-all duration-500`}>
+                <div
+                  className={`relative bg-gradient-to-br ${testimonial.gradient} p-1 rounded-3xl shadow-2xl hover:shadow-emerald-500/25 transition-all duration-500`}
+                >
                   <div className="bg-white/95 backdrop-blur-md p-10 rounded-3xl text-left hover:bg-gradient-to-br hover:from-white hover:to-emerald-50 transition-all duration-500">
                     <div className="flex items-start gap-6 mb-8">
                       <div className="relative">
                         <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-3xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity"></div>
-                        <div className={`relative w-20 h-20 bg-gradient-to-r ${testimonial.gradient} rounded-3xl flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform`}>
+                        <div
+                          className={`relative w-20 h-20 bg-gradient-to-r ${testimonial.gradient} rounded-3xl flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform`}
+                        >
                           <FaQuoteLeft className="text-white text-2xl" />
                         </div>
                       </div>
@@ -1035,7 +1114,7 @@ export default function HomePage() {
       </section>
 
       {/* Enhanced Affiliations Section */}
-       <section className="py-20 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 relative ">
+      <section className="py-20 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 relative ">
         {/* Background gradient blobs */}
         <div className="absolute inset-0">
           <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-gradient-to-r from-indigo-200/20 to-purple-300/20 rounded-full blur-3xl animate-pulse"></div>
@@ -1070,78 +1149,80 @@ export default function HomePage() {
         {/* Keyframes for smooth infinite scroll */}
       </section>
 
-      {/* Enhanced Newsletter Section */}
-      <section className="py-24 bg-gradient-to-br from-emerald-900 via-green-900 to-teal-900 text-white text-center relative overflow-hidden">
-        {/* Enhanced background elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-emerald-400/20 to-teal-500/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-green-400/20 to-emerald-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-teal-400/10 to-cyan-500/10 rounded-full blur-3xl"></div>
-        </div>
-
-        <div className="max-w-4xl mx-auto px-6 relative z-10">
+      {/* Newsletter Section */}
+      <section className="py-24 bg-gradient-to-br from-emerald-900 via-teal-900 to-green-900 text-white text-center relative overflow-hidden">
+        <div className="max-w-3xl mx-auto px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="mb-12">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-3xl blur-2xl opacity-50"></div>
-                <div className="relative w-24 h-24 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl">
-                  <FaHeart className="text-white text-3xl animate-pulse" />
-                </div>
+            <div className="mb-8">
+              <div className="w-20 h-20 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl">
+                <FaHeart className="text-white text-2xl animate-pulse" />
               </div>
-              <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-white via-emerald-200 to-teal-300 bg-clip-text text-transparent">
+              <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-white to-emerald-200 bg-clip-text text-transparent">
                 📧 Stay Connected With Us
               </h2>
-              <p className="text-2xl text-white/90 leading-relaxed max-w-3xl mx-auto bg-white/10 p-8 rounded-3xl backdrop-blur-md border border-white/20">
-                Subscribe to our newsletter for exclusive financial tips, market insights, and special offers tailored just for you.
+              <p className="text-xl text-white/80 leading-relaxed">
+                Subscribe to our newsletter for exclusive financial tips, market
+                insights, and special offers tailored just for you.
               </p>
             </div>
 
-            <motion.form
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-6 max-w-2xl mx-auto mb-12"
+            {/* Subscription Form */}
+            <form
+              onSubmit={handleSubscribe}
+              className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto"
             >
-              <div className="relative flex-1 w-full">
-                <input
-                  type="email"
-                  placeholder="Enter your email address"
-                  className="w-full p-6 rounded-3xl text-gray-800 bg-white/95 backdrop-blur-sm border-2 border-emerald-200 shadow-2xl focus:outline-none focus:ring-4 focus:ring-emerald-400/50 focus:border-emerald-400 transition-all duration-300 text-lg"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-teal-600/20 rounded-3xl -z-10 blur-2xl"></div>
-              </div>
-              <motion.button
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                className="flex-1 px-6 py-4 border border-emerald-300 rounded-full bg-white text-base text-gray-800 focus:outline-none focus:ring-4 focus:ring-emerald-400/50 focus:border-emerald-500 transition-all duration-300 shadow-lg"
+                disabled={isSubmitting}
+              />
+              <button
                 type="submit"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-gradient-to-r from-emerald-400 to-teal-500 hover:from-emerald-500 hover:to-teal-600 text-emerald-900 font-bold px-10 py-6 rounded-3xl shadow-2xl hover:shadow-emerald-400/25 transition-all duration-300 flex items-center gap-3 group whitespace-nowrap text-lg"
+                disabled={isSubmitting}
+                className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold text-base uppercase tracking-wide rounded-full transition-all shadow-xl hover:shadow-emerald-500/25 disabled:opacity-70 disabled:cursor-not-allowed whitespace-nowrap"
               >
-                Subscribe Now
-                <FaRocket className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform text-xl" />
-              </motion.button>
-            </motion.form>
+                {isSubmitting ? "Subscribing..." : "Subscribe"}
+              </button>
+            </form>
 
+            {/* Message Display */}
+            {message && (
+              <div
+                className={`mt-4 text-sm px-6 py-3 rounded-full max-w-xs text-center font-medium ${
+                  message.type === "success"
+                    ? "bg-emerald-100 text-emerald-800"
+                    : "bg-red-100 text-red-800"
+                }`}
+              >
+                {message.text}
+              </div>
+            )}
+
+            {/* Trust Indicators */}
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="flex items-center justify-center gap-8 text-white/80"
+              className="mt-6 flex items-center justify-center gap-6 text-white/60 text-sm"
             >
-              <div className="flex items-center gap-3 bg-white/10 px-6 py-3 rounded-2xl backdrop-blur-md">
-                <FaCheckCircle className="text-emerald-400 text-lg" />
-                <span className="font-semibold">No Spam</span>
+              <div className="flex items-center gap-2">
+                <FaCheckCircle className="text-emerald-400" />
+                <span>No Spam</span>
               </div>
-              <div className="flex items-center gap-3 bg-white/10 px-6 py-3 rounded-2xl backdrop-blur-md">
-                <FaLock className="text-emerald-400 text-lg" />
-                <span className="font-semibold">Secure</span>
+              <div className="flex items-center gap-2">
+                <FaLock className="text-emerald-400" />
+                <span>Secure</span>
               </div>
-              <div className="flex items-center gap-3 bg-white/10 px-6 py-3 rounded-2xl backdrop-blur-md">
-                <FaGem className="text-teal-400 text-lg" />
-                <span className="font-semibold">Premium Content</span>
+              <div className="flex items-center gap-2">
+                <FaGem className="text-emerald-400" />
+                <span>Exclusive Content</span>
               </div>
             </motion.div>
           </motion.div>
@@ -1170,15 +1251,17 @@ export default function HomePage() {
                 <FaRocket className="text-white text-3xl" />
               </div>
             </div>
-            
+
             <h3 className="text-5xl font-bold bg-gradient-to-r from-white via-emerald-200 to-teal-300 bg-clip-text text-transparent leading-tight">
               Ready to Transform Your Financial Future?
             </h3>
-            
+
             <p className="text-2xl text-white/90 max-w-4xl mx-auto bg-white/10 p-8 rounded-3xl backdrop-blur-md border border-white/20">
-              Join thousands of satisfied customers who trust Fiscal Forum for their financial needs. Start your journey towards financial freedom today.
+              Join thousands of satisfied customers who trust Fiscal Forum for
+              their financial needs. Start your journey towards financial
+              freedom today.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8">
               <motion.button
                 whileHover={{ scale: 1.05, y: -2 }}
@@ -1188,7 +1271,7 @@ export default function HomePage() {
                 Get Started Today
                 <FaRocket className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform text-2xl" />
               </motion.button>
-              
+
               <motion.button
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
@@ -1212,15 +1295,21 @@ export default function HomePage() {
               </div>
               <div className="flex items-center gap-3 bg-white/10 px-6 py-4 rounded-2xl backdrop-blur-md">
                 <FaAward className="text-emerald-400 text-xl" />
-                <span className="text-white/90 font-semibold">Award Winning</span>
+                <span className="text-white/90 font-semibold">
+                  Award Winning
+                </span>
               </div>
               <div className="flex items-center gap-3 bg-white/10 px-6 py-4 rounded-2xl backdrop-blur-md">
                 <FaUsers className="text-emerald-400 text-xl" />
-                <span className="text-white/90 font-semibold">50L+ Customers</span>
+                <span className="text-white/90 font-semibold">
+                  50L+ Customers
+                </span>
               </div>
               <div className="flex items-center gap-3 bg-white/10 px-6 py-4 rounded-2xl backdrop-blur-md">
                 <FaHeadset className="text-emerald-400 text-xl" />
-                <span className="text-white/90 font-semibold">24/7 Support</span>
+                <span className="text-white/90 font-semibold">
+                  24/7 Support
+                </span>
               </div>
             </motion.div>
 
@@ -1232,19 +1321,27 @@ export default function HomePage() {
               className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 max-w-4xl mx-auto"
             >
               <div className="text-center bg-white/5 p-6 rounded-2xl backdrop-blur-sm">
-                <div className="text-3xl font-bold text-emerald-400 mb-2">₹10,000 Cr+</div>
+                <div className="text-3xl font-bold text-emerald-400 mb-2">
+                  ₹10,000 Cr+
+                </div>
                 <div className="text-white/80">Assets Managed</div>
               </div>
               <div className="text-center bg-white/5 p-6 rounded-2xl backdrop-blur-sm">
-                <div className="text-3xl font-bold text-emerald-400 mb-2">99.8%</div>
+                <div className="text-3xl font-bold text-emerald-400 mb-2">
+                  99.8%
+                </div>
                 <div className="text-white/80">Uptime</div>
               </div>
               <div className="text-center bg-white/5 p-6 rounded-2xl backdrop-blur-sm">
-                <div className="text-3xl font-bold text-emerald-400 mb-2">4.9★</div>
+                <div className="text-3xl font-bold text-emerald-400 mb-2">
+                  4.9★
+                </div>
                 <div className="text-white/80">Customer Rating</div>
               </div>
               <div className="text-center bg-white/5 p-6 rounded-2xl backdrop-blur-sm">
-                <div className="text-3xl font-bold text-emerald-400 mb-2">15+</div>
+                <div className="text-3xl font-bold text-emerald-400 mb-2">
+                  15+
+                </div>
                 <div className="text-white/80">Years Experience</div>
               </div>
             </motion.div>
@@ -1262,38 +1359,39 @@ export default function HomePage() {
             transform: translateX(-50%);
           }
         }
-        
+
         @keyframes float {
-          0%, 100% {
+          0%,
+          100% {
             transform: translateY(0px);
           }
           50% {
             transform: translateY(-10px);
           }
         }
-        
+
         .animate-float {
           animation: float 6s ease-in-out infinite;
         }
-        
+
         /* Custom scrollbar for better aesthetics */
         ::-webkit-scrollbar {
           width: 8px;
         }
-        
+
         ::-webkit-scrollbar-track {
           background: #f1f5f9;
         }
-        
+
         ::-webkit-scrollbar-thumb {
           background: linear-gradient(to bottom, #10b981, #14b8a6);
           border-radius: 4px;
         }
-        
+
         ::-webkit-scrollbar-thumb:hover {
           background: linear-gradient(to bottom, #059669, #0d9488);
         }
-        
+
         /* Enhanced swiper pagination */
         .swiper-pagination-bullet {
           background: rgba(16, 185, 129, 0.5) !important;
@@ -1304,27 +1402,29 @@ export default function HomePage() {
           border: 2px solid rgba(255, 255, 255, 0.3) !important;
           transition: all 0.3s ease !important;
         }
-        
+
         .swiper-pagination-bullet-active {
           background: linear-gradient(45deg, #10b981, #14b8a6) !important;
           transform: scale(1.2) !important;
           border-color: rgba(255, 255, 255, 0.8) !important;
           box-shadow: 0 0 20px rgba(16, 185, 129, 0.6) !important;
         }
-        
+
         /* Smooth transitions for all interactive elements */
         * {
-          transition-property: color, background-color, border-color, transform, opacity, box-shadow;
+          transition-property:
+            color, background-color, border-color, transform, opacity,
+            box-shadow;
           transition-duration: 300ms;
           transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         /* Enhanced gradient animations */
         .gradient-animation {
           background-size: 200% 200%;
           animation: gradient 4s ease infinite;
         }
-        
+
         @keyframes gradient {
           0% {
             background-position: 0% 50%;
