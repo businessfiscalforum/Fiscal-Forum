@@ -116,12 +116,12 @@ const WorkWithUsPage = () => {
     },
     {
       id: 2,
-      title: "Referral Partner",
+      title: "Angel Remisorship",
       icon: FaUsers,
       color: "from-blue-500 to-indigo-600",
       bgColor: "from-blue-50 to-indigo-100",
       description:
-        "Join as a Referral Partner and share opportunities with your network while earning extra benefits. It's a simple, rewarding way to grow together — connect people to trusted financial services and enjoy meaningful returns for every successful referral you make.",
+        "Join as a Remisier and share opportunities with your network while earning extra benefits. Once the client referred by Remisier starts trading with Angel One, the Remisier will get 25% of total brokerage for the whole trading life-span of the client.",
       features: [
         "Simple referral process",
         "Network monetization",

@@ -36,7 +36,7 @@ export default function Navbar() {
   return (
     <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 
       bg-white/40 backdrop-blur-md 
-      border border-blue-200 shadow-lg 
+      border border-green-200 shadow-lg 
       md:rounded-full rounded-lg 
       px-4 md:px-6 py-3 md:py-4 
       max-w-7xl w-[95%] md:w-full">
@@ -48,31 +48,31 @@ export default function Navbar() {
             <div className=" rounded-full flex items-center justify-center p-1  overflow-hidden">
               <Image src="/forum1.ico" alt="Fiscal Forum" width={36} height={36} />
             </div>
-            <span className="text-xl font-bold text-blue-900 hidden sm:block">
+            <span className="text-xl font-bold text-green-900 hidden sm:block">
               Fiscal Forum
             </span>
           </Link>
         </div>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center space-x-6 lg:space-x-8 text-sm font-medium text-blue-900">
+        <div className="hidden md:flex items-center space-x-6 lg:space-x-8 text-sm font-medium text-green-900">
           {/* Services Dropdown */}
           <div className="relative">
             <button
               onClick={() => setServicesOpen(!servicesOpen)}
-              className="flex items-center gap-1 hover:text-blue-600 transition-colors py-2"
+              className="flex items-center gap-1 hover:text-green-600 transition-colors py-2"
               aria-expanded={servicesOpen}
             >
               Services <ChevronDown size={16} className={`${servicesOpen ? 'rotate-180' : ''} transition-transform`} />
             </button>
             
             {servicesOpen && (
-              <div className="absolute top-full left-0 mt-2 w-56 bg-white border border-blue-100 rounded-lg shadow-xl z-50 py-2">
+              <div className="absolute top-full left-0 mt-2 w-56 bg-white border border-green-100 rounded-lg shadow-xl z-50 py-2">
                 {servicesDropdown.map((service) => (
                   <Link
                     key={service.name}
                     href={service.href}
-                    className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors"
+                    className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-green-50 hover:text-green-700 transition-colors"
                     onClick={closeAll}
                   >
                     {service.name}
@@ -87,7 +87,7 @@ export default function Navbar() {
             <Link
               key={item.label}
               href={item.href}
-              className="hover:text-blue-600 transition-colors py-2"
+              className="hover:text-green-600 transition-colors py-2"
               onClick={closeAll}
             >
               {item.label}
@@ -101,18 +101,18 @@ export default function Navbar() {
                 className="flex items-center gap-2"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
-                <div className="bg-blue-100 rounded-full p-1.5">
-                  <div className="bg-blue-600 rounded-full w-6 h-6 flex items-center justify-center">
+                <div className="bg-green-100 rounded-full p-1.5">
+                  <div className="bg-green-600 rounded-full w-6 h-6 flex items-center justify-center">
                     <span className="text-white text-xs font-bold">U</span>
                   </div>
                 </div>
               </button>
 
               {mobileMenuOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white text-blue-900 border border-blue-100 shadow-lg rounded-lg z-50 py-2">
+                <div className="absolute right-0 mt-2 w-48 bg-white text-green-900 border border-green-100 shadow-lg rounded-lg z-50 py-2">
                   <Link
                     href="/dashboard"
-                    className="block px-4 py-2.5 hover:bg-blue-50 text-sm"
+                    className="block px-4 py-2.5 hover:bg-green-50 text-sm"
                     onClick={closeAll}
                   >
                     Dashboard
@@ -130,7 +130,7 @@ export default function Navbar() {
             </div>
           ) : (
             <Link href="/sign-up">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors">
+              <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors">
                 Register
               </button>
             </Link>
@@ -141,7 +141,7 @@ export default function Navbar() {
         <div className="md:hidden">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="text-blue-700 p-1"
+            className="text-green-700 p-1"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -151,11 +151,11 @@ export default function Navbar() {
 
       {/* Mobile Nav Drawer - COMPLETELY SIMPLIFIED */}
       {mobileMenuOpen && (
-        <div className="mt-4 bg-white shadow-xl md:hidden border border-blue-100 rounded-lg">
+        <div className="mt-4 bg-white shadow-xl md:hidden border border-green-100 rounded-lg">
           {/* Services Section */}
           <div>
             <button 
-              className="flex items-center justify-between w-full px-4 py-3 text-blue-900 font-medium"
+              className="flex items-center justify-between w-full px-4 py-3 text-green-900 font-medium"
               onClick={() => setServicesOpen(!servicesOpen)}
             >
               <span>Services</span>
@@ -163,12 +163,12 @@ export default function Navbar() {
             </button>
             
             {servicesOpen && (
-              <div className="bg-blue-50 border-t border-blue-100">
+              <div className="bg-green-50 border-t border-green-100">
                 {servicesDropdown.map((service) => (
                   <Link
                     key={service.name}
                     href={service.href}
-                    className="block px-4 py-3 text-sm text-gray-700 border-b border-blue-50 last:border-0 hover:bg-blue-100"
+                    className="block px-4 py-3 text-sm text-gray-700 border-b border-green-50 last:border-0 hover:bg-green-100"
                   >
                     {service.name}
                   </Link>
@@ -183,7 +183,7 @@ export default function Navbar() {
               <Link
                 key={item.label}
                 href={item.href}
-                className="block px-4 py-3 text-sm text-gray-700 border-b border-blue-50 last:border-0 hover:bg-blue-50"
+                className="block px-4 py-3 text-sm text-gray-700 border-b border-green-50 last:border-0 hover:bg-green-50"
               >
                 {item.label}
               </Link>
@@ -196,11 +196,11 @@ export default function Navbar() {
               <>
                 <Link
                   href="/dashboard"
-                  className="block px-4 py-3 text-sm text-blue-700 hover:bg-blue-50"
+                  className="block px-4 py-3 text-sm text-green-700 hover:bg-green-50"
                 >
                   Dashboard
                 </Link>
-                <div className="px-4 py-3 border-b border-blue-50">
+                <div className="px-4 py-3 border-b border-green-50">
                   <SignOutButton>
                     <button className="w-full bg-red-50 hover:bg-red-100 text-red-600 px-4 py-2.5 rounded-lg text-sm font-medium">
                       Sign Out
@@ -211,7 +211,7 @@ export default function Navbar() {
             ) : (
               <div className="px-4 py-3">
                 <Link href="/sign-up">
-                  <button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg text-sm font-medium">
+                  <button className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-lg text-sm font-medium">
                     Register
                   </button>
                 </Link>

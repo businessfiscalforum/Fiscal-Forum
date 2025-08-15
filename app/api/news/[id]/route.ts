@@ -1,66 +1,110 @@
-// app/api/news/route.ts
-import { revalidatePath } from "next/cache";
-import { db } from "../../../../config/db";
-import { newsTable } from "../../../../config/schema";
-import { NextResponse } from "next/server";
-import { eq } from "drizzle-orm";
+import { NextResponse } from 'next/server';
+import { db } from '../../../../config/db';
+import { newsTable } from '../../../../config/schema';
+import { eq } from 'drizzle-orm';
+import { revalidatePath } from 'next/cache';
 
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
-  const { id } = await params;
-
   try {
-    const [news] = await db
-      .select()
+    const [newsItem] = await db
+.select()
       .from(newsTable)
-      .where(eq(newsTable.id, id));
+      .where(eq(newsTable.id, params.id)) 
+      .limit(1);
 
-    if (!news || !news.published) {
-      return NextResponse.json({ error: "News not found" }, { status: 404 });
+    if (!newsItem) {
+      return NextResponse.json(
+        { error: 'News item not found' },
+        { status: 404 }
+      );
     }
 
-    // ✅ Sanitize dates for JSON serialization
-    return NextResponse.json({
-      ...news,
-      publishDate: news.publishDate.toString(),
-      createdAt: news.createdAt?.toISOString() || null,
-      updatedAt: news.updatedAt?.toISOString() || null,
-    });
+    return NextResponse.json(newsItem);
   } catch (error) {
-    console.error("GET /api/news/[id] error:", error);
+    console.error('Error fetching news item:', error);
     return NextResponse.json(
-      { error: "Failed to fetch news article" },
+      { error: 'Failed to fetch news item' },
       { status: 500 }
     );
   }
 }
 
+export async function PUT(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const data = await request.json();
+    const id = params.id;
 
-// DELETE with query param: /api/news?id=123
+    // Check if item exists
+    const [existingItem] = await db
+      .select()
+      .from(newsTable)
+      .where(eq(newsTable.id, id))
+      .limit(1);
+
+    if (!existingItem) {
+      return NextResponse.json(
+        { error: 'News item not found' },
+        { status: 404 }
+      );
+    }
+
+    const [updatedItem] = await db
+      .update(newsTable)
+      .set({
+        ...data,
+        tags: data.tags ? JSON.stringify(data.tags) : null,
+        publishDate: data.publishDate ? new Date(data.publishDate) : existingItem.publishDate,
+      })
+      .where(eq(newsTable.id, id))
+      .returning();
+
+    return NextResponse.json(updatedItem);
+  } catch (error) {
+    console.error('Error updating news:', error);
+    return NextResponse.json(
+      { error: 'Failed to update news item' },
+      { status: 500 }
+    );
+  }
+}
+
 export async function DELETE(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
-  const { id } = await params;
-
-  if (!id) {
-    return NextResponse.json({ error: "ID is required" }, { status: 400 });
-  }
-
   try {
-    await db.delete(newsTable).where(eq(newsTable.id, id));
+    const id = params.id; 
+    
+    // Check if item exists
+    const [existingItem] = await db
+      .select()
+      .from(newsTable)
+      .where(eq(newsTable.id, id))
+      .limit(1);
 
+    if (!existingItem) {
+      return NextResponse.json(
+        { error: 'News item not found' },
+        { status: 404 }
+      );
+    }
+
+    await db.delete(newsTable).where(eq(newsTable.id, id));
     revalidatePath("/news");
     revalidatePath(`/news/${id}`);
     revalidatePath("/admin/news");
 
-    return NextResponse.json({ success: true });
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    return NextResponse.json({ message: 'News item deleted successfully' });
   } catch (error) {
+    console.error('Error deleting news:', error);
     return NextResponse.json(
-      { error: "Failed to delete news" },
+      { error: 'Failed to delete news item' },
       { status: 500 }
     );
   }

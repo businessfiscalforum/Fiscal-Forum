@@ -6,6 +6,7 @@ import {
   integer,
   pgEnum,
   pgTable,
+  serial,
   text,
   timestamp,
   uuid,
@@ -368,23 +369,28 @@ export const quoteRequestsTable = pgTable('quote_requests', {
 
 export const newsTable = pgTable('news', {
   id: uuid('id').defaultRandom().primaryKey().notNull(),
-  title: text('title').notNull(),
-  description: text('description').notNull(),
-  content: text('content').notNull(), 
-  image: text('image').notNull(),
-  category: newsCategoryEnum('category').notNull(),
-  author: text('author').notNull(),
-  publishDate: timestamp('publish_date', { mode: 'string' }).notNull(),
-  readTime: text('read_time').notNull(), 
-  views: text('views').default('0'),
-  link: text('link'),
+  title: varchar('title', { length: 255 }).notNull(),
+  description: text('description'),
+  content: text('content').notNull(),
+  image: varchar('image', { length: 500 }), // URL to image
+  category: varchar('category', { length: 100 }).notNull(),
+  author: varchar('author', { length: 100 }).notNull(),
+  publishDate: timestamp('publish_date').defaultNow().notNull(),
+  readTime: varchar('read_time', { length: 50 }),
+  views: varchar('views').notNull(),
+  link: varchar('link', { length: 500 }).notNull(),
   featured: boolean('featured').default(false),
-  tags: text('tags').array(),
-  published: boolean('published').default(true),
-  createdAt: timestamp('created_at').notNull().defaultNow(),
-  updatedAt: timestamp('updated_at').notNull().$onUpdateFn(() => new Date()),
+  tags: text('tags'), // JSON string array
+  // IPO specific fields (optional)
+  ipoName: varchar('ipo_name', { length: 255 }),
+  companyName: varchar('company_name', { length: 255 }),
+  priceRange: varchar('price_range', { length: 100 }),
+  issueSize: varchar('issue_size', { length: 100 }),
+  listingDate: varchar('listing_date', { length: 100 }),
+  currentPrice: varchar('current_price', { length: 100 }),
+  listingGain: varchar('listing_gain', { length: 100 }),
+  subscriptionRate: varchar('subscription_rate', { length: 100 }),
 });
-
 //research
 
 export const researchReportsTable = pgTable("research_reports", {
@@ -425,29 +431,6 @@ export type SelectUser = typeof usersTable.$inferSelect;
 export type InsertApplication = typeof applicationsTable.$inferInsert;
 export type SelectApplication = typeof applicationsTable.$inferSelect;
 
-// export type InsertBusinessApplication = typeof businessApplicationTable.$inferInsert;
-// export type SelectBusinessApplication = typeof businessApplicationTable.$inferSelect;
-
-// export type InsertHomeLoanApplication = typeof homeLoanApplicationTable.$inferInsert;
-// export type SelectHomeLoanApplication = typeof homeLoanApplicationTable.$inferSelect;
-
-// export type InsertCarLoanApplication = typeof carLoanApplicationTable.$inferInsert;
-// export type SelectCarLoanApplication = typeof carLoanApplicationTable.$inferSelect;
-
-// export type InsertEducationLoanApplication = typeof educationLoanApplicationTable.$inferInsert;
-// export type SelectEducationLoanApplication = typeof educationLoanApplicationTable.$inferSelect;
-
-// export type InsertGoldLoanApplication = typeof goldLoanApplicationTable.$inferInsert;
-// export type SelectGoldLoanApplication = typeof goldLoanApplicationTable.$inferSelect;
-
-// export type InsertLapApplication = typeof lapApplicationTable.$inferInsert;
-// export type SelectLapApplication = typeof lapApplicationTable.$inferSelect;
-
-// export type InsertSecuritiesLoanApplication = typeof securitiesLoanApplicationTable.$inferInsert;
-// export type SelectSecuritiesLoanApplication = typeof securitiesLoanApplicationTable.$inferSelect;
-
-// export type InsertPersonalLoanApplication = typeof personalLoanApplicationTable.$inferInsert;
-// export type SelectPersonalLoanApplication = typeof personalLoanApplicationTable.$inferSelect;
 
 export type InsertQuoteRequest = typeof quoteRequestsTable.$inferInsert;
 export type SelectQuoteRequest = typeof quoteRequestsTable.$inferSelect;

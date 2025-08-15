@@ -37,7 +37,7 @@ const slides = [
     subtitle: "Empower Your Portfolio",
     description:
       "Access real-time market data, advanced charting tools, and expert research to make informed investment decisions. Trade in equities, derivatives, and currencies with confidence.",
-    image: "/stock.jpg",
+    image: "/bg.jpg",
     cta: "Start Trading",
     features: [
       "Zero brokerage on equity delivery",
@@ -64,7 +64,7 @@ const slides = [
     subtitle: "Smart Investment Solutions",
     description:
       "Diversify your portfolio with our expert-curated mutual fund options. Systematic investment plans, goal-based investing, and professional fund management.",
-    image: "/mutual.jpg",
+    image: "/bg.jpg",
     cta: "Start Investing",
     features: [
       "500+ fund options",
@@ -91,7 +91,7 @@ const slides = [
     subtitle: "Comprehensive Protection",
     description:
       "Protect your family's future with our extensive insurance plans. Cashless hospitalization, wide network of hospitals, and coverage for critical illnesses.",
-    image: "/insurance.jpg",
+    image:"/bg.jpg",
     cta: "Get Quote",
     features: [
       "Coverage up to ₹1 crore",
@@ -118,7 +118,7 @@ const slides = [
     subtitle: "Premium Financial Companion",
     description:
       "Choose from our range of credit cards with exclusive rewards, cashback offers, and lifestyle benefits. Build credit history while enjoying premium privileges.",
-    image: "/stock2.jpg",
+    image:"/bg.jpg",
     cta: "Apply Now",
     features: [
       "Reward points on every purchase",
@@ -145,7 +145,7 @@ const slides = [
     subtitle: "Grow Your Wealth",
     description:
       "Maximize your savings with our high-interest savings accounts. Enjoy zero balance requirements, easy online access, and a range of value-added services.",
-    image: "/savings.jpg",
+    image: "/bg.jpg",
     cta: "Open Account",
     features: [
       "Interest rates up to 7%",
@@ -172,7 +172,7 @@ const slides = [
     subtitle: "Flexible Financing Solutions",
     description:
       "Get instant access to personal, home, and business loans with competitive interest rates, minimal documentation, and quick disbursal tailored to your needs.",
-    image: "/loans.jpg",
+    image: "/bg.jpg",
     cta: "Apply Now",
     features: [
       "Interest rates from 8.4%",
@@ -199,7 +199,7 @@ const slides = [
     subtitle: "Secure Investment Growth",
     description:
       "Maximize your savings with our competitive fixed deposit and government bond schemes. Guaranteed returns, flexible tenures, and multiple payout options for your financial security.",
-    image: "/govt.jpg",
+    image: "/bg.jpg",
     cta: "View Rates",
     features: [
       "Interest rates up to 7.5%",
@@ -283,9 +283,9 @@ const partners = [
     gradient: "from-blue-600 to-indigo-700",
   },
   {
-    title: "Referral Partner",
+    title: "Angel Remisorship",
     icon: FaUsers,
-    desc: "Refer and earn with our trusted partnership model.",
+    desc: "Start referral by Angel remisorship to get benefits.",
     gradient: "from-emerald-600 to-teal-700",
   },
   {
@@ -556,7 +556,7 @@ export default function HomePage() {
               {/* Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href={slide.path}>
-                  <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold shadow-lg transition-all text-sm sm:text-base">
+                  <button className="px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-bold shadow-lg transition-all text-sm sm:text-base">
                     {slide.cta} <FaRocket className="inline ml-2" />
                   </button>
                 </Link>

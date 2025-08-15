@@ -9,41 +9,41 @@ type Broker = {
 };
 
 const brokers: Broker[] = [
-  {
-    name: "Alice Blue",
-    logo: "/alice-blue.png",
-    link: "https://ekyc.aliceblueonline.com/?source=WRAJ1101",
-  },
-  {
-    name: "Angel One",
-    logo: "/angel-one.png",
-    link: "https://a.aonelink.in/ANGOne/6pTAS0u",
-  },
+  // {
+  //   name: "Alice Blue",
+  //   logo: "/alice-blue.png",
+  //   link: "https://ekyc.aliceblueonline.com/?source=WRAJ1101",
+  // },
+  // {
+  //   name: "Angel One",
+  //   logo: "/angel-one.png",
+  //   link: "https://a.aonelink.in/ANGOne/6pTAS0u",
+  // },
   {
     name: "Choice",
     logo: "/choice.png",
-    link: "https://choiceindia.com/open-free-demat-account?refercode=QzAwMTExMzI=&source=Q0hPSUNFX0NPTk5FQ1Q=",
+    link: "https://choiceindia.com/mutual-funds-investment?refercode=QzAwMTExMzI=&source=Q0hPSUNFX0NPTk5FQ1Q=",
   },
-  {
-    name: "Motilal Oswal",
-    logo: "/motilal-oswal.png",
-    link: "https://ekyc.motilaloswal.com/Partner/?diyid=8eb2b8cb-c9f3-47f5-b206-70c847d9f8b7",
-  },
-  {
-    name: "Upstox",
-    logo: "/upstox.png",
-    link: "https://upstox.com/open-account/?f=4ZAVSY",
-  },
+  // {
+  //   name: "Motilal Oswal",
+  //   logo: "/motilal-oswal.png",
+  //   link: "https://ekyc.motilaloswal.com/Partner/?diyid=8eb2b8cb-c9f3-47f5-b206-70c847d9f8b7",
+  // },
+  // {
+  //   name: "Upstox",
+  //   logo: "/upstox.png",
+  //   link: "https://upstox.com/open-account/?f=4ZAVSY",
+  // },
   {
     name: "Nuvama",
     logo: "/nuvama.png",
-    link: "https://onboarding.nuvamawealth.com/Partner?utm_source=EMPLOYEE&utm_campaign=43065&utm_content=ELITE&utm_term=1572814v",
+    link: "https://onboarding.nuvamawealth.com/Partner?utm_source=EMPLOYEE&utm_campaign=43065&utm_content=ELITE&utm_term=1572814",
   },
-  // {
-  //   name: "NJ Wealth",
-  //   logo: "/Nj-wealth.png",
-  //   link: "https://www.njindiaonline.com/etada/partintiate.fin?cmdAction=showMenu&njBrcode=47283", // no link provided yet
-  // },
+  {
+    name: "NJ Wealth",
+    logo: "/Nj-wealth.png",
+    link: "https://www.njindiaonline.com/etada/partintiate.fin?cmdAction=showMenu&njBrcode=47283", // no link provided yet
+  },
   {
     name: "Prudent",
     logo: "/prudent.png",

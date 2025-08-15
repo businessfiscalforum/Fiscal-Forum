@@ -13,6 +13,7 @@ import {
   FolderOpen,
   BarChart3,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
@@ -91,6 +92,7 @@ const slides = [
 const MutualPage = () => {
   const [selectedCard, setSelectedCard] = useState("premium");
   const [showApplication, setShowApplication] = useState(false);
+  const router = useRouter();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -416,7 +418,7 @@ const MutualPage = () => {
         </section>
 
         {/* Account Options */}
-        <section className="bg-white py-16">
+<section className="bg-white py-16">
           <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
             {/* Open Demat Account */}
             <div className="bg-blue-600 rounded-3xl p-10 flex flex-col justify-between shadow-xl min-h-[250px] hover:-translate-y-2 transition-transform duration-300 group">
@@ -427,7 +429,7 @@ const MutualPage = () => {
                 </h2>
               </div>
               <button
-                onClick={() => alert("Open Demat Account clicked")}
+                onClick={()=>{router.push("/services/mutual-funds/open-demat-account")}}
                 className="mt-8 w-fit border border-white text-white px-6 py-3 rounded-full text-base font-medium hover:bg-white hover:text-blue-600 transition-all duration-300"
               >
                 Click here
@@ -443,7 +445,7 @@ const MutualPage = () => {
                 </h2>
               </div>
               <button
-                onClick={() => alert("Already Have An Account clicked")}
+                onClick={()=>{router.push("/services/mutual-funds/already-have-an-account")}}
                 className="mt-8 w-fit border border-blue-600 text-blue-600 px-6 py-3 rounded-full text-base font-medium hover:bg-blue-600 hover:text-white transition-all duration-300"
               >
                 Click here

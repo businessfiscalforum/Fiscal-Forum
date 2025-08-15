@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 // components/HomeNewsAndResearchSection.tsx
 "use client";
 import { useEffect, useState } from "react";
@@ -240,7 +239,7 @@ export default function HomeNewsAndResearchSection() {
         {/* Tab Navigation */}
         <div className="flex flex-wrap justify-center gap-1 md:gap-2 mb-10 border-b border-gray-200 pb-2">
           {[
-            { id: "NewsBuzz", label: "Market Mania" },
+            { id: "NewsBuzz", label: "News Buzz" },
             { id: "CorpPulse", label: "Corp Pulse" },
             { id: "IPOScoop", label: "IPO Scoop" }
           ].map((tab) => (
