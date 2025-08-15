@@ -1,13 +1,6 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
-  // CreditCard,
-  // Shield,
-  // Plane,
-  // Gift,
-  // Smartphone,
-  // CheckCircle,
-  // User,
   Gem,
   Coins,
   Zap,
@@ -16,6 +9,8 @@ import {
   BarChart3,
   FolderOpen,
   UserCheck,
+  Phone,
+  CheckCircle,
 } from "lucide-react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -23,9 +18,16 @@ import { Autoplay, Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
-import { FaAward, FaChartLine, FaHeadset, FaRocket } from "react-icons/fa";
+import {
+  FaChartLine,
+  FaHeadset,
+  FaRocket,
+  FaAward,
+  FaSpinner,
+} from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { BrokerInfiniteScroll } from "../../_components/Broker";
 
 const slides = [
   {
@@ -93,384 +95,134 @@ const slides = [
   },
 ];
 
-const CreditCardApplyPage = () => {
+const investmentOptions = [
+  {
+    id: "equity-etfs",
+    title: "Equity & ETFs",
+    description:
+      "Own company shares or diversify smartly with ETFs. Spread risk, build wealth steadily, grow alongside markets.",
+    icon: BarChart3,
+    link: "/demo/equity-etfs",
+    bgColor: "bg-white",
+    iconBgColor: "bg-blue-100",
+    iconColor: "text-blue-600",
+  },
+  {
+    id: "futures-options",
+    title: "Futures & Options (F&O)",
+    description:
+      "Hedge risk or speculate on price moves. Requires strategy, discipline, and knowledge to manage market uncertainty.",
+    icon: TrendingUp,
+    link: "/demo/futures-options",
+    bgColor: "bg-white",
+    iconBgColor: "bg-purple-100",
+    iconColor: "text-purple-600",
+  },
+  {
+    id: "ipo",
+    title: "Initial Public Offering (IPO)",
+    description:
+      "Invest early in growing companies. Get front-row access to expansion and potential long-term wealth creation.",
+    icon: Sparkles,
+    link: "/demo/ipo",
+    bgColor: "bg-white",
+    iconBgColor: "bg-emerald-100",
+    iconColor: "text-emerald-600",
+  },
+  {
+    id: "mtf",
+    title: "Margin Trading Facility (MTF)",
+    description:
+      "Borrow to buy more shares. Seize opportunities responsibly — leverage magnifies gains but can increase losses.",
+    icon: Zap,
+    link: "/demo/mtf",
+    bgColor: "bg-white",
+    iconBgColor: "bg-orange-100",
+    iconColor: "text-orange-600",
+  },
+  {
+    id: "commodities",
+    title: "Commodities",
+    description:
+      "Trade real assets like gold, silver, crude oil. Diversify portfolios, hedge inflation, and balance equity exposure.",
+    icon: Coins,
+    link: "/demo/commodities",
+    bgColor: "bg-gradient-to-br from-green-500 to-green-700",
+    iconBgColor: "bg-yellow-100",
+    iconColor: "text-yellow-600",
+  },
+  {
+    id: "unlisted-shares",
+    title: "Unlisted Shares",
+    description:
+      "Invest early in companies before listing. Join growth journey, enjoy potential big returns upon public offering.",
+    icon: Gem,
+    link: "/demo/unlisted-shares",
+    bgColor: "bg-white",
+    iconBgColor: "bg-indigo-100",
+    iconColor: "text-indigo-600",
+  },
+];
+
+export default function CreditCardApplyPage() {
   const router = useRouter();
-  // const [formData, setFormData] = useState({
-  //   firstName: '',
-  //   lastName: '',
-  //   email: '',
-  //   phone: '',
-  //   dateOfBirth: '',
-  //   panNumber: '',
-  //   aadharNumber: '',
-  //   annualIncome: '',
-  //   employmentType: '',
-  //   company: '',
-  //   address: '',
-  //   city: '',
-  //   pincode: '',
-  //   cardType: 'premium'
-  // });
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState<{ text: string; type: string } | null>(
+    null
+  );
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) {
+      setMessage({ text: "Please enter your email address", type: "error" });
+      return;
+    }
 
-  // const creditCards = [
-  //   {
-  //     id: 'pixel',
-  //     name: 'HDFC Bank PIXEL Credit Card',
-  //     type: 'Lifestyle',
-  //     annualFee: '₹0',
-  //     joiningFee: '₹0',
-  //     gradient: 'from-blue-500 to-purple-600',
-  //     popular: true,
-  //     features: [
-  //       '5% CashBack on choice of any 2 Packs - Dining & Entertainment, Travel, Grocery, Electronics, Fashion',
-  //       '3% CashBack on choice of any one e-commerce merchant - Amazon or Flipkart or PayZapp',
-  //       '1% Unlimited CashBack on all spends',
-  //       '1% Cashback on UPI Spends (RuPay variant)',
-  //       'Customize your card design and billing cycle',
-  //       'Up to 50 days interest-free credit period'
-  //     ],
-  //     highlights: {
-  //       cashback: '5%',
-  //       creditLimit: '₹2,00,000',
-  //       rewardPoints: 'CashBack System'
-  //     }
-  //   },
-  //   {
-  //     id: 'millennia',
-  //     name: 'HDFC Millennia Credit Card',
-  //     type: 'Online Shopping',
-  //     annualFee: '₹1,000',
-  //     joiningFee: '₹1,000',
-  //     gradient: 'from-green-500 to-teal-600',
-  //     features: [
-  //       '5% Cashback on Amazon, BookMyShow, Cult.fit, Flipkart, Myntra, Sony LIV, Swiggy, Tata CLiQ, Uber and Zomato',
-  //       '1% Cashback on other spends',
-  //       '₹1000 worth gift vouchers on spends of ₹1,00,000 and above in each calendar quarter',
-  //       '10X CashPoints on Amazon, Flipkart, Swiggy, Reliance Smart SuperStore & BigBasket',
-  //       'Up to 50 days interest-free credit period'
-  //     ],
-  //     highlights: {
-  //       cashback: '5%',
-  //       creditLimit: '₹3,00,000',
-  //       rewardPoints: '10X CashPoints'
-  //     }
-  //   },
-  //   {
-  //     id: 'freedom',
-  //     name: 'HDFC Freedom Credit Card',
-  //     type: 'Cashback',
-  //     annualFee: '₹500',
-  //     joiningFee: '₹500',
-  //     gradient: 'from-orange-500 to-red-600',
-  //     features: [
-  //       '10X CashPoints on Big Basket, BookMyShow, OYO, Swiggy & Uber',
-  //       '1 CashPoint per ₹150 spent on other spends',
-  //       'Get ₹500 gift voucher on spends of ₹50,000 per calendar quarter',
-  //       'Up to 50 days interest-free credit period',
-  //       '2 CashPoints per ₹150 spent on other spends'
-  //     ],
-  //     highlights: {
-  //       cashback: '10X',
-  //       creditLimit: '₹1,50,000',
-  //       rewardPoints: '10X CashPoints'
-  //     }
-  //   },
-  //   {
-  //     id: 'fuelplus',
-  //     name: 'HDFC FuelPlus Credit Card',
-  //     type: 'Fuel',
-  //     annualFee: '₹500',
-  //     joiningFee: '₹500',
-  //     gradient: 'from-yellow-500 to-orange-600',
-  //     features: [
-  //       'Earn up to 50 Liters of Free fuel annually',
-  //       'Earn 5% of your spends as Fuel Points at IndianOil outlets, Groceries and Bill Payments',
-  //       'Earn 1 Fuel Point for every Rs. 150 spent on all other purchases',
-  //       'Enjoy 1% Fuel Surcharge waiver',
-  //       'Up to 50 days interest-free period'
-  //     ],
-  //     highlights: {
-  //       cashback: '5%',
-  //       creditLimit: '₹1,00,000',
-  //       rewardPoints: 'Fuel Points'
-  //     }
-  //   },
-  //   {
-  //     id: 'swiggy',
-  //     name: 'HDFC Swiggy Credit Card',
-  //     type: 'Food & Entertainment',
-  //     annualFee: '₹500',
-  //     joiningFee: '₹500',
-  //     gradient: 'from-orange-600 to-pink-600',
-  //     features: [
-  //       '10% Cashback on Swiggy application (Food ordering, Instamart, Dineout & Genie)',
-  //       'Buy 1 Get 1 Free on all tickets via BookMyShow',
-  //       '5X Reward Points on Swiggy and Zomato',
-  //       'Complimentary Swiggy One Membership for 3 months on card activation',
-  //       'Complimentary Annual Memberships of Swiggy One and Times Prime as Welcome Benefit'
-  //     ],
-  //     highlights: {
-  //       cashback: '10%',
-  //       creditLimit: '₹2,00,000',
-  //       rewardPoints: '5X Points'
-  //     }
-  //   },
-  //   {
-  //     id: 'regalia',
-  //     name: 'HDFC Regalia Credit Card',
-  //     type: 'Premium Lifestyle',
-  //     annualFee: '₹2,500',
-  //     joiningFee: '₹2,500',
-  //     gradient: 'from-purple-600 to-indigo-700',
-  //     features: [
-  //       '₹1,500 worth Marriott, Decathlon & more vouchers on quarterly spends of Rs. 1.5 lakh',
-  //       '8 Complimentary airport lounge access worldwide',
-  //       '4 Reward Points for every ₹150 spent',
-  //       'Up to 10X Reward Points via SmartBuy',
-  //       '2X Reward Points on Weekend Dining',
-  //       'Global Personal Concierge - 24 X 7'
-  //     ],
-  //     highlights: {
-  //       cashback: '4X',
-  //       creditLimit: '₹5,00,000',
-  //       rewardPoints: '10X via SmartBuy'
-  //     }
-  //   },
-  //   {
-  //     id: 'tataneu',
-  //     name: 'HDFC Tata Neu Credit Card',
-  //     type: 'Co-branded',
-  //     annualFee: '₹750',
-  //     joiningFee: '₹750',
-  //     gradient: 'from-blue-600 to-purple-700',
-  //     features: [
-  //       '2% back as NeuCoins on Tata Neu and partner Tata Brand Spends',
-  //       'Additional 5% back as NeuCoins on Tata Neu Spends, post registering for Tata NeuPass',
-  //       '1% back as NeuCoins on other spends',
-  //       '1 NeuCoin = ₹1, redeemable on Tata Neu App',
-  //       '4 Complimentary Domestic Airport Lounge Access'
-  //     ],
-  //     highlights: {
-  //       cashback: '5%',
-  //       creditLimit: '₹2,50,000',
-  //       rewardPoints: 'NeuCoins 1:1'
-  //     }
-  //   },
-  //   {
-  //     id: 'indianoil',
-  //     name: 'HDFC IndianOil Credit Card',
-  //     type: 'Fuel',
-  //     annualFee: '₹500',
-  //     joiningFee: '₹500',
-  //     gradient: 'from-green-600 to-blue-600',
-  //     features: [
-  //       'Earn up to 50 Liters of Free fuel annually',
-  //       'Earn 5% of your spends as Fuel Points at IndianOil outlets, Groceries and Bill Payments',
-  //       'Earn 1 Fuel Point for every Rs. 150 spent on all other purchases',
-  //       'Enjoy 1% Fuel Surcharge waiver',
-  //       'Complimentary Club Vistara Silver Tier and MMT Black Elite membership as Welcome benefits'
-  //     ],
-  //     highlights: {
-  //       cashback: '5%',
-  //       creditLimit: '₹1,50,000',
-  //       rewardPoints: 'Fuel Points'
-  //     }
-  //   },
-  //   {
-  //     id: 'marriott',
-  //     name: 'HDFC Marriott Credit Card',
-  //     type: 'Travel & Hospitality',
-  //     annualFee: '₹3,000',
-  //     joiningFee: '₹3,000',
-  //     gradient: 'from-red-600 to-purple-700',
-  //     features: [
-  //       '1 Free Night Award at hotels participating in Marriott Bonvoy® (up to 15,000 Marriott Bonvoy Points)',
-  //       'Marriott Bonvoy® Silver Elite Status & 10 Elite Night Credits',
-  //       'Earn 8 Marriott Bonvoy Points per Rs. 150 spent at hotels participating in Marriott Bonvoy',
-  //       'Earn 4 Marriott Bonvoy Points per Rs. 150 spent on travel, dining & entertainment',
-  //       'Earn 2 Marriott Bonvoy Points per Rs. 150 spent on all other applicable purchases'
-  //     ],
-  //     highlights: {
-  //       cashback: '8X',
-  //       creditLimit: '₹4,00,000',
-  //       rewardPoints: 'Marriott Bonvoy Points'
-  //     }
-  //   },
-  //   {
-  //     id: 'infinia',
-  //     name: 'HDFC Infinia Credit Card',
-  //     type: 'Super Premium',
-  //     annualFee: '₹12,500',
-  //     joiningFee: '₹12,500',
-  //     gradient: 'from-gray-800 to-yellow-600',
-  //     features: [
-  //       '5 Reward Points for every ₹150 spent',
-  //       'Complimentary Club Marriott membership for first year',
-  //       'Complimentary nights & weekend buffet at participating ITC hotels',
-  //       'Unlimited Complimentary golf games at leading courses across India and select courses across the world',
-  //       'Global Personal Concierge - 24 X 7',
-  //       'Metal Card',
-  //       'Unlimited Airport Lounge Access'
-  //     ],
-  //     highlights: {
-  //       cashback: '5X',
-  //       creditLimit: '₹10,00,000+',
-  //       rewardPoints: '5 per ₹150'
-  //     }
-  //   }
-  // ];
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setMessage({ text: "Please enter a valid email address", type: "error" });
+      return;
+    }
 
-  // const benefits = [
-  //   {
-  //     icon: Shield,
-  //     title: 'Secure Transactions',
-  //     description: 'Advanced fraud protection and zero liability on unauthorized transactions'
-  //   },
-  //   {
-  //     icon: Gift,
-  //     title: 'Reward Points',
-  //     description: 'Earn points on every purchase and redeem for exciting rewards'
-  //   },
-  //   {
-  //     icon: Plane,
-  //     title: 'Travel Benefits',
-  //     description: 'Airport lounge access, travel insurance, and exclusive travel deals'
-  //   },
-  //   {
-  //     icon: Smartphone,
-  //     title: 'Digital Wallet',
-  //     description: 'UPI payments, contactless transactions, and mobile app control'
-  //   }
-  // ];
+    setIsSubmitting(true);
+    setMessage(null);
 
-  // const eligibilityCriteria = [
-  //   { label: 'Age', value: '21-65 years' },
-  //   { label: 'Income', value: '₹3,00,000+ annually' },
-  //   { label: 'Employment', value: 'Salaried/Self-employed' },
-  //   { label: 'Credit Score', value: '700+ preferred' }
-  // ];
+    try {
+      // Simulate API call
 
-  // const applicationSteps = [
-  //   {
-  //     step: 1,
-  //     title: 'Choose Card',
-  //     description: 'Select the credit card that suits your lifestyle',
-  //     icon: CreditCard
-  //   },
-  //   {
-  //     step: 2,
-  //     title: 'Fill Application',
-  //     description: 'Complete the online application form',
-  //     icon: User
-  //   },
-  //   {
-  //     step: 3,
-  //     title: 'Document Upload',
-  //     description: 'Upload required documents for verification',
-  //     icon: Shield
-  //   },
-  //   {
-  //     step: 4,
-  //     title: 'Get Approved',
-  //     description: 'Receive instant approval and card delivery',
-  //     icon: CheckCircle
-  //   }
-  // ];
-
-  const investmentOptions = [
-    {
-      id: "equity-etfs",
-      title: "Equity & ETFs",
-      description:
-        "Own company shares or diversify smartly with ETFs. Spread risk, build wealth steadily, grow alongside markets.",
-      icon: BarChart3,
-      link: "/demo/equity-etfs",
-      bgColor: "bg-white",
-      iconBgColor: "bg-blue-100",
-      iconColor: "text-blue-600",
-    },
-    {
-      id: "futures-options",
-      title: "Futures & Options (F&O)",
-      description:
-        "Hedge risk or speculate on price moves. Requires strategy, discipline, and knowledge to manage market uncertainty.",
-      icon: TrendingUp,
-      link: "/demo/futures-options",
-      bgColor: "bg-white",
-      iconBgColor: "bg-purple-100",
-      iconColor: "text-purple-600",
-    },
-    {
-      id: "ipo",
-      title: "Initial Public Offering (IPO)",
-      description:
-        "Invest early in growing companies. Get front-row access to expansion and potential long-term wealth creation.",
-      icon: Sparkles,
-      link: "/demo/ipo",
-      bgColor: "bg-white",
-      iconBgColor: "bg-emerald-100",
-      iconColor: "text-emerald-600",
-    },
-    {
-      id: "mtf",
-      title: "Margin Trading Facility (MTF)",
-      description:
-        "Borrow to buy more shares. Seize opportunities responsibly — leverage magnifies gains but can increase losses.",
-      icon: Zap,
-      link: "/demo/mtf",
-      bgColor: "bg-white",
-      iconBgColor: "bg-orange-100",
-      iconColor: "text-orange-600",
-    },
-    {
-      id: "commodities",
-      title: "Commodities",
-      description:
-        "Trade real assets like gold, silver, crude oil. Diversify portfolios, hedge inflation, and balance equity exposure.",
-      icon: Coins,
-      link: "/demo/commodities",
-      bgColor: "bg-gradient-to-br from-green-500 to-green-700",
-      iconBgColor: "bg-yellow-100",
-      iconColor: "text-yellow-600",
-    },
-    {
-      id: "unlisted-shares",
-      title: "Unlisted Shares",
-      description:
-        "Invest early in companies before listing. Join growth journey, enjoy potential big returns upon public offering.",
-      icon: Gem,
-      link: "/demo/unlisted-shares",
-      bgColor: "bg-white",
-      iconBgColor: "bg-indigo-100",
-      iconColor: "text-indigo-600",
-    },
-  ];
-
-  // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-  //   setFormData({
-  //     ...formData,
-  //     [e.target.name]: e.target.value
-  //   });
-  // };
-
-  // const handleSubmit = () => {
-  //   // Handle form submission logic here
-  //   console.log('Form submitted:', formData);
-  //   alert('Application submitted successfully! We will contact you within 24 hours.');
-  // };
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setMessage({ text: data.message, type: "success" });
+        setEmail("");
+      } else {
+        setMessage({
+          text: data.error || "Subscription failed",
+          type: "error",
+        });
+      }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      setMessage({
+        text: "Subscription failed. Please sign-in to subscribe.",
+        type: "error",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <>
-    
-      <div className="text-gray-800 font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 ">
-        {/* Floating Background Elements */}
-        {/* <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-blue-400/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-1/2 right-20 w-96 h-96 bg-gradient-to-r from-emerald-400/20 to-teal-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-gradient-to-r from-pink-400/20 to-rose-600/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
-      </div> */}
-
-        {/* Hero Section */}
+      {/* Hero Section */}
+      <div className="text-gray-800 font-sans bg-gradient-to-br from-green-50 via-emerald-50 to-teal-100">
         <section className="relative w-full h-[50vh] overflow-hidden">
           <Swiper
             spaceBetween={30}
@@ -488,7 +240,7 @@ const CreditCardApplyPage = () => {
                     className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}/80`}
                   ></div>
                 </div>
-                <div className="relative z-10 h-full flex items-center ">
+                <div className="relative z-10 h-full flex items-center">
                   <motion.div
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -537,174 +289,382 @@ const CreditCardApplyPage = () => {
               </SwiperSlide>
             ))}
           </Swiper>
-
-          {/* Swiper Pagination is now styled */}
           <div className="swiper-pagination absolute bottom-8 w-full flex justify-center z-20"></div>
         </section>
       </div>
-      <main className="min-h-screen bg-gray-50 pt-20">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12 max-w-3xl mx-auto"
-        >
-          <h1 className="text-4xl font-extrabold text-gray-800 mb-4">
-            Stock Investment
-          </h1>
-          <p className="text-lg text-gray-600 leading-relaxed">
-            Choose the right investment path to grow your wealth with confidence
-            and clarity.
-          </p>
-        </motion.div>
 
-        {/* Investment Cards Grid */}
-        <div className="max-w-7xl mx-auto">
+      {/* Main Layout: Content + Sidebar */}
+      <div className="flex flex-col lg:flex-row min-h-screen bg-gray-50 pt-20">
+        {/* Main Content */}
+        <main className="flex-1 p-6 md:p-10">
+          {/* ✅ NEW: Subscribe for Market Reports */}
+          <section className="py-20 px-6 bg-gradient-to-br from-green-50 to-emerald-100">
+            <div className="max-w-4xl mx-auto text-center mb-12">
+              {/* Attractive Tagline */}
+              <h4 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                Get Smarter Market Insights Delivered Daily
+              </h4>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Stay ahead of the curve with expert-curated market reports,
+                pre-market updates, and IPO alerts — straight to your inbox.
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {investmentOptions.map((option, index) => {
-              const IconComponent = option.icon;
-                          
-              return (
-                <motion.div
-                  key={option.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ y: -8, scale: 1.02 }}
-                  className="relative rounded-2xl shadow-lg overflow-hidden transition-all duration-300 transform hover:shadow-xl bg-white"
+            <div className="bg-white rounded-2xl shadow-xl p-8 max-w-2xl mx-auto">
+              <div className="flex items-center justify-center mb-6">
+                <TrendingUp className="w-10 h-10 text-green-600 mr-3" />
+                <span className="text-lg font-semibold text-gray-700">
+                  Daily Market Reports
+                </span>
+              </div>
+
+              <form onSubmit={handleSubscribe} className="space-y-4">
+                <div>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email address"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition text-gray-700"
+                    disabled={isSubmitting}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 disabled:opacity-70 text-white font-bold rounded-lg transition flex items-center justify-center"
                 >
-                  <div className="p-1 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
-                  <Link href={option.link} passHref>
-                    <div className="p-6 space-y-4 h-full flex flex-col cursor-pointer bg-white">
-                      {/* Icon */}
-                      <div
-                        className={`p-3 rounded-xl ${option.iconBgColor} flex-shrink-0 w-12 h-12 flex items-center justify-center`}
-                      >
-                        {IconComponent && (
-                          <IconComponent
-                            className={`w-6 h-6 ${option.iconColor}`}
-                          />
-                        )}
-                      </div>
+                  {isSubmitting ? (
+                    <>
+                      <FaSpinner className="animate-spin mr-2" /> Processing...
+                    </>
+                  ) : (
+                    "Subscribe Now"
+                  )}
+                </button>
+              </form>
 
-                      {/* Title */}
-                      <h2 className="text-xl font-bold text-gray-800">
-                        {option.title}
-                      </h2>
+              {message && (
+                <div
+                  className={`mt-4 text-sm px-4 py-3 rounded-lg text-center ${
+                    message.type === "success"
+                      ? "bg-green-100 text-green-800 border border-green-200"
+                      : "bg-red-100 text-red-800 border border-red-200"
+                  }`}
+                >
+                  {message.text}
+                </div>
+              )}
 
-                      {/* Description */}
-                      <p className="text-sm leading-relaxed flex-grow text-gray-600">
-                        {option.description}
-                      </p>
+              <p className="text-xs text-gray-500 text-center mt-4">
+                No spam. Unsubscribe anytime. Your data is secure with us.
+              </p>
+            </div>
+          </section>
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12 max-w-3xl mx-auto"
+          >
+            <h1 className="text-4xl font-extrabold text-gray-800 mb-4">
+              Stock Investment
+            </h1>
+            <p className="text-lg text-gray-600 leading-relaxed">
+              Choose the right investment path to grow your wealth with
+              confidence and clarity.
+            </p>
+          </motion.div>
 
-                      {/* Learn More Button */}
-                      <div className="pt-4">
-                        <div className="inline-flex items-center gap-2 font-medium text-green-600 hover:text-green-700">
-                          Learn More
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            className="w-4 h-4"
-                          >
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                          </svg>
+          {/* Investment Cards Grid */}
+          <div className="max-w-7xl mx-auto px-4 mb-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {investmentOptions.map((option, index) => {
+                const IconComponent = option.icon;
+                return (
+                  <motion.div
+                    key={option.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={{ y: -8, scale: 1.02 }}
+                    className="relative rounded-2xl shadow-lg overflow-hidden transition-all duration-300 transform hover:shadow-xl bg-white"
+                  >
+                    <div className="p-1 bg-gradient-to-r from-green-500 to-emerald-600"></div>
+                    <Link href={option.link} passHref>
+                      <div className="p-6 space-y-4 h-full flex flex-col cursor-pointer">
+                        <div
+                          className={`p-3 rounded-xl ${option.iconBgColor} flex-shrink-0 w-12 h-12 flex items-center justify-center`}
+                        >
+                          {IconComponent && (
+                            <IconComponent
+                              className={`w-6 h-6 ${option.iconColor}`}
+                            />
+                          )}
+                        </div>
+                        <h2 className="text-xl font-bold text-gray-800">
+                          {option.title}
+                        </h2>
+                        <p className="text-sm leading-relaxed flex-grow text-gray-600">
+                          {option.description}
+                        </p>
+                        <div className="pt-4">
+                          <div className="inline-flex items-center gap-2 font-medium text-green-600 hover:text-green-700">
+                            Learn More
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              className="w-4 h-4"
+                            >
+                              <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-
-        <section className="bg-white py-16">
-          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
-            {/* Open Demat Account */}
-            <div className="bg-blue-600 rounded-3xl p-10 flex flex-col justify-between shadow-xl min-h-[250px] hover:-translate-y-2 transition-transform duration-300 group">
-              <div className="flex items-center gap-4">
-                <FolderOpen className="w-10 h-10 text-white transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
-                <h2 className="text-white text-3xl md:text-4xl font-bold leading-snug">
-                  Open Demat Account.
-                </h2>
-              </div>
-              <button
-                onClick={()=>{router.push("/services/stock-investment/open-demat-account")}}
-                className="mt-8 w-fit border border-white text-white px-6 py-3 rounded-full text-base font-medium hover:bg-white hover:text-blue-600 transition-all duration-300"
-              >
-                Click here
-              </button>
-            </div>
-
-            {/* Already Have An Account */}
-            <div className="bg-white rounded-3xl p-10 flex flex-col justify-between border shadow-xl min-h-[250px] hover:-translate-y-2 transition-transform duration-300 group">
-              <div className="flex items-center gap-4">
-                <UserCheck className="w-10 h-10 text-blue-600 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
-                <h2 className="text-blue-900 text-3xl md:text-4xl font-bold leading-snug">
-                  Already Have An Account
-                </h2>
-              </div>
-              <button
-                onClick={()=>{router.push("/services/stock-investment/already-have-an-account")}}
-                className="mt-8 w-fit border border-blue-600 text-blue-600 px-6 py-3 rounded-full text-base font-medium hover:bg-blue-600 hover:text-white transition-all duration-300"
-              >
-                Click here
-              </button>
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
-        </section>
-        <section className="py-16 bg-gradient-to-r from-blue-900 to-indigo-900 text-white">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="text-center mb-12">
-      <h2 className="text-3xl md:text-4xl font-bold mb-4">Master the Markets with Confidence</h2>
-      <p className="text-xl text-blue-200 max-w-3xl mx-auto">
-        Empower your investment journey with expert tools and insights
-      </p>
-    </div>
-    
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-        <div className="text-yellow-400 text-2xl mb-4">
-          <FaChartLine />
-        </div>
-        <h3 className="text-lg font-bold mb-2">Advanced Analytics</h3>
-        <p className="text-blue-100">Real-time data and technical indicators for informed decisions</p>
+
+          {/* Schedule a Call */}
+          <section className="py-16 mx-auto max-w-4xl text-center bg-gradient-to-r from-teal-600 to-green-600 text-white rounded-2xl px-6">
+            <Phone className="w-16 h-16 mx-auto mb-6" />
+            <h2 className="text-3xl font-bold mb-4">
+              Need Help? Talk to an Expert
+            </h2>
+            <p className="text-xl mb-8 opacity-90">
+              Get personalized guidance on opening your Demat account or
+              transferring holdings.
+            </p>
+            <button
+              onClick={() => router.push("/services/stock-investment/call")}
+              className="bg-white text-green-700 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3 mx-auto"
+            >
+              <Phone className="w-5 h-5" />
+              Schedule a Free Call
+            </button>
+          </section>
+
+          {/* Call to Action (Kickstart & Level Up) */}
+          <section className="py-16 px-4">
+            <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-3xl p-10 flex flex-col justify-between shadow-xl min-h-[300px] hover:-translate-y-2 transition-transform duration-300 group text-white">
+                <div>
+                  <div className="flex items-center gap-4 mb-6">
+                    <FolderOpen className="w-10 h-10 text-white" />
+                    <h2 className="text-3xl font-bold leading-snug">
+                      Start Your Wealth Journey
+                    </h2>
+                  </div>
+                  <p className="text-green-100 text-lg leading-relaxed">
+                    Ready to take the first step? Open your Demat & Trading
+                    account in minutes and begin investing with confidence. Zero
+                    paperwork, instant approval, and full support every step of
+                    the way.
+                  </p>
+                </div>
+                <button
+                  onClick={() =>
+                    router.push("/services/stock-investment/open-demat-account")
+                  }
+                  className="mt-6 w-fit border border-white text-white px-6 py-3 rounded-full font-medium hover:bg-white hover:text-green-700 transition-all duration-300"
+                >
+                  Start Investing Now
+                </button>
+              </div>
+
+              <div className="bg-white rounded-3xl p-10 flex flex-col justify-between border-2 border-green-200 shadow-xl min-h-[300px] hover:-translate-y-2 transition-transform duration-300 group">
+                <div>
+                  <div className="flex items-center gap-4 mb-6">
+                    <UserCheck className="w-10 h-10 text-green-600" />
+                    <h2 className="text-3xl font-bold text-gray-800 leading-snug">
+                      Level Up Your Portfolio
+                    </h2>
+                  </div>
+                  <p className="text-gray-600 text-lg leading-relaxed">
+                    Already investing? Supercharge your strategy with advanced
+                    tools, real-time analytics, and personalized insights.
+                    Unlock higher potential and trade smarter with our premium
+                    platform.
+                  </p>
+                </div>
+                <button
+                  onClick={() =>
+                    router.push(
+                      "/services/stock-investment/already-have-an-account"
+                    )
+                  }
+                  className="mt-6 w-fit border border-green-600 text-green-600 px-6 py-3 rounded-full font-medium hover:bg-green-600 hover:text-white transition-all duration-300"
+                >
+                  Continue Your Journey
+                </button>
+              </div>
+            </div>
+          </section>
+
+          {/* Demat Transfer Process (Chain/Flow Style) */}
+          <section className="py-20 px-4">
+            <div className="max-w-5xl mx-auto text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-800 mb-4">
+                How to Transfer Your Demat Account
+              </h2>
+              <p className="text-lg text-gray-600">
+                Seamless, paperless, and completed in just a few steps.
+              </p>
+            </div>
+
+            <div className="relative">
+              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-green-400 to-emerald-600"></div>
+
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 }}
+                className="flex items-start mb-12 ml-4"
+              >
+                <div className="flex-shrink-0 w-16 h-16 bg-green-600 text-white rounded-full flex items-center justify-center text-xl font-bold shadow-lg">
+                  1
+                </div>
+                <div className="ml-6 bg-white p-6 rounded-xl shadow-md flex-1 border-l-4 border-green-500">
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">
+                    Initiate Transfer Request
+                  </h3>
+                  <p className="text-gray-600">
+                    Log in to your current broker’s portal and generate a Client
+                    Master Report (CMR) or submit a DIS slip.
+                  </p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4 }}
+                className="flex items-start mb-12 ml-4"
+              >
+                <div className="flex-shrink-0 w-16 h-16 bg-green-600 text-white rounded-full flex items-center justify-center text-xl font-bold shadow-lg">
+                  2
+                </div>
+                <div className="ml-6 bg-white p-6 rounded-xl shadow-md flex-1 border-l-4 border-green-500">
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">
+                    Share Details with Us
+                  </h3>
+                  <p className="text-gray-600">
+                    Upload your CMR or DIS via our app or email it to
+                    support@fiscalforum.com with your new client ID.
+                  </p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.6 }}
+                className="flex items-start mb-12 ml-4"
+              >
+                <div className="flex-shrink-0 w-16 h-16 bg-green-600 text-white rounded-full flex items-center justify-center text-xl font-bold shadow-lg">
+                  3
+                </div>
+                <div className="ml-6 bg-white p-6 rounded-xl shadow-md flex-1 border-l-4 border-green-500">
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">
+                    We Handle the Rest
+                  </h3>
+                  <p className="text-gray-600">
+                    Our team coordinates with your current broker to initiate
+                    the transfer. No action needed from you.
+                  </p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.8 }}
+                className="flex items-start ml-4"
+              >
+                <div className="flex-shrink-0 w-16 h-16 bg-emerald-500 text-white rounded-full flex items-center justify-center text-xl font-bold shadow-lg">
+                  <CheckCircle className="w-8 h-8" />
+                </div>
+                <div className="ml-6 bg-white p-6 rounded-xl shadow-md flex-1 border-l-4 border-emerald-500">
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">
+                    Transfer Complete
+                  </h3>
+                  <p className="text-gray-600">
+                    Your holdings will be transferred in 3–7 working days.
+                    You’ll receive a confirmation email.
+                  </p>
+                </div>
+              </motion.div>
+            </div>
+          </section>
+
+          {/* Features Section */}
+          <section className="py-16 bg-gradient-to-r from-green-900 to-emerald-900 text-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Grow Smarter, Invest Better
+              </h2>
+              <p className="text-xl text-green-200 max-w-3xl mx-auto">
+                Everything you need to succeed in the markets — all in one
+                powerful platform.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
+              <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm hover:scale-105 transition-transform duration-300">
+                <div className="text-green-300 text-2xl mb-4">
+                  <FaChartLine />
+                </div>
+                <h3 className="text-lg font-bold mb-2">Smart Analytics</h3>
+                <p className="text-green-100">
+                  AI-powered insights and live charts to guide your decisions.
+                </p>
+              </div>
+              <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm hover:scale-105 transition-transform duration-300">
+                <div className="text-green-300 text-2xl mb-4">
+                  <FaHeadset />
+                </div>
+                <h3 className="text-lg font-bold mb-2">24/7 Support</h3>
+                <p className="text-green-100">
+                  Expert help whenever you need it — just a call away.
+                </p>
+              </div>
+              <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm hover:scale-105 transition-transform duration-300">
+                <div className="text-green-300 text-2xl mb-4">
+                  <FaRocket />
+                </div>
+                <h3 className="text-lg font-bold mb-2">Lightning Fast</h3>
+                <p className="text-green-100">
+                  Sub-second order execution for maximum efficiency.
+                </p>
+              </div>
+              <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm hover:scale-105 transition-transform duration-300">
+                <div className="text-green-300 text-2xl mb-4">
+                  <FaAward />
+                </div>
+                <h3 className="text-lg font-bold mb-2">Refer & Earn</h3>
+                <p className="text-green-100">
+                  Get ₹500 for every friend who starts investing with you.
+                </p>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        {/* ✅ Broker Infinite Scroll Sidebar */}
+        <aside className="hidden lg:block w-40 bg-white border-l border-gray-200">
+          <div className="sticky top-0 flex items-center justify-center py-8">
+            <BrokerInfiniteScroll />
+          </div>
+        </aside>
       </div>
-      
-      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-        <div className="text-yellow-400 text-2xl mb-4">
-          <FaHeadset />
-        </div>
-        <h3 className="text-lg font-bold mb-2">Expert Support</h3>
-        <p className="text-blue-100">Dedicated relationship managers for your trading needs</p>
-      </div>
-      
-      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-        <div className="text-yellow-400 text-2xl mb-4">
-          <FaRocket />
-        </div>
-        <h3 className="text-lg font-bold mb-2">Fast Execution</h3>
-        <p className="text-blue-100">Lightning-fast order execution with minimal slippage</p>
-      </div>
-      
-      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-        <div className="text-yellow-400 text-2xl mb-4">
-          <FaAward />
-        </div>
-        <h3 className="text-lg font-bold mb-2">Referral Rewards</h3>
-        <p className="text-blue-100">Earn ₹500 for every friend who starts trading with us</p>
-      </div>
-    </div>
-  </div>
-</section>
-      </main>
     </>
   );
-};
-
-export default CreditCardApplyPage;
+}

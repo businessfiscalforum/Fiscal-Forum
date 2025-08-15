@@ -700,98 +700,98 @@ const LoanApplicationForm = () => {
     </div>
   );
 
-  const renderTabContent = () => {
-    const commonSections = [
-      <React.Fragment key="personal">{renderPersonalDetails()}</React.Fragment>,
-      <React.Fragment key="address">{renderAddressDetails()}</React.Fragment>,
-      <React.Fragment key="employment">{renderEmploymentDetails()}</React.Fragment>,
-      <React.Fragment key="obligations">{renderExistingObligations()}</React.Fragment>
-    ];
+  // const renderTabContent = () => {
+  //   const commonSections = [
+  //     <React.Fragment key="personal">{renderPersonalDetails()}</React.Fragment>,
+  //     <React.Fragment key="address">{renderAddressDetails()}</React.Fragment>,
+  //     <React.Fragment key="employment">{renderEmploymentDetails()}</React.Fragment>,
+  //     <React.Fragment key="obligations">{renderExistingObligations()}</React.Fragment>
+  //   ];
 
-    switch (activeTab) {
-      case 'home':
-        return (
-          <div>
-            {commonSections}
-            {renderPropertyDetails()}
-            {renderAdditionalDetails()}
-            {renderReferences()}
-          </div>
-        );
+  //   switch (activeTab) {
+  //     case 'home':
+  //       return (
+  //         <div>
+  //           {commonSections}
+  //           {renderPropertyDetails()}
+  //           {renderAdditionalDetails()}
+  //           {renderReferences()}
+  //         </div>
+  //       );
         
-      case 'property':
-        return (
-          <div>
-            {commonSections}
-            {renderPropertyDetails()}
-            {renderReferences()}
-          </div>
-        );
+  //     case 'property':
+  //       return (
+  //         <div>
+  //           {commonSections}
+  //           {renderPropertyDetails()}
+  //           {renderReferences()}
+  //         </div>
+  //       );
         
-      case 'personal':
-        return (
-          <div>
-            {commonSections}
-            {renderLoanAmountSection()}
-            {renderReferences()}
-          </div>
-        );
+  //     case 'personal':
+  //       return (
+  //         <div>
+  //           {commonSections}
+  //           {renderLoanAmountSection()}
+  //           {renderReferences()}
+  //         </div>
+  //       );
         
-      case 'business':
-        return (
-          <div>
-            {renderPersonalDetails()}
-            {renderAddressDetails()}
-            {renderEmploymentDetails(false)}
-            {renderBusinessDetails()}
-            {renderLoanAmountSection()}
-            {renderExistingObligations()}
-            {renderReferences()}
-          </div>
-        );
+  //     case 'business':
+  //       return (
+  //         <div>
+  //           {renderPersonalDetails()}
+  //           {renderAddressDetails()}
+  //           {renderEmploymentDetails(false)}
+  //           {renderBusinessDetails()}
+  //           {renderLoanAmountSection()}
+  //           {renderExistingObligations()}
+  //           {renderReferences()}
+  //         </div>
+  //       );
         
-      case 'gold':
-        return (
-          <div>
-            {commonSections}
-            {renderGoldLoanDetails()}
-            {renderReferences()}
-          </div>
-        );
+  //     case 'gold':
+  //       return (
+  //         <div>
+  //           {commonSections}
+  //           {renderGoldLoanDetails()}
+  //           {renderReferences()}
+  //         </div>
+  //       );
         
-      case 'car':
-        return (
-          <div>
-            {commonSections}
-            {renderVehicleDetails()}
-            {renderLoanAmountSection()}
-            {renderReferences()}
-          </div>
-        );
+  //     case 'car':
+  //       return (
+  //         <div>
+  //           {commonSections}
+  //           {renderVehicleDetails()}
+  //           {renderLoanAmountSection()}
+  //           {renderReferences()}
+  //         </div>
+  //       );
         
-      case 'education':
-        return (
-          <div>
-            {commonSections}
-            {renderCourseDetails()}
-            {renderLoanAmountSection()}
-            {renderReferences()}
-          </div>
-        );
+  //     case 'education':
+  //       return (
+  //         <div>
+  //           {commonSections}
+  //           {renderCourseDetails()}
+  //           {renderLoanAmountSection()}
+  //           {renderReferences()}
+  //         </div>
+  //       );
         
-      case 'securities':
-        return (
-          <div>
-            {commonSections}
-            {renderSecuritiesDetails()}
-            {renderReferences()}
-          </div>
-        );
+  //     case 'securities':
+  //       return (
+  //         <div>
+  //           {commonSections}
+  //           {renderSecuritiesDetails()}
+  //           {renderReferences()}
+  //         </div>
+  //       );
         
-      default:
-        return commonSections;
-    }
-  };
+  //     default:
+  //       return commonSections;
+  //   }
+  // };
 
   return (
     <div className=" bg-gradient-to-br from-blue-50 to-indigo-50 py-25">

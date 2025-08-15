@@ -224,11 +224,11 @@ export default function HomeNewsAndResearchSection() {
   );
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-20 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 relative">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="mb-10 text-center">
-          <h2 className="text-4xl font-bold text-blue-800 mb-4">
+          <h2 className="text-4xl font-bold text-green-800 mb-4">
             Financial News Hub
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
@@ -248,7 +248,7 @@ export default function HomeNewsAndResearchSection() {
               onClick={() => setActiveTab(tab.id as "NewsBuzz" | "CorpPulse" | "IPOScoop")}
               className={`px-4 py-2 md:px-6 md:py-3 text-sm md:text-base font-medium transition-colors ${
                 activeTab === tab.id
-                  ? "text-blue-600 border-b-2 border-blue-600"
+                  ? "text-green-600 border-b-2 border-green-600"
                   : "text-gray-500 hover:text-gray-800"
               }`}
             >
@@ -275,7 +275,7 @@ export default function HomeNewsAndResearchSection() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -15 }}
                     transition={{ delay: i * 0.05 }}
-                    className="bg-white border border-gray-200 hover:border-blue-300 transition-colors h-full"
+                    className="bg-white border border-gray-200 hover:border-green-300 transition-colors h-full"
                   >
                     <NewsCard item={item} />
                   </motion.div>
@@ -313,7 +313,7 @@ export default function HomeNewsAndResearchSection() {
             <div className="flex justify-center mt-10">
               <Link
                 href="/news"
-                className="px-6 py-3 bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition rounded-md"
+                className="px-6 py-3 bg-green-600 text-white text-sm font-medium hover:bg-green-700 transition rounded-md"
               >
                 View All News
               </Link>
@@ -331,7 +331,7 @@ function NewsCard({ item }: { item: NewsItem }) {
     <article className="h-full flex flex-col p-6">
       <div className="flex items-center justify-between mb-3">
         {item.featured && (
-          <span className="bg-blue-50 text-blue-700 px-2 py-1 text-xs font-semibold uppercase tracking-wide">
+          <span className="bg-green-50 text-green-700 px-2 py-1 text-xs font-semibold uppercase tracking-wide">
             Featured
           </span>
         )}
@@ -350,7 +350,7 @@ function NewsCard({ item }: { item: NewsItem }) {
           href={item.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-600 hover:text-blue-800 font-medium"
+          className="text-green-600 hover:text-green-800 font-medium"
         >
           Read more →
         </Link>

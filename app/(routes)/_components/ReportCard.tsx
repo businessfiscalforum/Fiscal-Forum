@@ -76,7 +76,7 @@ export function ReportCard({ report }: ReportCardProps) {
             {report.summary}
           </p>
           <div className="flex flex-wrap items-center gap-2 mt-2 text-xs text-gray-500">
-            <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full font-medium">
+            <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full font-medium">
               {report.reportType}
             </span>
             <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded-full font-medium">

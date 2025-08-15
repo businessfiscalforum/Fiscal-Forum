@@ -6,7 +6,6 @@ import {
   integer,
   pgEnum,
   pgTable,
-  serial,
   text,
   timestamp,
   uuid,
@@ -424,6 +423,18 @@ export const subscribers = pgTable('subscribers', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
+
+
+export const dematApplications = pgTable("demat_applications", {
+  id: uuid("id").defaultRandom().notNull().primaryKey().unique(),
+  fullName: varchar("full_name", { length: 100 }).notNull(),
+  email: varchar("email", { length: 150 }).notNull(),
+  phone: varchar("phone", { length: 15 }).notNull(),
+  pan: varchar("pan", { length: 10 }).notNull(),
+  city: varchar("city", { length: 100 }).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 // Types
 export type InsertUser = typeof usersTable.$inferInsert;
 export type SelectUser = typeof usersTable.$inferSelect;
@@ -443,3 +454,6 @@ export type SelectResearchReport = typeof researchReportsTable.$inferSelect;
 
 export type InsertSubscribers = typeof subscribers.$inferInsert;
 export type SelectSubscribers = typeof subscribers.$inferSelect;
+
+export type InsertDemat = typeof dematApplications.$inferInsert;
+export type SelectDemat = typeof dematApplications.$inferSelect

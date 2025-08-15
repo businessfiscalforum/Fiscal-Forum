@@ -1,6 +1,5 @@
 "use client";
 
-import { redirect } from "next/navigation";
 import NewsForm from "../../../_components/NewsForm";
 // import { revalidatePath } from "next/cache";
 
