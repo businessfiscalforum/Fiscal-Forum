@@ -46,7 +46,7 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           <Link href="/" className="flex items-center gap-3">
             <div className=" rounded-full flex items-center justify-center p-1  overflow-hidden">
-              <Image src="/forum1.ico" alt="Fiscal Forum" width={36} height={36} />
+              <Image src="/forum1.ico" alt="Fiscal Forum" width={32} height={32} />
             </div>
             <span className="text-xl font-bold text-green-900 hidden sm:block">
               Fiscal Forum

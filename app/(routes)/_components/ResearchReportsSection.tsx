@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 import {
   Chart,
   BarController,
@@ -10,32 +10,46 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
-import { useRouter } from 'next/navigation';
+} from "chart.js";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { FaQuoteLeft } from "react-icons/fa";
+import { TbReportSearch } from "react-icons/tb";
 
 // Register Chart.js components
-Chart.register(BarController, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
+Chart.register(
+  BarController,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Title,
+  Tooltip,
+  Legend
+);
 
 // Dummy data for research reports
 const RESEARCH_DATA = [
   {
     id: 1,
     title: "Global Market Trends 2024",
-    description: "Comprehensive analysis of emerging market patterns and economic indicators.",
+    description:
+      "Comprehensive analysis of emerging market patterns and economic indicators.",
     date: "2024-03-15",
     category: "Market Analysis",
   },
   {
     id: 2,
     title: "AI in Financial Services",
-    description: "Impact assessment of artificial intelligence on banking and investment sectors.",
+    description:
+      "Impact assessment of artificial intelligence on banking and investment sectors.",
     date: "2024-02-28",
     category: "Technology",
   },
   {
     id: 3,
     title: "Sustainable Energy Outlook",
-    description: "Renewable energy adoption rates and future projections across industries.",
+    description:
+      "Renewable energy adoption rates and future projections across industries.",
     date: "2024-01-10",
     category: "Environment",
   },
@@ -44,26 +58,29 @@ const RESEARCH_DATA = [
 const ResearchReportsSection = () => {
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstance = useRef<Chart | null>(null);
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
+  const [message, setMessage] = useState<{
+    text: string;
+    type: "success" | "error";
+  } | null>(null);
   const router = useRouter();
 
   // Initialize chart with emerald-teal theme
   useEffect(() => {
     if (chartRef.current) {
-      const ctx = chartRef.current.getContext('2d');
+      const ctx = chartRef.current.getContext("2d");
       if (ctx) {
         chartInstance.current = new Chart(ctx, {
-          type: 'bar',
+          type: "bar",
           data: {
-            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+            labels: ["Q1", "Q2", "Q3", "Q4"],
             datasets: [
               {
-                label: 'Research Publications',
+                label: "Research Publications",
                 data: [12, 19, 15, 17],
-                backgroundColor: '#047857', // emerald-600
-                borderColor: '#065f46', // emerald-700
+                backgroundColor: "#047857", // emerald-600
+                borderColor: "#065f46", // emerald-700
                 borderWidth: 2,
                 borderRadius: 6,
                 borderSkipped: false,
@@ -79,11 +96,11 @@ const ResearchReportsSection = () => {
               },
               title: {
                 display: true,
-                text: 'Quarterly Research Output',
-                color: '#065f46',
+                text: "Quarterly Research Output",
+                color: "#065f46",
                 font: {
                   size: 16,
-                  weight: 'bold',
+                  weight: "bold",
                 },
               },
             },
@@ -91,11 +108,11 @@ const ResearchReportsSection = () => {
               y: {
                 beginAtZero: true,
                 grid: {
-                  color: '#d1fae5', // emerald-100
-                  tickColor: '#d1fae5',
+                  color: "#d1fae5", // emerald-100
+                  tickColor: "#d1fae5",
                 },
                 ticks: {
-                  color: '#065f46',
+                  color: "#065f46",
                   stepSize: 5,
                 },
               },
@@ -104,7 +121,7 @@ const ResearchReportsSection = () => {
                   display: false,
                 },
                 ticks: {
-                  color: '#065f46',
+                  color: "#065f46",
                 },
               },
             },
@@ -124,14 +141,14 @@ const ResearchReportsSection = () => {
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) {
-      setMessage({ text: 'Please enter your email address', type: 'error' });
+      setMessage({ text: "Please enter your email address", type: "error" });
       return;
     }
 
     // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      setMessage({ text: 'Please enter a valid email address', type: 'error' });
+      setMessage({ text: "Please enter a valid email address", type: "error" });
       return;
     }
 
@@ -139,22 +156,31 @@ const ResearchReportsSection = () => {
     setMessage(null);
 
     try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email }),
       });
       const data = await response.json();
       if (response.ok) {
-        setMessage({ text: data.message || 'Successfully subscribed!', type: 'success' });
-        setEmail('');
+        setMessage({
+          text: data.message || "Successfully subscribed!",
+          type: "success",
+        });
+        setEmail("");
       } else {
-        setMessage({ text: data.error || 'Subscription failed', type: 'error' });
+        setMessage({
+          text: data.error || "Subscription failed",
+          type: "error",
+        });
       }
     } catch (error) {
-      setMessage({ text: 'Subscription failed. Please try again.', type: 'error' });
+      setMessage({
+        text: "Subscription failed. Please try again.",
+        type: "error",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -167,20 +193,31 @@ const ResearchReportsSection = () => {
         fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
       }}
     >
+      <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          className="mb-16"
+        >
+          <div className="inline-block bg-gradient-to-r from-emerald-500 to-teal-600 p-6 rounded-3xl mb-8 shadow-2xl">
+            <TbReportSearch className="text-white text-4xl" />
+          </div>
+          <h2 className="text-5xl font-bold mb-8 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+            Research Reports
+          </h2>
+        </motion.div>
+      </div>
       <div className="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto p-6 md:p-10 bg-white border border-emerald-200 shadow-lg rounded-2xl">
         {/* Main Content */}
         <div className="max-w-7xl mx-auto px-4">
           <div className="mb-8">
             <h2
               className="text-2xl md:text-3xl font-bold text-emerald-900 mb-2 flex items-center gap-2"
-              style={{ textAlign: 'left' }}
+              style={{ textAlign: "left" }}
             >
-              Research Reports
+             Latest Reports
             </h2>
-            <p
-              className="text-gray-600"
-              style={{ textAlign: 'left' }}
-            >
+            <p className="text-gray-600" style={{ textAlign: "left" }}>
               Latest insights and findings from our expert research team
             </p>
           </div>
@@ -191,7 +228,7 @@ const ResearchReportsSection = () => {
               <div
                 key={report.id}
                 className="border border-emerald-200 p-5 bg-emerald-50 hover:border-emerald-500 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 rounded-xl"
-                style={{ textAlign: 'left' }}
+                style={{ textAlign: "left" }}
               >
                 <div className="bg-emerald-100 text-emerald-900 text-xs font-bold px-3 py-1 inline-block mb-3 uppercase tracking-wide rounded-full">
                   {report.category}
@@ -212,7 +249,7 @@ const ResearchReportsSection = () => {
           {/* CTA Buttons */}
           <div className="flex flex-wrap gap-3 mb-8">
             <button
-              onClick={() => router.push('/reports')}
+              onClick={() => router.push("/reports")}
               className="px-5 py-3 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 border border-emerald-300 font-semibold text-sm md:text-base uppercase tracking-wide transition-colors rounded-full flex-1 sm:flex-none"
             >
               View All Reports
@@ -223,19 +260,23 @@ const ResearchReportsSection = () => {
           <div className="p-8 bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl shadow-md border border-emerald-100">
             <h3
               className="text-2xl font-bold text-emerald-900 mb-3 flex items-center gap-2"
-              style={{ textAlign: 'left' }}
+              style={{ textAlign: "left" }}
             >
               Stay Connected With Us
             </h3>
 
             <p
               className="text-lg text-emerald-800 leading-relaxed mb-6"
-              style={{ textAlign: 'left' }}
+              style={{ textAlign: "left" }}
             >
-              Subscribe to our newsletter for exclusive financial tips, market insights, and special offers tailored just for you.
+              Subscribe to our newsletter for exclusive financial tips, market
+              insights, and special offers tailored just for you.
             </p>
 
-            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4">
+            <form
+              onSubmit={handleSubscribe}
+              className="flex flex-col sm:flex-row gap-4"
+            >
               <input
                 type="email"
                 value={email}
@@ -249,18 +290,18 @@ const ResearchReportsSection = () => {
                 disabled={isSubmitting}
                 className="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold uppercase tracking-wide rounded-full transition-all shadow-md disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? 'Subscribing...' : 'Subscribe'}
+                {isSubmitting ? "Subscribing..." : "Subscribe"}
               </button>
             </form>
 
             {message && (
               <div
                 className={`mt-4 text-sm font-medium px-4 py-2 rounded-lg ${
-                  message.type === 'success'
-                    ? 'bg-emerald-100 text-emerald-800'
-                    : 'bg-red-100 text-red-800'
+                  message.type === "success"
+                    ? "bg-emerald-100 text-emerald-800"
+                    : "bg-red-100 text-red-800"
                 }`}
-                style={{ textAlign: 'left' }}
+                style={{ textAlign: "left" }}
               >
                 {message.text}
               </div>
@@ -277,22 +318,30 @@ const ResearchReportsSection = () => {
           <div className="bg-white border border-emerald-200 p-6 rounded-xl shadow-sm">
             <h3
               className="text-lg font-semibold text-emerald-900 mb-5 flex items-center gap-2"
-              style={{ textAlign: 'left' }}
+              style={{ textAlign: "left" }}
             >
               Research Metrics
             </h3>
             <ul className="space-y-4">
               <li className="flex justify-between pb-3 border-b border-emerald-100">
-                <span className="text-gray-600 text-sm">Published Reports:</span>
+                <span className="text-gray-600 text-sm">
+                  Published Reports:
+                </span>
                 <span className="text-emerald-900 font-bold text-sm">127</span>
               </li>
               <li className="flex justify-between pb-3 border-b border-emerald-100">
-                <span className="text-gray-600 text-sm">Active Subscribers:</span>
-                <span className="text-emerald-900 font-bold text-sm">5,842</span>
+                <span className="text-gray-600 text-sm">
+                  Active Subscribers:
+                </span>
+                <span className="text-emerald-900 font-bold text-sm">
+                  5,842
+                </span>
               </li>
               <li className="flex justify-between">
                 <span className="text-gray-600 text-sm">Research Team:</span>
-                <span className="text-emerald-900 font-bold text-sm">24 Experts</span>
+                <span className="text-emerald-900 font-bold text-sm">
+                  24 Experts
+                </span>
               </li>
             </ul>
           </div>

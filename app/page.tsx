@@ -21,8 +21,6 @@ import {
   FaRegLightbulb,
   FaShieldAlt,
   FaChartLine,
-  FaCreditCard,
-  FaPiggyBank,
   FaUniversity,
   FaLaptopCode,
   FaGlobe,
@@ -38,7 +36,6 @@ import HomeResearchAndNewsSection from "./(routes)/_components/HomeResearchAndNe
 import { useState } from "react";
 import { BarChart3, BookOpen, Shield, TrendingUp, Wallet } from "lucide-react";
 import ResearchReportsSection from "./(routes)/_components/ResearchReportsSection";
-import { useRouter } from "next/navigation";
 
 
 const slides = [
@@ -722,7 +719,7 @@ export default function HomePage() {
               transition={{ duration: 0.6 }}
               className="text-center mb-16 max-w-4xl mx-auto"
             >
-              <div className="inline-block bg-gradient-to-r from-emerald-500 to-teal-600 p-4 rounded-2xl mb-6 shadow-xl">
+              <div className="inline-block bg-gradient-to-r from-emerald-500 to-teal-600 p-6 rounded-3xl mb-8 shadow-2xl">
                 <FaCoins className="text-white text-3xl" />
               </div>
               <h1 className="text-5xl font-bold bg-gradient-to-r from-emerald-700 via-green-600 to-teal-600 bg-clip-text text-transparent mb-6">
@@ -842,8 +839,8 @@ export default function HomePage() {
             <div className="inline-block bg-gradient-to-r from-emerald-500 to-teal-600 p-6 rounded-3xl mb-8 shadow-2xl">
               <FaAward className="text-white text-4xl" />
             </div>
-            <h2 className="text-6xl font-bold mb-8 bg-gradient-to-r from-emerald-600 via-green-600 to-teal-600 bg-clip-text text-transparent">
-              ✨ Why Choose Fiscal Forum?
+            <h2 className="text-6xl font-bold bg-gradient-to-r from-emerald-600 via-green-600 to-teal-600 bg-clip-text text-transparent pb-10">
+              Why Choose Fiscal Forum?
             </h2>
             <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed bg-white/60 p-6 rounded-2xl backdrop-blur-sm">
               Experience the difference with our comprehensive financial
@@ -1027,17 +1024,17 @@ export default function HomePage() {
           <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-green-200/30 to-emerald-300/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
+        <div className="max-w-7xl mx-auto px-6 text-center relative z-10 mb-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             className="mb-16"
           >
-            <div className="inline-block bg-gradient-to-r from-emerald-500 to-teal-600 p-6 rounded-3xl mb-8 shadow-2xl">
+            <div className="inline-block bg-gradient-to-r from-emerald-500 to-teal-600 p-6 rounded-3xl mb-10 shadow-2xl">
               <FaQuoteLeft className="text-white text-4xl" />
             </div>
-            <h2 className="text-5xl font-bold mb-8 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-              💬 What Our Clients Say
+            <h2 className="text-5xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent pb-10">
+              What Our Clients Say
             </h2>
             <p className="text-xl text-gray-700 max-w-3xl mx-auto bg-white/60 p-6 rounded-2xl backdrop-blur-sm">
               Real stories from real people who trust us with their financial
