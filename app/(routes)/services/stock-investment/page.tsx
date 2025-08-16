@@ -597,8 +597,8 @@ export default function CreditCardApplyPage() {
                     Transfer Complete
                   </h3>
                   <p className="text-gray-600">
-                    Your holdings will be transferred in 3–7 working days.
-                    You’ll receive a confirmation email.
+                    Your holdings will be transferred in 3-7 working days.
+                    You&apos;ll receive a confirmation email.
                   </p>
                 </div>
               </motion.div>
@@ -609,7 +609,7 @@ export default function CreditCardApplyPage() {
           <section className="py-16 bg-gradient-to-r from-green-900 to-emerald-900 text-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Grow Smarter, Invest Better
+                Grow Smarter, Invest Better with Fiscal Forum
               </h2>
               <p className="text-xl text-green-200 max-w-3xl mx-auto">
                 Everything you need to succeed in the markets — all in one
@@ -624,7 +624,7 @@ export default function CreditCardApplyPage() {
                 </div>
                 <h3 className="text-lg font-bold mb-2">Smart Analytics</h3>
                 <p className="text-green-100">
-                  AI-powered insights and live charts to guide your decisions.
+                  Get Premium Research Reports and analyse where to invest.
                 </p>
               </div>
               <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm hover:scale-105 transition-transform duration-300">
@@ -642,7 +642,7 @@ export default function CreditCardApplyPage() {
                 </div>
                 <h3 className="text-lg font-bold mb-2">Lightning Fast</h3>
                 <p className="text-green-100">
-                  Sub-second order execution for maximum efficiency.
+                  Get all your investment queries solved with us in few minutes.
                 </p>
               </div>
               <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm hover:scale-105 transition-transform duration-300">

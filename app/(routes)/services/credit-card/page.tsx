@@ -1,840 +1,437 @@
+// app/credit-cards/page.tsx
 "use client";
-import React, { useState } from "react";
-import {
-  CreditCard,
-  Shield,
-  Plane,
-  Gift,
-  Smartphone,
-  CheckCircle,
-  User
-} from "lucide-react";
-import { useRouter } from "next/navigation";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
-import { motion } from "framer-motion";
-import "swiper/css";
-import "swiper/css/pagination";
-import { FaAward, FaCreditCard, FaPlane, FaRegMoneyBillAlt, FaRocket } from "react-icons/fa";
-import Link from "next/link";
 
-const slides = [
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  FaAward,
+  FaChartLine,
+  FaFilePdf,
+  FaHeadset,
+  FaRocket,
+  FaShieldAlt,
+} from "react-icons/fa";
+
+// Define card data type
+interface CreditCard {
+  id: string;
+  bank: string;
+  logo: string;
+  cardName: string;
+  benefits: string[];
+  howToApply: string[];
+  pdfLink: string;
+  applyLink: string;
+  eligibilityNote: string;
+}
+
+// Data for credit cards (extracted from PDFs)
+const creditCards: CreditCard[] = [
   {
-    title: "Loan Services",
-    subtitle: "Get Instant Access to",
-    description:
-      "Choose from personal, home, or education loans with low interest rates and flexible repayment options.",
-    image: "/asset-loan.jpg",
-    gradient: "from-blue-600 via-blue-500 to-purple-600",
-    path: "services/loan",
+    id: "hdfc",
+    bank: "HDFC Bank",
+    logo: "/hdfc.png",
+    cardName: "HDFC Credit Cards",
+    benefits: [
+      "Reward points on every purchase",
+      "Airport lounge access",
+      "Zero liability protection",
+      "EMI conversion facility",
+      "Cashback offers up to 10%",
+      "Fuel surcharge waiver",
+    ],
+    eligibilityNote: "Fill in your details to check eligibility. HDFC will suggest the most suitable card based on your income and credit score.",
+    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
+    pdfLink: "https://drive.google.com/file/d/1ey1TyO_pAKxOMzkbwKnlzFrKGaWxhAQY/view?usp=sharing",
+    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19iYW5r&bank_source=aGRmY19iYW5r&agent_code=",
   },
   {
-    title: "Insurance Plans",
-    subtitle: "Protect Your Future with",
-    description:
-      "Health, car, and life insurance plans tailored to your needs — secure your family and assets today.",
-    image: "/asset-insurance.jpg",
-    gradient: "from-emerald-600 via-teal-500 to-cyan-600",
-    path: "services/insurance",
+    id: "indusind",
+    bank: "IndusInd Bank",
+    logo: "/indusind.png",
+    cardName: "IndusInd Credit Cards",
+    benefits: [
+      "Platinum Aura & Edge benefits",
+      "Unlimited rewards on shopping",
+      "Fuel surcharge waiver",
+      "Movie & dining discounts",
+      "Free add-on cards",
+      "Fast-track airport security",
+    ],
+    eligibilityNote: "Submit your details to know eligibility. IndusInd will recommend the best card option based on your profile and financials.",
+    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
+    pdfLink: "https://drive.google.com/file/d/1eKIZY1oSNe_Ot9584QsVzmIu1MWHoxte/view?usp=sharing",
+    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aW5kdXNpbmRfYmFuaw==&bank_source=aW5kdXNfYmFuaw==&agent_code=",
   },
   {
-    title: "Savings Account",
-    subtitle: "Grow Your Wealth with a",
-    description:
-      "High-interest savings accounts with zero balance requirements and easy online access.",
-    image: "/asset-saving.jpg",
-    gradient: "from-green-600 via-emerald-500 to-teal-600",
-    path: "services/saving-account",
+    id: "hsbc",
+    bank: "HSBC Bank",
+    logo: "/hsbc.png",
+    cardName: "HSBC Credit Cards",
+    benefits: [
+      "Flat 5% cashback on all spends",
+      "No joining or annual fees",
+      "Global acceptance",
+      "Contactless payments",
+      "24x7 concierge service",
+      "Travel & dining privileges",
+    ],
+    eligibilityNote: "Provide your information to verify eligibility. HSBC automatically selects the best card as per your credit history and income.",
+    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
+    pdfLink: "https://drive.google.com/file/d/1TR_E3PojHQQA6UUqgr2cOfPcSCvRcysW/view?usp=sharing",
+    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY19iYW5r&bank_source=aHNiY19iYW5r&agent_code=",
   },
   {
-    title: "Stock Investment",
-    subtitle: "Invest Smartly in the",
-    description:
-      "Build a diversified portfolio and start investing in the stock market with expert guidance.",
-    image: "/asset-stock.jpg",
-    gradient: "from-violet-600 via-purple-500 to-indigo-600",
-    path: "services/stock-investment",
+    id: "hdfc-swiggy",
+    bank: "HDFC Bank",
+    logo: "/hdfc.png",
+    cardName: "HDFC Swiggy Credit Card",
+    benefits: [
+      "Extra cashback on Swiggy orders",
+      "Dining discounts",
+      "Reward points on online spends",
+      "Fuel surcharge waiver",
+    ],
+    eligibilityNote: "Check eligibility by filling your details. HDFC evaluates your credit score and income to provide the most relevant card.",
+    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
+    pdfLink: "https://drive.google.com/file/d/1ey1TyO_pAKxOMzkbwKnlzFrKGaWxhAQY/view?usp=sharing",
+    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19zd2lnZ3k=&bank_source=aGRmY19iYW5r&agent_code=",
   },
   {
-    title: "Mutual Funds",
-    subtitle: "Explore High-Return",
-    description:
-      "Access professionally managed mutual funds to meet your financial goals across risk profiles.",
-    image: "/asset-mutual.jpg",
-    gradient: "from-cyan-600 via-blue-500 to-indigo-600",
-    path: "services/mutual-funds",
+    id: "axis-lic",
+    bank: "Axis Bank",
+    logo: "/axis.png",
+    cardName: "Axis LIC Credit Card",
+    benefits: [
+      "Reward points on LIC premium payments",
+      "Airport lounge access",
+      "Dining and shopping offers",
+    ],
+    eligibilityNote: "Fill in your details to proceed. Axis Bank matches your profile with the best LIC credit card variant available.",
+    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
+    pdfLink: "https://drive.google.com/file/d/1jO0DMuJlStdcylan4b9ST_ExLWzN37Kb/view?usp=sharing",
+    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19saWM=&bank_source=YXhpc19saWM=&agent_code=",
   },
   {
-    title: "Credit Card",
-    subtitle: "Power Your Spending with a",
-    description:
-      "Choose the right credit card for rewards, cashback, and low-interest EMIs.",
-    image: "/asset-credit.jpg",
-    gradient: "from-orange-600 via-red-500 to-pink-600",
-    path: "services/credit-card",
+    id: "yes-popclub",
+    bank: "Yes Bank",
+    logo: "/yesbank.png",
+    cardName: "Yes Bank Pop Club Credit Card",
+    benefits: [
+      "Flat 5% cashback on all categories",
+      "No annual fee",
+      "Instant digital card",
+      "Fuel surcharge waiver",
+      "Movie & food discounts",
+    ],
+    eligibilityNote: "Enter your details to check eligibility. Yes Bank will filter the right Pop Club card based on your income and credit record.",
+    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
+    pdfLink: "https://drive.google.com/file/d/1KrMSQ8lPi4_kUYpn41KqlS5gpziYjfWM/view?usp=sharing",
+    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=eWVzX3BvcGNsdWI=&bank_source=eWVzX3BvcGNsdWI=&agent_code=",
   },
   {
-    title: "Govt Bonds & FDs",
-    subtitle: "Secure Investments with",
-    description:
-      "Low-risk government bonds and fixed deposits to preserve capital and earn steady returns.",
-    image: "/asset-bondfd.jpg",
-    gradient: "from-yellow-600 via-amber-500 to-orange-600",
-    path: "services/govts-bond-&-fd",
+    id: "hsbc-liveplus",
+    bank: "HSBC Bank",
+    logo: "/hsbc.png",
+    cardName: "HSBC Live Plus Card",
+    benefits: [
+      "Cashback on daily expenses",
+      "Dining & travel discounts",
+      "Global acceptance",
+    ],
+    eligibilityNote: "Provide your details to check eligibility. HSBC recommends Live Plus card based on your spending profile and financial history.",
+    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
+    pdfLink: "https://drive.google.com/file/d/1TR_E3PojHQQA6UUqgr2cOfPcSCvRcysW/view?usp=sharing",
+    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY19saXZlX3BsdXM=&bank_source=aHNiY19iYW5r&agent_code=",
+  },
+  {
+    id: "hsbc-travelone",
+    bank: "HSBC Bank",
+    logo: "/hsbc.png",
+    cardName: "HSBC TravelOne Card",
+    benefits: [
+      "Air miles on every spend",
+      "Airport lounge access",
+      "Travel insurance",
+    ],
+    eligibilityNote: "Fill in your details to see if you qualify. HSBC automatically finds the best travel card depending on your income and credit.",
+    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
+    pdfLink: "https://drive.google.com/file/d/1TR_E3PojHQQA6UUqgr2cOfPcSCvRcysW/view?usp=sharing",
+    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY190cmF2ZWxvbmVfY2FyZA==&bank_source=aHNiY19iYW5r&agent_code=",
+  },
+  {
+    id: "axis-fd",
+    bank: "Axis Bank",
+    logo: "/axis.png",
+    cardName: "Axis Bank FD Credit Card",
+    benefits: [
+      "Get a credit card against FD",
+      "High approval chances",
+      "Low annual fee",
+    ],
+    eligibilityNote: "Enter your details to verify eligibility. Axis offers FD-backed cards based on your deposit and income profile.",
+    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
+    pdfLink: "https://drive.google.com/file/d/1jO0DMuJlStdcylan4b9ST_ExLWzN37Kb/view?usp=sharing",
+    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19iYW5rX2ZkX2NyZWRpdF9jYXJk&bank_source=YXhpc19iYW5r&agent_code=",
+  },
+  {
+    id: "tataneu",
+    bank: "TataNeu",
+    logo: "/tataneu.png",
+    cardName: "TataNeu Credit Card",
+    benefits: [
+      "Rewards on Tata brand spends",
+      "Shopping discounts",
+      "Fuel surcharge waiver",
+    ],
+    eligibilityNote: "Provide your details to check eligibility. TataNeu will suggest the right card based on your spending capacity and profile.",
+    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
+    pdfLink: "https://www.hdfcbank.com/content/bbp/repositories/723fb80a-2dde-42a3-9793-7ae1be57c87f/?path=/Personal/Pay/Cards/Credit%20Card/Credit%20Card%20Landing%20Page/Credit%20Cards/TATA%20Neu%20Infinity%20HDFC%20Bank%20Credit%20Card/TATA_Neu_Infinity_Card_FAQ.pdf",
+    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=dGF0YW5ldV9jYXJk&bank_source=dGF0YW5ldQ==&agent_code=",
+  },
+  {
+    id: "hdfc-giga",
+    bank: "HDFC Bank",
+    logo: "/hdfc.png",
+    cardName: "HDFC GIGA Credit Card",
+    benefits: [
+      "Special rewards on online spends",
+      "Travel & dining discounts",
+      "Fuel surcharge waiver",
+    ],
+    eligibilityNote: "Fill your details to know eligibility. HDFC will shortlist GIGA or other suitable cards as per your credit score and income.",
+    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
+    pdfLink: "https://drive.google.com/file/d/1ey1TyO_pAKxOMzkbwKnlzFrKGaWxhAQY/view?usp=sharing",
+    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19naWdh&bank_source=Z0lnYV9idXNpbmVzc19jcmVkaXRfY2FyZA==&agent_code=",
   },
 ];
 
 
-const CreditCardApplyPage = () => {
-  const router = useRouter();
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    dateOfBirth: "",
-    panNumber: "",
-    aadharNumber: "",
-    annualIncome: "",
-    employmentType: "",
-    company: "",
-    address: "",
-    city: "",
-    pincode: "",
-    cardType: "premium",
-  });
-
-  const creditCards = [
-    {
-      id: "pixel",
-      name: "HDFC Bank PIXEL Credit Card",
-      type: "Lifestyle",
-      annualFee: "₹0",
-      joiningFee: "₹0",
-      gradient: "from-blue-500 to-purple-600",
-      popular: true,
-      features: [
-        "5% CashBack on choice of any 2 Packs - Dining & Entertainment, Travel, Grocery, Electronics, Fashion",
-        "3% CashBack on choice of any one e-commerce merchant - Amazon or Flipkart or PayZapp",
-        "1% Unlimited CashBack on all spends",
-        "1% Cashback on UPI Spends (RuPay variant)",
-        "Customize your card design and billing cycle",
-        "Up to 50 days interest-free credit period",
-      ],
-      highlights: {
-        cashback: "5%",
-        creditLimit: "₹2,00,000",
-        rewardPoints: "CashBack System",
-      },
-    },
-    {
-      id: "millennia",
-      name: "HDFC Millennia Credit Card",
-      type: "Online Shopping",
-      annualFee: "₹1,000",
-      joiningFee: "₹1,000",
-      gradient: "from-green-500 to-teal-600",
-      features: [
-        "5% Cashback on Amazon, BookMyShow, Cult.fit, Flipkart, Myntra, Sony LIV, Swiggy, Tata CLiQ, Uber and Zomato",
-        "1% Cashback on other spends",
-        "₹1000 worth gift vouchers on spends of ₹1,00,000 and above in each calendar quarter",
-        "10X CashPoints on Amazon, Flipkart, Swiggy, Reliance Smart SuperStore & BigBasket",
-        "Up to 50 days interest-free credit period",
-      ],
-      highlights: {
-        cashback: "5%",
-        creditLimit: "₹3,00,000",
-        rewardPoints: "10X CashPoints",
-      },
-    },
-    {
-      id: "freedom",
-      name: "HDFC Freedom Credit Card",
-      type: "Cashback",
-      annualFee: "₹500",
-      joiningFee: "₹500",
-      gradient: "from-orange-500 to-red-600",
-      features: [
-        "10X CashPoints on Big Basket, BookMyShow, OYO, Swiggy & Uber",
-        "1 CashPoint per ₹150 spent on other spends",
-        "Get ₹500 gift voucher on spends of ₹50,000 per calendar quarter",
-        "Up to 50 days interest-free credit period",
-        "2 CashPoints per ₹150 spent on other spends",
-      ],
-      highlights: {
-        cashback: "10X",
-        creditLimit: "₹1,50,000",
-        rewardPoints: "10X CashPoints",
-      },
-    },
-    {
-      id: "fuelplus",
-      name: "HDFC FuelPlus Credit Card",
-      type: "Fuel",
-      annualFee: "₹500",
-      joiningFee: "₹500",
-      gradient: "from-yellow-500 to-orange-600",
-      features: [
-        "Earn up to 50 Liters of Free fuel annually",
-        "Earn 5% of your spends as Fuel Points at IndianOil outlets, Groceries and Bill Payments",
-        "Earn 1 Fuel Point for every Rs. 150 spent on all other purchases",
-        "Enjoy 1% Fuel Surcharge waiver",
-        "Up to 50 days interest-free period",
-      ],
-      highlights: {
-        cashback: "5%",
-        creditLimit: "₹1,00,000",
-        rewardPoints: "Fuel Points",
-      },
-    },
-    {
-      id: "swiggy",
-      name: "HDFC Swiggy Credit Card",
-      type: "Food & Entertainment",
-      annualFee: "₹500",
-      joiningFee: "₹500",
-      gradient: "from-orange-600 to-pink-600",
-      features: [
-        "10% Cashback on Swiggy application (Food ordering, Instamart, Dineout & Genie)",
-        "Buy 1 Get 1 Free on all tickets via BookMyShow",
-        "5X Reward Points on Swiggy and Zomato",
-        "Complimentary Swiggy One Membership for 3 months on card activation",
-        "Complimentary Annual Memberships of Swiggy One and Times Prime as Welcome Benefit",
-      ],
-      highlights: {
-        cashback: "10%",
-        creditLimit: "₹2,00,000",
-        rewardPoints: "5X Points",
-      },
-    },
-    {
-      id: "regalia",
-      name: "HDFC Regalia Credit Card",
-      type: "Premium Lifestyle",
-      annualFee: "₹2,500",
-      joiningFee: "₹2,500",
-      gradient: "from-purple-600 to-indigo-700",
-      features: [
-        "₹1,500 worth Marriott, Decathlon & more vouchers on quarterly spends of Rs. 1.5 lakh",
-        "8 Complimentary airport lounge access worldwide",
-        "4 Reward Points for every ₹150 spent",
-        "Up to 10X Reward Points via SmartBuy",
-        "2X Reward Points on Weekend Dining",
-        "Global Personal Concierge - 24 X 7",
-      ],
-      highlights: {
-        cashback: "4X",
-        creditLimit: "₹5,00,000",
-        rewardPoints: "10X via SmartBuy",
-      },
-    },
-    {
-      id: "tataneu",
-      name: "HDFC Tata Neu Credit Card",
-      type: "Co-branded",
-      annualFee: "₹750",
-      joiningFee: "₹750",
-      gradient: "from-blue-600 to-purple-700",
-      features: [
-        "2% back as NeuCoins on Tata Neu and partner Tata Brand Spends",
-        "Additional 5% back as NeuCoins on Tata Neu Spends, post registering for Tata NeuPass",
-        "1% back as NeuCoins on other spends",
-        "1 NeuCoin = ₹1, redeemable on Tata Neu App",
-        "4 Complimentary Domestic Airport Lounge Access",
-      ],
-      highlights: {
-        cashback: "5%",
-        creditLimit: "₹2,50,000",
-        rewardPoints: "NeuCoins 1:1",
-      },
-    },
-    {
-      id: "indianoil",
-      name: "HDFC IndianOil Credit Card",
-      type: "Fuel",
-      annualFee: "₹500",
-      joiningFee: "₹500",
-      gradient: "from-green-600 to-blue-600",
-      features: [
-        "Earn up to 50 Liters of Free fuel annually",
-        "Earn 5% of your spends as Fuel Points at IndianOil outlets, Groceries and Bill Payments",
-        "Earn 1 Fuel Point for every Rs. 150 spent on all other purchases",
-        "Enjoy 1% Fuel Surcharge waiver",
-        "Complimentary Club Vistara Silver Tier and MMT Black Elite membership as Welcome benefits",
-      ],
-      highlights: {
-        cashback: "5%",
-        creditLimit: "₹1,50,000",
-        rewardPoints: "Fuel Points",
-      },
-    },
-    {
-      id: "marriott",
-      name: "HDFC Marriott Credit Card",
-      type: "Travel & Hospitality",
-      annualFee: "₹3,000",
-      joiningFee: "₹3,000",
-      gradient: "from-red-600 to-purple-700",
-      features: [
-        "1 Free Night Award at hotels participating in Marriott Bonvoy® (up to 15,000 Marriott Bonvoy Points)",
-        "Marriott Bonvoy® Silver Elite Status & 10 Elite Night Credits",
-        "Earn 8 Marriott Bonvoy Points per Rs. 150 spent at hotels participating in Marriott Bonvoy",
-        "Earn 4 Marriott Bonvoy Points per Rs. 150 spent on travel, dining & entertainment",
-        "Earn 2 Marriott Bonvoy Points per Rs. 150 spent on all other applicable purchases",
-      ],
-      highlights: {
-        cashback: "8X",
-        creditLimit: "₹4,00,000",
-        rewardPoints: "Marriott Bonvoy Points",
-      },
-    },
-    {
-      id: "infinia",
-      name: "HDFC Infinia Credit Card",
-      type: "Super Premium",
-      annualFee: "₹12,500",
-      joiningFee: "₹12,500",
-      gradient: "from-gray-800 to-yellow-600",
-      features: [
-        "5 Reward Points for every ₹150 spent",
-        "Complimentary Club Marriott membership for first year",
-        "Complimentary nights & weekend buffet at participating ITC hotels",
-        "Unlimited Complimentary golf games at leading courses across India and select courses across the world",
-        "Global Personal Concierge - 24 X 7",
-        "Metal Card",
-        "Unlimited Airport Lounge Access",
-      ],
-      highlights: {
-        cashback: "5X",
-        creditLimit: "₹10,00,000+",
-        rewardPoints: "5 per ₹150",
-      },
-    },
-  ];
-
-  const benefits = [
-    {
-      icon: Shield,
-      title: "Secure Transactions",
-      description:
-        "Advanced fraud protection and zero liability on unauthorized transactions",
-    },
-    {
-      icon: Gift,
-      title: "Reward Points",
-      description:
-        "Earn points on every purchase and redeem for exciting rewards",
-    },
-    {
-      icon: Plane,
-      title: "Travel Benefits",
-      description:
-        "Airport lounge access, travel insurance, and exclusive travel deals",
-    },
-    {
-      icon: Smartphone,
-      title: "Digital Wallet",
-      description:
-        "UPI payments, contactless transactions, and mobile app control",
-    },
-  ];
-
-  const eligibilityCriteria = [
-    { label: "Age", value: "21-65 years" },
-    { label: "Income", value: "₹3,00,000+ annually" },
-    { label: "Employment", value: "Salaried/Self-employed" },
-    { label: "Credit Score", value: "700+ preferred" },
-  ];
-
-  const applicationSteps = [
-    {
-      step: 1,
-      title: "Choose Card",
-      description: "Select the credit card that suits your lifestyle",
-      icon: CreditCard,
-    },
-    {
-      step: 2,
-      title: "Fill Application",
-      description: "Complete the online application form",
-      icon: User,
-    },
-    {
-      step: 3,
-      title: "Document Upload",
-      description: "Upload required documents for verification",
-      icon: Shield,
-    },
-    {
-      step: 4,
-      title: "Get Approved",
-      description: "Receive instant approval and card delivery",
-      icon: CheckCircle,
-    },
-  ];
-
+export default function CreditCardsPage() {
   return (
-    <>
-      {/* Hero Section */}
-      <section className="relative w-full h-[50vh] overflow-hidden">
-        {/* Swiper will control background image and content */}
-        <Swiper
-          spaceBetween={30}
-          slidesPerView={1}
-          loop
-          autoplay={{ delay: 4000, disableOnInteraction: false }}
-          pagination={{ clickable: true }}
-          modules={[Autoplay, Pagination]}
-          className="w-full h-full"
+    <div
+      className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 text-gray-800 pt-20"
+      style={{
+        fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
+      }}
+    >
+      {/* Header */}
+      <header className="py-16 px-6 md:px-10 text-center">
+        <h1 className="text-5xl font-bold text-emerald-900 mb-4 tracking-tight">
+          Credit Cards
+        </h1>
+        <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+          Choose the perfect credit card for your lifestyle. Check your
+          eligibility and get instant recommendations based on your credit score
+          and income.
+        </p>
+      </header>
+
+      {/* Main Grid */}
+      <main className="pb-16">
+  <div className="max-w-7xl mx-auto px-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {creditCards.map((card, index) => (
+        <motion.div
+          key={card.id}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: index * 0.1 }}
+          whileHover={{ y: -8, scale: 1.02 }}
+          className="relative rounded-2xl shadow-lg overflow-hidden transition-all duration-300 transform hover:shadow-xl bg-white"
         >
-          {slides.map((slide, index) => (
-            <SwiperSlide key={index}>
-              {/* Background Image */}
-              <div className="absolute inset-0 z-0">
-                {/* <Image
-                  src={slide.image}
-                  alt={slide.title}
-                  fill
-                  sizes="100vw"
-                  className="object-cover object-center"
-                  priority
-                /> */}
-                {/* Gradient Overlay */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}/80`}
-                ></div>
+          {/* Gradient Top Border */}
+          <div className="p-1 bg-gradient-to-r from-green-500 to-emerald-600"></div>
+
+          <div className="p-6 space-y-5 h-full flex flex-col">
+            {/* Bank Logo */}
+            <div className="flex items-center gap-3 mb-4 ">
+              <div className="border-2 border-emerald-200">
+                <Image
+                src={card.logo}
+                width={100}
+                height={100}
+                alt={`${card.bank} Logo`}
+                className="h-8 w-auto object-contain"
+              />
               </div>
+              <h3 className="text-lg font-bold text-gray-800">{card.cardName}</h3>
+            </div>
 
-              {/* Content */}
-              <div className="relative z-10 h-full flex items-center px-6 sm:px-12 md:px-20 lg:px-32">
-                <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                  className="text-white max-w-xl"
-                >
-                  <motion.p
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="uppercase tracking-widest text-sm text-yellow-200 font-semibold mb-2"
-                  >
-                    {slide.subtitle}
-                  </motion.p>
-                  <motion.h2
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.4 }}
-                    className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6"
-                  >
-                    {slide.title}
-                  </motion.h2>
-                  <motion.p
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.6 }}
-                    className="text-lg sm:text-xl mb-8 opacity-90 leading-relaxed"
-                  >
-                    {slide.description}
-                  </motion.p>
-                  <Link href={slide.path}>
-                    <motion.button
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.8 }}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition-all duration-300 flex items-center gap-3"
-                    >
-                      Know More
-                      <FaRocket className="group-hover:translate-x-1 transition-transform" />
-                    </motion.button>
-                  </Link>
-                </motion.div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+            {/* Key Benefits */}
+            <div>
+              <h4 className="font-semibold text-gray-800 mb-2">Key Benefits</h4>
+              <ul className="space-y-1">
+                {card.benefits.map((benefit, i) => (
+                  <li key={i} className="text-sm text-gray-700 flex items-start gap-2">
+                    <span className="text-emerald-500 mt-1">•</span>
+                    {benefit}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-        {/* Swiper Pagination is now styled */}
-        <div className="swiper-pagination absolute bottom-8 w-full flex justify-center z-20"></div>
-      </section>
-      <div className="min-h-screen bg-gray-50">
-        {/* Hero Section */}
-        {/* <section className="relative bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 text-white py-20">
-          <div className="absolute inset-0 bg-black/20"></div>
-          <div className="relative max-w-7xl mx-auto px-6">
-            <div className="text-center">
-              <h1 className="text-5xl font-bold mb-6">
-                Apply for Credit Card Online
-              </h1>
-              <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                Get instant approval and unlock a world of financial freedom
-                with exclusive rewards, cashback, and premium benefits
-              </p>
-              <div className="flex justify-center items-center space-x-8 text-sm">
-                <div className="flex items-center">
-                  <Clock className="h-5 w-5 mr-2" />
-                  <span>Instant Approval</span>
-                </div>
-                <div className="flex items-center">
-                  <Shield className="h-5 w-5 mr-2" />
-                  <span>100% Secure</span>
-                </div>
-                <div className="flex items-center">
-                  <Award className="h-5 w-5 mr-2" />
-                  <span>Premium Benefits</span>
-                </div>
-              </div>
+            {/* How to Apply */}
+            <div>
+              <h4 className="font-semibold text-gray-800 mb-2">How to Apply</h4>
+              <ol className="space-y-1 list-decimal list-inside">
+                {card.howToApply.map((step, i) => (
+                  <li key={i} className="text-sm text-gray-700">
+                    {step}
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            {/* Eligibility Note */}
+            <p className="text-xs text-gray-600 italic leading-relaxed mt-auto">
+              {card.eligibilityNote}
+            </p>
+
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 mt-5">
+              <Link
+                href={card.pdfLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-green-100 hover:bg-green-200 text-green-800 rounded-full text-sm font-medium transition-colors border border-green-200"
+              >
+                <FaFilePdf className="w-4 h-4 text-green-600" />
+                <span>PDF</span>
+              </Link>
+
+              <Link
+                href={card.applyLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-full text-sm font-medium text-center transition-all shadow-sm"
+              >
+                Apply
+              </Link>
             </div>
           </div>
-        </section> */}
-
-        {/* Key Benefits */}
-        <section className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Why Choose Our Credit Cards?
-              </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Experience the perfect blend of convenience, security, and
-                rewards with our premium credit card offerings
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {benefits.map((benefit, index) => (
-                <div
-                  key={index}
-                  className="text-center p-6 rounded-xl bg-gray-50 hover:bg-blue-50 transition-colors"
-                >
-                  <div className="bg-blue-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <benefit.icon className="h-8 w-8 text-white" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm">{benefit.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Credit Cards List */}
-        <section className="py-16 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Choose Your Perfect Credit Card
-              </h2>
-              <p className="text-gray-600">
-                Explore our comprehensive range of 10 credit cards designed for
-                different lifestyles and needs
-              </p>
-            </div>
-
-            {/* Quick Filter */}
-            <div className="flex flex-wrap justify-center gap-4 mb-8">
-              <button className="px-4 py-2 bg-blue-500 text-white rounded-full text-sm font-medium">
-                All Cards
-              </button>
-              <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-300">
-                Cashback
-              </button>
-              <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-300">
-                Travel
-              </button>
-              <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-300">
-                Fuel
-              </button>
-              <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-300">
-                Premium
-              </button>
-            </div>
-
-            <div className="space-y-12">
-              {creditCards.map((card, index) => (
-                <div
-                  key={card.id}
-                  className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden ${
-                    card.id ? " transform scale-[1.02]" : ""
-                  } ${card.popular ? "border-2 border-purple-500" : ""}`}
-                >
-                  {card.popular && (
-                    <div className="absolute top-6 right-6 bg-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold z-10">
-                      Most Popular
-                    </div>
-                  )}
-
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 p-6">
-                    {/* Card Visual */}
-                    <div className="lg:col-span-3">
-                      <div
-                        className={`h-48 bg-gradient-to-br ${card.gradient} p-6 text-white relative rounded-xl`}
-                      >
-                        <div className="absolute top-4 left-6">
-                          <CreditCard className="h-8 w-8" />
-                        </div>
-                        <div className="absolute bottom-6 left-6">
-                          <h3 className="text-lg font-bold">{card.name}</h3>
-                          <p className="text-sm opacity-90">{card.type}</p>
-                        </div>
-                        <div className="absolute bottom-6 right-6">
-                          <div className="w-16 h-10 bg-white/20 rounded backdrop-blur-sm flex items-center justify-center">
-                            <span className="text-xs font-bold">VISA</span>
-                          </div>
-                        </div>
-                        <div className="absolute top-4 right-6">
-                          <div className="text-right">
-                            <div className="text-sm opacity-75">
-                              Card #{index + 1}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Card Details */}
-                    <div className="lg:col-span-6">
-                      <div className="h-full flex flex-col">
-                        <h3 className="text-xl font-bold text-gray-900 mb-2">
-                          {card.name}
-                        </h3>
-                        <p className="text-gray-600 mb-4">
-                          {card.type} Credit Card
-                        </p>
-
-                        {/* Key Highlights */}
-                        <div className="grid grid-cols-3 gap-4 mb-4 p-4 bg-gray-50 rounded-lg">
-                          <div className="text-center">
-                            <div className="font-bold text-lg text-blue-600">
-                              {card.highlights.cashback}
-                            </div>
-                            <div className="text-xs text-gray-600">
-                              Max Cashback
-                            </div>
-                          </div>
-                          <div className="text-center">
-                            <div className="font-bold text-lg text-green-600">
-                              {card.highlights.creditLimit}
-                            </div>
-                            <div className="text-xs text-gray-600">
-                              Credit Limit
-                            </div>
-                          </div>
-                          <div className="text-center">
-                            <div className="font-bold text-lg text-purple-600">
-                              {card.highlights.rewardPoints}
-                            </div>
-                            <div className="text-xs text-gray-600">Rewards</div>
-                          </div>
-                        </div>
-
-                        {/* Key Features - First 3 */}
-                        <div className="space-y-2 flex-1">
-                          {card.features.slice(0, 3).map((feature, fIndex) => (
-                            <div
-                              key={fIndex}
-                              className="flex items-start text-sm"
-                            >
-                              <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                              <span className="text-gray-700">{feature}</span>
-                            </div>
-                          ))}
-                          {card.features.length > 3 && (
-                            <div className="text-sm text-blue-600 font-medium">
-                              +{card.features.length - 3} more benefits
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Pricing & Action */}
-                    <div className="lg:col-span-3">
-                      <div className="h-full flex flex-col justify-between">
-                        {/* Pricing */}
-                        <div className="space-y-4">
-                          <div className="bg-gray-50 p-4 rounded-lg">
-                            <div className="flex justify-between items-center mb-2">
-                              <span className="text-sm text-gray-600">
-                                Joining Fee:
-                              </span>
-                              <span className="font-bold text-gray-900">
-                                {card.joiningFee}
-                              </span>
-                            </div>
-                            <div className="flex justify-between items-center">
-                              <span className="text-sm text-gray-600">
-                                Annual Fee:
-                              </span>
-                              <span className="font-bold text-gray-900">
-                                {card.annualFee}
-                              </span>
-                            </div>
-                          </div>
-
-                          {/* Special Offers */}
-                          {card.joiningFee === "₹0" && (
-                            <div className="bg-green-50 border border-green-200 p-3 rounded-lg">
-                              <div className="flex items-center">
-                                <Gift className="h-4 w-4 text-green-600 mr-2" />
-                                <span className="text-sm text-green-800 font-medium">
-                                  Lifetime Free
-                                </span>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Action Buttons */}
-                        <div className="space-y-3 mt-6">
-                          <button
-                            onClick={() => {
-                              setFormData({ ...formData, cardType: card.id });
-                              router.push("/services/credit-card/apply");
-                            }}
-                            className={`w-full py-3 px-4 rounded-lg font-semibold transition-all hover:cursor-pointer ${
-                              card.id
-                                ? "bg-blue-500 text-white hover:bg-blue-600"
-                                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                            }`}
-                          >
-                            Apply Now
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Expandable Features Section */}
-                  <div className="border-t border-gray-100 p-6 bg-gray-50">
-                    <h4 className="font-semibold text-gray-900 mb-3">
-                      Complete Benefits & Features:
-                    </h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      {card.features.map((feature, fIndex) => (
-                        <div key={fIndex} className="flex items-start text-sm">
-                          <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                          <span className="text-gray-700">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Application Process */}
-        <section className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Simple Application Process
-              </h2>
-              <p className="text-gray-600">
-                Get your credit card in just 4 easy steps
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              {applicationSteps.map((step, index) => (
-                <div key={index} className="text-center">
-                  <div className="relative mb-6">
-                    <div className="bg-blue-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto">
-                      <step.icon className="h-8 w-8 text-white" />
-                    </div>
-                    <div className="absolute -top-2 -right-2 bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">
-                      {step.step}
-                    </div>
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm">{step.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Eligibility Criteria */}
-        <section className="py-16 bg-gray-50">
-          <div className="max-w-4xl mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Eligibility Criteria
-              </h2>
-              <p className="text-gray-600">
-                Check if you meet our simple eligibility requirements
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {eligibilityCriteria.map((criteria, index) => (
-                <div
-                  key={index}
-                  className="bg-white p-6 rounded-xl text-center shadow-sm"
-                >
-                  <h3 className="font-semibold text-gray-900 mb-2">
-                    {criteria.label}
-                  </h3>
-                  <p className="text-blue-600 font-medium">{criteria.value}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-        <section className="py-16 bg-gradient-to-r from-purple-800 to-indigo-800 text-white">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="text-center mb-12">
-      <h2 className="text-3xl md:text-4xl font-bold mb-4">Unlock Premium Lifestyle Benefits</h2>
-      <p className="text-xl text-purple-200 max-w-3xl mx-auto">
-        Reward yourself with exclusive privileges and cashback offers
-      </p>
-    </div>
-    
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-        <div className="text-yellow-400 text-2xl mb-4">
-          <FaCreditCard />
-        </div>
-        <h3 className="text-lg font-bold mb-2">Reward Points</h3>
-        <p className="text-purple-100">Earn up to 10X points on dining and travel spends</p>
-      </div>
-      
-      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-        <div className="text-yellow-400 text-2xl mb-4">
-          <FaPlane />
-        </div>
-        <h3 className="text-lg font-bold mb-2">Travel Perks</h3>
-        <p className="text-purple-100">Airport lounge access and travel insurance benefits</p>
-      </div>
-      
-      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-        <div className="text-yellow-400 text-2xl mb-4">
-          <FaRegMoneyBillAlt />
-        </div>
-        <h3 className="text-lg font-bold mb-2">Cashback Offers</h3>
-        <p className="text-purple-100">Up to 5% cashback on monthly transactions</p>
-      </div>
-      
-      <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-        <div className="text-yellow-400 text-2xl mb-4">
-          <FaAward />
-        </div>
-        <h3 className="text-lg font-bold mb-2">Referral Rewards</h3>
-        <p className="text-purple-100">Get ₹2000 and your friend gets ₹1000 joining bonus</p>
-      </div>
+        </motion.div>
+      ))}
     </div>
   </div>
-</section>
-      </div>
-    </>
-  );
-};
+</main>
 
-export default CreditCardApplyPage;
+      {/* Why Choose Our Platform? - Fiscal Forum Value */}
+      <section className="py-16 bg-gradient-to-r from-rose-900 to-fuchsia-900 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Why Apply Through Fiscal Forum?
+            </h2>
+            <p className="text-xl text-rose-200 max-w-3xl mx-auto">
+              We don’t just connect you to banks — we add value at every step.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Benefit 1: Cost Savings */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-rose-400 to-pink-500 flex items-center justify-center mb-4">
+                <FaChartLine className="text-white w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">Value-driven</h3>
+              <p className="text-rose-200">
+                No hidden charges or agent fees. Apply directly and save on processing costs.
+              </p>
+            </div>
+
+            {/* Benefit 2: Exclusive Rewards */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-pink-400 to-fuchsia-500 flex items-center justify-center mb-4">
+                <FaAward className="text-white w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">Exclusive Rewards</h3>
+              <p className="text-rose-200">
+                Get bonus reward points or cashback when you apply via our platform — only for our users.
+              </p>
+            </div>
+
+            {/* Benefit 3: Smart Filtering */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-fuchsia-400 to-purple-500 flex items-center justify-center mb-4">
+                <FaShieldAlt className="text-white w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">Smart Filtering</h3>
+              <p className="text-rose-200">
+                We analyze your credit score & income to show only the cards you’re likely to get.
+              </p>
+            </div>
+
+            {/* Benefit 4: Higher Approval */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-400 to-pink-500 flex items-center justify-center mb-4">
+                <FaRocket className="text-white w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">Higher Approval Rate</h3>
+              <p className="text-rose-200">
+                Our pre-screening reduces rejections. You apply only where you qualify.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Existing Pink-Fuchsia "Why Choose Our Credit Cards?" Section */}
+      {/* <section className="py-16 bg-gradient-to-r from-fuchsia-900 to-pink-900 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Why Choose Our Credit Cards?
+            </h2>
+            <p className="text-xl text-pink-200 max-w-3xl mx-auto">
+              Premium benefits, instant approvals, and rewards tailored to your lifestyle.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-pink-400 to-fuchsia-500 flex items-center justify-center mb-4">
+                <FaRocket className="text-white w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">Instant Approval</h3>
+              <p className="text-pink-200">
+                Get AIP approval in minutes and a digital card instantly. Physical card delivered in 7 days.
+              </p>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-rose-400 to-pink-500 flex items-center justify-center mb-4">
+                <FaShieldAlt className="text-white w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">Zero Liability</h3>
+              <p className="text-pink-200">
+                Full protection against unauthorized transactions — your money stays safe.
+              </p>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-fuchsia-400 to-purple-500 flex items-center justify-center mb-4">
+                <FaHeadset className="text-white w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">24/7 Concierge</h3>
+              <p className="text-pink-200">
+                Dedicated support for travel, dining, and lifestyle benefits — anytime.
+              </p>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-400 to-pink-500 flex items-center justify-center mb-4">
+                <FaAward className="text-white w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">Unlimited Rewards</h3>
+              <p className="text-pink-200">
+                Earn points on every purchase — dining, shopping, travel, and more.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section> */}
+    </div>
+  );
+}

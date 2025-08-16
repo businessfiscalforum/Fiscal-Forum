@@ -404,7 +404,8 @@ export default function MutualPage() {
               Need Help? Talk to an Expert
             </h2>
             <p className="text-xl mb-8 opacity-90">
-              Get personalized guidance on opening your queries related to mutual funds.
+              Get personalized guidance on opening your queries related to
+              mutual funds.
             </p>
             <button
               onClick={() => router.push("/services/stock-investment/call")}
@@ -511,10 +512,13 @@ export default function MutualPage() {
           </section> */}
 
           {/* Grow Your Wealth Section (As Requested) */}
-          <section className="py-16 bg-gradient-to-r from-emerald-800 to-teal-800 text-white">
+          <section
+            className="py-16 bg-gradient-to-r from-rose-700 to-orange-600
+ text-white"
+          >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Grow Your Wealth Smartly
+                Grow Your Wealth Smartly with Fiscal Forum
               </h2>
               <p className="text-xl text-emerald-200 max-w-3xl mx-auto">
                 Diversified investment solutions tailored to your financial

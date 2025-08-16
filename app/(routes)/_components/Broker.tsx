@@ -10,6 +10,7 @@ const brokers = [
   { name: "Motilal Oswal", logo: "/motilal-oswal.png" },
   { name: "Upstox", logo: "/upstox.png" },
   { name: "Nuvama", logo: "/nuvama.png" },
+  { name: "Nj Wealth", logo: "/Nj-wealth.png" },
   { name: "Prudent", logo: "/prudent.png" },
 ];
 

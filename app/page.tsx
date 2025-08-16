@@ -40,6 +40,7 @@ import { BarChart3, BookOpen, Shield, TrendingUp, Wallet } from "lucide-react";
 import ResearchReportsSection from "./(routes)/_components/ResearchReportsSection";
 import { useRouter } from "next/navigation";
 
+
 const slides = [
   {
     title: "Stock Investment",
@@ -239,7 +240,7 @@ const partners = [
     desc: "Join us in expanding financial services across the country.",
     gradient: "from-emerald-500 to-teal-600",
     hoverGradient: "from-emerald-600 to-teal-700",
-    path:"/work-with-us/bdp"
+    path: "/work-with-us/bdp",
   },
   {
     title: "Angel Remisorship",
@@ -247,7 +248,7 @@ const partners = [
     desc: "Start referral by Angel remisorship to get benefits.",
     gradient: "from-green-500 to-emerald-600",
     hoverGradient: "from-green-600 to-emerald-700",
-    path:"/work-with-us/rp"
+    path: "/work-with-us/rp",
   },
   {
     title: "B2B Partner",
@@ -255,7 +256,7 @@ const partners = [
     desc: "Collaborate with us to deliver seamless financial integration.",
     gradient: "from-teal-500 to-cyan-600",
     hoverGradient: "from-teal-600 to-cyan-700",
-    path:"/work-with-us/b2b"
+    path: "/work-with-us/b2b",
   },
 ];
 
@@ -544,15 +545,15 @@ export default function HomePage() {
   };
 
   return (
-    <div className="text-gray-800 font-sans min-h-screen">
+     <div
+      className="text-gray-800 font-sans min-h-screen"
+      style={{
+        fontFamily:
+          "'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
+      }}
+    >
       {/* Hero Section with Enhanced Carousel */}
       <section className="relative w-full h-screen overflow-hidden">
-        {/* Floating decorative elements */}
-        {/* <div className="absolute inset-0 z-[5] pointer-events-none">
-          <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-emerald-400/20 to-teal-400/20 rounded-full blur-2xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-40 h-40 bg-gradient-to-r from-green-400/20 to-emerald-400/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
-        </div> */}
-
         <Swiper
           spaceBetween={30}
           slidesPerView={1}
@@ -564,7 +565,6 @@ export default function HomePage() {
         >
           {slides.map((slide, index) => (
             <SwiperSlide key={index} className="relative">
-              {/* Background Image */}
               <div className="absolute inset-0 z-0">
                 <Image
                   src={slide.image}
@@ -574,13 +574,9 @@ export default function HomePage() {
                   className="object-cover"
                   priority
                 />
-                {/* Enhanced gradient overlay with green tones */}
                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/80 via-green-900/60 to-teal-900/40"></div>
               </div>
-
-              {/* Content Container */}
               <div className="relative z-10 h-full flex flex-col lg:flex-row p-4 sm:p-6 md:p-12">
-                {/* Left Content */}
                 <div className="w-full lg:w-1/2 flex items-center">
                   <motion.div
                     initial={{ opacity: 0, x: -30 }}
@@ -588,19 +584,24 @@ export default function HomePage() {
                     transition={{ duration: 0.6 }}
                     className="text-white w-full max-w-2xl"
                   >
-                    <p className="uppercase tracking-wider text-emerald-300 font-semibold mb-3 text-sm sm:text-base bg-emerald-800/30 px-4 py-2 rounded-full inline-block backdrop-blur-sm">
+                    <p
+                      className="uppercase tracking-wider text-emerald-300 font-semibold mb-3 text-sm sm:text-base bg-emerald-800/30 px-4 py-2 rounded-full inline-block backdrop-blur-sm"
+                      style={{ textAlign: "left" }}
+                    >
                       {slide.subtitle}
                     </p>
-
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 bg-gradient-to-r from-white via-emerald-100 to-teal-200 bg-clip-text text-transparent">
+                    <h2
+                      className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 bg-gradient-to-r from-white via-emerald-100 to-teal-200 bg-clip-text text-transparent"
+                      style={{ textAlign: "left" }}
+                    >
                       {slide.title}
                     </h2>
-
-                    <p className="text-sm sm:text-base md:text-lg opacity-90 mb-6 leading-relaxed max-w-xl bg-black/20 p-4 rounded-xl backdrop-blur-sm">
+                    <p
+                      className="text-sm sm:text-base md:text-lg opacity-90 mb-6 leading-relaxed max-w-xl bg-black/20 p-4 rounded-xl backdrop-blur-sm"
+                      style={{ textAlign: "left" }}
+                    >
                       {slide.description}
                     </p>
-
-                    {/* Features */}
                     <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
                       {slide.features.map((feature, i) => (
                         <motion.li
@@ -609,14 +610,13 @@ export default function HomePage() {
                           whileInView={{ opacity: 1, x: 0 }}
                           transition={{ delay: i * 0.1 }}
                           className="flex items-center gap-2 text-sm sm:text-base bg-emerald-800/30 p-3 rounded-lg backdrop-blur-sm"
+                          style={{ textAlign: "left" }}
                         >
                           <FaCheckCircle className="text-emerald-400 flex-shrink-0" />
                           <span>{feature}</span>
                         </motion.li>
                       ))}
                     </ul>
-
-                    {/* Buttons */}
                     <div className="flex flex-col sm:flex-row gap-4">
                       <Link href={slide.path}>
                         <motion.button
@@ -639,15 +639,15 @@ export default function HomePage() {
                     </div>
                   </motion.div>
                 </div>
-
-                {/* Right Content */}
-                <div className="w-full lg:w-1/2 flex flex-col justify-center mt-8 lg:mt-0 lg:pl-10 text-white gap-6">
-                  {/* Stats */}
+                <div
+                  className="w-full lg:w-1/2 flex flex-col justify-center mt-8 lg:mt-0 lg:pl-10 text-white gap-6"
+                  style={{ textAlign: "left" }}
+                >
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className=" p-6 rounded-2xl border border-white/20"
+                    className="p-6 rounded-2xl border border-white/20"
                   >
                     <h3 className="text-lg sm:text-xl font-bold mb-4 text-emerald-200">
                       Key Statistics
@@ -665,8 +665,6 @@ export default function HomePage() {
                       ))}
                     </div>
                   </motion.div>
-
-                  {/* Benefits */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -688,8 +686,6 @@ export default function HomePage() {
                       ))}
                     </ul>
                   </motion.div>
-
-                  {/* Tagline */}
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
@@ -703,19 +699,14 @@ export default function HomePage() {
             </SwiperSlide>
           ))}
         </Swiper>
-
-        {/* Custom Pagination */}
         <div className="swiper-pagination absolute bottom-4 sm:bottom-6 w-full flex justify-center z-20 gap-2"></div>
       </section>
 
-      {/* Top Stories */}
       <HomeResearchAndNewsSection />
-
-      {/* Research */}
       <ResearchReportsSection />
 
       {/* Enhanced Services Section */}
-      <section className="bg-gradient-to-br from-emerald-50 via-green-100 to-teal-50 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 relative overflow-hidden">
         {/* Background decorations */}
         <div className="absolute inset-0">
           <div className="absolute top-10 left-10 w-64 h-64 bg-gradient-to-r from-emerald-200/30 to-teal-200/30 rounded-full blur-3xl"></div>
@@ -833,7 +824,7 @@ export default function HomePage() {
       </section>
 
       {/* Enhanced Why Fiscal Forum Section */}
-      <section className="py-24 bg-gradient-to-br from-white via-emerald-50 to-green-100 relative overflow-hidden">
+      <section className="py-24 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 relative overflow-hidden">
         {/* Enhanced background decorations */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-emerald-200/20 to-teal-300/20 rounded-full blur-3xl animate-pulse"></div>
@@ -965,7 +956,7 @@ export default function HomePage() {
       </section> */}
 
       {/* Enhanced Work With Us Section */}
-      <section className="py-24 bg-gradient-to-br from-white via-emerald-50 to-green-50 relative">
+      <section className="py-24 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 relative">
         <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -983,49 +974,48 @@ export default function HomePage() {
               together
             </p>
           </motion.div>
-          
-         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-  {partners.map((partner, i) => (
-    <Link href={partner.path} key={i} className="group relative">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: i * 0.2 }}
-        whileHover={{ scale: 1.08, y: -8 }}
-        className="relative w-full"
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-teal-600/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-        <div
-          className={`relative bg-gradient-to-br ${partner.gradient} p-1 rounded-3xl shadow-2xl`}
-        >
-          <div className="bg-white p-10 rounded-3xl hover:bg-gradient-to-br hover:from-white hover:to-emerald-50 transition-all duration-500">
-            <div className="relative mb-8">
-              <div
-                className={`relative w-24 h-24 bg-gradient-to-r ${partner.gradient} rounded-3xl flex items-center justify-center mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl`}
-              >
-                <partner.icon className="text-white text-4xl" />
-              </div>
-            </div>
-            <h4 className="text-2xl font-bold mb-6 text-slate-800 group-hover:text-emerald-600 transition-colors">
-              {partner.title}
-            </h4>
-            <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors text-lg mb-8">
-              {partner.desc}
-            </p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`bg-gradient-to-r ${partner.gradient} hover:${partner.hoverGradient} text-white px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-2xl transition-all duration-300 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0`}
-            >
-              Join Now
-            </motion.button>
-          </div>
-        </div>
-      </motion.div>
-    </Link>
-  ))}
-</div>
 
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {partners.map((partner, i) => (
+              <Link href={partner.path} key={i} className="group relative">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.2 }}
+                  whileHover={{ scale: 1.08, y: -8 }}
+                  className="relative w-full"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-teal-600/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div
+                    className={`relative bg-gradient-to-br ${partner.gradient} p-1 rounded-3xl shadow-2xl`}
+                  >
+                    <div className="bg-white p-10 rounded-3xl hover:bg-gradient-to-br hover:from-white hover:to-emerald-50 transition-all duration-500">
+                      <div className="relative mb-8">
+                        <div
+                          className={`relative w-24 h-24 bg-gradient-to-r ${partner.gradient} rounded-3xl flex items-center justify-center mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl`}
+                        >
+                          <partner.icon className="text-white text-4xl" />
+                        </div>
+                      </div>
+                      <h4 className="text-2xl font-bold mb-6 text-slate-800 group-hover:text-emerald-600 transition-colors">
+                        {partner.title}
+                      </h4>
+                      <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors text-lg mb-8">
+                        {partner.desc}
+                      </p>
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className={`bg-gradient-to-r ${partner.gradient} hover:${partner.hoverGradient} text-white px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-2xl transition-all duration-300 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0`}
+                      >
+                        Join Now
+                      </motion.button>
+                    </div>
+                  </div>
+                </motion.div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -1120,6 +1110,15 @@ export default function HomePage() {
           <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-gradient-to-r from-indigo-200/20 to-purple-300/20 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-gradient-to-r from-green-200/20 to-teal-300/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          className="mb-16"
+        >
+          <h2 className="text-5xl font-bold mb-8 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent text-center">
+            Our Trusted Affiliations
+          </h2>
+        </motion.div>
 
         <div className="relative overflow-hidden">
           <div
@@ -1150,14 +1149,22 @@ export default function HomePage() {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-24 bg-gradient-to-br from-emerald-900 via-teal-900 to-green-900 text-white text-center relative overflow-hidden">
-        <div className="max-w-3xl mx-auto px-6 relative z-10">
+      <section className="py-28 bg-gradient-to-br from-emerald-900 via-teal-900 to-green-900 text-white text-center relative overflow-hidden">
+        {/* Background decorative blobs */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-emerald-400/20 to-teal-500/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-green-400/20 to-emerald-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+
+        <div className="max-w-6xl mx-auto px-6 relative z-10 space-y-24">
+          {/* Newsletter Subscribe Section */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
+            className="max-w-3xl mx-auto"
           >
-            <div className="mb-8">
+            <div className="mb-10">
               <div className="w-20 h-20 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl">
                 <FaHeart className="text-white text-2xl animate-pulse" />
               </div>
@@ -1192,10 +1199,10 @@ export default function HomePage() {
               </button>
             </form>
 
-            {/* Message Display */}
+            {/* Message */}
             {message && (
               <div
-                className={`mt-4 text-sm px-6 py-3 rounded-full max-w-xs text-center font-medium ${
+                className={`mt-4 text-sm px-6 py-3 rounded-full max-w-xs mx-auto text-center font-medium ${
                   message.type === "success"
                     ? "bg-emerald-100 text-emerald-800"
                     : "bg-red-100 text-red-800"
@@ -1205,12 +1212,12 @@ export default function HomePage() {
               </div>
             )}
 
-            {/* Trust Indicators */}
+            {/* Trust indicators */}
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="mt-6 flex items-center justify-center gap-6 text-white/60 text-sm"
+              className="mt-8 flex items-center justify-center gap-6 text-white/60 text-sm"
             >
               <div className="flex items-center gap-2">
                 <FaCheckCircle className="text-emerald-400" />
@@ -1226,27 +1233,18 @@ export default function HomePage() {
               </div>
             </motion.div>
           </motion.div>
-        </div>
-      </section>
 
-      {/* Enhanced Footer CTA */}
-      <section className="py-24 bg-gradient-to-r from-slate-900 via-emerald-900 to-teal-900 text-white text-center relative overflow-hidden">
-        {/* Enhanced background effects */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-emerald-600/10 to-teal-600/10"></div>
-          <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-emerald-400/20 to-teal-500/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-green-400/20 to-emerald-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        </div>
+          {/* Divider Line */}
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent"></div>
 
-        <div className="max-w-5xl mx-auto px-6 relative z-10">
+          {/* Footer CTA + Metrics */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="space-y-8"
+            className="space-y-12"
           >
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-3xl blur-2xl opacity-30"></div>
               <div className="relative w-24 h-24 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl">
                 <FaRocket className="text-white text-3xl" />
               </div>
@@ -1262,7 +1260,8 @@ export default function HomePage() {
               freedom today.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8">
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-6">
               <motion.button
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
@@ -1282,13 +1281,8 @@ export default function HomePage() {
               </motion.button>
             </div>
 
-            {/* Additional trust indicators */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="flex flex-wrap items-center justify-center gap-8 pt-12"
-            >
+            {/* Trust Indicators */}
+            <div className="flex flex-wrap items-center justify-center gap-8 pt-12">
               <div className="flex items-center gap-3 bg-white/10 px-6 py-4 rounded-2xl backdrop-blur-md">
                 <FaShieldAlt className="text-emerald-400 text-xl" />
                 <span className="text-white/90 font-semibold">100% Secure</span>
@@ -1311,15 +1305,10 @@ export default function HomePage() {
                   24/7 Support
                 </span>
               </div>
-            </motion.div>
+            </div>
 
-            {/* Success metrics */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 max-w-4xl mx-auto"
-            >
+            {/* Metrics */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 max-w-4xl mx-auto">
               <div className="text-center bg-white/5 p-6 rounded-2xl backdrop-blur-sm">
                 <div className="text-3xl font-bold text-emerald-400 mb-2">
                   ₹10,000 Cr+
@@ -1344,7 +1333,7 @@ export default function HomePage() {
                 </div>
                 <div className="text-white/80">Years Experience</div>
               </div>
-            </motion.div>
+            </div>
           </motion.div>
         </div>
       </section>

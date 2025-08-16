@@ -218,26 +218,30 @@ export default function HomeNewsAndResearchSection() {
 
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = filteredItems.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  const currentItems = filteredItems.slice(startIndex, startIndex + itemsPerPage);
 
   return (
-    <section className="py-20 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 relative">
+    <section
+      className="py-20 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 relative"
+      style={{ fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif" }}
+    >
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="mb-10 text-center">
-          <h2 className="text-4xl font-bold text-green-800 mb-4">
+          <h2
+            className="text-4xl font-bold text-emerald-800 mb-4"
+          >
             Financial News Hub
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p
+            className="text-gray-600 max-w-2xl mx-auto"
+          >
             Curated insights and breaking news from global markets
           </p>
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex flex-wrap justify-center gap-1 md:gap-2 mb-10 border-b border-gray-200 pb-2">
+        <div className="flex flex-wrap justify-center gap-2 mb-10 border-b border-emerald-200 pb-3">
           {[
             { id: "NewsBuzz", label: "News Buzz" },
             { id: "CorpPulse", label: "Corp Pulse" },
@@ -246,11 +250,12 @@ export default function HomeNewsAndResearchSection() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as "NewsBuzz" | "CorpPulse" | "IPOScoop")}
-              className={`px-4 py-2 md:px-6 md:py-3 text-sm md:text-base font-medium transition-colors ${
+              className={`px-6 py-3 text-sm md:text-base font-semibold transition-all duration-300 rounded-full ${
                 activeTab === tab.id
-                  ? "text-green-600 border-b-2 border-green-600"
-                  : "text-gray-500 hover:text-gray-800"
+                  ? "bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-sm"
+                  : "text-emerald-600 hover:text-emerald-800 hover:bg-emerald-50"
               }`}
+              style={{ minWidth: '120px' }}
             >
               {tab.label}
             </button>
@@ -259,7 +264,7 @@ export default function HomeNewsAndResearchSection() {
 
         {currentItems.length === 0 ? (
           <div className="text-center py-16">
-            <h3 className="text-xl font-medium text-gray-600">
+            <h3 className="text-xl font-medium text-emerald-600">
               No news available at this time
             </h3>
           </div>
@@ -275,7 +280,7 @@ export default function HomeNewsAndResearchSection() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -15 }}
                     transition={{ delay: i * 0.05 }}
-                    className="bg-white border border-gray-200 hover:border-green-300 transition-colors h-full"
+                    className="bg-white border border-emerald-200 hover:border-emerald-500 hover:shadow-lg transition-all duration-300 h-full rounded-xl"
                   >
                     <NewsCard item={item} />
                   </motion.div>
@@ -285,25 +290,23 @@ export default function HomeNewsAndResearchSection() {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="flex justify-center items-center gap-2">
+              <div className="flex justify-center items-center gap-4">
                 <button
                   onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
-                  className="px-4 py-2 border border-gray-300 bg-white text-sm hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                  className="px-5 py-3 bg-emerald-100 hover:bg-emerald-200 disabled:bg-emerald-50 text-emerald-800 disabled:text-emerald-400 font-semibold text-sm rounded-full transition-all disabled:cursor-not-allowed min-w-28"
                 >
                   ← Prev
                 </button>
 
-                <span className="px-4 py-2 text-sm text-gray-600">
+                <span className="px-5 py-3 text-sm text-emerald-700 font-medium bg-white border border-emerald-200 rounded-full min-w-36 text-center">
                   Page {currentPage} of {totalPages}
                 </span>
 
                 <button
-                  onClick={() =>
-                    setCurrentPage(Math.min(totalPages, currentPage + 1))
-                  }
+                  onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                   disabled={currentPage === totalPages}
-                  className="px-4 py-2 border border-gray-300 bg-white text-sm hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                  className="px-5 py-3 bg-emerald-100 hover:bg-emerald-200 disabled:bg-emerald-50 text-emerald-800 disabled:text-emerald-400 font-semibold text-sm rounded-full transition-all disabled:cursor-not-allowed min-w-28"
                 >
                   Next →
                 </button>
@@ -313,7 +316,7 @@ export default function HomeNewsAndResearchSection() {
             <div className="flex justify-center mt-10">
               <Link
                 href="/news"
-                className="px-6 py-3 bg-green-600 text-white text-sm font-medium hover:bg-green-700 transition rounded-md"
+                className="px-7 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold text-sm uppercase tracking-wide rounded-full transition-all shadow-md hover:shadow-lg transform hover:scale-105"
               >
                 View All News
               </Link>
@@ -328,31 +331,41 @@ export default function HomeNewsAndResearchSection() {
 // News Card
 function NewsCard({ item }: { item: NewsItem }) {
   return (
-    <article className="h-full flex flex-col p-6">
+    <article className="h-full flex flex-col p-6 rounded-xl">
       <div className="flex items-center justify-between mb-3">
         {item.featured && (
-          <span className="bg-green-50 text-green-700 px-2 py-1 text-xs font-semibold uppercase tracking-wide">
+          <span className="bg-emerald-100 text-emerald-800 px-3 py-1 text-xs font-bold uppercase tracking-wide rounded-full shadow-sm">
             Featured
           </span>
         )}
-        <span className="text-xs text-gray-500">
+        <span className="text-xs text-emerald-600 font-medium">
           {formatViews(item.views)} views
         </span>
       </div>
       
-      <h3 className="text-lg font-bold text-gray-900 mb-4 leading-tight flex-1">
+      <h3 className="text-lg font-bold text-black mb-4 leading-tight flex-1">
         {item.title}
       </h3>
       
-      <div className="flex items-center justify-between text-xs text-gray-500">
+      <div className="flex items-center justify-between text-sm text-emerald-700 mt-auto">
         <span>{formatDate(item.publishDate)}</span>
         <Link 
           href={item.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-green-600 hover:text-green-800 font-medium"
+          className="text-emerald-600 hover:text-teal-600 font-semibold transition-colors flex items-center gap-1 group"
         >
-          Read more →
+          Read more
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            width="16" 
+            height="16" 
+            fill="currentColor" 
+            viewBox="0 0 16 16" 
+            className="transition-transform group-hover:translate-x-1"
+          >
+            <path fillRule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
+          </svg>
         </Link>
       </div>
     </article>
