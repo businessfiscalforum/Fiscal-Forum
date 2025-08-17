@@ -298,9 +298,8 @@ export default function CreditCardApplyPage() {
         {/* Main Content */}
         <main className="flex-1 p-6 md:p-10">
           {/* ✅ NEW: Subscribe for Market Reports */}
-          <section className="py-20 px-6 bg-gradient-to-br from-green-50 to-emerald-100">
+          {/* <section className="py-20 px-6 bg-gradient-to-br from-green-50 to-emerald-100">
             <div className="max-w-4xl mx-auto text-center mb-12">
-              {/* Attractive Tagline */}
               <h4 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
                 Get Smarter Market Insights Delivered Daily
               </h4>
@@ -361,7 +360,7 @@ export default function CreditCardApplyPage() {
                 No spam. Unsubscribe anytime. Your data is secure with us.
               </p>
             </div>
-          </section>
+          </section> */}
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -510,7 +509,7 @@ export default function CreditCardApplyPage() {
           </section>
 
           {/* Demat Transfer Process (Chain/Flow Style) */}
-          <section className="py-20 px-4">
+          {/* <section className="py-20 px-4">
             <div className="max-w-5xl mx-auto text-center mb-12">
               <h2 className="text-3xl font-bold text-gray-800 mb-4">
                 How to Transfer Your Demat Account
@@ -603,7 +602,7 @@ export default function CreditCardApplyPage() {
                 </div>
               </motion.div>
             </div>
-          </section>
+          </section> */}
 
           {/* Features Section */}
           <section className="py-16 bg-gradient-to-r from-green-900 to-emerald-900 text-white">

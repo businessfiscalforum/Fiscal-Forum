@@ -240,9 +240,9 @@ const partners = [
     path: "/work-with-us/bdp",
   },
   {
-    title: "Angel Remisorship",
+    title: "Remisorship",
     icon: FaUsers,
-    desc: "Start referral by Angel remisorship to get benefits.",
+    desc: "Start referral by remisorship to get benefits.",
     gradient: "from-green-500 to-emerald-600",
     hoverGradient: "from-green-600 to-emerald-700",
     path: "/work-with-us/rp",
@@ -1146,15 +1146,13 @@ export default function HomePage() {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-28 bg-gradient-to-br from-emerald-900 via-teal-900 to-green-900 text-white text-center relative overflow-hidden">
-        {/* Background decorative blobs */}
+      {/* <section className="py-28 bg-gradient-to-br from-emerald-900 via-teal-900 to-green-900 text-white text-center relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-emerald-400/20 to-teal-500/20 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-green-400/20 to-emerald-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
 
         <div className="max-w-6xl mx-auto px-6 relative z-10 space-y-24">
-          {/* Newsletter Subscribe Section */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -1173,8 +1171,6 @@ export default function HomePage() {
                 insights, and special offers tailored just for you.
               </p>
             </div>
-
-            {/* Subscription Form */}
             <form
               onSubmit={handleSubscribe}
               className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto"
@@ -1195,8 +1191,6 @@ export default function HomePage() {
                 {isSubmitting ? "Subscribing..." : "Subscribe"}
               </button>
             </form>
-
-            {/* Message */}
             {message && (
               <div
                 className={`mt-4 text-sm px-6 py-3 rounded-full max-w-xs mx-auto text-center font-medium ${
@@ -1208,8 +1202,6 @@ export default function HomePage() {
                 {message.text}
               </div>
             )}
-
-            {/* Trust indicators */}
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -1231,10 +1223,7 @@ export default function HomePage() {
             </motion.div>
           </motion.div>
 
-          {/* Divider Line */}
           <div className="w-full h-px bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent"></div>
-
-          {/* Footer CTA + Metrics */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -1256,8 +1245,6 @@ export default function HomePage() {
               their financial needs. Start your journey towards financial
               freedom today.
             </p>
-
-            {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-6">
               <motion.button
                 whileHover={{ scale: 1.05, y: -2 }}
@@ -1277,8 +1264,6 @@ export default function HomePage() {
                 <FaHeadset className="group-hover:rotate-12 transition-transform text-2xl" />
               </motion.button>
             </div>
-
-            {/* Trust Indicators */}
             <div className="flex flex-wrap items-center justify-center gap-8 pt-12">
               <div className="flex items-center gap-3 bg-white/10 px-6 py-4 rounded-2xl backdrop-blur-md">
                 <FaShieldAlt className="text-emerald-400 text-xl" />
@@ -1303,8 +1288,6 @@ export default function HomePage() {
                 </span>
               </div>
             </div>
-
-            {/* Metrics */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 max-w-4xl mx-auto">
               <div className="text-center bg-white/5 p-6 rounded-2xl backdrop-blur-sm">
                 <div className="text-3xl font-bold text-emerald-400 mb-2">
@@ -1333,9 +1316,7 @@ export default function HomePage() {
             </div>
           </motion.div>
         </div>
-      </section>
-
-      {/* Enhanced Custom Styles */}
+      </section> */}
       <style jsx>{`
         @keyframes scroll {
           0% {
