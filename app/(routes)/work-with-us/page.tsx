@@ -116,7 +116,7 @@ const WorkWithUsPage = () => {
     },
     {
       id: 2,
-      title: "Angel Remisorship",
+      title: "Remisorship",
       icon: FaUsers,
       color: "from-blue-500 to-indigo-600",
       bgColor: "from-blue-50 to-indigo-100",
