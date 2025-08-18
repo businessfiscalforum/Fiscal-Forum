@@ -10,7 +10,6 @@ import {
   FolderOpen,
   UserCheck,
   Phone,
-  CheckCircle,
 } from "lucide-react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -23,11 +22,10 @@ import {
   FaHeadset,
   FaRocket,
   FaAward,
-  FaSpinner,
 } from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { BrokerInfiniteScroll } from "../../_components/Broker";
+// import { BrokerInfiniteScroll } from "../../_components/Broker";
 
 const slides = [
   {
@@ -102,7 +100,7 @@ const investmentOptions = [
     description:
       "Own company shares or diversify smartly with ETFs. Spread risk, build wealth steadily, grow alongside markets.",
     icon: BarChart3,
-    link: "/demo/equity-etfs",
+    link: "/services/stock-investment/equity-etfs",
     bgColor: "bg-white",
     iconBgColor: "bg-blue-100",
     iconColor: "text-blue-600",
@@ -113,7 +111,7 @@ const investmentOptions = [
     description:
       "Hedge risk or speculate on price moves. Requires strategy, discipline, and knowledge to manage market uncertainty.",
     icon: TrendingUp,
-    link: "/demo/futures-options",
+    link: "/services/stock-investment/futures-options",
     bgColor: "bg-white",
     iconBgColor: "bg-purple-100",
     iconColor: "text-purple-600",
@@ -124,7 +122,7 @@ const investmentOptions = [
     description:
       "Invest early in growing companies. Get front-row access to expansion and potential long-term wealth creation.",
     icon: Sparkles,
-    link: "/demo/ipo",
+    link: "/services/stock-investment/ipo",
     bgColor: "bg-white",
     iconBgColor: "bg-emerald-100",
     iconColor: "text-emerald-600",
@@ -135,7 +133,7 @@ const investmentOptions = [
     description:
       "Borrow to buy more shares. Seize opportunities responsibly — leverage magnifies gains but can increase losses.",
     icon: Zap,
-    link: "/demo/mtf",
+    link: "/services/stock-investment/mtf",
     bgColor: "bg-white",
     iconBgColor: "bg-orange-100",
     iconColor: "text-orange-600",
@@ -146,7 +144,7 @@ const investmentOptions = [
     description:
       "Trade real assets like gold, silver, crude oil. Diversify portfolios, hedge inflation, and balance equity exposure.",
     icon: Coins,
-    link: "/demo/commodities",
+    link: "/services/stock-investment/commodities",
     bgColor: "bg-gradient-to-br from-green-500 to-green-700",
     iconBgColor: "bg-yellow-100",
     iconColor: "text-yellow-600",
@@ -157,7 +155,7 @@ const investmentOptions = [
     description:
       "Invest early in companies before listing. Join growth journey, enjoy potential big returns upon public offering.",
     icon: Gem,
-    link: "/demo/unlisted-shares",
+    link: "/services/stock-investment/unlisted-shares",
     bgColor: "bg-white",
     iconBgColor: "bg-indigo-100",
     iconColor: "text-indigo-600",
@@ -296,7 +294,7 @@ export default function CreditCardApplyPage() {
       {/* Main Layout: Content + Sidebar */}
       <div className="flex flex-col lg:flex-row min-h-screen bg-gray-50 pt-20">
         {/* Main Content */}
-        <main className="flex-1 p-6 md:p-10">
+        <main className="flex-1">
           {/* ✅ NEW: Subscribe for Market Reports */}
           {/* <section className="py-20 px-6 bg-gradient-to-br from-green-50 to-emerald-100">
             <div className="max-w-4xl mx-auto text-center mb-12">
@@ -658,11 +656,11 @@ export default function CreditCardApplyPage() {
         </main>
 
         {/* ✅ Broker Infinite Scroll Sidebar */}
-        <aside className="hidden lg:block w-40 bg-white border-l border-gray-200">
+        {/* <aside className="hidden lg:block w-40 bg-white border-l border-gray-200">
           <div className="sticky top-0 flex items-center justify-center py-8">
             <BrokerInfiniteScroll />
           </div>
-        </aside>
+        </aside> */}
       </div>
     </>
   );

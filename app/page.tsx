@@ -9,12 +9,8 @@ import {
   FaHandshake,
   FaUsers,
   FaBuilding,
-  FaStar,
-  FaQuoteLeft,
   FaLock,
   FaRocket,
-  FaGem,
-  FaHeart,
   FaAward,
   FaCheckCircle,
   FaHeadset,
@@ -214,7 +210,7 @@ const slides = [
       "Monthly/Quarterly interest payout",
       "Loan against FD facility",
     ],
-    path: "/govt.jpg",
+    path: "/services/govt-bond-&-fd",
     stats: [
       { value: "₹1 Lakh Cr+", label: "Deposits Managed" },
       { value: "AAA", label: "Credit Rating" },
@@ -490,7 +486,7 @@ export default function HomePage() {
         icon: Wallet,
         description:
           "Grow your savings safely with a thoughtful mix of Fixed Deposits and Government Bonds. Enjoy steady growth and dependable protection, giving you the calm confidence that your hard-earned money is secure while you're working.",
-        link: "/services/govt-bonds-&-funds",
+        link: "/services/govt-bonds-&-fd",
       },
     ],
     "banking-products": [
@@ -972,53 +968,64 @@ export default function HomePage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {partners.map((partner, i) => (
-              <Link href={partner.path} key={i} className="group relative">
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.2 }}
-                  whileHover={{ scale: 1.08, y: -8 }}
-                  className="relative w-full"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-teal-600/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div
-                    className={`relative bg-gradient-to-br ${partner.gradient} p-1 rounded-3xl shadow-2xl`}
-                  >
-                    <div className="bg-white p-10 rounded-3xl hover:bg-gradient-to-br hover:from-white hover:to-emerald-50 transition-all duration-500">
-                      <div className="relative mb-8">
-                        <div
-                          className={`relative w-24 h-24 bg-gradient-to-r ${partner.gradient} rounded-3xl flex items-center justify-center mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl`}
-                        >
-                          <partner.icon className="text-white text-4xl" />
-                        </div>
-                      </div>
-                      <h4 className="text-2xl font-bold mb-6 text-slate-800 group-hover:text-emerald-600 transition-colors">
-                        {partner.title}
-                      </h4>
-                      <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors text-lg mb-8">
-                        {partner.desc}
-                      </p>
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className={`bg-gradient-to-r ${partner.gradient} hover:${partner.hoverGradient} text-white px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-2xl transition-all duration-300 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0`}
-                      >
-                        Join Now
-                      </motion.button>
-                    </div>
-                  </div>
-                </motion.div>
-              </Link>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-stretch">
+  {partners.map((partner, i) => (
+    <Link href={partner.path} key={i} className="group relative h-full">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: i * 0.2 }}
+        whileHover={{ scale: 1.08, y: -8 }}
+        className="relative w-full h-full"
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-teal-600/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        
+        <div
+          className={`relative bg-gradient-to-br ${partner.gradient} p-1 rounded-3xl shadow-2xl h-full`}
+        >
+          {/* flex + full height for equal alignment */}
+          <div className="bg-white p-10 rounded-3xl hover:bg-gradient-to-br hover:from-white hover:to-emerald-50 transition-all duration-500 h-full flex flex-col">
+            
+            {/* Icon */}
+            <div className="relative mb-8">
+              <div
+                className={`relative w-24 h-24 bg-gradient-to-r ${partner.gradient} rounded-3xl flex items-center justify-center mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl`}
+              >
+                <partner.icon className="text-white text-4xl" />
+              </div>
+            </div>
+
+            {/* Title + Desc (flex-grow keeps button aligned at bottom) */}
+            <div className="flex-grow">
+              <h4 className="text-2xl font-bold mb-6 text-slate-800 group-hover:text-emerald-600 transition-colors">
+                {partner.title}
+              </h4>
+              <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors text-lg">
+                {partner.desc}
+              </p>
+            </div>
+
+            {/* Button pinned at bottom */}
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`mt-8 bg-gradient-to-r ${partner.gradient} hover:${partner.hoverGradient} text-white px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-2xl transition-all duration-300 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0`}
+            >
+              Join Now
+            </motion.button>
+
           </div>
+        </div>
+      </motion.div>
+    </Link>
+  ))}
+</div>
+
         </div>
       </section>
 
       {/* Enhanced Testimonials Section */}
-      <section className="py-24 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 relative overflow-hidden">
-        {/* Background decorations */}
+      {/* <section className="py-24 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-r from-emerald-200/30 to-teal-300/30 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-green-200/30 to-emerald-300/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
@@ -1098,7 +1105,7 @@ export default function HomePage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Enhanced Affiliations Section */}
       <section className="py-20 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 relative ">

@@ -5,8 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { FaChartBar, FaCoins, FaFastForward, FaSpinner } from "react-icons/fa";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { FaChartBar, FaCoins, FaFastForward, FaGift, FaHeadset, FaRupeeSign } from "react-icons/fa";
+import { CheckCircle, ChevronDown, ChevronUp } from "lucide-react";
+import { motion } from "framer-motion";
 
 // --- TYPES ---
 type Broker = {
@@ -18,7 +19,7 @@ type Broker = {
 
 // --- DATA ---
 const brokers: Broker[] = [
-    {
+  {
     name: "Alice Blue",
     logo: "/alice-blue.png",
     link: "https://ekyc.aliceblueonline.com/?source=WRAJ1101",
@@ -35,7 +36,7 @@ const brokers: Broker[] = [
   {
     name: "Angel One",
     logo: "/angel-one.png",
-    link: " https://a.aonelink.in/ANGOne/6pTAS0u ",
+    link: "https://a.aonelink.in/ANGOne/6pTAS0u",
     brokerage: [
       "• Equity Delivery: ₹0 (Zero)",
       "• Equity Intraday: ₹20 or 0.03% (whichever is lower) per executed order",
@@ -62,7 +63,7 @@ const brokers: Broker[] = [
   {
     name: "Motilal Oswal",
     logo: "/motilal-oswal.png",
-    link: " https://ekyc.motilaloswal.com/Partner/?diyid=8eb2b8cb-c9f3-47f5-b206-70c847d9f8b7",
+    link: "https://ekyc.motilaloswal.com/Partner/?diyid=8eb2b8cb-c9f3-47f5-b206-70c847d9f8b7",
     brokerage: [
       "• Equity Delivery: 0.20% of transaction value",
       "• Equity Intraday: 0.02% of transaction value",
@@ -75,7 +76,7 @@ const brokers: Broker[] = [
   {
     name: "Upstox",
     logo: "/upstox.png",
-    link: " https://upstox.com/open-account/?f=4ZAVSY",
+    link: "https://upstox.com/open-account/?f=4ZAVSY",
     brokerage: [
       "• Upstox offers two plans:",
       "  1. ₹20 per order (default):",
@@ -90,7 +91,7 @@ const brokers: Broker[] = [
   {
     name: "Nuvama",
     logo: "/nuvama.png",
-    link: " https://onboarding.nuvamawealth.com/Partner?utm_source=EMPLOYEE&utm_campaign=43065&utm_content=ELITE&utm_term=1572814v",
+    link: "https://onboarding.nuvamawealth.com/Partner?utm_source=EMPLOYEE&utm_campaign=43065&utm_content=ELITE&utm_term=1572814v",
     brokerage: [
       "• Equity Delivery: ₹0 (Zero)",
       "• Equity Intraday: ₹15 per executed order or 0.025% (whichever is lower)",
@@ -102,7 +103,7 @@ const brokers: Broker[] = [
   {
     name: "Prudent",
     logo: "/prudent.png",
-    link: " https://fundzbazar.com/Link/jRkmixvcvvw ",
+    link: "https://fundzbazar.com/Link/jRkmixvcvvw",
     brokerage: [
       "• Equity Delivery: 0.30% of transaction value",
       "• Equity Intraday: 0.03% of transaction value",
@@ -164,7 +165,7 @@ const BrokerCard = ({ broker }: { broker: Broker }) => {
         <Link
           href={broker.link}
           target="_blank"
-          className="w-full px-4 py-2 bg-green-600 text-white rounded-lg text-base font-semibold hover:bg-green-700 transition text-center"
+          className="w-full px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white rounded-lg text-base font-semibold hover:bg-green-700 transition text-center shadow-md"
         >
           Open Account
         </Link>
@@ -217,146 +218,254 @@ export default function Page() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-green-100 py-25 px-4">
+    <main className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 py-10 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
         {/* Hero Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-green-800 mb-4">
+        <div className="text-center mb-12 pt-8">
+          <motion.h1
+            className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-green-800 mb-4"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             Open Your Demat Account & Unlock Exclusive Rewards
-          </h1>
-          <p className="text-lg text-green-700 max-w-3xl mx-auto">
+          </motion.h1>
+          <motion.p
+            className="text-base sm:text-lg text-green-700 max-w-3xl mx-auto"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+          >
             Join thousands of smart investors getting{" "}
             <span className="font-semibold text-green-900">
               free research reports, trading tips, and portfolio insights
             </span>{" "}
             when they open their account through us.
-          </p>
+          </motion.p>
         </div>
 
         {/* Rewards Banner */}
-        <div className="bg-green-600 text-white rounded-xl p-6 mb-12 text-center shadow-lg">
-          <h3 className="text-2xl font-semibold mb-2">🎁 Limited Time Offer</h3>
-          <p className="text-lg">
+        <motion.div
+          className="bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-2xl p-6 mb-12 text-center shadow-xl"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
+        >
+          <h3 className="text-xl sm:text-2xl font-semibold mb-2">🎁 Limited Time Offer</h3>
+          <p className="text-base sm:text-lg">
             Get <span className="font-bold">3 months of premium market research</span> &{" "}
             <span className="font-bold">₹500 worth of investment strategies</span> FREE
           </p>
-        </div>
+        </motion.div>
 
         {/* Benefits */}
-        <section className="bg-white border border-green-200 rounded-xl shadow-md p-8 mb-16">
-          <h3 className="text-2xl font-bold text-green-800 text-center mb-8">
+        <section className="bg-white border border-green-200 rounded-2xl shadow-md p-6 md:p-8 mb-16">
+          <motion.h3
+            className="text-2xl font-bold text-green-800 text-center mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+          >
             Why Open With Us?
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div>
+          </motion.h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <motion.div
+              className="bg-green-50 rounded-2xl p-6 flex flex-col items-center text-center border border-green-100"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
               <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-2xl">
                 <FaChartBar />
               </div>
-              <h4 className="font-semibold text-green-800 mb-2">
+              <h4 className="font-semibold text-green-800 mb-2 text-lg">
                 Expert Research Reports
               </h4>
               <p className="text-green-700 text-sm">
                 Stay ahead with daily market updates & in-depth analysis.
               </p>
-            </div>
-            <div>
+            </motion.div>
+            <motion.div
+              className="bg-green-50 rounded-2xl p-6 flex flex-col items-center text-center border border-green-100"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
               <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-2xl">
                 <FaCoins />
               </div>
-              <h4 className="font-semibold text-green-800 mb-2">Higher Returns</h4>
+              <h4 className="font-semibold text-green-800 mb-2 text-lg">Higher Returns</h4>
               <p className="text-green-700 text-sm">
                 Access exclusive investment strategies tailored for growth.
               </p>
-            </div>
-            <div>
+            </motion.div>
+            <motion.div
+              className="bg-green-50 rounded-2xl p-6 flex flex-col items-center text-center border border-green-100"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
               <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-2xl">
                 <FaFastForward />
               </div>
-              <h4 className="font-semibold text-green-800 mb-2">Fast Onboarding</h4>
+              <h4 className="font-semibold text-green-800 mb-2 text-lg">Fast Onboarding</h4>
               <p className="text-green-700 text-sm">
                 Open and start trading within just 15 minutes.
               </p>
-            </div>
+            </motion.div>
           </div>
         </section>
 
         {/* Brokers List */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
           {brokers.map((broker) => (
-            <BrokerCard key={broker.name} broker={broker} />
+            <motion.div
+              key={broker.name}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <BrokerCard broker={broker} />
+            </motion.div>
           ))}
         </div>
 
-        {/* <section className="py-20 px-6 bg-gradient-to-br from-green-50 to-emerald-100">
-          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div className="bg-white rounded-2xl shadow-xl p-8 flex flex-col justify-center items-center text-center">
-              <h4 className="text-3xl font-bold text-green-800 mb-4">
-                Interested in Opening an Account?
-              </h4>
-              <p className="text-lg text-green-700 mb-8">
-                Fill out the quick form to get started with your Demat account opening process.
+        {/* How to Transfer Section */}
+        <section className="py-12 px-4 sm:px-6 mb-12">
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              className="text-center mb-10"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-3">
+                How to Transfer Your Demat Account
+              </h2>
+              <p className="text-base sm:text-lg text-gray-600">
+                Seamless, paperless, and completed in just a few steps.
               </p>
-              <button
-                onClick={() => router.push("/services/stock-investment/application")}
-                className="px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white font-bold rounded-lg transition"
+              <p className="text-base sm:text-lg text-yellow-600 font-medium mt-2">
+                Currently with Motilal Oswal
+              </p>
+            </motion.div>
+
+            <div className="relative space-y-8">
+              {/* Step 1 */}
+              <motion.div
+                className="flex items-start"
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 }}
               >
-                Fill the Form →
-              </button>
-            </div>
-
-            <div className="bg-white rounded-2xl shadow-xl p-8">
-              <div className="text-center mb-6">
-                <h4 className="text-3xl font-bold text-green-800 mb-4">
-                  Not Interested?
-                </h4>
-                <p className="text-lg text-green-800">
-                  Stay ahead with expert-curated market reports, pre-market updates, and IPO alerts — straight to your inbox.
-                </p>
-              </div>
-
-              <form onSubmit={handleSubscribe} className="space-y-4">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email address"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition text-gray-700"
-                  disabled={isSubmitting}
-                />
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 disabled:opacity-70 text-white font-bold rounded-lg transition flex items-center justify-center"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <FaSpinner className="animate-spin mr-2" /> Processing...
-                    </>
-                  ) : (
-                    "Subscribe Now"
-                  )}
-                </button>
-              </form>
-
-              {message && (
-                <div
-                  className={`mt-4 text-sm px-4 py-3 rounded-lg text-center ${
-                    message.type === "success"
-                      ? "bg-green-100 text-green-800 border border-green-200"
-                      : "bg-red-100 text-red-800 border border-red-200"
-                  }`}
-                >
-                  {message.text}
+                <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 text-white rounded-2xl flex items-center justify-center text-lg font-bold shadow-md">
+                  1
                 </div>
-              )}
+                <div className="ml-5 bg-white p-5 rounded-2xl shadow-md flex-1 border border-green-200">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
+                    Initiate Transfer Request
+                  </h3>
+                  <p className="text-gray-600 text-sm sm:text-base">
+                    Log in to your current broker’s portal and generate a Client
+                    Master Report (CMR) or submit a DIS slip.
+                  </p>
+                </div>
+              </motion.div>
 
-              <p className="text-xs text-gray-500 text-center mt-4">
-                No spam. Unsubscribe anytime. Your data is secure with us.
-              </p>
+              {/* Step 2 */}
+              <motion.div
+                className="flex items-start"
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 text-white rounded-2xl flex items-center justify-center text-lg font-bold shadow-md">
+                  2
+                </div>
+                <div className="ml-5 bg-white p-5 rounded-2xl shadow-md flex-1 border border-green-200">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
+                    Share Details with Us
+                  </h3>
+                  <p className="text-gray-600 text-sm sm:text-base">
+                    Upload your CMR or DIS via our app or email it to
+                    support@fiscalforum.com with your new client ID.
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Step 3 */}
+              <motion.div
+                className="flex items-start"
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.6 }}
+              >
+                <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 text-white rounded-2xl flex items-center justify-center text-lg font-bold shadow-md">
+                  3
+                </div>
+                <div className="ml-5 bg-white p-5 rounded-2xl shadow-md flex-1 border border-green-200">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
+                    We Handle the Rest
+                  </h3>
+                  <p className="text-gray-600 text-sm sm:text-base">
+                    Our team coordinates with your current broker to initiate
+                    the transfer. No action needed from you.
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Completion */}
+              <motion.div
+                className="flex items-start"
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.8 }}
+              >
+                <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 text-white rounded-2xl flex items-center justify-center text-lg font-bold shadow-md">
+                  <CheckCircle className="w-7 h-7" />
+                </div>
+                <div className="ml-5 bg-white p-5 rounded-2xl shadow-md flex-1 border border-emerald-200">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
+                    Transfer Complete
+                  </h3>
+                  <p className="text-gray-600 text-sm sm:text-base">
+                    Your holdings will be transferred in 3-7 working days.
+                    You&apos;ll receive a confirmation email.
+                  </p>
+                </div>
+              </motion.div>
             </div>
+
+            {/* Perks of Transferring & Button */}
+            <motion.div
+              className="mt-12 text-center bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-200 shadow-inner"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.0 }}
+            >
+              <h3 className="text-xl sm:text-2xl font-bold text-green-800 mb-3">
+                Perks of Transferring with Us
+              </h3>
+              <div className="flex flex-wrap justify-center gap-4 mb-6 text-green-700">
+                <div className="flex items-center gap-1 text-sm sm:text-base">
+                  <FaGift className="text-emerald-600" /> <span>Free Research Reports</span>
+                </div>
+                <div className="flex items-center gap-1 text-sm sm:text-base">
+                  <FaRupeeSign className="text-emerald-600" /> <span>Zero Transfer Fees</span>
+                </div>
+                <div className="flex items-center gap-1 text-sm sm:text-base">
+                  <FaHeadset className="text-emerald-600" /> <span>Dedicated Support</span>
+                </div>
+              </div>
+              <button
+                onClick={() => router.push('/services/stock-investment/transfer-demat')}
+                className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white font-bold rounded-full transition shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+              >
+                Fill Transfer Details
+              </button>
+            </motion.div>
           </div>
-        </section> */}
+        </section>
       </div>
     </main>
   );

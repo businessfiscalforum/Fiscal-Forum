@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'akm-img-a-in.tosshub.com',
+        hostname: 'akm-img-a-in.tosshub.io',
         pathname: '/**',
       },
       {
@@ -18,6 +18,21 @@ const nextConfig: NextConfig = {
         hostname: "economictimes.indiatimes.com", 
       },
     ],
+  },
+  
+  // Serve uploaded files from the uploads directory
+  async headers() {
+    return [
+      {
+        source: '/uploads/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
   },
 };
 

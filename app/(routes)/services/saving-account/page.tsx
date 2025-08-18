@@ -1,26 +1,19 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import {
   CreditCard,
   Shield,
-  Plane,
   Gift,
-  Smartphone,
   CheckCircle,
-  ArrowRight,
   User,
-  Building2,
   Bell,
   Star,
   Users,
   Award,
-  TrendingUp,
   Zap,
   Lock,
-  Calendar,
   Phone,
   Mail,
-  MapPin,
 } from "lucide-react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -28,15 +21,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
-import {
-  FaAward,
-  FaMobileAlt,
-  FaPiggyBank,
-  FaRocket,
-  FaWallet,
-  FaChartLine,
-  FaRupeeSign,
-} from "react-icons/fa";
+import { FaRocket, FaChartLine } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -108,58 +93,6 @@ const slides = [
 ];
 
 const CreditCardApplyPage = () => {
-  const [selectedCard, setSelectedCard] = useState("premium");
-  const [showApplication, setShowApplication] = useState(false);
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    dateOfBirth: "",
-    panNumber: "",
-    aadharNumber: "",
-    annualIncome: "",
-    employmentType: "",
-    company: "",
-    address: "",
-    city: "",
-    pincode: "",
-    cardType: "premium",
-  });
-
-  const benefits = [
-    {
-      icon: Shield,
-      title: "Secure Transactions",
-      description:
-        "Advanced fraud protection and zero liability on unauthorized transactions",
-    },
-    {
-      icon: Gift,
-      title: "Reward Points",
-      description:
-        "Earn points on every purchase and redeem for exciting rewards",
-    },
-    {
-      icon: Plane,
-      title: "Travel Benefits",
-      description:
-        "Airport lounge access, travel insurance, and exclusive travel deals",
-    },
-    {
-      icon: Smartphone,
-      title: "Digital Wallet",
-      description:
-        "UPI payments, contactless transactions, and mobile app control",
-    },
-  ];
-
-  const eligibilityCriteria = [
-    { label: "Age", value: "21-65 years" },
-    { label: "Income", value: "₹3,00,000+ annually" },
-    { label: "Employment", value: "Salaried/Self-employed" },
-    { label: "Credit Score", value: "700+ preferred" },
-  ];
 
   const applicationSteps = [
     {
@@ -204,6 +137,7 @@ const CreditCardApplyPage = () => {
       rating: 4.8,
       reviews: "12,450",
       offer: "Cashback Upto ₹250",
+      link: "/services/saving-account/indusInd",
     },
     {
       id: 2,
@@ -220,6 +154,7 @@ const CreditCardApplyPage = () => {
       rating: 4.6,
       reviews: "18,760",
       offer: "Cashback Upto ₹250",
+      link: "/services/saving-account/axis",
     },
     {
       id: 3,
@@ -236,27 +171,28 @@ const CreditCardApplyPage = () => {
       rating: 4.9,
       reviews: "8,920",
       offer: "Cashback Upto ₹250",
+      link: "/services/saving-account/fi",
     },
   ];
 
-  const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  // const handleInputChange = (
+  //   e: React.ChangeEvent<
+  //     HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+  //   >
+  // ) => {
+  //   setFormData({
+  //     ...formData,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
 
-  const handleSubmit = () => {
-    // Handle form submission logic here
-    console.log("Form submitted:", formData);
-    alert(
-      "Application submitted successfully! We will contact you within 24 hours."
-    );
-  };
+  // const handleSubmit = () => {
+  //   // Handle form submission logic here
+  //   console.log("Form submitted:", formData);
+  //   alert(
+  //     "Application submitted successfully! We will contact you within 24 hours."
+  //   );
+  // };
 
   return (
     <>
@@ -460,7 +396,7 @@ const CreditCardApplyPage = () => {
                   whileHover={{ y: -10 }}
                   className="bg-white rounded-3xl shadow-xl overflow-hidden border border-emerald-100 transition-all duration-300 flex flex-col"
                 >
-                  <div className="p-1 bg-gradient-to-r from-teal-500 to-emerald-600"></div>
+                  <div className="p-1 bg-gradient-to-r from-green-500 to-emerald-600"></div>
 
                   {/* Main content fills available height */}
                   <div className="p-6 flex flex-col flex-1 justify-between">
@@ -468,7 +404,7 @@ const CreditCardApplyPage = () => {
                     <div>
                       <div className="flex items-center justify-between mb-6">
                         <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 bg-white border-2 border-emerald-200 flex items-center justify-center">
+                          <div className="bg-white border border-emerald-200 rounded-md p-1 flex-shrink-0">
                             <Image
                               src={bank.logo}
                               alt={`${bank.name} Logo`}
@@ -520,16 +456,22 @@ const CreditCardApplyPage = () => {
                     </div>
 
                     {/* Buttons section always at bottom */}
-                    <div className="flex gap-3 mt-auto">
-                      <Link href="#" className="flex-1">
-                        <button className="w-full bg-gradient-to-r from-teal-500 to-emerald-600 text-white px-4 py-3 rounded-xl font-semibold hover:from-teal-600 hover:to-emerald-700 transition-all duration-300 shadow-md hover:shadow-lg">
+
+                    <div className="flex items-center justify-between mt-auto">
+                      <Link href={bank.link}>
+                        <div className="inline-flex items-center gap-2 font-medium text-green-600 hover:text-green-700">
                           Learn More
-                        </button>
-                      </Link>
-                      <Link href="#" className="flex-1">
-                        <button className="w-full bg-white border-2 border-emerald-500 text-emerald-600 px-4 py-3 rounded-xl font-semibold hover:bg-emerald-50 transition-all duration-300">
-                          Apply Now
-                        </button>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            className="w-4 h-4"
+                          >
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                          </svg>
+                        </div>
                       </Link>
                     </div>
                   </div>

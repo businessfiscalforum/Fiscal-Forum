@@ -1,6 +1,8 @@
 // config/schema.ts
+import { sql } from 'drizzle-orm';
 import {
   boolean,
+  check,
   date,
   decimal,
   integer,
@@ -435,6 +437,51 @@ export const dematApplications = pgTable("demat_applications", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+
+export const dematTransferRequests = pgTable('demat_transfer_requests', {
+  id: uuid("id").defaultRandom().notNull().primaryKey().unique(),
+  fullName: text('full_name').notNull(),
+  email: varchar('email', { length: 255 }).notNull(),
+  phone: varchar('phone', { length: 15 }).notNull(),
+  currentBroker: text('current_broker').default('Motilal Oswal'),
+  newClientId: text('new_client_id').notNull(),
+  publicFileUrl: text('public_file_url').notNull(),
+  createdAt: timestamp('created_at').defaultNow(),
+});
+
+export const investmentProfiles = pgTable('investment_profiles', {
+  id: uuid("id").defaultRandom().notNull().primaryKey().unique(),
+  name: text('name').notNull(),
+  clientCode: varchar('client_code', { length: 50 }).notNull(),
+  panNo: varchar('pan_no', { length: 10 }).notNull(),
+  mobileNo: varchar('mobile_no', { length: 15 }).notNull(),
+  consistency: text('consistency').notNull(),
+  traderType: text('trader_type').notNull(),
+  existingBroker: text('existing_broker').notNull(),
+  investmentType: text('investment_type').notNull(), 
+  createdAt: timestamp('created_at').defaultNow(),
+},(table) => {
+  return {
+    panRegexCheck: check('pan_regex_check', sql`${table.panNo} ~ '^[A-Z]{5}[0-9]{4}[A-Z]{1}$'`),
+  };
+});
+
+export const savingsApplications = pgTable("savings_applications", {
+  id: uuid("id").defaultRandom().notNull().primaryKey().unique(),
+  name: varchar("name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull(),
+  mobileNo: varchar("mobile_no", { length: 15 }).notNull(),
+  panNo: varchar("pan_no", { length: 20 }).notNull(),
+  pincode: varchar("pincode", { length: 10 }).notNull(),
+  state: varchar("state", { length: 100 }).notNull(),
+  district: varchar("district", { length: 100 }).notNull(),
+  bankType: varchar("bank_type", { length: 50 }).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+},(table) => {
+  return {
+    panRegexCheck: check('pan_regex_check', sql`${table.panNo} ~ '^[A-Z]{5}[0-9]{4}[A-Z]{1}$'`),
+  };
+});
 // Types
 export type InsertUser = typeof usersTable.$inferInsert;
 export type SelectUser = typeof usersTable.$inferSelect;
@@ -457,3 +504,9 @@ export type SelectSubscribers = typeof subscribers.$inferSelect;
 
 export type InsertDemat = typeof dematApplications.$inferInsert;
 export type SelectDemat = typeof dematApplications.$inferSelect
+
+export type InsertDematTransferApplication = typeof dematTransferRequests.$inferInsert;
+export type SelectDematTransferApplication = typeof dematTransferRequests.$inferSelect;
+
+export type InsertInvestmentForm = typeof investmentProfiles.$inferInsert;
+export type SelectInvestmentForm = typeof investmentProfiles.$inferSelect

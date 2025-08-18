@@ -4,13 +4,7 @@ import {
   BarChart3,
   FolderOpen,
   UserCheck,
-  Shield,
-  Gift,
-  Plane,
-  Smartphone,
-  CheckCircle,
   ArrowRight,
-  TrendingUp,
   Phone,
 } from "lucide-react";
 
@@ -26,11 +20,10 @@ import {
   FaAward,
   FaHandHoldingUsd,
   FaGem,
-  FaSpinner,
 } from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { BrokerInfiniteScroll } from "../../_components/Broker"; // Adjust path as needed
+// import { BrokerInfiniteScroll } from "../../_components/Broker"; // Adjust path as needed
 
 const slides = [
   {
@@ -264,10 +257,9 @@ export default function MutualPage() {
       {/* Main Layout: Content + Broker Scroll */}
       <div className="flex flex-col lg:flex-row min-h-screen bg-gray-50 pt-20">
         {/* Main Content */}
-        <main className="flex-1 p-6 md:p-10">
-          <section className="py-20 px-6 bg-gradient-to-br from-green-50 to-emerald-100">
+        <main className="flex-1">
+          {/* <section className="py-20 px-6 bg-gradient-to-br from-green-50 to-emerald-100">
             <div className="max-w-4xl mx-auto text-center mb-12">
-              {/* Attractive Tagline */}
               <h4 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
                 Get Smarter Market Insights Delivered Daily
               </h4>
@@ -328,7 +320,7 @@ export default function MutualPage() {
                 No spam. Unsubscribe anytime. Your data is secure with us.
               </p>
             </div>
-          </section>
+          </section> */}
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -437,7 +429,7 @@ export default function MutualPage() {
                 <button
                   onClick={() =>
                     router.push(
-                      "/services/mutual-funds/open-investment-account"
+                      "/services/mutual-funds/open-demat-account"
                     )
                   }
                   className="mt-6 w-fit border border-white text-white px-6 py-3 rounded-full font-medium hover:bg-white hover:text-green-700 transition-all duration-300"
@@ -463,7 +455,7 @@ export default function MutualPage() {
                 </div>
                 <button
                   onClick={() =>
-                    router.push("/services/mutual-funds/portfolio-optimization")
+                    router.push("/services/mutual-funds/already-have-an-account")
                   }
                   className="mt-6 w-fit border border-green-600 text-green-600 px-6 py-3 rounded-full font-medium hover:bg-green-600 hover:text-white transition-all duration-300"
                 >
@@ -574,11 +566,11 @@ export default function MutualPage() {
         </main>
 
         {/* ✅ Broker Infinite Scroll Sidebar */}
-        <aside className="hidden lg:block w-40 bg-white border-l border-gray-200">
+        {/* <aside className="hidden lg:block w-40 bg-white border-l border-gray-200">
           <div className="sticky top-0 flex items-center justify-center py-8">
             <BrokerInfiniteScroll />
           </div>
-        </aside>
+        </aside> */}
       </div>
     </>
   );

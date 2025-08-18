@@ -1,8 +1,7 @@
 "use client"
 import Link from "next/link";
 import Image from "next/image";
-import { FaRocket, FaSpinner } from "react-icons/fa";
-import { useRouter } from "next/navigation";
+import { FaSpinner } from "react-icons/fa";
 import { useState } from "react";
 import { TrendingUp } from "lucide-react";
 
@@ -51,7 +50,6 @@ const brokers: Broker[] = [
 ];
 
 export default function TransferDematPage() {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{ text: string; type: string } | null>(
