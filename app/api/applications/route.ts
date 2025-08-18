@@ -1,4 +1,4 @@
-// app/api/loan-applications/route.ts
+// app/api/applications/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { db } from '../../../config/db'; // adjust path

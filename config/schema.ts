@@ -6,6 +6,7 @@ import {
   date,
   decimal,
   integer,
+  json,
   pgEnum,
   pgTable,
   text,
@@ -13,6 +14,7 @@ import {
   uuid,
   varchar,
 } from 'drizzle-orm/pg-core';
+import z from 'zod';
 
 // 🔁 Updated Enums (Aligned with frontend)
 
@@ -353,6 +355,115 @@ export const applicationsTable = pgTable('applications_table', {
 });
 
 
+export const homeLoanApplications = pgTable("home_loan_applications", {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  // Applicant Details
+  firstName: text("first_name").notNull(),
+  middleName: text("middle_name"),
+  lastName: text("last_name").notNull(),
+  fatherName: text("father_name").notNull(),
+  dateOfBirth: varchar("date_of_birth", { length: 20 }).notNull(),
+  maritalStatus: varchar("marital_status", { length: 20 }).notNull(),
+  gender: varchar("gender", { length: 10 }).notNull(),
+  mobileNo: varchar("mobile_no", { length: 15 }).notNull(),
+  emailId: text("email_id").notNull(),
+  homeAddress1: text("home_address1").notNull(),
+  homeAddress2: text("home_address2"),
+  residenceType: varchar("residence_type", { length: 20 }).notNull(),
+  pincode: varchar("pincode", { length: 6 }).notNull(),
+  state: text("state").notNull(),
+  city: text("city").notNull(),
+  permanentAddressSame: boolean("permanent_address_same").default(false),
+
+  // Employment Details
+  employmentType: varchar("employment_type", { length: 20 }).notNull(),
+  companyName: text("company_name"),
+  designation: text("designation"),
+  netMonthlySalary: integer("net_monthly_salary").notNull(),
+
+  // Property Details
+  propertyType: varchar("property_type", { length: 20 }).notNull(),
+  agreementValue: integer("agreement_value").notNull(),
+  loanAmountRequired: integer("loan_amount_required").notNull(),
+  propertyAddressLine1: text("property_address_line1").notNull(),
+  propertyAddressLine2: text("property_address_line2"),
+  propertyCity: text("property_city").notNull(),
+
+  // Existing Obligations
+  noOfCurrentLoans: integer("no_of_current_loans").notNull(),
+  existingLoanType: varchar("existing_loan_type", { length: 20 }),
+
+  // Additional Details
+  builderName: text("builder_name").notNull(),
+  residenceSince: varchar("residence_since", { length: 20 }).notNull(),
+  specialName: text("special_name"),
+
+  // References
+  reference1Name: text("reference1_name").notNull(),
+  reference1Mobile: varchar("reference1_mobile", { length: 15 }).notNull(),
+  reference1Address: text("reference1_address").notNull(),
+
+  reference2Name: text("reference2_name").notNull(),
+  reference2Mobile: varchar("reference2_mobile", { length: 15 }).notNull(),
+  reference2Address: text("reference2_address").notNull(),
+
+  // Timestamps
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdateFn(() => new Date()),
+});
+
+
+export const lapApplications = pgTable('lap_applications', {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  firstName: varchar('first_name', { length: 50 }).notNull(),
+  middleName: varchar('middle_name', { length: 50 }),
+  lastName: varchar('last_name', { length: 50 }).notNull(),
+  fatherName: varchar('father_name', { length: 50 }),
+  dob: date('dob'),
+  panNumber: varchar('pan_number', { length: 10 }),
+  email: varchar('email', { length: 100 }),
+  mobileNo: varchar('mobile_no', { length: 15 }),
+  gender: varchar('gender', { length: 20 }).$type<'Male' | 'Female' | 'Others'>(),
+  maritalStatus: varchar('marital_status', { length: 20 }).$type<'Married' | 'Unmarried'>(),
+  currentAddress1: text('current_address_1'),
+  currentAddress2: text('current_address_2'),
+  residenceType: varchar('residence_type', { length: 20 }).$type<'Rented' | 'Owned'>(),
+  city: varchar('city', { length: 50 }),
+  state: varchar('state', { length: 50 }),
+  pincode: varchar('pincode', { length: 10 }),
+  permanentSameAsCurrent: boolean('permanent_same_as_current').default(false),
+  employmentType: varchar('employment_type', { length: 20 }).$type<'Salaried' | 'Self Employed'>(),
+  companyName: varchar('company_name', { length: 100 }),
+  designation: varchar('designation', { length: 50 }),
+  companyAddress1: text('company_address_1'),
+  companyAddress2: text('company_address_2'),
+  companyCity: varchar('company_city', { length: 50 }),
+  companyState: varchar('company_state', { length: 50 }),
+  monthlySalary: integer('monthly_salary').notNull(),
+  experienceInMonths: integer('experience_in_months'),
+  currentJobStability: varchar('current_job_stability', { length: 20 }).$type<'Less than 6 months' | '6-12 months' | '1-2 years' | 'More than 2 years'>(),
+  propertyType: varchar('property_type', { length: 20 }).$type<'Residential' | 'Commercial'>(),
+  agreementValue: integer('agreement_value') ,
+  loanAmountRequired: integer('loan_amount_required').notNull(),
+  propertyAddress1: text('property_address_1'),
+  propertyAddress2: text('property_address_2'),
+  propertyCity: varchar('property_city', { length: 50 }),
+  propertyState: varchar('property_state', { length: 50 }),
+  existingLoansCount: integer('existing_loans_count').default(0),
+  existingLoanType: varchar("existing_loan_type", { length: 20 }),
+  reference1Name: text("reference1_name").notNull(),
+  reference1Mobile: varchar("reference1_mobile", { length: 15 }).notNull(),
+  reference1Address: text("reference1_address").notNull(),
+
+  reference2Name: text("reference2_name").notNull(),
+  reference2Mobile: varchar("reference2_mobile", { length: 15 }).notNull(),
+  reference2Address: text("reference2_address").notNull(),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow().$onUpdateFn(() => new Date()),
+});
+
 export const quoteRequestsTable = pgTable('quote_requests', {
   id: uuid('id').defaultRandom().primaryKey().notNull(),
   name: text('name').notNull(),
@@ -509,4 +620,10 @@ export type InsertDematTransferApplication = typeof dematTransferRequests.$infer
 export type SelectDematTransferApplication = typeof dematTransferRequests.$inferSelect;
 
 export type InsertInvestmentForm = typeof investmentProfiles.$inferInsert;
-export type SelectInvestmentForm = typeof investmentProfiles.$inferSelect
+export type SelectInvestmentForm = typeof investmentProfiles.$inferSelect;
+
+export type InsertHomeApp = typeof homeLoanApplications.$inferInsert;
+export type SelectHomeApp = typeof homeLoanApplications.$inferSelect
+
+export type InsertLapApplication = typeof lapApplications.$inferInsert;
+export type SelectLapApplication = typeof lapApplications.$inferSelect;
