@@ -283,7 +283,7 @@ const creditCards: CreditCard[] = [
     bank: "HSBC Bank",
     logo: "/hsbc.png",
     cardName: "HSBC TravelOne Card",
-    cardImage: "/Hsbc_Travelone_card.svg",
+    cardImage: "/HsbcTraveloneCard.svg",
     tagline: "Earn Air Miles & Travel Perks",
     cashbackRate: "Miles/Points per ₹100",
     rewardPoints: "HSBC Rewards / Air Miles",
