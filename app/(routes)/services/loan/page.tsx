@@ -482,98 +482,100 @@ const LoanLandingPage = () => {
               every financial need
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-20">
-            {loanTypes.map((loan) => {
-              const IconComponent = loan.icon;
-              return (
-                <motion.div
-                  key={loan.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  whileHover={{ y: -10 }}
-                  className="relative rounded-2xl shadow-lg overflow-hidden transition-all duration-300 transform bg-white border border-emerald-100"
-                >
-                  <div className="p-1 bg-gradient-to-r from-green-500 to-emerald-600"></div>
-                  <div className="p-6">
-                    <div className="flex items-center mb-4">
-                      <div
-                        className={`p-3 rounded-xl ${loan.iconBgColor} flex-shrink-0 w-12 h-12 flex items-center justify-center`}
-                      >
-                        {IconComponent && (
-                          <IconComponent
-                            className={`w-6 h-6 ${loan.iconColor}`}
-                          />
-                        )}
-                      </div>
-                      <div className="ml-4">
-                        <h3 className="text-xl font-bold text-gray-900">
-                          {loan.title}
-                        </h3>
-                        <div className="flex items-center gap-3 text-sm">
-                          <span className="font-semibold text-emerald-600">
-                            {loan.rate}
-                          </span>
-                          <span className="text-gray-500">
-                            Up to {loan.maxAmount}
-                          </span>
+          <div className="max-w-7xl mx-auto px-4 mb-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {loanTypes.map((loan) => {
+                const IconComponent = loan.icon;
+                return (
+                  <motion.div
+                    key={loan.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    whileHover={{ y: -10 }}
+                    className="relative rounded-2xl shadow-lg overflow-hidden transition-all duration-300 transform bg-white border border-emerald-100"
+                  >
+                    <div className="p-1 bg-gradient-to-r from-green-500 to-emerald-600"></div>
+                    <div className="p-6">
+                      <div className="flex items-center mb-4">
+                        <div
+                          className={`p-3 rounded-xl ${loan.iconBgColor} flex-shrink-0 w-12 h-12 flex items-center justify-center`}
+                        >
+                          {IconComponent && (
+                            <IconComponent
+                              className={`w-6 h-6 ${loan.iconColor}`}
+                            />
+                          )}
+                        </div>
+                        <div className="ml-4">
+                          <h3 className="text-xl font-bold text-gray-900">
+                            {loan.title}
+                          </h3>
+                          <div className="flex items-center gap-3 text-sm">
+                            <span className="font-semibold text-emerald-600">
+                              {loan.rate}
+                            </span>
+                            <span className="text-gray-500">
+                              Up to {loan.maxAmount}
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <p className="text-gray-600 mb-6 text-sm leading-relaxed">
-                      {loan.description}
-                    </p>
+                      <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+                        {loan.description}
+                      </p>
 
-                    <ul className="space-y-2 mb-6">
-                      {loan.features.slice(0, 3).map((feature, index) => (
-                        <li
-                          key={index}
-                          className="flex items-start gap-2 text-sm text-gray-600"
-                        >
-                          <CheckCircle className="text-emerald-500 mt-0.5 flex-shrink-0 w-4 h-4" />
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <div className="flex gap-4 pt-4">
-                      <Link href={loan.link} passHref>
-                        <button className="px-4 py-2 rounded-lg  text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
-                          Learn More
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            className="w-4 h-4"
+                      <ul className="space-y-2 mb-6">
+                        {loan.features.slice(0, 3).map((feature, index) => (
+                          <li
+                            key={index}
+                            className="flex items-start gap-2 text-sm text-gray-600"
                           >
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                          </svg>
-                        </button>
-                      </Link>
+                            <CheckCircle className="text-emerald-500 mt-0.5 flex-shrink-0 w-4 h-4" />
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
 
-                      <Link href={loan.glink} passHref>
-                        <button className="px-4 py-2 rounded-lg  text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
-                          Apply Now
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            className="w-4 h-4"
-                          >
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                          </svg>
-                        </button>
-                      </Link>
+                      <div className="flex gap-4 pt-4">
+                        <Link href={loan.link} passHref>
+                          <button className="px-4 py-2 rounded-lg  text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
+                            Learn More
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              className="w-4 h-4"
+                            >
+                              <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                          </button>
+                        </Link>
+
+                        <Link href={loan.glink} passHref>
+                          <button className="px-4 py-2 rounded-lg  text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
+                            Apply Now
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              className="w-4 h-4"
+                            >
+                              <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                          </button>
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              );
-            })}
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
 
           {/* EMI Calculator */}

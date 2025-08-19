@@ -285,7 +285,6 @@ const InsurancePage = () => {
                     className="relative rounded-2xl shadow-lg overflow-hidden transition-all duration-300 transform hover:shadow-xl bg-white"
                   >
                     <div className="p-1 bg-gradient-to-r from-green-500 to-emerald-600"></div>
-                    <Link href={option.link} passHref>
                       <div className="p-6 space-y-4 h-full flex flex-col cursor-pointer">
                         <div
                           className={`p-3 rounded-xl ${option.iconBgColor} flex-shrink-0 w-12 h-12 flex items-center justify-center`}
@@ -303,7 +302,8 @@ const InsurancePage = () => {
                           {option.description}
                         </p>
                         <div className="pt-4 flex justify-between">
-                          <div className="inline-flex items-center gap-2 font-medium text-green-600 hover:text-green-700">
+                          <Link href={option.link} passHref>
+                          <div className="px-4 py-2 rounded-lg  text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
                             Learn More
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -316,10 +316,10 @@ const InsurancePage = () => {
                               <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
                           </div>
-                          <Link href={option.formLink} className="bg-green-600 text-white px-4 py-2 rounded-md flex items-center gap-2">Get Quote <ArrowRight className="w-4 h-4" /></Link>
+                          </Link>
+                          <Link href={option.formLink} className="px-4 py-2 rounded-lg  text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">Get Quote <ArrowRight className="w-4 h-4" /></Link>
                         </div>
                       </div>
-                    </Link>
                   </motion.div>
                 );
               })}
