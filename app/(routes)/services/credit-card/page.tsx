@@ -283,7 +283,7 @@ const creditCards: CreditCard[] = [
     bank: "HSBC Bank",
     logo: "/hsbc.png",
     cardName: "HSBC TravelOne Card",
-    cardImage: "/Hsbc Travelone card.svg",
+    cardImage: "/Hsbc_Travelone_card.svg",
     tagline: "Earn Air Miles & Travel Perks",
     cashbackRate: "Miles/Points per ₹100",
     rewardPoints: "HSBC Rewards / Air Miles",
@@ -316,7 +316,7 @@ const creditCards: CreditCard[] = [
     bank: "Axis Bank",
     logo: "/axis.png",
     cardName: "Axis Bank FD Credit Card",
-    cardImage: "/Axis bank Fd Card.svg",
+    cardImage: "/AxisBankFdCard.svg",
     tagline: "Credit Card Against Fixed Deposit",
     cashbackRate: "N/A",
     rewardPoints: "Axis Reward Points",
@@ -345,7 +345,7 @@ const creditCards: CreditCard[] = [
   },
   {
     id: "tataneu",
-    bank: "TataNeu", // Note: Co-branded with HDFC
+    bank: "TataNeu", 
     logo: "/tataneu.png",
     cardName: "TataNeu Credit Card",
     cardImage: "/Tataneu Card.svg",
