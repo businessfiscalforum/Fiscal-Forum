@@ -896,7 +896,7 @@ export const commercialVehicleInsuranceRequests = pgTable('commercial_vehicle_in
   vehicleType: varchar('vehicle_type', { length: 100 }).notNull(), // Truck, Bus, Van, etc.
   vehicleMake: varchar('vehicle_make', { length: 100 }),
   vehicleModel: varchar('vehicle_model', { length: 100 }),
-  vehicleYear: integer('vehicle_year'),
+  vehicleYear: varchar('vehicle_year'),
   vehicleCapacity: varchar('vehicle_capacity', { length: 50 }), // Tonnage/Seating capacity
   vehicleValue: decimal('vehicle_value', { precision: 14, scale: 2 }),
   
