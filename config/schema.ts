@@ -931,7 +931,7 @@ export const commercialVehicleInsuranceRequests = pgTable('commercial_vehicle_in
 
 export const personalAccidentInsuranceRequests = pgTable('personal_accident_insurance_requests', {
 	id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
-	userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
+  userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'set null' }), // Added userId column
 	// Personal Details
 	name: varchar('name', { length: 255 }).notNull(),
 	email: varchar('email', { length: 255 }),
@@ -940,8 +940,8 @@ export const personalAccidentInsuranceRequests = pgTable('personal_accident_insu
 	occupation: varchar('occupation', { length: 255 }),
 	// Policy Requirements
 	coverageType: text('coverage_type'), // JSON string array: ["Individual", "Family Coverage"]
-	sumInsured: decimal('sum_insured', { precision: 14, scale: 2 }),
-	policyTermYears: integer('policy_term_years'),
+	sumInsured: varchar('sum_insured'), // Schema defines this as varchar
+	policyTermYears: varchar('policy_term_years'), // Schema defines this as varchar
 	coverageOptions: text('coverage_options'), // JSON string array: Accidental Death, Permanent Disability, etc.
 	// Existing Policy
 	hasExistingPolicy: boolean('has_existing_policy').default(false),
@@ -964,8 +964,8 @@ export const propertyInsuranceRequests = pgTable('property_insurance_requests', 
 	// Property Details
 	propertyType: varchar('property_type', { length: 50 }).notNull(), // Home, Shop/Business
 	propertyOwnership: varchar('property_ownership', { length: 20 }), // Owned, Rented
-	propertyValue: decimal('property_value', { precision: 14, scale: 2 }),
-	contentsValue: decimal('contents_value', { precision: 14, scale: 2 }),
+	propertyValue: varchar('property_value'),
+	contentsValue: varchar('contents_value'),
 	constructionType: varchar('construction_type', { length: 50 }), // RCC, Non-RCC, Other
 	yearOfConstruction: integer('year_of_construction'),
 	// Coverage

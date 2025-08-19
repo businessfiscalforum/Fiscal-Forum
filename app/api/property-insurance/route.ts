@@ -45,16 +45,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: "Previous policy link must be a public Google Drive URL" }, { status: 400 });
     }
 
-    const propertyValue = propertyValueRaw ? Number(propertyValueRaw) : null;
-    const contentsValue = contentsValueRaw ? Number(contentsValueRaw) : null;
+    const propertyValue = propertyValueRaw || null; // Keep as string or null
+    const contentsValue = contentsValueRaw || null; 
     const yearOfConstruction = yearOfConstructionRaw ? parseInt(yearOfConstructionRaw) : null;
-
-    if (propertyValue !== null && (isNaN(propertyValue) || propertyValue <= 0)) {
-      return NextResponse.json({ success: false, error: "Invalid property value" }, { status: 400 });
-    }
-    if (contentsValue !== null && (isNaN(contentsValue) || contentsValue < 0)) {
-      return NextResponse.json({ success: false, error: "Invalid contents value" }, { status: 400 });
-    }
     if (yearOfConstruction !== null && (yearOfConstruction < 1800 || yearOfConstruction > new Date().getFullYear())) {
       return NextResponse.json({ success: false, error: "Invalid year of construction" }, { status: 400 });
     }
