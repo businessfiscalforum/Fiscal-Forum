@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   CreditCard,
   Shield,
@@ -15,6 +15,8 @@ import {
   FileText,
   Headphones,
   MapPin,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -178,24 +180,16 @@ const CreditCardApplyPage = () => {
     },
   ];
 
-  // const handleInputChange = (
-  //   e: React.ChangeEvent<
-  //     HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-  //   >
-  // ) => {
-  //   setFormData({
-  //     ...formData,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
+  // State to manage expanded features for each bank
+  const [expandedBanks, setExpandedBanks] = useState<Record<number, boolean>>({});
 
-  // const handleSubmit = () => {
-  //   // Handle form submission logic here
-  //   console.log("Form submitted:", formData);
-  //   alert(
-  //     "Application submitted successfully! We will contact you within 24 hours."
-  //   );
-  // };
+  // Toggle function for expanding/collapsing features
+  const toggleFeatures = (bankId: number) => {
+    setExpandedBanks(prev => ({
+      ...prev,
+      [bankId]: !prev[bankId]
+    }));
+  };
 
   return (
     <>
@@ -447,7 +441,8 @@ const CreditCardApplyPage = () => {
                       </div>
 
                       <ul className="space-y-3 mb-6">
-                        {bank.features.map((feature, index) => (
+                        {/* Show first 3 features always */}
+                        {bank.features.slice(0, 3).map((feature, index) => (
                           <li key={index} className="flex items-start gap-2">
                             <CheckCircle className="text-green-500 mt-0.5 flex-shrink-0 w-4 h-4" />
                             <span className="text-gray-700 text-sm">
@@ -455,14 +450,45 @@ const CreditCardApplyPage = () => {
                             </span>
                           </li>
                         ))}
+                        
+                        {/* Show additional features based on expanded state */}
+                        {expandedBanks[bank.id] && 
+                          bank.features.slice(3).map((feature, index) => (
+                            <li key={index + 3} className="flex items-start gap-2">
+                              <CheckCircle className="text-green-500 mt-0.5 flex-shrink-0 w-4 h-4" />
+                              <span className="text-gray-700 text-sm">
+                                {feature}
+                              </span>
+                            </li>
+                          ))
+                        }
                       </ul>
+                      
+                      {/* Expand/Collapse Button */}
+                      {bank.features.length > 3 && (
+                        <button
+                          onClick={() => toggleFeatures(bank.id)}
+                          className="flex items-center gap-2 text-emerald-600 hover:text-emerald-700 font-medium text-sm mb-6"
+                        >
+                          {expandedBanks[bank.id] ? (
+                            <>
+                              <ChevronUp className="w-4 h-4" />
+                              Show Less
+                            </>
+                          ) : (
+                            <>
+                              <ChevronDown className="w-4 h-4" />
+                              View More Benefits
+                            </>
+                          )}
+                        </button>
+                      )}
                     </div>
 
                     {/* Buttons section always at bottom */}
-
                     <div className="flex gap-4 pt-4">
                       <Link href={bank.link} passHref>
-                        <button className="px-4 py-2 rounded-lg  text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
+                        <button className="px-4 py-2 rounded-lg text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
                           Learn More
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -478,7 +504,7 @@ const CreditCardApplyPage = () => {
                       </Link>
 
                       <Link href={bank.alink} passHref>
-                        <button className="px-4 py-2 rounded-lg  text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
+                        <button className="px-4 py-2 rounded-lg text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
                           Apply Now
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
