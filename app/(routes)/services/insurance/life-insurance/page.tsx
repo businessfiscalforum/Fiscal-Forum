@@ -193,6 +193,7 @@ export default function LifeInsuranceFormPage() {
         setErrors({});
         setStep(1);
       }, 3000);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       // eslint-disable-next-line no-console
       console.error("Submission error:", error);
@@ -467,8 +468,8 @@ export default function LifeInsuranceFormPage() {
                         <p className="text-emerald-800 font-medium mb-2">How to get a public Google Drive link:</p>
                         <ol className="list-decimal pl-5 space-y-1 text-emerald-700">
                           <li>Upload your previous policy to Google Drive</li>
-                          <li>Right-click the file and select "Get link"</li>
-                          <li>Change permissions to "Anyone with the link can view"</li>
+                          <li>Right-click the file and select &quot;Get link&quot;</li>
+                          <li>Change permissions to &quot;Anyone with the link can view&quot;</li>
                           <li>Copy the link and paste it above</li>
                         </ol>
                       </div>

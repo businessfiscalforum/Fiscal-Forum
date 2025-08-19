@@ -6,7 +6,6 @@ import {
   date,
   decimal,
   integer,
-  json,
   pgEnum,
   pgTable,
   text,
@@ -14,7 +13,7 @@ import {
   uuid,
   varchar,
 } from 'drizzle-orm/pg-core';
-import z from 'zod';
+
 
 // 🔁 Updated Enums (Aligned with frontend)
 
