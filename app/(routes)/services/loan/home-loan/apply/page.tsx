@@ -28,7 +28,7 @@ const applicationSchema = z.object({
   employmentType: z.enum(['Company', 'Self-Employed']),
   companyName: z.string().optional(),
   designation: z.string().optional(),
-   netMonthlySalary: z.preprocess(
+  netMonthlySalary: z.preprocess(
     val => val === "" || val === undefined ? undefined : Number(val),
     z.number().optional()
   ).optional(),

@@ -465,7 +465,7 @@ export default function CreditCardsPage() {
       {/* Main Grid */}
       <main className="pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {creditCards.map((card, index) => (
               <motion.div
                 key={card.id}
@@ -475,14 +475,12 @@ export default function CreditCardsPage() {
                 whileHover={{ y: -8 }}
                 className="relative rounded-3xl shadow-xl overflow-hidden transition-all duration-300 bg-white border border-emerald-200 flex flex-col h-full"
               >
-                {/* Gradient Top Border */}
                 <div className="h-2 bg-gradient-to-r from-green-500 to-emerald-600 w-full"></div>
 
-                {/* Card Content */}
                 <div className="p-6 flex flex-col flex-grow">
-                  {/* Bank Logo & Card Name */}
+                  {/* Logo & Name */}
                   <div className="flex items-start gap-3 mb-5">
-                    <div className="bg-white border-2 border-emerald-200 rounded-lg p-2 flex-shrink-0">
+                    <div className="bg-white border-2 border-emerald-200 rounded-lg p-2">
                       <Image
                         src={card.logo}
                         alt={`${card.bank} Logo`}
@@ -492,13 +490,13 @@ export default function CreditCardsPage() {
                       />
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-gray-900 leading-tight">{card.cardName}</h3>
-                      {card.tagline && <p className="text-sm text-emerald-700 leading-tight mt-1">{card.tagline}</p>}
+                      <h3 className="text-lg font-bold text-gray-900">{card.cardName}</h3>
+                      {card.tagline && <p className="text-sm text-emerald-700 mt-1">{card.tagline}</p>}
                     </div>
                   </div>
 
                   {/* Card Image */}
-                  <div className="flex justify-center items-center mb-6 flex-grow">
+                  <div className="flex justify-center mb-6 flex-grow">
                     <div className="relative w-full max-w-[260px] h-[140px]">
                       <Image
                         src={card.cardImage}
@@ -514,25 +512,25 @@ export default function CreditCardsPage() {
                     </div>
                   </div>
 
-                  {/* Rewards/Cashback Highlights */}
+                  {/* Rewards Highlights */}
                   {(card.cashbackRate || card.rewardPoints || card.welcomeBonus) && (
                     <div className="grid grid-cols-3 gap-2 mb-5 text-center">
                       {card.cashbackRate && (
                         <div className="bg-emerald-50 rounded-lg p-2">
-                          <p className="text-xs text-emerald-800 font-semibold leading-tight">Cashback</p>
-                          <p className="text-sm font-bold text-emerald-600 leading-tight">{card.cashbackRate}</p>
+                          <p className="text-xs text-emerald-800 font-semibold">Cashback</p>
+                          <p className="text-sm font-bold text-emerald-600">{card.cashbackRate}</p>
                         </div>
                       )}
                       {card.rewardPoints && (
                         <div className="bg-teal-50 rounded-lg p-2">
-                          <p className="text-xs text-teal-800 font-semibold leading-tight">Rewards</p>
-                          <p className="text-sm font-bold text-teal-600 truncate leading-tight">{card.rewardPoints}</p>
+                          <p className="text-xs text-teal-800 font-semibold">Rewards</p>
+                          <p className="text-sm font-bold text-teal-600 truncate">{card.rewardPoints}</p>
                         </div>
                       )}
                       {card.welcomeBonus && (
                         <div className="bg-green-50 rounded-lg p-2">
-                          <p className="text-xs text-green-800 font-semibold leading-tight">Bonus</p>
-                          <p className="text-sm font-bold text-green-600 truncate leading-tight">{card.welcomeBonus}</p>
+                          <p className="text-xs text-green-800 font-semibold">Bonus</p>
+                          <p className="text-sm font-bold text-green-600 truncate">{card.welcomeBonus}</p>
                         </div>
                       )}
                     </div>
@@ -541,13 +539,13 @@ export default function CreditCardsPage() {
                   {/* Key Features */}
                   <div className="mb-6 flex-grow">
                     <h4 className="font-bold text-sm text-gray-800 mb-2 flex items-center gap-2">
-                      <FaStar className="text-emerald-500 text-sm" /> Key Features
+                      <FaStar className="text-emerald-500" /> Key Features
                     </h4>
                     <ul className="space-y-2">
-                      {card.features.slice(0, 3).map((feature, i) => ( // Show top 3 features
+                      {card.features.slice(0, 3).map((feature, i) => (
                         <li key={i} className="text-sm text-gray-700 flex items-start gap-2">
                           <span className="text-emerald-400 mt-1.5 text-xs">•</span>
-                          <span className="leading-relaxed">{feature}</span>
+                          <span>{feature}</span>
                         </li>
                       ))}
                     </ul>
@@ -557,10 +555,9 @@ export default function CreditCardsPage() {
                   <div className="flex flex-col gap-3 mt-auto">
                     <button
                       onClick={() => openModal(card)}
-                      className="flex items-center justify-center gap-2 px-4 py-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 rounded-xl text-sm font-semibold transition-colors border-2 border-emerald-200"
+                      className="flex items-center justify-center gap-2 px-4 py-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 rounded-xl text-sm font-semibold border-2 border-emerald-200"
                     >
-                      <FaInfoCircle className="text-emerald-600" />
-                      <span>View Details</span>
+                      <FaInfoCircle /> <span>View Details</span>
                     </button>
 
                     <div className="flex gap-3">
@@ -568,17 +565,15 @@ export default function CreditCardsPage() {
                         href={card.pdfLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 px-4 py-3 bg-teal-100 hover:bg-teal-200 text-teal-800 rounded-xl text-sm font-semibold transition-colors border-2 border-teal-200 flex-shrink-0 w-2/5"
+                        className="flex items-center justify-center gap-2 px-4 py-3 bg-teal-100 hover:bg-teal-200 text-teal-800 rounded-xl text-sm font-semibold border-2 border-teal-200 flex-shrink-0 w-2/5"
                       >
-                        <FaFilePdf className="w-4 h-4 text-teal-600" />
-                        <span>PDF</span>
+                        <FaFilePdf /> <span>PDF</span>
                       </Link>
-
                       <Link
                         href={card.applyLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 px-4 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-xl text-sm font-bold text-center transition-all shadow-lg"
+                        className="flex-1 px-4 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-xl text-sm font-bold transition-all shadow-lg text-center"
                       >
                         Apply Now
                       </Link>
@@ -591,185 +586,160 @@ export default function CreditCardsPage() {
         </div>
       </main>
 
-      {/* Why Choose Our Platform? - Fiscal Forum Value */}
+      {/* Why Choose Us */}
       <section className="py-16 bg-gradient-to-r from-emerald-800 to-teal-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Why Apply Through Fiscal Forum?
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Apply Through Fiscal Forum?</h2>
             <p className="text-xl md:text-2xl text-emerald-100 max-w-3xl mx-auto">
               We simplify your search and add value to your application.
             </p>
           </div>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 text-center">
-              <div className="w-14 h-14 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 flex items-center justify-center mx-auto mb-4">
-                <FaStar className="text-white w-6 h-6" />
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 text-center">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 flex items-center justify-center mx-auto mb-4">
+                  {i === 0 && <FaStar className="text-white w-6 h-6" />}
+                  {i === 1 && <FaFilePdf className="text-white w-6 h-6" />}
+                  {i === 2 && <FaInfoCircle className="text-white w-6 h-6" />}
+                  {i === 3 && (
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732L14.146 12.8l-1.179 4.456a1 1 0 01-1.934 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732L9.854 7.2l1.179-4.456A1 1 0 0112 2z" clipRule="evenodd" />
+                    </svg>
+                  )}
+                </div>
+                <h3 className="text-xl font-bold mb-2">{["Smart Matching", "Instant Access", "Exclusive Insights", "No Extra Cost"][i]}</h3>
+                <p className="text-emerald-100 text-base">
+                  {[
+                    "Enter your details once, and we show you the cards you're most likely to get approved for.",
+                    "Get instant access to detailed PDF guides for each card to make informed decisions.",
+                    "Benefit from our expert-curated insights and tips for maximizing card benefits.",
+                    "Apply directly through us without any hidden fees or commissions."
+                  ][i]}
+                </p>
               </div>
-              <h3 className="text-xl font-bold mb-2">Smart Matching</h3>
-              <p className="text-emerald-100 text-base">
-                Enter your details once, and we show you the cards you&apos;re most likely to get approved for.
-              </p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 text-center">
-              <div className="w-14 h-14 rounded-full bg-gradient-to-r from-teal-400 to-green-500 flex items-center justify-center mx-auto mb-4">
-                <FaFilePdf className="text-white w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Instant Access</h3>
-              <p className="text-emerald-100 text-base">
-                Get instant access to detailed PDF guides for each card to make informed decisions.
-              </p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 text-center">
-              <div className="w-14 h-14 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 flex items-center justify-center mx-auto mb-4">
-                <FaInfoCircle className="text-white w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Exclusive Insights</h3>
-              <p className="text-emerald-100 text-base">
-                Benefit from our expert-curated insights and tips for maximizing card benefits.
-              </p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 text-center">
-              <div className="w-14 h-14 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 flex items-center justify-center mx-auto mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732L14.146 12.8l-1.179 4.456a1 1 0 01-1.934 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732L9.854 7.2l1.179-4.456A1 1 0 0112 2z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-2">No Extra Cost</h3>
-              <p className="text-emerald-100 text-base">
-                Apply directly through us without any hidden fees or commissions.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Modal for Detailed Card Info */}
-      <Dialog open={isModalOpen} onClose={closeModal} className="relative z-50">
-        <DialogBackdrop
-          transition
-          className="fixed inset-0 bg-black/50 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
-        />
+      {/* Modal */}
+      {/* Modal */}
+<Dialog open={isModalOpen} onClose={closeModal} className="relative z-50">
+  <DialogBackdrop
+    transition
+    className="fixed inset-0 bg-black/50 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200"
+  />
 
-        <div className="fixed inset-0 flex w-screen items-center justify-center p-4 overflow-y-auto">
-          <DialogPanel
-            transition
-            className="relative w-full max-w-md sm:max-w-lg md:max-w-3xl transform rounded-3xl bg-white shadow-2xl transition-all duration-300 ease-out data-[closed]:scale-95 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in p-6 max-h-[90vh]"
-          >
-            {selectedCard && (
-              <>
-                <DialogTitle className="text-2xl sm:text-3xl font-bold text-emerald-900 mb-2">
-                  {selectedCard.cardName}
-                </DialogTitle>
-                <p className="text-emerald-700 text-lg mb-4">{selectedCard.bank}</p>
+  <div className="fixed inset-0 flex items-start justify-center p-4 sm:p-6 md:p-8 lg:p-10 z-50 overflow-y-auto">
+    <DialogPanel
+      transition
+      className="w-full max-w-3xl mx-auto mt-10 rounded-2xl sm:rounded-3xl bg-white shadow-2xl border border-gray-200 transform transition-all data-[closed]:scale-95 data-[closed]:opacity-0"
+    >
+      {selectedCard && (
+        <div className="p-4 sm:p-6 md:p-8 space-y-6">
+          <div className="text-center">
+            <DialogTitle className="text-xl sm:text-2xl md:text-3xl font-bold text-emerald-900">
+              {selectedCard.cardName}
+            </DialogTitle>
+            <p className="text-emerald-700 text-sm sm:text-base md:text-lg">{selectedCard.bank}</p>
+          </div>
 
-                {/* Card Image in Modal */}
-                <div className="flex justify-center mb-6">
-                  <div className="relative w-full max-w-[320px] h-[180px]">
-                    <Image
-                      src={selectedCard.cardImage}
-                      alt={`${selectedCard.cardName} Image`}
-                      fill
-                      sizes="100vw"
-                      className="object-contain"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = '/images/cards/placeholder_card.png';
-                      }}
-                    />
-                  </div>
+          <div className="flex justify-center">
+            <div className="relative w-full max-w-[260px] sm:max-w-[320px] h-[160px] sm:h-[180px]">
+              <Image
+                src={selectedCard.cardImage}
+                alt={`${selectedCard.cardName} Image`}
+                fill
+                className="object-contain"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/images/cards/placeholder_card.png';
+                }}
+              />
+            </div>
+          </div>
+
+          {(selectedCard.cashbackRate || selectedCard.rewardPoints || selectedCard.welcomeBonus) && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+              {selectedCard.cashbackRate && (
+                <div className="bg-emerald-50 rounded-xl p-3 sm:p-4 text-center border border-emerald-100">
+                  <p className="text-xs sm:text-sm text-emerald-800 font-semibold">Cashback Rate</p>
+                  <p className="text-base sm:text-lg font-bold text-emerald-600">{selectedCard.cashbackRate}</p>
                 </div>
-
-                {/* Rewards Highlights in Modal */}
-                {(selectedCard.cashbackRate || selectedCard.rewardPoints || selectedCard.welcomeBonus) && (
-                  <div className="grid grid-cols-3 gap-3 mb-6">
-                    {selectedCard.cashbackRate && (
-                      <div className="bg-emerald-50 rounded-xl p-4 text-center border-2 border-emerald-100">
-                        <p className="text-sm text-emerald-800 font-semibold">Cashback Rate</p>
-                        <p className="text-lg font-bold text-emerald-600">{selectedCard.cashbackRate}</p>
-                      </div>
-                    )}
-                    {selectedCard.rewardPoints && (
-                      <div className="bg-teal-50 rounded-xl p-4 text-center border-2 border-teal-100">
-                        <p className="text-sm text-teal-800 font-semibold">Reward Points</p>
-                        <p className="text-lg font-bold text-teal-600">{selectedCard.rewardPoints}</p>
-                      </div>
-                    )}
-                    {selectedCard.welcomeBonus && (
-                      <div className="bg-green-50 rounded-xl p-4 text-center border-2 border-green-100">
-                        <p className="text-sm text-green-800 font-semibold">Welcome Bonus</p>
-                        <p className="text-lg font-bold text-green-600">{selectedCard.welcomeBonus}</p>
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                {/* Detailed Benefits */}
-                <div className="mb-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 border-b-2 border-gray-200 pb-2">Benefits</h3>
-                  <ul className="space-y-3">
-                    {selectedCard.detailedBenefits.map((benefit, i) => (
-                      <li key={i} className="text-base text-gray-700 flex items-start gap-3">
-                        <span className="text-emerald-500 mt-1.5 text-lg">✓</span>
-                        <span>{benefit}</span>
-                      </li>
-                    ))}
-                  </ul>
+              )}
+              {selectedCard.rewardPoints && (
+                <div className="bg-teal-50 rounded-xl p-3 sm:p-4 text-center border border-teal-100">
+                  <p className="text-xs sm:text-sm text-teal-800 font-semibold">Reward Points</p>
+                  <p className="text-base sm:text-lg font-bold text-teal-600">{selectedCard.rewardPoints}</p>
                 </div>
-
-                {/* How to Apply (in Modal) */}
-                <div className="mb-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 border-b-2 border-gray-200 pb-2">How to Apply</h3>
-                  <ol className="space-y-3 list-decimal list-inside text-base text-gray-700 pl-2">
-                    {selectedCard.howToApply.map((step, i) => (
-                      <li key={i}>{step}</li>
-                    ))}
-                  </ol>
+              )}
+              {selectedCard.welcomeBonus && (
+                <div className="bg-green-50 rounded-xl p-3 sm:p-4 text-center border border-green-100">
+                  <p className="text-xs sm:text-sm text-green-800 font-semibold">Welcome Bonus</p>
+                  <p className="text-base sm:text-lg font-bold text-green-600">{selectedCard.welcomeBonus}</p>
                 </div>
+              )}
+            </div>
+          )}
 
-                {/* Eligibility Note (in Modal) */}
-                <div className="mb-7">
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 border-b-2 border-gray-200 pb-2">Eligibility</h3>
-                  <p className="text-base text-gray-700 italic">{selectedCard.eligibilityNote}</p>
-                </div>
+          <div>
+            <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 border-b-2 border-gray-200 pb-2">Benefits</h3>
+            <ul className="space-y-2 sm:space-y-3">
+              {selectedCard.detailedBenefits.map((benefit, i) => (
+                <li key={i} className="text-sm sm:text-base text-gray-700 flex items-start gap-2 sm:gap-3">
+                  <span className="text-emerald-500 mt-1.5 text-lg">✓</span>
+                  <span>{benefit}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-                {/* Modal Buttons */}
-                <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t-2 border-gray-200">
-                  <Link
-                    href={selectedCard.pdfLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-5 py-3 bg-teal-100 hover:bg-teal-200 text-teal-800 rounded-xl text-base font-semibold transition-colors border-2 border-teal-200 flex items-center justify-center gap-2"
-                  >
-                    <FaFilePdf className="w-5 h-5 text-teal-600" />
-                    <span>Download PDF</span>
-                  </Link>
-                  <Link
-                    href={selectedCard.applyLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-5 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-xl text-base font-bold text-center transition-all shadow-lg flex items-center justify-center gap-2"
-                  >
-                    Apply for this Card
-                  </Link>
-                  <button
-                    type="button"
-                    onClick={closeModal}
-                    className="px-5 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-xl text-base font-semibold transition-colors"
-                  >
-                    Close
-                  </button>
-                </div>
-              </>
-            )}
-          </DialogPanel>
+          <div>
+            <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 border-b-2 border-gray-200 pb-2">How to Apply</h3>
+            <ol className="space-y-2 sm:space-y-3 list-decimal list-inside text-sm sm:text-base text-gray-700 pl-2">
+              {selectedCard.howToApply.map((step, i) => (
+                <li key={i}>{step}</li>
+              ))}
+            </ol>
+          </div>
+
+          <div>
+            <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 border-b-2 border-gray-200 pb-2">Eligibility</h3>
+            <p className="text-sm sm:text-base text-gray-700 italic">{selectedCard.eligibilityNote}</p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t-2 border-gray-200">
+            <Link
+              href={selectedCard.pdfLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 sm:px-5 py-2.5 sm:py-3 bg-teal-100 hover:bg-teal-200 text-teal-800 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold border-2 border-teal-200 flex items-center justify-center gap-2"
+            >
+              <FaFilePdf className="w-4 h-4 sm:w-5 sm:h-5" /> <span>PDF</span>
+            </Link>
+            <Link
+              href={selectedCard.applyLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 sm:px-5 py-2.5 sm:py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-lg sm:rounded-xl text-sm sm:text-base font-bold flex items-center justify-center gap-2 shadow-lg"
+            >
+              Apply Now
+            </Link>
+            <button
+              type="button"
+              onClick={closeModal}
+              className="px-4 sm:px-5 py-2.5 sm:py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold"
+            >
+              Close
+            </button>
+          </div>
         </div>
-      </Dialog>
+      )}
+    </DialogPanel>
+  </div>
+</Dialog>
+
     </div>
   );
 }
