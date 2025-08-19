@@ -83,9 +83,9 @@ const LoanAgainstSecuritiesPage = () => {
       case 'overview':
         return (
           <div className="space-y-8">
-            <div className="bg-gradient-to-r from-slate-50 via-gray-50 to-slate-50 p-8 rounded-2xl">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">Loan Against Securities Overview</h3>
-              <p className="text-gray-700 text-lg leading-relaxed mb-6">
+            <div className="bg-gradient-to-r from-slate-50 via-cyan-50 to-slate-50 p-8 rounded-2xl">
+              <h3 className="text-2xl font-bold text-cyan-800 mb-4">Loan Against Securities Overview</h3>
+              <p className="text-cyan-700 text-lg leading-relaxed mb-6">
                 Get instant liquidity against your investment portfolio without selling your stocks or mutual funds. 
                 Whether you need funds for business, emergencies, or opportunities, leverage your securities 
                 while continuing to benefit from market appreciation.
@@ -93,15 +93,15 @@ const LoanAgainstSecuritiesPage = () => {
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="text-center">
                   <div className="text-3xl font-bold text-slate-600 mb-2">7.8%</div>
-                  <div className="text-gray-600">Starting Interest Rate</div>
+                  <div className="text-cyan-600">Starting Interest Rate</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-slate-600 mb-2">₹1.5 Cr</div>
-                  <div className="text-gray-600">Maximum Loan Amount</div>
+                  <div className="text-cyan-600">Maximum Loan Amount</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold text-slate-600 mb-2">7 Years</div>
-                  <div className="text-gray-600">Maximum Tenure</div>
+                  <div className="text-cyan-600">Maximum Tenure</div>
                 </div>
               </div>
             </div>
@@ -111,7 +111,7 @@ const LoanAgainstSecuritiesPage = () => {
                 {benefits.map((benefit, index) => (
                   <div key={index} className="flex items-start gap-3">
                     <TrendingUp className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" />
-                    <span className="text-gray-700">{benefit}</span>
+                    <span className="text-cyan-700">{benefit}</span>
                   </div>
                 ))}
               </div>
@@ -121,12 +121,12 @@ const LoanAgainstSecuritiesPage = () => {
       case 'eligibility':
         return (
           <div className="space-y-6">
-            <h3 className="text-2xl font-bold text-gray-800">Eligibility Criteria</h3>
+            <h3 className="text-2xl font-bold text-cyan-800">Eligibility Criteria</h3>
             <div className="grid gap-4">
               {eligibilityCriteria.map((criteria, index) => (
                 <div key={index} className="flex items-start gap-3 p-4 bg-slate-50 rounded-lg">
                   <Users className="w-5 h-5 text-slate-600 mt-1 flex-shrink-0" />
-                  <span className="text-gray-700">{criteria}</span>
+                  <span className="text-cyan-700">{criteria}</span>
                 </div>
               ))}
             </div>
@@ -135,12 +135,12 @@ const LoanAgainstSecuritiesPage = () => {
       case 'documents':
         return (
           <div className="space-y-6">
-            <h3 className="text-2xl font-bold text-gray-800">Required Documents</h3>
+            <h3 className="text-2xl font-bold text-cyan-800">Required Documents</h3>
             <div className="grid gap-4">
               {requiredDocuments.map((doc, index) => (
                 <div key={index} className="flex items-start gap-3 p-4 bg-slate-50 rounded-lg">
                   <FileText className="w-5 h-5 text-slate-600 mt-1 flex-shrink-0" />
-                  <span className="text-gray-700">{doc}</span>
+                  <span className="text-cyan-700">{doc}</span>
                 </div>
               ))}
             </div>
@@ -149,12 +149,12 @@ const LoanAgainstSecuritiesPage = () => {
       case 'calculator':
         return (
           <div className="space-y-6">
-            <h3 className="text-2xl font-bold text-gray-800">EMI Calculator</h3>
-            <div className="bg-gradient-to-r from-slate-50 via-gray-50 to-slate-50 p-8 rounded-2xl">
+            <h3 className="text-2xl font-bold text-cyan-800">EMI Calculator</h3>
+            <div className="bg-gradient-to-r from-slate-50 via-cyan-50 to-slate-50 p-8 rounded-2xl">
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-cyan-700 mb-2">
                       Loan Amount: ₹{loanAmount.toLocaleString()}
                     </label>
                     <input
@@ -168,7 +168,7 @@ const LoanAgainstSecuritiesPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-cyan-700 mb-2">
                       Tenure: {tenure} years
                     </label>
                     <input
@@ -181,7 +181,7 @@ const LoanAgainstSecuritiesPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-cyan-700 mb-2">
                       Interest Rate: {interestRate}%
                     </label>
                     <input
@@ -196,11 +196,11 @@ const LoanAgainstSecuritiesPage = () => {
                   </div>
                 </div>
                 <div className="bg-white p-6 rounded-xl shadow-lg">
-                  <h4 className="text-lg font-bold text-gray-800 mb-4">Monthly EMI</h4>
+                  <h4 className="text-lg font-bold text-cyan-800 mb-4">Monthly EMI</h4>
                   <div className="text-4xl font-bold text-slate-600 mb-4">
                     ₹{calculateEMI().toLocaleString()}
                   </div>
-                  <div className="space-y-2 text-sm text-gray-600">
+                  <div className="space-y-2 text-sm text-cyan-600">
                     <div className="flex justify-between">
                       <span>Principal Amount:</span>
                       <span>₹{loanAmount.toLocaleString()}</span>
@@ -222,7 +222,7 @@ const LoanAgainstSecuritiesPage = () => {
       case 'rates':
         return (
           <div className="space-y-6">
-            <h3 className="text-2xl font-bold text-gray-800">Interest Rates</h3>
+            <h3 className="text-2xl font-bold text-cyan-800">Interest Rates</h3>
             <div className="overflow-x-auto">
               <table className="w-full bg-white rounded-lg shadow-lg overflow-hidden">
                 <thead className="bg-slate-600 text-white">
@@ -234,7 +234,7 @@ const LoanAgainstSecuritiesPage = () => {
                 <tbody>
                   {interestRates.map((rate, index) => (
                     <tr key={index} className={index % 2 === 0 ? 'bg-slate-50' : 'bg-white'}>
-                      <td className="px-6 py-4 text-gray-800">{rate.category}</td>
+                      <td className="px-6 py-4 text-cyan-800">{rate.category}</td>
                       <td className="px-6 py-4 text-slate-600 font-semibold">{rate.rate}</td>
                     </tr>
                   ))}
@@ -246,7 +246,7 @@ const LoanAgainstSecuritiesPage = () => {
       case 'process':
         return (
           <div className="space-y-6">
-            <h3 className="text-2xl font-bold text-gray-800">Application Process</h3>
+            <h3 className="text-2xl font-bold text-cyan-800">Application Process</h3>
             <div className="space-y-4">
               {applicationProcess.map((step, index) => (
                 <div key={index} className="flex items-start gap-4 p-6 bg-slate-50 rounded-lg">
@@ -254,8 +254,8 @@ const LoanAgainstSecuritiesPage = () => {
                     {step.step}
                   </div>
                   <div>
-                    <h4 className="font-bold text-gray-800 mb-2">{step.title}</h4>
-                    <p className="text-gray-600">{step.description}</p>
+                    <h4 className="font-bold text-cyan-800 mb-2">{step.title}</h4>
+                    <p className="text-cyan-600">{step.description}</p>
                   </div>
                 </div>
               ))}
@@ -268,9 +268,9 @@ const LoanAgainstSecuritiesPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-cyan-100">
       {/* Header */}
-      <div className="bg-gradient-to-r from-slate-600 via-gray-600 to-slate-700 text-white">
+      <div className="bg-gradient-to-r from-slate-600 via-cyan-600 to-slate-700 text-white">
         <div className="max-w-7xl mx-auto px-4 py-16 h-[40vh] flex items-center">
           <div className="flex items-center gap-4 mb-6">
             <div className="bg-white/20 p-3 rounded-xl">
@@ -300,7 +300,7 @@ const LoanAgainstSecuritiesPage = () => {
                   className={`flex items-center gap-2 px-6 py-4 font-medium whitespace-nowrap border-b-2 transition-colors ${
                     activeTab === tab.id
                       ? 'border-slate-600 text-slate-600'
-                      : 'border-transparent text-gray-600 hover:text-gray-800'
+                      : 'border-transparent text-cyan-600 hover:text-cyan-800'
                   }`}
                 >
                   <IconComponent className="w-4 h-4" />
@@ -319,7 +319,7 @@ const LoanAgainstSecuritiesPage = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="mt-12 bg-gradient-to-r from-slate-600 via-gray-600 to-slate-700 rounded-2xl p-8 text-white text-center">
+        <div className="mt-12 bg-gradient-to-r from-slate-600 via-cyan-600 to-slate-700 rounded-2xl p-8 text-white text-center">
           <h3 className="text-2xl font-bold mb-4">Need Instant Liquidity?</h3>
           <p className="text-lg mb-6 opacity-90">
             Apply now and get pre-approved within 24 hours
@@ -327,7 +327,7 @@ const LoanAgainstSecuritiesPage = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => router.push('/services/loan/loan-against-securities/apply')}
-              className="bg-white text-slate-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center gap-2"
+              className="bg-white text-slate-600 px-8 py-3 rounded-full font-semibold hover:bg-cyan-100 transition-colors flex items-center justify-center gap-2"
             >
               Apply Now
               <ArrowRight className="w-4 h-4" />

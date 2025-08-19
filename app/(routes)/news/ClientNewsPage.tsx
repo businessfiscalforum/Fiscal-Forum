@@ -58,11 +58,14 @@ export interface Newsletter {
   link: string;
 }
 
-interface StockIndex {
+// Interface for data fetched from the API route
+interface ApiIndexData {
+  symbol: string;
   name: string;
   value: number;
   change: number;
   percentageChange: number;
+  error?: string; // Optional error field for individual indices
 }
 
 // --- Main Component ---
@@ -82,7 +85,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState<"latest" | "popular">("latest");
-  const itemsPerPage = 9; // Adjust if needed for the new layout
+  const itemsPerPage = 9;
 
   // --- API & Data States ---
   const [newsByTab, setNewsByTab] = useState<Record<string, NewsItem[]>>({
@@ -93,34 +96,15 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
   const [newsletter, setNewsletter] = useState<Newsletter[]>([]);
   const [newsletterLoading, setNewsletterLoading] = useState(true);
 
-  // --- Dummy Data for Stock Indices (as in KB) ---
-  const stockIndices: StockIndex[] = [
-    {
-      name: "NIFTY 50",
-      value: 18500.5,
-      change: 150.25,
-      percentageChange: 0.82,
-    },
-    {
-      name: "SENSEX",
-      value: 62000.75,
-      change: -200.5,
-      percentageChange: -0.32,
-    },
-    { name: "NASDAQ", value: 14500.75, change: 75.5, percentageChange: 0.52 },
-    {
-      name: "Dow Jones",
-      value: 35000.25,
-      change: 100.75,
-      percentageChange: 0.29,
-    },
-  ];
+  // --- NEW: States for Real-Time Stock Data ---
+  const [stockIndices, setStockIndices] = useState<ApiIndexData[]>([]);
+  const [stockLoading, setStockLoading] = useState(true);
+  const [stockError, setStockError] = useState<string | null>(null);
 
   // --- API Fetching Effect for News ---
   useEffect(() => {
-    // If data for the newly active tab is already loaded, don't fetch
     if (newsByTab[activeTab]) {
-      setCurrentPage(1); // Reset page when switching tabs
+      setCurrentPage(1);
       return;
     }
 
@@ -128,21 +112,19 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
       setLoading(true);
       setError(null);
       try {
-        // Map tab ID to your API endpoint
         let apiUrl = "";
         switch (tabId) {
           case "news-buzz":
-            // If somehow news-buzz data needs refetching, or you have a specific endpoint
             apiUrl = "/api/news/news-buzz";
             break;
           case "corp-pulse":
-            apiUrl = "/api/news/corp-pulse"; // Adjust to your actual API endpoint
+            apiUrl = "/api/news/corp-pulse";
             break;
           case "ipo-scoop":
-            apiUrl = "/api/news/ipo-scoop"; // Adjust to your actual API endpoint
+            apiUrl = "/api/news/ipo-scoop";
             break;
           default:
-            apiUrl = "/api/news"; // Fallback endpoint
+            apiUrl = "/api/news";
         }
 
         const response = await fetch(apiUrl);
@@ -152,69 +134,103 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data: NewsItem[] = await response.json();
-
-        // Update state with fetched data for the specific tab
         setNewsByTab((prev) => ({ ...prev, [tabId]: data }));
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         console.error(`Failed to fetch ${activeTab} news:`, err);
         setError(`Failed to load ${tabId} news. Please try again later.`);
       } finally {
         setLoading(false);
-        setCurrentPage(1); // Reset to first page after loading new data
+        setCurrentPage(1);
       }
     };
 
-    // Only fetch if it's NOT the initial tab (news-buzz) or if you explicitly want to fetch it
-    // For now, we assume initialNews covers news-buzz
     if (activeTab !== "news-buzz") {
       fetchNewsForTab(activeTab);
     } else {
-      // Even if news-buzz, reset page
       setCurrentPage(1);
     }
-  }, [activeTab, newsByTab]); // Depend on activeTab
+  }, [activeTab, newsByTab]);
 
   // --- API Fetching Effect for Newsletter ---
   useEffect(() => {
     const fetchNewsletter = async () => {
       setNewsletterLoading(true);
-      setError(null); // Clear previous errors for newsletter
+      setError(null);
       try {
         const response = await fetch("/api/newsletter");
         if (!response.ok) {
           const errorText = await response.text();
-          console.error(
-            `Newsletter API Error (${response.status}):`,
-            errorText
-          );
+          console.error(`Newsletter API Error (${response.status}):`, errorText);
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data: Newsletter[] = await response.json();
         setNewsletter(data);
       } catch (err) {
         console.error("Failed to fetch newsletter:", err);
-        // setError is for news, use a separate state or log for newsletter errors if needed
-        // For now, just log and let the UI show "No newsletters"
       } finally {
         setNewsletterLoading(false);
       }
     };
 
     fetchNewsletter();
-  }, []); // Fetch newsletter once on component mount
+  }, []);
 
-  // --- Data Processing ---
-  // Get the news data specifically for the active tab
+  // --- NEW: API Fetching Effect for Stock Data ---
+  useEffect(() => {
+    let isMounted = true; // Flag to prevent state updates if component unmounts
+
+    const fetchStockData = async () => {
+      setStockLoading(true);
+      setStockError(null);
+      try {
+        // --- FETCH FROM YOUR NEW API ROUTE ---
+        const response = await fetch("/api/yahoo-stock-data");
+        // --- END FETCH ---
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+
+        if (data.error) {
+          throw new Error(data.error);
+        }
+
+        if (isMounted) {
+          setStockIndices(data.indices); // Set the fetched indices data
+        }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (err: any) {
+        console.error("Failed to fetch stock data (Yahoo):", err);
+        if (isMounted) {
+          setStockError(err.message || "Failed to load market data.");
+        }
+      } finally {
+        if (isMounted) {
+          setStockLoading(false);
+        }
+      }
+    };
+
+    fetchStockData();
+
+    // Optional: Set up polling for updates (e.g., every 60 seconds for delayed data)
+    const intervalId = setInterval(fetchStockData, 60000); // 60 seconds
+
+    // Cleanup function to clear interval and prevent memory leaks
+    return () => {
+      isMounted = false;
+      clearInterval(intervalId);
+    };
+  }, []); // Empty dependency array: run once on mount
+
+  // --- Data Processing (News) ---
   const currentNewsData = newsByTab[activeTab] || [];
-
-  // Extract unique categories from the *current tab's* data
   const categories = [
     "all",
     ...new Set(currentNewsData.map((news) => news.category || "Uncategorized")),
   ];
 
-  // Filter and sort the current tab's news based on UI controls
   const filteredNews = currentNewsData
     .filter(
       (news) =>
@@ -237,7 +253,6 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
       return 0;
     });
 
-  // Pagination logic
   const totalPages = Math.ceil(filteredNews.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentNews = filteredNews.slice(startIndex, startIndex + itemsPerPage);
@@ -251,7 +266,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       year: "numeric",
-      month: "short", // Short month like "Jan"
+      month: "short",
       day: "numeric",
     });
   };
@@ -418,7 +433,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                   </h3>
                   <p className="text-gray-600 mb-6">{error}</p>
                   <button
-                    onClick={() => window.location.reload()} // Simple retry
+                    onClick={() => window.location.reload()}
                     className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
                   >
                     Retry
@@ -428,42 +443,65 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                 activeTab === "news-buzz" ? (
                   // News Buzz - Newspaper Style Layout (as in KB)
                   <div className="space-y-8">
-                    {/* Stock Indices Section - Updated Theme */}
+                    {/* Stock Indices Section - Updated to use real-time data */}
                     <div className="bg-white rounded-lg shadow-lg p-6 mb-6 border border-emerald-100">
-                      <h2 className="text-2xl font-bold mb-4 text-emerald-800">
-                        Market Snapshot
-                      </h2>
+                      <div className="flex justify-between items-center mb-4">
+                        <h2 className="text-2xl font-bold text-emerald-800">
+                          Market Snapshot
+                        </h2>
+                        {/* Show loading indicator or error inline */}
+                        {stockLoading && <span className="text-sm text-gray-500">Loading market data...</span>}
+                        {stockError && <span className="text-sm text-red-500">({stockError})</span>}
+                      </div>
+                      {stockLoading ? (
+                         <div className="flex justify-center py-4">
+                           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-emerald-500"></div>
+                         </div>
+                       ) : stockError ? (
+                         <p className="text-center text-gray-500 py-4">Error loading market data: {stockError}</p>
+                       ) : stockIndices.length > 0 ? (
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        {stockIndices.map((index, idx) => (
+                        {stockIndices.map((index) => (
+                          // Handle potential errors for individual indices
                           <div
-                            key={idx}
-                            className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-lg p-4 flex items-center gap-4 border border-emerald-100 shadow-sm"
+                            key={index.symbol}
+                            className={`bg-gradient-to-r from-emerald-50 to-teal-50 rounded-lg p-4 flex items-center gap-4 border border-emerald-100 shadow-sm ${index.error ? 'opacity-70' : ''}`}
                           >
-                            <div className="bg-emerald-500 text-white rounded-full p-3">
-                              <FaChartLine />
+                            <div className={`rounded-full p-3 ${index.error ? 'bg-gray-300' : 'bg-emerald-500 text-white'}`}>
+                              {index.error ? '?' : <FaChartLine /> }
                             </div>
                             <div>
-                              <p className="text-lg font-semibold text-emerald-800">
+                              <p className={`text-lg font-semibold ${index.error ? 'text-gray-500' : 'text-emerald-800'}`}>
                                 {index.name}
                               </p>
+                              {index.error ? (
+                                <p className="text-xs text-gray-500">{index.error}</p>
+                              ) : (
                               <p className="text-sm text-gray-600">
-                                {index.value.toLocaleString()}{" "}
+                                {index.value.toLocaleString(undefined, { maximumFractionDigits: 2 })}{" "}
                                 <span
                                   className={`font-bold ${
                                     index.change > 0
                                       ? "text-green-500"
-                                      : "text-red-500"
+                                      : index.change < 0
+                                      ? "text-red-500"
+                                      : "text-gray-500"
                                   }`}
                                 >
-                                  {index.change > 0 ? "+" : ""}
+                                  {/* Ensure sign is shown for positive numbers */}
+                                  {index.change >= 0 ? "+" : ""}
                                   {index.change.toFixed(2)} (
                                   {index.percentageChange.toFixed(2)}%)
                                 </span>
                               </p>
+                              )}
                             </div>
                           </div>
                         ))}
                       </div>
+                       ) : (
+                         <p className="text-center text-gray-500 py-4">No market data available.</p>
+                       )}
                     </div>
 
                     {/* Featured News */}
@@ -476,7 +514,6 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                         >
                           <div className="relative h-100">
                             {currentNews[0].image ? (
-                              // Use img tag or next/image correctly
                               <Image
                                 src={currentNews[0].image}
                                 width={400}
@@ -524,7 +561,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                         <h3 className="text-xl font-bold text-emerald-800 border-b-2 border-emerald-500 pb-2">
                           Top Stories
                         </h3>
-                        {currentNews.slice(1, 4).map((news, index) => (
+                        {currentNews.slice(1, 4).map((news) => (
                           <div
                             key={news.id}
                             className="flex gap-4 cursor-pointer group p-4 rounded-lg hover:bg-emerald-50/50 transition-colors duration-300 border border-transparent hover:border-emerald-200"
@@ -566,7 +603,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                     {/* Removed "Latest News" Grid Section */}
                   </div>
                 ) : (
-                  // Corp Pulse & IPO Scoop - Text List Layout (Economic Times Style) (as in KB)
+                  // Corp Pulse & IPO Scoop - Text List Layout
                   <div className="bg-white rounded-2xl shadow-lg p-6 border border-emerald-100">
                     <div className="space-y-6">
                       {currentNews.map((news, index) => (
@@ -804,27 +841,23 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                   </div>
                 ) : newsletter.length > 0 ? (
                   <div className="space-y-6">
-                    {newsletter.slice(0, 5).map(
-                      (
-                        item // Adjust number shown if needed
-                      ) => (
-                        <div
-                          key={item.id}
-                          className="border-b border-emerald-100 pb-4 last:border-0 last:pb-0 cursor-pointer group hover:bg-emerald-50/30 p-2 rounded transition-colors duration-200"
-                          onClick={() => handleNewsClick(item.link)} // Assuming newsletter items have links
-                        >
-                          <h4 className="font-bold text-emerald-900 group-hover:text-emerald-600 text-sm md:text-base line-clamp-2">
-                            {item.title}
-                          </h4>
-                          <p className="text-emerald-700 text-xs md:text-sm line-clamp-2 mt-1">
-                            {item.description}
-                          </p>
-                          <p className="text-emerald-600 text-xs mt-2">
-                            {formatDate(item.publishDate)}
-                          </p>
-                        </div>
-                      )
-                    )}
+                    {newsletter.slice(0, 5).map((item) => (
+                      <div
+                        key={item.id}
+                        className="border-b border-emerald-100 pb-4 last:border-0 last:pb-0 cursor-pointer group hover:bg-emerald-50/30 p-2 rounded transition-colors duration-200"
+                        onClick={() => handleNewsClick(item.link)}
+                      >
+                        <h4 className="font-bold text-emerald-900 group-hover:text-emerald-600 text-sm md:text-base line-clamp-2">
+                          {item.title}
+                        </h4>
+                        <p className="text-emerald-700 text-xs md:text-sm line-clamp-2 mt-1">
+                          {item.description}
+                        </p>
+                        <p className="text-emerald-600 text-xs mt-2">
+                          {formatDate(item.publishDate)}
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 ) : (
                   <p className="text-emerald-600 text-sm">
@@ -834,7 +867,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
 
                 <div className="mt-6 pt-6 border-t border-emerald-200">
                   <Link
-                    href="/newsletter" // Link to a dedicated newsletter page if you have one
+                    href="/newsletter"
                     className="flex items-center gap-2 text-emerald-600 hover:text-emerald-800 font-medium text-sm md:text-base"
                   >
                     View All Newsletters <FaArrowRight />

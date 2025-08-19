@@ -27,8 +27,16 @@ import {
   FaAward,
   FaBalanceScale,
   FaBolt,
+  FaBriefcase,
+  FaBuilding,
+  FaCar,
+  FaCoins,
+  FaGraduationCap,
+  FaHome,
   FaRegMoneyBillAlt,
   FaRocket,
+  FaShieldAlt,
+  FaUser,
 } from "react-icons/fa";
 
 const slides = [
@@ -38,7 +46,6 @@ const slides = [
     description:
       "Choose from personal, home, or education loans with low interest rates and flexible repayment options.",
     image: "/asset-loan.jpg",
-    gradient: "from-blue-600 via-blue-500 to-purple-600",
     path: "/services/loan",
   },
   {
@@ -56,7 +63,7 @@ const slides = [
     description:
       "High-interest savings accounts with zero balance requirements and easy online access.",
     image: "/asset-saving.jpg",
-    gradient: "from-green-600 via-emerald-500 to-teal-600",
+    gradient: "from-teal-600 via-emerald-500 to-green-600",
     path: "/services/saving-account",
   },
   {
@@ -65,7 +72,7 @@ const slides = [
     description:
       "Build a diversified portfolio and start investing in the stock market with expert guidance.",
     image: "/asset-stock.jpg",
-    gradient: "from-violet-600 via-purple-500 to-indigo-600",
+    gradient: "from-emerald-600 via-green-500 to-teal-600",
     path: "/services/stock-investment",
   },
   {
@@ -74,7 +81,7 @@ const slides = [
     description:
       "Access professionally managed mutual funds to meet your financial goals across risk profiles.",
     image: "/asset-mutual.jpg",
-    gradient: "from-cyan-600 via-blue-500 to-indigo-600",
+    gradient: "from-cyan-600 via-teal-500 to-emerald-600",
     path: "/services/mutual-funds",
   },
   {
@@ -83,7 +90,7 @@ const slides = [
     description:
       "Choose the right credit card for rewards, cashback, and low-interest EMIs.",
     image: "/asset-credit.jpg",
-    gradient: "from-orange-600 via-red-500 to-pink-600",
+    gradient: "from-green-500 via-teal-500 to-emerald-600",
     path: "/services/credit-card",
   },
   {
@@ -92,7 +99,7 @@ const slides = [
     description:
       "Low-risk government bonds and fixed deposits to preserve capital and earn steady returns.",
     image: "/asset-bondfd.jpg",
-    gradient: "from-yellow-600 via-amber-500 to-orange-600",
+    gradient: "from-teal-600 via-emerald-500 to-green-600",
     path: "/services/govts-bond-&-fd",
   },
 ];
@@ -105,7 +112,7 @@ const LoanLandingPage = () => {
     phone: "",
     loanAmount: 7500000,
     tenure: 20,
-    interestRate: 8.5, // 👈 New: Dynamic interest rate
+    interestRate: 8.5,
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -133,7 +140,7 @@ const LoanLandingPage = () => {
         phone: formData.phone.trim(),
         loanAmount: formData.loanAmount,
         tenure: formData.tenure,
-        interestRate: formData.interestRate, // Include in payload
+        interestRate: formData.interestRate,
         loanType: "home-loan",
       };
 
@@ -200,139 +207,110 @@ const LoanLandingPage = () => {
     features: string[];
     rate: string;
     maxAmount: string;
-    gradient: string;
+    link: string;
+    iconColor:string;
+    iconBgColor:string;
   };
 
   const loanTypes: LoanType[] = [
-    {
-      id: "home-loan",
-      title: "Home Loan",
-      icon: Home,
-      description:
-        "Buy your dream home with competitive interest rates starting from 8.5% per annum",
-      features: [
-        "Up to ₹5 Crores",
-        "Tenure up to 30 years",
-        "Minimal documentation",
-        "Quick approval",
-      ],
-      rate: "8.5% onwards",
-      maxAmount: "₹5 Cr",
-      gradient: "from-blue-500 to-blue-600",
-    },
-    {
-      id: "loan-against-property",
-      title: "Loan Against Property",
-      icon: Building,
-      description:
-        "Unlock the value of your property for any financial need with attractive rates",
-      features: [
-        "Up to ₹10 Crores",
-        "Flexible repayment",
-        "Retain property ownership",
-        "Multiple end-use",
-      ],
-      rate: "9.0% onwards",
-      maxAmount: "₹10 Cr",
-      gradient: "from-emerald-500 to-emerald-600",
-    },
-    {
-      id: "personal-loan",
-      title: "Personal Loan",
-      icon: User,
-      description:
-        "Meet your personal financial goals with instant approval and no collateral",
-      features: [
-        "Up to ₹40 Lakhs",
-        "No collateral required",
-        "Instant approval",
-        "Flexible tenure",
-      ],
-      rate: "10.5% onwards",
-      maxAmount: "₹40 L",
-      gradient: "from-purple-500 to-purple-600",
-    },
-    {
-      id: "business-loan",
-      title: "Business Loan",
-      icon: Briefcase,
-      description:
-        "Grow your business with customized financing solutions and expert guidance",
-      features: [
-        "Up to ₹50 Crores",
-        "Working capital",
-        "Equipment financing",
-        "Overdraft facility",
-      ],
-      rate: "11.0% onwards",
-      maxAmount: "₹50 Cr",
-      gradient: "from-orange-500 to-orange-600",
-    },
-    {
-      id: "gold-loan",
-      title: "Gold Loan",
-      icon: Coins,
-      description:
-        "Get instant cash against your gold ornaments with minimal paperwork",
-      features: [
-        "Up to ₹1 Crore",
-        "Instant approval",
-        "Retain gold ownership",
-        "Flexible repayment",
-      ],
-      rate: "7.5% onwards",
-      maxAmount: "₹1 Cr",
-      gradient: "from-yellow-500 to-yellow-600",
-    },
-    {
-      id: "car-loan",
-      title: "Car Loan",
-      icon: Car,
-      description:
-        "Drive home your dream car with easy EMIs and quick processing",
-      features: [
-        "Up to ₹2 Crores",
-        "New & used cars",
-        "Up to 90% financing",
-        "Quick disbursal",
-      ],
-      rate: "8.0% onwards",
-      maxAmount: "₹2 Cr",
-      gradient: "from-red-500 to-red-600",
-    },
-    {
-      id: "education-loan",
-      title: "Education Loan",
-      icon: GraduationCap,
-      description:
-        "Invest in your future with comprehensive education financing solutions",
-      features: [
-        "Up to ₹1.5 Crores",
-        "Abroad & domestic",
-        "Moratorium period",
-        "Tax benefits",
-      ],
-      rate: "9.5% onwards",
-      maxAmount: "₹1.5 Cr",
-      gradient: "from-indigo-500 to-indigo-600",
-    },
-    {
-      id: "loan-against-securities",
-      title: "Loan Against Securities",
-      icon: ShieldCheck,
-      description: "Get instant liquidity against securities while they grow",
-      features: [
-        "Up to ₹1.5 Crores",
-        "Retain ownership of securities",
-        "Quick processing & disbursal",
-        "Tax-efficient financing",
-      ],
-      rate: "9.5% onwards",
-      maxAmount: "₹1.5 Cr",
-      gradient: "from-slate-500 to-gray-600",
-    },
-  ];
-
+  {
+    id: "home-loan",
+    title: "Home Loan",
+    icon: FaHome,
+    description:
+      "Buy your dream home with competitive interest rates starting from 8.5% per annum",
+    features: ["Up to ₹5 Crores", "Tenure up to 30 years", "Minimal documentation", "Quick approval"],
+    rate: "8.5% onwards",
+    maxAmount: "₹5 Cr",
+    link: "/services/loan/home-loan",
+    iconBgColor: "bg-blue-100",
+    iconColor: "text-blue-600",
+  },
+  {
+    id: "loan-against-property",
+    title: "Loan Against Property",
+    icon: FaBuilding,
+    description: "Unlock the value of your property for any financial need with attractive rates",
+    features: ["Up to ₹10 Crores", "Flexible repayment", "Retain property ownership", "Multiple end-use"],
+    rate: "9.0% onwards",
+    maxAmount: "₹10 Cr",
+    link: "/services/loan/loan-against-property",
+    iconBgColor: "bg-emerald-100",
+    iconColor: "text-emerald-600",
+  },
+  {
+    id: "personal-loan",
+    title: "Personal Loan",
+    icon: FaUser,
+    description: "Meet your personal financial goals with instant approval and no collateral",
+    features: ["Up to ₹40 Lakhs", "No collateral required", "Instant approval", "Flexible tenure"],
+    rate: "10.5% onwards",
+    maxAmount: "₹40 L",
+    link: "/services/loan/personal-loan",
+    iconBgColor: "bg-purple-100",
+    iconColor: "text-purple-600",
+  },
+  {
+    id: "business-loan",
+    title: "Business Loan",
+    icon: FaBriefcase,
+    description: "Grow your business with customized financing solutions and expert guidance",
+    features: ["Up to ₹50 Crores", "Working capital", "Equipment financing", "Overdraft facility"],
+    rate: "11.0% onwards",
+    maxAmount: "₹50 Cr",
+    link: "/services/loan/business-loan",
+    iconBgColor: "bg-orange-100",
+    iconColor: "text-orange-600",
+  },
+  {
+    id: "gold-loan",
+    title: "Gold Loan",
+    icon: FaCoins,
+    description: "Get instant cash against your gold ornaments with minimal paperwork",
+    features: ["Up to ₹1 Crore", "Instant approval", "Retain gold ownership", "Flexible repayment"],
+    rate: "7.5% onwards",
+    maxAmount: "₹1 Cr",
+    link: "/services/loan/gold-loan",
+    iconBgColor: "bg-yellow-100",
+    iconColor: "text-yellow-500",
+  },
+  {
+    id: "car-loan",
+    title: "Car Loan",
+    icon: FaCar,
+    description: "Drive home your dream car with easy EMIs and quick processing",
+    features: ["Up to ₹2 Crores", "New & used cars", "Up to 90% financing", "Quick disbursal"],
+    rate: "8.0% onwards",
+    maxAmount: "₹2 Cr",
+    link: "/services/loan/car-loan",
+    iconBgColor: "bg-red-100",
+    iconColor: "text-red-500",
+  },
+  {
+    id: "education-loan",
+    title: "Education Loan",
+    icon: FaGraduationCap,
+    description: "Invest in your future with comprehensive education financing solutions",
+    features: ["Up to ₹1.5 Crores", "Abroad & domestic", "Moratorium period", "Tax benefits"],
+    rate: "9.5% onwards",
+    maxAmount: "₹1.5 Cr",
+    link: "/services/loan/education-loan",
+    iconBgColor: "bg-indigo-100",
+    iconColor: "text-indigo-500",
+  },
+  {
+    id: "loan-against-securities",
+    title: "Loan Against Securities",
+    icon: FaShieldAlt,
+    description: "Get instant liquidity against securities while they grow",
+    features: ["Up to ₹1.5 Crores", "Retain ownership of securities", "Quick processing & disbursal", "Tax-efficient financing"],
+    rate: "9.5% onwards",
+    maxAmount: "₹1.5 Cr",
+    link: "/services/loan/loan-against-securities",
+    iconBgColor: "bg-cyan-100",
+    iconColor: "text-cyan-500",
+  },
+];
   const eligibilityCriteria = [
     { label: "Age", value: "21-65 years" },
     { label: "Income", value: "₹3,00,000+ annually" },
@@ -369,17 +347,9 @@ const LoanLandingPage = () => {
 
   return (
     <>
-      <div className="text-gray-800 font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 ">
-        {/* Floating Background Elements */}
-        {/* <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-blue-400/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-1/2 right-20 w-96 h-96 bg-gradient-to-r from-emerald-400/20 to-teal-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-gradient-to-r from-pink-400/20 to-rose-600/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
-      </div> */}
-
+      <div className="text-gray-800 font-sans bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50 pt-20">
         {/* Hero Section */}
-        <section className="relative w-full h-[40vh] overflow-hidden">
-          {/* Swiper will control background image and content */}
+        {/* <section className="relative w-full h-[60vh] overflow-hidden">
           <Swiper
             spaceBetween={30}
             slidesPerView={1}
@@ -391,23 +361,11 @@ const LoanLandingPage = () => {
           >
             {slides.map((slide, index) => (
               <SwiperSlide key={index}>
-                {/* Background Image */}
                 <div className="absolute inset-0 z-0">
-                  {/* <Image
-                  src={slide.image}
-                  alt={slide.title}
-                  fill
-                  sizes="100vw"
-                  className="object-cover object-center"
-                  priority
-                /> */}
-                  {/* Gradient Overlay */}
                   <div
                     className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}/80`}
                   ></div>
                 </div>
-
-                {/* Content */}
                 <div className="relative z-10 h-full flex items-center px-6 sm:px-12 md:px-20 lg:px-32">
                   <motion.div
                     initial={{ opacity: 0, y: 50 }}
@@ -419,7 +377,7 @@ const LoanLandingPage = () => {
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.2 }}
-                      className="uppercase tracking-widest text-sm text-yellow-200 font-semibold mb-2"
+                      className="uppercase tracking-widest text-sm text-green-200 font-semibold mb-2"
                     >
                       {slide.subtitle}
                     </motion.p>
@@ -457,130 +415,102 @@ const LoanLandingPage = () => {
               </SwiperSlide>
             ))}
           </Swiper>
-
-          {/* Swiper Pagination is now styled */}
           <div className="swiper-pagination absolute bottom-8 w-full flex justify-center z-20"></div>
-        </section>
-      </div>
-      {/* Header */}
-      {/* <div className="w-full bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white">
-        <div className="text-center text-white pt-16 pb-12 px-4">
-          <h1
-            className="text-5xl md:text-7xl font-bold mb-6 
-            bg-gradient-to-r from-white via-blue-100 to-purple-100 
-            bg-clip-text text-transparent
-            leading-tight"
-          >
-            Complete Loan Solutions
-          </h1>
-          <p className="text-xl md:text-2xl mb-4 opacity-90 font-light">
-            Your Trusted Financial Partner
-          </p>
-          <p className="text-lg opacity-75 max-w-2xl mx-auto">
-            From home loans to business financing - we have got all your loan
-            needs covered with competitive rates and quick approvals
-          </p>
-        </div>
-      </div> */}
-
-      <div className="bg-white shadow-2xl overflow-hidden">
-        {/* Loan Types Section */}
-        <div className="p-20 bg-gray-50">
-          <div className="text-center ">
-            <h3 className="text-4xl font-bold text-gray-800 mb-4">
+        </section> */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-emerald-900 mb-4">
               Choose Your Loan Type
-            </h3>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Explore our comprehensive range of loan products designed to meet
-              every financial need
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Explore our comprehensive range of loan products designed to meet every financial need
             </p>
           </div>
-
-          {/* Loan Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-20">
             {loanTypes.map((loan) => {
               const IconComponent = loan.icon;
               return (
-                <div
+                <motion.div
                   key={loan.id}
-                  className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 group flex flex-col"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  whileHover={{ y: -10 }}
+                  className="relative rounded-2xl shadow-lg overflow-hidden transition-all duration-300 transform bg-white border border-emerald-100"
                 >
-                  {/* Icon and Header */}
-                  <div className="flex items-center mb-6">
-                    <div
-                      className={`bg-gradient-to-r ${loan.gradient} p-3 rounded-xl`}
-                    >
-                      <IconComponent className="w-8 h-8 text-white" />
-                    </div>
-                    <div className="ml-4">
-                      <h4 className="text-xl font-bold text-gray-800">
-                        {loan.title}
-                      </h4>
-                      <div className="flex items-center gap-4 text-sm text-gray-600">
-                        <span className="font-semibold text-green-600">
-                          {loan.rate}
-                        </span>
-                        <span>Up to {loan.maxAmount}</span>
+                  <div className="p-1 bg-gradient-to-r from-green-500 to-emerald-600"></div>
+                  <div className="p-6">
+                    <div className="flex items-center mb-4">
+                      <div
+                          className={`p-3 rounded-xl ${loan.iconBgColor} flex-shrink-0 w-12 h-12 flex items-center justify-center`}
+                        >
+                          {IconComponent && (
+                            <IconComponent
+                              className={`w-6 h-6 ${loan.iconColor}`}
+                            />
+                          )}
+                        </div>
+                      <div className="ml-4">
+                        <h3 className="text-xl font-bold text-gray-900">{loan.title}</h3>
+                        <div className="flex items-center gap-3 text-sm">
+                          <span className="font-semibold text-emerald-600">{loan.rate}</span>
+                          <span className="text-gray-500">Up to {loan.maxAmount}</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-gray-600 mb-6 leading-relaxed">
-                    {loan.description}
-                  </p>
-
-                  {/* Features */}
-                  <div className="mb-8">
-                    <div className="grid grid-cols-2 gap-3">
-                      {loan.features.map((feature, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center text-sm text-gray-700"
-                        >
-                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                    
+                    <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+                      {loan.description}
+                    </p>
+                    
+                    <ul className="space-y-2 mb-6">
+                      {loan.features.slice(0, 3).map((feature, index) => (
+                        <li key={index} className="flex items-start gap-2 text-sm text-gray-600">
+                          <CheckCircle className="text-emerald-500 mt-0.5 flex-shrink-0 w-4 h-4" />
                           <span>{feature}</span>
-                        </div>
+                        </li>
                       ))}
+                    </ul>
+                    
+                    <div className="flex gap-3">
+                      <div className="pt-4">
+                        <Link href={loan.link} passHref>
+                          <div className="inline-flex items-center gap-2 font-medium text-green-600 hover:text-green-700">
+                            Learn More
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              className="w-4 h-4"
+                            >
+                              <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                          </div>
+                          </Link>
+                        </div>
+                        
                     </div>
                   </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex flex-col sm:flex-row gap-3 mt-auto">
-                    <button
-                      onClick={() => router.push(`/services/loan/${loan.id}`)}
-                      className="flex-1 border-2 border-gray-300 hover:border-gray-400 text-gray-700 hover:text-gray-800 px-4 py-3 rounded-xl font-semibold transition-all duration-200 hover:bg-gray-50"
-                    >
-                      Learn More
-                    </button>
-                    <button
-                      onClick={() =>
-                        router.push(`/services/loan/${loan.id}/apply`)
-                      }
-                      className={`flex-1 bg-gradient-to-r ${loan.gradient} hover:scale-105 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl`}
-                    >
-                      Apply Now
-                    </button>
-                  </div>
-                </div>
+                </motion.div>
               );
             })}
           </div>
 
-          {/*emi*/}
           {/* EMI Calculator */}
-          <section className="py-16 bg-white">
-            <div className="max-w-3xl mx-auto px-6">
+          <section className="py-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-3xl shadow-2xl mb-16">
+            <div className="max-w-4xl mx-auto px-6">
               <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                   Calculate Your EMI
                 </h2>
-                <p className="text-gray-600">
+                <p className="text-xl text-emerald-100 max-w-2xl mx-auto">
                   Adjust the sliders to estimate your monthly payment
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-100 shadow-lg">
+              <div className="bg-white rounded-2xl p-8 shadow-lg">
                 {/* Loan Amount */}
                 <div className="mb-8">
                   <label className="block text-sm font-medium text-gray-700 mb-3">
@@ -601,7 +531,7 @@ const LoanLandingPage = () => {
                       step="200000"
                       value={formData.loanAmount}
                       onChange={handleChange}
-                      className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer pl-10"
+                      className="w-full h-2 bg-emerald-200 rounded-lg appearance-none cursor-pointer pl-10"
                     />
                     <div className="flex justify-between text-xs text-gray-500 mt-2 px-1">
                       <span>₹1 Lakh</span>
@@ -628,7 +558,7 @@ const LoanLandingPage = () => {
                       step="1"
                       value={formData.tenure}
                       onChange={handleChange}
-                      className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer pl-10"
+                      className="w-full h-2 bg-emerald-200 rounded-lg appearance-none cursor-pointer pl-10"
                     />
                     <div className="flex justify-between text-xs text-gray-500 mt-2 px-1">
                       <span>5 Years</span>
@@ -655,7 +585,7 @@ const LoanLandingPage = () => {
                       step="0.1"
                       value={formData.interestRate}
                       onChange={handleChange}
-                      className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer pl-10"
+                      className="w-full h-2 bg-emerald-200 rounded-lg appearance-none cursor-pointer pl-10"
                     />
                     <div className="flex justify-between text-xs text-gray-500 mt-2 px-1">
                       <span>6%</span>
@@ -665,14 +595,14 @@ const LoanLandingPage = () => {
                 </div>
 
                 {/* EMI Summary */}
-                <div className="bg-white border-2 border-blue-200 rounded-xl p-6 text-center shadow-md">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                <div className="bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl p-6 text-center shadow-md">
+                  <h3 className="text-lg font-semibold text-white mb-2">
                     Estimated Monthly EMI
                   </h3>
-                  <div className="text-3xl font-bold text-blue-600 mb-2">
+                  <div className="text-3xl font-bold text-white mb-2">
                     ₹{monthlyEMI.toLocaleString()}
                   </div>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-emerald-100">
                     At {formData.interestRate}% interest for {formData.tenure}{" "}
                     years
                   </p>
@@ -681,87 +611,112 @@ const LoanLandingPage = () => {
             </div>
           </section>
 
-          {/* Eligibility Criteria */}
-          <section className="py-16 bg-gray-50">
+          
+        </div>
+        {/* Eligibility Criteria */}
+          <section className="py-16 bg-white shadow-xl">
             <div className="max-w-4xl mx-auto px-6">
               <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                <h2 className="text-3xl md:text-4xl font-bold text-emerald-900 mb-4">
                   Eligibility Criteria
                 </h2>
-                <p className="text-gray-600">
+                <p className="text-xl text-gray-600 max-w-2xl mx-auto">
                   Check if you meet our simple eligibility requirements
                 </p>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {eligibilityCriteria.map((criteria, index) => (
-                  <div
+                  <motion.div
                     key={index}
-                    className="bg-white p-6 rounded-xl text-center shadow-sm"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="bg-emerald-50 p-6 rounded-xl text-center border border-emerald-100"
                   >
-                    <h3 className="font-semibold text-gray-900 mb-2">
+                    <h3 className="font-semibold text-emerald-900 mb-2">
                       {criteria.label}
                     </h3>
-                    <p className="text-blue-600 font-medium">
+                    <p className="text-emerald-700 font-medium">
                       {criteria.value}
                     </p>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
           </section>
-          
-        </div>
-        <section className="py-16 bg-gradient-to-r from-amber-800 to-orange-800 text-white">
+
+          {/* Features Section */}
+          <section className="py-16 bg-gradient-to-r from-emerald-800 to-teal-800 shadow-2xl text-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-12">
+              <div className="text-center mb-16">
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">
                   Turn Dreams into Reality
                 </h2>
-                <p className="text-xl text-amber-200 max-w-3xl mx-auto">
+                <p className="text-xl text-emerald-200 max-w-3xl mx-auto">
                   Flexible financing solutions tailored to your life goals
                 </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+                <motion.div
+                  className="bg-white/10 p-6 rounded-xl backdrop-blur-sm border border-white/20"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                >
                   <div className="text-yellow-400 text-2xl mb-4">
                     <FaBolt />
                   </div>
                   <h3 className="text-lg font-bold mb-2">Instant Approval</h3>
-                  <p className="text-amber-100">
+                  <p className="text-emerald-100">
                     Get approved within 24 hours with minimal documentation
                   </p>
-                </div>
+                </motion.div>
 
-                <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+                <motion.div
+                  className="bg-white/10 p-6 rounded-xl backdrop-blur-sm border border-white/20"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
                   <div className="text-yellow-400 text-2xl mb-4">
                     <FaRegMoneyBillAlt />
                   </div>
                   <h3 className="text-lg font-bold mb-2">Competitive Rates</h3>
-                  <p className="text-amber-100">
+                  <p className="text-emerald-100">
                     Interest rates starting from 8.4% for qualified borrowers
                   </p>
-                </div>
+                </motion.div>
 
-                <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+                <motion.div
+                  className="bg-white/10 p-6 rounded-xl backdrop-blur-sm border border-white/20"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
                   <div className="text-yellow-400 text-2xl mb-4">
                     <FaBalanceScale />
                   </div>
                   <h3 className="text-lg font-bold mb-2">Flexible Tenure</h3>
-                  <p className="text-amber-100">
+                  <p className="text-emerald-100">
                     Repayment options from 12 months to 30 years
                   </p>
-                </div>
+                </motion.div>
 
-                <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+                <motion.div
+                  className="bg-white/10 p-6 rounded-xl backdrop-blur-sm border border-white/20"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
                   <div className="text-yellow-400 text-2xl mb-4">
                     <FaAward />
                   </div>
                   <h3 className="text-lg font-bold mb-2">Referral Rewards</h3>
-                  <p className="text-amber-100">
+                  <p className="text-emerald-100">
                     Earn 0.5% of loan amount as cashback for referrals
                   </p>
-                </div>
+                </motion.div>
               </div>
             </div>
           </section>
