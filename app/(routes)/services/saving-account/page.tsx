@@ -8,12 +8,13 @@ import {
   User,
   Bell,
   Star,
-  Users,
-  Award,
   Zap,
-  Lock,
   Phone,
   Mail,
+  ShieldCheck,
+  FileText,
+  Headphones,
+  MapPin,
 } from "lucide-react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -93,7 +94,6 @@ const slides = [
 ];
 
 const CreditCardApplyPage = () => {
-
   const applicationSteps = [
     {
       step: 1,
@@ -138,6 +138,7 @@ const CreditCardApplyPage = () => {
       reviews: "12,450",
       offer: "Cashback Upto ₹250",
       link: "/services/saving-account/indusInd",
+      alink: "/services/saving-account/indusInd/apply",
     },
     {
       id: 2,
@@ -155,6 +156,7 @@ const CreditCardApplyPage = () => {
       reviews: "18,760",
       offer: "Cashback Upto ₹250",
       link: "/services/saving-account/axis",
+      alink: "/services/saving-account/axis/apply",
     },
     {
       id: 3,
@@ -172,6 +174,7 @@ const CreditCardApplyPage = () => {
       reviews: "8,920",
       offer: "Cashback Upto ₹250",
       link: "/services/saving-account/fi",
+      alink: "/services/saving-account/fi/apply",
     },
   ];
 
@@ -457,9 +460,9 @@ const CreditCardApplyPage = () => {
 
                     {/* Buttons section always at bottom */}
 
-                    <div className="flex items-center justify-between mt-auto">
-                      <Link href={bank.link}>
-                        <div className="inline-flex items-center gap-2 font-medium text-green-600 hover:text-green-700">
+                    <div className="flex gap-4 pt-4">
+                      <Link href={bank.link} passHref>
+                        <button className="px-4 py-2 rounded-lg  text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
                           Learn More
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -471,7 +474,23 @@ const CreditCardApplyPage = () => {
                           >
                             <path d="M5 12h14M12 5l7 7-7 7" />
                           </svg>
-                        </div>
+                        </button>
+                      </Link>
+
+                      <Link href={bank.alink} passHref>
+                        <button className="px-4 py-2 rounded-lg  text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
+                          Apply Now
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            className="w-4 h-4"
+                          >
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                          </svg>
+                        </button>
                       </Link>
                     </div>
                   </div>
@@ -493,45 +512,67 @@ const CreditCardApplyPage = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-r from-teal-400 to-emerald-500 flex items-center justify-center mb-4">
-                  <Zap className="text-white w-6 h-6" />
+                  <ShieldCheck className="text-white w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">Instant Processing</h3>
+                <h3 className="text-xl font-bold mb-3">
+                  Trusted Banking Partners
+                </h3>
                 <p className="text-teal-200">
-                  Get your account opened within 15 minutes with digital KYC
+                  Partnered with leading top banks you know and trust for
+                  complete peace of mind
                 </p>
               </div>
 
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 flex items-center justify-center mb-4">
-                  <Lock className="text-white w-6 h-6" />
+                  <MapPin className="text-white w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">Bank-Grade Security</h3>
+                <h3 className="text-xl font-bold mb-3">
+                  Convenient Branch Access
+                </h3>
                 <p className="text-teal-200">
-                  Advanced encryption and multi-factor authentication for
-                  complete safety
+                  Get an account with a nearby branch — making deposits and
+                  transactions easy anytime
                 </p>
               </div>
 
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-r from-emerald-400 to-green-500 flex items-center justify-center mb-4">
-                  <Users className="text-white w-6 h-6" />
+                  <FileText className="text-white w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">24/7 Support</h3>
+                <h3 className="text-xl font-bold mb-3">
+                  100% Paperless Process
+                </h3>
                 <p className="text-teal-200">
-                  Dedicated customer service available anytime, anywhere
+                  Enjoy a quick, secure, and fully online process — no paperwork
+                  hassles at all
                 </p>
               </div>
 
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-400 to-teal-500 flex items-center justify-center mb-4">
-                  <Award className="text-white w-6 h-6" />
+                  <Zap className="text-white w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold mb-3">Award Winning</h3>
+                <h3 className="text-xl font-bold mb-3">Fast Account Opening</h3>
                 <p className="text-teal-200">
-                  Recognized as the best digital banking platform of 2024
+                  Open your bank account in less than 10 minutes and get started
+                  instantly
+                </p>
+              </div>
+
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-400 to-cyan-500 flex items-center justify-center mb-4">
+                  <Headphones className="text-white w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold mb-3">
+                  Dedicated Customer Support
+                </h3>
+                <p className="text-teal-200">
+                  Get reliable support for queries, help, or guidance whenever
+                  you need it most
                 </p>
               </div>
             </div>
@@ -586,7 +627,7 @@ const CreditCardApplyPage = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="bg-white text-emerald-600 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition-all duration-300 flex items-center justify-center gap-3">
                 <Phone className="w-5 h-5" />
-                Call Now: +91 8010-888-888
+                Call Now
               </button>
               <button className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-8 py-4 rounded-full font-bold shadow-lg transition-all duration-300 flex items-center justify-center gap-3">
                 <Mail className="w-5 h-5" />

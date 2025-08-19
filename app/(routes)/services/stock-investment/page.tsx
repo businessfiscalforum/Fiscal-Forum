@@ -101,6 +101,7 @@ const investmentOptions = [
       "Own company shares or diversify smartly with ETFs. Spread risk, build wealth steadily, grow alongside markets.",
     icon: BarChart3,
     link: "/services/stock-investment/equity-etfs",
+    alink:"/services/stock-investment/equity-etfs/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-blue-100",
     iconColor: "text-blue-600",
@@ -112,6 +113,7 @@ const investmentOptions = [
       "Hedge risk or speculate on price moves. Requires strategy, discipline, and knowledge to manage market uncertainty.",
     icon: TrendingUp,
     link: "/services/stock-investment/futures-options",
+    alink:"/services/stock-investment/futures-options/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-purple-100",
     iconColor: "text-purple-600",
@@ -123,6 +125,7 @@ const investmentOptions = [
       "Invest early in growing companies. Get front-row access to expansion and potential long-term wealth creation.",
     icon: Sparkles,
     link: "/services/stock-investment/ipo",
+    alink:"/services/stock-investment/ipo/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-emerald-100",
     iconColor: "text-emerald-600",
@@ -134,6 +137,7 @@ const investmentOptions = [
       "Borrow to buy more shares. Seize opportunities responsibly — leverage magnifies gains but can increase losses.",
     icon: Zap,
     link: "/services/stock-investment/mtf",
+    alink:"/services/stock-investment/mtf/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-orange-100",
     iconColor: "text-orange-600",
@@ -145,6 +149,7 @@ const investmentOptions = [
       "Trade real assets like gold, silver, crude oil. Diversify portfolios, hedge inflation, and balance equity exposure.",
     icon: Coins,
     link: "/services/stock-investment/commodities",
+    alink:"/services/stock-investment/commodities/apply",
     bgColor: "bg-gradient-to-br from-green-500 to-green-700",
     iconBgColor: "bg-yellow-100",
     iconColor: "text-yellow-600",
@@ -156,6 +161,7 @@ const investmentOptions = [
       "Invest early in companies before listing. Join growth journey, enjoy potential big returns upon public offering.",
     icon: Gem,
     link: "/services/stock-investment/unlisted-shares",
+    alink:"/services/stock-investment/unlisted-shares/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-indigo-100",
     iconColor: "text-indigo-600",
@@ -406,10 +412,25 @@ export default function CreditCardApplyPage() {
                         <p className="text-sm leading-relaxed flex-grow text-gray-600">
                           {option.description}
                         </p>
-                        <div className="pt-4">
+                        <div className="flex gap-4 pt-4">
                           <Link href={option.link} passHref>
-                          <div className="inline-flex items-center gap-2 font-medium text-green-600 hover:text-green-700">
+                          <div className="px-4 py-2 rounded-lg  text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
                             Learn More
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              className="w-4 h-4"
+                            >
+                              <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                          </div>
+                          </Link>
+                          <Link href={option.alink} passHref>
+                          <div className="px-4 py-2 rounded-lg  text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
+                            Apply Now
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               viewBox="0 0 24 24"
@@ -441,7 +462,7 @@ export default function CreditCardApplyPage() {
               transferring holdings.
             </p>
             <button
-              onClick={() => router.push("/services/stock-investment/call")}
+              onClick={() => router.push("/services/stock-investment/contact")}
               className="bg-white text-green-700 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3 mx-auto"
             >
               <Phone className="w-5 h-5" />

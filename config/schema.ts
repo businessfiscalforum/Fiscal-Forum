@@ -783,6 +783,20 @@ export const lasApplication = pgTable('loan_against_securities', {
   reference2Address: text('reference2_address').notNull(),
 });
 
+export const scheduledCalls = pgTable("scheduled_calls", {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  name: varchar("name", { length: 255 }).notNull(),
+  countryCode: varchar("country_code", { length: 10 }).notNull(),
+  phone: varchar("phone", { length: 20 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull(),
+  date: date("date").notNull(),
+  time: varchar("time", { length: 20 }).notNull(),
+  message: text("message"),
+  preferredContactMethod: varchar("preferred_contact_method", { 
+    enum: ["call", "whatsapp", "email"] 
+  }).default("call"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
 
 export const quoteRequestsTable = pgTable('quote_requests', {
   id: uuid('id').defaultRandom().primaryKey().notNull(),
@@ -1188,4 +1202,7 @@ export type InsertEducationApplication = typeof educationLoanApplications.$infer
 export type SelectEducationApplication = typeof educationLoanApplications.$inferSelect
 
 export type InsertLasApplication = typeof lasApplication.$inferInsert;
-export type SelectLasApplication = typeof lasApplication.$inferSelect
+export type SelectLasApplication = typeof lasApplication.$inferSelect;
+
+export type InsertCall = typeof scheduledCalls.$inferInsert;
+export type SelectCall = typeof scheduledCalls.$inferSelect;

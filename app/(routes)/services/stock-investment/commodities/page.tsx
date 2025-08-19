@@ -1,124 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { FaDollarSign, FaCheck, FaArrowLeft, FaUser, FaFileInvoice, FaMobileAlt } from "react-icons/fa";
+import { FaDollarSign, FaArrowLeft } from "react-icons/fa";
 
 export default function CommoditiesPage() {
   const router = useRouter();
-  const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    clientCode: "",
-    panNo: "",
-    mobileNo: "",
-    consistency: "",
-    traderType: "",
-    existingBroker: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState<{
-    text: string;
-    type: "success" | "error";
-  } | null>(null);
-  const [errors, setErrors] = useState<Record<string, string>>({});
-
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-
-    if (errors[name]) {
-      setErrors((prev) => {
-        const newErrors = { ...prev };
-        delete newErrors[name];
-        return newErrors;
-      });
-    }
-  };
-
-  const validateForm = () => {
-    const newErrors: Record<string, string> = {};
-
-    if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!formData.clientCode.trim()) newErrors.clientCode = "Client Code is required";
-    if (!formData.panNo.trim()) {
-      newErrors.panNo = "PAN Number is required";
-    } else if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(formData.panNo.toUpperCase())) {
-      newErrors.panNo = "Invalid PAN format";
-    }
-    if (!formData.mobileNo.trim()) {
-      newErrors.mobileNo = "Mobile Number is required";
-    } else if (!/^[0-9]{10}$/.test(formData.mobileNo)) {
-      newErrors.mobileNo = "Must be 10 digits";
-    }
-    if (!formData.consistency.trim()) newErrors.consistency = "Required";
-    if (!formData.traderType.trim()) newErrors.traderType = "Required";
-    if (!formData.existingBroker.trim()) newErrors.existingBroker = "Required";
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validateForm()) return;
-
-    setIsSubmitting(true);
-    setMessage(null);
-
-    try {
-      const formDataToSend = new FormData();
-      Object.entries(formData).forEach(([key, value]) => {
-        formDataToSend.append(key, value);
-      });
-
-      const response = await fetch("/api/investment-form", {
-        method: "POST",
-        body: formDataToSend,
-      });
-
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.error || "Failed to submit");
-      }
-
-      setMessage({
-        text: "Form submitted successfully!",
-        type: "success",
-      });
-
-      setTimeout(() => {
-        setFormData({
-          name: "",
-          clientCode: "",
-          panNo: "",
-          mobileNo: "",
-          consistency: "",
-          traderType: "",
-          existingBroker: "",
-        });
-        setErrors({});
-        setShowForm(false);
-      }, 2000);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      setMessage({
-        text: error.message || "Submission failed",
-        type: "error",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50 pt-30 px-4 sm:px-6">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50 py-30 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto">
         <motion.div
           className="flex items-center justify-between mb-8 p-6 bg-white rounded-2xl shadow-lg border border-emerald-200"
@@ -139,7 +29,7 @@ export default function CommoditiesPage() {
         </motion.div>
 
         <motion.div
-          className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-emerald-200 mb-8"
+          className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-emerald-200"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2 }}
@@ -155,220 +45,79 @@ export default function CommoditiesPage() {
           </div>
 
           <div className="prose max-w-none text-gray-700">
-            <p className="mb-4">
-              Commodities trading involves buying and selling physical goods like metals 
-              (gold, silver), energy (crude oil, natural gas), and agricultural products 
-              (wheat, cotton). These assets can be traded through futures contracts on 
-              commodity exchanges.
+            <p className="mb-6 text-lg">
+              Commodities trading represents a unique investment avenue that allows participants to engage with tangible assets that form the foundation of global economic activity. From precious metals to agricultural products and energy resources, commodity markets offer diverse opportunities for investors and traders seeking exposure to real-world assets with intrinsic value.
             </p>
-            <h3 className="text-xl font-semibold text-teal-800 mt-6 mb-3">Benefits:</h3>
-            <ul className="list-disc pl-5 space-y-2 mb-4">
-              <li>Diversification beyond equity markets</li>
-              <li>Hedge against inflation</li>
-              <li>Global market exposure</li>
-              <li>Leverage opportunities</li>
-              <li>Seasonal trading opportunities</li>
-            </ul>
-            <h3 className="text-xl font-semibold text-teal-800 mt-6 mb-3">Risks:</h3>
-            <ul className="list-disc pl-5 space-y-2">
-              <li>High volatility in commodity prices</li>
-              <li>Geopolitical and weather factors</li>
-              <li>Storage and delivery complexities</li>
-              <li>Leverage can magnify losses</li>
-              <li>Requires specialized knowledge</li>
-            </ul>
-          </div>
-
-          <div className="mt-8 text-center">
-            {!showForm ? (
-              <button
-                onClick={() => setShowForm(true)}
-                className="px-8 py-3 bg-gradient-to-r from-teal-600 to-emerald-700 text-white font-bold rounded-xl shadow-lg hover:from-teal-700 hover:to-emerald-800 transition-all transform hover:scale-105"
-              >
-                Fill Investment Form
-              </button>
-            ) : (
-              <button
-                onClick={() => setShowForm(false)}
-                className="px-8 py-3 bg-gray-200 text-gray-700 font-bold rounded-xl hover:bg-gray-300 transition"
-              >
-                Hide Form
-              </button>
-            )}
+            
+            <h3 className="text-xl font-semibold text-teal-800 mt-8 mb-4">Understanding Commodity Markets</h3>
+            
+            <p className="italic mb-4">
+              Commodities trading involves buying and selling physical goods like metals (gold, silver), energy (crude oil, natural gas), and agricultural products (wheat, cotton), providing exposure to essential resources that drive modern economies. These tangible assets have inherent value based on their utility, scarcity, and demand across various industries and consumer markets.
+            </p>
+            
+            <p className="italic mb-6">
+              These assets can be traded through futures contracts on commodity exchanges, allowing investors to gain exposure without physically owning or storing the underlying commodities. This financialization of commodity markets enables retail and institutional investors to participate in price movements of essential resources through standardized, exchange-traded instruments that provide liquidity and price transparency.
+            </p>
+            
+            <h3 className="text-xl font-semibold text-teal-800 mt-8 mb-4">Strategic Investment Benefits</h3>
+            
+            <p className="italic mb-4">
+              Diversification beyond equity markets is one of the primary advantages of commodity investing, as commodity prices often have low correlation with stock and bond markets, providing portfolio risk reduction benefits. This non-correlation characteristic makes commodities valuable for constructing balanced investment portfolios that can perform across different economic cycles and market conditions.
+            </p>
+            
+            <p className="italic mb-4">
+              Hedge against inflation makes commodities particularly attractive during periods of rising prices, as the value of tangible assets typically increases alongside general price levels. This protective quality stems from commodities&apos; role as inputs in production processes and consumer goods, making them natural inflation beneficiaries when currency purchasing power declines.
+            </p>
+            
+            <p className="italic mb-4">
+              Global market exposure through commodity trading provides access to international supply and demand dynamics, geopolitical events, and economic factors that influence resource prices worldwide. This global perspective allows investors to participate in growth stories from emerging markets and developed economies alike through a single asset class.
+            </p>
+            
+            <p className="italic mb-4">
+              Leverage opportunities in commodity futures markets enable traders to control large positions with relatively small capital outlays, amplifying potential returns when market movements align with expectations. This margin-based trading approach allows for efficient capital utilization while providing access to markets that might otherwise require substantial upfront investments for direct commodity ownership.
+            </p>
+            
+            <p className="italic mb-6">
+              Seasonal trading opportunities arise from the cyclical nature of many commodities, particularly agricultural products and energy resources that experience predictable supply and demand patterns throughout the year. Knowledgeable traders can capitalize on these seasonal trends by understanding planting cycles, harvest periods, weather patterns, and consumption behaviors that drive price movements.
+            </p>
+            
+            <h3 className="text-xl font-semibold text-teal-800 mt-8 mb-4">Critical Risk Factors</h3>
+            
+            <p className="italic mb-4">
+              High volatility in commodity prices can result from supply disruptions, demand shocks, geopolitical tensions, and macroeconomic factors that create significant price swings in short timeframes. This volatility characteristic requires active risk management and can lead to substantial losses when positions move against expectations, particularly in leveraged trading environments.
+            </p>
+            
+            <p className="italic mb-4">
+              Geopolitical and weather factors play crucial roles in commodity pricing, with international conflicts, trade disputes, regulatory changes, and natural disasters capable of creating sudden supply constraints or demand shifts. These external forces are often unpredictable and can cause dramatic price movements that are difficult to hedge or anticipate through fundamental analysis alone.
+            </p>
+            
+            <p className="italic mb-4">
+              Storage and delivery complexities associated with physical commodity ownership create additional costs and logistical challenges that can impact investment returns. While futures contracts eliminate the need for physical storage, the potential for delivery requirements and the costs associated with maintaining physical positions add layers of complexity that require specialized knowledge and infrastructure.
+            </p>
+            
+            <p className="italic mb-4">
+              Leverage can magnify losses in commodity trading, with margin requirements allowing for substantial position sizes that can result in losses exceeding initial investments during volatile market conditions. The amplification effect of borrowed capital means that small adverse price movements can trigger margin calls or forced liquidations that can devastate trading accounts without proper risk management protocols.
+            </p>
+            
+            <p className="italic mb-6">
+              Requires specialized knowledge of supply chains, production processes, inventory levels, and global economic factors that influence commodity markets, making successful trading more challenging than traditional equity investing. Understanding the fundamental drivers of commodity prices, including weather patterns, crop reports, inventory data, and industrial demand, is essential for making informed trading decisions in these complex markets.
+            </p>
+            
+            <div className="bg-teal-50 p-6 rounded-2xl mt-8">
+              <h4 className="font-bold text-teal-800 text-lg mb-3">Successful Commodity Trading Approaches</h4>
+              <p className="text-teal-700">
+                Effective commodity trading requires understanding of both technical and fundamental analysis, with successful traders combining chart patterns, price action, and supply-demand fundamentals to make informed decisions. Staying informed about global economic indicators, weather forecasts, government reports, and geopolitical developments is essential for navigating the complex factors that drive commodity price movements.
+              </p>
+            </div>
+            
+            <div className="mt-8 p-6 bg-gradient-to-r from-teal-50 to-emerald-50 rounded-2xl border border-teal-100">
+              <h4 className="font-bold text-teal-800 text-lg mb-3">Risk Management Considerations</h4>
+              <p className="text-gray-700">
+                Given the inherent volatility and leverage in commodity markets, implementing strict risk management protocols including position sizing, stop-loss orders, and portfolio diversification is crucial for long-term trading success. New commodity traders should consider starting with small positions and educational resources before committing significant capital to these complex markets.
+              </p>
+            </div>
           </div>
         </motion.div>
-
-        {showForm && (
-          <motion.div
-            className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-emerald-200"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <h2 className="text-2xl font-bold text-emerald-900 mb-6 text-center">
-              Investment Profile Form
-            </h2>
-
-            {message && (
-              <div
-                className={`mb-6 p-4 rounded-2xl text-center ${
-                  message.type === "success"
-                    ? "bg-green-100 text-green-800 border border-green-200"
-                    : "bg-red-100 text-red-800 border border-red-200"
-                }`}
-              >
-                {message.type === "success" ? <FaCheck className="inline mr-2" /> : null}
-                {message.text}
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 flex items-center">
-                    <FaUser className="mr-2 text-teal-600" /> Full Name <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.name ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition`}
-                    placeholder="Enter your full name"
-                  />
-                  {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Client Code <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="clientCode"
-                    value={formData.clientCode}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.clientCode ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition`}
-                    placeholder="Your client code"
-                  />
-                  {errors.clientCode && <p className="mt-1 text-sm text-red-600">{errors.clientCode}</p>}
-                </div>
-
-                <div>
-                  <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
-                    <FaFileInvoice className="mr-2 text-teal-600" /> PAN Number <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="panNo"
-                    value={formData.panNo}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border uppercase ${
-                      errors.panNo ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition`}
-                    placeholder="ABCDE1234F"
-                  />
-                  {errors.panNo && <p className="mt-1 text-sm text-red-600">{errors.panNo}</p>}
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 flex items-center">
-                    <FaMobileAlt className="mr-2 text-teal-600" /> Mobile Number <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <input
-                    type="tel"
-                    name="mobileNo"
-                    value={formData.mobileNo}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.mobileNo ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition`}
-                    placeholder="10-digit mobile number"
-                  />
-                  {errors.mobileNo && <p className="mt-1 text-sm text-red-600">{errors.mobileNo}</p>}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Investment Consistency <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <select
-                    name="consistency"
-                    value={formData.consistency}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.consistency ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition`}
-                  >
-                    <option value="">Select consistency level</option>
-                    <option value="Daily">Daily</option>
-                    <option value="Weekly">Weekly</option>
-                    <option value="Monthly">Monthly</option>
-                    <option value="Quarterly">Quarterly</option>
-                    <option value="Yearly">Yearly</option>
-                  </select>
-                  {errors.consistency && <p className="mt-1 text-sm text-red-600">{errors.consistency}</p>}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Trader Type <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <select
-                    name="traderType"
-                    value={formData.traderType}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.traderType ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition`}
-                  >
-                    <option value="">Select trader type</option>
-                    <option value="Intraday">Intraday Trader</option>
-                    <option value="Swing">Swing Trader</option>
-                    <option value="Positional">Positional Trader</option>
-                    <option value="Long-term">Long-term Investor</option>
-                  </select>
-                  {errors.traderType && <p className="mt-1 text-sm text-red-600">{errors.traderType}</p>}
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Existing Broker <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="existingBroker"
-                    value={formData.existingBroker}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.existingBroker ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition`}
-                    placeholder="Current broker name"
-                  />
-                  {errors.existingBroker && <p className="mt-1 text-sm text-red-600">{errors.existingBroker}</p>}
-                </div>
-              </div>
-
-              <div className="pt-4">
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className={`w-full py-4 px-6 rounded-xl font-bold text-white shadow-lg transition flex items-center justify-center ${
-                    isSubmitting
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-gradient-to-r from-teal-600 to-emerald-700 hover:from-teal-700 hover:to-emerald-800 hover:shadow-xl"
-                  }`}
-                >
-                  {isSubmitting ? "Submitting..." : "Submit Investment Profile"}
-                </button>
-              </div>
-            </form>
-          </motion.div>
-        )}
       </div>
     </div>
   );

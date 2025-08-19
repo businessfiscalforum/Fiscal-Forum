@@ -5,8 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { FaChartBar, FaCoins, FaFastForward, FaGift, FaHeadset, FaRupeeSign } from "react-icons/fa";
-import { CheckCircle, ChevronDown, ChevronUp } from "lucide-react";
+import {  FaGift, FaHeadset, FaLightbulb,  FaShieldAlt, FaUserTie, FaWallet } from "react-icons/fa";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { motion } from "framer-motion";
 
 // --- TYPES ---
@@ -199,7 +199,7 @@ export default function Page() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 py-10 px-4 sm:px-6">
+    <main className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 py-30 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
         {/* Hero Section */}
         <div className="text-center mb-12 pt-8">
@@ -241,61 +241,108 @@ export default function Page() {
 
         {/* Benefits */}
         <section className="bg-white border border-green-200 rounded-2xl shadow-md p-6 md:p-8 mb-16">
-          <motion.h3
-            className="text-2xl font-bold text-green-800 text-center mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-          >
-            Why Open With Us?
-          </motion.h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <motion.div
-              className="bg-green-50 rounded-2xl p-6 flex flex-col items-center text-center border border-green-100"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-2xl">
-                <FaChartBar />
-              </div>
-              <h4 className="font-semibold text-green-800 mb-2 text-lg">
-                Expert Research Reports
-              </h4>
-              <p className="text-green-700 text-sm">
-                Stay ahead with daily market updates & in-depth analysis.
-              </p>
-            </motion.div>
-            <motion.div
-              className="bg-green-50 rounded-2xl p-6 flex flex-col items-center text-center border border-green-100"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-            >
-              <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-2xl">
-                <FaCoins />
-              </div>
-              <h4 className="font-semibold text-green-800 mb-2 text-lg">Higher Returns</h4>
-              <p className="text-green-700 text-sm">
-                Access exclusive investment strategies tailored for growth.
-              </p>
-            </motion.div>
-            <motion.div
-              className="bg-green-50 rounded-2xl p-6 flex flex-col items-center text-center border border-green-100"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-2xl">
-                <FaFastForward />
-              </div>
-              <h4 className="font-semibold text-green-800 mb-2 text-lg">Fast Onboarding</h4>
-              <p className="text-green-700 text-sm">
-                Open and start trading within just 15 minutes.
-              </p>
-            </motion.div>
-          </div>
-        </section>
+  <motion.h3
+    className="text-2xl font-bold text-green-800 text-center mb-8"
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.1 }}
+  >
+    Why Choose Us?
+  </motion.h3>
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <motion.div
+      className="bg-green-50 rounded-2xl p-6 flex flex-col items-start text-left border border-green-100"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.2 }}
+    >
+      <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-2xl">
+        <FaWallet/>
+      </div>
+      <h4 className="font-semibold text-green-800 mb-2 text-lg">
+        Earn Brokerage Cashback
+      </h4>
+      <p className="text-green-700 text-sm">
+        Get 10% cashback on every trade — more savings, more profit.
+      </p>
+    </motion.div>
+    
+    <motion.div
+      className="bg-green-50 rounded-2xl p-6 flex flex-col items-start text-left border border-green-100"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.3 }}
+    >
+      <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-2xl">
+        <FaLightbulb />
+      </div>
+      <h4 className="font-semibold text-green-800 mb-2 text-lg">Exclusive Market Insights</h4>
+      <p className="text-green-700 text-sm">
+        Join our private channel for daily market updates and smart investing tips.
+      </p>
+    </motion.div>
+    
+    <motion.div
+      className="bg-green-50 rounded-2xl p-6 flex flex-col items-start text-left border border-green-100"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.4 }}
+    >
+      <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-2xl">
+        <FaHeadset />
+      </div>
+      <h4 className="font-semibold text-green-800 mb-2 text-lg">Dedicated Support Always</h4>
+      <p className="text-green-700 text-sm">
+        Enjoy quick query resolution and hassle-free Demat account support.
+      </p>
+    </motion.div>
+    
+    <motion.div
+      className="bg-green-50 rounded-2xl p-6 flex flex-col items-start text-left border border-green-100"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.5 }}
+    >
+      <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-2xl">
+        <FaShieldAlt />
+      </div>
+      <h4 className="font-semibold text-green-800 mb-2 text-lg">Trusted Broking Partners</h4>
+      <p className="text-green-700 text-sm">
+        We&apos;re partnered with top broking firms for credibility and security.
+      </p>
+    </motion.div>
+    
+    <motion.div
+      className="bg-green-50 rounded-2xl p-6 flex flex-col items-start text-left border border-green-100"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.6 }}
+    >
+      <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-2xl">
+        <FaUserTie />
+      </div>
+      <h4 className="font-semibold text-green-800 mb-2 text-lg">Personalised Investment Guidance</h4>
+      <p className="text-green-700 text-sm">
+        Kickstart your investing journey with tailored, confident advice.
+      </p>
+    </motion.div>
+    
+    <motion.div
+      className="bg-green-50 rounded-2xl p-6 flex flex-col items-start text-left border border-green-100"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.7 }}
+    >
+      <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-2xl">
+        <FaGift />
+      </div>
+      <h4 className="font-semibold text-green-800 mb-2 text-lg">Loyalty Rewards & Giveaways</h4>
+      <p className="text-green-700 text-sm">
+        Get rewarded with monthly and quarterly giveaways for smart trading.
+      </p>
+    </motion.div>
+  </div>
+</section>
 
         {/* Brokers List */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">

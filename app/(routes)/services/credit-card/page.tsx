@@ -411,9 +411,6 @@ const creditCards: CreditCard[] = [
   },
 ];
 
-// Placeholder image for missing card images
-const PLACEHOLDER_IMAGE = "/Axis bank Fd Card.svg";
-
 export default function CreditCardsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<CreditCard | null>(null);
@@ -490,10 +487,6 @@ export default function CreditCardsPage() {
                         width={40}
                         height={40}
                         className="h-8 w-auto object-contain"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src = PLACEHOLDER_IMAGE;
-                        }}
                       />
                     </div>
                     <div>
@@ -512,10 +505,6 @@ export default function CreditCardsPage() {
                         sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                         className="object-contain"
                         priority={index === 0} // Prioritize first card image
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src = PLACEHOLDER_IMAGE;
-                        }}
                       />
                     </div>
                   </div>
@@ -662,10 +651,6 @@ export default function CreditCardsPage() {
                       alt={`${selectedCard.cardName} Image`}
                       fill
                       className="object-contain"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = PLACEHOLDER_IMAGE;
-                      }}
                     />
                   </div>
                 </div>

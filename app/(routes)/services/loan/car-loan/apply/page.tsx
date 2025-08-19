@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { useRouter } from 'next/navigation';
 
 // Schema for Car Loan Application
 const carLoanSchema = z.object({
@@ -79,7 +78,6 @@ const resolver = zodResolver(carLoanSchema) as any;
 type CarLoanForm = z.infer<typeof carLoanSchema>;
 
 export default function CarLoanApplication() {
-  const router = useRouter();
   const [isSubmitted] = useState(false);
 
   const {

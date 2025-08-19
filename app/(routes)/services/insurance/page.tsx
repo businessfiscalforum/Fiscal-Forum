@@ -6,12 +6,9 @@ import {
   Bike,
   Shield,
   Home,
-  Briefcase,
   Plane,
-  Plus,
   ArrowRight,
   Phone,
-  Mail,
   Zap,
   Lock,
   Users,
@@ -21,13 +18,11 @@ import {
   UserCheck,
   ShieldAlert,
   Truck,
-  FolderOpen,
 } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -338,7 +333,7 @@ const InsurancePage = () => {
           transferring holdings.
         </p>
         <button
-          onClick={() => router.push("/services/insurance/call")}
+          onClick={() => router.push("/services/insurance/contact")}
           className="bg-white text-green-700 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3 mx-auto"
         >
           <Phone className="w-5 h-5" />

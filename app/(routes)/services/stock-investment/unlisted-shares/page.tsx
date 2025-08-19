@@ -1,124 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { FaGem, FaCheck, FaArrowLeft, FaFileInvoice, FaMobileAlt, FaUser } from "react-icons/fa";
+import { FaGem, FaArrowLeft } from "react-icons/fa";
 
 export default function UnlistedSharesPage() {
   const router = useRouter();
-  const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    clientCode: "",
-    panNo: "",
-    mobileNo: "",
-    consistency: "",
-    traderType: "",
-    existingBroker: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState<{
-    text: string;
-    type: "success" | "error";
-  } | null>(null);
-  const [errors, setErrors] = useState<Record<string, string>>({});
-
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-
-    if (errors[name]) {
-      setErrors((prev) => {
-        const newErrors = { ...prev };
-        delete newErrors[name];
-        return newErrors;
-      });
-    }
-  };
-
-  const validateForm = () => {
-    const newErrors: Record<string, string> = {};
-
-    if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!formData.clientCode.trim()) newErrors.clientCode = "Client Code is required";
-    if (!formData.panNo.trim()) {
-      newErrors.panNo = "PAN Number is required";
-    } else if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(formData.panNo.toUpperCase())) {
-      newErrors.panNo = "Invalid PAN format";
-    }
-    if (!formData.mobileNo.trim()) {
-      newErrors.mobileNo = "Mobile Number is required";
-    } else if (!/^[0-9]{10}$/.test(formData.mobileNo)) {
-      newErrors.mobileNo = "Must be 10 digits";
-    }
-    if (!formData.consistency.trim()) newErrors.consistency = "Required";
-    if (!formData.traderType.trim()) newErrors.traderType = "Required";
-    if (!formData.existingBroker.trim()) newErrors.existingBroker = "Required";
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validateForm()) return;
-
-    setIsSubmitting(true);
-    setMessage(null);
-
-    try {
-      const formDataToSend = new FormData();
-      Object.entries(formData).forEach(([key, value]) => {
-        formDataToSend.append(key, value);
-      });
-
-      const response = await fetch("/api/investment-form", {
-        method: "POST",
-        body: formDataToSend,
-      });
-
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.error || "Failed to submit");
-      }
-
-      setMessage({
-        text: "Form submitted successfully!",
-        type: "success",
-      });
-
-      setTimeout(() => {
-        setFormData({
-          name: "",
-          clientCode: "",
-          panNo: "",
-          mobileNo: "",
-          consistency: "",
-          traderType: "",
-          existingBroker: "",
-        });
-        setErrors({});
-        setShowForm(false);
-      }, 2000);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      setMessage({
-        text: error.message || "Submission failed",
-        type: "error",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50 pt-30 px-4 sm:px-6">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50 py-30 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto">
         <motion.div
           className="flex items-center justify-between mb-8 p-6 bg-white rounded-2xl shadow-lg border border-emerald-200"
@@ -139,7 +29,7 @@ export default function UnlistedSharesPage() {
         </motion.div>
 
         <motion.div
-          className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-emerald-200 mb-8"
+          className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-emerald-200"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2 }}
@@ -155,220 +45,79 @@ export default function UnlistedSharesPage() {
           </div>
 
           <div className="prose max-w-none text-gray-700">
-            <p className="mb-4">
-              Unlisted shares are equity shares of companies that are not listed on 
-              any stock exchange. These companies may be preparing for an IPO or are 
-              private companies seeking investment. Investing in unlisted shares 
-              provides early access to potential growth stories.
+            <p className="mb-6 text-lg">
+              Unlisted shares represent a unique investment opportunity that allows investors to participate in the growth journey of companies before they enter public markets. These private equity investments can offer substantial returns for those who identify promising companies in their early stages, though they come with distinct risks and challenges that require careful consideration.
             </p>
-            <h3 className="text-xl font-semibold text-green-800 mt-6 mb-3">Benefits:</h3>
-            <ul className="list-disc pl-5 space-y-2 mb-4">
-              <li>Early investment in potential IPO candidates</li>
-              <li>Potential for significant returns upon listing</li>
-              <li>Access to exclusive investment opportunities</li>
-              <li>Diversification into private companies</li>
-              <li>Participation in company growth journey</li>
-            </ul>
-            <h3 className="text-xl font-semibold text-green-800 mt-6 mb-3">Risks:</h3>
-            <ul className="list-disc pl-5 space-y-2">
-              <li>Lack of liquidity before listing</li>
-              <li>No regulatory oversight like listed securities</li>
-              <li>Difficulty in valuation assessment</li>
-              <li>Potential for company failure</li>
-              <li>Illiquidity until IPO or buyback</li>
-            </ul>
-          </div>
-
-          <div className="mt-8 text-center">
-            {!showForm ? (
-              <button
-                onClick={() => setShowForm(true)}
-                className="px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-bold rounded-xl shadow-lg hover:from-green-700 hover:to-emerald-800 transition-all transform hover:scale-105"
-              >
-                Fill Investment Form
-              </button>
-            ) : (
-              <button
-                onClick={() => setShowForm(false)}
-                className="px-8 py-3 bg-gray-200 text-gray-700 font-bold rounded-xl hover:bg-gray-300 transition"
-              >
-                Hide Form
-              </button>
-            )}
+            
+            <h3 className="text-xl font-semibold text-green-800 mt-8 mb-4">Understanding Unlisted Equity</h3>
+            
+            <p className="italic mb-4">
+              Unlisted shares are equity shares of companies that are not listed on any stock exchange, representing ownership stakes in private businesses that operate outside the regulatory framework and transparency requirements of public markets. These companies may be preparing for an IPO or are private companies seeking investment from accredited investors, venture capital firms, or private equity groups.
+            </p>
+            
+            <p className="italic mb-6">
+              Investing in unlisted shares provides early access to potential growth stories that may not be available to public market investors until after significant value appreciation has already occurred. This first-mover advantage can be particularly valuable when investing in innovative companies with strong growth prospects that are not yet accessible through traditional stock exchanges.
+            </p>
+            
+            <h3 className="text-xl font-semibold text-green-800 mt-8 mb-4">Strategic Investment Advantages</h3>
+            
+            <p className="italic mb-4">
+              Early investment in potential IPO candidates allows investors to participate in the growth trajectory before public market recognition and valuation expansion. Companies that eventually go public often experience significant price appreciation during their transition from private to public status, creating opportunities for early investors who identified promising businesses before broader market awareness.
+            </p>
+            
+            <p className="italic mb-4">
+              Potential for significant returns upon listing can be substantial when investors successfully identify companies that achieve successful public offerings at favorable valuations. The combination of early entry pricing and post-listing market enthusiasm can create compelling return profiles that exceed traditional public market investments, particularly for companies in high-growth sectors or with disruptive business models.
+            </p>
+            
+            <p className="italic mb-4">
+              Access to exclusive investment opportunities that are not available to general public market investors, as unlisted shares are typically offered through private placements, employee stock ownership plans, or direct negotiations with company management. This exclusivity can provide access to unique business models, emerging technologies, and growth sectors before they become widely recognized by institutional investors.
+            </p>
+            
+            <p className="italic mb-4">
+              Diversification into private companies allows investors to build exposure to businesses that operate outside traditional public market structures, potentially reducing portfolio correlation with stock market movements and economic cycles that affect publicly traded companies. This alternative investment approach can enhance overall portfolio resilience and return potential across different market environments.
+            </p>
+            
+            <p className="italic mb-6">
+              Participation in company growth journey enables investors to align their financial interests with management teams focused on executing growth strategies and creating long-term value. This partnership approach can be particularly rewarding when investing in companies with strong competitive advantages, experienced leadership teams, and clear paths to profitability and market expansion.
+            </p>
+            
+            <h3 className="text-xl font-semibold text-green-800 mt-8 mb-4">Critical Risk Considerations</h3>
+            
+            <p className="italic mb-4">
+              Lack of liquidity before listing means investors may be unable to exit their positions until the company completes an IPO, is acquired, or implements a share buyback program. This illiquidity constraint requires long-term investment horizons and the ability to withstand potential delays in realizing investment returns, making unlisted share investments unsuitable for investors requiring regular access to their capital.
+            </p>
+            
+            <p className="italic mb-4">
+              No regulatory oversight like listed securities creates additional risks related to financial transparency, corporate governance, and investor protection that are standard in public markets. Private companies are not subject to the same disclosure requirements, auditing standards, and regulatory scrutiny that protect public market investors, requiring investors to conduct thorough due diligence and rely on management representations.
+            </p>
+            
+            <p className="italic mb-4">
+              Difficulty in valuation assessment presents challenges for unlisted share investors who must rely on limited financial information, management projections, and comparable company analysis rather than market-driven price discovery mechanisms. This valuation uncertainty can lead to overpayment for shares or missed opportunities due to conservative pricing, making accurate assessment crucial for investment success.
+            </p>
+            
+            <p className="italic mb-4">
+              Potential for company failure exists at higher rates in private companies compared to established public companies, as many startups and growth-stage businesses face execution challenges, competitive pressures, and market uncertainties that can lead to business failure or significant value destruction. The all-or-nothing nature of private equity investments means that unsuccessful companies can result in complete loss of invested capital.
+            </p>
+            
+            <p className="italic mb-6">
+              Illiquidity until IPO or buyback creates ongoing challenges for portfolio management and risk adjustment, as investors cannot easily rebalance positions or respond to changing market conditions and investment outlooks. This constraint requires careful portfolio construction and risk management to ensure that illiquid positions align with overall investment objectives and risk tolerance levels.
+            </p>
+            
+            <div className="bg-green-50 p-6 rounded-2xl mt-8">
+              <h4 className="font-bold text-green-800 text-lg mb-3">Successful Unlisted Share Investing</h4>
+              <p className="text-green-700">
+                Effective unlisted share investing requires extensive due diligence, industry expertise, and access to deal flow through professional networks or specialized investment platforms. Investors should carefully evaluate company fundamentals, management teams, competitive positioning, and growth prospects while understanding the risks associated with private company investing and illiquidity constraints.
+              </p>
+            </div>
+            
+            <div className="mt-8 p-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl border border-green-100">
+              <h4 className="font-bold text-green-800 text-lg mb-3">Professional Guidance Recommended</h4>
+              <p className="text-gray-700">
+                Given the complexity and risks associated with unlisted share investments, consulting with experienced investment professionals, legal advisors, and tax specialists is highly recommended before committing capital to these alternative investment opportunities. Proper structuring and ongoing monitoring are essential for navigating the unique challenges of private company investing.
+              </p>
+            </div>
           </div>
         </motion.div>
-
-        {showForm && (
-          <motion.div
-            className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-emerald-200"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <h2 className="text-2xl font-bold text-emerald-900 mb-6 text-center">
-              Investment Profile Form
-            </h2>
-
-            {message && (
-              <div
-                className={`mb-6 p-4 rounded-2xl text-center ${
-                  message.type === "success"
-                    ? "bg-green-100 text-green-800 border border-green-200"
-                    : "bg-red-100 text-red-800 border border-red-200"
-                }`}
-              >
-                {message.type === "success" ? <FaCheck className="inline mr-2" /> : null}
-                {message.text}
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
-                    <FaUser className="mr-2 text-green-600" /> Full Name <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.name ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-green-500 focus:border-green-500 transition`}
-                    placeholder="Enter your full name"
-                  />
-                  {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Client Code <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="clientCode"
-                    value={formData.clientCode}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.clientCode ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-green-500 focus:border-green-500 transition`}
-                    placeholder="Your client code"
-                  />
-                  {errors.clientCode && <p className="mt-1 text-sm text-red-600">{errors.clientCode}</p>}
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 flex items-center">
-                    <FaFileInvoice className="mr-2 text-green-600" /> PAN Number <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="panNo"
-                    value={formData.panNo}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border uppercase ${
-                      errors.panNo ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-green-500 focus:border-green-500 transition`}
-                    placeholder="ABCDE1234F"
-                  />
-                  {errors.panNo && <p className="mt-1 text-sm text-red-600">{errors.panNo}</p>}
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 flex items-center">
-                    <FaMobileAlt className="mr-2 text-green-600" /> Mobile Number <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <input
-                    type="tel"
-                    name="mobileNo"
-                    value={formData.mobileNo}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.mobileNo ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-green-500 focus:border-green-500 transition`}
-                    placeholder="10-digit mobile number"
-                  />
-                  {errors.mobileNo && <p className="mt-1 text-sm text-red-600">{errors.mobileNo}</p>}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Investment Consistency <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <select
-                    name="consistency"
-                    value={formData.consistency}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.consistency ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-green-500 focus:border-green-500 transition`}
-                  >
-                    <option value="">Select consistency level</option>
-                    <option value="Daily">Daily</option>
-                    <option value="Weekly">Weekly</option>
-                    <option value="Monthly">Monthly</option>
-                    <option value="Quarterly">Quarterly</option>
-                    <option value="Yearly">Yearly</option>
-                  </select>
-                  {errors.consistency && <p className="mt-1 text-sm text-red-600">{errors.consistency}</p>}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Trader Type <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <select
-                    name="traderType"
-                    value={formData.traderType}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.traderType ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-green-500 focus:border-green-500 transition`}
-                  >
-                    <option value="">Select trader type</option>
-                    <option value="Intraday">Intraday Trader</option>
-                    <option value="Swing">Swing Trader</option>
-                    <option value="Positional">Positional Trader</option>
-                    <option value="Long-term">Long-term Investor</option>
-                  </select>
-                  {errors.traderType && <p className="mt-1 text-sm text-red-600">{errors.traderType}</p>}
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Existing Broker <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="existingBroker"
-                    value={formData.existingBroker}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.existingBroker ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-green-500 focus:border-green-500 transition`}
-                    placeholder="Current broker name"
-                  />
-                  {errors.existingBroker && <p className="mt-1 text-sm text-red-600">{errors.existingBroker}</p>}
-                </div>
-              </div>
-
-              <div className="pt-4">
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className={`w-full py-4 px-6 rounded-xl font-bold text-white shadow-lg transition flex items-center justify-center ${
-                    isSubmitting
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 hover:shadow-xl"
-                  }`}
-                >
-                  {isSubmitting ? "Submitting..." : "Submit Investment Profile"}
-                </button>
-              </div>
-            </form>
-          </motion.div>
-        )}
       </div>
     </div>
   );

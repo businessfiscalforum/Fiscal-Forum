@@ -401,7 +401,7 @@ export default function MutualPage() {
               mutual funds.
             </p>
             <button
-              onClick={() => router.push("/services/stock-investment/call")}
+              onClick={() => router.push("/services/stock-investment/contact")}
               className="bg-white text-green-700 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3 mx-auto"
             >
               <Phone className="w-5 h-5" />

@@ -1,124 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { FaChartLine, FaCheck, FaArrowLeft, FaUser, FaFileInvoice, FaMobileAlt } from "react-icons/fa";
+import { FaChartLine, FaArrowLeft } from "react-icons/fa";
 
 export default function EquityETFsPage() {
   const router = useRouter();
-  const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    clientCode: "",
-    panNo: "",
-    mobileNo: "",
-    consistency: "",
-    traderType: "",
-    existingBroker: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState<{
-    text: string;
-    type: "success" | "error";
-  } | null>(null);
-  const [errors, setErrors] = useState<Record<string, string>>({});
-
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-
-    if (errors[name]) {
-      setErrors((prev) => {
-        const newErrors = { ...prev };
-        delete newErrors[name];
-        return newErrors;
-      });
-    }
-  };
-
-  const validateForm = () => {
-    const newErrors: Record<string, string> = {};
-
-    if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!formData.clientCode.trim()) newErrors.clientCode = "Client Code is required";
-    if (!formData.panNo.trim()) {
-      newErrors.panNo = "PAN Number is required";
-    } else if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(formData.panNo.toUpperCase())) {
-      newErrors.panNo = "Invalid PAN format";
-    }
-    if (!formData.mobileNo.trim()) {
-      newErrors.mobileNo = "Mobile Number is required";
-    } else if (!/^[0-9]{10}$/.test(formData.mobileNo)) {
-      newErrors.mobileNo = "Must be 10 digits";
-    }
-    if (!formData.consistency.trim()) newErrors.consistency = "Required";
-    if (!formData.traderType.trim()) newErrors.traderType = "Required";
-    if (!formData.existingBroker.trim()) newErrors.existingBroker = "Required";
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validateForm()) return;
-
-    setIsSubmitting(true);
-    setMessage(null);
-
-    try {
-      const formDataToSend = new FormData();
-      Object.entries(formData).forEach(([key, value]) => {
-        formDataToSend.append(key, value);
-      });
-
-      const response = await fetch("/api/investment-form", {
-        method: "POST",
-        body: formDataToSend,
-      });
-
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        throw new Error(result.error || "Failed to submit");
-      }
-
-      setMessage({
-        text: "Form submitted successfully!",
-        type: "success",
-      });
-
-      setTimeout(() => {
-        setFormData({
-          name: "",
-          clientCode: "",
-          panNo: "",
-          mobileNo: "",
-          consistency: "",
-          traderType: "",
-          existingBroker: "",
-        });
-        setErrors({});
-        setShowForm(false);
-      }, 2000);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      setMessage({
-        text: error.message || "Submission failed",
-        type: "error",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50 pt-30 px-4 sm:px-6">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50 py-30 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto">
         <motion.div
           className="flex items-center justify-between mb-8 p-6 bg-white rounded-2xl shadow-lg border border-emerald-200"
@@ -139,7 +29,7 @@ export default function EquityETFsPage() {
         </motion.div>
 
         <motion.div
-          className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-emerald-200 mb-8"
+          className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-emerald-200"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2 }}
@@ -155,218 +45,77 @@ export default function EquityETFsPage() {
           </div>
 
           <div className="prose max-w-none text-gray-700">
-            <p className="mb-4">
-              Equity investing involves buying shares of companies listed on stock exchanges. 
-              Exchange-Traded Funds (ETFs) allow you to invest in a diversified portfolio of 
-              stocks or bonds in a single transaction.
+            <p className="mb-6 text-lg">
+              Equity investing and Exchange-Traded Funds (ETFs) represent two of the most popular ways to participate in the stock market. These investment vehicles offer distinct advantages for building wealth over time while providing different levels of risk and diversification.
             </p>
-            <h3 className="text-xl font-semibold text-emerald-800 mt-6 mb-3">Benefits:</h3>
-            <ul className="list-disc pl-5 space-y-2 mb-4">
-              <li>Ownership in real businesses</li>
-              <li>Potential for long-term wealth creation</li>
-              <li>Dividend income from profitable companies</li>
-              <li>Liquidity - easy to buy and sell</li>
-              <li>Portfolio diversification with ETFs</li>
-            </ul>
-            <h3 className="text-xl font-semibold text-emerald-800 mt-6 mb-3">Risks:</h3>
-            <ul className="list-disc pl-5 space-y-2">
-              <li>Market volatility can cause value fluctuations</li>
-              <li>Potential for capital loss</li>
-              <li>Company-specific risks</li>
-              <li>Economic and geopolitical factors</li>
-            </ul>
-          </div>
-
-          <div className="mt-8 text-center">
-            {!showForm ? (
-              <button
-                onClick={() => setShowForm(true)}
-                className="px-8 py-3 bg-gradient-to-r from-emerald-600 to-teal-700 text-white font-bold rounded-xl shadow-lg hover:from-emerald-700 hover:to-teal-800 transition-all transform hover:scale-105"
-              >
-                Fill Investment Form
-              </button>
-            ) : (
-              <button
-                onClick={() => setShowForm(false)}
-                className="px-8 py-3 bg-gray-200 text-gray-700 font-bold rounded-xl hover:bg-gray-300 transition"
-              >
-                Hide Form
-              </button>
-            )}
+            
+            <h3 className="text-xl font-semibold text-emerald-800 mt-8 mb-4">Understanding Equity Investments</h3>
+            
+            <p className="italic mb-4">
+              Equity investing involves buying shares of companies listed on stock exchanges, making you a partial owner of those businesses. When you purchase equity shares, you acquire voting rights and may receive dividends when companies distribute profits to shareholders. This direct ownership stake allows you to benefit from a company&apos;s growth through capital appreciation.
+            </p>
+            
+            <p className="italic mb-6">
+              Ownership in real businesses means your investment value is directly tied to company performance, market conditions, and broader economic factors. Successful equity investing requires research, patience, and a long-term perspective as stock prices can fluctuate significantly in the short term but historically tend to appreciate over extended periods.
+            </p>
+            
+            <h3 className="text-xl font-semibold text-emerald-800 mt-8 mb-4">The Power of ETFs</h3>
+            
+            <p className="italic mb-4">
+              Exchange-Traded Funds (ETFs) allow you to invest in a diversified portfolio of stocks or bonds in a single transaction, providing instant diversification. These funds track specific indexes, sectors, or asset classes, spreading risk across multiple holdings rather than concentrating it in individual companies. This approach reduces the impact of any single security&apos;s poor performance on your overall investment.
+            </p>
+            
+            <p className="italic mb-6">
+              Portfolio diversification with ETFs makes them particularly appealing to new investors or those seeking to minimize risk while still participating in market growth. ETFs typically have lower expense ratios than actively managed mutual funds and offer the flexibility of trading throughout market hours like individual stocks.
+            </p>
+            
+            <h3 className="text-xl font-semibold text-emerald-800 mt-8 mb-4">Key Benefits of Equity & ETF Investments</h3>
+            
+            <p className="italic mb-4">
+              Potential for long-term wealth creation is one of the primary advantages of equity investing, as stock markets have historically delivered strong returns over extended periods. Companies that consistently grow their earnings and expand their market presence can generate substantial returns for patient investors who hold their shares through market cycles.
+            </p>
+            
+            <p className="italic mb-4">
+              Dividend income from profitable companies provides a steady stream of passive income, especially from established corporations that regularly distribute portions of their profits to shareholders. This dual benefit of capital appreciation and income generation makes equities attractive for both growth and income-focused investors.
+            </p>
+            
+            <p className="italic mb-6">
+              Liquidity - easy to buy and sell - ensures that you can convert your investments to cash relatively quickly during market hours. This flexibility allows you to respond to changing financial needs or market opportunities without being locked into long-term commitments.
+            </p>
+            
+            <h3 className="text-xl font-semibold text-emerald-800 mt-8 mb-4">Understanding the Risks</h3>
+            
+            <p className="italic mb-4">
+              Market volatility can cause value fluctuations in both individual stocks and ETFs, leading to periods where your investments may be worth less than your original purchase price. These price swings are normal characteristics of equity markets and reflect changing investor sentiment, economic conditions, and company-specific developments.
+            </p>
+            
+            <p className="italic mb-4">
+              Potential for capital loss exists whenever you invest in equities, as there&apos;s no guarantee that stock prices will increase over time. Companies can face financial difficulties, industry disruptions, or competitive challenges that negatively impact their share prices, sometimes resulting in significant losses for investors.
+            </p>
+            
+            <p className="italic mb-4">
+              Company-specific risks affect individual equity holdings, where factors such as management decisions, product failures, or regulatory changes can disproportionately impact a single stock. This concentration risk is one reason why diversification through ETFs is often recommended for risk-averse investors.
+            </p>
+            
+            <p className="italic mb-6">
+              Economic and geopolitical factors influence entire markets and can cause broad-based declines in equity values. Events such as recessions, interest rate changes, currency fluctuations, or international conflicts can create challenging environments for equity investors across all sectors and regions.
+            </p>
+            
+            <div className="bg-emerald-50 p-6 rounded-2xl mt-8">
+              <h4 className="font-bold text-emerald-800 text-lg mb-3">Investment Strategy Considerations</h4>
+              <p className="text-emerald-700">
+                Successful equity and ETF investing requires understanding your risk tolerance, investment timeline, and financial goals. While equities offer the potential for higher returns, they also come with increased volatility compared to fixed-income investments. A balanced approach often includes both individual stocks for potential growth and ETFs for diversification and risk management.
+              </p>
+            </div>
+            
+            <div className="mt-8 p-6 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl border border-emerald-100">
+              <h4 className="font-bold text-emerald-800 text-lg mb-3">Getting Started</h4>
+              <p className="text-gray-700">
+                Before investing in equities or ETFs, consider consulting with a financial advisor to develop a strategy that aligns with your objectives. Research different investment options, understand the fees associated with various funds, and start with a diversified approach to minimize risk while building your investment knowledge and experience.
+              </p>
+            </div>
           </div>
         </motion.div>
-
-        {showForm && (
-          <motion.div
-            className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-emerald-200"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <h2 className="text-2xl font-bold text-emerald-900 mb-6 text-center">
-              Investment Profile Form
-            </h2>
-
-            {message && (
-              <div
-                className={`mb-6 p-4 rounded-2xl text-center ${
-                  message.type === "success"
-                    ? "bg-green-100 text-green-800 border border-green-200"
-                    : "bg-red-100 text-red-800 border border-red-200"
-                }`}
-              >
-                {message.type === "success" ? <FaCheck className="inline mr-2" /> : null}
-                {message.text}
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 flex items-center">
-                    <FaUser className="mr-2 text-emerald-600" /> Full Name <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.name ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition`}
-                    placeholder="Enter your full name"
-                  />
-                  {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Client Code <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="clientCode"
-                    value={formData.clientCode}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.clientCode ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition`}
-                    placeholder="Your client code"
-                  />
-                  {errors.clientCode && <p className="mt-1 text-sm text-red-600">{errors.clientCode}</p>}
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 flex items-center">
-                    <FaFileInvoice className="mr-2 text-emerald-600" /> PAN Number <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="panNo"
-                    value={formData.panNo}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border uppercase ${
-                      errors.panNo ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition`}
-                    placeholder="ABCDE1234F"
-                  />
-                  {errors.panNo && <p className="mt-1 text-sm text-red-600">{errors.panNo}</p>}
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 flex items-center">
-                    <FaMobileAlt className="mr-2 text-emerald-600" /> Mobile Number <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <input
-                    type="tel"
-                    name="mobileNo"
-                    value={formData.mobileNo}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.mobileNo ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition`}
-                    placeholder="10-digit mobile number"
-                  />
-                  {errors.mobileNo && <p className="mt-1 text-sm text-red-600">{errors.mobileNo}</p>}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Investment Consistency <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <select
-                    name="consistency"
-                    value={formData.consistency}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.consistency ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition`}
-                  >
-                    <option value="">Select consistency level</option>
-                    <option value="Daily">Daily</option>
-                    <option value="Weekly">Weekly</option>
-                    <option value="Monthly">Monthly</option>
-                    <option value="Quarterly">Quarterly</option>
-                    <option value="Yearly">Yearly</option>
-                  </select>
-                  {errors.consistency && <p className="mt-1 text-sm text-red-600">{errors.consistency}</p>}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Trader Type <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <select
-                    name="traderType"
-                    value={formData.traderType}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.traderType ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition`}
-                  >
-                    <option value="">Select trader type</option>
-                    <option value="Intraday">Intraday Trader</option>
-                    <option value="Swing">Swing Trader</option>
-                    <option value="Positional">Positional Trader</option>
-                    <option value="Long-term">Long-term Investor</option>
-                  </select>
-                  {errors.traderType && <p className="mt-1 text-sm text-red-600">{errors.traderType}</p>}
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Existing Broker <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="existingBroker"
-                    value={formData.existingBroker}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.existingBroker ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition`}
-                    placeholder="Current broker name"
-                  />
-                  {errors.existingBroker && <p className="mt-1 text-sm text-red-600">{errors.existingBroker}</p>}
-                </div>
-              </div>
-
-              <div className="pt-4">
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className={`w-full py-4 px-6 rounded-xl font-bold text-white shadow-lg transition flex items-center justify-center ${
-                    isSubmitting
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 hover:shadow-xl"
-                  }`}
-                >
-                  {isSubmitting ? "Submitting..." : "Submit Investment Profile"}
-                </button>
-              </div>
-            </form>
-          </motion.div>
-        )}
       </div>
     </div>
   );

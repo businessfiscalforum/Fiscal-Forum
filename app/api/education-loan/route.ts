@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { db } from '../../../config/db';
 import { educationLoanApplications } from '../../../config/schema';
-import { eq } from 'drizzle-orm';
 
 // Schema for Education Loan Application
 const educationLoanSchema = z.object({

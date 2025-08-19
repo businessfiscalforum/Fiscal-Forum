@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { db } from '../../../config/db'; // Adjust path as needed
 import { lasApplication } from '../../../config/schema'; // Adjust path as needed
-import { eq } from 'drizzle-orm';
+
 
 // Zod schema for validation (same as frontend)
 const loanAgainstSecuritiesSchema = z.object({

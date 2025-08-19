@@ -1,6 +1,4 @@
-"use client"
-import Link from "next/link";
-import Image from "next/image";
+"use client";
 import { FaGift, FaHeadset, FaRupeeSign, FaSpinner } from "react-icons/fa";
 import { useState } from "react";
 import { CheckCircle, TrendingUp } from "lucide-react";
@@ -108,7 +106,7 @@ export default function TransferDematPage() {
 
   return (
     <>
-      <section className="py-20 px-6 bg-gradient-to-br from-green-50 to-emerald-100">
+      <section className="py-30 px-6 bg-gradient-to-br from-green-50 to-emerald-100">
         <div className="max-w-4xl mx-auto text-center mb-12">
           {/* Attractive Tagline */}
           <h4 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
@@ -172,7 +170,7 @@ export default function TransferDematPage() {
           </p>
         </div>
       </section>
-      
+
       <section className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-green-100 py-20 px-4">
         <div className="max-w-7xl mx-auto">
           {/* Heading */}
@@ -256,18 +254,18 @@ export default function TransferDematPage() {
             </div>
 
             {/* Button */}
-            <div className="text-center mt-8">
+            {/* <div className="text-center mt-8">
               <Link
                 href="#switch-form"
                 className="px-8 py-3 bg-green-600 text-white rounded-lg text-lg font-semibold hover:bg-green-700 transition"
               >
                 Start Your Transfer →
               </Link>
-            </div>
+            </div> */}
           </section>
 
           {/* Brokers Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             {brokers.map((broker) => (
               <Link key={broker.name} href={broker.link} target="_blank">
                 <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 flex flex-col items-center text-center hover:-translate-y-2 border border-green-200">
@@ -289,7 +287,7 @@ export default function TransferDematPage() {
                 </div>
               </Link>
             ))}
-          </div>
+          </div> */}
 
           {/* Trust Section */}
           <section className="py-12 px-4 sm:px-6 mb-12">
@@ -311,10 +309,8 @@ export default function TransferDematPage() {
                 </p>
               </motion.div>
 
-              
-
               <div className="relative space-y-8">
-                                <motion.div
+                <motion.div
                   className="flex items-start"
                   initial={{ opacity: 0, x: -30 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -328,8 +324,8 @@ export default function TransferDematPage() {
                       Open a Demat Account with Us
                     </h3>
                     <p className="text-gray-600 text-sm sm:text-base">
-                      Log in to your current broker’s portal and generate a Client
-                      Master Report (CMR) or submit a DIS slip.
+                      Log in to your current broker’s portal and generate a
+                      Client Master Report (CMR) or submit a DIS slip.
                     </p>
                   </div>
                 </motion.div>
@@ -347,8 +343,8 @@ export default function TransferDematPage() {
                       Initiate Transfer Request
                     </h3>
                     <p className="text-gray-600 text-sm sm:text-base">
-                      Log in to your current broker’s portal and generate a Client
-                      Master Report (CMR) or submit a DIS slip.
+                      Log in to your current broker’s portal and generate a
+                      Client Master Report (CMR) or submit a DIS slip.
                     </p>
                   </div>
                 </motion.div>
@@ -415,28 +411,33 @@ export default function TransferDematPage() {
               </div>
 
               <motion.div
-                className="mt-12 text-center bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-200 shadow-inner"
+                className="mt-12 text-center bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl p-8 border-2 border-green-300 shadow-xl"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.0 }}
               >
-                <h3 className="text-xl sm:text-2xl font-bold text-green-800 mb-3">
+                <h3 className="text-2xl sm:text-3xl font-bold text-green-900 mb-4">
                   Perks of Transferring with Us
                 </h3>
-                <div className="flex flex-wrap justify-center gap-4 mb-6 text-green-700">
-                  <div className="flex items-center gap-1 text-sm sm:text-base">
-                    <FaGift className="text-emerald-600" /> <span>Free Research Reports</span>
+                <div className="flex flex-wrap justify-center gap-6 mb-8 text-green-800">
+                  <div className="flex items-center gap-2 text-base sm:text-lg font-semibold">
+                    <FaGift className="text-emerald-700 text-xl" />
+                    <span>Free Research Reports</span>
                   </div>
-                  <div className="flex items-center gap-1 text-sm sm:text-base">
-                    <FaRupeeSign className="text-emerald-600" /> <span>Zero Transfer Fees</span>
+                  <div className="flex items-center gap-2 text-base sm:text-lg font-semibold">
+                    <FaRupeeSign className="text-emerald-700 text-xl" />
+                    <span>Zero Transfer Fees</span>
                   </div>
-                  <div className="flex items-center gap-1 text-sm sm:text-base">
-                    <FaHeadset className="text-emerald-600" /> <span>Dedicated Support</span>
+                  <div className="flex items-center gap-2 text-base sm:text-lg font-semibold">
+                    <FaHeadset className="text-emerald-700 text-xl" />
+                    <span>Dedicated Support</span>
                   </div>
                 </div>
                 <button
-                  onClick={() => router.push('/services/stock-investment/transfer-demat')}
-                  className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white font-bold rounded-full transition shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                  onClick={() =>
+                    router.push("/services/stock-investment/transfer-demat")
+                  }
+                  className="px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white font-bold text-lg rounded-full transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-300"
                 >
                   Fill Transfer Details
                 </button>
