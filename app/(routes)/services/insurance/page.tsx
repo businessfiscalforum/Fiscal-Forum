@@ -74,8 +74,8 @@ const cards = [
     icon: Heart,
     iconBgColor: "bg-red-100",
     iconColor: "text-red-500",
-    link: "/insurance/health",
     formLink: "/services/insurance/health-insurance",
+    link: "/services/insurance/health",
   },
   {
     id: "car",
@@ -85,8 +85,8 @@ const cards = [
     icon: Car,
     iconBgColor: "bg-blue-100",
     iconColor: "text-blue-500",
-    link: "/insurance/car",
     formLink: "/services/insurance/car-insurance",
+    link: "/services/insurance/car",
   },
   {
     id: "two-wheeler",
@@ -96,8 +96,8 @@ const cards = [
     icon: Bike,
     iconBgColor: "bg-yellow-100",
     iconColor: "text-yellow-500",
-    link: "/insurance/two-wheeler",
     formLink: "/services/insurance/two-wheeler-insurance",
+    link: "/services/insurance/two-wheeler",
   },
   {
     id: "life",
@@ -107,8 +107,8 @@ const cards = [
     icon: Shield,
     iconBgColor: "bg-green-100",
     iconColor: "text-green-500",
-    link: "/insurance/life",
     formLink: "/services/insurance/life-insurance",
+    link: "/services/insurance/life",
   },
   {
     id: "home",
@@ -118,8 +118,8 @@ const cards = [
     icon: Home,
     iconBgColor: "bg-purple-100",
     iconColor: "text-purple-500",
-    link: "/insurance/home-shop",
     formLink: "/services/insurance/home-shop-insurance",
+    link: "/services/insurance/home-shop",
   },
   {
     id: "travel",
@@ -129,8 +129,8 @@ const cards = [
     icon: Plane,
     iconBgColor: "bg-orange-100",
     iconColor: "text-orange-500",
-    link: "/insurance/travel",
     formLink: "/services/insurance/travel-insurance",
+    link: "/services/insurance/travel",
   },
   {
     id: "personal-accident",
@@ -140,8 +140,8 @@ const cards = [
     icon: ShieldAlert,
     iconBgColor: "bg-indigo-100",
     iconColor: "text-indigo-500",
-    link: "/insurance/personal-accident",
     formLink: "/services/insurance/personal-accident-insurance",
+    link: "/services/insurance/personal-accident",
   },
   {
     id: "commercial-vehicle",
@@ -151,8 +151,8 @@ const cards = [
     icon: Truck,
     iconBgColor: "bg-cyan-100",
     iconColor: "text-cyan-500",
-    link: "/insurance/commercial-vehicle",
     formLink: "/services/insurance/commercial-vehicle-insurance",
+    link: "/services/insurance/commercial-vehicle",
   },
 ];
 

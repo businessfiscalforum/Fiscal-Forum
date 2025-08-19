@@ -390,7 +390,6 @@ export default function CreditCardApplyPage() {
                     className="relative rounded-2xl shadow-lg overflow-hidden transition-all duration-300 transform hover:shadow-xl bg-white"
                   >
                     <div className="p-1 bg-gradient-to-r from-green-500 to-emerald-600"></div>
-                    <Link href={option.link} passHref>
                       <div className="p-6 space-y-4 h-full flex flex-col cursor-pointer">
                         <div
                           className={`p-3 rounded-xl ${option.iconBgColor} flex-shrink-0 w-12 h-12 flex items-center justify-center`}
@@ -408,6 +407,7 @@ export default function CreditCardApplyPage() {
                           {option.description}
                         </p>
                         <div className="pt-4">
+                          <Link href={option.link} passHref>
                           <div className="inline-flex items-center gap-2 font-medium text-green-600 hover:text-green-700">
                             Learn More
                             <svg
@@ -421,9 +421,9 @@ export default function CreditCardApplyPage() {
                               <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
                           </div>
+                          </Link>
                         </div>
                       </div>
-                    </Link>
                   </motion.div>
                 );
               })}

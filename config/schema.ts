@@ -6,6 +6,7 @@ import {
   date,
   decimal,
   integer,
+  json,
   pgEnum,
   pgTable,
   text,
@@ -13,6 +14,7 @@ import {
   uuid,
   varchar,
 } from 'drizzle-orm/pg-core';
+import z from 'zod';
 
 // 🔁 Updated Enums (Aligned with frontend)
 
@@ -353,6 +355,331 @@ export const applicationsTable = pgTable('applications_table', {
 });
 
 
+export const homeLoanApplications = pgTable("home_loan_applications", {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  // Applicant Details
+  firstName: text("first_name").notNull(),
+  middleName: text("middle_name"),
+  lastName: text("last_name").notNull(),
+  fatherName: text("father_name").notNull(),
+  dateOfBirth: varchar("date_of_birth", { length: 20 }).notNull(),
+  maritalStatus: varchar("marital_status", { length: 20 }).notNull(),
+  gender: varchar("gender", { length: 10 }).notNull(),
+  mobileNo: varchar("mobile_no", { length: 15 }).notNull(),
+  emailId: text("email_id").notNull(),
+  homeAddress1: text("home_address1").notNull(),
+  homeAddress2: text("home_address2"),
+  residenceType: varchar("residence_type", { length: 20 }).notNull(),
+  pincode: varchar("pincode", { length: 6 }).notNull(),
+  state: text("state").notNull(),
+  city: text("city").notNull(),
+  permanentAddressSame: boolean("permanent_address_same").default(false),
+
+  // Employment Details
+  employmentType: varchar("employment_type", { length: 20 }).notNull(),
+  companyName: text("company_name"),
+  designation: text("designation"),
+  netMonthlySalary: integer("net_monthly_salary").notNull(),
+
+  // Property Details
+  propertyType: varchar("property_type", { length: 20 }).notNull(),
+  agreementValue: integer("agreement_value").notNull(),
+  loanAmountRequired: integer("loan_amount_required").notNull(),
+  propertyAddressLine1: text("property_address_line1").notNull(),
+  propertyAddressLine2: text("property_address_line2"),
+  propertyCity: text("property_city").notNull(),
+
+  // Existing Obligations
+  noOfCurrentLoans: integer("no_of_current_loans").notNull(),
+  existingLoanType: varchar("existing_loan_type", { length: 20 }),
+
+  // Additional Details
+  builderName: text("builder_name").notNull(),
+  residenceSince: varchar("residence_since", { length: 20 }).notNull(),
+  specialName: text("special_name"),
+
+  // References
+  reference1Name: text("reference1_name").notNull(),
+  reference1Mobile: varchar("reference1_mobile", { length: 15 }).notNull(),
+  reference1Address: text("reference1_address").notNull(),
+
+  reference2Name: text("reference2_name").notNull(),
+  reference2Mobile: varchar("reference2_mobile", { length: 15 }).notNull(),
+  reference2Address: text("reference2_address").notNull(),
+
+  // Timestamps
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdateFn(() => new Date()),
+});
+
+
+export const lapApplications = pgTable('lap_applications', {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  firstName: varchar('first_name', { length: 50 }).notNull(),
+  middleName: varchar('middle_name', { length: 50 }),
+  lastName: varchar('last_name', { length: 50 }).notNull(),
+  fatherName: varchar('father_name', { length: 50 }),
+  dob: date('dob'),
+  panNumber: varchar('pan_number', { length: 10 }),
+  email: varchar('email', { length: 100 }),
+  mobileNo: varchar('mobile_no', { length: 15 }),
+  gender: varchar('gender', { length: 20 }).$type<'Male' | 'Female' | 'Others'>(),
+  maritalStatus: varchar('marital_status', { length: 20 }).$type<'Married' | 'Unmarried'>(),
+  currentAddress1: text('current_address_1'),
+  currentAddress2: text('current_address_2'),
+  residenceType: varchar('residence_type', { length: 20 }).$type<'Rented' | 'Owned'>(),
+  city: varchar('city', { length: 50 }),
+  state: varchar('state', { length: 50 }),
+  pincode: varchar('pincode', { length: 10 }),
+  permanentSameAsCurrent: boolean('permanent_same_as_current').default(false),
+  employmentType: varchar('employment_type', { length: 20 }).$type<'Salaried' | 'Self Employed'>(),
+  companyName: varchar('company_name', { length: 100 }),
+  designation: varchar('designation', { length: 50 }),
+  companyAddress1: text('company_address_1'),
+  companyAddress2: text('company_address_2'),
+  companyCity: varchar('company_city', { length: 50 }),
+  companyState: varchar('company_state', { length: 50 }),
+  monthlySalary: integer('monthly_salary').notNull(),
+  experienceInMonths: integer('experience_in_months'),
+  currentJobStability: varchar('current_job_stability', { length: 20 }).$type<'Less than 6 months' | '6-12 months' | '1-2 years' | 'More than 2 years'>(),
+  propertyType: varchar('property_type', { length: 20 }).$type<'Residential' | 'Commercial'>(),
+  agreementValue: integer('agreement_value') ,
+  loanAmountRequired: integer('loan_amount_required').notNull(),
+  propertyAddress1: text('property_address_1'),
+  propertyAddress2: text('property_address_2'),
+  propertyCity: varchar('property_city', { length: 50 }),
+  propertyState: varchar('property_state', { length: 50 }),
+  existingLoansCount: integer('existing_loans_count').default(0),
+  existingLoanType: varchar("existing_loan_type", { length: 20 }),
+  reference1Name: text("reference1_name").notNull(),
+  reference1Mobile: varchar("reference1_mobile", { length: 15 }).notNull(),
+  reference1Address: text("reference1_address").notNull(),
+
+  reference2Name: text("reference2_name").notNull(),
+  reference2Mobile: varchar("reference2_mobile", { length: 15 }).notNull(),
+  reference2Address: text("reference2_address").notNull(),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow().$onUpdateFn(() => new Date()),
+});
+
+
+export const personalLoanApplications = pgTable('personal_loan_applications', {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  
+  // Applicant Details
+  firstName: varchar('first_name', { length: 50 }).notNull(),
+  middleName: varchar('middle_name', { length: 50 }),
+  lastName: varchar('last_name', { length: 50 }).notNull(),
+  fatherName: varchar('father_name', { length: 100 }).notNull(),
+  dateOfBirth: date('date_of_birth').notNull(),
+  panNumber: varchar('pan_number', { length: 10 }),
+  emailId: varchar('email_id', { length: 100 }).notNull(),
+  mobileNo: varchar('mobile_no', { length: 15 }).notNull(),
+  gender: varchar('gender', { length: 20 }).$type<'Male' | 'Female' | 'Others'>().notNull(),
+  maritalStatus: varchar('marital_status', { length: 20 }).$type<'Married' | 'Unmarried' | 'Others'>().notNull(),
+  
+  // Current Address
+  homeAddress1: text('home_address_1').notNull(),
+  homeAddress2: text('home_address_2'),
+  residenceType: varchar('residence_type', { length: 20 }).$type<'Owned' | 'Rented'>().notNull(),
+  city: varchar('city', { length: 50 }).notNull(),
+  state: varchar('state', { length: 50 }).notNull(),
+  pincode: varchar('pincode', { length: 6 }).notNull(),
+  permanentAddressSame: boolean('permanent_address_same').default(false),
+  
+  // Employment Details
+  employmentType: varchar('employment_type', { length: 20 }).$type<'Company' | 'Self-Employed'>().notNull(),
+  companyName: varchar('company_name', { length: 100 }),
+  designation: varchar('designation', { length: 50 }),
+  netMonthlySalary: integer('net_monthly_salary'),
+  
+  // Loan Details
+  loanAmountRequired: integer('loan_amount_required').notNull(),
+  
+  // Existing Obligations
+  noOfCurrentLoans: integer('no_of_current_loans').notNull(),
+  existingLoanType: varchar("existing_loan_type", { length: 20 }).$type<'None' | 'Personal' | 'Car' | 'Education' | 'Other'>(),
+  
+  // References (in same table) - Flattened
+  reference1Name: text("reference1_name").notNull(),
+  reference1Mobile: varchar("reference1_mobile", { length: 15 }).notNull(),
+  reference1Address: text("reference1_address").notNull(),
+
+  reference2Name: text("reference2_name").notNull(),
+  reference2Mobile: varchar("reference2_mobile", { length: 15 }).notNull(),
+  reference2Address: text("reference2_address").notNull(),
+  
+  // Timestamps
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow().$onUpdateFn(() => new Date()),
+});
+
+export const businessLoanApplications = pgTable('business_loan_applications', {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  // Applicant Details
+  firstName: varchar('first_name', { length: 50 }).notNull(),
+  middleName: varchar('middle_name', { length: 50 }),
+  lastName: varchar('last_name', { length: 50 }).notNull(),
+  fatherName: varchar('father_name', { length: 100 }).notNull(),
+  dateOfBirth: date('date_of_birth').notNull(),
+  panNumber: varchar('pan_number', { length: 10 }), // Optional
+  emailId: varchar('email_id', { length: 100 }).notNull(),
+  mobileNo: varchar('mobile_no', { length: 15 }).notNull(),
+  gender: varchar('gender', { length: 20 }).$type<'Male' | 'Female' | 'Others'>().notNull(),
+  maritalStatus: varchar('marital_status', { length: 20 }).$type<'Married' | 'Unmarried' | 'Others'>().notNull(),
+  
+  // Current Address
+  homeAddress1: text('home_address_1').notNull(),
+  homeAddress2: text('home_address_2'),
+  residenceType: varchar('residence_type', { length: 20 }).$type<'Owned' | 'Rented'>().notNull(),
+  city: varchar('city', { length: 50 }).notNull(),
+  state: varchar('state', { length: 50 }).notNull(),
+  pincode: varchar('pincode', { length: 6 }).notNull(), // 6 digits
+  permanentAddressSame: boolean('permanent_address_same').default(false),
+  
+  // Employment Details
+  employmentType: varchar('employment_type', { length: 20 }).$type<'Company' | 'Self-Employed'>().notNull(),
+  companyName: varchar('company_name', { length: 100 }),
+  designation: varchar('designation', { length: 50 }),
+  netMonthlySalary: integer('net_monthly_salary'),
+  
+  // Business Details
+  businessName: varchar('business_name', { length: 100 }).notNull(),
+  businessType: varchar('business_type', { length: 50 }).$type<'Sole Proprietorship' | 'Partnership' | 'Private Limited' | 'Public Limited' | 'LLP'>().notNull(),
+  yearsInBusiness: integer('years_in_business'),
+  gstNumber: varchar('gst_number', { length: 15 }),
+  annualTurnover: integer('annual_turnover'),
+  monthlyProfit: integer('monthly_profit'),
+  
+  // Loan Details
+  loanAmountRequired: integer('loan_amount_required').notNull(),
+  
+  // Existing Obligations
+  noOfCurrentLoans: integer('no_of_current_loans').notNull(),
+  existingLoanType: varchar("existing_loan_type", { length: 20 }).$type<'None' | 'Personal' | 'Car' | 'Education' | 'Other'>(),
+  
+  // References (in same table)
+  reference1Name: text("reference1_name").notNull(),
+  reference1Mobile: varchar("reference1_mobile", { length: 15 }).notNull(),
+  reference1Address: text("reference1_address").notNull(),
+
+  reference2Name: text("reference2_name").notNull(),
+  reference2Mobile: varchar("reference2_mobile", { length: 15 }).notNull(),
+  reference2Address: text("reference2_address").notNull(),
+  
+  // Timestamps
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow().$onUpdateFn(() => new Date()),
+});
+
+
+export const goldLoanApplications = pgTable('gold_loan_applications', {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  
+  // Applicant Details
+  firstName: varchar('first_name', { length: 50 }).notNull(),
+  middleName: varchar('middle_name', { length: 50 }),
+  lastName: varchar('last_name', { length: 50 }).notNull(),
+  fatherName: varchar('father_name', { length: 100 }).notNull(),
+  panNumber: varchar('pan_number', { length: 10 }), // Optional
+  dateOfBirth: date('date_of_birth').notNull(),
+  maritalStatus: varchar('marital_status', { length: 10 }).$type<'Married' | 'Unmarried'>().notNull(),
+  gender: varchar('gender', { length: 20 }).$type<'Male' | 'Female' | 'Others'>().notNull(),
+  mobileNo: varchar('mobile_no', { length: 15 }).notNull(),
+  emailId: varchar('email_id', { length: 100 }).notNull(),
+  
+  // Current Address
+  homeAddress1: text('home_address_1').notNull(),
+  homeAddress2: text('home_address_2'),
+  residenceType: varchar('residence_type', { length: 20 }).$type<'Owned' | 'Rented'>().notNull(),
+  city: varchar('city', { length: 50 }).notNull(),
+  state: varchar('state', { length: 50 }).notNull(),
+  pincode: varchar('pincode', { length: 6 }).notNull(), // 6 digits
+  permanentAddressSame: boolean('permanent_address_same').default(false),
+  
+  // Gold Loan Details
+  goldWeight: integer('gold_weight'), // Weight in grams
+  goldPurity: varchar('gold_purity', { length: 10 }).$type<'22K' | '24K' | '18K' | '14K' | 'Other'>(),
+  
+  // Loan Details
+  loanAmountRequired: integer('loan_amount_required').notNull(),
+  
+  // Existing Obligations
+  noOfCurrentLoans: integer('no_of_current_loans').notNull(),
+  existingLoanType: varchar("existing_loan_type", { length: 20 }).$type<'None' | 'Personal' | 'Car' | 'Education' | 'Other'>(),
+  
+  // References (in same table)
+  reference1Name: text("reference1_name").notNull(),
+  reference1Mobile: varchar("reference1_mobile", { length: 15 }).notNull(),
+  reference1Address: text("reference1_address").notNull(),
+
+  reference2Name: text("reference2_name").notNull(),
+  reference2Mobile: varchar("reference2_mobile", { length: 15 }).notNull(),
+  reference2Address: text("reference2_address").notNull(),
+  
+  // Timestamps
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow().$onUpdateFn(() => new Date()),
+});
+
+export const carLoanApplications = pgTable('car_loan_applications', {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  
+  // Applicant Details
+  firstName: varchar('first_name', { length: 50 }).notNull(),
+  middleName: varchar('middle_name', { length: 50 }),
+  lastName: varchar('last_name', { length: 50 }).notNull(),
+  fatherName: varchar('father_name', { length: 100 }).notNull(),
+  panNumber: varchar('pan_number', { length: 10 }), // Optional
+  dateOfBirth: date('date_of_birth').notNull(),
+  maritalStatus: varchar('marital_status', { length: 20 }).$type<'Married' | 'Unmarried' | 'Others'>().notNull(),
+  gender: varchar('gender', { length: 20 }).$type<'Male' | 'Female' | 'Others'>().notNull(),
+  mobileNo: varchar('mobile_no', { length: 15 }).notNull(),
+  emailId: varchar('email_id', { length: 100 }).notNull(),
+  
+  // Current Address
+  homeAddress1: text('home_address_1').notNull(),
+  homeAddress2: text('home_address_2'),
+  residenceType: varchar('residence_type', { length: 20 }).$type<'Owned' | 'Rented'>().notNull(),
+  city: varchar('city', { length: 50 }).notNull(),
+  state: varchar('state', { length: 50 }).notNull(),
+  pincode: varchar('pincode', { length: 6 }).notNull(), // 6 digits
+  permanentAddressSame: boolean('permanent_address_same').default(false),
+  
+  // Employment Details
+  employmentType: varchar('employment_type', { length: 20 }).$type<'Company' | 'Self-Employed'>().notNull(),
+  companyName: varchar('company_name', { length: 100 }),
+  designation: varchar('designation', { length: 50 }),
+  netMonthlySalary: integer('net_monthly_salary'),
+  
+  // Car Details
+  carType: varchar('car_type', { length: 20 }).$type<'Sedan' | 'Hatchback' | 'SUV' | 'MUV' | 'Other'>(),
+  year: integer('year'),
+  loanType: varchar('loan_type', { length: 20 }).$type<'New Car' | 'Used Car' | 'Finance Only'>(),
+  
+  // Loan Details
+  loanAmountRequired: integer('loan_amount_required').notNull(),
+  
+  // Existing Obligations
+  noOfCurrentLoans: integer('no_of_current_loans').notNull(),
+  existingLoanType: varchar("existing_loan_type", { length: 20 }).$type<'None' | 'Personal' | 'Car' | 'Education' | 'Other'>(),
+  
+  // References (in same table)
+  reference1Name: text("reference1_name").notNull(),
+  reference1Mobile: varchar("reference1_mobile", { length: 15 }).notNull(),
+  reference1Address: text("reference1_address").notNull(),
+
+  reference2Name: text("reference2_name").notNull(),
+  reference2Mobile: varchar("reference2_mobile", { length: 15 }).notNull(),
+  reference2Address: text("reference2_address").notNull(),
+  
+  // Timestamps
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow().$onUpdateFn(() => new Date()),
+});
+
 export const quoteRequestsTable = pgTable('quote_requests', {
   id: uuid('id').defaultRandom().primaryKey().notNull(),
   name: text('name').notNull(),
@@ -690,7 +1017,6 @@ export type SelectUser = typeof usersTable.$inferSelect;
 export type InsertApplication = typeof applicationsTable.$inferInsert;
 export type SelectApplication = typeof applicationsTable.$inferSelect;
 
-
 export type InsertQuoteRequest = typeof quoteRequestsTable.$inferInsert;
 export type SelectQuoteRequest = typeof quoteRequestsTable.$inferSelect;
 
@@ -735,3 +1061,21 @@ export type SelectPropertyInsuranceRequest = typeof propertyInsuranceRequests.$i
 
 export type InsertTravelInsuranceRequest = typeof travelInsuranceRequests.$inferInsert;
 export type SelectTravelInsuranceRequest = typeof travelInsuranceRequests.$inferSelect;
+
+export type InsertHomeApp = typeof homeLoanApplications.$inferInsert;
+export type SelectHomeApp = typeof homeLoanApplications.$inferSelect
+
+export type InsertLapApplication = typeof lapApplications.$inferInsert;
+export type SelectLapApplication = typeof lapApplications.$inferSelect;
+
+export type InsertPersonalApplication = typeof personalLoanApplications.$inferInsert;
+export type SelectPersonalApplication = typeof personalLoanApplications.$inferSelect;
+
+export type InsertBusinessApplication = typeof businessLoanApplications.$inferInsert;
+export type SelectBusinessApplication = typeof businessLoanApplications.$inferSelect;
+
+export type InsertGoldApplication = typeof goldLoanApplications.$inferInsert;
+export type SelectGoldApplication = typeof goldLoanApplications.$inferSelect;
+
+export type InsertCardApplication = typeof carLoanApplications.$inferInsert;
+export type SelcectCarApplication = typeof carLoanApplications.$inferSelect;

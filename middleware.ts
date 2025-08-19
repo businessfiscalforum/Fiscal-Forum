@@ -22,7 +22,9 @@ const isPublicRoute = createRouteMatcher(['/',
          '/api/property-insurance',
          '/api/travel-insurance',
   '/work-with-us',
-  '/ipo'
+  '/ipo',
+  '/contact',
+  '/services(.*)'
 ])
 
 const isAdminRoute = createRouteMatcher(['/admin(.*)']);
