@@ -482,6 +482,207 @@ export const savingsApplications = pgTable("savings_applications", {
     panRegexCheck: check('pan_regex_check', sql`${table.panNo} ~ '^[A-Z]{5}[0-9]{4}[A-Z]{1}$'`),
   };
 });
+// Car Insurance Requests
+export const carInsuranceRequests = pgTable('car_insurance_requests', {
+  id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
+  userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
+  name: varchar('name', { length: 255 }).notNull(),
+  email: varchar('email', { length: 255 }),
+  phone: varchar('phone', { length: 15 }).notNull(),
+  previousInsurer: varchar('previous_insurer', { length: 255 }),
+  policyExpiry: varchar('policy_expiry', { length: 20 }), // dd/mm/yyyy from UI
+  rcLink: text('rc_link').notNull(),
+  prevInsuranceLink: text('prev_insurance_link').notNull(),
+  insurerPrefs: text('insurer_prefs'), // JSON string of selected insurers
+  otherInsurer: varchar('other_insurer', { length: 255 }),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+// Health Insurance Requests
+export const healthInsuranceRequests = pgTable('health_insurance_requests', {
+  id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
+  userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
+  name: varchar('name', { length: 255 }).notNull(),
+  email: varchar('email', { length: 255 }),
+  phone: varchar('phone', { length: 15 }).notNull(),
+  policyType: varchar('policy_type', { length: 50 }).notNull(),
+  membersCount: integer('members_count'),
+  memberAges: text('member_ages'),
+  preExistingDiseases: text('pre_existing_diseases'),
+  previousInsurer: varchar('previous_insurer', { length: 255 }),
+  policyExpiry: varchar('policy_expiry', { length: 20 }),
+  prevPolicyLink: text('prev_policy_link'),
+  insurerPrefs: text('insurer_prefs'),
+  otherInsurer: varchar('other_insurer', { length: 255 }),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+// Life Insurance Requests
+export const lifeInsuranceRequests = pgTable('life_insurance_requests', {
+  id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
+  userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
+  name: varchar('name', { length: 255 }).notNull(),
+  email: varchar('email', { length: 255 }),
+  phone: varchar('phone', { length: 15 }).notNull(),
+  dob: varchar('dob', { length: 20 }),
+  gender: varchar('gender', { length: 20 }),
+  occupation: varchar('occupation', { length: 255 }),
+  policyTypes: text('policy_types'), // JSON string array
+  sumAssured: decimal('sum_assured', { precision: 14, scale: 2 }),
+  policyTermYears: integer('policy_term_years'),
+  premiumFrequency: varchar('premium_frequency', { length: 50 }), // Monthly/Quarterly/Half-Yearly/Yearly
+  hasExistingPolicy: boolean('has_existing_policy').default(false),
+  existingInsurer: varchar('existing_insurer', { length: 255 }),
+  prevPolicyLink: text('prev_policy_link'),
+  insurerPrefs: text('insurer_prefs'), // JSON string array
+  otherInsurer: varchar('other_insurer', { length: 255 }),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+// Two Wheeler Insurance Requests
+export const twoWheelerInsuranceRequests = pgTable('two_wheeler_insurance_requests', {
+  id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
+  userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
+  name: varchar('name', { length: 255 }).notNull(),
+  email: varchar('email', { length: 255 }),
+  phone: varchar('phone', { length: 15 }).notNull(),
+  previousInsurer: varchar('previous_insurer', { length: 255 }),
+  policyExpiry: varchar('policy_expiry', { length: 20 }),
+  rcLink: text('rc_link'),
+  prevInsuranceLink: text('prev_insurance_link'),
+  insurerPrefs: text('insurer_prefs'), // JSON string array
+  otherInsurer: varchar('other_insurer', { length: 255 }),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+export const commercialVehicleInsuranceRequests = pgTable('commercial_vehicle_insurance_requests', {
+  id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
+  userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
+  // Personal Information
+  name: varchar('name', { length: 255 }).notNull(),
+  email: varchar('email', { length: 255 }),
+  phone: varchar('phone', { length: 15 }).notNull(),
+  businessName: varchar('business_name', { length: 255 }),
+  businessType: varchar('business_type', { length: 100 }),
+  gstNumber: varchar('gst_number', { length: 50 }),
+  
+  // Vehicle Information
+  vehicleType: varchar('vehicle_type', { length: 100 }).notNull(), // Truck, Bus, Van, etc.
+  vehicleMake: varchar('vehicle_make', { length: 100 }),
+  vehicleModel: varchar('vehicle_model', { length: 100 }),
+  vehicleYear: integer('vehicle_year'),
+  vehicleCapacity: varchar('vehicle_capacity', { length: 50 }), // Tonnage/Seating capacity
+  vehicleValue: decimal('vehicle_value', { precision: 14, scale: 2 }),
+  
+  // Insurance Details
+  previousInsurer: varchar('previous_insurer', { length: 255 }),
+  policyExpiry: varchar('policy_expiry', { length: 20 }),
+  currentPolicyNumber: varchar('current_policy_number', { length: 100 }),
+  
+  // Business Operations
+  primaryUse: varchar('primary_use', { length: 100 }), // Goods transport, Passenger transport, etc.
+  operatingArea: varchar('operating_area', { length: 255 }), // City, State, National
+  annualMileage: varchar('annual_mileage', { length: 50 }),
+  
+  // Coverage Requirements
+  coverageType: text('coverage_type'), // JSON string array: Third Party, Comprehensive, etc.
+  additionalCovers: text('additional_covers'), // JSON string array: Roadside assistance, etc.
+  
+  // Documents
+  rcLink: text('rc_link'),
+  prevInsuranceLink: text('prev_insurance_link'),
+  businessLicenseLink: text('business_license_link'),
+  gstCertificateLink: text('gst_certificate_link'),
+  
+  // Insurer Preferences
+  insurerPrefs: text('insurer_prefs'), // JSON string array
+  otherInsurer: varchar('other_insurer', { length: 255 }),
+  
+  // Additional Information
+  specialRequirements: text('special_requirements'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+export const personalAccidentInsuranceRequests = pgTable('personal_accident_insurance_requests', {
+	id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
+	userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
+	// Personal Details
+	name: varchar('name', { length: 255 }).notNull(),
+	email: varchar('email', { length: 255 }),
+	phone: varchar('phone', { length: 15 }).notNull(),
+	dob: varchar('dob', { length: 20 }), // dd/mm/yyyy
+	occupation: varchar('occupation', { length: 255 }),
+	// Policy Requirements
+	coverageType: text('coverage_type'), // JSON string array: ["Individual", "Family Coverage"]
+	sumInsured: decimal('sum_insured', { precision: 14, scale: 2 }),
+	policyTermYears: integer('policy_term_years'),
+	coverageOptions: text('coverage_options'), // JSON string array: Accidental Death, Permanent Disability, etc.
+	// Existing Policy
+	hasExistingPolicy: boolean('has_existing_policy').default(false),
+	existingInsurer: varchar('existing_insurer', { length: 255 }),
+	prevPolicyLink: text('prev_policy_link'),
+	// Insurer Preference
+	insurerPrefs: text('insurer_prefs'), // JSON string array
+	otherInsurer: varchar('other_insurer', { length: 255 }),
+	createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+export const propertyInsuranceRequests = pgTable('property_insurance_requests', {
+	id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
+	userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
+	// Personal Details
+	name: varchar('name', { length: 255 }).notNull(),
+	email: varchar('email', { length: 255 }),
+	phone: varchar('phone', { length: 15 }).notNull(),
+	propertyAddress: text('property_address'),
+	// Property Details
+	propertyType: varchar('property_type', { length: 50 }).notNull(), // Home, Shop/Business
+	propertyOwnership: varchar('property_ownership', { length: 20 }), // Owned, Rented
+	propertyValue: decimal('property_value', { precision: 14, scale: 2 }),
+	contentsValue: decimal('contents_value', { precision: 14, scale: 2 }),
+	constructionType: varchar('construction_type', { length: 50 }), // RCC, Non-RCC, Other
+	yearOfConstruction: integer('year_of_construction'),
+	// Coverage
+	coverageOptions: text('coverage_options'), // JSON string array
+	// Existing Policy
+	hasExistingPolicy: boolean('has_existing_policy').default(false),
+	existingInsurer: varchar('existing_insurer', { length: 255 }),
+	policyExpiry: varchar('policy_expiry', { length: 20 }), // dd/mm/yyyy
+	prevPolicyLink: text('prev_policy_link'),
+	// Insurer Preference
+	insurerPrefs: text('insurer_prefs'), // JSON string array
+	otherInsurer: varchar('other_insurer', { length: 255 }),
+	createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+export const travelInsuranceRequests = pgTable('travel_insurance_requests', {
+	id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
+	userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
+	// Personal Details
+	name: varchar('name', { length: 255 }).notNull(),
+	email: varchar('email', { length: 255 }),
+	phone: varchar('phone', { length: 15 }).notNull(),
+	dob: varchar('dob', { length: 20 }), // dd/mm/yyyy
+	passportNumber: varchar('passport_number', { length: 30 }),
+	// Trip Details
+	travelType: varchar('travel_type', { length: 50 }).notNull(), // Single Trip | Multi-Trip (Annual)
+	destinations: text('destinations'),
+	startDate: varchar('start_date', { length: 20 }), // dd/mm/yyyy
+	endDate: varchar('end_date', { length: 20 }), // dd/mm/yyyy
+	numTravellers: integer('num_travellers'),
+	travellerAges: text('traveller_ages'), // free text or JSON array
+	// Coverage Requirements
+	coverageOptions: text('coverage_options'), // JSON string array
+	// Existing Policy
+	hasExistingPolicy: boolean('has_existing_policy').default(false),
+	existingInsurer: varchar('existing_insurer', { length: 255 }),
+	prevPolicyLink: text('prev_policy_link'),
+	// Insurer Preference
+	insurerPrefs: text('insurer_prefs'), // JSON string array
+	otherInsurer: varchar('other_insurer', { length: 255 }),
+	createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
 // Types
 export type InsertUser = typeof usersTable.$inferInsert;
 export type SelectUser = typeof usersTable.$inferSelect;
@@ -510,3 +711,27 @@ export type SelectDematTransferApplication = typeof dematTransferRequests.$infer
 
 export type InsertInvestmentForm = typeof investmentProfiles.$inferInsert;
 export type SelectInvestmentForm = typeof investmentProfiles.$inferSelect
+
+export type InsertCarInsuranceRequest = typeof carInsuranceRequests.$inferInsert;
+export type SelectCarInsuranceRequest = typeof carInsuranceRequests.$inferSelect;
+
+export type InsertHealthInsuranceRequest = typeof healthInsuranceRequests.$inferInsert;
+export type SelectHealthInsuranceRequest = typeof healthInsuranceRequests.$inferSelect;
+
+export type InsertLifeInsuranceRequest = typeof lifeInsuranceRequests.$inferInsert;
+export type SelectLifeInsuranceRequest = typeof lifeInsuranceRequests.$inferSelect;
+
+export type InsertTwoWheelerInsuranceRequest = typeof twoWheelerInsuranceRequests.$inferInsert;
+export type SelectTwoWheelerInsuranceRequest = typeof twoWheelerInsuranceRequests.$inferSelect;
+
+export type InsertCommercialVehicleInsuranceRequest = typeof commercialVehicleInsuranceRequests.$inferInsert;
+export type SelectCommercialVehicleInsuranceRequest = typeof commercialVehicleInsuranceRequests.$inferSelect;
+
+export type InsertPersonalAccidentInsuranceRequest = typeof personalAccidentInsuranceRequests.$inferInsert;
+export type SelectPersonalAccidentInsuranceRequest = typeof personalAccidentInsuranceRequests.$inferSelect;
+
+export type InsertPropertyInsuranceRequest = typeof propertyInsuranceRequests.$inferInsert;
+export type SelectPropertyInsuranceRequest = typeof propertyInsuranceRequests.$inferSelect;
+
+export type InsertTravelInsuranceRequest = typeof travelInsuranceRequests.$inferInsert;
+export type SelectTravelInsuranceRequest = typeof travelInsuranceRequests.$inferSelect;

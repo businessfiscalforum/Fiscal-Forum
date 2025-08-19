@@ -75,6 +75,7 @@ const cards = [
     iconBgColor: "bg-red-100",
     iconColor: "text-red-500",
     link: "/insurance/health",
+    formLink: "/services/insurance/health-insurance",
   },
   {
     id: "car",
@@ -85,6 +86,7 @@ const cards = [
     iconBgColor: "bg-blue-100",
     iconColor: "text-blue-500",
     link: "/insurance/car",
+    formLink: "/services/insurance/car-insurance",
   },
   {
     id: "two-wheeler",
@@ -95,6 +97,7 @@ const cards = [
     iconBgColor: "bg-yellow-100",
     iconColor: "text-yellow-500",
     link: "/insurance/two-wheeler",
+    formLink: "/services/insurance/two-wheeler-insurance",
   },
   {
     id: "life",
@@ -105,6 +108,7 @@ const cards = [
     iconBgColor: "bg-green-100",
     iconColor: "text-green-500",
     link: "/insurance/life",
+    formLink: "/services/insurance/life-insurance",
   },
   {
     id: "home",
@@ -115,6 +119,7 @@ const cards = [
     iconBgColor: "bg-purple-100",
     iconColor: "text-purple-500",
     link: "/insurance/home-shop",
+    formLink: "/services/insurance/home-shop-insurance",
   },
   {
     id: "travel",
@@ -125,6 +130,7 @@ const cards = [
     iconBgColor: "bg-orange-100",
     iconColor: "text-orange-500",
     link: "/insurance/travel",
+    formLink: "/services/insurance/travel-insurance",
   },
   {
     id: "personal-accident",
@@ -135,6 +141,7 @@ const cards = [
     iconBgColor: "bg-indigo-100",
     iconColor: "text-indigo-500",
     link: "/insurance/personal-accident",
+    formLink: "/services/insurance/personal-accident-insurance",
   },
   {
     id: "commercial-vehicle",
@@ -145,6 +152,7 @@ const cards = [
     iconBgColor: "bg-cyan-100",
     iconColor: "text-cyan-500",
     link: "/insurance/commercial-vehicle",
+    formLink: "/services/insurance/commercial-vehicle-insurance",
   },
 ];
 
@@ -294,7 +302,7 @@ const InsurancePage = () => {
                         <p className="text-sm leading-relaxed flex-grow text-gray-600">
                           {option.description}
                         </p>
-                        <div className="pt-4">
+                        <div className="pt-4 flex justify-between">
                           <div className="inline-flex items-center gap-2 font-medium text-green-600 hover:text-green-700">
                             Learn More
                             <svg
@@ -308,6 +316,7 @@ const InsurancePage = () => {
                               <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
                           </div>
+                          <Link href={option.formLink} className="bg-green-600 text-white px-4 py-2 rounded-md flex items-center gap-2">Get Quote <ArrowRight className="w-4 h-4" /></Link>
                         </div>
                       </div>
                     </Link>
