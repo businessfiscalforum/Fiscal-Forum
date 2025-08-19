@@ -99,7 +99,7 @@ export default function LoanAgainstProperty() {
   // Explicit typing for onSubmit to avoid type conflicts
   const onSubmit = async (data: ApplicationForm) => {
   try {
-    const res = await fetch('/api/laploan', {
+    const res = await fetch('/api/lap-loan', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),

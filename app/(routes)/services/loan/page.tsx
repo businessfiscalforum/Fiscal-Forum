@@ -229,7 +229,7 @@ const LoanLandingPage = () => {
       rate: "8.5% onwards",
       maxAmount: "₹5 Cr",
       link: "/services/loan/home-loan",
-      glink: "/services/loan/home-loan/get-quote",
+      glink: "/services/loan/home-loan/apply",
       iconBgColor: "bg-blue-100",
       iconColor: "text-blue-600",
     },
@@ -248,7 +248,7 @@ const LoanLandingPage = () => {
       rate: "9.0% onwards",
       maxAmount: "₹10 Cr",
       link: "/services/loan/loan-against-property",
-      glink: "/services/loan/loan-against-property/get-quote",
+      glink: "/services/loan/loan-against-property/apply",
       iconBgColor: "bg-emerald-100",
       iconColor: "text-emerald-600",
     },
@@ -267,7 +267,7 @@ const LoanLandingPage = () => {
       rate: "10.5% onwards",
       maxAmount: "₹40 L",
       link: "/services/loan/personal-loan",
-      glink: "/services/loan/personal-loan/get-quote",
+      glink: "/services/loan/personal-loan/apply",
       iconBgColor: "bg-purple-100",
       iconColor: "text-purple-600",
     },
@@ -286,7 +286,7 @@ const LoanLandingPage = () => {
       rate: "11.0% onwards",
       maxAmount: "₹50 Cr",
       link: "/services/loan/business-loan",
-      glink: "/services/loan/business-loan/get-quote",
+      glink: "/services/loan/business-loan/apply",
       iconBgColor: "bg-orange-100",
       iconColor: "text-orange-600",
     },
@@ -305,7 +305,7 @@ const LoanLandingPage = () => {
       rate: "7.5% onwards",
       maxAmount: "₹1 Cr",
       link: "/services/loan/gold-loan",
-      glink: "/services/loan/gold-loan/get-quote",
+      glink: "/services/loan/gold-loan/apply",
       iconBgColor: "bg-yellow-100",
       iconColor: "text-yellow-500",
     },
@@ -324,7 +324,7 @@ const LoanLandingPage = () => {
       rate: "8.0% onwards",
       maxAmount: "₹2 Cr",
       link: "/services/loan/car-loan",
-      glink: "/services/loan/car-loan/get-quote",
+      glink: "/services/loan/car-loan/apply",
       iconBgColor: "bg-red-100",
       iconColor: "text-red-500",
     },
@@ -343,7 +343,7 @@ const LoanLandingPage = () => {
       rate: "9.5% onwards",
       maxAmount: "₹1.5 Cr",
       link: "/services/loan/education-loan",
-      glink: "/services/loan/education-loan/get-quote",
+      glink: "/services/loan/education-loan/apply",
       iconBgColor: "bg-indigo-100",
       iconColor: "text-indigo-500",
     },
@@ -361,7 +361,7 @@ const LoanLandingPage = () => {
       rate: "9.5% onwards",
       maxAmount: "₹1.5 Cr",
       link: "/services/loan/loan-against-securities",
-      glink: "/services/loan/loan-against-securities/get-quote",
+      glink: "/services/loan/loan-against-securities/apply",
       iconBgColor: "bg-cyan-100",
       iconColor: "text-cyan-500",
     },
@@ -556,7 +556,7 @@ const LoanLandingPage = () => {
 
                       <Link href={loan.glink} passHref>
                         <button className="px-4 py-2 rounded-lg  text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
-                          Get Quote
+                          Apply Now
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"

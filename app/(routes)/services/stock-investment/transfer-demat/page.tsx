@@ -200,7 +200,7 @@ export default function TransferDematPage() {
             <FaArrowLeft className="mr-2" /> Back
           </button>
           <h1 className="text-2xl sm:text-3xl font-bold text-emerald-900 text-center flex-grow px-4">
-            Demat Account Transfer
+            Holdings Transfer
           </h1>
           <div className="w-16"></div> {/* Spacer for alignment */}
         </motion.div>

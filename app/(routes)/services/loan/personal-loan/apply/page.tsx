@@ -13,6 +13,7 @@ const personalLoanSchema = z.object({
   lastName: z.string().min(1, "Last name is required"),
   fatherName: z.string().min(1, "Father’s name is required"),
   dateOfBirth: z.string().min(1, "Date of birth is required"),
+  panNumber: z.string().min(10, "PAN number must be 10 characters").max(10).optional(), // Added PAN field
   maritalStatus: z.enum(["Married", "Unmarried", "Others"]),
   gender: z.enum(["Male", "Female", "Others"]),
   mobileNo: z
@@ -95,7 +96,7 @@ export default function PersonalLoanApplication() {
 
   const onSubmit = async (data: PersonalLoanForm) => {
     try {
-      const res = await fetch("/api/personal", {
+      const res = await fetch("/api/personal-loan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -201,6 +202,18 @@ export default function PersonalLoanApplication() {
                 )}
               </div>
               <div>
+                <input
+                  {...register("panNumber")}
+                  placeholder="PAN Number"
+                  className={`w-full border ${errors.panNumber ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.panNumber && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.panNumber.message}
+                  </p>
+                )}
+              </div>
+              <div>
                 <select
                   {...register("maritalStatus")}
                   className={`w-full border ${errors.maritalStatus ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
@@ -242,6 +255,8 @@ export default function PersonalLoanApplication() {
                   </p>
                 )}
               </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               <div>
                 <input
                   {...register("emailId")}

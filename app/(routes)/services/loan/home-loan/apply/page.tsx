@@ -96,7 +96,7 @@ export default function Home() {
   // Explicit typing for onSubmit to avoid type conflicts
   const onSubmit = async (data: ApplicationForm) => {
     try {
-      const res = await fetch('/api/homeloan', {
+      const res = await fetch('/api/home-loan', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),

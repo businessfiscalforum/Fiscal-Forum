@@ -24,13 +24,10 @@ const brokers: Broker[] = [
     logo: "/alice-blue.png",
     link: "https://ekyc.aliceblueonline.com/?source=WRAJ1101",
     brokerage: [
-      "• Equity Delivery: ₹0 (Zero)",
-      "• Equity Intraday: ₹20 per executed order or 0.05% (whichever is lower)",
       "• Equity Futures: ₹20 per executed order or 0.05% (whichever is lower)",
       "• Equity Options: ₹20 per executed order",
       "• Currency Futures: ₹20 per executed order or 0.05% (whichever is lower)",
       "• Currency Options: ₹20 per executed order or 2.5% (whichever is lower)",
-      "• MCX Commodity: ₹20 per executed order or 0.05% (whichever is lower)",
     ],
   },
   {
@@ -38,12 +35,9 @@ const brokers: Broker[] = [
     logo: "/angel-one.png",
     link: "https://a.aonelink.in/ANGOne/6pTAS0u",
     brokerage: [
-      "• Equity Delivery: ₹0 (Zero)",
       "• Equity Intraday: ₹20 or 0.03% (whichever is lower) per executed order",
-      "• Equity Futures: ₹20 per executed order",
-      "• Equity Options: ₹20 per executed order (lot)",
-      "• Currency Derivatives: ₹20 per executed order",
-      "• Commodity: ₹20 per executed order",
+      "• Equity Delivery: : ₹20 or 0.1% whichever is lower per executed order (minimum brokerage of INR 2 will be levied)",
+      "• Futures, Options, Commodity, Currency: ₹20 per executed order"
     ],
   },
   {
@@ -55,9 +49,6 @@ const brokers: Broker[] = [
       "• Equity Intraday: 0.02% of transaction value",
       "• Equity Futures: 0.02% of transaction value",
       "• Equity Options: ₹10 per lot",
-      "• Currency Futures: 0.02% of transaction value",
-      "• Currency Options: ₹10 per lot",
-      "• Commodity: ₹10 per executed order",
     ],
   },
   {
@@ -66,11 +57,8 @@ const brokers: Broker[] = [
     link: "https://ekyc.motilaloswal.com/Partner/?diyid=8eb2b8cb-c9f3-47f5-b206-70c847d9f8b7",
     brokerage: [
       "• Equity Delivery: 0.20% of transaction value",
-      "• Equity Intraday: 0.02% of transaction value",
       "• Equity Futures: 0.02% of transaction value",
       "• Equity Options: ₹20 per executed order (lot)",
-      "• Currency: 0.02% of transaction value",
-      "• Commodity: ₹100 per executed order or 0.01% (whichever is lower)",
     ],
   },
   {
@@ -78,14 +66,10 @@ const brokers: Broker[] = [
     logo: "/upstox.png",
     link: "https://upstox.com/open-account/?f=4ZAVSY",
     brokerage: [
-      "• Upstox offers two plans:",
-      "  1. ₹20 per order (default):",
-      "    • Equity, F&O, Currency: ₹20 per executed order",
-      "    • Commodity: ₹20 per executed order",
-      "  2. Zero Brokerage Plan (₹500/month + 18% GST):",
-      "    • Equity Delivery: ₹0 (Zero)",
-      "    • Equity Intraday, F&O, Currency: ₹0 (Zero)",
-      "    • Commodity: ₹0 (Zero)",
+      "• ₹0 AMC*: Account Maintenance Charges (No account maintenance charges for the first year)",
+      "• ₹0 Brokerage*: On Mutual Funds and IPOs",
+      "• ₹20 Brokerage*: Maximum brokerage per order",
+
     ],
   },
   {
@@ -97,7 +81,6 @@ const brokers: Broker[] = [
       "• Equity Intraday: ₹15 per executed order or 0.025% (whichever is lower)",
       "• Equity Futures: ₹15 per executed order or 0.025% (whichever is lower)",
       "• Equity Options: ₹15 per executed order or 0.05% (whichever is lower)",
-      "• Currency & Commodity: ₹15 per executed order or 0.025% (whichever is lower)",
     ],
   },
   {
@@ -109,8 +92,6 @@ const brokers: Broker[] = [
       "• Equity Intraday: 0.03% of transaction value",
       "• Equity Futures: 0.03% of transaction value",
       "• Equity Options: ₹15 per lot",
-      "• Currency: 0.03% of transaction value",
-      "• Commodity: ₹15 per executed order",
     ],
   },
 ];
@@ -331,7 +312,7 @@ export default function Page() {
         </div>
 
         {/* How to Transfer Section */}
-        <section className="py-12 px-4 sm:px-6 mb-12">
+        {/* <section className="py-12 px-4 sm:px-6 mb-12">
           <div className="max-w-5xl mx-auto">
             <motion.div
               className="text-center mb-10"
@@ -351,7 +332,6 @@ export default function Page() {
             </motion.div>
 
             <div className="relative space-y-8">
-              {/* Step 1 */}
               <motion.div
                 className="flex items-start"
                 initial={{ opacity: 0, x: -30 }}
@@ -372,7 +352,6 @@ export default function Page() {
                 </div>
               </motion.div>
 
-              {/* Step 2 */}
               <motion.div
                 className="flex items-start"
                 initial={{ opacity: 0, x: -30 }}
@@ -393,7 +372,6 @@ export default function Page() {
                 </div>
               </motion.div>
 
-              {/* Step 3 */}
               <motion.div
                 className="flex items-start"
                 initial={{ opacity: 0, x: -30 }}
@@ -414,7 +392,6 @@ export default function Page() {
                 </div>
               </motion.div>
 
-              {/* Completion */}
               <motion.div
                 className="flex items-start"
                 initial={{ opacity: 0, x: -30 }}
@@ -436,7 +413,6 @@ export default function Page() {
               </motion.div>
             </div>
 
-            {/* Perks of Transferring & Button */}
             <motion.div
               className="mt-12 text-center bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-200 shadow-inner"
               initial={{ opacity: 0, y: 20 }}
@@ -465,7 +441,7 @@ export default function Page() {
               </button>
             </motion.div>
           </div>
-        </section>
+        </section> */}
       </div>
     </main>
   );
