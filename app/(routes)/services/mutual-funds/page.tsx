@@ -351,7 +351,6 @@ export default function MutualPage() {
                     className="relative rounded-2xl shadow-lg overflow-hidden transition-all duration-300 transform hover:shadow-xl bg-white"
                   >
                     <div className="p-1 bg-gradient-to-r from-green-500 to-emerald-600"></div>
-                    <Link href={option.link} passHref>
                       <div className="p-6 space-y-4 h-full flex flex-col cursor-pointer">
                         <div
                           className={`p-3 rounded-xl ${option.iconBgColor} flex-shrink-0 w-12 h-12 flex items-center justify-center`}
@@ -368,7 +367,9 @@ export default function MutualPage() {
                         <p className="text-sm leading-relaxed flex-grow text-gray-600">
                           {option.description}
                         </p>
+                        
                         <div className="pt-4">
+                          <Link href={option.link} passHref>
                           <div className="inline-flex items-center gap-2 font-medium text-green-600 hover:text-green-700">
                             Learn More
                             <svg
@@ -382,9 +383,9 @@ export default function MutualPage() {
                               <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
                           </div>
+                          </Link>
                         </div>
                       </div>
-                    </Link>
                   </motion.div>
                 );
               })}
@@ -400,7 +401,7 @@ export default function MutualPage() {
               mutual funds.
             </p>
             <button
-              onClick={() => router.push("/services/stock-investment/call")}
+              onClick={() => router.push("/services/stock-investment/contact")}
               className="bg-white text-green-700 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3 mx-auto"
             >
               <Phone className="w-5 h-5" />

@@ -96,6 +96,7 @@ export async function POST(req: NextRequest) {
         gender: gender || null,
         occupation: occupation || null,
         policyTypes: JSON.stringify(policyTypes),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         sumAssured: sumAssured as any,
         policyTermYears: policyTermYears ?? null,
         premiumFrequency: premiumFrequency || null,

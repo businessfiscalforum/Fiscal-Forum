@@ -106,7 +106,7 @@ export default function TransferDematPage() {
     setStep(1);
     // Clear drive link error when going back
     if (errors.driveLink) {
-      setErrors(prev => {
+      setErrors((prev) => {
         const newErrors = { ...prev };
         delete newErrors.driveLink;
         return newErrors;
@@ -200,7 +200,7 @@ export default function TransferDematPage() {
             <FaArrowLeft className="mr-2" /> Back
           </button>
           <h1 className="text-2xl sm:text-3xl font-bold text-emerald-900 text-center flex-grow px-4">
-            Demat Account Transfer
+            Holdings Transfer
           </h1>
           <div className="w-16"></div> {/* Spacer for alignment */}
         </motion.div>
@@ -333,7 +333,9 @@ export default function TransferDematPage() {
                       placeholder="you@example.com"
                     />
                     {errors.email && (
-                      <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.email}
+                      </p>
                     )}
                   </div>
 
@@ -358,7 +360,9 @@ export default function TransferDematPage() {
                       placeholder="10-digit mobile number"
                     />
                     {errors.phone && (
-                      <p className="mt-1 text-sm text-red-600">{errors.phone}</p>
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.phone}
+                      </p>
                     )}
                   </div>
 
@@ -429,7 +433,7 @@ export default function TransferDematPage() {
                   <h3 className="text-xl font-bold text-emerald-900 mb-4">
                     Share Your CMR/DIS Document
                   </h3>
-                  
+
                   <div className="bg-emerald-50 rounded-xl p-5 mb-6">
                     <div className="flex items-start">
                       <FaInfoCircle className="text-emerald-600 mt-1 mr-3 flex-shrink-0" />
@@ -439,15 +443,18 @@ export default function TransferDematPage() {
                         </p>
                         <ol className="list-decimal pl-5 space-y-1 text-emerald-700">
                           <li>Upload your CMR/DIS document to Google Drive</li>
-                          <li>Right-click the file and select &quot;Get link&quot;</li>
                           <li>
-                            Change permissions to &quot;Anyone with the link can view&quot;
+                            Right-click the file and select &quot;Get link&quot;
+                          </li>
+                          <li>
+                            Change permissions to &quot;Anyone with the link can
+                            view&quot;
                           </li>
                           <li>Copy the link and paste it below</li>
                         </ol>
                       </div>
                     </div>
-                    
+
                     <button
                       type="button"
                       onClick={copyInstructions}
@@ -455,7 +462,9 @@ export default function TransferDematPage() {
                     >
                       <FaCopy className="mr-1" />{" "}
                       {copied ? "Copied!" : "Copy instructions"}
-                      {copied && <FaCheckCircle className="ml-1 text-green-500" />}
+                      {copied && (
+                        <FaCheckCircle className="ml-1 text-green-500" />
+                      )}
                     </button>
                   </div>
 

@@ -1,7 +1,8 @@
+// app/api/personal-accident-insurance/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { currentUser } from "@clerk/nextjs/server";
 import { db } from "../../../config/db";
-import { personalAccidentInsuranceRequests, usersTable } from "../../../config/schema";
+import { personalAccidentInsuranceRequests, usersTable } from "../../../config/schema"; // Ensure 'usersTable' is also exported from this file
 import { eq } from "drizzle-orm";
 
 export async function POST(req: NextRequest) {
@@ -53,9 +54,9 @@ export async function POST(req: NextRequest) {
 		let coverageType: string[] = [];
 		let coverageOptions: string[] = [];
 		let insurerPrefs: string[] = [];
-		try { coverageType = JSON.parse(coverageTypeRaw); if (!Array.isArray(coverageType)) coverageType = []; } catch {}
-		try { coverageOptions = JSON.parse(coverageOptionsRaw); if (!Array.isArray(coverageOptions)) coverageOptions = []; } catch {}
-		try { insurerPrefs = JSON.parse(insurerPrefsRaw); if (!Array.isArray(insurerPrefs)) insurerPrefs = []; } catch {}
+		try { coverageType = JSON.parse(coverageTypeRaw); if (!Array.isArray(coverageType)) coverageType = []; } catch (e) { console.error("Error parsing coverageType:", e); }
+		try { coverageOptions = JSON.parse(coverageOptionsRaw); if (!Array.isArray(coverageOptions)) coverageOptions = []; } catch (e) { console.error("Error parsing coverageOptions:", e); }
+		try { insurerPrefs = JSON.parse(insurerPrefsRaw); if (!Array.isArray(insurerPrefs)) insurerPrefs = []; } catch (e) { console.error("Error parsing insurerPrefs:", e); }
 
 		const hasExistingPolicy = ["true", "1", "on", "yes"].includes(hasExistingPolicyRaw.toLowerCase());
 
@@ -67,28 +68,34 @@ export async function POST(req: NextRequest) {
 			const fullName = cu?.fullName ?? "Anonymous";
 			if (clerkEmail) {
 				const existing = await db.select().from(usersTable).where(eq(usersTable.email, clerkEmail));
-				if (existing.length > 0) userId = existing[0].id as string;
-				else {
+				if (existing.length > 0) {
+                     userId = existing[0].id as string; // Cast if needed based on your schema definition
+                } else {
+					// Consider if you want to create a user automatically or handle unauthenticated users differently
 					const [created] = await db.insert(usersTable).values({ name: fullName, email: clerkEmail, age: 18, password: "", role: "USER", status: "PENDING" }).returning();
-					userId = created.id as string;
+					userId = created.id as string; // Cast if needed
 				}
 			}
-		} catch {
-			userId = null;
-		}
+		} catch (userError) {
+             console.error("Error resolving user:", userError);
+             // userId remains null if user resolution fails
+        }
 
+		// --- CORRECTIONS MADE HERE ---
 		const [saved] = await db
 			.insert(personalAccidentInsuranceRequests)
 			.values({
-				userId,
+                userId, // Include userId - Ensure your schema has this column
 				name,
 				email: email || null,
 				phone,
 				dob: dob || null,
 				occupation: occupation || null,
 				coverageType: JSON.stringify(coverageType),
-				sumInsured: Number(sumInsuredRaw),
-				policyTermYears: Number(policyTermYearsRaw),
+                // --- Fix data types for varchar columns ---
+				sumInsured: sumInsuredRaw, // Pass string directly for varchar column
+				policyTermYears: policyTermYearsRaw, // Pass string directly for varchar column
+				// --- End Fixes ---
 				coverageOptions: JSON.stringify(coverageOptions),
 				hasExistingPolicy,
 				existingInsurer: existingInsurer || null,

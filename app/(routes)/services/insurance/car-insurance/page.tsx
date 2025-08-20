@@ -205,6 +205,7 @@ export default function CarInsuranceFormPage() {
         setStep(1);
         setErrors({});
       }, 3000);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Submission error:", error);
       setMessage({

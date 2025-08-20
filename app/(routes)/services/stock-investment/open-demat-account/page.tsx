@@ -5,7 +5,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { FaChartBar, FaCoins, FaFastForward, FaGift, FaHeadset, FaRupeeSign } from "react-icons/fa";
+import {
+  FaGift,
+  FaHeadset,
+  FaLightbulb,
+  FaRupeeSign,
+  FaShieldAlt,
+  FaUserTie,
+  FaWallet,
+} from "react-icons/fa";
 import { CheckCircle, ChevronDown, ChevronUp } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -24,13 +32,10 @@ const brokers: Broker[] = [
     logo: "/alice-blue.png",
     link: "https://ekyc.aliceblueonline.com/?source=WRAJ1101",
     brokerage: [
-      "• Equity Delivery: ₹0 (Zero)",
-      "• Equity Intraday: ₹20 per executed order or 0.05% (whichever is lower)",
       "• Equity Futures: ₹20 per executed order or 0.05% (whichever is lower)",
       "• Equity Options: ₹20 per executed order",
       "• Currency Futures: ₹20 per executed order or 0.05% (whichever is lower)",
       "• Currency Options: ₹20 per executed order or 2.5% (whichever is lower)",
-      "• MCX Commodity: ₹20 per executed order or 0.05% (whichever is lower)",
     ],
   },
   {
@@ -38,12 +43,9 @@ const brokers: Broker[] = [
     logo: "/angel-one.png",
     link: "https://a.aonelink.in/ANGOne/6pTAS0u",
     brokerage: [
-      "• Equity Delivery: ₹0 (Zero)",
       "• Equity Intraday: ₹20 or 0.03% (whichever is lower) per executed order",
-      "• Equity Futures: ₹20 per executed order",
-      "• Equity Options: ₹20 per executed order (lot)",
-      "• Currency Derivatives: ₹20 per executed order",
-      "• Commodity: ₹20 per executed order",
+      "• Equity Delivery: : ₹20 or 0.1% whichever is lower per executed order (minimum brokerage of INR 2 will be levied)",
+      "• Futures, Options, Commodity, Currency: ₹20 per executed order",
     ],
   },
   {
@@ -55,9 +57,6 @@ const brokers: Broker[] = [
       "• Equity Intraday: 0.02% of transaction value",
       "• Equity Futures: 0.02% of transaction value",
       "• Equity Options: ₹10 per lot",
-      "• Currency Futures: 0.02% of transaction value",
-      "• Currency Options: ₹10 per lot",
-      "• Commodity: ₹10 per executed order",
     ],
   },
   {
@@ -66,11 +65,8 @@ const brokers: Broker[] = [
     link: "https://ekyc.motilaloswal.com/Partner/?diyid=8eb2b8cb-c9f3-47f5-b206-70c847d9f8b7",
     brokerage: [
       "• Equity Delivery: 0.20% of transaction value",
-      "• Equity Intraday: 0.02% of transaction value",
       "• Equity Futures: 0.02% of transaction value",
       "• Equity Options: ₹20 per executed order (lot)",
-      "• Currency: 0.02% of transaction value",
-      "• Commodity: ₹100 per executed order or 0.01% (whichever is lower)",
     ],
   },
   {
@@ -78,14 +74,9 @@ const brokers: Broker[] = [
     logo: "/upstox.png",
     link: "https://upstox.com/open-account/?f=4ZAVSY",
     brokerage: [
-      "• Upstox offers two plans:",
-      "  1. ₹20 per order (default):",
-      "    • Equity, F&O, Currency: ₹20 per executed order",
-      "    • Commodity: ₹20 per executed order",
-      "  2. Zero Brokerage Plan (₹500/month + 18% GST):",
-      "    • Equity Delivery: ₹0 (Zero)",
-      "    • Equity Intraday, F&O, Currency: ₹0 (Zero)",
-      "    • Commodity: ₹0 (Zero)",
+      "• ₹0 AMC*: Account Maintenance Charges (No account maintenance charges for the first year)",
+      "• ₹0 Brokerage*: On Mutual Funds and IPOs",
+      "• ₹20 Brokerage*: Maximum brokerage per order",
     ],
   },
   {
@@ -97,7 +88,6 @@ const brokers: Broker[] = [
       "• Equity Intraday: ₹15 per executed order or 0.025% (whichever is lower)",
       "• Equity Futures: ₹15 per executed order or 0.025% (whichever is lower)",
       "• Equity Options: ₹15 per executed order or 0.05% (whichever is lower)",
-      "• Currency & Commodity: ₹15 per executed order or 0.025% (whichever is lower)",
     ],
   },
   {
@@ -109,8 +99,6 @@ const brokers: Broker[] = [
       "• Equity Intraday: 0.03% of transaction value",
       "• Equity Futures: 0.03% of transaction value",
       "• Equity Options: ₹15 per lot",
-      "• Currency: 0.03% of transaction value",
-      "• Commodity: ₹15 per executed order",
     ],
   },
 ];
@@ -141,7 +129,10 @@ const BrokerCard = ({ broker }: { broker: Broker }) => {
           <h3 className="font-bold text-green-800 mb-2">Brokerage:</h3>
           <ul className="space-y-1">
             {broker.brokerage.map((detail, index) => (
-              <li key={index} className="text-xs text-green-900 leading-relaxed">
+              <li
+                key={index}
+                className="text-xs text-green-900 leading-relaxed"
+              >
                 {detail}
               </li>
             ))}
@@ -179,7 +170,9 @@ export default function Page() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState<{ text: string; type: string } | null>(null);
+  const [message, setMessage] = useState<{ text: string; type: string } | null>(
+    null
+  );
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -205,7 +198,10 @@ export default function Page() {
         setMessage({ text: data.message, type: "success" });
         setEmail("");
       } else {
-        setMessage({ text: data.error || "Subscription failed", type: "error" });
+        setMessage({
+          text: data.error || "Subscription failed",
+          type: "error",
+        });
       }
     } catch (error) {
       setMessage({
@@ -218,7 +214,7 @@ export default function Page() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 py-10 px-4 sm:px-6">
+    <main className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 py-30 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
         {/* Hero Section */}
         <div className="text-center mb-12 pt-8">
@@ -251,10 +247,19 @@ export default function Page() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
         >
-          <h3 className="text-xl sm:text-2xl font-semibold mb-2">🎁 Limited Time Offer</h3>
+          <h3 className="text-xl sm:text-2xl font-semibold mb-2">
+            🎁 Limited Time Offer
+          </h3>
           <p className="text-base sm:text-lg">
-            Get <span className="font-bold">3 months of premium market research</span> &{" "}
-            <span className="font-bold">₹500 worth of investment strategies</span> FREE
+            Get{" "}
+            <span className="font-bold">
+              3 months of premium market research
+            </span>{" "}
+            &{" "}
+            <span className="font-bold">
+              ₹500 worth of investment strategies
+            </span>{" "}
+            FREE
           </p>
         </motion.div>
 
@@ -266,51 +271,113 @@ export default function Page() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
           >
-            Why Open With Us?
+            Why Choose Us?
           </motion.h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <motion.div
-              className="bg-green-50 rounded-2xl p-6 flex flex-col items-center text-center border border-green-100"
+              className="bg-green-50 rounded-2xl p-6 flex flex-col items-start text-left border border-green-100"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
               <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-2xl">
-                <FaChartBar />
+                <FaWallet />
               </div>
               <h4 className="font-semibold text-green-800 mb-2 text-lg">
-                Expert Research Reports
+                Earn Brokerage Cashback
               </h4>
               <p className="text-green-700 text-sm">
-                Stay ahead with daily market updates & in-depth analysis.
+                Get 10% cashback on every trade — more savings, more profit.
               </p>
             </motion.div>
+
             <motion.div
-              className="bg-green-50 rounded-2xl p-6 flex flex-col items-center text-center border border-green-100"
+              className="bg-green-50 rounded-2xl p-6 flex flex-col items-start text-left border border-green-100"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
               <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-2xl">
-                <FaCoins />
+                <FaLightbulb />
               </div>
-              <h4 className="font-semibold text-green-800 mb-2 text-lg">Higher Returns</h4>
+              <h4 className="font-semibold text-green-800 mb-2 text-lg">
+                Exclusive Market Insights
+              </h4>
               <p className="text-green-700 text-sm">
-                Access exclusive investment strategies tailored for growth.
+                Join our private channel for daily market updates and smart
+                investing tips.
               </p>
             </motion.div>
+
             <motion.div
-              className="bg-green-50 rounded-2xl p-6 flex flex-col items-center text-center border border-green-100"
+              className="bg-green-50 rounded-2xl p-6 flex flex-col items-start text-left border border-green-100"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
               <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-2xl">
-                <FaFastForward />
+                <FaHeadset />
               </div>
-              <h4 className="font-semibold text-green-800 mb-2 text-lg">Fast Onboarding</h4>
+              <h4 className="font-semibold text-green-800 mb-2 text-lg">
+                Dedicated Support Always
+              </h4>
               <p className="text-green-700 text-sm">
-                Open and start trading within just 15 minutes.
+                Enjoy quick query resolution and hassle-free Demat account
+                support.
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="bg-green-50 rounded-2xl p-6 flex flex-col items-start text-left border border-green-100"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-2xl">
+                <FaShieldAlt />
+              </div>
+              <h4 className="font-semibold text-green-800 mb-2 text-lg">
+                Trusted Broking Partners
+              </h4>
+              <p className="text-green-700 text-sm">
+                We&apos;re partnered with top broking firms for credibility and
+                security.
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="bg-green-50 rounded-2xl p-6 flex flex-col items-start text-left border border-green-100"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+            >
+              <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-2xl">
+                <FaUserTie />
+              </div>
+              <h4 className="font-semibold text-green-800 mb-2 text-lg">
+                Personalised Investment Guidance
+              </h4>
+              <p className="text-green-700 text-sm">
+                Kickstart your investing journey with tailored, confident
+                advice.
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="bg-green-50 rounded-2xl p-6 flex flex-col items-start text-left border border-green-100"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+            >
+              <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-2xl">
+                <FaGift />
+              </div>
+              <h4 className="font-semibold text-green-800 mb-2 text-lg">
+                Loyalty Rewards & Giveaways
+              </h4>
+              <p className="text-green-700 text-sm">
+                Get rewarded with monthly and quarterly giveaways for smart
+                trading.
               </p>
             </motion.div>
           </div>
@@ -340,18 +407,14 @@ export default function Page() {
               transition={{ duration: 0.5 }}
             >
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-3">
-                How to Transfer Your Demat Account
+                If you want to transfer your holdings with us, See how you can!
               </h2>
               <p className="text-base sm:text-lg text-gray-600">
                 Seamless, paperless, and completed in just a few steps.
               </p>
-              <p className="text-base sm:text-lg text-yellow-600 font-medium mt-2">
-                Currently with Motilal Oswal
-              </p>
             </motion.div>
 
             <div className="relative space-y-8">
-              {/* Step 1 */}
               <motion.div
                 className="flex items-start"
                 initial={{ opacity: 0, x: -30 }}
@@ -360,6 +423,25 @@ export default function Page() {
               >
                 <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 text-white rounded-2xl flex items-center justify-center text-lg font-bold shadow-md">
                   1
+                </div>
+                <div className="ml-5 bg-white p-5 rounded-2xl shadow-md flex-1 border border-green-200">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
+                    Open a Demat Account with Us
+                  </h3>
+                  <p className="text-gray-600 text-sm sm:text-base">
+                    Log in to your current broker’s portal and generate a Client
+                    Master Report (CMR) or submit a DIS slip.
+                  </p>
+                </div>
+              </motion.div>
+              <motion.div
+                className="flex items-start"
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 text-white rounded-2xl flex items-center justify-center text-lg font-bold shadow-md">
+                  2
                 </div>
                 <div className="ml-5 bg-white p-5 rounded-2xl shadow-md flex-1 border border-green-200">
                   <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
@@ -372,7 +454,6 @@ export default function Page() {
                 </div>
               </motion.div>
 
-              {/* Step 2 */}
               <motion.div
                 className="flex items-start"
                 initial={{ opacity: 0, x: -30 }}
@@ -380,20 +461,19 @@ export default function Page() {
                 transition={{ delay: 0.4 }}
               >
                 <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 text-white rounded-2xl flex items-center justify-center text-lg font-bold shadow-md">
-                  2
+                  3
                 </div>
                 <div className="ml-5 bg-white p-5 rounded-2xl shadow-md flex-1 border border-green-200">
                   <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
                     Share Details with Us
                   </h3>
                   <p className="text-gray-600 text-sm sm:text-base">
-                    Upload your CMR or DIS via our app or email it to
-                    support@fiscalforum.com with your new client ID.
+                    Email CMR or DIS to business.fiscalforum@gmail.com with your
+                    name and client ID.
                   </p>
                 </div>
               </motion.div>
 
-              {/* Step 3 */}
               <motion.div
                 className="flex items-start"
                 initial={{ opacity: 0, x: -30 }}
@@ -401,7 +481,7 @@ export default function Page() {
                 transition={{ delay: 0.6 }}
               >
                 <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 text-white rounded-2xl flex items-center justify-center text-lg font-bold shadow-md">
-                  3
+                  4
                 </div>
                 <div className="ml-5 bg-white p-5 rounded-2xl shadow-md flex-1 border border-green-200">
                   <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
@@ -414,7 +494,6 @@ export default function Page() {
                 </div>
               </motion.div>
 
-              {/* Completion */}
               <motion.div
                 className="flex items-start"
                 initial={{ opacity: 0, x: -30 }}
@@ -436,33 +515,58 @@ export default function Page() {
               </motion.div>
             </div>
 
-            {/* Perks of Transferring & Button */}
             <motion.div
-              className="mt-12 text-center bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-200 shadow-inner"
+            className="mt-12 text-center bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl p-8 border-2 border-green-300 shadow-xl"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.0 }}>
+                <h3 className="text-2xl sm:text-3xl font-bold text-green-900 mb-4">
+                Click here to share your DIS/CMR
+              </h3>
+                <button
+                  onClick={() => {
+                    try {
+                      // Try to open Gmail compose window
+                      window.open(
+                        "https://mail.google.com/mail/?view=cm&fs=1&to=business.fiscalforum@gmail.com&su=DIS%20Form%20Submission&body=Please%20find%20attached%20my%20DIS%20form.",
+                        "_blank"
+                      );
+                    } catch (error) {
+                      // Fallback to default email client
+                      window.location.href =
+                        "mailto:business.fiscalforum@gmail.com?subject=DIS%20Form%20Submission&body=Please%20find%20attached%20my%20DIS%20form.";
+                    }
+                  }}
+                  className="px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white font-bold text-lg rounded-full transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-300"
+                >
+                  Share with - business.fiscalforum@gmail.com
+                </button>
+              </motion.div>
+
+            <motion.div
+              className="mt-12 text-center bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl p-8 border-2 border-green-300 shadow-xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.0 }}
             >
-              <h3 className="text-xl sm:text-2xl font-bold text-green-800 mb-3">
+              <h3 className="text-2xl sm:text-3xl font-bold text-green-900 mb-4">
                 Perks of Transferring with Us
               </h3>
-              <div className="flex flex-wrap justify-center gap-4 mb-6 text-green-700">
-                <div className="flex items-center gap-1 text-sm sm:text-base">
-                  <FaGift className="text-emerald-600" /> <span>Free Research Reports</span>
+              <div className="flex flex-wrap justify-center gap-6 mb-8 text-green-800">
+                <div className="flex items-center gap-2 text-base sm:text-lg font-semibold">
+                  <FaGift className="text-emerald-700 text-xl" />
+                  <span>Free Research Reports</span>
                 </div>
-                <div className="flex items-center gap-1 text-sm sm:text-base">
-                  <FaRupeeSign className="text-emerald-600" /> <span>Zero Transfer Fees</span>
+                <div className="flex items-center gap-2 text-base sm:text-lg font-semibold">
+                  <FaRupeeSign className="text-emerald-700 text-xl" />
+                  <span>Zero Transfer Fees</span>
                 </div>
-                <div className="flex items-center gap-1 text-sm sm:text-base">
-                  <FaHeadset className="text-emerald-600" /> <span>Dedicated Support</span>
+                <div className="flex items-center gap-2 text-base sm:text-lg font-semibold">
+                  <FaHeadset className="text-emerald-700 text-xl" />
+                  <span>Dedicated Support</span>
                 </div>
               </div>
-              <button
-                onClick={() => router.push('/services/stock-investment/transfer-demat')}
-                className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white font-bold rounded-full transition shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
-              >
-                Fill Transfer Details
-              </button>
+              
             </motion.div>
           </div>
         </section>

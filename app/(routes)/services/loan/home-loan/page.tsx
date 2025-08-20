@@ -334,7 +334,7 @@ const HomeLoanPage = () => {
               <ArrowRight className="w-4 h-4" />
             </button>
             <button 
-            onClick={() => router.push(`/services/loan/home-loan/call`)}className="border-2 border-white/30 px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
+            onClick={() => router.push(`/services/loan/home-loan/contact`)}className="border-2 border-white/30 px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
               <Phone className="w-4 h-4" />
               Talk to Expert
             </button>

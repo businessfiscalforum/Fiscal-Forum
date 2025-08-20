@@ -266,6 +266,7 @@ export default function CommercialVehicleInsuranceFormPage() {
         setStep(1);
         setErrors({});
       }, 3000);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Submission error:", error);
       setMessage({
@@ -837,8 +838,8 @@ export default function CommercialVehicleInsuranceFormPage() {
                         </p>
                         <ol className="list-decimal pl-5 space-y-1 text-green-700">
                           <li>Upload your documents to Google Drive</li>
-                          <li>Right-click the file and select "Get link"</li>
-                          <li>Change permissions to "Anyone with the link can view"</li>
+                          <li>Right-click the file and select &quot;Get link&quot;</li>
+                          <li>Change permissions to &quot;Anyone with the link can view&quot;</li>
                           <li>Copy the link and paste it above</li>
                         </ol>
                       </div>
