@@ -232,17 +232,17 @@ export default function LifeInsuranceFormPage() {
             <p className="text-gray-600 mt-2 max-w-2xl mx-auto">Provide your details, policy requirements, any existing policy info, and select preferred insurers.</p>
           </div>
 
-          <div className="flex items-center justify-center mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             {[
               { label: "Personal Details", idx: 1 },
               { label: "Policy Requirements", idx: 2 },
               { label: "Existing Policy", idx: 3 },
               { label: "Insurer Preference", idx: 4 },
             ].map((s, i) => (
-              <div key={s.idx} className="flex items-center">
+              <div key={s.idx} className="flex items-center justify-center">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step === s.idx ? "bg-emerald-600 text-white" : "bg-gray-200 text-gray-600"}`}>{s.idx}</div>
                 <span className={`ml-2 ${step === s.idx ? "text-emerald-600 font-medium" : "text-gray-500"}`}>{s.label}</span>
-                {i < 3 && <div className="w-16 h-1 bg-gray-200 mx-2"></div>}
+                {/* {i < 3 && <div className="w-16 h-1 bg-gray-200 mx-2"></div>} */}
               </div>
             ))}
           </div>

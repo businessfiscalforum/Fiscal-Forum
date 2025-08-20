@@ -23,6 +23,7 @@ export default function CarInsuranceFormPage() {
   const [step, setStep] = useState(1); // 1: Personal, 2: Vehicle & Insurance, 3: Docs & Preference
   const [copied, setCopied] = useState(false);
 
+  const insuranceTypes = [ "OD", "Comprehensive", "Third Party" ];
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -33,6 +34,8 @@ export default function CarInsuranceFormPage() {
     prevInsuranceLink: "",
     insurerPrefs: [] as string[],
     otherInsurer: "",
+    registrationNumber: "",
+    insuranceType: "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -103,6 +106,14 @@ export default function CarInsuranceFormPage() {
       newErrors.policyExpiry = "Use dd/mm/yyyy format";
     }
 
+    if(!formData.registrationNumber || !/^[A-Z]{2}[0-9]{1,2}[A-Z]{1,2}[0-9]{1,4}$/.test(formData.registrationNumber)){
+      newErrors.registrationNumber = "Enter a valid registration number";
+    }
+    
+    if(!formData.insuranceType || formData.insuranceType === ""){
+      newErrors.insuranceType = "Choose a insurance type";
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -158,6 +169,8 @@ export default function CarInsuranceFormPage() {
       formDataToSend.append("prevInsuranceLink", formData.prevInsuranceLink);
       formDataToSend.append("insurerPrefs", JSON.stringify(formData.insurerPrefs));
       formDataToSend.append("otherInsurer", formData.otherInsurer);
+      formDataToSend.append("registrationNumber", formData.registrationNumber);
+      formDataToSend.append("insuranceType", formData.insuranceType);
 
       const response = await fetch("/api/car-insurance", {
         method: "POST",
@@ -186,6 +199,8 @@ export default function CarInsuranceFormPage() {
           prevInsuranceLink: "",
           insurerPrefs: [],
           otherInsurer: "",
+          registrationNumber: "",
+          insuranceType: "",
         });
         setStep(1);
         setErrors({});
@@ -243,13 +258,13 @@ export default function CarInsuranceFormPage() {
           </div>
 
           {/* Progress Steps */}
-          <div className="flex items-center justify-center mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {[
               { label: "Personal Details", idx: 1 },
               { label: "Vehicle & Insurance", idx: 2 },
               { label: "Docs & Preference", idx: 3 },
             ].map((s, i) => (
-              <div key={s.idx} className="flex items-center">
+              <div key={s.idx} className="flex items-center justify-center">
                 <div
                   className={`w-8 h-8 rounded-full flex items-center justify-center ${
                     step === s.idx ? "bg-emerald-600 text-white" : "bg-gray-200 text-gray-600"
@@ -260,7 +275,7 @@ export default function CarInsuranceFormPage() {
                 <span className={`ml-2 ${step === s.idx ? "text-emerald-600 font-medium" : "text-gray-500"}`}>
                   {s.label}
                 </span>
-                {i < 2 && <div className="w-16 h-1 bg-gray-200 mx-2"></div>}
+                {/* {i < 2 && <div className="w-16 h-1 bg-gray-200 mx-2"></div>} */}
               </div>
             ))}
           </div>
@@ -381,7 +396,52 @@ export default function CarInsuranceFormPage() {
                     />
                     {errors.policyExpiry && <p className="mt-1 text-sm text-red-600">{errors.policyExpiry}</p>}
                   </div>
-                </div>
+
+                  {/* Registration Number */}
+                  <div>
+                    <label htmlFor="registrationNumber" className="text-sm font-medium text-gray-700 mb-1 flex items-center">
+                      Vehicle Registration Number <span className="text-red-500 ml-1">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="registrationNumber"
+                      name="registrationNumber"
+                      value={formData.registrationNumber}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-3 rounded-xl border ${errors.registrationNumber ? "border-red-500" : "border-gray-300"} focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
+                      placeholder="Enter registration number"
+                    />
+                    {errors.registrationNumber && <p className="mt-1 text-sm text-red-600">{errors.registrationNumber}</p>}
+                  </div>
+
+                  {/* Insurance Type */}
+                  <div>
+                    <label
+                      htmlFor="insuranceType"
+                      className="text-sm font-medium text-gray-700 mb-1 flex items-center"
+                    >
+                      Choose insurance type <span className="text-red-500 ml-1">*</span>
+                    </label>
+                    <select
+                      id="insuranceType"
+                      name="insuranceType"
+                      value={formData.insuranceType}
+                      onChange={(e) => { setFormData({ ...formData, insuranceType: e.target.value }) }}
+                      className={`w-full px-4 py-3 rounded-xl border ${
+                        errors.insuranceType ? "border-red-500" : "border-gray-300"
+                      } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
+                    >
+                      <option value="">-- Select Insurance Type --</option>
+                      {insuranceTypes.map((type) => (
+                        <option key={type} value={type}>
+                          {type}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.insuranceType && (
+                      <p className="mt-1 text-sm text-red-600">{errors.insuranceType}</p>
+                    )}
+                  </div>
 
                 <div className="flex space-x-4 pt-6">
                   <button
@@ -398,6 +458,7 @@ export default function CarInsuranceFormPage() {
                   >
                     Next: Documents & Preference
                   </button>
+                </div>
                 </div>
               </>
             ) : (

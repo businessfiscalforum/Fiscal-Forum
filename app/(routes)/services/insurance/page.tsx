@@ -74,7 +74,7 @@ const cards = [
     icon: Heart,
     iconBgColor: "bg-red-100",
     iconColor: "text-red-500",
-    link: "/insurance/health",
+    link: "/services/insurance/health-insurance/learn-more",
     formLink: "/services/insurance/health-insurance",
   },
   {
@@ -85,7 +85,7 @@ const cards = [
     icon: Car,
     iconBgColor: "bg-blue-100",
     iconColor: "text-blue-500",
-    link: "/insurance/car",
+    link: "/services/insurance/car-insurance/learn-more",
     formLink: "/services/insurance/car-insurance",
   },
   {
@@ -96,7 +96,7 @@ const cards = [
     icon: Bike,
     iconBgColor: "bg-yellow-100",
     iconColor: "text-yellow-500",
-    link: "/insurance/two-wheeler",
+    link: "/services/insurance/two-wheeler-insurance/learn-more",
     formLink: "/services/insurance/two-wheeler-insurance",
   },
   {
@@ -107,7 +107,7 @@ const cards = [
     icon: Shield,
     iconBgColor: "bg-green-100",
     iconColor: "text-green-500",
-    link: "/insurance/life",
+    link: "/services/insurance/life-insurance/learn-more",
     formLink: "/services/insurance/life-insurance",
   },
   {
@@ -118,7 +118,7 @@ const cards = [
     icon: Home,
     iconBgColor: "bg-purple-100",
     iconColor: "text-purple-500",
-    link: "/insurance/home-shop",
+    link: "/services/insurance/home-shop-insurance/learn-more",
     formLink: "/services/insurance/home-shop-insurance",
   },
   {
@@ -129,7 +129,7 @@ const cards = [
     icon: Plane,
     iconBgColor: "bg-orange-100",
     iconColor: "text-orange-500",
-    link: "/insurance/travel",
+    link: "/services/insurance/travel-insurance/learn-more",
     formLink: "/services/insurance/travel-insurance",
   },
   {
@@ -140,7 +140,7 @@ const cards = [
     icon: ShieldAlert,
     iconBgColor: "bg-indigo-100",
     iconColor: "text-indigo-500",
-    link: "/insurance/personal-accident",
+    link: "/services/insurance/personal-accident-insurance/learn-more",
     formLink: "/services/insurance/personal-accident-insurance",
   },
   {
@@ -151,7 +151,7 @@ const cards = [
     icon: Truck,
     iconBgColor: "bg-cyan-100",
     iconColor: "text-cyan-500",
-    link: "/insurance/commercial-vehicle",
+    link: "/services/insurance/commercial-vehicle-insurance/learn-more",
     formLink: "/services/insurance/commercial-vehicle-insurance",
   },
 ];
