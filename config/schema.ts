@@ -33,6 +33,12 @@ export const loanTypeEnum = pgEnum('loan_type', [
   'securities',
 ]);
 
+export const vehicleInsuranceTypeEnum = pgEnum("vehicle_insurance_type", [
+  "OD",
+  "Comprehensive",
+  "Third party",
+]);
+
 export const insuranceTypeEnum = pgEnum('insurance_type', [
   'LIFE',
   'HEALTH',
@@ -942,6 +948,8 @@ export const carInsuranceRequests = pgTable('car_insurance_requests', {
   insurerPrefs: text('insurer_prefs'), // JSON string of selected insurers
   otherInsurer: varchar('other_insurer', { length: 255 }),
   createdAt: timestamp('created_at').defaultNow().notNull(),
+  registrationNumber: varchar("registration_number", { length: 20 }).notNull(),
+  insuranceType: vehicleInsuranceTypeEnum("vehicle_insurance_type").notNull(),
 });
 
 // Health Insurance Requests
@@ -999,6 +1007,8 @@ export const twoWheelerInsuranceRequests = pgTable('two_wheeler_insurance_reques
   insurerPrefs: text('insurer_prefs'), // JSON string array
   otherInsurer: varchar('other_insurer', { length: 255 }),
   createdAt: timestamp('created_at').defaultNow().notNull(),
+  registrationNumber: varchar("registration_number", { length: 20 }).notNull(),
+  insuranceType: vehicleInsuranceTypeEnum("vehicle_insurance_type").notNull(),
 });
 
 export const commercialVehicleInsuranceRequests = pgTable('commercial_vehicle_insurance_requests', {
@@ -1180,6 +1190,8 @@ export type SelectPropertyInsuranceRequest = typeof propertyInsuranceRequests.$i
 
 export type InsertTravelInsuranceRequest = typeof travelInsuranceRequests.$inferInsert;
 export type SelectTravelInsuranceRequest = typeof travelInsuranceRequests.$inferSelect;
+
+export type InsuranceType = (typeof vehicleInsuranceTypeEnum.enumValues)[number];
 
 export type InsertHomeApp = typeof homeLoanApplications.$inferInsert;
 export type SelectHomeApp = typeof homeLoanApplications.$inferSelect

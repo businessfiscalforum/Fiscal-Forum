@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "../../../config/db";
-import { carInsuranceRequests, usersTable } from "../../../config/schema";
+import { carInsuranceRequests, InsuranceType, usersTable } from "../../../config/schema";
 import { eq } from "drizzle-orm";
 import { currentUser } from "@clerk/nextjs/server";
 
@@ -17,6 +17,12 @@ export async function POST(req: NextRequest) {
     const prevInsuranceLink = (form.get("prevInsuranceLink") as string)?.trim() || "";
     const insurerPrefsRaw = (form.get("insurerPrefs") as string) || "[]";
     const otherInsurer = ((form.get("otherInsurer") as string) || "").trim();
+    const registrationNumber = ((form.get("registrationNumber") as string) || "").trim();
+    const insuranceTypeRaw = form.get("insuranceType");
+
+    const insuranceType = typeof insuranceTypeRaw === "string"
+      ? (insuranceTypeRaw.trim() as InsuranceType)
+      : null;
 
     if (!name) {
       return NextResponse.json({ success: false, error: "Name is required" }, { status: 400 });
@@ -29,6 +35,12 @@ export async function POST(req: NextRequest) {
     }
     if (!prevInsuranceLink) {
       return NextResponse.json({ success: false, error: "Previous insurance link is required" }, { status: 400 });
+    }
+    if (!registrationNumber) {
+      return NextResponse.json({ success: false, error: "Registration Number is required" }, { status: 400 });
+    }
+    if (!insuranceType) {
+      return NextResponse.json({ success: false, error: "Insurance Type link is required" }, { status: 400 });
     }
 
     // optional Email format
@@ -92,6 +104,8 @@ export async function POST(req: NextRequest) {
         prevInsuranceLink,
         insurerPrefs: JSON.stringify(insurerPrefs),
         otherInsurer: otherInsurer || null,
+        registrationNumber,
+        insuranceType,
       })
       .returning();
 
