@@ -468,7 +468,7 @@ export default function Page() {
                     Share Details with Us
                   </h3>
                   <p className="text-gray-600 text-sm sm:text-base">
-                    Email CMR or DIS to business.fiscalforum@gmail.com with your
+                    Email CMR or DIS to support@fiscalforum.in with your
                     name and client ID.
                   </p>
                 </div>
@@ -539,7 +539,7 @@ export default function Page() {
                   }}
                   className="px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white font-bold text-lg rounded-full transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-300"
                 >
-                  Share with - business.fiscalforum@gmail.com
+                  Share with - support@fiscalforum.in
                 </button>
               </motion.div>
 

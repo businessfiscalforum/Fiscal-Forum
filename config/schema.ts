@@ -885,14 +885,15 @@ export const dematApplications = pgTable("demat_applications", {
 
 
 export const dematTransferRequests = pgTable('demat_transfer_requests', {
-  id: uuid("id").defaultRandom().notNull().primaryKey().unique(),
-  fullName: text('full_name').notNull(),
-  email: varchar('email', { length: 255 }).notNull(),
-  phone: varchar('phone', { length: 15 }).notNull(),
-  currentBroker: text('current_broker').default('Motilal Oswal'),
-  newClientId: text('new_client_id').notNull(),
-  publicFileUrl: text('public_file_url').notNull(),
-  createdAt: timestamp('created_at').defaultNow(),
+  id: uuid('id').primaryKey().defaultRandom(),
+  fullName: varchar('full_name', { length: 255 }).notNull(),
+  clientCode: varchar('client_code', { length: 100 }).notNull(),
+  panNo: varchar('pan_no', { length: 10 }).notNull(),
+  mobileNo: varchar('mobile_no', { length: 15 }).notNull(),
+  consistency: varchar('consistency', { length: 20 }).notNull(),
+  traderType: text('trader_type').notNull(),
+  existingBroker: varchar('existing_broker', { length: 255 }).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
 export const investmentProfiles = pgTable('investment_profiles', {

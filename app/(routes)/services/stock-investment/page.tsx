@@ -428,7 +428,7 @@ export default function CreditCardApplyPage() {
                             </svg>
                           </div>
                           </Link>
-                          <Link href={option.alink} passHref>
+                          {/* <Link href={option.alink} passHref>
                           <div className="px-4 py-2 rounded-lg  text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
                             Apply Now
                             <svg
@@ -442,7 +442,7 @@ export default function CreditCardApplyPage() {
                               <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
                           </div>
-                          </Link>
+                          </Link> */}
                         </div>
                       </div>
                   </motion.div>

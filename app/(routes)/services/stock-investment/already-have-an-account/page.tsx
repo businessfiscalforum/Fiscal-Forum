@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
@@ -8,14 +7,9 @@ import {
   FaArrowLeft,
   FaCheck,
   FaUser,
-  FaBuilding,
-  FaFileAlt,
-  FaEnvelope,
-  FaPhone,
-  FaLink,
+  FaFileInvoice,
+  FaMobileAlt,
   FaInfoCircle,
-  FaCopy,
-  FaCheckCircle,
   FaSpinner,
   FaGift,
   FaRupeeSign,
@@ -23,6 +17,8 @@ import {
   FaWhatsapp,
   FaChartLine,
   FaBell,
+  FaPhone,
+  FaFileAlt,
 } from "react-icons/fa";
 import { TrendingUp } from "lucide-react";
 
@@ -40,25 +36,50 @@ export default function TransferDematPage() {
     type: "success" | "error";
   } | null>(null);
   const [transferErrors, setTransferErrors] = useState<Record<string, string>>({});
-
   const [formData, setFormData] = useState({
     fullName: "",
-    email: "",
-    phone: "",
-    currentBroker: "",
-    newClientId: "",
-    driveLink: "",
+    clientCode: "",
+    panNo: "",
+    mobileNo: "",
+    consistency: "",
+    traderType: [] as string[], // Changed to array for checkboxes
+    existingBroker: "",
   });
+  
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
 
-    // Clear error when user types
     if (transferErrors[name]) {
       setTransferErrors((prev) => {
         const newErrors = { ...prev };
         delete newErrors[name];
+        return newErrors;
+      });
+    }
+  };
+
+  // Handle checkbox changes for traderType
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = e.target;
+    setFormData(prev => {
+      const newTraderTypes = checked 
+        ? [...prev.traderType, value]
+        : prev.traderType.filter(type => type !== value);
+      
+      return { ...prev, traderType: newTraderTypes };
+    });
+
+    // Clear error when user selects an option
+    if (transferErrors.traderType && checked) {
+      setTransferErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors.traderType;
         return newErrors;
       });
     }
@@ -71,33 +92,32 @@ export default function TransferDematPage() {
       newErrors.fullName = "Full name is required";
     }
 
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Invalid email format";
+    if (!formData.clientCode.trim()) {
+      newErrors.clientCode = "Client Code is required";
     }
 
-    if (!formData.phone.trim()) {
-      newErrors.phone = "Phone number is required";
-    } else if (!/^[0-9]{10}$/.test(formData.phone)) {
-      newErrors.phone = "Phone must be a 10-digit number";
+    if (!formData.panNo.trim()) {
+      newErrors.panNo = "PAN Number is required";
+    } else if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(formData.panNo.toUpperCase())) {
+      newErrors.panNo = "Invalid PAN format";
     }
 
-    if (!formData.currentBroker.trim()) {
-      newErrors.currentBroker = "Current broker name is required";
+    if (!formData.mobileNo.trim()) {
+      newErrors.mobileNo = "Mobile Number is required";
+    } else if (!/^[0-9]{10}$/.test(formData.mobileNo)) {
+      newErrors.mobileNo = "Must be 10 digits";
     }
 
-    if (!formData.newClientId.trim()) {
-      newErrors.newClientId = "New Client ID is required";
+    if (!formData.consistency.trim()) {
+      newErrors.consistency = "Investment Consistency is required";
     }
 
-    if (!formData.driveLink.trim()) {
-      newErrors.driveLink = "Google Drive link is required";
-    } else if (
-      !formData.driveLink.includes("drive.google.com") ||
-      !formData.driveLink.includes("/file/d/")
-    ) {
-      newErrors.driveLink = "Please enter a valid Google Drive file link";
+    if (formData.traderType.length === 0) {
+      newErrors.traderType = "Select at least one trader type";
+    }
+
+    if (!formData.existingBroker.trim()) {
+      newErrors.existingBroker = "Existing Broker is required";
     }
 
     setTransferErrors(newErrors);
@@ -106,7 +126,6 @@ export default function TransferDematPage() {
 
   const handleTransferSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!validateTransferForm()) {
       return;
     }
@@ -116,12 +135,14 @@ export default function TransferDematPage() {
 
     try {
       const formDataToSend = new FormData();
-      formDataToSend.append("fullName", formData.fullName);
-      formDataToSend.append("email", formData.email);
-      formDataToSend.append("phone", formData.phone);
-      formDataToSend.append("currentBroker", formData.currentBroker);
-      formDataToSend.append("newClientId", formData.newClientId);
-      formDataToSend.append("driveLink", formData.driveLink);
+      Object.entries(formData).forEach(([key, value]) => {
+        if (key === 'traderType') {
+          // Handle array values
+          (value as string[]).forEach(val => formDataToSend.append(key, val));
+        } else {
+          formDataToSend.append(key, value as string);
+        }
+      });
 
       const response = await fetch("/api/transfer-demat", {
         method: "POST",
@@ -135,7 +156,7 @@ export default function TransferDematPage() {
       }
 
       setTransferMessage({
-        text: "Thank you, your application is submitted. Our representation will contact you shortly.",
+        text: "Thank you, your application is submitted. Our representative will contact you shortly.",
         type: "success",
       });
 
@@ -143,16 +164,17 @@ export default function TransferDematPage() {
       setTimeout(() => {
         setFormData({
           fullName: "",
-          email: "",
-          phone: "",
-          currentBroker: "",
-          newClientId: "",
-          driveLink: "",
+          clientCode: "",
+          panNo: "",
+          mobileNo: "",
+          consistency: "",
+          traderType: [],
+          existingBroker: "",
         });
         setTransferErrors({});
       }, 3000);
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Submission error:", error);
       setTransferMessage({
@@ -211,6 +233,14 @@ export default function TransferDematPage() {
     }
   };
 
+  // Trader type options for checkboxes
+  const traderTypeOptions = [
+    { value: "Intraday", label: "Intraday Trader" },
+    { value: "Swing", label: "Swing Trader" },
+    { value: "Positional", label: "Positional Trader" },
+    { value: "Long-term", label: "Long-term Investor" },
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50 py-30 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
@@ -235,7 +265,7 @@ export default function TransferDematPage() {
 
         {/* Two Column Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Left Column - Transfer Demat Form */}
+          {/* Left Column - IPO Form */}
           <motion.div
             className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-emerald-200"
             initial={{ opacity: 0, x: -20 }}
@@ -244,15 +274,16 @@ export default function TransferDematPage() {
           >
             <div className="mb-8">
               <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-teal-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <FaFileAlt className="text-3xl" />
+                <FaFileInvoice className="text-3xl" />
               </div>
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 text-center">
                 Transfer Your Demat Holdings
               </h2>
               <p className="text-gray-600 mt-2 text-center">
-                Transfer your holdings to your existing stock broker. Note: You
-                don&apos;t have to shift your broker. We&apos;ll resolve all
-                your issues and provide high rewards & brokerage sharing.
+                Transfer your holdings to your existing stock broker. Note: You don&apos;t have to shift your broker. We&apos;ll resolve all your issues and provide high rewards & brokerage sharing.
+              </p>
+              <p className="text-yellow-600 mt-2 text-center">
+                Currently with Motilal Oswal
               </p>
             </div>
 
@@ -300,163 +331,158 @@ export default function TransferDematPage() {
                   )}
                 </div>
 
-                {/* Email */}
+                {/* Client Code */}
                 <div>
                   <label
-                    htmlFor="email"
-                    className="text-sm font-medium text-gray-700 mb-1 flex items-center"
+                    htmlFor="clientCode"
+                    className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    <FaEnvelope className="mr-2 text-emerald-600" /> Email
-                    Address <span className="text-red-500 ml-1">*</span>
+                    Client Code <span className="text-red-500 ml-1">*</span>
                   </label>
                   <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
+                    type="text"
+                    id="clientCode"
+                    name="clientCode"
+                    value={formData.clientCode}
                     onChange={handleChange}
                     className={`w-full px-4 py-3 rounded-xl border ${
-                      transferErrors.email ? "border-red-500" : "border-gray-300"
+                      transferErrors.clientCode ? "border-red-500" : "border-gray-300"
                     } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
-                    placeholder="you@example.com"
+                    placeholder="Your client code"
                   />
-                  {transferErrors.email && (
-                    <p className="mt-1 text-sm text-red-600">{transferErrors.email}</p>
+                  {transferErrors.clientCode && (
+                    <p className="mt-1 text-sm text-red-600">{transferErrors.clientCode}</p>
                   )}
                 </div>
 
-                {/* Phone */}
+                {/* PAN Number */}
                 <div>
                   <label
-                    htmlFor="phone"
+                    htmlFor="panNo"
                     className="text-sm font-medium text-gray-700 mb-1 flex items-center"
                   >
-                    <FaPhone className="mr-2 text-emerald-600" /> Phone Number{" "}
-                    <span className="text-red-500 ml-1">*</span>
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border ${
-                      transferErrors.phone ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
-                    placeholder="10-digit mobile number"
-                  />
-                  {transferErrors.phone && (
-                    <p className="mt-1 text-sm text-red-600">{transferErrors.phone}</p>
-                  )}
-                </div>
-
-                {/* New Client ID */}
-                <div>
-                  <label
-                    htmlFor="newClientId"
-                    className="text-sm font-medium text-gray-700 mb-1 flex items-center"
-                  >
-                    <FaUser className="mr-2 text-emerald-600" /> New Client ID{" "}
+                    <FaFileInvoice className="mr-2 text-emerald-600" /> PAN Number{" "}
                     <span className="text-red-500 ml-1">*</span>
                   </label>
                   <input
                     type="text"
-                    id="newClientId"
-                    name="newClientId"
-                    value={formData.newClientId}
+                    id="panNo"
+                    name="panNo"
+                    value={formData.panNo}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 rounded-xl border ${
-                      transferErrors.newClientId ? "border-red-500" : "border-gray-300"
+                    className={`w-full px-4 py-3 rounded-xl border uppercase ${
+                      transferErrors.panNo ? "border-red-500" : "border-gray-300"
                     } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
-                    placeholder="Your new demat account client ID"
+                    placeholder="ABCDE1234F"
                   />
-                  {transferErrors.newClientId && (
-                    <p className="mt-1 text-sm text-red-600">
-                      {transferErrors.newClientId}
-                    </p>
+                  {transferErrors.panNo && (
+                    <p className="mt-1 text-sm text-red-600">{transferErrors.panNo}</p>
                   )}
                 </div>
-              </div>
 
-              {/* Current Broker */}
-              <div>
-                <label
-                  htmlFor="currentBroker"
-                  className="text-sm font-medium text-gray-700 mb-1 flex items-center"
-                >
-                  <FaBuilding className="mr-2 text-emerald-600" /> Current
-                  Broker <span className="text-red-500 ml-1">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="currentBroker"
-                  name="currentBroker"
-                  value={formData.currentBroker}
-                  onChange={handleChange}
-                  className={`w-full px-4 py-3 rounded-xl border ${
-                    transferErrors.currentBroker ? "border-red-500" : "border-gray-300"
-                  } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
-                  placeholder="Enter your current broker name"
-                />
-                {transferErrors.currentBroker && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {transferErrors.currentBroker}
-                  </p>
-                )}
-              </div>
-
-              {/* Drive Link */}
-              <div>
-                <h3 className="text-xl font-bold text-emerald-900 mb-4">
-                  Share Your CMR/DIS Document
-                </h3>
-
-                <div className="bg-emerald-50 rounded-xl p-5 mb-6">
-                  <div className="flex items-start">
-                    <FaInfoCircle className="text-emerald-600 mt-1 mr-3 flex-shrink-0" />
-                    <div>
-                      <p className="text-emerald-800 font-medium mb-2">
-                        How to get a public Google Drive link:
-                      </p>
-                      <ol className="list-decimal pl-5 space-y-1 text-emerald-700">
-                        <li>Upload your CMR/DIS document to Google Drive</li>
-                        <li>
-                          Right-click the file and select &quot;Get link&quot;
-                        </li>
-                        <li>
-                          Change permissions to &quot;Anyone with the link can
-                          view&quot;
-                        </li>
-                        <li>Copy the link and paste it below</li>
-                      </ol>
-                    </div>
-                  </div>
-                </div>
-
+                {/* Mobile Number */}
                 <div>
                   <label
-                    htmlFor="driveLink"
-                    className="text-sm font-medium text-gray-700 mb-1 flex items-center"
+                    htmlFor="mobileNo"
+                    className=" text-sm font-medium text-gray-700 mb-1 flex items-center"
                   >
-                    <FaLink className="mr-2 text-emerald-600" /> Google Drive
-                    Link <span className="text-red-500 ml-1">*</span>
+                    <FaMobileAlt className="mr-2 text-emerald-600" /> Mobile Number{" "}
+                    <span className="text-red-500 ml-1">*</span>
                   </label>
                   <input
-                    type="url"
-                    id="driveLink"
-                    name="driveLink"
-                    value={formData.driveLink}
+                    type="tel"
+                    id="mobileNo"
+                    name="mobileNo"
+                    value={formData.mobileNo}
                     onChange={handleChange}
                     className={`w-full px-4 py-3 rounded-xl border ${
-                      transferErrors.driveLink ? "border-red-500" : "border-gray-300"
+                      transferErrors.mobileNo ? "border-red-500" : "border-gray-300"
                     } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
-                    placeholder="https://drive.google.com/file/d/...    "
+                    placeholder="10-digit mobile number"
                   />
-                  {transferErrors.driveLink && (
-                    <p className="mt-1 text-sm text-red-600">
-                      {transferErrors.driveLink}
-                    </p>
+                  {transferErrors.mobileNo && (
+                    <p className="mt-1 text-sm text-red-600">{transferErrors.mobileNo}</p>
                   )}
+                </div>
+
+                {/* Investment Consistency */}
+                <div>
+                  <label
+                    htmlFor="consistency"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Investment Consistency <span className="text-red-500 ml-1">*</span>
+                  </label>
+                  <select
+                    id="consistency"
+                    name="consistency"
+                    value={formData.consistency}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-3 rounded-xl border ${
+                      transferErrors.consistency ? "border-red-500" : "border-gray-300"
+                    } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
+                  >
+                    <option value="">Select consistency level</option>
+                    <option value="Daily">Daily</option>
+                    <option value="Weekly">Weekly</option>
+                    <option value="Monthly">Monthly</option>
+                    <option value="Quarterly">Quarterly</option>
+                    <option value="Yearly">Yearly</option>
+                  </select>
+                  {transferErrors.consistency && <p className="mt-1 text-sm text-red-600">{transferErrors.consistency}</p>}
+                </div>
+
+                {/* Trader Type - Checkboxes */}
+                <div className="md:col-span-2">
+                  <label
+                    htmlFor="traderType"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Trader Type <span className="text-red-500 ml-1">*</span>
+                  </label>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {traderTypeOptions.map((option) => (
+                      <div key={option.value} className="flex items-center">
+                        <input
+                          type="checkbox"
+                          id={`traderType-${option.value}`}
+                          value={option.value}
+                          checked={formData.traderType.includes(option.value)}
+                          onChange={handleCheckboxChange}
+                          className="h-5 w-5 text-emerald-600 rounded focus:ring-emerald-500"
+                        />
+                        <label 
+                          htmlFor={`traderType-${option.value}`} 
+                          className="ml-2 text-gray-700"
+                        >
+                          {option.label}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                  {transferErrors.traderType && <p className="mt-1 text-sm text-red-600">{transferErrors.traderType}</p>}
+                </div>
+
+                {/* Existing Broker */}
+                <div className="md:col-span-2">
+                  <label
+                    htmlFor="existingBroker"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Existing Broker <span className="text-red-500 ml-1">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="existingBroker"
+                    name="existingBroker"
+                    value={formData.existingBroker}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-3 rounded-xl border ${
+                      transferErrors.existingBroker ? "border-red-500" : "border-gray-300"
+                    } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
+                    placeholder="Current broker name"
+                  />
+                  {transferErrors.existingBroker && <p className="mt-1 text-sm text-red-600">{transferErrors.existingBroker}</p>}
                 </div>
               </div>
 
@@ -477,7 +503,7 @@ export default function TransferDematPage() {
                       Submitting...
                     </>
                   ) : (
-                    "Submit Request"
+                    "Submit"
                   )}
                 </button>
               </div>
@@ -494,25 +520,24 @@ export default function TransferDematPage() {
                     1
                   </div>
                   <p className="text-gray-700">
-                    Fill in your details and new client ID
+                    Fill in your details and client ID
                   </p>
                 </div>
                 <div className="flex items-start">
                   <div className="flex-shrink-0 w-8 h-8 bg-emerald-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-1">
                     2
                   </div>
-                  <p className="text-gray-700">
-                    Upload CMR/DIS to Google Drive and share the link
+                  <p className="text-gray-700">We handle the rest and coordinate with your broker
                   </p>
                 </div>
-                <div className="flex items-start">
+                {/* <div className="flex items-start">
                   <div className="flex-shrink-0 w-8 h-8 bg-emerald-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-1">
                     3
                   </div>
                   <p className="text-gray-700">
-                    We handle the rest and coordinate with your broker
+                    Submit your application through your broker
                   </p>
-                </div>
+                </div> */}
               </div>
             </div>
           </motion.div>
