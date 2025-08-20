@@ -63,7 +63,7 @@ export default function PersonalAccidentInsurancePage() {
             </h3>
             <p>
               Personal accident insurance is designed to respond swiftly and effectively when unforeseen 
-              injuries occur. Whether it's a minor incident resulting in temporary disability or a more 
+              injuries occur. Whether it&apos;s a minor incident resulting in temporary disability or a more 
               serious event leading to permanent impairment or, in the worst-case scenario, fatality, 
               this policy offers tailored support to meet a wide range of needs. In the event of an 
               accident, the insurance provides financial assistance to cover emergency medical treatments, 

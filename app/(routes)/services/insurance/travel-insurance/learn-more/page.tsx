@@ -59,7 +59,7 @@ export default function TravelInsurancePage() {
             </p>
 
             <p>
-              Whether you're embarking on a weekend getaway, a long-term work assignment, or a 
+              Whether you&apos;re embarking on a weekend getaway, a long-term work assignment, or a 
               semester abroad, travel insurance ensures that you’re safeguarded from the moment 
               you step out the door until you return home safely. It’s more than just a policy—it’s 
               peace of mind that allows you to embrace the journey with confidence, knowing that 
@@ -99,7 +99,7 @@ export default function TravelInsurancePage() {
               The best travel insurance isn’t just about what it covers—it’s about how quickly and 
               efficiently it delivers support when you need it. Our policies are built around 
               simplicity, transparency, and speed. Claims are processed swiftly and with minimal 
-              hassle, ensuring that disruptions to your trip are kept to a minimum. Whether you're 
+              hassle, ensuring that disruptions to your trip are kept to a minimum. Whether you&apos;re 
               dealing with a minor inconvenience like a lost passport or facing a major emergency 
               such as a hospitalization, our team is ready to assist you every step of the way.
             </p>

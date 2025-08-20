@@ -59,7 +59,7 @@ export default function CarInsurancePage() {
 
             <h3 className="text-xl font-semibold text-emerald-800">Why It Matters</h3>
             <p>
-              Every journey carries risks—some small, some serious. A fender bender, a flat tire, or an emergency medical situation involving a passenger can all lead to unexpected expenses. Without proper insurance, these events can quickly spiral into overwhelming financial burdens. Repair costs, medical bills, legal liabilities, and even lost income due to downtime can add up fast, especially if you're unprepared.
+              Every journey carries risks—some small, some serious. A fender bender, a flat tire, or an emergency medical situation involving a passenger can all lead to unexpected expenses. Without proper insurance, these events can quickly spiral into overwhelming financial burdens. Repair costs, medical bills, legal liabilities, and even lost income due to downtime can add up fast, especially if you&apos;re unprepared.
             </p>
 
             <p>
