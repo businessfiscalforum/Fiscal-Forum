@@ -149,12 +149,12 @@ export default function PersonalAccidentInsurancePage() {
           </div>
 
           {/* Progress */}
-          <div className="flex items-center justify-center mb-6 text-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             {["Personal Details","Policy Requirements","Existing Policy","Insurer Preference"].map((label, idx) => (
-              <div key={label} className="flex items-center">
+              <div key={label} className="flex items-center justify-center">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step===idx+1?"bg-green-600 text-white":"bg-gray-200 text-gray-600"}`}>{idx+1}</div>
                 <span className={`ml-2 ${step===idx+1?"text-green-600 font-medium":"text-gray-500"}`}>{label}</span>
-                {idx<3 && <div className="w-10 h-1 bg-gray-200 mx-2"/>}
+                {/* {idx<3 && <div className="w-10 h-1 bg-gray-200 mx-2"/>} */}
               </div>
             ))}
           </div>

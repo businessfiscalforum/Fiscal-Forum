@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { currentUser } from "@clerk/nextjs/server";
 import { db } from "../../../config/db";
-import { twoWheelerInsuranceRequests, usersTable } from "../../../config/schema";
+import { InsuranceType, twoWheelerInsuranceRequests, usersTable } from "../../../config/schema";
 import { eq } from "drizzle-orm";
 
 export async function POST(req: NextRequest) {
@@ -17,6 +17,12 @@ export async function POST(req: NextRequest) {
     const prevInsuranceLink = (form.get("prevInsuranceLink") as string)?.trim() || "";
     const insurerPrefsRaw = (form.get("insurerPrefs") as string) || "[]";
     const otherInsurer = ((form.get("otherInsurer") as string) || "").trim();
+    const registrationNumber = ((form.get("registrationNumber") as string) || "").trim();
+    const insuranceTypeRaw = form.get("insuranceType");
+
+    const insuranceType = typeof insuranceTypeRaw === "string"
+      ? (insuranceTypeRaw.trim() as InsuranceType)
+      : null;
 
     if (!name) {
       return NextResponse.json({ success: false, error: "Name is required" }, { status: 400 });
@@ -27,6 +33,12 @@ export async function POST(req: NextRequest) {
 
     if (email && !/^([^\s@]+)@([^\s@]+)\.[^\s@]+$/.test(email)) {
       return NextResponse.json({ success: false, error: "Invalid email format" }, { status: 400 });
+    }
+    if (!registrationNumber) {
+      return NextResponse.json({ success: false, error: "Registration Number is required" }, { status: 400 });
+    }
+    if (!insuranceType) {
+      return NextResponse.json({ success: false, error: "Insurance Type link is required" }, { status: 400 });
     }
 
     const isDrive = (link: string) => /^(https?:\/\/)?(www\.)?drive\.google\.com\//i.test(link);
@@ -80,6 +92,8 @@ export async function POST(req: NextRequest) {
         prevInsuranceLink: prevInsuranceLink || null,
         insurerPrefs: JSON.stringify(insurerPrefs),
         otherInsurer: otherInsurer || null,
+        registrationNumber,
+        insuranceType,
       })
       .returning();
 

@@ -320,7 +320,7 @@ export default function CommercialVehicleInsuranceFormPage() {
           </div>
 
           {/* Progress Steps */}
-          <div className="flex items-center justify-center mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-6 mb-8">
             {[
               { label: "Business Details", idx: 1 },
               { label: "Vehicle Info", idx: 2 },
@@ -328,7 +328,7 @@ export default function CommercialVehicleInsuranceFormPage() {
               { label: "Documents", idx: 4 },
               { label: "Coverage & Submit", idx: 5 },
             ].map((s, i) => (
-              <div key={s.idx} className="flex items-center">
+              <div key={s.idx} className="flex items-center justify-center">
                 <div
                   className={`w-8 h-8 rounded-full flex items-center justify-center ${
                     step === s.idx ? "bg-green-600 text-white" : "bg-gray-200 text-gray-600"
@@ -339,7 +339,7 @@ export default function CommercialVehicleInsuranceFormPage() {
                 <span className={`ml-2 ${step === s.idx ? "text-green-600 font-medium" : "text-gray-500"}`}>
                   {s.label}
                 </span>
-                {i < 4 && <div className="w-12 h-1 bg-gray-200 mx-2"></div>}
+                {/* {i < 4 && <div className="w-12 h-1 bg-gray-200 mx-2"></div>} */}
               </div>
             ))}
           </div>
