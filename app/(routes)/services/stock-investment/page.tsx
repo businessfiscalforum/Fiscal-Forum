@@ -452,7 +452,7 @@ export default function CreditCardApplyPage() {
           </div>
 
           {/* Schedule a Call */}
-          <section className="py-16 mx-auto max-w-4xl text-center bg-gradient-to-r from-teal-600 to-green-600 text-white rounded-2xl px-6">
+          {/* <section className="py-16 mx-auto max-w-4xl text-center bg-gradient-to-r from-teal-600 to-green-600 text-white rounded-2xl px-6">
             <Phone className="w-16 h-16 mx-auto mb-6" />
             <h2 className="text-3xl font-bold mb-4">
               Need Help? Talk to an Expert
@@ -468,7 +468,7 @@ export default function CreditCardApplyPage() {
               <Phone className="w-5 h-5" />
               Schedule a Free Call
             </button>
-          </section>
+          </section> */}
 
           {/* Call to Action (Kickstart & Level Up) */}
           <section className="py-16 px-4">
@@ -525,6 +525,24 @@ export default function CreditCardApplyPage() {
                 </button>
               </div>
             </div>
+          </section>
+
+          <section className="py-16 my-10 mx-auto max-w-4xl text-center bg-gradient-to-r from-teal-600 to-green-600 text-white rounded-2xl px-6">
+            <Phone className="w-16 h-16 mx-auto mb-6" />
+            <h2 className="text-3xl font-bold mb-4">
+              Need Help? Talk to an Expert
+            </h2>
+            <p className="text-xl mb-8 opacity-90">
+              Get personalized guidance on opening your Demat account or
+              transferring holdings.
+            </p>
+            <button
+              onClick={() => router.push("/services/stock-investment/contact")}
+              className="bg-white text-green-700 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3 mx-auto"
+            >
+              <Phone className="w-5 h-5" />
+              Schedule a Free Call
+            </button>
           </section>
 
           {/* Demat Transfer Process (Chain/Flow Style) */}

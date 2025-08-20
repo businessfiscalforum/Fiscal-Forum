@@ -108,411 +108,501 @@ export default function LoanAgainstSecurities() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 py-30 px-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-emerald-800">Loan Against Securities</h1>
-          <p className="text-gray-600 mt-2">Complete your loan application in simple steps</p>
-        </div>
+  <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 py-30 px-4">
+    <div className="max-w-4xl mx-auto">
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold text-emerald-800">Loan Against Securities</h1>
+        <p className="text-gray-600 mt-2">Complete your loan application in simple steps</p>
+      </div>
 
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="bg-white rounded-xl shadow-lg p-6 space-y-6 border border-emerald-200"
-        >
-          {/* APPLICANT DETAILS */}
-          <section className="border border-emerald-200 rounded-lg p-4">
-            <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
-              <span className="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>
-              APPLICANT DETAILS
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div>
-                <input
-                  {...register("firstName")}
-                  placeholder="First Name"
-                  className={`w-full border ${errors.firstName ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.firstName && (
-                  <p className="text-red-500 text-sm mt-1">{errors.firstName.message}</p>
-                )}
-              </div>
-              <div>
-                <input
-                  {...register("middleName")}
-                  placeholder="Middle Name"
-                  className={`w-full border ${errors.middleName ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-              </div>
-              <div>
-                <input
-                  {...register("lastName")}
-                  placeholder="Last Name"
-                  className={`w-full border ${errors.lastName ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.lastName && (
-                  <p className="text-red-500 text-sm mt-1">{errors.lastName.message}</p>
-                )}
-              </div>
-              <div>
-                <input
-                  {...register("fatherName")}
-                  placeholder="Father's Name"
-                  className={`w-full border ${errors.fatherName ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.fatherName && (
-                  <p className="text-red-500 text-sm mt-1">{errors.fatherName.message}</p>
-                )}
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mt-4">
-              <div>
-                <input
-                  {...register("panNumber")}
-                  placeholder="PAN Number"
-                  className={`w-full border ${errors.panNumber ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.panNumber && (
-                  <p className="text-red-500 text-sm mt-1">{errors.panNumber.message}</p>
-                )}
-              </div>
-              <div>
-                <input
-                  type="date"
-                  {...register("dateOfBirth")}
-                  className={`w-full border ${errors.dateOfBirth ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.dateOfBirth && (
-                  <p className="text-red-500 text-sm mt-1">{errors.dateOfBirth.message}</p>
-                )}
-              </div>
-              <div>
-                <select
-                  {...register("maritalStatus")}
-                  className={`w-full border ${errors.maritalStatus ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                >
-                  <option value="Married">Married</option>
-                  <option value="Unmarried">Unmarried</option>
-                  <option value="Others">Others</option>
-                </select>
-                {errors.maritalStatus && (
-                  <p className="text-red-500 text-sm mt-1">{errors.maritalStatus.message}</p>
-                )}
-              </div>
-              <div>
-                <select
-                  {...register("gender")}
-                  className={`w-full border ${errors.gender ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                >
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Others">Others</option>
-                </select>
-                {errors.gender && (
-                  <p className="text-red-500 text-sm mt-1">{errors.gender.message}</p>
-                )}
-              </div>
-              <div>
-                <input
-                  {...register("mobileNo")}
-                  placeholder="Mobile No."
-                  className={`w-full border ${errors.mobileNo ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.mobileNo && (
-                  <p className="text-red-500 text-sm mt-1">{errors.mobileNo.message}</p>
-                )}
-              </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-              <div>
-                <input
-                  {...register("emailId")}
-                  placeholder="Email ID"
-                  className={`w-full border ${errors.emailId ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.emailId && (
-                  <p className="text-red-500 text-sm mt-1">{errors.emailId.message}</p>
-                )}
-              </div>
-            </div>
-          </section>
-
-          {/* CURRENT ADDRESS DETAILS */}
-          <section className="border border-emerald-200 rounded-lg p-4">
-            <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
-              <span className="w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
-              CURRENT ADDRESS DETAILS
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <textarea
-                  {...register("homeAddress1")}
-                  placeholder="Address Line 1"
-                  rows={2}
-                  className={`w-full border ${errors.homeAddress1 ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.homeAddress1 && (
-                  <p className="text-red-500 text-sm mt-1">{errors.homeAddress1.message}</p>
-                )}
-              </div>
-              <div>
-                <textarea
-                  {...register("homeAddress2")}
-                  placeholder="Address Line 2"
-                  rows={2}
-                  className={`w-full border ${errors.homeAddress2 ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-              </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
-              <div>
-                <select
-                  {...register("residenceType")}
-                  className={`w-full border ${errors.residenceType ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                >
-                  <option value="Owned">Owned</option>
-                  <option value="Rented">Rented</option>
-                </select>
-                {errors.residenceType && (
-                  <p className="text-red-500 text-sm mt-1">{errors.residenceType.message}</p>
-                )}
-              </div>
-              <div>
-                <input
-                  {...register("pincode")}
-                  placeholder="Pincode"
-                  className={`w-full border ${errors.pincode ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.pincode && (
-                  <p className="text-red-500 text-sm mt-1">{errors.pincode.message}</p>
-                )}
-              </div>
-              <div>
-                <input
-                  {...register("state")}
-                  placeholder="State"
-                  className={`w-full border ${errors.state ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.state && (
-                  <p className="text-red-500 text-sm mt-1">{errors.state.message}</p>
-                )}
-              </div>
-              <div>
-                <input
-                  {...register("city")}
-                  placeholder="City"
-                  className={`w-full border ${errors.city ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.city && (
-                  <p className="text-red-500 text-sm mt-1">{errors.city.message}</p>
-                )}
-              </div>
-            </div>
-            <div className="mt-4">
-              <label className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  {...register("permanentAddressSame")}
-                  className="rounded text-emerald-500 focus:ring-emerald-500 h-5 w-5"
-                />
-                <span className="ml-2 text-gray-700">Permanent Address same as current address</span>
-              </label>
-            </div>
-          </section>
-
-          {/* SECURITIES DETAILS */}
-          <section className="border border-emerald-200 rounded-lg p-4">
-            <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
-              <span className="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>
-              SECURITIES DETAILS
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
-                <select
-                  {...register("securityType")}
-                  className={`w-full border ${errors.securityType ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                >
-                  <option value="">SELECT</option>
-                  <option value="Gold">Gold</option>
-                  <option value="Silver">Silver</option>
-                  <option value="Jewelry">Jewelry</option>
-                  <option value="Property">Property</option>
-                  <option value="Other">Other</option>
-                </select>
-                {errors.securityType && (
-                  <p className="text-red-500 text-sm mt-1">{errors.securityType.message}</p>
-                )}
-              </div>
-              <div>
-                <input
-                  {...numericRegister("securityValue")}
-                  type="number"
-                  placeholder="Security Value"
-                  className={`w-full border ${errors.securityValue ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.securityValue && (
-                  <p className="text-red-500 text-sm mt-1">{errors.securityValue.message}</p>
-                )}
-              </div>
-              <div>
-                <input
-                  {...numericRegister("requiredLoanAmount")}
-                  type="number"
-                  placeholder="Required Loan Amount"
-                  className={`w-full border ${errors.requiredLoanAmount ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.requiredLoanAmount && (
-                  <p className="text-red-500 text-sm mt-1">{errors.requiredLoanAmount.message}</p>
-                )}
-              </div>
-            </div>
-          </section>
-
-          {/* LOAN AMOUNT REQUIRED */}
-          <section className="border border-emerald-200 rounded-lg p-4">
-            <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
-              <span className="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>
-              LOAN AMOUNT REQUIRED
-            </h2>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="bg-white rounded-xl shadow-lg p-6 space-y-6 border border-emerald-200"
+      >
+        {/* APPLICANT DETAILS */}
+        <section className="border border-emerald-200 rounded-lg p-4">
+          <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
+            <span className="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>
+            APPLICANT DETAILS
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                First Name *
+              </label>
               <input
-                {...numericRegister("loanAmountRequired")}
-                type="number"
-                placeholder="Loan Amount Required"
-                className={`w-full border ${errors.loanAmountRequired ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                {...register("firstName")}
+                placeholder="First Name"
+                className={`w-full border ${errors.firstName ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
               />
-              {errors.loanAmountRequired && (
-                <p className="text-red-500 text-sm mt-1">{errors.loanAmountRequired.message}</p>
+              {errors.firstName && (
+                <p className="text-red-500 text-sm mt-1">{errors.firstName.message}</p>
               )}
             </div>
-          </section>
-
-          {/* EXISTING OBLIGATIONS */}
-          <section className="border border-emerald-200 rounded-lg p-4">
-            <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
-              <span className="w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
-              EXISTING OBLIGATIONS
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <input
-                  {...numericRegister("noOfCurrentLoans")}
-                  type="number"
-                  placeholder="No. of Current Loans"
-                  className={`w-full border ${errors.noOfCurrentLoans ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.noOfCurrentLoans && (
-                  <p className="text-red-500 text-sm mt-1">{errors.noOfCurrentLoans.message}</p>
-                )}
-              </div>
-              <div>
-                <select
-                  {...register("existingLoanType")}
-                  className={`w-full border ${errors.existingLoanType ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                >
-                  <option value="None">None</option>
-                  <option value="Personal">Personal</option>
-                  <option value="Car">Car</option>
-                  <option value="Education">Education</option>
-                  <option value="Other">Other</option>
-                </select>
-                {errors.existingLoanType && (
-                  <p className="text-red-500 text-sm mt-1">{errors.existingLoanType.message}</p>
-                )}
-              </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Middle Name
+              </label>
+              <input
+                {...register("middleName")}
+                placeholder="Middle Name"
+                className={`w-full border ${errors.middleName ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
             </div>
-          </section>
-
-          {/* REFERENCES */}
-          <section className="border border-emerald-200 rounded-lg p-4">
-            <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
-              <span className="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>
-              REFERENCE 1
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
-                <input
-                  {...register("reference1.name")}
-                  placeholder="Name"
-                  className={`w-full border ${errors.reference1?.name ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.reference1?.name && (
-                  <p className="text-red-500 text-sm mt-1">{errors.reference1.name.message}</p>
-                )}
-              </div>
-              <div>
-                <input
-                  {...register("reference1.mobile")}
-                  placeholder="Mobile No."
-                  className={`w-full border ${errors.reference1?.mobile ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.reference1?.mobile && (
-                  <p className="text-red-500 text-sm mt-1">{errors.reference1.mobile.message}</p>
-                )}
-              </div>
-              <div>
-                <input
-                  {...register("reference1.address")}
-                  placeholder="Address"
-                  className={`w-full border ${errors.reference1?.address ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.reference1?.address && (
-                  <p className="text-red-500 text-sm mt-1">{errors.reference1.address.message}</p>
-                )}
-              </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Last Name *
+              </label>
+              <input
+                {...register("lastName")}
+                placeholder="Last Name"
+                className={`w-full border ${errors.lastName ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+              {errors.lastName && (
+                <p className="text-red-500 text-sm mt-1">{errors.lastName.message}</p>
+              )}
             </div>
-          </section>
-
-          <section className="border border-emerald-200 rounded-lg p-4">
-            <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
-              <span className="w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
-              REFERENCE 2
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
-                <input
-                  {...register("reference2.name")}
-                  placeholder="Name"
-                  className={`w-full border ${errors.reference2?.name ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.reference2?.name && (
-                  <p className="text-red-500 text-sm mt-1">{errors.reference2.name.message}</p>
-                )}
-              </div>
-              <div>
-                <input
-                  {...register("reference2.mobile")}
-                  placeholder="Mobile No."
-                  className={`w-full border ${errors.reference2?.mobile ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.reference2?.mobile && (
-                  <p className="text-red-500 text-sm mt-1">{errors.reference2.mobile.message}</p>
-                )}
-              </div>
-              <div>
-                <input
-                  {...register("reference2.address")}
-                  placeholder="Address"
-                  className={`w-full border ${errors.reference2?.address ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.reference2?.address && (
-                  <p className="text-red-500 text-sm mt-1">{errors.reference2.address.message}</p>
-                )}
-              </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Father&apos;s Name *
+              </label>
+              <input
+                {...register("fatherName")}
+                placeholder="Father&apos;s Name"
+                className={`w-full border ${errors.fatherName ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+              {errors.fatherName && (
+                <p className="text-red-500 text-sm mt-1">{errors.fatherName.message}</p>
+              )}
             </div>
-          </section>
-
-          {/* Submit Button */}
-          <div className="text-center pt-6">
-            <button
-              type="submit"
-              className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
-            >
-              Submit Application
-            </button>
           </div>
-        </form>
-      </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mt-4">
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Email ID *
+              </label>
+              <input
+                {...register("emailId")}
+                placeholder="Email ID"
+                className={`w-full border ${errors.emailId ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+              {errors.emailId && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.emailId.message}
+                </p>
+              )}
+            </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Date of Birth *
+              </label>
+              <input
+                type="date"
+                {...register("dateOfBirth")}
+                className={`w-full border ${errors.dateOfBirth ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+              {errors.dateOfBirth && (
+                <p className="text-red-500 text-sm mt-1">{errors.dateOfBirth.message}</p>
+              )}
+            </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Marital Status *
+              </label>
+              <select
+                {...register("maritalStatus")}
+                className={`w-full border ${errors.maritalStatus ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              >
+                <option value="">Select</option>
+                <option value="Married">Married</option>
+                <option value="Unmarried">Unmarried</option>
+                <option value="Others">Others</option>
+              </select>
+              {errors.maritalStatus && (
+                <p className="text-red-500 text-sm mt-1">{errors.maritalStatus.message}</p>
+              )}
+            </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Gender *
+              </label>
+              <select
+                {...register("gender")}
+                className={`w-full border ${errors.gender ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              >
+                <option value="">Select</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Others">Others</option>
+              </select>
+              {errors.gender && (
+                <p className="text-red-500 text-sm mt-1">{errors.gender.message}</p>
+              )}
+            </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Mobile No. *
+              </label>
+              <input
+                {...register("mobileNo")}
+                placeholder="Mobile No."
+                className={`w-full border ${errors.mobileNo ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+              {errors.mobileNo && (
+                <p className="text-red-500 text-sm mt-1">{errors.mobileNo.message}</p>
+              )}
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                        <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                PAN Number *
+              </label>
+              <input
+                {...register("panNumber")}
+                placeholder="PAN Number"
+                className={`w-full border ${errors.panNumber ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+              {errors.panNumber && (
+                <p className="text-red-500 text-sm mt-1">{errors.panNumber.message}</p>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* CURRENT ADDRESS DETAILS */}
+        <section className="border border-emerald-200 rounded-lg p-4">
+          <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
+            <span className="w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
+            CURRENT ADDRESS DETAILS
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Address Line 1 *
+              </label>
+              <textarea
+                {...register("homeAddress1")}
+                placeholder="Address Line 1"
+                rows={2}
+                className={`w-full border ${errors.homeAddress1 ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+              {errors.homeAddress1 && (
+                <p className="text-red-500 text-sm mt-1">{errors.homeAddress1.message}</p>
+              )}
+            </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Address Line 2
+              </label>
+              <textarea
+                {...register("homeAddress2")}
+                placeholder="Address Line 2"
+                rows={2}
+                className={`w-full border ${errors.homeAddress2 ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Residence Type *
+              </label>
+              <select
+                {...register("residenceType")}
+                className={`w-full border ${errors.residenceType ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              >
+                <option value="">Select</option>
+                <option value="Owned">Owned</option>
+                <option value="Rented">Rented</option>
+              </select>
+              {errors.residenceType && (
+                <p className="text-red-500 text-sm mt-1">{errors.residenceType.message}</p>
+              )}
+            </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Pincode *
+              </label>
+              <input
+                {...register("pincode")}
+                placeholder="Pincode"
+                className={`w-full border ${errors.pincode ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+              {errors.pincode && (
+                <p className="text-red-500 text-sm mt-1">{errors.pincode.message}</p>
+              )}
+            </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                State *
+              </label>
+              <input
+                {...register("state")}
+                placeholder="State"
+                className={`w-full border ${errors.state ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+              {errors.state && (
+                <p className="text-red-500 text-sm mt-1">{errors.state.message}</p>
+              )}
+            </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                City *
+              </label>
+              <input
+                {...register("city")}
+                placeholder="City"
+                className={`w-full border ${errors.city ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+              {errors.city && (
+                <p className="text-red-500 text-sm mt-1">{errors.city.message}</p>
+              )}
+            </div>
+          </div>
+          <div className="mt-4">
+            <label className="flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                {...register("permanentAddressSame")}
+                className="rounded text-emerald-500 focus:ring-emerald-500 h-5 w-5"
+              />
+              <span className="ml-2 text-gray-700">Permanent Address same as current address</span>
+            </label>
+          </div>
+        </section>
+
+        {/* SECURITIES DETAILS */}
+        <section className="border border-emerald-200 rounded-lg p-4">
+          <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
+            <span className="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>
+            SECURITIES DETAILS
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Security Type *
+              </label>
+              <select
+                {...register("securityType")}
+                className={`w-full border ${errors.securityType ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              >
+                <option value="">SELECT</option>
+                <option value="Gold">Gold</option>
+                <option value="Silver">Silver</option>
+                <option value="Jewelry">Jewelry</option>
+                <option value="Property">Property</option>
+                <option value="Other">Other</option>
+              </select>
+              {errors.securityType && (
+                <p className="text-red-500 text-sm mt-1">{errors.securityType.message}</p>
+              )}
+            </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Security Value *
+              </label>
+              <input
+                {...numericRegister("securityValue")}
+                type="number"
+                placeholder="Security Value"
+                className={`w-full border ${errors.securityValue ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+              {errors.securityValue && (
+                <p className="text-red-500 text-sm mt-1">{errors.securityValue.message}</p>
+              )}
+            </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Required Loan Amount *
+              </label>
+              <input
+                {...numericRegister("requiredLoanAmount")}
+                type="number"
+                placeholder="Required Loan Amount"
+                className={`w-full border ${errors.requiredLoanAmount ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+              {errors.requiredLoanAmount && (
+                <p className="text-red-500 text-sm mt-1">{errors.requiredLoanAmount.message}</p>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* LOAN AMOUNT REQUIRED */}
+        <section className="border border-emerald-200 rounded-lg p-4">
+          <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
+            <span className="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>
+            LOAN AMOUNT REQUIRED
+          </h2>
+          <div>
+            <label className="block text-gray-700 text-sm font-medium mb-1">
+              Loan Amount Required *
+            </label>
+            <input
+              {...numericRegister("loanAmountRequired")}
+              type="number"
+              placeholder="Loan Amount Required"
+              className={`w-full border ${errors.loanAmountRequired ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+            />
+            {errors.loanAmountRequired && (
+              <p className="text-red-500 text-sm mt-1">{errors.loanAmountRequired.message}</p>
+            )}
+          </div>
+        </section>
+
+        {/* EXISTING OBLIGATIONS */}
+        <section className="border border-emerald-200 rounded-lg p-4">
+          <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
+            <span className="w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
+            EXISTING OBLIGATIONS
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                No. of Current Loans *
+              </label>
+              <input
+                {...numericRegister("noOfCurrentLoans")}
+                type="number"
+                placeholder="No. of Current Loans"
+                className={`w-full border ${errors.noOfCurrentLoans ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+              {errors.noOfCurrentLoans && (
+                <p className="text-red-500 text-sm mt-1">{errors.noOfCurrentLoans.message}</p>
+              )}
+            </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Existing Loan Type *
+              </label>
+              <select
+                {...register("existingLoanType")}
+                className={`w-full border ${errors.existingLoanType ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              >
+                <option value="">Select</option>
+                <option value="None">None</option>
+                <option value="Personal">Personal</option>
+                <option value="Car">Car</option>
+                <option value="Education">Education</option>
+                <option value="Other">Other</option>
+              </select>
+              {errors.existingLoanType && (
+                <p className="text-red-500 text-sm mt-1">{errors.existingLoanType.message}</p>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* REFERENCES */}
+        <section className="border border-emerald-200 rounded-lg p-4">
+          <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
+            <span className="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>
+            REFERENCE 1
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Name *
+              </label>
+              <input
+                {...register("reference1.name")}
+                placeholder="Name"
+                className={`w-full border ${errors.reference1?.name ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+              {errors.reference1?.name && (
+                <p className="text-red-500 text-sm mt-1">{errors.reference1.name.message}</p>
+              )}
+            </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Mobile No. *
+              </label>
+              <input
+                {...register("reference1.mobile")}
+                placeholder="Mobile No."
+                className={`w-full border ${errors.reference1?.mobile ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+              {errors.reference1?.mobile && (
+                <p className="text-red-500 text-sm mt-1">{errors.reference1.mobile.message}</p>
+              )}
+            </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Address *
+              </label>
+              <input
+                {...register("reference1.address")}
+                placeholder="Address"
+                className={`w-full border ${errors.reference1?.address ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+              {errors.reference1?.address && (
+                <p className="text-red-500 text-sm mt-1">{errors.reference1.address.message}</p>
+              )}
+            </div>
+          </div>
+        </section>
+
+        <section className="border border-emerald-200 rounded-lg p-4">
+          <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
+            <span className="w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
+            REFERENCE 2
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Name *
+              </label>
+              <input
+                {...register("reference2.name")}
+                placeholder="Name"
+                className={`w-full border ${errors.reference2?.name ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+              {errors.reference2?.name && (
+                <p className="text-red-500 text-sm mt-1">{errors.reference2.name.message}</p>
+              )}
+            </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Mobile No. *
+              </label>
+              <input
+                {...register("reference2.mobile")}
+                placeholder="Mobile No."
+                className={`w-full border ${errors.reference2?.mobile ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+              {errors.reference2?.mobile && (
+                <p className="text-red-500 text-sm mt-1">{errors.reference2.mobile.message}</p>
+              )}
+            </div>
+            <div>
+              <label className="block text-gray-700 text-sm font-medium mb-1">
+                Address *
+              </label>
+              <input
+                {...register("reference2.address")}
+                placeholder="Address"
+                className={`w-full border ${errors.reference2?.address ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+              {errors.reference2?.address && (
+                <p className="text-red-500 text-sm mt-1">{errors.reference2.address.message}</p>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* Submit Button */}
+        <div className="text-center pt-6">
+          <button
+            type="submit"
+            className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+          >
+            Submit Application
+          </button>
+        </div>
+      </form>
     </div>
-  );
+  </div>
+);
 }

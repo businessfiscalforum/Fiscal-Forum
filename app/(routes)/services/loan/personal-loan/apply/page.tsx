@@ -13,7 +13,11 @@ const personalLoanSchema = z.object({
   lastName: z.string().min(1, "Last name is required"),
   fatherName: z.string().min(1, "Father’s name is required"),
   dateOfBirth: z.string().min(1, "Date of birth is required"),
-  panNumber: z.string().min(10, "PAN number must be 10 characters").max(10).optional(), // Added PAN field
+  panNumber: z
+    .string()
+    .min(10, "PAN number must be 10 characters")
+    .max(10)
+    .optional(), // Added PAN field
   maritalStatus: z.enum(["Married", "Unmarried", "Others"]),
   gender: z.enum(["Male", "Female", "Others"]),
   mobileNo: z
@@ -134,16 +138,19 @@ export default function PersonalLoanApplication() {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="bg-white rounded-xl shadow-lg p-6 space-y-6 border border-emerald-200"
+          className="bg-white rounded-xl shadow-lg p-6 space-y-8 border border-emerald-200"
         >
           {/* Applicant Details */}
-          <section className="border-b border-emerald-100 pb-6">
+          <section className="space-y-6">
             <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
               <span className="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>
               APPLICANT DETAILS
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  First Name
+                </label>
                 <input
                   {...register("firstName")}
                   placeholder="First Name"
@@ -156,6 +163,9 @@ export default function PersonalLoanApplication() {
                 )}
               </div>
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Middle Name
+                </label>
                 <input
                   {...register("middleName")}
                   placeholder="Middle Name"
@@ -163,6 +173,9 @@ export default function PersonalLoanApplication() {
                 />
               </div>
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Last Name
+                </label>
                 <input
                   {...register("lastName")}
                   placeholder="Last Name"
@@ -175,6 +188,9 @@ export default function PersonalLoanApplication() {
                 )}
               </div>
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Father&apos;s Name
+                </label>
                 <input
                   {...register("fatherName")}
                   placeholder="Father's Name"
@@ -188,8 +204,11 @@ export default function PersonalLoanApplication() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mt-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Date of Birth
+                </label>
                 <input
                   type="date"
                   {...register("dateOfBirth")}
@@ -201,19 +220,27 @@ export default function PersonalLoanApplication() {
                   </p>
                 )}
               </div>
-              <div>
-                <input
-                  {...register("panNumber")}
-                  placeholder="PAN Number"
-                  className={`w-full border ${errors.panNumber ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.panNumber && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.panNumber.message}
-                  </p>
-                )}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">
+                    Email ID
+                  </label>
+                  <input
+                    {...register("emailId")}
+                    placeholder="Email ID"
+                    className={`w-full border ${errors.emailId ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                  />
+                  {errors.emailId && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.emailId.message}
+                    </p>
+                  )}
+                </div>
               </div>
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Marital Status
+                </label>
                 <select
                   {...register("maritalStatus")}
                   className={`w-full border ${errors.maritalStatus ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
@@ -229,6 +256,9 @@ export default function PersonalLoanApplication() {
                 )}
               </div>
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Gender
+                </label>
                 <select
                   {...register("gender")}
                   className={`w-full border ${errors.gender ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
@@ -244,6 +274,9 @@ export default function PersonalLoanApplication() {
                 )}
               </div>
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Mobile Number
+                </label>
                 <input
                   {...register("mobileNo")}
                   placeholder="Mobile Number"
@@ -256,30 +289,34 @@ export default function PersonalLoanApplication() {
                 )}
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-              <div>
-                <input
-                  {...register("emailId")}
-                  placeholder="Email ID"
-                  className={`w-full border ${errors.emailId ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                />
-                {errors.emailId && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.emailId.message}
-                  </p>
-                )}
-              </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-900 mb-1">
+                PAN Number
+              </label>
+              <input
+                {...register("panNumber")}
+                placeholder="PAN Number"
+                className={`w-full border ${errors.panNumber ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+              {errors.panNumber && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.panNumber.message}
+                </p>
+              )}
             </div>
           </section>
 
           {/* Current Address */}
-          <section className="border-b border-emerald-100 pb-6">
+          <section className="space-y-6">
             <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
               <span className="w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
               CURRENT ADDRESS DETAILS
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Address Line 1
+                </label>
                 <textarea
                   {...register("homeAddress1")}
                   placeholder="Address Line 1"
@@ -293,6 +330,9 @@ export default function PersonalLoanApplication() {
                 )}
               </div>
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Address Line 2
+                </label>
                 <textarea
                   {...register("homeAddress2")}
                   placeholder="Address Line 2"
@@ -301,8 +341,11 @@ export default function PersonalLoanApplication() {
                 />
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Residence Type
+                </label>
                 <select
                   {...register("residenceType")}
                   className={`w-full border ${errors.residenceType ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
@@ -317,6 +360,9 @@ export default function PersonalLoanApplication() {
                 )}
               </div>
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Pincode
+                </label>
                 <input
                   {...register("pincode")}
                   placeholder="Pincode"
@@ -329,6 +375,9 @@ export default function PersonalLoanApplication() {
                 )}
               </div>
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  State
+                </label>
                 <input
                   {...register("state")}
                   placeholder="State"
@@ -341,6 +390,9 @@ export default function PersonalLoanApplication() {
                 )}
               </div>
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  City
+                </label>
                 <input
                   {...register("city")}
                   placeholder="City"
@@ -353,7 +405,7 @@ export default function PersonalLoanApplication() {
                 )}
               </div>
             </div>
-            <div className="mt-4">
+            <div>
               <label className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
@@ -368,13 +420,16 @@ export default function PersonalLoanApplication() {
           </section>
 
           {/* Employment Details */}
-          <section className="border-b border-emerald-100 pb-6">
+          <section className="space-y-6">
             <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
               <span className="w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
               EMPLOYMENT DETAILS
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Employment Type
+                </label>
                 <select
                   {...register("employmentType")}
                   className={`w-full border ${errors.employmentType ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
@@ -391,6 +446,9 @@ export default function PersonalLoanApplication() {
               {watch("employmentType") === "Company" && (
                 <>
                   <div>
+                    <label className="block text-sm font-medium text-gray-900 mb-1">
+                      Company Name
+                    </label>
                     <input
                       {...register("companyName")}
                       placeholder="Company Name"
@@ -403,6 +461,9 @@ export default function PersonalLoanApplication() {
                     )}
                   </div>
                   <div>
+                    <label className="block text-sm font-medium text-gray-900 mb-1">
+                      Designation
+                    </label>
                     <input
                       {...register("designation")}
                       placeholder="Designation"
@@ -418,6 +479,9 @@ export default function PersonalLoanApplication() {
               )}
               {watch("employmentType") === "Self-Employed" && (
                 <div>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">
+                    Net Monthly Salary
+                  </label>
                   <input
                     {...numericRegister("netMonthlySalary")}
                     type="number"
@@ -435,12 +499,15 @@ export default function PersonalLoanApplication() {
           </section>
 
           {/* Loan Amount Required */}
-          <section className="border-b border-emerald-100 pb-6">
+          <section className="space-y-6">
             <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
               <span className="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>
               LOAN AMOUNT REQUIRED
             </h2>
             <div>
+              <label className="block text-sm font-medium text-gray-900 mb-1">
+                Loan Amount Required
+              </label>
               <input
                 {...numericRegister("loanAmountRequired")}
                 type="number"
@@ -456,13 +523,16 @@ export default function PersonalLoanApplication() {
           </section>
 
           {/* Existing Obligations */}
-          <section className="border-b border-emerald-100 pb-6">
+          <section className="space-y-6">
             <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
               <span className="w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
               EXISTING OBLIGATIONS
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  No. of Current Loans
+                </label>
                 <input
                   {...numericRegister("noOfCurrentLoans")}
                   type="number"
@@ -476,6 +546,9 @@ export default function PersonalLoanApplication() {
                 )}
               </div>
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Existing Loan Type
+                </label>
                 <select
                   {...register("existingLoanType")}
                   className={`w-full border ${errors.existingLoanType ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
@@ -496,13 +569,16 @@ export default function PersonalLoanApplication() {
           </section>
 
           {/* References */}
-          <section className="border-b border-emerald-100 pb-6">
+          <section className="space-y-6">
             <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
               <span className="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>
               REFERENCE 1
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Name
+                </label>
                 <input
                   {...register("reference1.name")}
                   placeholder="Name"
@@ -515,6 +591,9 @@ export default function PersonalLoanApplication() {
                 )}
               </div>
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Mobile No.
+                </label>
                 <input
                   {...register("reference1.mobile")}
                   placeholder="Mobile No."
@@ -527,6 +606,9 @@ export default function PersonalLoanApplication() {
                 )}
               </div>
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Address
+                </label>
                 <input
                   {...register("reference1.address")}
                   placeholder="Address"
@@ -541,13 +623,16 @@ export default function PersonalLoanApplication() {
             </div>
           </section>
 
-          <section className="border-b border-emerald-100 pb-6">
+          <section className="space-y-6">
             <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
               <span className="w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
               REFERENCE 2
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Name
+                </label>
                 <input
                   {...register("reference2.name")}
                   placeholder="Name"
@@ -560,6 +645,9 @@ export default function PersonalLoanApplication() {
                 )}
               </div>
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Mobile No.
+                </label>
                 <input
                   {...register("reference2.mobile")}
                   placeholder="Mobile No."
@@ -572,6 +660,9 @@ export default function PersonalLoanApplication() {
                 )}
               </div>
               <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Address
+                </label>
                 <input
                   {...register("reference2.address")}
                   placeholder="Address"

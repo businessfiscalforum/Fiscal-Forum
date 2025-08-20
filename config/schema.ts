@@ -366,6 +366,7 @@ export const homeLoanApplications = pgTable("home_loan_applications", {
   gender: varchar("gender", { length: 10 }).notNull(),
   mobileNo: varchar("mobile_no", { length: 15 }).notNull(),
   emailId: text("email_id").notNull(),
+  panNumber: varchar('pan_number', { length: 10 }), // Optional
   homeAddress1: text("home_address1").notNull(),
   homeAddress2: text("home_address2"),
   residenceType: varchar("residence_type", { length: 20 }).notNull(),
