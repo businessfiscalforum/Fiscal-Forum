@@ -29,13 +29,17 @@ import { TrendingUp } from "lucide-react";
 export default function TransferDematPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const [message, setMessage] = useState<{
+  const [isTransferSubmitting, setIsTransferSubmitting] = useState(false);
+  const [isSubscribeSubmitting, setIsSubscribeSubmitting] = useState(false);
+  const [transferMessage, setTransferMessage] = useState<{
     text: string;
     type: "success" | "error";
   } | null>(null);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [subscribeMessage, setSubscribeMessage] = useState<{
+    text: string;
+    type: "success" | "error";
+  } | null>(null);
+  const [transferErrors, setTransferErrors] = useState<Record<string, string>>({});
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -51,8 +55,8 @@ export default function TransferDematPage() {
     setFormData({ ...formData, [name]: value });
 
     // Clear error when user types
-    if (errors[name]) {
-      setErrors((prev) => {
+    if (transferErrors[name]) {
+      setTransferErrors((prev) => {
         const newErrors = { ...prev };
         delete newErrors[name];
         return newErrors;
@@ -60,7 +64,7 @@ export default function TransferDematPage() {
     }
   };
 
-  const validateForm = () => {
+  const validateTransferForm = () => {
     const newErrors: Record<string, string> = {};
 
     if (!formData.fullName.trim()) {
@@ -79,6 +83,10 @@ export default function TransferDematPage() {
       newErrors.phone = "Phone must be a 10-digit number";
     }
 
+    if (!formData.currentBroker.trim()) {
+      newErrors.currentBroker = "Current broker name is required";
+    }
+
     if (!formData.newClientId.trim()) {
       newErrors.newClientId = "New Client ID is required";
     }
@@ -92,27 +100,19 @@ export default function TransferDematPage() {
       newErrors.driveLink = "Please enter a valid Google Drive file link";
     }
 
-    setErrors(newErrors);
+    setTransferErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const copyInstructions = () => {
-    navigator.clipboard.writeText(
-      "1. Upload your CMR/DIS to Google Drive\n2. Right-click file → Get link\n3. Change permissions to 'Anyone with the link'\n4. Copy the link and paste here"
-    );
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleTransferSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!validateForm()) {
+    if (!validateTransferForm()) {
       return;
     }
 
-    setIsSubmitting(true);
-    setMessage(null);
+    setIsTransferSubmitting(true);
+    setTransferMessage(null);
 
     try {
       const formDataToSend = new FormData();
@@ -134,7 +134,7 @@ export default function TransferDematPage() {
         throw new Error(result.error || "Failed to submit form");
       }
 
-      setMessage({
+      setTransferMessage({
         text: "Thank you, your application is submitted. Our representation will contact you shortly.",
         type: "success",
       });
@@ -149,37 +149,37 @@ export default function TransferDematPage() {
           newClientId: "",
           driveLink: "",
         });
-        setErrors({});
+        setTransferErrors({});
       }, 3000);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Submission error:", error);
-      setMessage({
+      setTransferMessage({
         text: error.message || "Failed to submit the form. Please try again.",
         type: "error",
       });
     } finally {
-      setIsSubmitting(false);
+      setIsTransferSubmitting(false);
     }
   };
 
-  const handleSubscribe = async (e: React.FormEvent) => {
+  const handleSubscribeSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) {
-      setMessage({ text: "Please enter your email address", type: "error" });
+      setSubscribeMessage({ text: "Please enter your email address", type: "error" });
       return;
     }
 
     // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      setMessage({ text: "Please enter a valid email address", type: "error" });
+      setSubscribeMessage({ text: "Please enter a valid email address", type: "error" });
       return;
     }
 
-    setIsSubmitting(true);
-    setMessage(null);
+    setIsSubscribeSubmitting(true);
+    setSubscribeMessage(null);
 
     try {
       // Simulate API call
@@ -192,22 +192,22 @@ export default function TransferDematPage() {
       });
       const data = await response.json();
       if (response.ok) {
-        setMessage({ text: data.message, type: "success" });
+        setSubscribeMessage({ text: data.message || "Thank you for subscribing!", type: "success" });
         setEmail("");
       } else {
-        setMessage({
+        setSubscribeMessage({
           text: data.error || "Subscription failed",
           type: "error",
         });
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      setMessage({
-        text: "Subscription failed. Please sign-in to subscribe.",
+      setSubscribeMessage({
+        text: "Subscription failed. Please try again.",
         type: "error",
       });
     } finally {
-      setIsSubmitting(false);
+      setIsSubscribeSubmitting(false);
     }
   };
 
@@ -256,22 +256,22 @@ export default function TransferDematPage() {
               </p>
             </div>
 
-            {message && (
+            {transferMessage && (
               <div
                 className={`mb-6 p-4 rounded-2xl text-center ${
-                  message.type === "success"
+                  transferMessage.type === "success"
                     ? "bg-green-100 text-green-800 border border-green-200"
                     : "bg-red-100 text-red-800 border border-red-200"
                 }`}
               >
-                {message.type === "success" ? (
+                {transferMessage.type === "success" ? (
                   <FaCheck className="inline mr-2" />
                 ) : null}
-                {message.text}
+                {transferMessage.text}
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleTransferSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Full Name */}
                 <div>
@@ -289,13 +289,13 @@ export default function TransferDematPage() {
                     value={formData.fullName}
                     onChange={handleChange}
                     className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.fullName ? "border-red-500" : "border-gray-300"
+                      transferErrors.fullName ? "border-red-500" : "border-gray-300"
                     } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
                     placeholder="Enter your full name"
                   />
-                  {errors.fullName && (
+                  {transferErrors.fullName && (
                     <p className="mt-1 text-sm text-red-600">
-                      {errors.fullName}
+                      {transferErrors.fullName}
                     </p>
                   )}
                 </div>
@@ -316,12 +316,12 @@ export default function TransferDematPage() {
                     value={formData.email}
                     onChange={handleChange}
                     className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.email ? "border-red-500" : "border-gray-300"
+                      transferErrors.email ? "border-red-500" : "border-gray-300"
                     } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
                     placeholder="you@example.com"
                   />
-                  {errors.email && (
-                    <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                  {transferErrors.email && (
+                    <p className="mt-1 text-sm text-red-600">{transferErrors.email}</p>
                   )}
                 </div>
 
@@ -341,12 +341,12 @@ export default function TransferDematPage() {
                     value={formData.phone}
                     onChange={handleChange}
                     className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.phone ? "border-red-500" : "border-gray-300"
+                      transferErrors.phone ? "border-red-500" : "border-gray-300"
                     } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
                     placeholder="10-digit mobile number"
                   />
-                  {errors.phone && (
-                    <p className="mt-1 text-sm text-red-600">{errors.phone}</p>
+                  {transferErrors.phone && (
+                    <p className="mt-1 text-sm text-red-600">{transferErrors.phone}</p>
                   )}
                 </div>
 
@@ -366,19 +366,18 @@ export default function TransferDematPage() {
                     value={formData.newClientId}
                     onChange={handleChange}
                     className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.newClientId ? "border-red-500" : "border-gray-300"
+                      transferErrors.newClientId ? "border-red-500" : "border-gray-300"
                     } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
                     placeholder="Your new demat account client ID"
                   />
-                  {errors.newClientId && (
+                  {transferErrors.newClientId && (
                     <p className="mt-1 text-sm text-red-600">
-                      {errors.newClientId}
+                      {transferErrors.newClientId}
                     </p>
                   )}
                 </div>
               </div>
 
-              {/* Current Broker (Read-only) */}
               {/* Current Broker */}
               <div>
                 <label
@@ -395,13 +394,13 @@ export default function TransferDematPage() {
                   value={formData.currentBroker}
                   onChange={handleChange}
                   className={`w-full px-4 py-3 rounded-xl border ${
-                    errors.currentBroker ? "border-red-500" : "border-gray-300"
+                    transferErrors.currentBroker ? "border-red-500" : "border-gray-300"
                   } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
                   placeholder="Enter your current broker name"
                 />
-                {errors.currentBroker && (
+                {transferErrors.currentBroker && (
                   <p className="mt-1 text-sm text-red-600">
-                    {errors.currentBroker}
+                    {transferErrors.currentBroker}
                   </p>
                 )}
               </div>
@@ -449,13 +448,13 @@ export default function TransferDematPage() {
                     value={formData.driveLink}
                     onChange={handleChange}
                     className={`w-full px-4 py-3 rounded-xl border ${
-                      errors.driveLink ? "border-red-500" : "border-gray-300"
+                      transferErrors.driveLink ? "border-red-500" : "border-gray-300"
                     } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
-                    placeholder="https://drive.google.com/file/d/..."
+                    placeholder="https://drive.google.com/file/d/...    "
                   />
-                  {errors.driveLink && (
+                  {transferErrors.driveLink && (
                     <p className="mt-1 text-sm text-red-600">
-                      {errors.driveLink}
+                      {transferErrors.driveLink}
                     </p>
                   )}
                 </div>
@@ -465,14 +464,14 @@ export default function TransferDematPage() {
               <div className="pt-4">
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isTransferSubmitting}
                   className={`w-full py-4 px-6 rounded-xl font-bold text-white shadow-lg transition flex items-center justify-center ${
-                    isSubmitting
+                    isTransferSubmitting
                       ? "bg-gray-400 cursor-not-allowed"
                       : "bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 hover:shadow-xl"
                   }`}
                 >
-                  {isSubmitting ? (
+                  {isTransferSubmitting ? (
                     <>
                       <FaSpinner className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" />
                       Submitting...
@@ -519,7 +518,6 @@ export default function TransferDematPage() {
           </motion.div>
 
           {/* Right Column - Research Reports */}
-          {/* Right Column - Research Reports */}
           <motion.div
             className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl p-8 border border-emerald-200 shadow-xl"
             initial={{ opacity: 0, x: 20 }}
@@ -544,7 +542,8 @@ export default function TransferDematPage() {
                 </span>
               </div>
 
-              <form onSubmit={handleSubscribe} className="space-y-4">
+              {/* Wrapped subscription form */}
+              <form onSubmit={handleSubscribeSubmit} className="space-y-4">
                 <div>
                   <input
                     type="email"
@@ -552,16 +551,16 @@ export default function TransferDematPage() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition text-gray-700"
-                    disabled={isSubmitting}
+                    disabled={isSubscribeSubmitting}
                   />
                 </div>
 
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubscribeSubmitting}
                   className="w-full py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 disabled:opacity-70 text-white font-bold rounded-lg transition flex items-center justify-center"
                 >
-                  {isSubmitting ? (
+                  {isSubscribeSubmitting ? (
                     <>
                       <FaSpinner className="animate-spin mr-2" /> Processing...
                     </>
@@ -570,6 +569,18 @@ export default function TransferDematPage() {
                   )}
                 </button>
               </form>
+
+              {subscribeMessage && (
+                <div
+                  className={`mt-4 text-sm px-4 py-3 rounded-lg text-center ${
+                    subscribeMessage.type === "success"
+                      ? "bg-green-100 text-green-800 border border-green-200"
+                      : "bg-red-100 text-red-800 border border-red-200"
+                  }`}
+                >
+                  {subscribeMessage.text}
+                </div>
+              )}
 
               <p className="text-xs text-gray-500 text-center mt-4">
                 No spam. Unsubscribe anytime. Your data is secure with us.

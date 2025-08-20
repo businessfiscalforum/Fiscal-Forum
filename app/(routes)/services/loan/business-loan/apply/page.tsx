@@ -1,9 +1,9 @@
-"use client"
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { useRouter } from 'next/navigation';
+"use client";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useRouter } from "next/navigation";
 
 // Schema for Business Loan Application
 const businessLoanSchema = z.object({
@@ -20,7 +20,11 @@ const businessLoanSchema = z.object({
     .min(10, "Mobile number must be at least 10 digits")
     .max(15),
   emailId: z.string().email("Invalid email address"),
-  panNumber: z.string().min(10, "PAN number must be 10 characters").max(10).optional(),
+  panNumber: z
+    .string()
+    .min(10, "PAN number must be 10 characters")
+    .max(10)
+    .optional(),
 
   // Current Address
   homeAddress1: z.string().min(1, "Address is required"),
@@ -44,20 +48,36 @@ const businessLoanSchema = z.object({
 
   // Business Details
   businessName: z.string().min(1, "Business name is required"),
-  businessType: z.enum(["Sole Proprietorship", "Partnership", "Private Limited", "Public Limited", "LLP"]),
-  yearsInBusiness: z.preprocess(
-    val => val === "" || val === undefined ? undefined : Number(val),
-    z.number().min(1, "Years in business must be at least 1").optional()
-  ).optional(),
-  gstNumber: z.string().min(15, "GST number must be 15 characters").max(15).optional(),
-  annualTurnover: z.preprocess(
-    val => val === "" || val === undefined ? undefined : Number(val),
-    z.number().min(1, "Annual turnover must be greater than 0").optional()
-  ).optional(),
-  monthlyProfit: z.preprocess(
-    val => val === "" || val === undefined ? undefined : Number(val),
-    z.number().min(1, "Monthly profit must be greater than 0").optional()
-  ).optional(),
+  businessType: z.enum([
+    "Sole Proprietorship",
+    "Partnership",
+    "Private Limited",
+    "Public Limited",
+    "LLP",
+  ]),
+  yearsInBusiness: z
+    .preprocess(
+      (val) => (val === "" || val === undefined ? undefined : Number(val)),
+      z.number().min(1, "Years in business must be at least 1").optional()
+    )
+    .optional(),
+  gstNumber: z
+    .string()
+    .min(15, "GST number must be 15 characters")
+    .max(15)
+    .optional(),
+  annualTurnover: z
+    .preprocess(
+      (val) => (val === "" || val === undefined ? undefined : Number(val)),
+      z.number().min(1, "Annual turnover must be greater than 0").optional()
+    )
+    .optional(),
+  monthlyProfit: z
+    .preprocess(
+      (val) => (val === "" || val === undefined ? undefined : Number(val)),
+      z.number().min(1, "Monthly profit must be greater than 0").optional()
+    )
+    .optional(),
 
   // Loan Amount
   loanAmountRequired: z.number().min(1, "Loan amount is required"),
@@ -90,7 +110,7 @@ type BusinessLoanForm = z.infer<typeof businessLoanSchema>;
 export default function BusinessLoanApplication() {
   const router = useRouter();
   const [isSubmitted] = useState(false);
-
+  const [successMessage, setSuccessMessage] = useState("");
   const {
     register,
     handleSubmit,
@@ -126,8 +146,8 @@ export default function BusinessLoanApplication() {
       }
 
       const result = await res.json();
-      console.log("✅ Application Submitted:", result);
-      alert("✅ Application submitted successfully!");
+      console.log("Application Submitted:", result);
+      setSuccessMessage("Application submitted successfully!");
     } catch (err) {
       console.error("Submission Error:", err);
       alert("Something went wrong. Please try again.");
@@ -141,606 +161,685 @@ export default function BusinessLoanApplication() {
   });
 
   return (
-  <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 py-30 px-4">
-    <div className="max-w-4xl mx-auto">
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-emerald-800">Business Loan Application</h1>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 py-30 px-4">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-emerald-800">
+            Business Loan Application
+          </h1>
+        </div>
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="bg-white rounded-xl shadow-lg p-6 space-y-8 border border-emerald-200"
-      >
-        {/* Applicant Details */}
-        <section className="space-y-6">
-          <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
-            <span className="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>
-            APPLICANT DETAILS
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">First Name</label>
-              <input
-                {...register("firstName")}
-                placeholder="First Name"
-                className={`w-full border ${errors.firstName ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.firstName && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.firstName.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Middle Name</label>
-              <input
-                {...register("middleName")}
-                placeholder="Middle Name"
-                className={`w-full border ${errors.middleName ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Last Name</label>
-              <input
-                {...register("lastName")}
-                placeholder="Last Name"
-                className={`w-full border ${errors.lastName ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.lastName && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.lastName.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Father&apos;s Name</label>
-              <input
-                {...register("fatherName")}
-                placeholder="Father's Name"
-                className={`w-full border ${errors.fatherName ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.fatherName && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.fatherName.message}
-                </p>
-              )}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Date of Birth</label>
-              <input
-                type="date"
-                {...register("dateOfBirth")}
-                className={`w-full border ${errors.dateOfBirth ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.dateOfBirth && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.dateOfBirth.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Marital Status</label>
-              <select
-                {...register("maritalStatus")}
-                className={`w-full border ${errors.maritalStatus ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              >
-                <option value="Married">Married</option>
-                <option value="Unmarried">Unmarried</option>
-                <option value="Others">Others</option>
-              </select>
-              {errors.maritalStatus && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.maritalStatus.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Gender</label>
-              <select
-                {...register("gender")}
-                className={`w-full border ${errors.gender ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              >
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Others">Others</option>
-              </select>
-              {errors.gender && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.gender.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Mobile Number</label>
-              <input
-                {...register("mobileNo")}
-                placeholder="Mobile Number"
-                className={`w-full border ${errors.mobileNo ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.mobileNo && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.mobileNo.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Email ID</label>
-              <input
-                {...register("emailId")}
-                placeholder="Email ID"
-                className={`w-full border ${errors.emailId ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.emailId && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.emailId.message}
-                </p>
-              )}
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">PAN Number</label>
-              <input
-                {...register("panNumber")}
-                placeholder="PAN Number"
-                className={`w-full border ${errors.panNumber ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.panNumber && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.panNumber.message}
-                </p>
-              )}
-            </div>
-          </div>
-        </section>
-
-        {/* Current Address */}
-        <section className="space-y-6">
-          <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
-            <span className="w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
-            CURRENT ADDRESS DETAILS
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Address Line 1</label>
-              <textarea
-                {...register("homeAddress1")}
-                placeholder="Address Line 1"
-                rows={2}
-                className={`w-full border ${errors.homeAddress1 ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.homeAddress1 && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.homeAddress1.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Address Line 2</label>
-              <textarea
-                {...register("homeAddress2")}
-                placeholder="Address Line 2"
-                rows={2}
-                className={`w-full border ${errors.homeAddress2 ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Residence Type</label>
-              <select
-                {...register("residenceType")}
-                className={`w-full border ${errors.residenceType ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              >
-                <option value="Owned">Owned</option>
-                <option value="Rented">Rented</option>
-              </select>
-              {errors.residenceType && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.residenceType.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Pincode</label>
-              <input
-                {...register("pincode")}
-                placeholder="Pincode"
-                className={`w-full border ${errors.pincode ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.pincode && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.pincode.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">State</label>
-              <input
-                {...register("state")}
-                placeholder="State"
-                className={`w-full border ${errors.state ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.state && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.state.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">City</label>
-              <input
-                {...register("city")}
-                placeholder="City"
-                className={`w-full border ${errors.city ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.city && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.city.message}
-                </p>
-              )}
-            </div>
-          </div>
-          <div>
-            <label className="flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                {...register("permanentAddressSame")}
-                className="rounded text-emerald-500 focus:ring-emerald-500 h-5 w-5"
-              />
-              <span className="ml-2 text-gray-700">
-                Permanent Address same as current address
-              </span>
-            </label>
-          </div>
-        </section>
-
-        {/* Employment Details */}
-        <section className="space-y-6">
-          <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
-            <span className="w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
-            EMPLOYMENT DETAILS
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Employment Type</label>
-              <select
-                {...register("employmentType")}
-                className={`w-full border ${errors.employmentType ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              >
-                <option value="Company">Company</option>
-                <option value="Self-Employed">Self-Employed</option>
-              </select>
-              {errors.employmentType && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.employmentType.message}
-                </p>
-              )}
-            </div>
-            {watch("employmentType") === "Company" && (
-              <>
-                <div>
-                  <label className="block text-sm font-medium text-gray-900 mb-1">Company Name</label>
-                  <input
-                    {...register("companyName")}
-                    placeholder="Company Name"
-                    className={`w-full border ${errors.companyName ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                  />
-                  {errors.companyName && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.companyName.message}
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-900 mb-1">Designation</label>
-                  <input
-                    {...register("designation")}
-                    placeholder="Designation"
-                    className={`w-full border ${errors.designation ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-                  />
-                  {errors.designation && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.designation.message}
-                    </p>
-                  )}
-                </div>
-              </>
-            )}
-            {watch("employmentType") === "Self-Employed" && (
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="bg-white rounded-xl shadow-lg p-6 space-y-8 border border-emerald-200"
+        >
+          {/* Applicant Details */}
+          <section className="space-y-6">
+            <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
+              <span className="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>
+              APPLICANT DETAILS
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-900 mb-1">Net Monthly Salary</label>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  First Name
+                </label>
                 <input
-                  {...numericRegister("netMonthlySalary")}
-                  type="number"
-                  placeholder="Net Monthly Salary"
-                  className={`w-full border ${errors.netMonthlySalary ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                  {...register("firstName")}
+                  placeholder="First Name"
+                  className={`w-full border ${errors.firstName ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
                 />
-                {errors.netMonthlySalary && (
+                {errors.firstName && (
                   <p className="text-red-500 text-sm mt-1">
-                    {errors.netMonthlySalary.message}
+                    {errors.firstName.message}
                   </p>
                 )}
               </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Middle Name
+                </label>
+                <input
+                  {...register("middleName")}
+                  placeholder="Middle Name"
+                  className={`w-full border ${errors.middleName ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Last Name
+                </label>
+                <input
+                  {...register("lastName")}
+                  placeholder="Last Name"
+                  className={`w-full border ${errors.lastName ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.lastName && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.lastName.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Father&apos;s Name
+                </label>
+                <input
+                  {...register("fatherName")}
+                  placeholder="Father's Name"
+                  className={`w-full border ${errors.fatherName ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.fatherName && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.fatherName.message}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Date of Birth
+                </label>
+                <input
+                  type="date"
+                  {...register("dateOfBirth")}
+                  className={`w-full border ${errors.dateOfBirth ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.dateOfBirth && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.dateOfBirth.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Marital Status
+                </label>
+                <select
+                  {...register("maritalStatus")}
+                  className={`w-full border ${errors.maritalStatus ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                >
+                  <option value="Married">Married</option>
+                  <option value="Unmarried">Unmarried</option>
+                  <option value="Others">Others</option>
+                </select>
+                {errors.maritalStatus && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.maritalStatus.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Gender
+                </label>
+                <select
+                  {...register("gender")}
+                  className={`w-full border ${errors.gender ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                >
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Others">Others</option>
+                </select>
+                {errors.gender && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.gender.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Mobile Number
+                </label>
+                <input
+                  {...register("mobileNo")}
+                  placeholder="Mobile Number"
+                  className={`w-full border ${errors.mobileNo ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.mobileNo && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.mobileNo.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Email ID
+                </label>
+                <input
+                  {...register("emailId")}
+                  placeholder="Email ID"
+                  className={`w-full border ${errors.emailId ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.emailId && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.emailId.message}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  PAN Number
+                </label>
+                <input
+                  {...register("panNumber")}
+                  placeholder="PAN Number"
+                  className={`w-full border ${errors.panNumber ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.panNumber && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.panNumber.message}
+                  </p>
+                )}
+              </div>
+            </div>
+          </section>
+
+          {/* Current Address */}
+          <section className="space-y-6">
+            <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
+              <span className="w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
+              CURRENT ADDRESS DETAILS
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Address Line 1
+                </label>
+                <textarea
+                  {...register("homeAddress1")}
+                  placeholder="Address Line 1"
+                  rows={2}
+                  className={`w-full border ${errors.homeAddress1 ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.homeAddress1 && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.homeAddress1.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Address Line 2
+                </label>
+                <textarea
+                  {...register("homeAddress2")}
+                  placeholder="Address Line 2"
+                  rows={2}
+                  className={`w-full border ${errors.homeAddress2 ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Residence Type
+                </label>
+                <select
+                  {...register("residenceType")}
+                  className={`w-full border ${errors.residenceType ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                >
+                  <option value="Owned">Owned</option>
+                  <option value="Rented">Rented</option>
+                </select>
+                {errors.residenceType && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.residenceType.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Pincode
+                </label>
+                <input
+                  {...register("pincode")}
+                  placeholder="Pincode"
+                  className={`w-full border ${errors.pincode ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.pincode && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.pincode.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  State
+                </label>
+                <input
+                  {...register("state")}
+                  placeholder="State"
+                  className={`w-full border ${errors.state ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.state && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.state.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  City
+                </label>
+                <input
+                  {...register("city")}
+                  placeholder="City"
+                  className={`w-full border ${errors.city ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.city && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.city.message}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div>
+              <label className="flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  {...register("permanentAddressSame")}
+                  className="rounded text-emerald-500 focus:ring-emerald-500 h-5 w-5"
+                />
+                <span className="ml-2 text-gray-700">
+                  Permanent Address same as current address
+                </span>
+              </label>
+            </div>
+          </section>
+
+          {/* Employment Details */}
+          <section className="space-y-6">
+            <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
+              <span className="w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
+              EMPLOYMENT DETAILS
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Employment Type
+                </label>
+                <select
+                  {...register("employmentType")}
+                  className={`w-full border ${errors.employmentType ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                >
+                  <option value="Company">Company</option>
+                  <option value="Self-Employed">Self-Employed</option>
+                </select>
+                {errors.employmentType && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.employmentType.message}
+                  </p>
+                )}
+              </div>
+              {watch("employmentType") === "Company" && (
+                <>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-900 mb-1">
+                      Company Name
+                    </label>
+                    <input
+                      {...register("companyName")}
+                      placeholder="Company Name"
+                      className={`w-full border ${errors.companyName ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                    />
+                    {errors.companyName && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.companyName.message}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-900 mb-1">
+                      Designation
+                    </label>
+                    <input
+                      {...register("designation")}
+                      placeholder="Designation"
+                      className={`w-full border ${errors.designation ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                    />
+                    {errors.designation && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.designation.message}
+                      </p>
+                    )}
+                  </div>
+                </>
+              )}
+              {watch("employmentType") === "Self-Employed" && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">
+                    Net Monthly Salary
+                  </label>
+                  <input
+                    {...numericRegister("netMonthlySalary")}
+                    type="number"
+                    placeholder="Net Monthly Salary"
+                    className={`w-full border ${errors.netMonthlySalary ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                  />
+                  {errors.netMonthlySalary && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.netMonthlySalary.message}
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* Business Details */}
+          <section className="space-y-6">
+            <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
+              <span className="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>
+              BUSINESS DETAILS
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Business Name
+                </label>
+                <input
+                  {...register("businessName")}
+                  placeholder="Business Name"
+                  className={`w-full border ${errors.businessName ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.businessName && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.businessName.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Business Type
+                </label>
+                <select
+                  {...register("businessType")}
+                  className={`w-full border ${errors.businessType ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                >
+                  <option value="Sole Proprietorship">
+                    Sole Proprietorship
+                  </option>
+                  <option value="Partnership">Partnership</option>
+                  <option value="Private Limited">Private Limited</option>
+                  <option value="Public Limited">Public Limited</option>
+                  <option value="LLP">LLP</option>
+                </select>
+                {errors.businessType && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.businessType.message}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Years in Business
+                </label>
+                <input
+                  {...numericRegister("yearsInBusiness")}
+                  type="number"
+                  placeholder="Years in Business"
+                  className={`w-full border ${errors.yearsInBusiness ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.yearsInBusiness && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.yearsInBusiness.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  GST Number
+                </label>
+                <input
+                  {...register("gstNumber")}
+                  placeholder="GST Number"
+                  className={`w-full border ${errors.gstNumber ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.gstNumber && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.gstNumber.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Annual Turnover
+                </label>
+                <input
+                  {...numericRegister("annualTurnover")}
+                  type="number"
+                  placeholder="Annual Turnover"
+                  className={`w-full border ${errors.annualTurnover ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.annualTurnover && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.annualTurnover.message}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Monthly Profit
+                </label>
+                <input
+                  {...numericRegister("monthlyProfit")}
+                  type="number"
+                  placeholder="Monthly Profit"
+                  className={`w-full border ${errors.monthlyProfit ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.monthlyProfit && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.monthlyProfit.message}
+                  </p>
+                )}
+              </div>
+            </div>
+          </section>
+
+          {/* Loan Amount Required */}
+          <section className="space-y-6">
+            <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
+              <span className="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>
+              LOAN AMOUNT REQUIRED
+            </h2>
+            <div>
+              <label className="block text-sm font-medium text-gray-900 mb-1">
+                Loan Amount Required
+              </label>
+              <input
+                {...numericRegister("loanAmountRequired")}
+                type="number"
+                placeholder="Loan Amount Required"
+                className={`w-full border ${errors.loanAmountRequired ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+              />
+              {errors.loanAmountRequired && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.loanAmountRequired.message}
+                </p>
+              )}
+            </div>
+          </section>
+
+          {/* Existing Obligations */}
+          <section className="space-y-6">
+            <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
+              <span className="w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
+              EXISTING OBLIGATIONS
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  No. of Current Loans
+                </label>
+                <input
+                  {...numericRegister("noOfCurrentLoans")}
+                  type="number"
+                  placeholder="No. of Current Loans"
+                  className={`w-full border ${errors.noOfCurrentLoans ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.noOfCurrentLoans && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.noOfCurrentLoans.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Existing Loan Type
+                </label>
+                <select
+                  {...register("existingLoanType")}
+                  className={`w-full border ${errors.existingLoanType ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                >
+                  <option value="None">None</option>
+                  <option value="Personal">Personal</option>
+                  <option value="Car">Car</option>
+                  <option value="Education">Education</option>
+                  <option value="Other">Other</option>
+                </select>
+                {errors.existingLoanType && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.existingLoanType.message}
+                  </p>
+                )}
+              </div>
+            </div>
+          </section>
+
+          {/* References */}
+          <section className="space-y-6">
+            <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
+              <span className="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>
+              REFERENCE 1
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Name
+                </label>
+                <input
+                  {...register("reference1.name")}
+                  placeholder="Name"
+                  className={`w-full border ${errors.reference1?.name ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.reference1?.name && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.reference1.name.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Mobile No.
+                </label>
+                <input
+                  {...register("reference1.mobile")}
+                  placeholder="Mobile No."
+                  className={`w-full border ${errors.reference1?.mobile ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.reference1?.mobile && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.reference1.mobile.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Address
+                </label>
+                <input
+                  {...register("reference1.address")}
+                  placeholder="Address"
+                  className={`w-full border ${errors.reference1?.address ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.reference1?.address && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.reference1.address.message}
+                  </p>
+                )}
+              </div>
+            </div>
+          </section>
+
+          <section className="space-y-6">
+            <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
+              <span className="w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
+              REFERENCE 2
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Name
+                </label>
+                <input
+                  {...register("reference2.name")}
+                  placeholder="Name"
+                  className={`w-full border ${errors.reference2?.name ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.reference2?.name && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.reference2.name.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Mobile No.
+                </label>
+                <input
+                  {...register("reference2.mobile")}
+                  placeholder="Mobile No."
+                  className={`w-full border ${errors.reference2?.mobile ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.reference2?.mobile && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.reference2.mobile.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Address
+                </label>
+                <input
+                  {...register("reference2.address")}
+                  placeholder="Address"
+                  className={`w-full border ${errors.reference2?.address ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.reference2?.address && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.reference2.address.message}
+                  </p>
+                )}
+              </div>
+            </div>
+          </section>
+
+          {/* Submit Button */}
+          <div className="text-center pt-6">
+            {successMessage && (
+              <div className="mb-4 p-4 bg-green-100 text-green-700 rounded-md">
+                {successMessage}
+              </div>
             )}
+            <button
+              type="submit"
+              className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+            >
+              Submit Application
+            </button>
           </div>
-        </section>
-
-        {/* Business Details */}
-        <section className="space-y-6">
-          <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
-            <span className="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>
-            BUSINESS DETAILS
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Business Name</label>
-              <input
-                {...register("businessName")}
-                placeholder="Business Name"
-                className={`w-full border ${errors.businessName ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.businessName && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.businessName.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Business Type</label>
-              <select
-                {...register("businessType")}
-                className={`w-full border ${errors.businessType ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              >
-                <option value="Sole Proprietorship">Sole Proprietorship</option>
-                <option value="Partnership">Partnership</option>
-                <option value="Private Limited">Private Limited</option>
-                <option value="Public Limited">Public Limited</option>
-                <option value="LLP">LLP</option>
-              </select>
-              {errors.businessType && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.businessType.message}
-                </p>
-              )}
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Years in Business</label>
-              <input
-                {...numericRegister("yearsInBusiness")}
-                type="number"
-                placeholder="Years in Business"
-                className={`w-full border ${errors.yearsInBusiness ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.yearsInBusiness && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.yearsInBusiness.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">GST Number</label>
-              <input
-                {...register("gstNumber")}
-                placeholder="GST Number"
-                className={`w-full border ${errors.gstNumber ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.gstNumber && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.gstNumber.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Annual Turnover</label>
-              <input
-                {...numericRegister("annualTurnover")}
-                type="number"
-                placeholder="Annual Turnover"
-                className={`w-full border ${errors.annualTurnover ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.annualTurnover && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.annualTurnover.message}
-                </p>
-              )}
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Monthly Profit</label>
-              <input
-                {...numericRegister("monthlyProfit")}
-                type="number"
-                placeholder="Monthly Profit"
-                className={`w-full border ${errors.monthlyProfit ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.monthlyProfit && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.monthlyProfit.message}
-                </p>
-              )}
-            </div>
-          </div>
-        </section>
-
-        {/* Loan Amount Required */}
-        <section className="space-y-6">
-          <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
-            <span className="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>
-            LOAN AMOUNT REQUIRED
-          </h2>
-          <div>
-            <label className="block text-sm font-medium text-gray-900 mb-1">Loan Amount Required</label>
-            <input
-              {...numericRegister("loanAmountRequired")}
-              type="number"
-              placeholder="Loan Amount Required"
-              className={`w-full border ${errors.loanAmountRequired ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-            />
-            {errors.loanAmountRequired && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.loanAmountRequired.message}
-              </p>
-            )}
-          </div>
-        </section>
-
-        {/* Existing Obligations */}
-        <section className="space-y-6">
-          <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
-            <span className="w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
-            EXISTING OBLIGATIONS
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">No. of Current Loans</label>
-              <input
-                {...numericRegister("noOfCurrentLoans")}
-                type="number"
-                placeholder="No. of Current Loans"
-                className={`w-full border ${errors.noOfCurrentLoans ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.noOfCurrentLoans && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.noOfCurrentLoans.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Existing Loan Type</label>
-              <select
-                {...register("existingLoanType")}
-                className={`w-full border ${errors.existingLoanType ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              >
-                <option value="None">None</option>
-                <option value="Personal">Personal</option>
-                <option value="Car">Car</option>
-                <option value="Education">Education</option>
-                <option value="Other">Other</option>
-              </select>
-              {errors.existingLoanType && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.existingLoanType.message}
-                </p>
-              )}
-            </div>
-          </div>
-        </section>
-
-        {/* References */}
-        <section className="space-y-6">
-          <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
-            <span className="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>
-            REFERENCE 1
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Name</label>
-              <input
-                {...register("reference1.name")}
-                placeholder="Name"
-                className={`w-full border ${errors.reference1?.name ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.reference1?.name && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.reference1.name.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Mobile No.</label>
-              <input
-                {...register("reference1.mobile")}
-                placeholder="Mobile No."
-                className={`w-full border ${errors.reference1?.mobile ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.reference1?.mobile && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.reference1.mobile.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Address</label>
-              <input
-                {...register("reference1.address")}
-                placeholder="Address"
-                className={`w-full border ${errors.reference1?.address ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.reference1?.address && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.reference1.address.message}
-                </p>
-              )}
-            </div>
-          </div>
-        </section>
-
-        <section className="space-y-6">
-          <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
-            <span className="w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
-            REFERENCE 2
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Name</label>
-              <input
-                {...register("reference2.name")}
-                placeholder="Name"
-                className={`w-full border ${errors.reference2?.name ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.reference2?.name && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.reference2.name.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Mobile No.</label>
-              <input
-                {...register("reference2.mobile")}
-                placeholder="Mobile No."
-                className={`w-full border ${errors.reference2?.mobile ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.reference2?.mobile && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.reference2.mobile.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Address</label>
-              <input
-                {...register("reference2.address")}
-                placeholder="Address"
-                className={`w-full border ${errors.reference2?.address ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
-              />
-              {errors.reference2?.address && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.reference2.address.message}
-                </p>
-              )}
-            </div>
-          </div>
-        </section>
-
-        {/* Submit Button */}
-        <div className="text-center pt-6">
-          <button
-            type="submit"
-            className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
-          >
-            Submit Application
-          </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
-  </div>
-);
+  );
 }

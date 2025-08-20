@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useRouter } from "next/navigation";
 
 // Schema for Gold Loan Application
 const goldLoanSchema = z.object({
@@ -73,13 +72,11 @@ const resolver = zodResolver(goldLoanSchema) as any;
 type GoldLoanForm = z.infer<typeof goldLoanSchema>;
 
 export default function GoldLoanApplication() {
-  const router = useRouter();
-  const [isSubmitted] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<GoldLoanForm>({
     resolver,
@@ -110,8 +107,8 @@ export default function GoldLoanApplication() {
       }
 
       const result = await res.json();
-      console.log("✅ Application Submitted:", result);
-      alert("✅ Application submitted successfully!");
+      console.log("Application Submitted:", result);
+      setSuccessMessage("Application submitted successfully!");
     } catch (err) {
       console.error("Submission Error:", err);
       alert("Something went wrong. Please try again.");
@@ -591,6 +588,11 @@ export default function GoldLoanApplication() {
 
         {/* Submit Button */}
         <div className="text-center pt-6">
+          {successMessage && (
+              <div className="mb-4 p-4 bg-green-100 text-green-700 rounded-md">
+                {successMessage}
+              </div>
+            )}
           <button
             type="submit"
             className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
