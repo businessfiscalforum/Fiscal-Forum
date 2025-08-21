@@ -20,13 +20,19 @@ const loanAgainstSecuritiesSchema = z.object({
   emailId: z.string().email("Invalid email address"),
 
   // Current Address
-  homeAddress1: z.string().min(1, "Address Line 1 is required"),
-  homeAddress2: z.string().optional(),
-  residenceType: z.enum(["Owned", "Rented"]),
-  pincode: z.string().min(6, "Pincode must be 6 digits").max(6),
-  state: z.string().min(1, "State is required"),
-  city: z.string().min(1, "City is required"),
-  permanentAddressSame: z.boolean().default(false),
+  currentHomeAddress1: z.string().min(1),
+  currentHomeAddress2: z.string().optional(),
+  currentResidenceType: z.enum(['Owned', 'Rented']),
+  currentPincode: z.string().length(6),
+  currentState: z.string().min(1),
+  currentCity: z.string().min(1),
+  permanentAddressSame: z.boolean(),
+  permanentHomeAddress1: z.string().min(1),
+  permanentHomeAddress2: z.string().optional(),
+  permanentResidenceType: z.enum(['Owned', 'Rented']),
+  permanentPincode: z.string().length(6),
+  permanentState: z.string().min(1),
+  permanentCity: z.string().min(1),
 
   // Securities Details
   securityType: z.enum(["Gold", "Silver", "Jewelry", "Property", "Other"]).optional(),
@@ -75,12 +81,18 @@ export async function POST(req: Request) {
       emailId: validatedData.emailId,
 
       // Current Address
-      homeAddress1: validatedData.homeAddress1,
-      homeAddress2: validatedData.homeAddress2,
-      residenceType: validatedData.residenceType,
-      pincode: validatedData.pincode,
-      state: validatedData.state,
-      city: validatedData.city,
+      currentHomeAddress1: validatedData.currentHomeAddress1,
+      currentHomeAddress2: validatedData.currentHomeAddress2 || null,
+      currentResidenceType: validatedData.currentResidenceType,
+      currentCity: validatedData.currentCity,
+      currentState: validatedData.currentState,
+      currentPincode: validatedData.currentPincode,
+      permanentHomeAddress1: validatedData.permanentHomeAddress1,
+      permanentHomeAddress2: validatedData.permanentHomeAddress2 || null,
+      permanentResidenceType: validatedData.permanentResidenceType,
+      permanentCity: validatedData.permanentCity,
+      permanentState: validatedData.permanentState,
+      permanentPincode: validatedData.permanentPincode,
       permanentAddressSame: validatedData.permanentAddressSame,
 
       // Securities Details

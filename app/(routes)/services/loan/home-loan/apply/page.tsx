@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 // Schema defined below
 const applicationSchema = z.object({
@@ -25,13 +26,19 @@ const applicationSchema = z.object({
     .min(10, "PAN number must be 10 characters")
     .max(10)
     .optional(),
-  homeAddress1: z.string().min(1, "Address is required"),
-  homeAddress2: z.string().optional(),
-  residenceType: z.enum(["Owned", "Rented"]),
-  pincode: z.string().min(6, "Pincode must be 6 digits").max(6),
-  state: z.string().min(1, "State is required"),
-  city: z.string().min(1, "City is required"),
+  currentHomeAddress1: z.string().min(1, "Address is required"),
+  currentHomeAddress2: z.string().optional(),
+  currentResidenceType: z.enum(["Owned", "Rented"]),
+  currentPincode: z.string().min(6, "Pincode must be 6 digits").max(6),
+  currentState: z.string().min(1, "State is required"),
+  currentCity: z.string().min(1, "City is required"),
   permanentAddressSame: z.boolean().default(false),
+  permanentHomeAddress1: z.string().min(1, "Address is required"),
+  permanentHomeAddress2: z.string().optional(),
+  permanentResidenceType: z.enum(["Owned", "Rented"]),
+  permanentPincode: z.string().min(6, "Pincode must be 6 digits").max(6),
+  permanentState: z.string().min(1, "State is required"),
+  permanentCity: z.string().min(1, "City is required"),
   // Employment Details
   employmentType: z.enum(["Company", "Self-Employed"]),
   companyName: z.string().optional(),
@@ -86,6 +93,7 @@ export default function Home() {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm<ApplicationForm>({
     resolver,
@@ -94,7 +102,8 @@ export default function Home() {
       employmentType: "Company",
       maritalStatus: "Unmarried",
       gender: "Male",
-      residenceType: "Rented",
+      currentResidenceType: "Rented",
+      permanentResidenceType: "Rented",
       propertyType: "Residential",
       noOfCurrentLoans: 0,
       existingLoanType: "None",
@@ -136,6 +145,28 @@ export default function Home() {
       setValueAs: (v: string) => (v === "" ? undefined : Number(v)),
     }),
   });
+
+  const permanentAddressSame = watch("permanentAddressSame");
+
+  const currentAddressFields = watch([
+    "currentHomeAddress1",
+    "currentHomeAddress2",
+    "currentResidenceType",
+    "currentPincode",
+    "currentState",
+    "currentCity",
+  ]);
+
+  useEffect(() => {
+    if (permanentAddressSame) {
+      setValue("permanentHomeAddress1", currentAddressFields[0]);
+      setValue("permanentHomeAddress2", currentAddressFields[1]);
+      setValue("permanentResidenceType", currentAddressFields[2]);
+      setValue("permanentPincode", currentAddressFields[3]);
+      setValue("permanentState", currentAddressFields[4]);
+      setValue("permanentCity", currentAddressFields[5]);
+    }
+  }, [permanentAddressSame, ...currentAddressFields]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 py-30 px-4 sm:px-6">
@@ -328,14 +359,14 @@ export default function Home() {
                   Address Line 1 <span className="text-red-500">*</span>
                 </label>
                 <textarea
-                  {...register("homeAddress1")}
+                  {...register("currentHomeAddress1")}
                   placeholder="Address Line 1"
                   rows={2}
-                  className={`w-full border ${errors.homeAddress1 ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                  className={`w-full border ${errors.currentHomeAddress1 ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
                 />
-                {errors.homeAddress1 && (
+                {errors.currentHomeAddress1 && (
                   <p className="text-red-500 text-sm mt-1">
-                    {errors.homeAddress1.message}
+                    {errors.currentHomeAddress1.message}
                   </p>
                 )}
               </div>
@@ -344,10 +375,10 @@ export default function Home() {
                   Address Line 2
                 </label>
                 <textarea
-                  {...register("homeAddress2")}
+                  {...register("currentHomeAddress2")}
                   placeholder="Address Line 2"
                   rows={2}
-                  className={`w-full border ${errors.homeAddress2 ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                  className={`w-full border ${errors.currentHomeAddress2 ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
                 />
               </div>
             </div>
@@ -357,15 +388,15 @@ export default function Home() {
                   Residence Type <span className="text-red-500">*</span>
                 </label>
                 <select
-                  {...register("residenceType")}
-                  className={`w-full border ${errors.residenceType ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                  {...register("currentResidenceType")}
+                  className={`w-full border ${errors.currentResidenceType ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
                 >
                   <option value="Owned">Owned</option>
                   <option value="Rented">Rented</option>
                 </select>
-                {errors.residenceType && (
+                {errors.currentResidenceType && (
                   <p className="text-red-500 text-sm mt-1">
-                    {errors.residenceType.message}
+                    {errors.currentResidenceType.message}
                   </p>
                 )}
               </div>
@@ -374,13 +405,13 @@ export default function Home() {
                   Pincode <span className="text-red-500">*</span>
                 </label>
                 <input
-                  {...register("pincode")}
+                  {...register("currentPincode")}
                   placeholder="Pincode"
-                  className={`w-full border ${errors.pincode ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                  className={`w-full border ${errors.currentPincode ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
                 />
-                {errors.pincode && (
+                {errors.currentPincode && (
                   <p className="text-red-500 text-sm mt-1">
-                    {errors.pincode.message}
+                    {errors.currentPincode.message}
                   </p>
                 )}
               </div>
@@ -389,13 +420,13 @@ export default function Home() {
                   State <span className="text-red-500">*</span>
                 </label>
                 <input
-                  {...register("state")}
+                  {...register("currentState")}
                   placeholder="State"
-                  className={`w-full border ${errors.state ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                  className={`w-full border ${errors.currentState ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
                 />
-                {errors.state && (
+                {errors.currentState && (
                   <p className="text-red-500 text-sm mt-1">
-                    {errors.state.message}
+                    {errors.currentState.message}
                   </p>
                 )}
               </div>
@@ -404,13 +435,13 @@ export default function Home() {
                   City <span className="text-red-500">*</span>
                 </label>
                 <input
-                  {...register("city")}
+                  {...register("currentCity")}
                   placeholder="City"
-                  className={`w-full border ${errors.city ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                  className={`w-full border ${errors.currentCity ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
                 />
-                {errors.city && (
+                {errors.currentCity && (
                   <p className="text-red-500 text-sm mt-1">
-                    {errors.city.message}
+                    {errors.currentCity.message}
                   </p>
                 )}
               </div>
@@ -426,6 +457,113 @@ export default function Home() {
                   Permanent Address same as current address
                 </span>
               </label>
+            </div>
+          </section>
+
+          {/* Permanent Address */}
+          <section className="border-b border-emerald-100 pb-6">
+            <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
+              <span className="w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
+              PERMANENT ADDRESS DETAILS
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Address Line 1 <span className="text-red-500">*</span>
+                </label>
+                <textarea
+                  {...register("permanentHomeAddress1")}
+                  placeholder="Address Line 1"
+                  rows={2}
+                  readOnly={permanentAddressSame}
+                  className={`w-full border ${errors.permanentHomeAddress1 ? "border-red-500" : "border-gray-300"} ${permanentAddressSame?"bg-gray-100 cursor-not-allowed":""} rounded-md px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.permanentHomeAddress1 && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.permanentHomeAddress1.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Address Line 2
+                </label>
+                <textarea
+                  {...register("permanentHomeAddress2")}
+                  placeholder="Address Line 2"
+                  rows={2}
+                  readOnly={permanentAddressSame}
+                  className={`w-full border ${errors.permanentHomeAddress2 ? "border-red-500" : "border-gray-300"} ${permanentAddressSame?"bg-gray-100 cursor-not-allowed":""} rounded-md px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Residence Type <span className="text-red-500">*</span>
+                </label>
+                <select
+                  {...register("permanentResidenceType")}
+                  disabled={permanentAddressSame}
+                  className={`w-full border ${errors.permanentResidenceType ? "border-red-500" : "border-gray-300"} ${permanentAddressSame?"bg-gray-100 cursor-not-allowed":""} rounded-md px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                >
+                  <option value="Owned">Owned</option>
+                  <option value="Rented">Rented</option>
+                </select>
+                {errors.permanentResidenceType && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.permanentResidenceType.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  Pincode <span className="text-red-500">*</span>
+                </label>
+                <input
+                  {...register("permanentPincode")}
+                  placeholder="Pincode"
+                  readOnly={permanentAddressSame}
+                  className={`w-full border ${errors.permanentPincode ? "border-red-500" : "border-gray-300"} ${permanentAddressSame?"bg-gray-100 cursor-not-allowed":""} rounded-md px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.permanentPincode && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.permanentPincode.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  State <span className="text-red-500">*</span>
+                </label>
+                <input
+                  {...register("permanentState")}
+                  placeholder="State"
+                  readOnly={permanentAddressSame}
+                  className={`w-full border ${errors.permanentState ? "border-red-500" : "border-gray-300"} ${permanentAddressSame?"bg-gray-100 cursor-not-allowed":""} rounded-md px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.permanentState && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.permanentState.message}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900 mb-1">
+                  City <span className="text-red-500">*</span>
+                </label>
+                <input
+                  {...register("permanentCity")}
+                  placeholder="City"
+                  readOnly={permanentAddressSame}
+                  className={`w-full border ${errors.permanentCity ? "border-red-500" : "border-gray-300"} ${permanentAddressSame?"bg-gray-100 cursor-not-allowed":""} rounded-md px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
+                />
+                {errors.permanentCity && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.permanentCity.message}
+                  </p>
+                )}
+              </div>
             </div>
           </section>
 
