@@ -115,16 +115,16 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
         let apiUrl = "";
         switch (tabId) {
           case "news-buzz":
-            apiUrl = "/api/news/news-buzz";
+            apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/news/news-buzz`;
             break;
           case "corp-pulse":
-            apiUrl = "/api/news/corp-pulse";
+            apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/news/corp-pulse`;
             break;
           case "ipo-scoop":
-            apiUrl = "/api/news/ipo-scoop";
+            apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/news/ipo-scoop`;
             break;
           default:
-            apiUrl = "/api/news";
+            apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/news`;
         }
 
         const response = await fetch(apiUrl);
@@ -158,7 +158,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
       setNewsletterLoading(true);
       setError(null);
       try {
-        const response = await fetch("/api/newsletter");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/newsletter`);
         if (!response.ok) {
           const errorText = await response.text();
           console.error(`Newsletter API Error (${response.status}):`, errorText);
@@ -185,7 +185,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
       setStockError(null);
       try {
         // --- FETCH FROM YOUR NEW API ROUTE ---
-        const response = await fetch("/api/yahoo-stock-data");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/yahoo-stock-data`);
         // --- END FETCH ---
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

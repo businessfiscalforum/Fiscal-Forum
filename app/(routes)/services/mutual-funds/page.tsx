@@ -118,7 +118,7 @@ export default function MutualPage() {
     try {
       // Simulate API call
 
-      const response = await fetch("/api/subscribe", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/subscribe`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -435,7 +435,7 @@ export default function MutualPage() {
                   }
                   className="mt-6 w-fit border border-white text-white px-6 py-3 rounded-full font-medium hover:bg-white hover:text-green-700 transition-all duration-300"
                 >
-                  Start Investing Now
+                  Start Growing
                 </button>
               </div>
 

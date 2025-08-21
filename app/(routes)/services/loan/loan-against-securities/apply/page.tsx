@@ -81,7 +81,7 @@ export default function LoanAgainstSecurities() {
   
     const onSubmit = async (data: LASLoanForm) => {
       try {
-        const res = await fetch("/api/las-loan", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/las-loan`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),

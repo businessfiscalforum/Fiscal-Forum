@@ -902,17 +902,16 @@ export const dematTransferRequests = pgTable('demat_transfer_requests', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
-export const investmentProfiles = pgTable('investment_profiles', {
-  id: uuid("id").defaultRandom().notNull().primaryKey().unique(),
-  name: text('name').notNull(),
-  clientCode: varchar('client_code', { length: 50 }).notNull(),
+export const unlistedShares = pgTable('unlisted_shares', {
+   id: uuid('id').primaryKey().defaultRandom(),
+  fullName: varchar('full_name', { length: 255 }).notNull(),
+  clientCode: varchar('client_code', { length: 100 }).notNull(),
   panNo: varchar('pan_no', { length: 10 }).notNull(),
   mobileNo: varchar('mobile_no', { length: 15 }).notNull(),
-  consistency: text('consistency').notNull(),
-  traderType: text('trader_type').notNull(),
-  existingBroker: text('existing_broker').notNull(),
-  investmentType: text('investment_type').notNull(), 
-  createdAt: timestamp('created_at').defaultNow(),
+  consistency: varchar('consistency', { length: 20 }).notNull(),
+  traderType: text('trader_type').notNull(), 
+  existingBroker: varchar('existing_broker', { length: 255 }).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
 },(table) => {
   return {
     panRegexCheck: check('pan_regex_check', sql`${table.panNo} ~ '^[A-Z]{5}[0-9]{4}[A-Z]{1}$'`),
@@ -1140,6 +1139,36 @@ export const travelInsuranceRequests = pgTable('travel_insurance_requests', {
 	createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
+export const mfPreferences = pgTable('mf_preferences', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  name: varchar('name', { length: 255 }).notNull(),
+  clientId: varchar('client_id', { length: 100 }).notNull(),
+  fundType: varchar('fund_type', { length: 255 }).notNull(), 
+  company: varchar('company', { length: 255 }).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+export const mfTransferForms = pgTable('mf_transfer_forms', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  fullName: varchar('full_name', { length: 255 }).notNull(),
+  clientCode: varchar('client_code', { length: 100 }).notNull(),
+  panNo: varchar('pan_no', { length: 10 }).notNull(),
+  mobileNo: varchar('mobile_no', { length: 15 }).notNull(),
+  traderType: text('trader_type').notNull(), // Store as comma-separated string
+  existingBroker: varchar('existing_broker', { length: 255 }).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+// Schema for document submission form
+export const documentSubmissions = pgTable('document_submissions', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  name: varchar('name', { length: 255 }).notNull(),
+  email: varchar('email', { length: 255 }).notNull(),
+  mobile: varchar('mobile', { length: 15 }).notNull(),
+  documentSent: boolean('document_sent').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
 // Types
 export type InsertUser = typeof usersTable.$inferInsert;
 export type SelectUser = typeof usersTable.$inferSelect;
@@ -1165,8 +1194,8 @@ export type SelectDemat = typeof dematApplications.$inferSelect
 export type InsertDematTransferApplication = typeof dematTransferRequests.$inferInsert;
 export type SelectDematTransferApplication = typeof dematTransferRequests.$inferSelect;
 
-export type InsertInvestmentForm = typeof investmentProfiles.$inferInsert;
-export type SelectInvestmentForm = typeof investmentProfiles.$inferSelect
+export type InsertInvestmentForm = typeof unlistedShares.$inferInsert;
+export type SelectInvestmentForm = typeof unlistedShares.$inferSelect
 
 export type InsertCarInsuranceRequest = typeof carInsuranceRequests.$inferInsert;
 export type SelectCarInsuranceRequest = typeof carInsuranceRequests.$inferSelect;
@@ -1220,3 +1249,12 @@ export type SelectLasApplication = typeof lasApplication.$inferSelect;
 
 export type InsertCall = typeof scheduledCalls.$inferInsert;
 export type SelectCall = typeof scheduledCalls.$inferSelect;
+
+export type InsertMfPref = typeof mfPreferences.$inferInsert;
+export type SelectMfPref = typeof mfPreferences.$inferSelect;
+
+export type InsertMfTransfer = typeof mfTransferForms.$inferInsert;
+export type SelectMfTransfer = typeof mfTransferForms.$inferSelect;
+
+export type InsertDocMf = typeof documentSubmissions.$inferInsert;
+export type SelectDocMf = typeof documentSubmissions.$inferSelect;

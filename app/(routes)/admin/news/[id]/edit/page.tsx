@@ -41,7 +41,7 @@ export default function EditNewsPage({ params }: { params: Promise<{ id: string 
       try {
         // Unwrap params promise
         const { id } = await params;
-        const response = await fetch(`/api/news/${id}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/news/${id}`);
         if (!response.ok) {
           throw new Error(`Failed to fetch news item (${response.status})`);
         }
@@ -123,7 +123,7 @@ export default function EditNewsPage({ params }: { params: Promise<{ id: string 
     try {
       // Unwrap params promise
       const { id } = await params;
-      const response = await fetch(`/api/news/${id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/news/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

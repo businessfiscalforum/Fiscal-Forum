@@ -94,7 +94,7 @@ export default function GoldLoanApplication() {
 
   const onSubmit = async (data: GoldLoanForm) => {
     try {
-      const res = await fetch("/api/gold-loan", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/gold-loan`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

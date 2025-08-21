@@ -7,7 +7,7 @@ export default function CreateNewsPage() {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSubmit = async (data: any) => {
-    const response = await fetch("/api/news", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/news`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

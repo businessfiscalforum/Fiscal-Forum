@@ -99,7 +99,7 @@ export default function PersonalLoanApplication() {
 
   const onSubmit = async (data: PersonalLoanForm) => {
     try {
-      const res = await fetch("/api/personal-loan", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/personal-loan`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

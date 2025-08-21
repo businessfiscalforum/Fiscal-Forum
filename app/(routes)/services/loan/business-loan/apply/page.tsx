@@ -133,7 +133,7 @@ export default function BusinessLoanApplication() {
 
   const onSubmit = async (data: BusinessLoanForm) => {
     try {
-      const res = await fetch("/api/business-loan", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/business-loan`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

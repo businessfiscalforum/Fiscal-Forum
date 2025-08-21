@@ -183,7 +183,7 @@ export default function HealthInsuranceFormPage() {
       formDataToSend.append("insurerPrefs", JSON.stringify(formData.insurerPrefs));
       formDataToSend.append("otherInsurer", formData.otherInsurer);
 
-      const response = await fetch("/api/health-insurance", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/health-insurance`, {
         method: "POST",
         body: formDataToSend,
       });

@@ -128,7 +128,7 @@ export default function AxisBankPage() {
       });
       formDataToSend.append("accountType", "axis");
 
-      const response = await fetch("/api/savings-account-form", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/savings-account-form`, {
         method: "POST",
         body: formDataToSend,
       });

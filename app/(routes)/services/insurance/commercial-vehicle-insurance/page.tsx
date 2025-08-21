@@ -217,7 +217,7 @@ export default function CommercialVehicleInsuranceFormPage() {
         }
       });
 
-      const response = await fetch("/api/commercial-vehicle-insurance", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/commercial-vehicle-insurance`, {
         method: "POST",
         body: formDataToSend,
       });

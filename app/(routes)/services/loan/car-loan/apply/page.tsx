@@ -103,7 +103,7 @@ export default function CarLoanApplication() {
 
   const onSubmit = async (data: CarLoanForm) => {
     try {
-      const res = await fetch("/api/car-loan", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/car-loan`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

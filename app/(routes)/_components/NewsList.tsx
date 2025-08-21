@@ -26,7 +26,7 @@ export default function NewsList() {
 
   const fetchNews = async () => {
     try {
-      const res = await fetch('/api/news');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/news`);
       const data = await res.json();
       setNewsItems(data.news);
     } catch (error) {
@@ -40,7 +40,7 @@ export default function NewsList() {
     if (!confirm('Are you sure you want to delete this news item?')) return;
     
     try {
-      const res = await fetch(`/api/news/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/news/${id}`, {
         method: 'DELETE',
       });
       

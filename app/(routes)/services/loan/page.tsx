@@ -556,7 +556,7 @@ const LoanLandingPage = () => {
                         </Link>
 
                         <Link href={loan.glink} passHref>
-                          <button className="px-4 py-2 rounded-lg  text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
+                          <button className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-6 py-3 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 shadow-lg group-hover:shadow-2xl transform group-hover:scale-105">
                             Apply Now
                             <svg
                               xmlns="http://www.w3.org/2000/svg"

@@ -23,7 +23,7 @@ export default function ApplicationForm() {
     setMessage(null);
 
     try {
-      const res = await fetch("/api/dematApply", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/dematApply`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

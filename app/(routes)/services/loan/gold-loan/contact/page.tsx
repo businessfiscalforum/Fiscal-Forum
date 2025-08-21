@@ -51,7 +51,7 @@ const ScheduleCallPage = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const res = await fetch("/api/schedule-call", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/schedule-call`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

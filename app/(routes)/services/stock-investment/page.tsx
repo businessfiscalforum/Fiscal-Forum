@@ -195,7 +195,7 @@ export default function CreditCardApplyPage() {
     try {
       // Simulate API call
 
-      const response = await fetch("/api/subscribe", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/subscribe`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -658,27 +658,29 @@ export default function CreditCardApplyPage() {
                 <div className="text-green-300 text-2xl mb-4">
                   <FaChartLine />
                 </div>
-                <h3 className="text-lg font-bold mb-2">Smart Analytics</h3>
+                <h3 className="text-lg font-bold mb-2">Free Premarket Reports
+</h3>
                 <p className="text-green-100">
-                  Get Premium Research Reports and analyse where to invest.
+                 Stay ahead with daily premarket reports.
                 </p>
               </div>
               <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm hover:scale-105 transition-transform duration-300">
                 <div className="text-green-300 text-2xl mb-4">
                   <FaHeadset />
                 </div>
-                <h3 className="text-lg font-bold mb-2">24/7 Support</h3>
+                <h3 className="text-lg font-bold mb-2">24/7 Dedicated Support</h3>
                 <p className="text-green-100">
-                  Expert help whenever you need it — just a call away.
+                  Enjoy quick query resolution and hassle-free Demat account support.
                 </p>
               </div>
               <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm hover:scale-105 transition-transform duration-300">
                 <div className="text-green-300 text-2xl mb-4">
                   <FaRocket />
                 </div>
-                <h3 className="text-lg font-bold mb-2">Lightning Fast</h3>
+                <h3 className="text-lg font-bold mb-2">Brokerage Cashback
+</h3>
                 <p className="text-green-100">
-                  Get all your investment queries solved with us in few minutes.
+                  Enhance your investing journey, now with exciting bokerage cashbacks.
                 </p>
               </div>
               <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm hover:scale-105 transition-transform duration-300">
@@ -687,7 +689,7 @@ export default function CreditCardApplyPage() {
                 </div>
                 <h3 className="text-lg font-bold mb-2">Refer & Earn</h3>
                 <p className="text-green-100">
-                  Get ₹500 for every friend who starts investing with you.
+                  Get Rewards for every friend who starts investing with you. Get rewarded for smart trading.
                 </p>
               </div>
             </div>

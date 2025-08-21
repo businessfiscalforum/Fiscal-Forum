@@ -120,7 +120,7 @@ export default function PersonalAccidentInsurancePage() {
         else if (typeof v === "boolean") fd.append(k, v ? "true" : "false");
         else fd.append(k, v);
       });
-      const res = await fetch("/api/personal-accident-insurance", { method: "POST", body: fd });
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/personal-accident-insurance`, { method: "POST", body: fd });
       const json = await res.json();
       if (!res.ok || !json.success) throw new Error(json.error || "Failed to submit");
       setMessage({ text: "Request submitted successfully!", type: "success" });

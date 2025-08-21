@@ -172,7 +172,7 @@ export default function CarInsuranceFormPage() {
       formDataToSend.append("registrationNumber", formData.registrationNumber);
       formDataToSend.append("insuranceType", formData.insuranceType);
 
-      const response = await fetch("/api/car-insurance", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/car-insurance`, {
         method: "POST",
         body: formDataToSend,
       });

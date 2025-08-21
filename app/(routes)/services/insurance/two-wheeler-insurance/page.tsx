@@ -181,7 +181,7 @@ export default function TwoWheelerInsuranceFormPage() {
       formDataToSend.append("registrationNumber", formData.registrationNumber);
       formDataToSend.append("insuranceType", formData.insuranceType);
 
-      const response = await fetch("/api/two-wheeler-insurance", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/two-wheeler-insurance`, {
         method: "POST",
         body: formDataToSend,
       });

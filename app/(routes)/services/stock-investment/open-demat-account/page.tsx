@@ -75,7 +75,6 @@ const brokers: Broker[] = [
     link: "https://upstox.com/open-account/?f=4ZAVSY",
     brokerage: [
       "• ₹0 AMC*: Account Maintenance Charges (No account maintenance charges for the first year)",
-      "• ₹0 Brokerage*: On Mutual Funds and IPOs",
       "• ₹20 Brokerage*: Maximum brokerage per order",
     ],
   },
@@ -99,6 +98,14 @@ const brokers: Broker[] = [
       "• Equity Intraday: 0.03% of transaction value",
       "• Equity Futures: 0.03% of transaction value",
       "• Equity Options: ₹15 per lot",
+    ],
+  },
+  {
+    name: "Unlisted Shares",
+    logo: "/unlisted-shares.png",
+    link: "/services/stock-investment/unlisted-shares/apply",
+    brokerage: [
+      "",
     ],
   },
 ];
@@ -188,7 +195,7 @@ export default function Page() {
     setIsSubmitting(true);
     setMessage(null);
     try {
-      const response = await fetch("/api/subscribe", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/subscribe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -309,7 +316,7 @@ export default function Page() {
               </p>
             </motion.div>
 
-            <motion.div
+            {/* <motion.div
               className="bg-green-50 rounded-2xl p-6 flex flex-col items-start text-left border border-green-100"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -325,9 +332,9 @@ export default function Page() {
                 Enjoy quick query resolution and hassle-free Demat account
                 support.
               </p>
-            </motion.div>
+            </motion.div> */}
 
-            <motion.div
+            {/* <motion.div
               className="bg-green-50 rounded-2xl p-6 flex flex-col items-start text-left border border-green-100"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -343,9 +350,9 @@ export default function Page() {
                 We&apos;re partnered with top broking firms for credibility and
                 security.
               </p>
-            </motion.div>
+            </motion.div> */}
 
-            <motion.div
+            {/* <motion.div
               className="bg-green-50 rounded-2xl p-6 flex flex-col items-start text-left border border-green-100"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -361,7 +368,7 @@ export default function Page() {
                 Kickstart your investing journey with tailored, confident
                 advice.
               </p>
-            </motion.div>
+            </motion.div> */}
 
             <motion.div
               className="bg-green-50 rounded-2xl p-6 flex flex-col items-start text-left border border-green-100"
@@ -559,7 +566,7 @@ export default function Page() {
                 </div>
                 <div className="flex items-center gap-2 text-base sm:text-lg font-semibold">
                   <FaRupeeSign className="text-emerald-700 text-xl" />
-                  <span>Zero Transfer Fees</span>
+                  <span>50% Brokerage Cashback for 6 months</span>
                 </div>
                 <div className="flex items-center gap-2 text-base sm:text-lg font-semibold">
                   <FaHeadset className="text-emerald-700 text-xl" />

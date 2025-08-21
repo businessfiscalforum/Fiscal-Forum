@@ -98,7 +98,7 @@ export default function EducationLoanApplication() {
 
   const onSubmit = async (data: EducationLoanForm) => {
     try {
-      const res = await fetch("/api/education-loan", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/education-loan`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

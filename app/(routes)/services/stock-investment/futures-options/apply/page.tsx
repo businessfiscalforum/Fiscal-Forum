@@ -76,7 +76,7 @@ export default function FuturesOptionsPage() {
         formDataToSend.append(key, value);
       });
 
-      const response = await fetch("/api/investment-form", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/investment-form`, {
         method: "POST",
         body: formDataToSend,
       });

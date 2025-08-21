@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { FaCheck, FaArrowLeft, FaFileInvoice, FaMobileAlt, FaUser } from "react-icons/fa";
 
-export default function IPOPage() {
+export default function UnlistedSharesPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
@@ -131,7 +131,7 @@ export default function IPOPage() {
             <FaArrowLeft className="mr-2" /> Back
           </button>
           <h1 className="text-2xl sm:text-3xl font-bold text-emerald-900 text-center flex-grow px-4">
-            Initial Public Offering (IPO)
+            Unlisted Shares
           </h1>
           <div className="w-16"></div>
         </motion.div>
@@ -213,7 +213,7 @@ export default function IPOPage() {
               </div>
 
               <div>
-                <label className=" text-sm font-medium text-gray-700 mb-1 flex items-center">
+                <label className="text-sm font-medium text-gray-700 mb-1 flex items-center">
                   <FaMobileAlt className="mr-2 text-green-600" /> Mobile Number <span className="text-red-500 ml-1">*</span>
                 </label>
                 <input

@@ -1,113 +1,69 @@
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { db } from '../../../config/db';
-import { investmentProfiles } from '../../../config/schema';
+import { unlistedShares } from '../../../config/schema';
 
-export async function POST(req: NextRequest) {
+export async function POST(request: Request) {
   try {
-    const formData = await req.formData();
+    const formData = await request.formData();
     
-    const name = (formData.get('name') as string)?.trim() || '';
-    const clientCode = (formData.get('clientCode') as string)?.trim() || '';
-    const panNo = (formData.get('panNo') as string)?.trim().toUpperCase() || '';
-    const mobileNo = (formData.get('mobileNo') as string)?.trim() || '';
-    const consistency = (formData.get('consistency') as string)?.trim() || '';
-    const traderType = (formData.get('traderType') as string)?.trim() || '';
-    const existingBroker = (formData.get('existingBroker') as string)?.trim() || '';
-
-    // Validation
-    if (!name || !clientCode || !panNo || !mobileNo || !consistency || !traderType || !existingBroker) {
-      return new Response(
-        JSON.stringify({ 
-          success: false, 
-          error: 'All fields are required' 
-        }), 
-        { 
-          status: 400,
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
-    }
-
-    // PAN validation
-    if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(panNo)) {
-      return new Response(
-        JSON.stringify({ 
-          success: false, 
-          error: 'Invalid PAN format' 
-        }), 
-        { 
-          status: 400,
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
-    }
-
-    // Mobile validation
-    if (!/^[0-9]{10}$/.test(mobileNo)) {
-      return new Response(
-        JSON.stringify({ 
-          success: false, 
-          error: 'Mobile number must be 10 digits' 
-        }), 
-        { 
-          status: 400,
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
-    }
-
-    // Determine investment type from URL
-    const referer = req.headers.get('referer') || '';
-    let investmentType = 'equity';
+    // Extract form data
+    const fullName = formData.get('fullName') as string;
+    const clientCode = formData.get('clientCode') as string;
+    const panNo = (formData.get('panNo') as string).toUpperCase();
+    const mobileNo = formData.get('mobileNo') as string;
+    const consistency = formData.get('consistency') as string;
+    const traderType = formData.getAll('traderType') as string[]; // Array from checkboxes
+    const existingBroker = formData.get('existingBroker') as string;
     
-    if (referer.includes('/futures-options')) investmentType = 'futures-options';
-    else if (referer.includes('/ipo')) investmentType = 'ipo';
-    else if (referer.includes('/mtf')) investmentType = 'mtf';
-    else if (referer.includes('/commodities')) investmentType = 'commodities';
-    else if (referer.includes('/unlisted-shares')) investmentType = 'unlisted-shares';
-
-    // Insert into DB
-    const [result] = await db.insert(investmentProfiles).values({
-      name,
+    // Validate required fields
+    if (!fullName || !clientCode || !panNo || !mobileNo || !consistency || 
+        traderType.length === 0 || !existingBroker) {
+      return NextResponse.json(
+        { error: 'All fields are required' },
+        { status: 400 }
+      );
+    }
+    
+    // Validate PAN format
+    const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+    if (!panRegex.test(panNo)) {
+      return NextResponse.json(
+        { error: 'Invalid PAN number format' },
+        { status: 400 }
+      );
+    }
+    
+    // Validate mobile number
+    const mobileRegex = /^[0-9]{10}$/;
+    if (!mobileRegex.test(mobileNo)) {
+      return NextResponse.json(
+        { error: 'Invalid mobile number format' },
+        { status: 400 }
+      );
+    }
+    
+    // Insert into database
+    const result = await db.insert(unlistedShares).values({
+      fullName,
       clientCode,
       panNo,
       mobileNo,
       consistency,
-      traderType,
+      traderType: traderType.join(','), // Store as comma-separated string
       existingBroker,
-      investmentType,
-    }).returning();
-
-    return new Response(
-      JSON.stringify({ 
-        success: true, 
-        data: result,
-        message: 'Investment profile submitted successfully!' 
-      }), 
-      { 
-        status: 200,
-        headers: { 'Content-Type': 'application/json' }
-      }
-    );
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    console.error('Error submitting investment profile:', error);
+    }).returning({ id: unlistedShares.id });
     
-    return new Response(
-      JSON.stringify({ 
-        success: false, 
-        error: error.message || 'Failed to process request. Please try again.' 
-      }), 
-      { 
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      }
+    return NextResponse.json({
+      success: true,
+      message: 'Application submitted successfully',
+      id: result[0].id
+    });
+    
+  } catch (error) {
+    console.error('Database error:', error);
+    return NextResponse.json(
+      { error: 'Failed to submit application' },
+      { status: 500 }
     );
   }
 }
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
