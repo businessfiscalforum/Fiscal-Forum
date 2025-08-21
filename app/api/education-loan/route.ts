@@ -19,13 +19,19 @@ const educationLoanSchema = z.object({
   emailId: z.string().email("Invalid email address"),
 
   // Current Address
-  homeAddress1: z.string().min(1, "Address is required"),
-  homeAddress2: z.string().optional(),
-  residenceType: z.enum(["Owned", "Rented"]),
-  pincode: z.string().min(6, "Pincode must be 6 digits").max(6),
-  state: z.string().min(1, "State is required"),
-  city: z.string().min(1, "City is required"),
-  permanentAddressSame: z.boolean().default(false),
+  currentHomeAddress1: z.string().min(1),
+  currentHomeAddress2: z.string().optional(),
+  currentResidenceType: z.enum(['Owned', 'Rented']),
+  currentPincode: z.string().length(6),
+  currentState: z.string().min(1),
+  currentCity: z.string().min(1),
+  permanentAddressSame: z.boolean(),
+  permanentHomeAddress1: z.string().min(1),
+  permanentHomeAddress2: z.string().optional(),
+  permanentResidenceType: z.enum(['Owned', 'Rented']),
+  permanentPincode: z.string().length(6),
+  permanentState: z.string().min(1),
+  permanentCity: z.string().min(1),
 
   // Employment Details
   employmentType: z.enum(["Company", "Self-Employed"]),
@@ -89,12 +95,18 @@ export async function POST(request: NextRequest) {
       emailId: parsedData.data.emailId,
 
       // Address
-      homeAddress1: parsedData.data.homeAddress1,
-      homeAddress2: parsedData.data.homeAddress2,
-      residenceType: parsedData.data.residenceType,
-      pincode: parsedData.data.pincode,
-      state: parsedData.data.state,
-      city: parsedData.data.city,
+      currentHomeAddress1: parsedData.data.currentHomeAddress1,
+      currentHomeAddress2: parsedData.data.currentHomeAddress2 || null,
+      currentResidenceType: parsedData.data.currentResidenceType,
+      currentCity: parsedData.data.currentCity,
+      currentState: parsedData.data.currentState,
+      currentPincode: parsedData.data.currentPincode,
+      permanentHomeAddress1: parsedData.data.permanentHomeAddress1,
+      permanentHomeAddress2: parsedData.data.permanentHomeAddress2 || null,
+      permanentResidenceType: parsedData.data.permanentResidenceType,
+      permanentCity: parsedData.data.permanentCity,
+      permanentState: parsedData.data.permanentState,
+      permanentPincode: parsedData.data.permanentPincode,
       permanentAddressSame: parsedData.data.permanentAddressSame,
 
       // Employment
