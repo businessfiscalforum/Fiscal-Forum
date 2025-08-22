@@ -47,16 +47,16 @@ export async function GET(
       return withCORS(req, NextResponse.json({ error: "Report not found" }, { status: 404 }));
     }
 
-    return withCORS(req, NextResponse.json({
-      ...report,
-      date: report.date.toString(),
-    }));
+    return withCORS(
+      req,
+      NextResponse.json({
+        ...report,
+        date: report.date.toString(), // ensure serializable
+      })
+    );
   } catch (error) {
     console.error("GET /api/reports/[id] error:", error);
-    return withCORS(req, NextResponse.json(
-      { error: "Failed to fetch report" },
-      { status: 500 }
-    ));
+    return withCORS(req, NextResponse.json({ error: "Failed to fetch report" }, { status: 500 }));
   }
 }
 
