@@ -22,6 +22,7 @@ function corsHeaders(origin: string | null) {
 }
 
 export async function POST(req: NextRequest) {
+  const origin = req.headers.get("origin"); 
   try {
     const form = await req.formData();
 
@@ -42,33 +43,33 @@ export async function POST(req: NextRequest) {
       : null;
 
     if (!name) {
-      return NextResponse.json({ success: false, error: "Name is required" }, { status: 400 });
+      return NextResponse.json({ success: false, error: "Name is required" },{ status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
     if (!/^\d{10}$/.test(phone)) {
-      return NextResponse.json({ success: false, error: "Phone must be 10 digits" }, { status: 400 });
+      return NextResponse.json({ success: false, error: "Phone must be 10 digits" }, { status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
     if (!rcLink) {
-      return NextResponse.json({ success: false, error: "RC link is required" }, { status: 400 });
+      return NextResponse.json({ success: false, error: "RC link is required" },{ status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
     if (!prevInsuranceLink) {
-      return NextResponse.json({ success: false, error: "Previous insurance link is required" }, { status: 400 });
+      return NextResponse.json({ success: false, error: "Previous insurance link is required" }, { status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
     if (!registrationNumber) {
-      return NextResponse.json({ success: false, error: "Registration Number is required" }, { status: 400 });
+      return NextResponse.json({ success: false, error: "Registration Number is required" },{ status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
     if (!insuranceType) {
-      return NextResponse.json({ success: false, error: "Insurance Type link is required" }, { status: 400 });
+      return NextResponse.json({ success: false, error: "Insurance Type link is required" }, { status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
 
     // optional Email format
     if (email && !/^([^\s@]+)@([^\s@]+)\.[^\s@]+$/.test(email)) {
-      return NextResponse.json({ success: false, error: "Invalid email format" }, { status: 400 });
+      return NextResponse.json({ success: false, error: "Invalid email format" }, { status: 400, headers: corsHeaders(origin) as HeadersInit  });
     }
 
     // validate google drive-ish link if provided
     const isDrive = (link: string) => /^(https?:\/\/)?(www\.)?drive\.google\.com\//i.test(link);
     if (!isDrive(rcLink) || !isDrive(prevInsuranceLink)) {
-      return NextResponse.json({ success: false, error: "Links must be public Google Drive URLs" }, { status: 400 });
+      return NextResponse.json({ success: false, error: "Links must be public Google Drive URLs" }, { status: 400, headers: corsHeaders(origin) as HeadersInit  });
     }
 
     let insurerPrefs: string[] = [];
@@ -126,13 +127,13 @@ export async function POST(req: NextRequest) {
       })
       .returning();
 
-    return NextResponse.json({ success: true, data: saved }, { status: 201 });
+    return NextResponse.json({ success: true, data: saved }, { status: 201,  headers: corsHeaders(origin) as HeadersInit });
   } catch (error: unknown) {
     // Log full error for debugging on server
     // eslint-disable-next-line no-console
     console.error('Car insurance POST error:', error);
     const message = error instanceof Error ? error.message : "Internal error";
-    return NextResponse.json({ success: false, error: message }, { status: 500 });
+    return NextResponse.json({ success: false, error: message }, { status: 500,  headers: corsHeaders(origin) as HeadersInit });
   }
 }
 

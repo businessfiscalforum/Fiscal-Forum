@@ -9,7 +9,7 @@ const allowedOrigins = [
   "http://localhost:3000"
 ];
 
-function corsHeaders(origin: string | null) {
+function corsHeaders(origin: string | null): HeadersInit {
   if (origin && allowedOrigins.includes(origin)) {
     return {
       "Access-Control-Allow-Origin": origin,
@@ -20,6 +20,14 @@ function corsHeaders(origin: string | null) {
   return {};
 }
 
+// ✅ Handle preflight OPTIONS
+export async function OPTIONS(request: Request) {
+  const origin = request.headers.get("origin");
+  return new NextResponse(null, {
+    status: 200,
+    headers: corsHeaders(origin),
+  });
+}
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -28,6 +36,7 @@ export async function GET(request: Request) {
   const search = searchParams.get("search") || "";
   const category = searchParams.get("category") || "";
   const offset = (page - 1) * limit;
+  const origin = request.headers.get("origin");
 
   try {
     const whereClause = and(
@@ -49,46 +58,36 @@ export async function GET(request: Request) {
       .where(whereClause);
 
     const totalCount = parseInt(totalCountResult[0].count as string);
-    const response = NextResponse.json(newsItems);
 
-    // --- CORS Configuration ---
-    // Allow requests from your other domain
-    response.headers.set(
-      "Access-Control-Allow-Origin",
-      "https://fiscalforum.in"
-    );
-    response.headers.set("Access-Control-Allow-Methods", "GET, OPTIONS");
-    response.headers.set(
-      "Access-Control-Allow-Headers",
-      "Content-Type, Authorization"
-    );
-
-    return NextResponse.json({
-      news: newsItems,
-      pagination: {
-        currentPage: page,
-        totalPages: Math.ceil(totalCount / limit),
-        totalCount,
+    return NextResponse.json(
+      {
+        news: newsItems,
+        pagination: {
+          currentPage: page,
+          totalPages: Math.ceil(totalCount / limit),
+          totalCount,
+        },
       },
-    });
+      { headers: corsHeaders(origin) }
+    );
   } catch (error) {
     console.error("Error fetching news:", error);
     return NextResponse.json(
       { error: "Failed to fetch news" },
-      { status: 500 }
+      { status: 500, headers: corsHeaders(request.headers.get("origin")) }
     );
   }
 }
 
 export async function POST(request: Request) {
+  const origin = request.headers.get("origin");
   try {
     const data = await request.json();
 
-    // Validate required fields
     if (!data.title || !data.content || !data.category) {
       return NextResponse.json(
         { error: "Title, content, and category are required" },
-        { status: 400 }
+        { status: 400, headers: corsHeaders(origin) }
       );
     }
 
@@ -100,26 +99,16 @@ export async function POST(request: Request) {
         publishDate: data.publishDate ? new Date(data.publishDate) : new Date(),
       })
       .returning();
-    const response = NextResponse.json(newItem);
 
-    // --- CORS Configuration ---
-    // Allow requests from your other domain
-    response.headers.set(
-      "Access-Control-Allow-Origin",
-      "https://fiscalforum.in"
-    );
-    response.headers.set("Access-Control-Allow-Methods", "GET, OPTIONS");
-    response.headers.set(
-      "Access-Control-Allow-Headers",
-      "Content-Type, Authorization"
-    );
-
-    return NextResponse.json(newItem, { status: 201 });
+    return NextResponse.json(newItem, {
+      status: 201,
+      headers: corsHeaders(origin),
+    });
   } catch (error) {
     console.error("Error creating news:", error);
     return NextResponse.json(
       { error: "Failed to create news item" },
-      { status: 500 }
+      { status: 500, headers: corsHeaders(origin) }
     );
   }
 }

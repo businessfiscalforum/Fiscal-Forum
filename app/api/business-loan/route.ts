@@ -172,28 +172,31 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       { message: "Business loan application submitted successfully",  result },
-      { status: 201 }
+      { status: 201, headers: corsHeaders(origin) as HeadersInit }
     );
   } catch (error) {
+    const origin = req.headers.get("origin");
     console.error("Business Loan Application Error:", error);
 
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "Validation failed", details: error},
-        { status: 400 }
+        { status: 400, headers: corsHeaders(origin) as HeadersInit }
       );
     }
 
     return NextResponse.json(
       { error: "Internal server error", details: (error as Error).message },
-      { status: 500 }
+      { status: 500, headers: corsHeaders(origin) as HeadersInit  }
     );
   }
 }
 
-export async function GET() {
-  return NextResponse.json({
-    message: "Business Loan Application API endpoint",
-    method: "POST"
-  });
+// === GET handler ===
+export async function GET(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  return NextResponse.json(
+    { message: "Business Loan Application API endpoint", method: "POST" },
+    { headers: corsHeaders(origin) as HeadersInit }
+  );
 }

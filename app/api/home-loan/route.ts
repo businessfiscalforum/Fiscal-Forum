@@ -21,6 +21,15 @@ function corsHeaders(origin: string | null) {
   return {};
 }
 
+// Handle CORS preflight
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  return new NextResponse(null, {
+    status: 204,
+    headers: corsHeaders(origin) as HeadersInit,
+  });
+}
+
 // Zod schema with correct preprocessing + optional fields
 const applicationSchema = z.object({
   firstName: z.string().min(1),
@@ -51,7 +60,7 @@ const applicationSchema = z.object({
   companyName: z.string().optional(),
   designation: z.string().optional(),
   netMonthlySalary: z.preprocess(
-    val => val === "" || val === null || val === undefined ? 0 : Number(val), 
+    val => val === "" || val === null || val === undefined ? 0 : Number(val),
     z.number().min(0)
   ).default(0),
 
@@ -82,23 +91,16 @@ const applicationSchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
+  const origin = req.headers.get("origin");
+
   try {
     const body = await req.json();
     const parsed = applicationSchema.parse(body);
 
-    // Check if email already exists
-    // const existing = await db.select().from(homeLoanApplications).where(eq(homeLoanApplications.emailId, parsed.emailId));
-    // if (existing.length > 0) {
-    //   return NextResponse.json(
-    //     { error: "Email already registered" },
-    //     { status: 409 }
-    //   );
-    // }
-
     // Flatten references
     const insertData: any = {
       ...parsed,
-      netMonthlySalary: parsed.netMonthlySalary?? 0,
+      netMonthlySalary: parsed.netMonthlySalary ?? 0,
       noOfCurrentLoans: parsed.noOfCurrentLoans,
       agreementValue: parsed.agreementValue,
       loanAmountRequired: parsed.loanAmountRequired,
@@ -111,7 +113,6 @@ export async function POST(req: NextRequest) {
       panNumber: parsed.panNumber,
     };
 
-    // Remove nested objects
     delete insertData.reference1;
     delete insertData.reference2;
 
@@ -119,8 +120,8 @@ export async function POST(req: NextRequest) {
     const [result] = await db.insert(homeLoanApplications).values(insertData).returning();
 
     return NextResponse.json(
-      { message: "Application submitted successfully",  result },
-      { status: 201 }
+      { message: "Application submitted successfully", result },
+      { status: 201, headers: corsHeaders(origin) as HeadersInit }
     );
   } catch (error) {
     console.error("Validation/DB error:", error);
@@ -128,24 +129,23 @@ export async function POST(req: NextRequest) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "Validation failed", details: error },
-        { status: 400 }
+        { status: 400, headers: corsHeaders(origin) as HeadersInit }
       );
     }
 
-    // Handle database errors
     if (error && typeof error === 'object' && 'code' in error) {
       const dbError = error as any;
-      if (dbError.code === '23505') { // Unique violation
+      if (dbError.code === '23505') {
         return NextResponse.json(
           { error: "Email or mobile number already registered" },
-          { status: 409 }
+          { status: 409, headers: corsHeaders(origin) as HeadersInit }
         );
       }
     }
 
     return NextResponse.json(
       { error: "Internal server error", details: (error as Error).message },
-      { status: 500 }
+      { status: 500, headers: corsHeaders(origin) as HeadersInit }
     );
   }
 }

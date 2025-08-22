@@ -1,13 +1,14 @@
 import { db } from "../../../config/db";
 import { quoteRequestsTable } from "../../../config/schema";
 import { NextRequest, NextResponse } from "next/server";
+
 const allowedOrigins = [
   "https://www.fiscalforum.in",
   "https://fiscalforum.in",
-  "http://localhost:3000"
+  "http://localhost:3000",
 ];
 
-function corsHeaders(origin: string | null) {
+function corsHeaders(origin: string | null): HeadersInit {
   if (origin && allowedOrigins.includes(origin)) {
     return {
       "Access-Control-Allow-Origin": origin,
@@ -18,19 +19,31 @@ function corsHeaders(origin: string | null) {
   return {};
 }
 
+// --- Handle Preflight ---
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  return new NextResponse(null, {
+    status: 204,
+    headers: corsHeaders(origin),
+  });
+}
 
 export async function POST(req: NextRequest) {
+  const origin = req.headers.get("origin");
   try {
     const body = await req.json();
     const { name, email, phone, loanAmount, tenure, loanType } = body;
 
     if (!name || !email || !phone || !loanAmount || !tenure || !loanType) {
-      return NextResponse.json(
-        {
+      return new NextResponse(
+        JSON.stringify({
           error:
             "Missing required fields: name, email, phone, loanAmount, tenure, loanType",
-        },
-        { status: 400 }
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders(origin) },
+        }
       );
     }
 
@@ -46,11 +59,14 @@ export async function POST(req: NextRequest) {
     ] as const;
 
     if (!validLoanTypes.includes(loanType)) {
-      return NextResponse.json(
-        {
+      return new NextResponse(
+        JSON.stringify({
           error: `Invalid loan type. Must be one of: ${validLoanTypes.join(", ")}`,
-        },
-        { status: 400 }
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders(origin) },
+        }
       );
     }
 
@@ -75,12 +91,21 @@ export async function POST(req: NextRequest) {
       })
       .returning();
 
-    return NextResponse.json(
-      { message: "Quote saved successfully", data: inserted },
-      { status: 201 }
+    return new NextResponse(
+      JSON.stringify({ message: "Quote saved successfully", data: inserted }),
+      {
+        status: 201,
+        headers: { "Content-Type": "application/json", ...corsHeaders(origin) },
+      }
     );
   } catch (error) {
     console.error("Error saving quote:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return new NextResponse(
+      JSON.stringify({ error: "Internal server error" }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json", ...corsHeaders(origin) },
+      }
+    );
   }
 }

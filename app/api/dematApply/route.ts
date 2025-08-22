@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { db } from "../../../config/db";
 import { dematApplications } from "../../../config/schema";
 
@@ -19,7 +19,13 @@ function corsHeaders(origin: string | null) {
   return {};
 }
 
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  return NextResponse.json({}, { headers: corsHeaders(origin) as HeadersInit });
+}
+
 export async function POST(req: Request) {
+  const origin = req.headers.get("origin");
   try {
     const body = await req.json();
 
@@ -34,6 +40,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: "Application submitted successfully!" });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ error: "Failed to submit application" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to submit application" }, { status: 500, headers: corsHeaders(origin) as HeadersInit  });
   }
 }

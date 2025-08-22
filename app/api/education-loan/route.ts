@@ -21,6 +21,14 @@ function corsHeaders(origin: string | null) {
   return {};
 }
 
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  return new NextResponse(null, {
+    status: 204,
+    headers: corsHeaders(origin) as HeadersInit,
+  });
+}
+
 // Schema for Education Loan Application
 const educationLoanSchema = z.object({
   // Applicant Details
@@ -82,9 +90,10 @@ const educationLoanSchema = z.object({
   }),
 });
 
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
+  const origin = req.headers.get("origin");
   try {
-    const body = await request.json();
+    const body = await req.json();
 
     // Validate input using Zod
     const parsedData = educationLoanSchema.safeParse(body);
@@ -92,7 +101,7 @@ export async function POST(request: NextRequest) {
     if (!parsedData.success) {
       return NextResponse.json(
         { error: 'Validation failed', issues: parsedData.error },
-        { status: 400 }
+        { status: 400, headers: corsHeaders(origin) as HeadersInit }
       );
     }
 
@@ -159,21 +168,22 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(
       { message: 'Application submitted successfully', data: newApplication },
-      { status: 201 }
+      { status: 201, headers: corsHeaders(origin) as HeadersInit }
     );
   } catch (error) {
     console.error('Error processing education loan application:', error);
     return NextResponse.json(
       { error: 'Internal Server Error' },
-      { status: 500 }
+      { status: 500, headers: corsHeaders(origin) as HeadersInit }
     );
   }
 }
 
 // GET endpoint to fetch applications (optional)
-export async function GET() {
-  return NextResponse.json({
-    message: "Education Loan Application API endpoint",
-    method: "POST"
-  });
+export async function GET(req: NextRequest) {
+  const origin = req.headers.get("origin");  
+  return NextResponse.json(
+      { message: "Education Loan Application API endpoint", method: "POST" },
+      { headers: corsHeaders(origin) as HeadersInit }
+    );
 }

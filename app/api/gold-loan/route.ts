@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
-import { goldLoanApplications } from '../../../config/schema';
-import { db } from '../../../config/db';
-
+import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+import { goldLoanApplications } from "../../../config/schema";
+import { db } from "../../../config/db";
 
 const allowedOrigins = [
   "https://www.fiscalforum.in",
   "https://fiscalforum.in",
-  "http://localhost:3000"
+  "http://localhost:3000",
 ];
 
 function corsHeaders(origin: string | null) {
@@ -20,6 +19,14 @@ function corsHeaders(origin: string | null) {
     };
   }
   return {};
+}
+
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  return new NextResponse(null, {
+    status: 204,
+    headers: corsHeaders(origin) as HeadersInit,
+  });
 }
 
 // Zod schema - EXACT MATCH with frontend
@@ -42,14 +49,14 @@ const goldLoanSchema = z.object({
   // Current Address
   currentHomeAddress1: z.string().min(1),
   currentHomeAddress2: z.string().optional(),
-  currentResidenceType: z.enum(['Owned', 'Rented']),
+  currentResidenceType: z.enum(["Owned", "Rented"]),
   currentPincode: z.string().length(6),
   currentState: z.string().min(1),
   currentCity: z.string().min(1),
   permanentAddressSame: z.boolean(),
   permanentHomeAddress1: z.string().min(1),
   permanentHomeAddress2: z.string().optional(),
-  permanentResidenceType: z.enum(['Owned', 'Rented']),
+  permanentResidenceType: z.enum(["Owned", "Rented"]),
   permanentPincode: z.string().length(6),
   permanentState: z.string().min(1),
   permanentCity: z.string().min(1),
@@ -61,9 +68,7 @@ const goldLoanSchema = z.object({
       z.number().min(1, "Gold weight must be greater than 0").optional()
     )
     .optional(),
-  goldPurity: z
-    .enum(["22K", "24K", "18K", "14K", "Other"])
-    .optional(),
+  goldPurity: z.enum(["22K", "24K", "18K", "14K", "Other"]).optional(),
 
   // Loan Amount
   loanAmountRequired: z.number().min(1, "Loan amount is required"),
@@ -88,6 +93,7 @@ const goldLoanSchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
+  const origin = req.headers.get("origin");
   try {
     const body = await req.json();
     const parsed = goldLoanSchema.parse(body);
@@ -122,7 +128,7 @@ export async function POST(req: NextRequest) {
       loanAmountRequired: parsed.loanAmountRequired,
       noOfCurrentLoans: parsed.noOfCurrentLoans,
       existingLoanType: parsed.existingLoanType || null,
-      
+
       // Flatten references
       reference1Name: parsed.reference1.name,
       reference1Mobile: parsed.reference1.mobile,
@@ -131,12 +137,14 @@ export async function POST(req: NextRequest) {
       reference2Mobile: parsed.reference2.mobile,
       reference2Address: parsed.reference2.address,
     };
-
-    const [result] = await db.insert(goldLoanApplications).values(insertData).returning();
+    const [result] = await db
+      .insert(goldLoanApplications)
+      .values(insertData)
+      .returning();
 
     return NextResponse.json(
-      { message: "Gold loan application submitted successfully",  result },
-      { status: 201 }
+      { message: "Gold loan application submitted successfully", result },
+      { status: 201, headers: corsHeaders(origin) as HeadersInit }
     );
   } catch (error) {
     console.error("Gold Loan Application Error:", error);
@@ -144,20 +152,21 @@ export async function POST(req: NextRequest) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "Validation failed", details: error },
-        { status: 400 }
+        { status: 400, headers: corsHeaders(origin) as HeadersInit }
       );
     }
 
     return NextResponse.json(
       { error: "Internal server error", details: (error as Error).message },
-      { status: 500 }
+      { status: 500, headers: corsHeaders(origin) as HeadersInit }
     );
   }
 }
 
-export async function GET() {
-  return NextResponse.json({
-    message: "Gold Loan Application API endpoint",
-    method: "POST"
-  });
+export async function GET(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  return NextResponse.json(
+    { message: "Gold Loan Application API endpoint", method: "POST" },
+    { headers: corsHeaders(origin) as HeadersInit }
+  );
 }

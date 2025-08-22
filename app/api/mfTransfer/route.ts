@@ -1,11 +1,11 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { db } from "../../../config/db";
 import { mfTransferForms } from "../../../config/schema";
 
 const allowedOrigins = [
   "https://www.fiscalforum.in",
   "https://fiscalforum.in",
-  "http://localhost:3000"
+  "http://localhost:3000",
 ];
 
 function corsHeaders(origin: string | null) {
@@ -19,67 +19,85 @@ function corsHeaders(origin: string | null) {
   return {};
 }
 
-export async function POST(request: Request) {
+// Handle preflight requests
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  return new NextResponse(null, {
+    status: 200,
+    headers: corsHeaders(origin) as HeadersInit,
+  });
+}
+
+export async function POST(req: NextRequest) {
+  const origin = req.headers.get("origin");
   try {
-    const body = await request.json();
-    
-    // Validate required fields
-    if (!body.fullName || !body.clientCode || !body.panNo || 
-        !body.mobileNo || !body.typeofInvestment
-         || !body.existingBroker) {
+    const body = await req.json();
+
+    if (
+      !body.fullName ||
+      !body.clientCode ||
+      !body.panNo ||
+      !body.mobileNo ||
+      !body.typeofInvestment ||
+      !body.existingBroker
+    ) {
       return NextResponse.json(
-        { error: 'All fields are required' },
-        { status: 400 }
+        { error: "All fields are required" },
+        { status: 400, headers: corsHeaders(origin)  as HeadersInit}
       );
     }
-    
-    // Validate PAN format
+
     const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
     if (!panRegex.test(body.panNo.toUpperCase())) {
       return NextResponse.json(
-        { error: 'Invalid PAN number format' },
-        { status: 400 }
+        { error: "Invalid PAN number format" },
+        { status: 400, headers: corsHeaders(origin)  as HeadersInit}
       );
     }
-    
-    // Validate mobile number
+
     const mobileRegex = /^[0-9]{10}$/;
     if (!mobileRegex.test(body.mobileNo)) {
       return NextResponse.json(
-        { error: 'Invalid mobile number format' },
-        { status: 400 }
+        { error: "Invalid mobile number format" },
+        { status: 400, headers: corsHeaders(origin) as HeadersInit }
       );
     }
-    
-    // Validate traderType array
-    if (!Array.isArray(body.typeofInvestment) || body.typeofInvestment.length === 0) {
+
+    if (
+      !Array.isArray(body.typeofInvestment) ||
+      body.typeofInvestment.length === 0
+    ) {
       return NextResponse.json(
-        { error: 'At least one trader type must be selected' },
-        { status: 400 }
+        { error: "At least one trader type must be selected" },
+        { status: 400, headers: corsHeaders(origin)  as HeadersInit}
       );
     }
-    
-    // Insert into database
-    const result = await db.insert(mfTransferForms).values({
-      fullName: body.fullName,
-      clientCode: body.clientCode,
-      panNo: body.panNo.toUpperCase(),
-      mobileNo: body.mobileNo,
-      typeofInvestment: body.typeofInvestment.join(','), // Store as comma-separated string
-      existingBroker: body.existingBroker,
-    }).returning({ id: mfTransferForms.id });
-    
-    return NextResponse.json({
-      success: true,
-      message: 'Application submitted successfully!',
-      id: result[0].id
-    });
-    
-  } catch (error) {
-    console.error('Database error:', error);
+
+    const result = await db
+      .insert(mfTransferForms)
+      .values({
+        fullName: body.fullName,
+        clientCode: body.clientCode,
+        panNo: body.panNo.toUpperCase(),
+        mobileNo: body.mobileNo,
+        typeofInvestment: body.typeofInvestment.join(","), // Store as comma-separated
+        existingBroker: body.existingBroker,
+      })
+      .returning({ id: mfTransferForms.id });
+
     return NextResponse.json(
-      { error: 'Failed to submit application' },
-      { status: 500 }
+      {
+        success: true,
+        message: "Application submitted successfully!",
+        id: result[0].id,
+      },
+      { status: 201, headers: corsHeaders(origin)  as HeadersInit}
+    );
+  } catch (error) {
+    console.error("Database error:", error);
+    return NextResponse.json(
+      { error: "Failed to submit application" },
+      { status: 500, headers: corsHeaders(origin)  as HeadersInit}
     );
   }
 }

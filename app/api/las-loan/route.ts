@@ -1,5 +1,5 @@
 // src/app/api/loan-against-securities/route.ts
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { db } from '../../../config/db'; // Adjust path as needed
 import { lasApplication } from '../../../config/schema'; // Adjust path as needed
@@ -20,7 +20,13 @@ function corsHeaders(origin: string | null) {
   }
   return {};
 }
-
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  return new NextResponse(null, {
+    status: 204,
+    headers: corsHeaders(origin) as HeadersInit,
+  });
+}
 // Zod schema for validation (same as frontend)
 const loanAgainstSecuritiesSchema = z.object({
   // Applicant Details
@@ -136,20 +142,21 @@ export async function POST(req: Request) {
     return NextResponse.json({ 
       message: "Application submitted successfully", 
       id: result[0].id 
-    }, { status: 201 });
+    }, { status: 201, headers: corsHeaders(origin) as HeadersInit });
 
   } catch (error) {
     console.error("Error submitting application:", error);
     
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ 
-        error: "Validation failed", 
-        details: error
-      }, { status: 400 });
+      return NextResponse.json(
+        { error: "Validation failed", details: error },
+        { status: 400, headers: corsHeaders(origin) as HeadersInit }
+      );
     }
 
-    return NextResponse.json({ 
-      error: "Failed to submit application" 
-    }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to submit application", details: (error as Error).message },
+      { status: 500, headers: corsHeaders(origin) as HeadersInit }
+    );
   }
 }

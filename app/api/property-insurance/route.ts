@@ -10,7 +10,7 @@ const allowedOrigins = [
   "http://localhost:3000"
 ];
 
-function corsHeaders(origin: string | null) {
+function corsHeaders(origin: string | null): HeadersInit {
   if (origin && allowedOrigins.includes(origin)) {
     return {
       "Access-Control-Allow-Origin": origin,
@@ -21,6 +21,19 @@ function corsHeaders(origin: string | null) {
   return {};
 }
 
+function withCORS(req: NextRequest, res: NextResponse) {
+  const origin = req.headers.get("origin");
+  const headers = corsHeaders(origin);
+  Object.entries(headers).forEach(([k, v]) => res.headers.set(k, v as string));
+  return res;
+}
+
+export async function OPTIONS(req: NextRequest) {
+  return withCORS(
+    req,
+    new NextResponse(null, { status: 204 }) // no content for preflight
+  );
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -31,8 +44,8 @@ export async function POST(req: NextRequest) {
     const email = ((form.get("email") as string) || "").trim();
     const propertyAddress = ((form.get("propertyAddress") as string) || "").trim();
 
-    const propertyType = (form.get("propertyType") as string)?.trim() || ""; // Home | Shop
-    const propertyOwnership = ((form.get("propertyOwnership") as string) || "").trim(); // Owned | Rented
+    const propertyType = (form.get("propertyType") as string)?.trim() || "";
+    const propertyOwnership = ((form.get("propertyOwnership") as string) || "").trim();
     const propertyValueRaw = ((form.get("propertyValue") as string) || "").trim();
     const contentsValueRaw = ((form.get("contentsValue") as string) || "").trim();
     const constructionType = ((form.get("constructionType") as string) || "").trim();
@@ -48,26 +61,26 @@ export async function POST(req: NextRequest) {
     const insurerPrefsRaw = (form.get("insurerPrefs") as string) || "[]";
     const otherInsurer = ((form.get("otherInsurer") as string) || "").trim();
 
-    // Validation
-    if (!name) return NextResponse.json({ success: false, error: "Name is required" }, { status: 400 });
-    if (!/^\d{10}$/.test(phone)) return NextResponse.json({ success: false, error: "Phone must be 10 digits" }, { status: 400 });
-    if (email && !/^([^\s@]+)@([^\s@]+)\.[^\s@]+$/.test(email)) return NextResponse.json({ success: false, error: "Invalid email" }, { status: 400 });
-    if (!propertyType) return NextResponse.json({ success: false, error: "Property type is required" }, { status: 400 });
+    // --- Validation ---
+    if (!name) return withCORS(req, NextResponse.json({ success: false, error: "Name is required" }, { status: 400 }));
+    if (!/^\d{10}$/.test(phone)) return withCORS(req, NextResponse.json({ success: false, error: "Phone must be 10 digits" }, { status: 400 }));
+    if (email && !/^([^\s@]+)@([^\s@]+)\.[^\s@]+$/.test(email)) return withCORS(req, NextResponse.json({ success: false, error: "Invalid email" }, { status: 400 }));
+    if (!propertyType) return withCORS(req, NextResponse.json({ success: false, error: "Property type is required" }, { status: 400 }));
 
     if (policyExpiry && !/^\d{2}\/\d{2}\/\d{4}$/.test(policyExpiry)) {
-      return NextResponse.json({ success: false, error: "Policy expiry must be dd/mm/yyyy" }, { status: 400 });
+      return withCORS(req, NextResponse.json({ success: false, error: "Policy expiry must be dd/mm/yyyy" }, { status: 400 }));
     }
 
     const isDrive = (link: string) => /^(https?:\/\/)?(www\.)?drive\.google\.com\//i.test(link);
     if (prevPolicyLink && !isDrive(prevPolicyLink)) {
-      return NextResponse.json({ success: false, error: "Previous policy link must be a public Google Drive URL" }, { status: 400 });
+      return withCORS(req, NextResponse.json({ success: false, error: "Previous policy link must be a public Google Drive URL" }, { status: 400 }));
     }
 
-    const propertyValue = propertyValueRaw || null; // Keep as string or null
-    const contentsValue = contentsValueRaw || null; 
+    const propertyValue = propertyValueRaw || null;
+    const contentsValue = contentsValueRaw || null;
     const yearOfConstruction = yearOfConstructionRaw ? parseInt(yearOfConstructionRaw) : null;
     if (yearOfConstruction !== null && (yearOfConstruction < 1800 || yearOfConstruction > new Date().getFullYear())) {
-      return NextResponse.json({ success: false, error: "Invalid year of construction" }, { status: 400 });
+      return withCORS(req, NextResponse.json({ success: false, error: "Invalid year of construction" }, { status: 400 }));
     }
 
     let coverageOptions: string[] = [];
@@ -77,7 +90,7 @@ export async function POST(req: NextRequest) {
 
     const hasExistingPolicy = ["true","1","on","yes"].includes(hasExistingPolicyRaw.toLowerCase());
 
-    // Resolve user
+    // --- Resolve user ---
     let userId: string | null = null;
     try {
       const cu = await currentUser();
@@ -87,12 +100,22 @@ export async function POST(req: NextRequest) {
         const existing = await db.select().from(usersTable).where(eq(usersTable.email, clerkEmail));
         if (existing.length > 0) userId = existing[0].id as string;
         else {
-          const [created] = await db.insert(usersTable).values({ name: fullName, email: clerkEmail, age: 18, password: "", role: "USER", status: "PENDING" }).returning();
+          const [created] = await db.insert(usersTable).values({
+            name: fullName,
+            email: clerkEmail,
+            age: 18,
+            password: "",
+            role: "USER",
+            status: "PENDING"
+          }).returning();
           userId = created.id as string;
         }
       }
-    } catch { userId = null; }
+    } catch {
+      userId = null;
+    }
 
+    // --- Insert DB record ---
     const [saved] = await db.insert(propertyInsuranceRequests).values({
       userId,
       name,
@@ -114,13 +137,10 @@ export async function POST(req: NextRequest) {
       otherInsurer: otherInsurer || null,
     }).returning();
 
-    return NextResponse.json({ success: true, data: saved }, { status: 201 });
+    return withCORS(req, NextResponse.json({ success: true, data: saved }, { status: 201 }));
   } catch (error: unknown) {
-    // eslint-disable-next-line no-console
     console.error("Property insurance POST error:", error);
     const message = error instanceof Error ? error.message : "Internal error";
-    return NextResponse.json({ success: false, error: message }, { status: 500 });
+    return withCORS(req, NextResponse.json({ success: false, error: message }, { status: 500 }));
   }
 }
-
-export const config = { api: { bodyParser: false } };

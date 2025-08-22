@@ -3,13 +3,14 @@ import { currentUser } from "@clerk/nextjs/server";
 import { db } from "../../../config/db";
 import { travelInsuranceRequests, usersTable } from "../../../config/schema";
 import { eq } from "drizzle-orm";
+
 const allowedOrigins = [
   "https://www.fiscalforum.in",
   "https://fiscalforum.in",
-  "http://localhost:3000"
+  "http://localhost:3000",
 ];
 
-function corsHeaders(origin: string | null) {
+function corsHeaders(origin: string | null): HeadersInit {
   if (origin && allowedOrigins.includes(origin)) {
     return {
       "Access-Control-Allow-Origin": origin,
@@ -20,7 +21,18 @@ function corsHeaders(origin: string | null) {
   return {};
 }
 
+// --- Preflight handler
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  return new NextResponse(null, {
+    status: 204,
+    headers: corsHeaders(origin),
+  });
+}
+
 export async function POST(req: NextRequest) {
+  const origin = req.headers.get("origin");
+
   try {
     const form = await req.formData();
 
@@ -32,7 +44,7 @@ export async function POST(req: NextRequest) {
     const passportNumber = ((form.get("passportNumber") as string) || "").trim();
 
     // Trip
-    const travelType = (form.get("travelType") as string)?.trim() || ""; // Single | Multi
+    const travelType = (form.get("travelType") as string)?.trim() || "";
     const destinations = ((form.get("destinations") as string) || "").trim();
     const startDate = ((form.get("startDate") as string) || "").trim();
     const endDate = ((form.get("endDate") as string) || "").trim();
@@ -51,23 +63,30 @@ export async function POST(req: NextRequest) {
     const insurerPrefsRaw = (form.get("insurerPrefs") as string) || "[]";
     const otherInsurer = ((form.get("otherInsurer") as string) || "").trim();
 
-    // Validation
-    if (!name) return NextResponse.json({ success: false, error: "Name is required" }, { status: 400 });
-    if (!/^\d{10}$/.test(phone)) return NextResponse.json({ success: false, error: "Phone must be 10 digits" }, { status: 400 });
-    if (email && !/^([^\s@]+)@([^\s@]+)\.[^\s@]+$/.test(email)) return NextResponse.json({ success: false, error: "Invalid email" }, { status: 400 });
-    if (dob && !/^\d{2}\/\d{2}\/\d{4}$/.test(dob)) return NextResponse.json({ success: false, error: "DOB must be dd/mm/yyyy" }, { status: 400 });
-    if (!travelType) return NextResponse.json({ success: false, error: "Travel type is required" }, { status: 400 });
-    if (startDate && !/^\d{2}\/\d{2}\/\d{4}$/.test(startDate)) return NextResponse.json({ success: false, error: "Start date must be dd/mm/yyyy" }, { status: 400 });
-    if (endDate && !/^\d{2}\/\d{2}\/\d{4}$/.test(endDate)) return NextResponse.json({ success: false, error: "End date must be dd/mm/yyyy" }, { status: 400 });
+    // --- Validation
+    if (!name)
+      return NextResponse.json({ success: false, error: "Name is required" }, { status: 400, headers: corsHeaders(origin) });
+    if (!/^\d{10}$/.test(phone))
+      return NextResponse.json({ success: false, error: "Phone must be 10 digits" }, { status: 400, headers: corsHeaders(origin) });
+    if (email && !/^([^\s@]+)@([^\s@]+)\.[^\s@]+$/.test(email))
+      return NextResponse.json({ success: false, error: "Invalid email" }, { status: 400, headers: corsHeaders(origin) });
+    if (dob && !/^\d{2}\/\d{2}\/\d{4}$/.test(dob))
+      return NextResponse.json({ success: false, error: "DOB must be dd/mm/yyyy" }, { status: 400, headers: corsHeaders(origin) });
+    if (!travelType)
+      return NextResponse.json({ success: false, error: "Travel type is required" }, { status: 400, headers: corsHeaders(origin) });
+    if (startDate && !/^\d{2}\/\d{2}\/\d{4}$/.test(startDate))
+      return NextResponse.json({ success: false, error: "Start date must be dd/mm/yyyy" }, { status: 400, headers: corsHeaders(origin) });
+    if (endDate && !/^\d{2}\/\d{2}\/\d{4}$/.test(endDate))
+      return NextResponse.json({ success: false, error: "End date must be dd/mm/yyyy" }, { status: 400, headers: corsHeaders(origin) });
 
     const isDrive = (link: string) => /^(https?:\/\/)?(www\.)?drive\.google\.com\//i.test(link);
     if (prevPolicyLink && !isDrive(prevPolicyLink)) {
-      return NextResponse.json({ success: false, error: "Previous policy link must be a public Google Drive URL" }, { status: 400 });
+      return NextResponse.json({ success: false, error: "Previous policy link must be a public Google Drive URL" }, { status: 400, headers: corsHeaders(origin) });
     }
 
     const numTravellers = numTravellersRaw ? parseInt(numTravellersRaw) : null;
     if (numTravellers !== null && (isNaN(numTravellers) || numTravellers <= 0)) {
-      return NextResponse.json({ success: false, error: "Invalid number of travellers" }, { status: 400 });
+      return NextResponse.json({ success: false, error: "Invalid number of travellers" }, { status: 400, headers: corsHeaders(origin) });
     }
 
     let coverageOptions: string[] = [];
@@ -77,7 +96,7 @@ export async function POST(req: NextRequest) {
 
     const hasExistingPolicy = ["true","1","on","yes"].includes(hasExistingPolicyRaw.toLowerCase());
 
-    // Resolve user to local UUID
+    // --- Resolve Clerk user to local UUID
     let userId: string | null = null;
     try {
       const cu = await currentUser();
@@ -87,12 +106,22 @@ export async function POST(req: NextRequest) {
         const existing = await db.select().from(usersTable).where(eq(usersTable.email, clerkEmail));
         if (existing.length > 0) userId = existing[0].id as string;
         else {
-          const [created] = await db.insert(usersTable).values({ name: fullName, email: clerkEmail, age: 18, password: "", role: "USER", status: "PENDING" }).returning();
+          const [created] = await db.insert(usersTable).values({
+            name: fullName,
+            email: clerkEmail,
+            age: 18,
+            password: "",
+            role: "USER",
+            status: "PENDING",
+          }).returning();
           userId = created.id as string;
         }
       }
-    } catch { userId = null; }
+    } catch {
+      userId = null;
+    }
 
+    // --- Save request
     const [saved] = await db.insert(travelInsuranceRequests).values({
       userId,
       name,
@@ -114,12 +143,11 @@ export async function POST(req: NextRequest) {
       otherInsurer: otherInsurer || null,
     }).returning();
 
-    return NextResponse.json({ success: true, data: saved }, { status: 201 });
+    return NextResponse.json({ success: true, data: saved }, { status: 201, headers: corsHeaders(origin) });
   } catch (error: unknown) {
-    // eslint-disable-next-line no-console
     console.error("Travel insurance POST error:", error);
     const message = error instanceof Error ? error.message : "Internal error";
-    return NextResponse.json({ success: false, error: message }, { status: 500 });
+    return NextResponse.json({ success: false, error: message }, { status: 500, headers: corsHeaders(req.headers.get("origin")) });
   }
 }
 

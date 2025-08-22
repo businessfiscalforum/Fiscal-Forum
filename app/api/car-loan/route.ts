@@ -101,6 +101,7 @@ const carLoanSchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
+  const origin = req.headers.get("origin");
   try {
     const body = await req.json();
     const parsed = carLoanSchema.parse(body);
@@ -154,7 +155,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       { message: "Car loan application submitted successfully",  result },
-      { status: 201 }
+      { status: 201, headers: corsHeaders(origin) as HeadersInit }
     );
   } catch (error) {
     console.error("Car Loan Application Error:", error);
@@ -162,20 +163,21 @@ export async function POST(req: NextRequest) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "Validation failed", details: error},
-        { status: 400 }
+        { status: 400, headers: corsHeaders(origin) as HeadersInit }
       );
     }
 
     return NextResponse.json(
       { error: "Internal server error", details: (error as Error).message },
-      { status: 500 }
+      { status: 500, headers: corsHeaders(origin) as HeadersInit }
     );
   }
 }
 
-export async function GET() {
-  return NextResponse.json({
-    message: "Car Loan Application API endpoint",
-    method: "POST"
-  });
+export async function GET(req: NextRequest) {
+  const origin = req.headers.get("origin");
+    return NextResponse.json(
+      { message: "Car Loan Application API endpoint", method: "POST" },
+      { headers: corsHeaders(origin) as HeadersInit }
+    );
 }

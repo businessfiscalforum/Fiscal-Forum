@@ -21,7 +21,17 @@ function corsHeaders(origin: string | null) {
   return {};
 }
 
+// Handle preflight requests
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  return new NextResponse(null, {
+    status: 200,
+    headers: corsHeaders(origin) as HeadersInit,
+  });
+}
+
 export async function POST(req: NextRequest) {
+  const origin = req.headers.get("origin");
   try {
     const form = await req.formData();
 
@@ -42,27 +52,27 @@ export async function POST(req: NextRequest) {
     const otherInsurer = ((form.get("otherInsurer") as string) || "").trim();
 
     if (!name) {
-      return NextResponse.json({ success: false, error: "Name is required" }, { status: 400 });
+      return NextResponse.json({ success: false, error: "Name is required" }, { status: 400, headers: corsHeaders(origin)  as HeadersInit});
     }
     if (!/^\d{10}$/.test(phone)) {
-      return NextResponse.json({ success: false, error: "Phone must be 10 digits" }, { status: 400 });
+      return NextResponse.json({ success: false, error: "Phone must be 10 digits" }, { status: 400, headers: corsHeaders(origin)  as HeadersInit});
     }
     if (email && !/^([^\s@]+)@([^\s@]+)\.[^\s@]+$/.test(email)) {
-      return NextResponse.json({ success: false, error: "Invalid email format" }, { status: 400 });
+      return NextResponse.json({ success: false, error: "Invalid email format" }, { status: 400, headers: corsHeaders(origin)  as HeadersInit});
     }
 
     const sumAssured = sumAssuredRaw ? Number(sumAssuredRaw) : null;
     if (sumAssuredRaw && (Number.isNaN(sumAssured) || sumAssured! <= 0)) {
-      return NextResponse.json({ success: false, error: "Sum assured must be a positive number" }, { status: 400 });
+      return NextResponse.json({ success: false, error: "Sum assured must be a positive number" }, { status: 400, headers: corsHeaders(origin)  as HeadersInit});
     }
     const policyTermYears = policyTermYearsRaw ? Number(policyTermYearsRaw) : null;
     if (policyTermYearsRaw && (Number.isNaN(policyTermYears) || policyTermYears! <= 0)) {
-      return NextResponse.json({ success: false, error: "Policy term must be a positive number" }, { status: 400 });
+      return NextResponse.json({ success: false, error: "Policy term must be a positive number" }, { status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
 
     const isDrive = (link: string) => /^(https?:\/\/)?(www\.)?drive\.google\.com\//i.test(link);
     if (prevPolicyLink && !isDrive(prevPolicyLink)) {
-      return NextResponse.json({ success: false, error: "Previous policy link must be a public Google Drive URL" }, { status: 400 });
+      return NextResponse.json({ success: false, error: "Previous policy link must be a public Google Drive URL" }, { status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
 
     let policyTypes: string[] = [];
@@ -125,17 +135,14 @@ export async function POST(req: NextRequest) {
       })
       .returning();
 
-    return NextResponse.json({ success: true, data: saved }, { status: 201 });
+    return NextResponse.json({ success: true, data: saved }, { status: 201, headers: corsHeaders(origin) as HeadersInit });
   } catch (error: unknown) {
-    // eslint-disable-next-line no-console
     console.error("Life insurance POST error:", error);
     const message = error instanceof Error ? error.message : "Internal error";
-    return NextResponse.json({ success: false, error: message }, { status: 500 });
+    return NextResponse.json({ success: false, error: message }, { status: 500, headers: corsHeaders(origin)  as HeadersInit});
   }
 }
 
 export const config = {
   api: { bodyParser: false },
 };
-
-

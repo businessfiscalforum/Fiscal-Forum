@@ -1,4 +1,3 @@
-
 import { db } from "../../../config/db";
 import { usersTable } from "../../../config/schema";
 import { currentUser } from "@clerk/nextjs/server";
@@ -9,10 +8,10 @@ import bcrypt from "bcryptjs";
 const allowedOrigins = [
   "https://www.fiscalforum.in",
   "https://fiscalforum.in",
-  "http://localhost:3000"
+  "http://localhost:3000",
 ];
 
-function corsHeaders(origin: string | null) {
+function corsHeaders(origin: string | null):HeadersInit {
   if (origin && allowedOrigins.includes(origin)) {
     return {
       "Access-Control-Allow-Origin": origin,
@@ -23,20 +22,28 @@ function corsHeaders(origin: string | null) {
   return {};
 }
 
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// Handle POST /api/your-endpoint
 export async function POST(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  const headers = corsHeaders(origin);
+
   const clerkUser = await currentUser();
 
   if (!clerkUser || !clerkUser.emailAddresses.length) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json(
+      { error: "Unauthorized" },
+      { status: 401, headers }
+    );
   }
 
   const userEmail = clerkUser.emailAddresses[0]?.emailAddress ?? "";
   const userName = clerkUser.fullName ?? "Anonymous";
 
   if (!userEmail) {
-    return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Invalid email address" },
+      { status: 400, headers }
+    );
   }
 
   try {
@@ -46,7 +53,7 @@ export async function POST(req: NextRequest) {
       .where(eq(usersTable.email, userEmail));
 
     if (existing.length > 0) {
-      return NextResponse.json(existing[0], { status: 200 });
+      return NextResponse.json(existing[0], { status: 200, headers });
     }
 
     const hashedPassword = await bcrypt.hash("defaultpassword123", 10);
@@ -62,9 +69,19 @@ export async function POST(req: NextRequest) {
         status: "PENDING",
       })
       .returning();
-    return NextResponse.json(newUser, { status: 201 });
+
+    return NextResponse.json(newUser, { status: 201, headers });
   } catch (error) {
     console.error("User insert error:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500, headers }
+    );
   }
+}
+
+// Handle preflight CORS
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  return NextResponse.json({}, { status: 200, headers: corsHeaders(origin) });
 }

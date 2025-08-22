@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { db } from "../../../config/db";
 import { documentSubmissions } from "../../../config/schema";
 
@@ -19,7 +19,16 @@ function corsHeaders(origin: string | null) {
   return {};
 }
 
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  return new NextResponse(null, {
+    status: 204,
+    headers: corsHeaders(origin) as HeadersInit,
+  });
+}
+
 export async function POST(request: Request) {
+    const origin = request.headers.get("origin");
   try {
     const body = await request.json();
 
@@ -29,20 +38,20 @@ export async function POST(request: Request) {
     if (!name || !email || !mobile || documentSent === undefined) {
       return NextResponse.json(
         { error: "All fields are required" },
-        { status: 400 }
+        { status: 400,  headers: corsHeaders(origin) as HeadersInit   }
       );
     }
 
     // Validate email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return NextResponse.json({ error: "Invalid email format" }, { status: 400 });
+      return NextResponse.json({ error: "Invalid email format" }, { status: 400,  headers: corsHeaders(origin) as HeadersInit   });
     }
 
     // Validate mobile number
     const mobileRegex = /^[0-9]{10}$/;
     if (!mobileRegex.test(mobile)) {
-      return NextResponse.json({ error: "Mobile must be a 10-digit number" }, { status: 400 });
+      return NextResponse.json({ error: "Mobile must be a 10-digit number" }, { status: 400,  headers: corsHeaders(origin) as HeadersInit  });
     }
 
     // Insert into DB
@@ -63,7 +72,7 @@ export async function POST(request: Request) {
     console.error("Database error:", error);
     return NextResponse.json(
       { error: "Failed to submit document information" },
-      { status: 500 }
+      { status: 500,  headers: corsHeaders(origin) as HeadersInit  }
     );
   }
 }

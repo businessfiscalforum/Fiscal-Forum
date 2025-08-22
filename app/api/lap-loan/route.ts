@@ -21,13 +21,22 @@ function corsHeaders(origin: string | null) {
   return {};
 }
 
+// Handle CORS preflight
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  return new NextResponse(null, {
+    status: 204,
+    headers: corsHeaders(origin) as HeadersInit,
+  });
+}
+
 // Zod schema aligned with DB
 const applicationSchema = z.object({
   firstName: z.string().min(1),
   middleName: z.string().optional(),
   lastName: z.string().min(1),
   fatherName: z.string().optional(),
-  dob: z.string().optional(), // DB: date, so we’ll cast later
+  dob: z.string().optional(),
   panNumber: z.string().regex(/^[A-Z]{5}[0-9]{4}[A-Z]$/, "Invalid format"),
   email: z.string().email(),
   mobileNo: z.string().min(10).max(15),
@@ -55,13 +64,13 @@ const applicationSchema = z.object({
   companyCity: z.string().optional(),
   companyState: z.string().optional(),
 
-  monthlySalary: z.preprocess(val => Number(val), z.number().min(0)), // NOT optional, DB requires notNull()
+  monthlySalary: z.preprocess(val => Number(val), z.number().min(0)),
   experienceInMonths: z.preprocess(val => Number(val), z.number().min(0)).optional(),
   currentJobStability: z.enum(['Less than 6 months', '6-12 months', '1-2 years', 'More than 2 years']).optional(),
 
   propertyType: z.enum(['Residential', 'Commercial']),
-  agreementValue: z.preprocess(val => Number(val), z.number().min(1)), // DB: integer
-  loanAmountRequired: z.preprocess(val => Number(val), z.number().min(1)), // DB: notNull
+  agreementValue: z.preprocess(val => Number(val), z.number().min(1)),
+  loanAmountRequired: z.preprocess(val => Number(val), z.number().min(1)),
   propertyAddress1: z.string().min(1),
   propertyAddress2: z.string().optional(),
   propertyCity: z.string().min(1),
@@ -83,17 +92,15 @@ const applicationSchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
+  const origin = req.headers.get("origin");
+
   try {
     const body = await req.json();
     const parsed = applicationSchema.parse(body);
 
-    const insertData = {
+    const insertData: any = {
       ...parsed,
-
-      // Cast date string → JS Date (since DB column is date)
       dob: parsed.dob ? parsed.dob : null,
-
-      // Flatten references
       reference1Name: parsed.reference1.name,
       reference1Mobile: parsed.reference1.mobile,
       reference1Address: parsed.reference1.address,
@@ -102,14 +109,14 @@ export async function POST(req: NextRequest) {
       reference2Address: parsed.reference2.address,
     };
 
-    delete (insertData as any).reference1;
-    delete (insertData as any).reference2;
+    delete insertData.reference1;
+    delete insertData.reference2;
 
     const [result] = await db.insert(lapApplications).values(insertData).returning();
 
     return NextResponse.json(
       { message: "Application submitted successfully", data: result },
-      { status: 201 }
+      { status: 201, headers: corsHeaders(origin) as HeadersInit }
     );
   } catch (error) {
     console.error("Validation/DB error:", error);
@@ -117,13 +124,13 @@ export async function POST(req: NextRequest) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: "Validation failed", details: error },
-        { status: 400 }
+        { status: 400, headers: corsHeaders(origin) as HeadersInit }
       );
     }
 
     return NextResponse.json(
       { error: "Internal server error", details: (error as Error).message },
-      { status: 500 }
+      { status: 500, headers: corsHeaders(origin) as HeadersInit }
     );
   }
 }
