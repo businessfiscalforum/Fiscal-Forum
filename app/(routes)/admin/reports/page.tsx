@@ -10,7 +10,7 @@ export default async function NewsListPage() {
   const reports = await db
     .select()
     .from(researchReportsTable)
-    .orderBy(researchReportsTable.date);
+    .orderBy(researchReportsTable.publishDate);
 
   return (
     <div>
@@ -36,7 +36,7 @@ export default async function NewsListPage() {
               <div className="flex-1">
                 <h3 className="text-lg font-semibold">{item.title}</h3>
                 <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
-                  <span>📅 {item.date}</span>
+                  <span>📅 {item.publishDate}</span>
                   <span>👤 {item.author}</span>
                   <span>🔖 {item.stock}</span>
                   <span>👁️ {item.views}</span>

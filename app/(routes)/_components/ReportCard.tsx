@@ -5,11 +5,12 @@ import { ShareButton } from "./ShareButton";
 
 // ✅ Define exact enum to match DB
 export const reportTypeOptions = [
-  "Quarterly Results",
-  "Sector Analysis",
-  "Industry Report",
-  "Thematic Report",
-  "Company Analysis",
+  'Pre-Market Research Report',
+  'Quarterly Results',
+  'Industry Analysis',
+  'Thematic Research Report',
+  'Company Analysis',
+  'Equity Research Report'
 ] as const;
 
 export const ratingOptions = ["BUY", "HOLD", "SELL"] as const;
@@ -25,7 +26,7 @@ export interface ResearchReport {
   company: string;
   author: string;
   authorFirm: string;
-  date: string;
+  publishDate: string;
   sector: string;
   reportType: ReportType;
   rating: Rating;
@@ -113,7 +114,7 @@ export function ReportCard({ report }: ReportCardProps) {
 
       {/* Date */}
       <td className="px-4 py-3 text-sm text-gray-600">
-        {formatDate(report.date)}
+        {formatDate(report.publishDate)}
       </td>
 
       {/* Rating & Target */}

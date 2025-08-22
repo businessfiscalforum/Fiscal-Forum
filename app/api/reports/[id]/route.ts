@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
       NextResponse.json(
         reports.map((r) => ({
           ...r,
-          date: r.date.toString(), // serialize date
+          date: r.publishDate.toString(), // serialize date
         }))
       )
     );

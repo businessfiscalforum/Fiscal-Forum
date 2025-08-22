@@ -391,7 +391,7 @@ export default function MutualPage() {
               })}
             </div>
           </div>
-          <section className="py-16 mx-auto max-w-4xl text-center bg-gradient-to-r from-teal-600 to-green-600 text-white rounded-2xl px-6">
+          <section className="py-16 my-10 mx-4 sm:mx-auto max-w-4xl text-center bg-gradient-to-r from-teal-600 to-green-600 text-white rounded-2xl px-6">
             <Phone className="w-16 h-16 mx-auto mb-6" />
             <h2 className="text-3xl font-bold mb-4">
               Need Help? Talk to an Expert

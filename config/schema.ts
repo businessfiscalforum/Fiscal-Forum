@@ -148,10 +148,12 @@ export const newsCategoryEnum = pgEnum('news_category', [
 
 //research
 export const reportTypeEnum = pgEnum('report_type', [
+  'Pre-Market Research Report',
   'Quarterly Results',
   'Industry Analysis',
-  'Thematic Report',
+  'Thematic Research Report',
   'Company Analysis',
+  'Equity Research Report'
 ]);
 
 export const ratingEnum = pgEnum("rating", ["BUY", "HOLD", "SELL"]);
@@ -901,7 +903,7 @@ export const researchReportsTable = pgTable("research_reports", {
   company: text("company").notNull(),
   author: text("author").notNull(),
   authorFirm: text("author_firm").notNull(),
-  date: timestamp("date", { mode: "string" }).notNull(), // "2024-01-25"
+  publishDate: timestamp("publish_date", { mode: "string" }).notNull(), 
   sector: text("sector").notNull(),
   reportType: reportTypeEnum("report_type").notNull(),
   rating: ratingEnum("rating").notNull(),
@@ -911,7 +913,7 @@ export const researchReportsTable = pgTable("research_reports", {
   pages: integer("pages").notNull(),
   views: integer("views").notNull().default(0),
   recommendation: text("recommendation").notNull(),
-  tags: text("tags").array(), // ["Banking", "NPA Analysis"]
+  tags: text("tags").array(),
   summary: text("summary").notNull(),
   pdfUrl: text("pdf_url").notNull(),
   published: boolean("published").default(true),

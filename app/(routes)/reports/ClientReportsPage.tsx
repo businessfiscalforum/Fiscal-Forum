@@ -23,7 +23,7 @@ interface ResearchReport {
   company: string;
   author: string;
   authorFirm: string;
-  date: string;
+  publishDate: string;
   sector: string;
   reportType: string;
   rating: "BUY" | "HOLD" | "SELL";
@@ -46,6 +46,7 @@ export default function ClientReportsPage({
   initialReports,
 }: ClientReportsPageProps) {
   const tabs = [
+    {id: "all", label: "All"},
     { id: "pre-market-research-report", label: "Pre-Market Research Report" },
     { id: "thematic-report", label: "Thematic Report" },
     { id: "equity-research-report", label: "Equity Research Report" },
@@ -86,14 +87,17 @@ export default function ClientReportsPage({
     try {
       let apiUrl = "";
       switch (tabId) {
-        case "pre-market-research-report":
+        case "all":
           apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/reports`;
+          break;
+        case "pre-market-research-report":
+          apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/reports/pre-market-report`;
           break;
         case "thematic-report":
-          apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/reports`;
+          apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/reports/thematic-report`;
           break;
         case "equity-research-report":
-          apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/reports`;
+          apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/reports/equity-report`;
           break;
         default:
           apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/reports`;
@@ -148,7 +152,7 @@ export default function ClientReportsPage({
       let comparison = 0;
       switch (sortBy) {
         case "date":
-          comparison = new Date(b.date).getTime() - new Date(a.date).getTime();
+          comparison = new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime();
           break;
         case "title":
           comparison = a.title.localeCompare(b.title);
@@ -200,7 +204,9 @@ export default function ClientReportsPage({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100" style={{
+        fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
+      }}>
       <div className="max-w-full">
         {/* Header Section */}
         <div className="relative overflow-hidden bg-gradient-to-r from-emerald-900 via-teal-900 to-green-900 text-white py-30">
@@ -415,7 +421,7 @@ export default function ClientReportsPage({
                           <td className="px-6 py-4">
                             <div className="flex items-center gap-2 text-sm text-gray-600">
                               <FaCalendarAlt className="text-emerald-400 text-xs" />
-                              {formatDate(report.date)}
+                              {formatDate(report.publishDate)}
                             </div>
                           </td>
 

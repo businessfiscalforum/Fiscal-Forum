@@ -64,7 +64,7 @@ const creditCards: CreditCard[] = [
     ],
     eligibilityNote: "Fill in your details to check eligibility. HDFC will suggest the most suitable card based on your income and credit score.",
     howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
-    pdfLink: "https://drive.google.com/file/d/1ey1TyO_pAKxOMzkbwKnlzFrKGaWxhAQY/view?usp=sharing",
+    pdfLink: "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
     applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19iYW5r&bank_source=aGRmY19iYW5r&agent_code=",
   },
   {
@@ -102,7 +102,7 @@ const creditCards: CreditCard[] = [
     ],
     eligibilityNote: "Submit your details to know eligibility. IndusInd will recommend the best card option based on your profile and financials.",
     howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
-    pdfLink: "https://drive.google.com/file/d/1eKIZY1oSNe_Ot9584QsVzmIu1MWHoxte/view?usp=sharing",
+    pdfLink: "https://drive.google.com/file/d/1lIFkItdpCuZLvvz5Tp62DrkrV8uhxXIw/view?usp=sharing",
     applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aW5kdXNpbmRfYmFuaw==&bank_source=aW5kdXNfYmFuaw==&agent_code=",
   },
   {
@@ -139,7 +139,7 @@ const creditCards: CreditCard[] = [
     ],
     eligibilityNote: "Provide your information to verify eligibility. HSBC automatically selects the best card as per your credit history and income.",
     howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
-    pdfLink: "https://drive.google.com/file/d/1TR_E3PojHQQA6UUqgr2cOfPcSCvRcysW/view?usp=sharing",
+    pdfLink: "https://drive.google.com/file/d/1fUnUq44G-5sfNCWIbgzJ8cHG9_IvKdBK/view?usp=sharing",
     applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY19iYW5r&bank_source=aHNiY19iYW5r&agent_code=",
   },
   {
@@ -173,7 +173,7 @@ const creditCards: CreditCard[] = [
     ],
     eligibilityNote: "Check eligibility by filling your details. HDFC evaluates your credit score and income to provide the most relevant card.",
     howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
-    pdfLink: "https://drive.google.com/file/d/1ey1TyO_pAKxOMzkbwKnlzFrKGaWxhAQY/view?usp=sharing",
+    pdfLink: "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
     applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19zd2lnZ3k=&bank_source=aGRmY19iYW5r&agent_code=",
   },
   {
@@ -205,7 +205,7 @@ const creditCards: CreditCard[] = [
     ],
     eligibilityNote: "Fill in your details to proceed. Axis Bank matches your profile with the best LIC credit card variant available.",
     howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
-    pdfLink: "https://drive.google.com/file/d/1jO0DMuJlStdcylan4b9ST_ExLWzN37Kb/view?usp=sharing",
+    pdfLink: "https://drive.google.com/file/d/1qCTgChpQVEQtvaBWymCHwC1LLdRT4T-y/view?usp=sharing",
     applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19saWM=&bank_source=YXhpc19saWM=&agent_code=",
   },
   {
@@ -275,7 +275,7 @@ const creditCards: CreditCard[] = [
     ],
     eligibilityNote: "Provide your details to check eligibility. HSBC recommends Live Plus card based on your spending profile and financial history.",
     howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
-    pdfLink: "https://drive.google.com/file/d/1TR_E3PojHQQA6UUqgr2cOfPcSCvRcysW/view?usp=sharing",
+    pdfLink: "https://drive.google.com/file/d/1fUnUq44G-5sfNCWIbgzJ8cHG9_IvKdBK/view?usp=sharing",
     applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY19saXZlX3BsdXM=&bank_source=aHNiY19iYW5r&agent_code=",
   },
   {
@@ -308,7 +308,7 @@ const creditCards: CreditCard[] = [
     ],
     eligibilityNote: "Fill in your details to see if you qualify. HSBC automatically finds the best travel card depending on your income and credit.",
     howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
-    pdfLink: "https://drive.google.com/file/d/1TR_E3PojHQQA6UUqgr2cOfPcSCvRcysW/view?usp=sharing",
+    pdfLink: "https://drive.google.com/file/d/1fUnUq44G-5sfNCWIbgzJ8cHG9_IvKdBK/view?usp=sharing",
     applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY190cmF2ZWxvbmVfY2FyZA==&bank_source=aHNiY19iYW5r&agent_code=",
   },
   {
@@ -340,7 +340,7 @@ const creditCards: CreditCard[] = [
     ],
     eligibilityNote: "Enter your details to verify eligibility. Axis offers FD-backed cards based on your deposit and income profile.",
     howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
-    pdfLink: "https://drive.google.com/file/d/1jO0DMuJlStdcylan4b9ST_ExLWzN37Kb/view?usp=sharing",
+    pdfLink: "https://drive.google.com/file/d/1qCTgChpQVEQtvaBWymCHwC1LLdRT4T-y/view?usp=sharing",
     applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19iYW5rX2ZkX2NyZWRpdF9jYXJk&bank_source=YXhpc19iYW5r&agent_code=",
   },
   {
@@ -406,7 +406,7 @@ const creditCards: CreditCard[] = [
     ],
     eligibilityNote: "Fill your details to know eligibility. HDFC will shortlist GIGA or other suitable cards as per your credit score and income.",
     howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
-    pdfLink: "https://drive.google.com/file/d/1ey1TyO_pAKxOMzkbwKnlzFrKGaWxhAQY/view?usp=sharing",
+    pdfLink: "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
     applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19naWdh&bank_source=Z0lnYV9idXNpbmVzc19jcmVkaXRfY2FyZA==&agent_code=",
   },
 ];

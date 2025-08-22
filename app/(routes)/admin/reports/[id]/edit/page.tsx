@@ -7,10 +7,12 @@ import { redirect } from "next/navigation";
 
 // ✅ Define valid enum values
 const reportTypeOptions = [
+  'Pre-Market Research Report',
   'Quarterly Results',
   'Industry Analysis',
-  'Thematic Report',
+  'Thematic Research Report',
   'Company Analysis',
+  'Equity Research Report'
 ] as const;
 
 const ratingOptions = ["BUY", "HOLD", "SELL"] as const;
@@ -47,7 +49,7 @@ export default async function EditReportPage({
     const company = formData.get("company") as string;
     const author = formData.get("author") as string;
     const authorFirm = formData.get("authorFirm") as string;
-    const date = formData.get("date") as string;
+    const publishDate = formData.get("date") as string;
     const sector = formData.get("sector") as string;
     const rawReportType = formData.get("reportType") as string;
     const rawRating = formData.get("rating") as string;
@@ -84,7 +86,7 @@ export default async function EditReportPage({
         company,
         author,
         authorFirm,
-        date,
+        publishDate,
         sector,
         reportType,
         rating,
@@ -158,11 +160,11 @@ export default async function EditReportPage({
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">Date</label>
+          <label className="block text-sm font-medium mb-1">Publish Date</label>
           <input
             name="date"
             type="date"
-            defaultValue={report.date}
+            defaultValue={report.publishDate}
             required
             className="w-full border border-gray-300 rounded-lg p-2"
           />

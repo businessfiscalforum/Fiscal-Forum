@@ -59,7 +59,7 @@ export default async function ReportDetailPage(context: {
           <span>{report.authorFirm}</span>
           <span className="flex items-center gap-1">
             <FaCalendarAlt className="text-xs" />
-            {format(new Date(report.date), "MMM d, yyyy")}
+            {format(new Date(report.publishDate), "MMM d, yyyy")}
           </span>
           <span className="flex items-center gap-1">
             <FaEye className="text-xs" />
@@ -128,7 +128,7 @@ export default async function ReportDetailPage(context: {
       <div className="flex flex-col sm:flex-row gap-4 items-center justify-between bg-gray-50 p-6 rounded-xl">
         <div className="flex items-center gap-6 text-sm text-gray-600">
           <span>{report.pages} pages</span>
-          <span>Published: {format(new Date(report.date), "MMM d, yyyy")}</span>
+          <span>Published: {format(new Date(report.publishDate), "MMM d, yyyy")}</span>
         </div>
         <div className="flex items-center gap-4">
           <a

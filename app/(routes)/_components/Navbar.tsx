@@ -34,19 +34,25 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 
+    <nav
+      className="fixed top-4 left-1/2 -translate-x-1/2 z-50 
       bg-white/40 backdrop-blur-md 
       border border-green-200 shadow-lg 
       md:rounded-full rounded-lg 
       px-4 md:px-6 py-3 md:py-4 
-      max-w-7xl w-[95%] md:w-full">
-      
-      <div className="flex justify-between items-center">
+      max-w-7xl w-[95%] md:w-full"
+    >
+      <div className="flex justify-between items-center relative">
         {/* Logo */}
         <div className="flex items-center gap-3">
           <Link href="/" className="flex items-center gap-3">
             <div className=" rounded-full flex items-center justify-center p-1  overflow-hidden">
-              <Image src="/forum1.ico" alt="Fiscal Forum" width={32} height={32} />
+              <Image
+                src="/forum1.ico"
+                alt="Fiscal Forum"
+                width={32}
+                height={32}
+              />
             </div>
             <span className="text-xl font-bold text-green-900 hidden sm:block">
               Fiscal Forum
@@ -56,28 +62,85 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-6 lg:space-x-8 text-sm font-medium text-green-900">
-          {/* Services Dropdown */}
-          <div className="relative">
+          {/* Desktop Services Dropdown - PROFESSIONAL FINANCIAL DESIGN */}
+          <div className="relative group">
             <button
               onClick={() => setServicesOpen(!servicesOpen)}
-              className="flex items-center gap-1 hover:text-green-600 transition-colors py-2"
+              className="flex items-center gap-1 text-green-800 hover:text-green-600 font-medium transition-colors py-2 relative"
               aria-expanded={servicesOpen}
             >
-              Services <ChevronDown size={16} className={`${servicesOpen ? 'rotate-180' : ''} transition-transform`} />
+              Services
+              <ChevronDown
+                size={16}
+                className={`${servicesOpen ? "rotate-180" : ""} transition-transform`}
+              />
+              {/* Custom underline indicator */}
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-600 transition-all group-hover:w-full"></span>
             </button>
-            
+
             {servicesOpen && (
-              <div className="absolute top-full left-0 mt-2 w-56 bg-white border border-green-100 rounded-lg shadow-xl z-50 py-2">
-                {servicesDropdown.map((service) => (
-                  <Link
-                    key={service.name}
-                    href={service.href}
-                    className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-green-50 hover:text-green-700 transition-colors"
-                    onClick={closeAll}
-                  >
-                    {service.name}
-                  </Link>
-                ))}
+              <div
+                className="absolute top-full left-1/2 -translate-x-1/2 mt-4
+       w-[calc(100vw-2rem)] max-w-7xl
+       bg-white border border-green-100 rounded-2xl shadow-2xl z-50
+       overflow-hidden
+       md:w-[calc(100vw-4rem)]
+       lg:w-[calc(100vw-6rem)]
+       xl:w-[calc(100vw-8rem)]"
+              >
+                {/* Header Section */}
+                <div className="bg-gradient-to-r from-green-50 to-emerald-50 px-4 py-3 md:px-6 md:py-4 border-b border-green-100">
+                  <h3 className="text-base md:text-lg font-bold text-green-900">
+                    Our Financial Services
+                  </h3>
+                  <p className="text-xs md:text-sm text-green-700">
+                    Comprehensive solutions for your financial growth
+                  </p>
+                </div>
+
+                {/* Services Grid */}
+                <div className="p-4 md:p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+                  {servicesDropdown.map((service, index) => (
+                    <Link
+                      key={service.name}
+                      href={service.href}
+                      onClick={closeAll}
+                      className="group/item p-3 md:p-4 rounded-xl border border-green-100 hover:border-green-300 hover:shadow-md transition-all duration-300 bg-white"
+                    >
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0 mt-1">
+                          <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-green-100 flex items-center justify-center group-hover/item:bg-green-600 transition-colors">
+                            <div className="w-4 h-4 md:w-5 md:h-5 rounded-sm bg-green-600 group-hover/item:bg-white transition-colors"></div>
+                          </div>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-green-900 group-hover/item:text-green-700 transition-colors text-sm md:text-base">
+                            {service.name}
+                          </h4>
+                          <p className="text-xs text-gray-500 mt-1">
+                            Tailored {service.name.toLowerCase()} solutions
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+
+                {/* Footer CTA */}
+                <div className="px-4 py-3 md:px-6 md:py-4 bg-green-50 border-t border-green-100">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                    <p className="text-xs md:text-sm text-green-700">
+                      Need personalized financial advice?
+                    </p>
+                    <Link
+                      href="/contact"
+                      className="text-xs md:text-sm font-medium text-green-700 hover:text-green-900 underline"
+                      onClick={closeAll}
+                    >
+                      Contact Our Experts
+                    </Link>
+                  </div>
+                </div>
               </div>
             )}
           </div>
@@ -154,14 +217,17 @@ export default function Navbar() {
         <div className="mt-4 bg-white shadow-xl md:hidden border border-green-100 rounded-lg">
           {/* Services Section */}
           <div>
-            <button 
+            <button
               className="flex items-center justify-between w-full px-4 py-3 text-green-900 font-medium"
               onClick={() => setServicesOpen(!servicesOpen)}
             >
               <span>Services</span>
-              <ChevronDown size={20} className={`${servicesOpen ? 'rotate-180' : ''} transition-transform`} />
+              <ChevronDown
+                size={20}
+                className={`${servicesOpen ? "rotate-180" : ""} transition-transform`}
+              />
             </button>
-            
+
             {servicesOpen && (
               <div className="bg-green-50 border-t border-green-100">
                 {servicesDropdown.map((service) => (

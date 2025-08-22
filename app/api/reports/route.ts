@@ -41,7 +41,7 @@ export async function GET(req: NextRequest) {
         company: researchReportsTable.company,
         author: researchReportsTable.author,
         authorFirm: researchReportsTable.authorFirm,
-        date: researchReportsTable.date,
+        publishDate: researchReportsTable.publishDate,
         sector: researchReportsTable.sector,
         reportType: researchReportsTable.reportType,
         rating: researchReportsTable.rating,
@@ -57,11 +57,11 @@ export async function GET(req: NextRequest) {
         published: researchReportsTable.published,
       })
       .from(researchReportsTable)
-      .orderBy(researchReportsTable.date);
+      .orderBy(researchReportsTable.publishDate);
 
     const sanitizedReports = reports.map((report) => ({
       ...report,
-      date: report.date.toString(),
+      date: report.publishDate.toString(),
     }));
 
     return withCORS(req, NextResponse.json(sanitizedReports));

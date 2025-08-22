@@ -286,12 +286,12 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
       }}
     >
       {/* Header Section - Updated Theme */}
-      <section className="bg-gradient-to-br from-emerald-900 via-green-900 to-teal-900 text-white py-20 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-emerald-900 via-green-900 to-teal-900 text-white relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-10 left-10 w-64 h-64 bg-gradient-to-r from-emerald-500/20 to-teal-600/20 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-10 right-10 w-80 h-80 bg-gradient-to-r from-green-500/20 to-emerald-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="max-w-7xl mx-auto px-6 relative z-10 py-30">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

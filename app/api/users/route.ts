@@ -11,7 +11,7 @@ const allowedOrigins = [
   "http://localhost:3000",
 ];
 
-function corsHeaders(origin: string | null):HeadersInit {
+function corsHeaders(origin: string | null): HeadersInit {
   if (origin && allowedOrigins.includes(origin)) {
     return {
       "Access-Control-Allow-Origin": origin,

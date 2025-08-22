@@ -561,7 +561,7 @@ export default function AlreadyHaveAccount() {
 
                   <div className="flex flex-col sm:flex-row gap-4 pt-2">
                     <a
-                      href="/transfer-form.pdf"
+                      href="https://drive.google.com/file/d/1B23sAP0QgEcpqrFA1EC5n4ytNB_I81Le/view?usp=sharing"
                       download
                       className="flex-1 px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-bold rounded-lg shadow-md transition flex items-center justify-center"
                     >

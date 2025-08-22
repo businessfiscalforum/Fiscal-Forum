@@ -9,7 +9,7 @@ export default async function ReportsPage() {
   const reports = await db
     .select()
     .from(researchReportsTable)
-    .orderBy(desc(researchReportsTable.date));
+    .orderBy(desc(researchReportsTable.publishDate));
 
   // Serialize data (remove BigInt, ensure plain JSON)
   const serializedReports = reports.map((report) => ({
@@ -19,7 +19,7 @@ export default async function ReportsPage() {
     company: report.company,
     author: report.author,
     authorFirm: report.authorFirm,
-    date: report.date,
+    publishDate: report.publishDate,
     sector: report.sector,
     reportType: report.reportType,
     rating: report.rating,

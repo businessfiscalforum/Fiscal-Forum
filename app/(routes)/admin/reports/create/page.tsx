@@ -6,10 +6,12 @@ import { redirect } from "next/navigation";
 
 // ✅ Define valid enums
 const reportTypeOptions = [
+  'Pre-Market Research Report',
   'Quarterly Results',
   'Industry Analysis',
-  'Thematic Report',
+  'Thematic Research Report',
   'Company Analysis',
+  'Equity Research Report'
 ] as const;
 
 const ratingOptions = ["BUY", "HOLD", "SELL"] as const;
@@ -34,7 +36,7 @@ export default async function CreateReportPage() {
     const company = formData.get("company") as string;
     const author = formData.get("author") as string;
     const authorFirm = formData.get("authorFirm") as string;
-    const date = formData.get("date") as string;
+    const publishDate = formData.get("date") as string;
     const sector = formData.get("sector") as string;
     const rawReportType = formData.get("reportType") as string;
     const rawRating = formData.get("rating") as string;
@@ -69,7 +71,7 @@ export default async function CreateReportPage() {
       company,
       author,
       authorFirm,
-      date,
+      publishDate,
       sector,
       reportType,
       rating,
@@ -134,7 +136,7 @@ export default async function CreateReportPage() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">Date</label>
+          <label className="block text-sm font-medium mb-1">Publish Date</label>
           <input
             name="date"
             type="date"
@@ -157,10 +159,12 @@ export default async function CreateReportPage() {
             required
             className="w-full border border-gray-300 rounded-lg p-2"
           >
-            <option value="Quarterly Results">Quarterly Results</option>
+            <option value="Pre-Market Research Report">Pre-Market Report</option>
             <option value="Industry Report">Industry Report</option>
-            <option value="Thematic Report">Thematic Report</option>
+            <option value="Thematic Research Report">Thematic Research Report</option>
             <option value="Company Analysis">Company Analysis</option>
+            <option value="Equity Research Report">Equity Reearch Report</option>
+            <option value="Quarterly Results">Quarterly Results</option>
           </select>
         </div>
         <div>
