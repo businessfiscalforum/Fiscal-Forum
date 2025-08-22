@@ -67,7 +67,7 @@ export default function TravelInsurancePage() {
             </p>
 
             <h3 className="text-xl font-semibold text-emerald-800">Peace of Mind on Every Trip</h3>
-            <p>
+            <p className="italic">
               Traveling for leisure, business, or education comes with unique challenges, and each 
               situation demands dependable support. Comprehensive travel insurance provides 
               continuous protection throughout your journey, covering a wide range of potential 
@@ -76,7 +76,7 @@ export default function TravelInsurancePage() {
               no matter where you are in the world.
             </p>
 
-            <p>
+            <p className="italic">
               When flight delays or cancellations disrupt your schedule, travel insurance helps 
               cover additional expenses such as accommodations, meals, and rebooking fees. If your 
               luggage goes missing or gets damaged during transit, the policy offers reimbursement 
@@ -85,7 +85,7 @@ export default function TravelInsurancePage() {
               connections, and even natural disasters or civil unrest that may affect your itinerary.
             </p>
 
-            <p>
+            <p className="italic">
               With global assistance services at your disposal, you’re never alone when challenges 
               arise. A dedicated team of professionals is available 24/7 to guide you through every 
               situation—from finding a local doctor to helping you navigate foreign healthcare 
@@ -95,7 +95,7 @@ export default function TravelInsurancePage() {
             </p>
 
             <h3 className="text-xl font-semibold text-emerald-800">Smooth and Reliable Support</h3>
-            <p>
+            <p className="italic">
               The best travel insurance isn’t just about what it covers—it’s about how quickly and 
               efficiently it delivers support when you need it. Our policies are built around 
               simplicity, transparency, and speed. Claims are processed swiftly and with minimal 
@@ -104,7 +104,7 @@ export default function TravelInsurancePage() {
               such as a hospitalization, our team is ready to assist you every step of the way.
             </p>
 
-            <p>
+            <p className="italic">
               We understand that travel should be about discovery, connection, and enjoyment—not 
               managing risks or navigating complex paperwork. That’s why we’ve streamlined every 
               aspect of the experience: from easy online policy management to fast claim approvals 
@@ -112,7 +112,7 @@ export default function TravelInsurancePage() {
               listens, responds, and acts with urgency and care.
             </p>
 
-            <p>
+            <p className="italic">
               This reliability empowers you to make the most of your travels. You can book that 
               spontaneous excursion, try that new cuisine, or hike that remote trail—knowing that if 
               anything happens, you’re covered. You’re not just protected; you’re free.
@@ -121,7 +121,7 @@ export default function TravelInsurancePage() {
             <h3 className="text-xl font-semibold text-emerald-800">
               Travel Without Worries, Live with Confidence
             </h3>
-            <p>
+            <p className="italic">
               At its heart, travel is about creating memories—moments shared with loved ones, 
               personal growth through new experiences, and the joy of stepping outside your comfort 
               zone. But these moments can easily be overshadowed by fear of the unknown. With the 
@@ -130,7 +130,7 @@ export default function TravelInsurancePage() {
               you’re fully protected every step of the way.
             </p>
 
-            <p>
+            <p className="italic">
               You don’t have to choose between safety and spontaneity. With comprehensive coverage, 
               you can plan boldly, travel freely, and return home with stories—and not stress.
             </p>

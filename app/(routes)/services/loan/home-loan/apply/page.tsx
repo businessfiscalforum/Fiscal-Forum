@@ -23,9 +23,7 @@ const applicationSchema = z.object({
   emailId: z.string().email("Invalid email address"),
   panNumber: z
     .string()
-    .min(10, "PAN number must be 10 characters")
-    .max(10)
-    .optional(),
+    .regex(/^[A-Z]{5}[0-9]{4}[A-Z]$/, "Invalid format"),
   currentHomeAddress1: z.string().min(1, "Address is required"),
   currentHomeAddress2: z.string().optional(),
   currentResidenceType: z.enum(["Owned", "Rented"]),

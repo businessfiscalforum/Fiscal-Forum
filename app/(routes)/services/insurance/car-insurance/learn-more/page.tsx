@@ -58,33 +58,33 @@ export default function CarInsurancePage() {
             </p>
 
             <h3 className="text-xl font-semibold text-emerald-800">Why It Matters</h3>
-            <p>
+            <p className="italic">
               Every journey carries risks—some small, some serious. A fender bender, a flat tire, or an emergency medical situation involving a passenger can all lead to unexpected expenses. Without proper insurance, these events can quickly spiral into overwhelming financial burdens. Repair costs, medical bills, legal liabilities, and even lost income due to downtime can add up fast, especially if you&apos;re unprepared.
             </p>
 
-            <p>
+            <p className="italic">
               Reliable car insurance does more than cover damages—it safeguards your financial stability and ensures compliance with legal requirements. In most places, having at least third-party liability coverage is mandatory, but comprehensive policies go further by protecting your vehicle from theft, natural disasters, fire, and other unforeseen events. This means you’re not just meeting the law—you’re making a responsible choice for your safety, your family, and your future.
             </p>
 
-            <p>
+            <p className="italic">
               Having dependable coverage allows you to drive responsibly, knowing that you’re protected no matter what happens. It transforms your car from a source of anxiety into a symbol of freedom and security—a true extension of your lifestyle.
             </p>
 
             <h3 className="text-xl font-semibold text-emerald-800">Support You Can Trust</h3>
-            <p>
+            <p className="italic">
               We believe that car insurance should be simple, transparent, and built around you. That’s why our policies are crafted with clarity, speed, and reliability at their core. From the moment you file a claim to the day your policy renews, every step is designed to be quick, stress-free, and easy to understand. No hidden clauses, no complicated paperwork—just straightforward support when you need it most.
             </p>
 
-            <p>
+            <p className="italic">
               With responsive customer service and 24/7 assistance, help is always within reach. Whether you’re stuck on the side of the road, dealing with a sudden accident, or planning a long-distance trip, we’re there to guide you through every situation. Our goal is to make sure you feel supported—not overwhelmed—no matter where your journey takes you.
             </p>
 
-            <p>
+            <p className="italic">
               Whether you’re commuting to work, running errands, or embarking on a cross-country adventure, our car insurance ensures that every drive is covered. You can focus on the road ahead, knowing that your vehicle, your loved ones, and your finances are protected.
             </p>
 
             <h3 className="text-xl font-semibold text-emerald-800">Drive With Confidence, Live With Peace of Mind</h3>
-            <p>
+            <p className="italic">
               Your car is more than metal and machinery—it’s part of your daily rhythm, your family’s routine, and your connection to the world. And with the right insurance, it becomes a source of strength and security.
             </p>
 
@@ -92,7 +92,7 @@ export default function CarInsurancePage() {
               Don’t let uncertainty hold you back. Choose protection that matches your lifestyle, supports your needs, and keeps you moving forward with confidence.
             </blockquote>
 
-            <p>
+            <p className="italic">
               Let us be your trusted partner on the road—every mile, every journey, every day.
             </p>
           </div>

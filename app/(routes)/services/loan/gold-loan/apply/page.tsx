@@ -13,10 +13,7 @@ const goldLoanSchema = z.object({
   lastName: z.string().min(1, "Last name is required"),
   fatherName: z.string().min(1, "Father’s name is required"),
   panNumber: z
-    .string()
-    .min(10, "PAN number must be 10 characters")
-    .max(10)
-    .optional(),
+    .string().regex(/^[A-Z]{5}[0-9]{4}[A-Z]$/, "Invalid format"),
   dateOfBirth: z.string().min(1, "Date of birth is required"),
   maritalStatus: z.enum(["Married", "Unmarried"]),
   gender: z.enum(["Male", "Female", "Others"]),
@@ -532,7 +529,7 @@ export default function GoldLoanApplication() {
               </div>
             </div>
           </section>
-          
+
         {/* Gold Loan Details */}
         <section className="space-y-6">
           <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">

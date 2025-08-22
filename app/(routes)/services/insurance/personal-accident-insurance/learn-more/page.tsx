@@ -61,7 +61,7 @@ export default function PersonalAccidentInsurancePage() {
             <h3 className="text-xl font-semibold text-emerald-800">
               Comprehensive Accident Coverage
             </h3>
-            <p>
+            <p className="italic">
               Personal accident insurance is designed to respond swiftly and effectively when unforeseen 
               injuries occur. Whether it&apos;s a minor incident resulting in temporary disability or a more 
               serious event leading to permanent impairment or, in the worst-case scenario, fatality, 
@@ -70,7 +70,7 @@ export default function PersonalAccidentInsurancePage() {
               hospital stays, surgeries, and ongoing rehabilitation.
             </p>
 
-            <p>
+            <p className="italic">
               The coverage also extends beyond medical expenses to include benefits for accidental 
               disabilities—both partial and total—ensuring that you receive compensation if your 
               ability to work is compromised. In the unfortunate event of an accidental death, the 
@@ -81,7 +81,7 @@ export default function PersonalAccidentInsurancePage() {
             <h3 className="text-xl font-semibold text-emerald-800">
               Peace of Mind for You and Your Family
             </h3>
-            <p>
+            <p className="italic">
               While medical treatment is crucial after an accident, the impact extends far beyond the 
               hospital room. The inability to work due to injury can lead to mounting bills, missed 
               payments, and stress over financial survival. Personal accident insurance addresses this 
@@ -90,7 +90,7 @@ export default function PersonalAccidentInsurancePage() {
               unable to earn a regular income.
             </p>
 
-            <p>
+            <p className="italic">
               Choosing personal accident insurance is more than a financial decision—it’s a commitment 
               to your family’s well-being. It reflects foresight, responsibility, and care, ensuring 
               that those who matter most are never left to face hardship alone.
@@ -99,14 +99,14 @@ export default function PersonalAccidentInsurancePage() {
             <h3 className="text-xl font-semibold text-emerald-800">
               A Lifeline in Times of Crisis
             </h3>
-            <p>
+            <p className="italic">
               In moments of crisis, every detail counts—from medical decisions to financial planning. 
               Personal accident insurance ensures that you are equipped to handle whatever comes your way, 
               without being overwhelmed by external pressures. It empowers you to prioritize health and 
               recovery, knowing that your family’s financial foundation remains intact.
             </p>
 
-            <p>
+            <p className="italic">
               Don’t wait for an accident to reveal your vulnerabilities. Secure your future today and 
               give yourself and your loved ones the gift of stability, security, and peace of mind.
             </p>

@@ -60,41 +60,41 @@ export default function TwoWheelerInsurancePage() {
             <h3 className="text-xl font-semibold text-emerald-800">
               Reliable Protection on the Road
             </h3>
-            <p>
+            <p className="italic">
               Every ride carries potential risks, from minor scrapes and dents to major collisions and breakdowns. Comprehensive two-wheeler insurance shields you against a wide range of unforeseen events. Whether it’s an accident caused by another driver, a sudden mechanical failure, or damage from fire, storm, or vandalism, your policy helps cover repair costs, replacement expenses, and more.
             </p>
 
-            <p>
+            <p className="italic">
               It also includes third-party liability coverage, which protects you if your vehicle causes injury or property damage to others. This is not only a legal requirement but a responsible choice that ensures you’re prepared for any situation. Even if it’s just a small scratch or a fender bender, having insurance means you won’t have to bear the full cost alone—allowing you to get back on the road quickly and without stress.
             </p>
 
-            <p>
+            <p className="italic">
               With reliable protection in place, you can focus on the journey—not the fear of what might go wrong. You ride not because you have to, but because you want to—and with coverage, you do so with confidence.
             </p>
 
             <h3 className="text-xl font-semibold text-emerald-800">
               Hassle-Free and Affordable
             </h3>
-            <p>
+            <p className="italic">
               We understand that life moves fast, and so should your insurance. That’s why two-wheeler insurance is built for simplicity, speed, and affordability. Premiums are designed to fit your budget, making protection accessible to everyone. Claims are processed efficiently, with clear procedures that minimize delays and paperwork. Renewals are quick and convenient, so you never have to worry about lapsed coverage.
             </p>
 
-            <p>
+            <p className="italic">
               You don’t need complex terms or long wait times to get the support you deserve. When something happens, help is just a call away. From filing a claim to receiving assistance, the entire process is streamlined to ensure you’re back on track as soon as possible.
             </p>
 
-            <p>
+            <p className="italic">
               This ease of use means you can enjoy every ride without second-guessing your safety or financial security. Your two-wheeler is more than just a vehicle—it’s part of your lifestyle. And with dependable, affordable protection, you can embrace that lifestyle fully, without compromise.
             </p>
 
             <h3 className="text-xl font-semibold text-emerald-800">
               Ride with Confidence, Live Without Fear
             </h3>
-            <p>
+            <p className="italic">
               Every journey on your two-wheeler should be about freedom, not fear. It should be about the wind in your hair, the thrill of movement, and the satisfaction of reaching your destination on your own terms. With comprehensive insurance by your side, you gain the assurance that your bike or scooter is protected, and your finances are secure—no matter where the road takes you.
             </p>
 
-            <p>
+            <p className="italic">
               You’re not just riding—you’re living. And with the right coverage, you can do so with peace of mind, knowing that when the unexpected happens, you’re ready.
             </p>
 

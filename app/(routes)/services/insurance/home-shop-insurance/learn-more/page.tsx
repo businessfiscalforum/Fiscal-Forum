@@ -69,7 +69,7 @@ export default function HomeShopInsurancePage() {
             <h3 className="text-xl font-semibold text-emerald-800">
               Safeguarding Your Home
             </h3>
-            <p>
+            <p className="italic">
               A home is more than bricks and mortar—it’s your sanctuary, where
               every corner holds memories of love, laughter, and family. But
               accidents, break-ins, or natural calamities can disrupt this safe
@@ -83,7 +83,7 @@ export default function HomeShopInsurancePage() {
             <h3 className="text-xl font-semibold text-emerald-800">
               Protection for Your Shop
             </h3>
-            <p>
+            <p className="italic">
               Your shop is more than a business—it’s your passion, your income,
               and your contribution to the community. But every business faces
               risks beyond its control: from fire and theft to equipment failure
@@ -98,7 +98,7 @@ export default function HomeShopInsurancePage() {
             <h3 className="text-xl font-semibold text-emerald-800">
               Security That Lets You Focus on Growth
             </h3>
-            <p>
+            <p className="italic">
               Choosing home and shop insurance is about more than risk
               management—it’s about peace of mind. When you know your property
               and business are secure, you are free to focus on growth,

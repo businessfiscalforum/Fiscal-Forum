@@ -62,45 +62,45 @@ export default function LifeInsurancePage() {
             <h3 className="text-xl font-semibold text-emerald-800">
               Protecting Your Family’s Future
             </h3>
-            <p>
+            <p className="italic">
               When you choose life insurance, you’re choosing to shield your family from the sudden weight of financial hardship. A loss can leave behind a void—not only emotionally but also economically. Outstanding loans, mortgage payments, children’s education, medical bills, and everyday living costs can quickly become overwhelming without a steady income. Life insurance helps bridge that gap, ensuring your family doesn’t have to make painful choices between paying bills and honoring memories.
             </p>
 
-            <p>
+            <p className="italic">
               More than just covering immediate needs, life insurance safeguards long-term dreams. It allows your children to pursue higher education without burdening themselves with debt. It enables your spouse to remain financially independent, whether they choose to work, care for the home, or start a new chapter. It supports your parents, if needed, and helps preserve the lifestyle your family has grown accustomed to.
             </p>
 
-            <p>
+            <p className="italic">
               By securing your family’s financial future, you give them the freedom to grieve without fear, to heal without stress, and to move forward with confidence. You provide them with a foundation where dreams can still grow, even in your absence. That is the true power of life insurance: it turns uncertainty into assurance.
             </p>
 
             <h3 className="text-xl font-semibold text-emerald-800">
               Building Long-Term Security
             </h3>
-            <p>
+            <p className="italic">
               Beyond its protective role, life insurance can also serve as a powerful tool for long-term planning and wealth creation. Certain policies offer flexible options that allow you to accumulate savings, build assets, and create a lasting financial legacy. These plans can be structured to support important milestones—such as a child’s wedding, a major home purchase, or retirement—and can grow over time, offering both protection and potential returns.
             </p>
 
-            <p>
+            <p className="italic">
               For many, life insurance becomes a way to plan for the future while caring for the present. It can help fund retirement goals, supplement pension income, or provide a tax-efficient inheritance for your heirs. Some policies even include riders for critical illness or disability, adding layers of coverage that extend beyond death benefits.
             </p>
 
-            <p>
+            <p className="italic">
               This dual purpose makes life insurance not just a safety net, but a strategic investment in your family’s well-being. It’s a way to say, “I may not be here forever, but I want you to have everything you need.” It transforms a simple policy into a lasting expression of love and responsibility.
             </p>
 
             <h3 className="text-xl font-semibold text-emerald-800">
               An Act of Love and Responsibility
             </h3>
-            <p>
+            <p className="italic">
               Choosing life insurance is deeply personal. It’s a decision rooted in care, compassion, and a desire to protect those you hold dear. It reflects your understanding that your presence is not only emotional but also financial—a vital part of your family’s stability. By taking this step, you are showing your loved ones that you are thinking of them, even in the hardest-to-imagine scenarios.
             </p>
 
-            <p>
+            <p className="italic">
               It gives you peace of mind today, knowing that your family is cared for no matter what happens. And it gives them strength for tomorrow—knowing they are not alone, that someone has thought ahead, and that their future is secure.
             </p>
 
-            <p>
+            <p className="italic">
               In a world full of unknowns, life insurance is your way of saying, “I love you enough to plan for your future—even when I’m not there to walk beside you.”
             </p>
 
