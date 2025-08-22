@@ -3,19 +3,18 @@ import { revalidatePath } from "next/cache";
 import { db } from "../../../../config/db";
 import { researchReportsTable } from "../../../../config/schema";
 import { NextRequest, NextResponse } from "next/server";
-import { eq } from "drizzle-orm";
 
 const allowedOrigins = [
   "https://www.fiscalforum.in",
   "https://fiscalforum.in",
-  "http://localhost:3000"
+  "http://localhost:3000",
 ];
 
 function corsHeaders(origin: string | null): HeadersInit {
   if (origin && allowedOrigins.includes(origin)) {
     return {
       "Access-Control-Allow-Origin": origin,
-      "Access-Control-Allow-Methods": "GET, DELETE, OPTIONS",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type, Authorization",
     };
   }
@@ -33,55 +32,48 @@ export async function OPTIONS(req: NextRequest) {
   return withCORS(req, new NextResponse(null, { status: 204 }));
 }
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+// ✅ GET all reports
+export async function GET(req: NextRequest) {
   try {
-    const [report] = await db
-      .select()
-      .from(researchReportsTable)
-      .where(eq(researchReportsTable.id, params.id));
-
-    if (!report) {
-      return withCORS(req, NextResponse.json({ error: "Report not found" }, { status: 404 }));
-    }
+    const reports = await db.select().from(researchReportsTable);
 
     return withCORS(
       req,
-      NextResponse.json({
-        ...report,
-        date: report.date.toString(), // ensure serializable
-      })
+      NextResponse.json(
+        reports.map((r) => ({
+          ...r,
+          date: r.date.toString(), // serialize date
+        }))
+      )
     );
   } catch (error) {
-    console.error("GET /api/reports/[id] error:", error);
-    return withCORS(req, NextResponse.json({ error: "Failed to fetch report" }, { status: 500 }));
+    console.error("GET /api/reports error:", error);
+    return withCORS(
+      req,
+      NextResponse.json({ error: "Failed to fetch reports" }, { status: 500 })
+    );
   }
 }
 
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+// (Optional) add POST if you want to create a report
+export async function POST(req: NextRequest) {
   try {
-    await db
-      .delete(researchReportsTable)
-      .where(eq(researchReportsTable.id, params.id));
+    const body = await req.json();
+
+    const [newReport] = await db
+      .insert(researchReportsTable)
+      .values(body)
+      .returning();
 
     revalidatePath("/reports");
     revalidatePath("/admin/reports");
-    revalidatePath(`/reports/${params.id}`);
 
-    return withCORS(req, NextResponse.json({
-      success: true,
-      message: "Report deleted successfully",
-    }));
+    return withCORS(req, NextResponse.json(newReport, { status: 201 }));
   } catch (error) {
-    console.error("DELETE /api/reports/[id] error:", error);
-    return withCORS(req, NextResponse.json(
-      { success: false, error: "Failed to delete report" },
-      { status: 500 }
-    ));
+    console.error("POST /api/reports error:", error);
+    return withCORS(
+      req,
+      NextResponse.json({ error: "Failed to create report" }, { status: 500 })
+    );
   }
 }
