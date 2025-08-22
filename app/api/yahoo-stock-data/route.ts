@@ -1,6 +1,6 @@
 // app/api/yahoo-stock-data/route.ts
 import { NextResponse } from 'next/server';
-import yahooFinance from 'yahoo-finance2';
+import yahooFinance from "yahoo-finance2";
 
 // Define the structure for your simplified index data
 interface IndexData {

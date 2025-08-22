@@ -1,5 +1,5 @@
 // app/api/transfer-demat/route.ts
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { db } from '../../../config/db';
 import { dematTransferRequests } from '../../../config/schema';
 

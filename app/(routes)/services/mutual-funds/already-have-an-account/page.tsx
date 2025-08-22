@@ -16,6 +16,8 @@ import {
   FaUser,
   FaDownload,
   FaEnvelope,
+  FaPhone,
+  FaWhatsapp,
 } from "react-icons/fa";
 import { CheckCircle, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
@@ -64,7 +66,7 @@ export default function AlreadyHaveAccount() {
     clientCode: "",
     panNo: "",
     mobileNo: "",
-    traderType: [] as string[],
+    typeofInvestment: [] as string[],
     existingBroker: "",
   });
 
@@ -98,22 +100,22 @@ export default function AlreadyHaveAccount() {
     }
   };
 
-  // Handle checkbox changes for traderType
+  // Handle checkbox changes for typeofInvestment
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
     setFormData(prev => {
-      const newTraderTypes = checked 
-        ? [...prev.traderType, value]
-        : prev.traderType.filter(type => type !== value);
+      const newtypeofInvestments = checked 
+        ? [...prev.typeofInvestment, value]
+        : prev.typeofInvestment.filter(type => type !== value);
       
-      return { ...prev, traderType: newTraderTypes };
+      return { ...prev, typeofInvestment: newtypeofInvestments };
     });
 
     // Clear error when user selects an option
-    if (transferErrors.traderType && checked) {
+    if (transferErrors.typeofInvestment && checked) {
       setTransferErrors(prev => {
         const newErrors = { ...prev };
-        delete newErrors.traderType;
+        delete newErrors.typeofInvestment;
         return newErrors;
       });
     }
@@ -144,8 +146,8 @@ export default function AlreadyHaveAccount() {
       newErrors.mobileNo = "Must be 10 digits";
     }
 
-    if (formData.traderType.length === 0) {
-      newErrors.traderType = "Select at least one investment type";
+    if (formData.typeofInvestment.length === 0) {
+      newErrors.typeofInvestment = "Select at least one investment type";
     }
 
     if (!formData.existingBroker.trim()) {
@@ -192,7 +194,7 @@ export default function AlreadyHaveAccount() {
         clientCode: "",
         panNo: "",
         mobileNo: "",
-        traderType: [],
+        typeofInvestment: [],
         existingBroker: "",
       });
       setTransferErrors({});
@@ -309,7 +311,7 @@ export default function AlreadyHaveAccount() {
 
 
   // Trader type options for checkboxes
-  const traderTypeOptions = [
+  const typeofInvestmentOptions = [
     { value: "SIP", label: "SIP" },
     { value: "Lumpsum", label: "Lumpsum Investment" },
   ];
@@ -590,7 +592,7 @@ export default function AlreadyHaveAccount() {
 
             {/* Right Column - Transfer Form */}
             <motion.div
-              className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-emerald-200"
+              className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl p-8 border border-emerald-200 shadow-x"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
@@ -730,24 +732,24 @@ export default function AlreadyHaveAccount() {
                   {/* Type of Investment - Checkboxes */}
                   <div className="md:col-span-2">
                     <label
-                      htmlFor="traderType"
+                      htmlFor="typeofInvestment"
                       className="block text-sm font-medium text-gray-700 mb-1"
                     >
                       Type of Investment <span className="text-red-500 ml-1">*</span>
                     </label>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      {traderTypeOptions.map((option) => (
+                      {typeofInvestmentOptions.map((option) => (
                         <div key={option.value} className="flex items-center">
                           <input
                             type="checkbox"
-                            id={`traderType-${option.value}`}
+                            id={`typeofInvestment-${option.value}`}
                             value={option.value}
-                            checked={formData.traderType.includes(option.value)}
+                            checked={formData.typeofInvestment.includes(option.value)}
                             onChange={handleCheckboxChange}
                             className="h-5 w-5 text-emerald-600 rounded focus:ring-emerald-500"
                           />
                           <label 
-                            htmlFor={`traderType-${option.value}`} 
+                            htmlFor={`typeofInvestment-${option.value}`} 
                             className="ml-2 text-gray-700"
                           >
                             {option.label}
@@ -755,9 +757,9 @@ export default function AlreadyHaveAccount() {
                         </div>
                       ))}
                     </div>
-                    {transferErrors.traderType && (
+                    {transferErrors.typeofInvestment && (
                       <p className="mt-1 text-sm text-red-600">
-                        {transferErrors.traderType}
+                        {transferErrors.typeofInvestment}
                       </p>
                     )}
                   </div>
@@ -898,6 +900,61 @@ export default function AlreadyHaveAccount() {
               </div>
             </div>
           </motion.div>
+          <motion.div
+          className="mt-12 relative bg-gradient-to-r from-emerald-100 via-white to-emerald-50 rounded-3xl shadow-xl p-10 border border-emerald-200"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          {/* Decorative Glow */}
+          <div className="absolute -top-10 -right-10 w-32 h-32 bg-emerald-300 rounded-full blur-3xl opacity-20" />
+          <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-green-400 rounded-full blur-3xl opacity-20" />
+
+          <h3 className="text-3xl font-extrabold text-emerald-900 mb-4 text-center">
+            Talk to Expert
+          </h3>
+          <div className="w-16 h-1 bg-gradient-to-r from-green-500 to-emerald-600 mx-auto rounded-full mb-8"></div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            {/* Call Button */}
+            <a
+              href="tel:8696060387"
+              className="flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white font-bold rounded-xl shadow-lg hover:shadow-2xl transition transform hover:scale-105"
+            >
+              <FaPhone className="text-lg" />
+              <span>Call Now</span>
+            </a>
+
+            {/* WhatsApp Button */}
+            <a
+              href="https://wa.me/918696060387"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold rounded-xl shadow-lg hover:shadow-2xl transition transform hover:scale-105"
+            >
+              <FaWhatsapp className="text-lg" />
+              <span>WhatsApp Us</span>
+            </a>
+          </div>
+        </motion.div>
+
+        {/* Footer Note */}
+        <motion.div
+          className="mt-8 text-center text-gray-600 text-sm"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
+          <p>
+            Need help?{" "}
+            <Link
+              href="/contact"
+              className="text-emerald-600 hover:underline font-medium"
+            >
+              Contact Support
+            </Link>
+          </p>
+        </motion.div>
         </div>
       </section>
     </>

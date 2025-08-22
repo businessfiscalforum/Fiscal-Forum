@@ -1202,7 +1202,7 @@ export const mfTransferForms = pgTable('mf_transfer_forms', {
   clientCode: varchar('client_code', { length: 100 }).notNull(),
   panNo: varchar('pan_no', { length: 10 }).notNull(),
   mobileNo: varchar('mobile_no', { length: 15 }).notNull(),
-  traderType: text('trader_type').notNull(), // Store as comma-separated string
+  typeofInvestment: text('type_of_investment').notNull(), // Store as comma-separated string
   existingBroker: varchar('existing_broker', { length: 255 }).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });

@@ -8,7 +8,8 @@ export async function POST(request: Request) {
     
     // Validate required fields
     if (!body.fullName || !body.clientCode || !body.panNo || 
-        !body.mobileNo || !body.traderType || !body.existingBroker) {
+        !body.mobileNo || !body.typeofInvestment
+         || !body.existingBroker) {
       return NextResponse.json(
         { error: 'All fields are required' },
         { status: 400 }
@@ -34,7 +35,7 @@ export async function POST(request: Request) {
     }
     
     // Validate traderType array
-    if (!Array.isArray(body.traderType) || body.traderType.length === 0) {
+    if (!Array.isArray(body.typeofInvestment) || body.typeofInvestment.length === 0) {
       return NextResponse.json(
         { error: 'At least one trader type must be selected' },
         { status: 400 }
@@ -47,7 +48,7 @@ export async function POST(request: Request) {
       clientCode: body.clientCode,
       panNo: body.panNo.toUpperCase(),
       mobileNo: body.mobileNo,
-      traderType: body.traderType.join(','), // Store as comma-separated string
+      typeofInvestment: body.typeofInvestment.join(','), // Store as comma-separated string
       existingBroker: body.existingBroker,
     }).returning({ id: mfTransferForms.id });
     

@@ -33,7 +33,6 @@ import { useState } from "react";
 import { BarChart3, BookOpen, Shield, TrendingUp, Wallet } from "lucide-react";
 import ResearchReportsSection from "./(routes)/_components/ResearchReportsSection";
 
-
 const slides = [
   {
     title: "Stock Investment",
@@ -50,8 +49,8 @@ const slides = [
     ],
     path: "services/stock-investment",
     stats: [
-      { value: "1M+", label: "Active Traders" },
-      { value: "5000+", label: "Stocks & ETFs" },
+      { value: "100+", label: "Active Traders" },
+      { value: "50+", label: "Stocks & ETFs" },
       { value: "24/7", label: "Market Support" },
     ],
     benefits: [
@@ -77,9 +76,9 @@ const slides = [
     ],
     path: "services/mutual-funds",
     stats: [
-      { value: "₹2.5L Cr", label: "Assets Under Management" },
-      { value: "15+", label: "AMC Partners" },
-      { value: "98%", label: "Customer Satisfaction" },
+      { value: "₹5K+", label: "Assets Under Management" },
+      { value: "5+", label: "AMC Partners" },
+      { value: "95%", label: "Customer Satisfaction" },
     ],
     benefits: [
       "Professional fund management",
@@ -99,7 +98,7 @@ const slides = [
     features: [
       "Coverage up to ₹1 crore",
       "6,000+ network hospitals",
-      "No claim bonus up to 50%",
+      "No claim bonus up to 40%",
       "Family floater plans",
     ],
     path: "services/insurance",
@@ -132,7 +131,7 @@ const slides = [
     path: "services/credit-card",
     stats: [
       { value: "50+", label: "Credit Card Variants" },
-      { value: "₹10Cr+", label: "Rewards Distributed" },
+      { value: "₹10K", label: "Rewards Distributed" },
       { value: "24x7", label: "Fraud Monitoring" },
     ],
     benefits: [
@@ -159,7 +158,7 @@ const slides = [
     path: "services/savings-account",
     stats: [
       { value: "50L+", label: "Happy Customers" },
-      { value: "₹1000 Cr+", label: "Deposits Managed" },
+      { value: "₹10K", label: "Deposits Managed" },
       { value: "99.9%", label: "Uptime Guarantee" },
     ],
     benefits: [
@@ -185,7 +184,7 @@ const slides = [
     ],
     path: "services/loans",
     stats: [
-      { value: "₹50,000 Cr+", label: "Loans Disbursed" },
+      { value: "₹50K", label: "Loans Disbursed" },
       { value: "95%", label: "Customer Approval" },
       { value: "24 hrs", label: "Fastest Approval" },
     ],
@@ -212,9 +211,9 @@ const slides = [
     ],
     path: "/services/govt-bond-&-fd",
     stats: [
-      { value: "₹1 Lakh Cr+", label: "Deposits Managed" },
+      { value: "₹10K", label: "Deposits Managed" },
       { value: "AAA", label: "Credit Rating" },
-      { value: "100%", label: "Capital Guarantee" },
+      { value: "90%", label: "Capital Guarantee" },
     ],
     benefits: [
       "Guaranteed returns",
@@ -418,13 +417,16 @@ export default function HomePage() {
     setMessage(null);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/subscribe`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/subscribe`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
       const data = await response.json();
       if (response.ok) {
         setMessage({
@@ -538,7 +540,7 @@ export default function HomePage() {
   };
 
   return (
-     <div
+    <div
       className="text-gray-800 font-sans min-h-screen"
       style={{
         fontFamily:
@@ -546,7 +548,7 @@ export default function HomePage() {
       }}
     >
       {/* Hero Section with Enhanced Carousel */}
-      <section className="relative w-full h-screen overflow-hidden">
+      <section className="relative w-full h-auto lg:h-screen overflow-y-auto lg:overflow-hidden">
         <Swiper
           spaceBetween={30}
           slidesPerView={1}
@@ -569,7 +571,7 @@ export default function HomePage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/80 via-green-900/60 to-teal-900/40"></div>
               </div>
-              <div className="relative z-10 h-full flex flex-col lg:flex-row p-4 sm:p-6 md:p-12">
+              <div className="relative z-10 h-full flex flex-col lg:flex-row px-6 sm:px-8 md:px-10 py-20 sm:py-20 md:py-20">
                 <div className="w-full lg:w-1/2 flex items-center">
                   <motion.div
                     initial={{ opacity: 0, x: -30 }}
@@ -969,58 +971,59 @@ export default function HomePage() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-stretch">
-  {partners.map((partner, i) => (
-    <Link href={partner.path} key={i} className="group relative h-full">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: i * 0.2 }}
-        whileHover={{ scale: 1.08, y: -8 }}
-        className="relative w-full h-full"
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-teal-600/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-        
-        <div
-          className={`relative bg-gradient-to-br ${partner.gradient} p-1 rounded-3xl shadow-2xl h-full`}
-        >
-          {/* flex + full height for equal alignment */}
-          <div className="bg-white p-10 rounded-3xl hover:bg-gradient-to-br hover:from-white hover:to-emerald-50 transition-all duration-500 h-full flex flex-col">
-            
-            {/* Icon */}
-            <div className="relative mb-8">
-              <div
-                className={`relative w-24 h-24 bg-gradient-to-r ${partner.gradient} rounded-3xl flex items-center justify-center mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl`}
+            {partners.map((partner, i) => (
+              <Link
+                href={partner.path}
+                key={i}
+                className="group relative h-full"
               >
-                <partner.icon className="text-white text-4xl" />
-              </div>
-            </div>
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.2 }}
+                  whileHover={{ scale: 1.08, y: -8 }}
+                  className="relative w-full h-full"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-teal-600/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-            {/* Title + Desc (flex-grow keeps button aligned at bottom) */}
-            <div className="flex-grow">
-              <h4 className="text-2xl font-bold mb-6 text-slate-800 group-hover:text-emerald-600 transition-colors">
-                {partner.title}
-              </h4>
-              <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors text-lg">
-                {partner.desc}
-              </p>
-            </div>
+                  <div
+                    className={`relative bg-gradient-to-br ${partner.gradient} p-1 rounded-3xl shadow-2xl h-full`}
+                  >
+                    {/* flex + full height for equal alignment */}
+                    <div className="bg-white p-10 rounded-3xl hover:bg-gradient-to-br hover:from-white hover:to-emerald-50 transition-all duration-500 h-full flex flex-col">
+                      {/* Icon */}
+                      <div className="relative mb-8">
+                        <div
+                          className={`relative w-24 h-24 bg-gradient-to-r ${partner.gradient} rounded-3xl flex items-center justify-center mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl`}
+                        >
+                          <partner.icon className="text-white text-4xl" />
+                        </div>
+                      </div>
 
-            {/* Button pinned at bottom */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`mt-8 bg-gradient-to-r ${partner.gradient} hover:${partner.hoverGradient} text-white px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-2xl transition-all duration-300 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0`}
-            >
-              Join Now
-            </motion.button>
+                      {/* Title + Desc (flex-grow keeps button aligned at bottom) */}
+                      <div className="flex-grow">
+                        <h4 className="text-2xl font-bold mb-6 text-slate-800 group-hover:text-emerald-600 transition-colors">
+                          {partner.title}
+                        </h4>
+                        <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors text-lg">
+                          {partner.desc}
+                        </p>
+                      </div>
 
+                      {/* Button pinned at bottom */}
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className={`mt-8 bg-gradient-to-r ${partner.gradient} hover:${partner.hoverGradient} text-white px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-2xl transition-all duration-300 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0`}
+                      >
+                        Join Now
+                      </motion.button>
+                    </div>
+                  </div>
+                </motion.div>
+              </Link>
+            ))}
           </div>
-        </div>
-      </motion.div>
-    </Link>
-  ))}
-</div>
-
         </div>
       </section>
 
