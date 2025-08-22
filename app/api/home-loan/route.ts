@@ -16,7 +16,7 @@ const applicationSchema = z.object({
   gender: z.enum(['Male', 'Female', 'Others']),
   mobileNo: z.string().min(10).max(15),
   emailId: z.string().email(),
-  panNumber: z.string().min(10, "PAN number must be 10 characters").max(10).optional(),
+  panNumber: z.string().regex(/^[A-Z]{5}[0-9]{4}[A-Z]$/, "Invalid format"),
   currentHomeAddress1: z.string().min(1),
   currentHomeAddress2: z.string().optional(),
   currentResidenceType: z.enum(['Owned', 'Rented']),
@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
       reference2Name: parsed.reference2.name,
       reference2Mobile: parsed.reference2.mobile,
       reference2Address: parsed.reference2.address,
-      panNumber: parsed.panNumber || null,
+      panNumber: parsed.panNumber,
     };
 
     // Remove nested objects

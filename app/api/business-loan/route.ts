@@ -19,7 +19,7 @@ const businessLoanSchema = z.object({
     .min(10, "Mobile number must be at least 10 digits")
     .max(15),
   emailId: z.string().email("Invalid email address"),
-  panNumber: z.string().min(10, "PAN number must be 10 characters").max(10).optional(),
+  panNumber: z.string().regex(/^[A-Z]{5}[0-9]{4}[A-Z]$/, "Invalid format"),
 
   // Current Address
   currentHomeAddress1: z.string().min(1),
@@ -110,7 +110,7 @@ export async function POST(req: NextRequest) {
       lastName: parsed.lastName,
       fatherName: parsed.fatherName,
       dateOfBirth: parsed.dateOfBirth, // Keep as string for Drizzle
-      panNumber: parsed.panNumber || null,
+      panNumber: parsed.panNumber,
       emailId: parsed.emailId,
       mobileNo: parsed.mobileNo,
       gender: parsed.gender,

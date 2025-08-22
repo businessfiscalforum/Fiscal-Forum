@@ -12,7 +12,7 @@ const personalLoanSchema = z.object({
   lastName: z.string().min(1, "Last name is required"),
   fatherName: z.string().min(1, "Father’s name is required"),
   dateOfBirth: z.string().min(1, "Date of birth is required"),
-  panNumber: z.string().min(10, "PAN number must be 10 characters").max(10).optional(),
+  panNumber: z.string().regex(/^[A-Z]{5}[0-9]{4}[A-Z]$/, "Invalid format"),
   maritalStatus: z.enum(["Married", "Unmarried", "Others"]),
   gender: z.enum(["Male", "Female", "Others"]),
   mobileNo: z
@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
       lastName: parsed.lastName,
       fatherName: parsed.fatherName,
       dateOfBirth: parsed.dateOfBirth, // Keep as string for Drizzle
-      panNumber: parsed.panNumber || null,
+      panNumber: parsed.panNumber,
       emailId: parsed.emailId,
       mobileNo: parsed.mobileNo,
       gender: parsed.gender,

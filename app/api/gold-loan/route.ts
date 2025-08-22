@@ -11,7 +11,7 @@ const goldLoanSchema = z.object({
   middleName: z.string().optional(),
   lastName: z.string().min(1, "Last name is required"),
   fatherName: z.string().min(1, "Father’s name is required"),
-  panNumber: z.string().min(10, "PAN number must be 10 characters").max(10).optional(),
+  panNumber: z.string().regex(/^[A-Z]{5}[0-9]{4}[A-Z]$/, "Invalid format"),
   dateOfBirth: z.string().min(1, "Date of birth is required"),
   maritalStatus: z.enum(["Married", "Unmarried"]),
   gender: z.enum(["Male", "Female", "Others"]),
@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
       middleName: parsed.middleName || null,
       lastName: parsed.lastName,
       fatherName: parsed.fatherName,
-      panNumber: parsed.panNumber || null,
+      panNumber: parsed.panNumber,
       dateOfBirth: parsed.dateOfBirth, // Keep as string for Drizzle
       maritalStatus: parsed.maritalStatus,
       gender: parsed.gender,

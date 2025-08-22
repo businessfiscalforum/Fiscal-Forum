@@ -12,7 +12,7 @@ const loanAgainstSecuritiesSchema = z.object({
   middleName: z.string().optional(),
   lastName: z.string().min(1, "Last name is required"),
   fatherName: z.string().min(1, "Father's name is required"),
-  panNumber: z.string().min(10, "PAN number must be 10 characters").max(10).optional(),
+  panNumber: z.string().regex(/^[A-Z]{5}[0-9]{4}[A-Z]$/, "Invalid format"),
   dateOfBirth: z.string().min(1, "Date of birth is required"),
   maritalStatus: z.enum(["Married", "Unmarried", "Others"]),
   gender: z.enum(["Male", "Female", "Others"]),

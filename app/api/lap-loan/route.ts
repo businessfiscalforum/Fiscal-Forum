@@ -11,7 +11,7 @@ const applicationSchema = z.object({
   lastName: z.string().min(1),
   fatherName: z.string().optional(),
   dob: z.string().optional(), // DB: date, so we’ll cast later
-  panNumber: z.string().optional(),
+  panNumber: z.string().regex(/^[A-Z]{5}[0-9]{4}[A-Z]$/, "Invalid format"),
   email: z.string().email(),
   mobileNo: z.string().min(10).max(15),
   gender: z.enum(['Male', 'Female', 'Others']),
