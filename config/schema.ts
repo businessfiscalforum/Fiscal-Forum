@@ -372,7 +372,7 @@ export const homeLoanApplications = pgTable("home_loan_applications", {
   gender: varchar("gender", { length: 10 }).notNull(),
   mobileNo: varchar("mobile_no", { length: 15 }).notNull(),
   emailId: text("email_id").notNull(),
-  panNumber: varchar('pan_number', { length: 10 }), // Optional
+  panNumber: varchar('pan_number', { length: 10 }).notNull(), // Optional
   currentHomeAddress1: text("current_home_address1").notNull(),
   currentHomeAddress2: text("current_home_address2"),
   currentResidenceType: varchar("current_residence_type", { length: 20 }).notNull(),
@@ -434,7 +434,7 @@ export const lapApplications = pgTable('lap_applications', {
   lastName: varchar('last_name', { length: 50 }).notNull(),
   fatherName: varchar('father_name', { length: 50 }),
   dob: date('dob'),
-  panNumber: varchar('pan_number', { length: 10 }),
+  panNumber: varchar('pan_number', { length: 10 }).notNull(),
   email: varchar('email', { length: 100 }),
   mobileNo: varchar('mobile_no', { length: 15 }),
   gender: varchar('gender', { length: 20 }).$type<'Male' | 'Female' | 'Others'>(),
@@ -492,7 +492,7 @@ export const personalLoanApplications = pgTable('personal_loan_applications', {
   lastName: varchar('last_name', { length: 50 }).notNull(),
   fatherName: varchar('father_name', { length: 100 }).notNull(),
   dateOfBirth: date('date_of_birth').notNull(),
-  panNumber: varchar('pan_number', { length: 10 }),
+  panNumber: varchar('pan_number', { length: 10 }).notNull(),
   emailId: varchar('email_id', { length: 100 }).notNull(),
   mobileNo: varchar('mobile_no', { length: 15 }).notNull(),
   gender: varchar('gender', { length: 20 }).$type<'Male' | 'Female' | 'Others'>().notNull(),
@@ -548,7 +548,7 @@ export const businessLoanApplications = pgTable('business_loan_applications', {
   lastName: varchar('last_name', { length: 50 }).notNull(),
   fatherName: varchar('father_name', { length: 100 }).notNull(),
   dateOfBirth: date('date_of_birth').notNull(),
-  panNumber: varchar('pan_number', { length: 10 }), // Optional
+  panNumber: varchar('pan_number', { length: 10 }).notNull(), // Optional
   emailId: varchar('email_id', { length: 100 }).notNull(),
   mobileNo: varchar('mobile_no', { length: 15 }).notNull(),
   gender: varchar('gender', { length: 20 }).$type<'Male' | 'Female' | 'Others'>().notNull(),
@@ -613,7 +613,7 @@ export const goldLoanApplications = pgTable('gold_loan_applications', {
   middleName: varchar('middle_name', { length: 50 }),
   lastName: varchar('last_name', { length: 50 }).notNull(),
   fatherName: varchar('father_name', { length: 100 }).notNull(),
-  panNumber: varchar('pan_number', { length: 10 }), // Optional
+  panNumber: varchar('pan_number', { length: 10 }).notNull(), // Optional
   dateOfBirth: date('date_of_birth').notNull(),
   maritalStatus: varchar('marital_status', { length: 10 }).$type<'Married' | 'Unmarried'>().notNull(),
   gender: varchar('gender', { length: 20 }).$type<'Male' | 'Female' | 'Others'>().notNull(),
@@ -668,7 +668,7 @@ export const carLoanApplications = pgTable('car_loan_applications', {
   middleName: varchar('middle_name', { length: 50 }),
   lastName: varchar('last_name', { length: 50 }).notNull(),
   fatherName: varchar('father_name', { length: 100 }).notNull(),
-  panNumber: varchar('pan_number', { length: 10 }), // Optional
+  panNumber: varchar('pan_number', { length: 10 }).notNull(), // Optional
   dateOfBirth: date('date_of_birth').notNull(),
   maritalStatus: varchar('marital_status', { length: 20 }).$type<'Married' | 'Unmarried' | 'Others'>().notNull(),
   gender: varchar('gender', { length: 20 }).$type<'Male' | 'Female' | 'Others'>().notNull(),
@@ -732,7 +732,7 @@ export const educationLoanApplications = pgTable('education_loan_applications', 
   middleName: varchar('middle_name', { length: 50 }),
   lastName: varchar('last_name', { length: 50 }).notNull(),
   fatherName: varchar('father_name', { length: 50 }).notNull(),
-  panNumber: varchar('pan_number', { length: 10 }),
+  panNumber: varchar('pan_number', { length: 10 }).notNull(),
   dateOfBirth: timestamp('date_of_birth', { mode: 'date' }).notNull(),
   maritalStatus: varchar('marital_status', { length: 10, enum: ['Married', 'Unmarried', 'Others'] }),
   gender: varchar('gender', { length: 10, enum: ['Male', 'Female', 'Others'] }),
@@ -794,7 +794,7 @@ export const lasApplication = pgTable('loan_against_securities', {
   middleName: varchar('middle_name', { length: 255 }),
   lastName: varchar('last_name', { length: 255 }).notNull(),
   fatherName: varchar('father_name', { length: 255 }).notNull(),
-  panNumber: varchar('pan_number', { length: 10 }),
+  panNumber: varchar('pan_number', { length: 10 }).notNull(),
   dateOfBirth: varchar('date_of_birth', { length: 20 }).notNull(), // Storing as varchar as it comes from a date input
   maritalStatus: varchar('marital_status', { enum: ["Married", "Unmarried", "Others"] }).notNull(),
   gender: varchar('gender', { enum: ["Male", "Female", "Others"] }).notNull(),

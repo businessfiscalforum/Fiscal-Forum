@@ -23,9 +23,7 @@ const businessLoanSchema = z.object({
   emailId: z.string().email("Invalid email address"),
   panNumber: z
     .string()
-    .min(10, "PAN number must be 10 characters")
-    .max(10)
-    .optional(),
+    .regex(/^[A-Z]{5}[0-9]{4}[A-Z]$/, "Invalid format"),
 
   // Current Address
   currentHomeAddress1: z.string().min(1, "Address is required"),
@@ -590,7 +588,7 @@ export default function BusinessLoanApplication() {
               </div>
             </div>
           </section>
-          
+
           {/* Employment Details */}
           <section className="space-y-6">
             <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">

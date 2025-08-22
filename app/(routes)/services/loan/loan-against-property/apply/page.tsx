@@ -14,7 +14,7 @@ const applicationSchema = z.object({
   lastName: z.string().min(1, 'Last name is required'),
   fatherName: z.string().optional(),
   dob: z.string().optional(),
-  panNumber: z.string().optional(),
+  panNumber: z.string().regex(/^[A-Z]{5}[0-9]{4}[A-Z]$/, "Invalid format"),
   email: z.string().email('Invalid email address'),
   mobileNo: z.string().min(10, 'Mobile number must be at least 10 digits').max(15),
   gender: z.enum(['Male', 'Female', 'Others']),
