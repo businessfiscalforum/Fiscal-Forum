@@ -4,6 +4,23 @@ import { z } from 'zod';
 import { lapApplications } from '../../../config/schema';
 import { db } from '../../../config/db';
 
+const allowedOrigins = [
+  "https://www.fiscalforum.in",
+  "https://fiscalforum.in",
+  "http://localhost:3000"
+];
+
+function corsHeaders(origin: string | null) {
+  if (origin && allowedOrigins.includes(origin)) {
+    return {
+      "Access-Control-Allow-Origin": origin,
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    };
+  }
+  return {};
+}
+
 // Zod schema aligned with DB
 const applicationSchema = z.object({
   firstName: z.string().min(1),

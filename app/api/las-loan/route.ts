@@ -4,6 +4,22 @@ import { z } from 'zod';
 import { db } from '../../../config/db'; // Adjust path as needed
 import { lasApplication } from '../../../config/schema'; // Adjust path as needed
 
+const allowedOrigins = [
+  "https://www.fiscalforum.in",
+  "https://fiscalforum.in",
+  "http://localhost:3000"
+];
+
+function corsHeaders(origin: string | null) {
+  if (origin && allowedOrigins.includes(origin)) {
+    return {
+      "Access-Control-Allow-Origin": origin,
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    };
+  }
+  return {};
+}
 
 // Zod schema for validation (same as frontend)
 const loanAgainstSecuritiesSchema = z.object({

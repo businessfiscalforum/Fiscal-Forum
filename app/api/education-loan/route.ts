@@ -4,6 +4,23 @@ import { z } from 'zod';
 import { db } from '../../../config/db';
 import { educationLoanApplications } from '../../../config/schema';
 
+const allowedOrigins = [
+  "https://www.fiscalforum.in",
+  "https://fiscalforum.in",
+  "http://localhost:3000"
+];
+
+function corsHeaders(origin: string | null) {
+  if (origin && allowedOrigins.includes(origin)) {
+    return {
+      "Access-Control-Allow-Origin": origin,
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    };
+  }
+  return {};
+}
+
 // Schema for Education Loan Application
 const educationLoanSchema = z.object({
   // Applicant Details

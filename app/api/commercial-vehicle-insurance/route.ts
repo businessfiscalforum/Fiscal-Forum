@@ -4,6 +4,23 @@ import { db } from "../../../config/db";
 import { commercialVehicleInsuranceRequests, usersTable } from "../../../config/schema";
 import { eq } from "drizzle-orm";
 
+const allowedOrigins = [
+  "https://www.fiscalforum.in",
+  "https://fiscalforum.in",
+  "http://localhost:3000"
+];
+
+function corsHeaders(origin: string | null) {
+  if (origin && allowedOrigins.includes(origin)) {
+    return {
+      "Access-Control-Allow-Origin": origin,
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    };
+  }
+  return {};
+}
+
 export async function POST(req: NextRequest) {
   try {
     const form = await req.formData();

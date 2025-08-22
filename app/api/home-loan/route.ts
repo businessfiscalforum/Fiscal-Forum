@@ -3,7 +3,23 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { homeLoanApplications } from '../../../config/schema';
 import { db } from '../../../config/db';
-import { eq } from 'drizzle-orm';
+
+const allowedOrigins = [
+  "https://www.fiscalforum.in",
+  "https://fiscalforum.in",
+  "http://localhost:3000"
+];
+
+function corsHeaders(origin: string | null) {
+  if (origin && allowedOrigins.includes(origin)) {
+    return {
+      "Access-Control-Allow-Origin": origin,
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    };
+  }
+  return {};
+}
 
 // Zod schema with correct preprocessing + optional fields
 const applicationSchema = z.object({

@@ -12,7 +12,6 @@ import {
   FaFileAlt,
   FaEnvelope,
   FaPhone,
-  FaLink,
   FaInfoCircle,
   FaCopy,
   FaCheckCircle,

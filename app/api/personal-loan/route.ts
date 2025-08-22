@@ -4,6 +4,24 @@ import { z } from 'zod';
 import { personalLoanApplications } from '../../../config/schema';
 import { db } from '../../../config/db';
 
+const allowedOrigins = [
+  "https://www.fiscalforum.in",
+  "https://fiscalforum.in",
+  "http://localhost:3000"
+];
+
+function corsHeaders(origin: string | null) {
+  if (origin && allowedOrigins.includes(origin)) {
+    return {
+      "Access-Control-Allow-Origin": origin,
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    };
+  }
+  return {};
+}
+
+
 // Zod schema - EXACT MATCH with frontend
 const personalLoanSchema = z.object({
   // Applicant Details

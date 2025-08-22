@@ -2,6 +2,24 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "../../../config/db"; // drizzle db instance
 import { savingsApplications } from "../../../config/schema"; // your drizzle schema
 
+const allowedOrigins = [
+  "https://www.fiscalforum.in",
+  "https://fiscalforum.in",
+  "http://localhost:3000"
+];
+
+function corsHeaders(origin: string | null) {
+  if (origin && allowedOrigins.includes(origin)) {
+    return {
+      "Access-Control-Allow-Origin": origin,
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    };
+  }
+  return {};
+}
+
+
 export async function POST(req: NextRequest) {
   try {
     // Parse the form data

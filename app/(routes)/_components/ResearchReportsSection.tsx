@@ -13,7 +13,6 @@ import {
 } from "chart.js";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { FaQuoteLeft } from "react-icons/fa";
 import { TbReportSearch } from "react-icons/tb";
 
 // Register Chart.js components
