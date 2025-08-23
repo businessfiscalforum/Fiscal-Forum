@@ -7,8 +7,6 @@ import {
   FaCalendarAlt,
   FaSearch,
   FaFilter,
-  FaSortAmountDown,
-  FaSortAmountUp,
   FaArrowUp,
   FaArrowDown,
   FaUser,

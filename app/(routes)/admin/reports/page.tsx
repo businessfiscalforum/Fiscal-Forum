@@ -6,7 +6,7 @@ import { db } from "../../../../config/db";
 import { researchReportsTable } from "../../../../config/schema";
 import Link from "next/link";
 import { DeleteReportButton } from "../../_components/DeleteReportButton";
-import { FaPlus, FaEdit, FaTrash, FaFileAlt, FaChartLine } from 'react-icons/fa'; // Import icons
+import { FaPlus, FaEdit, FaFileAlt, FaChartLine } from 'react-icons/fa'; // Import icons
 
 export default async function ReportsListPage() { // Renamed component for clarity
   const reports = await db
