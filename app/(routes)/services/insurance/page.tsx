@@ -296,12 +296,12 @@ const InsurancePage = () => {
                       <p className="text-sm leading-relaxed flex-grow text-gray-600">
                         {option.description}
                       </p>
-                      <div className="flex gap-3 pt-4">
+                      <div className="flex gap-3 pt-4 justify-evenly">
                         {/* Learn More */}
                         <Link
                           href={option.link}
                           className="inline-flex items-center gap-1 px-3 py-2 rounded-lg 
-               text-emerald-600 font-medium text-sm 
+               text-emerald-600 font-medium text-md 
                hover:text-emerald-700 transition"
                         >
                           Learn More
@@ -323,7 +323,7 @@ const InsurancePage = () => {
                           className="inline-flex items-center gap-1 px-3 py-2 rounded-lg 
                bg-gradient-to-r from-emerald-500 to-teal-600 
                hover:from-emerald-600 hover:to-teal-700 
-               text-white font-medium text-sm 
+               text-white font-medium text-md 
                transition-all duration-300 shadow-md 
                hover:shadow-lg transform hover:scale-105"
                         >

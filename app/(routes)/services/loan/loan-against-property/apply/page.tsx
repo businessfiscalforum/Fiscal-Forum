@@ -175,7 +175,7 @@ export default function LoanAgainstProperty() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">First Name</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">First Name <span className="text-red-500">*</span></label>
               <input
                 {...register('firstName')}
                 placeholder="First Name"
@@ -192,7 +192,7 @@ export default function LoanAgainstProperty() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Last Name</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Last Name <span className="text-red-500">*</span></label>
               <input
                 {...register('lastName')}
                 placeholder="Last Name"
@@ -245,7 +245,7 @@ export default function LoanAgainstProperty() {
               {errors.gender && <p className="text-red-500 text-sm mt-1">{errors.gender.message}</p>}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Mobile Number</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Mobile Number <span className="text-red-500">*</span></label>
               <input
                 {...register('mobileNo')}
                 placeholder="Mobile Number"
@@ -254,7 +254,7 @@ export default function LoanAgainstProperty() {
               {errors.mobileNo && <p className="text-red-500 text-sm mt-1">{errors.mobileNo.message}</p>}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Email ID</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Email ID <span className="text-red-500">*</span></label>
               <input
                 {...register('email')}
                 placeholder="Email ID"
@@ -266,7 +266,7 @@ export default function LoanAgainstProperty() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">PAN Number</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">PAN Number <span className="text-red-500">*</span></label>
               <input
                 {...register('panNumber')}
                 placeholder="PAN Number"
@@ -642,7 +642,7 @@ export default function LoanAgainstProperty() {
               {errors.propertyType && <p className="text-red-500 text-sm mt-1">{errors.propertyType.message}</p>}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Agreement Value</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Agreement Value <span className="text-red-500">*</span></label>
               <input
                 {...numericRegister('agreementValue')}
                 type="number"
@@ -652,7 +652,7 @@ export default function LoanAgainstProperty() {
               {errors.agreementValue && <p className="text-red-500 text-sm mt-1">{errors.agreementValue.message}</p>}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Loan Amount Required</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Loan Amount Required <span className="text-red-500">*</span></label>
               <input
                 {...numericRegister('loanAmountRequired')}
                 type="number"
@@ -664,7 +664,7 @@ export default function LoanAgainstProperty() {
           </div>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Property Address Line 1</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Property Address Line 1 <span className="text-red-500">*</span></label>
               <textarea
                 {...register('propertyAddress1')}
                 placeholder="Property Address Line 1"
@@ -684,7 +684,7 @@ export default function LoanAgainstProperty() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-900 mb-1">Property City</label>
+                <label className="block text-sm font-medium text-gray-900 mb-1">Property City <span className="text-red-500">*</span></label>
                 <input
                   {...register('propertyCity')}
                   placeholder="Property City"
@@ -693,7 +693,7 @@ export default function LoanAgainstProperty() {
                 {errors.propertyCity && <p className="text-red-500 text-sm mt-1">{errors.propertyCity.message}</p>}
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-900 mb-1">Property State</label>
+                <label className="block text-sm font-medium text-gray-900 mb-1">Property State <span className="text-red-500">*</span></label>
                 <input
                   {...register('propertyState')}
                   placeholder="Property State"
@@ -747,7 +747,7 @@ export default function LoanAgainstProperty() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Name</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Name <span className="text-red-500">*</span></label>
               <input
                 {...register('reference1.name')}
                 placeholder="Name"
@@ -756,7 +756,7 @@ export default function LoanAgainstProperty() {
               {errors.reference1?.name && <p className="text-red-500 text-sm mt-1">{errors.reference1.name.message}</p>}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Mobile No.</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Mobile No. <span className="text-red-500">*</span></label>
               <input
                 {...register('reference1.mobile')}
                 placeholder="Mobile No."
@@ -765,7 +765,7 @@ export default function LoanAgainstProperty() {
               {errors.reference1?.mobile && <p className="text-red-500 text-sm mt-1">{errors.reference1.mobile.message}</p>}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Address</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Address <span className="text-red-500">*</span></label>
               <input
                 {...register('reference1.address')}
                 placeholder="Address"
@@ -783,7 +783,7 @@ export default function LoanAgainstProperty() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Name</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Name <span className="text-red-500">*</span></label>
               <input
                 {...register('reference2.name')}
                 placeholder="Name"
@@ -792,7 +792,7 @@ export default function LoanAgainstProperty() {
               {errors.reference2?.name && <p className="text-red-500 text-sm mt-1">{errors.reference2.name.message}</p>}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Mobile No.</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Mobile No. <span className="text-red-500">*</span></label>
               <input
                 {...register('reference2.mobile')}
                 placeholder="Mobile No."
@@ -801,7 +801,7 @@ export default function LoanAgainstProperty() {
               {errors.reference2?.mobile && <p className="text-red-500 text-sm mt-1">{errors.reference2.mobile.message}</p>}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Address</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Address <span className="text-red-500">*</span></label>
               <input
                 {...register('reference2.address')}
                 placeholder="Address"

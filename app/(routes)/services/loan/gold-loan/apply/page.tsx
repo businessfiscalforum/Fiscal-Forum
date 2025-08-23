@@ -171,7 +171,7 @@ export default function GoldLoanApplication() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">First Name</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">First Name <span className="text-red-500">*</span></label>
               <input
                 {...register("firstName")}
                 placeholder="First Name"
@@ -192,7 +192,7 @@ export default function GoldLoanApplication() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Last Name</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Last Name <span className="text-red-500">*</span></label>
               <input
                 {...register("lastName")}
                 placeholder="Last Name"
@@ -205,7 +205,7 @@ export default function GoldLoanApplication() {
               )}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Father&apos;s Name</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Father&apos;s Name <span className="text-red-500">*</span></label>
               <input
                 {...register("fatherName")}
                 placeholder="Father&apos;s Name"
@@ -221,7 +221,7 @@ export default function GoldLoanApplication() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Email ID</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Email ID <span className="text-red-500">*</span></label>
               <input
                 {...register("emailId")}
                 placeholder="Email ID"
@@ -235,7 +235,7 @@ export default function GoldLoanApplication() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Date of Birth</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Date of Birth <span className="text-red-500">*</span></label>
               <input
                 type="date"
                 {...register("dateOfBirth")}
@@ -280,7 +280,7 @@ export default function GoldLoanApplication() {
               )}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Mobile Number</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Mobile Number <span className="text-red-500">*</span></label>
               <input
                 {...register("mobileNo")}
                 placeholder="Mobile Number"
@@ -295,7 +295,7 @@ export default function GoldLoanApplication() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">PAN Number</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">PAN Number <span className="text-red-500">*</span></label>
               <input
                 {...register("panNumber")}
                 placeholder="PAN Number"
@@ -552,7 +552,7 @@ export default function GoldLoanApplication() {
               )}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Gold Purity</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Gold Purity <span className="text-red-500">*</span></label>
               <select
                 {...register("goldPurity")}
                 className={`w-full border ${errors.goldPurity ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition`}
@@ -577,10 +577,10 @@ export default function GoldLoanApplication() {
         <section className="space-y-6">
           <h2 className="text-lg font-semibold text-emerald-700 mb-4 flex items-center">
             <span className="w-3 h-3 bg-emerald-500 rounded-full mr-2"></span>
-            LOAN AMOUNT REQUIRED
+            LOAN AMOUNT REQUIRED 
           </h2>
           <div>
-            <label className="block text-sm font-medium text-gray-900 mb-1">Loan Amount</label>
+            <label className="block text-sm font-medium text-gray-900 mb-1">Loan Amount <span className="text-red-500">*</span></label>
             <input
               {...numericRegister("loanAmountRequired")}
               type="number"
@@ -645,7 +645,7 @@ export default function GoldLoanApplication() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Name</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Name <span className="text-red-500">*</span></label>
               <input
                 {...register("reference1.name")}
                 placeholder="Name"
@@ -658,7 +658,7 @@ export default function GoldLoanApplication() {
               )}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Mobile No.</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Mobile No. <span className="text-red-500">*</span></label>
               <input
                 {...register("reference1.mobile")}
                 placeholder="Mobile No."
@@ -671,7 +671,7 @@ export default function GoldLoanApplication() {
               )}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Address</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Address <span className="text-red-500">*</span></label>
               <input
                 {...register("reference1.address")}
                 placeholder="Address"
@@ -693,7 +693,7 @@ export default function GoldLoanApplication() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Name</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Name <span className="text-red-500">*</span></label>
               <input
                 {...register("reference2.name")}
                 placeholder="Name"
@@ -706,7 +706,7 @@ export default function GoldLoanApplication() {
               )}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Mobile No.</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Mobile No. <span className="text-red-500">*</span></label>
               <input
                 {...register("reference2.mobile")}
                 placeholder="Mobile No."
@@ -719,7 +719,7 @@ export default function GoldLoanApplication() {
               )}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-900 mb-1">Address</label>
+              <label className="block text-sm font-medium text-gray-900 mb-1">Address <span className="text-red-500">*</span></label>
               <input
                 {...register("reference2.address")}
                 placeholder="Address"

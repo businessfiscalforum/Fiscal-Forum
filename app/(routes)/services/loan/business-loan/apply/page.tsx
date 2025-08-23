@@ -212,7 +212,7 @@ export default function BusinessLoanApplication() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-1">
-                  First Name
+                  First Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("firstName")}
@@ -237,7 +237,7 @@ export default function BusinessLoanApplication() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-1">
-                  Last Name
+                  Last Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("lastName")}
@@ -252,7 +252,7 @@ export default function BusinessLoanApplication() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-1">
-                  Father&apos;s Name
+                  Father&apos;s Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("fatherName")}
@@ -270,7 +270,7 @@ export default function BusinessLoanApplication() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-1">
-                  Date of Birth
+                  Date of Birth <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="date"
@@ -321,7 +321,7 @@ export default function BusinessLoanApplication() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-1">
-                  Mobile Number
+                  Mobile Number <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("mobileNo")}
@@ -336,7 +336,7 @@ export default function BusinessLoanApplication() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-1">
-                  Email ID
+                  Email ID <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("emailId")}
@@ -353,7 +353,7 @@ export default function BusinessLoanApplication() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-1">
-                  PAN Number
+                  PAN Number <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("panNumber")}
@@ -677,7 +677,7 @@ export default function BusinessLoanApplication() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-1">
-                  Business Name
+                  Business Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("businessName")}
@@ -732,7 +732,7 @@ export default function BusinessLoanApplication() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-1">
-                  GST Number
+                  GST Number <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("gstNumber")}
@@ -790,7 +790,7 @@ export default function BusinessLoanApplication() {
             </h2>
             <div>
               <label className="block text-sm font-medium text-gray-900 mb-1">
-                Loan Amount Required
+                Loan Amount Required <span className="text-red-500">*</span>
               </label>
               <input
                 {...numericRegister("loanAmountRequired")}
@@ -861,7 +861,7 @@ export default function BusinessLoanApplication() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-1">
-                  Name
+                  Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("reference1.name")}
@@ -876,7 +876,7 @@ export default function BusinessLoanApplication() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-1">
-                  Mobile No.
+                  Mobile No. <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("reference1.mobile")}
@@ -891,7 +891,7 @@ export default function BusinessLoanApplication() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-1">
-                  Address
+                  Address <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("reference1.address")}
@@ -915,7 +915,7 @@ export default function BusinessLoanApplication() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-1">
-                  Name
+                  Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("reference2.name")}
@@ -930,7 +930,7 @@ export default function BusinessLoanApplication() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-1">
-                  Mobile No.
+                  Mobile No. <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("reference2.mobile")}
@@ -945,7 +945,7 @@ export default function BusinessLoanApplication() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-900 mb-1">
-                  Address
+                  Address <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("reference2.address")}

@@ -538,7 +538,7 @@ const LoanLandingPage = () => {
                         ))}
                       </ul>
 
-                      <div className="flex gap-4 pt-4">
+                      <div className="flex gap-4 pt-4 justify-evenly">
                         <Link href={loan.link} passHref>
                           <button className="px-4 py-2 rounded-lg  text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
                             Learn More
