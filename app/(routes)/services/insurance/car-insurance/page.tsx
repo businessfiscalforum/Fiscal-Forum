@@ -175,6 +175,7 @@ export default function CarInsuranceFormPage() {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/car-insurance`, {
         method: "POST",
         body: formDataToSend,
+        credentials: "include",
       });
 
       const result = await response.json();
