@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const form = await req.formData();
-
+    console.log("form:", form);
     const name = (form.get("name") as string)?.trim() || "";
     const email = ((form.get("email") as string) || "").trim();
     const phone = (form.get("phone") as string)?.trim() || "";
@@ -104,7 +104,7 @@ export async function POST(req: NextRequest) {
     const [saved] = await db
       .insert(healthInsuranceRequests)
       .values({
-        userId,
+        userId: userId || null,
         name,
         email: email || null,
         phone,
