@@ -154,7 +154,7 @@ export default function MutualPage() {
       icon: BarChart3,
       iconBgColor: "bg-blue-100",
       iconColor: "text-blue-600",
-      link: "/mutual-funds/all",
+      link: "/services/mutual-funds/all-mutual-funds",
     },
     {
       id: 2,
@@ -164,7 +164,7 @@ export default function MutualPage() {
       icon: FaHandHoldingUsd,
       iconBgColor: "bg-emerald-100",
       iconColor: "text-emerald-600",
-      link: "/mutual-funds/loan",
+      link: "/services/mutual-funds/loan-against-mutual-funds",
     },
     {
       id: 3,
@@ -174,7 +174,7 @@ export default function MutualPage() {
       icon: FaGem,
       iconBgColor: "bg-orange-100",
       iconColor: "text-orange-600",
-      link: "/mutual-funds/sgb",
+      link: "/services/mutual-funds/sovereign-gold-bonds",
     },
   ];
 
