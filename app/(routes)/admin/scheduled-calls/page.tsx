@@ -85,7 +85,11 @@ function ScheduledCallsTableSkeleton() {
 }
 
 // Main Scheduled Calls Page Component (Server Component)
-export default async function ScheduledCallsPage({ searchParams }: { searchParams: SearchParams }) {
+export default async function ScheduledCallsPage({ 
+  searchParams 
+}: { 
+  searchParams: Promise<SearchParams> | SearchParams 
+}) {
   const resolvedSearchParams = await searchParams;
 
   return (
