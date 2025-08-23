@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useUser } from "@clerk/nextjs";
 import { UserDetailContext } from "../context/UserDetailContext";
 
@@ -28,9 +27,18 @@ function Provider({ children }: { children: React.ReactNode }) {
 
   const createNewUser = async () => {
     try {
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/users`);
-      setUserDetail(res.data); 
-      console.log(res.data);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
+        method: "POST",
+        credentials: "include", 
+      });
+
+      if (!res.ok) {
+        throw new Error(`Failed to fetch user: ${res.statusText}`);
+      }
+
+      const data: UsersDetail = await res.json();
+      setUserDetail(data);
+      console.log("Fetched/Created user:", data);
     } catch (error) {
       console.error("Error creating or fetching user:", error);
     }
