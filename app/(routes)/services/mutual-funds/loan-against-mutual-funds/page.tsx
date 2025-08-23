@@ -98,14 +98,6 @@ export default function LoanAgainstFundsPage() {
             </p>
           </div>
 
-          <div className="mt-8 text-center">
-            <button
-              onClick={() => router.push("/services/mutual-funds/loan")}
-              className="px-8 py-3 bg-gradient-to-r from-emerald-600 to-teal-700 text-white font-bold rounded-xl shadow-lg hover:from-emerald-700 hover:to-teal-800 transition-all transform hover:scale-105"
-            >
-              Apply for Loan
-            </button>
-          </div>
         </motion.div>
       </div>
     </div>

@@ -97,15 +97,6 @@ export default function SGBPage() {
               Invest with confidence, hold with pride, and let your wealth grow in the most trusted metal of all time—without ever worrying about locks, vaults, or purity.
             </p>
           </div>
-
-          <div className="mt-8 text-center">
-            <button
-              onClick={() => router.push("/services/mutual-funds/sgb")}
-              className="px-8 py-3 bg-gradient-to-r from-emerald-600 to-teal-700 text-white font-bold rounded-xl shadow-lg hover:from-emerald-700 hover:to-teal-800 transition-all transform hover:scale-105"
-            >
-              Invest in SGB
-            </button>
-          </div>
         </motion.div>
       </div>
     </div>
