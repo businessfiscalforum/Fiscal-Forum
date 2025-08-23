@@ -133,7 +133,7 @@ export async function POST(req: NextRequest) {
     const [saved] = await db
       .insert(healthInsuranceRequests)
       .values({
-        userId,
+        userId: userId || null,
         name,
         email: email || null,
         phone,
