@@ -1,6 +1,6 @@
 // app/(routes)/news/[id]/page.tsx
-import { db } from "../../../../config/db";
-import { newsTable } from "../../../../config/schema";
+import { db } from "../../../../../config/db";
+import { newsTable } from "../../../../../config/schema";
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -89,11 +89,11 @@ export default async function NewsDetailPage(context: { params: Promise<{ id: st
         {/* Back Button */}
         <div className="mb-6">
           <Link
-            href="/news"
+            href="/admin/news"
             className="inline-flex items-center text-emerald-600 hover:text-emerald-800 font-medium transition-colors duration-200"
           >
             <FaArrowLeft className="mr-2 text-sm" />
-            <span className="text-sm">Back to News</span>
+            <span className="text-sm">Back</span>
           </Link>
         </div>
 

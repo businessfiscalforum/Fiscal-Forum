@@ -1,8 +1,10 @@
+// components/admin/NewsForm.tsx (or wherever this component is located)
 'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { uuid } from 'drizzle-orm/pg-core';
+// Removed unused import
+// import { uuid } from 'drizzle-orm/pg-core';
 
 interface NewsFormData {
   title: string;
@@ -13,7 +15,7 @@ interface NewsFormData {
   author: string;
   publishDate: string;
   readTime: string;
-  views: number;
+  views: number; // Keep as number for the form state
   link: string;
   featured: boolean;
   tags: string[];
@@ -29,7 +31,7 @@ interface NewsFormData {
 }
 
 interface NewsFormProps {
-  initialData?: NewsFormData & { id?: number };
+  initialData?: NewsFormData & { id?: number }; // id might not be used here, but kept for potential future use
   onSubmit: (data: NewsFormData) => Promise<void>;
 }
 
@@ -68,8 +70,9 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
     >
   ) => {
     const { name, value, type } = e.target;
+    // Type assertion for checkbox
     const checked = (e.target as HTMLInputElement).checked;
-    
+
     setFormData({
       ...formData,
       [name]: type === 'checkbox' ? checked : value,
@@ -100,11 +103,11 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
       await onSubmit(formData);
       router.push('/admin/news');
-      router.refresh();
+      router.refresh(); // Refresh the current route. Good for data consistency.
     } catch (error) {
       console.error('Error submitting form:', error);
       alert('Failed to save news item');
@@ -113,217 +116,237 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
     }
   };
 
+  // Helper function for consistent input classes
+  const inputClasses = "w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white disabled:bg-gray-100";
+  const labelClasses = "block text-sm font-medium text-emerald-800 mb-2";
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700">
-            Title *
-          </label>
-          <input
-            type="text"
-            name="title"
-            id="title"
-            value={formData.title}
-            onChange={handleChange}
-            required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          />
-        </div>
+    <form onSubmit={handleSubmit} className="space-y-8 bg-white rounded-2xl shadow-lg p-6 sm:p-8 border border-emerald-100">
+      {/* Basic Information Section */}
+      <div className="border border-emerald-200 rounded-xl p-6 bg-emerald-50/30">
+        <h2 className="text-2xl font-bold text-emerald-900 mb-6">Basic Information</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="md:col-span-2">
+            <label htmlFor="title" className={labelClasses}>
+              Title *
+            </label>
+            <input
+              type="text"
+              name="title"
+              id="title"
+              value={formData.title}
+              onChange={handleChange}
+              required
+              className={inputClasses}
+              placeholder="Enter the news title"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="category" className="block text-sm font-medium text-gray-700">
-            Category *
-          </label>
-          <select
-            name="category"
-            id="category"
-            value={formData.category}
-            onChange={handleChange}
-            required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          >
-            <option value="">Select a category</option>
-            <option value="News Buzz">News Buzz</option>
-            <option value="Corp Pulse">Corp Pulse</option>
-            <option value="IPO Scoop">IPO Scoop</option>
-            <option value="Market News">Market News</option>
-            <option value="Policy">Policy</option>
-            <option value="Commodities">Commodities</option>
-            <option value="Forex">Forex</option>
-            <option value="Cryptocurrency">Cryptocurrency</option>
-            <option value="Earnings">Earnings</option>
-            <option value="Automotive">Automotive</option>
-            <option value="Technology">Technology</option>
-          </select>
-        </div>
+          <div>
+            <label htmlFor="category" className={labelClasses}>
+              Category *
+            </label>
+            <select
+              name="category"
+              id="category"
+              value={formData.category}
+              onChange={handleChange}
+              required
+              className={`${inputClasses} appearance-none bg-white`}
+            >
+              <option value="">Select a category</option>
+              <option value="News Buzz">News Buzz</option>
+              <option value="Corp Pulse">Corp Pulse</option>
+              <option value="IPO Scoop">IPO Scoop</option>
+            </select>
+          </div>
 
-        <div className="sm:col-span-2">
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-            Description
-          </label>
-          <textarea
-            name="description"
-            id="description"
-            rows={3}
-            value={formData.description}
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          />
-        </div>
+          <div>
+            <label htmlFor="author" className={labelClasses}>
+              Author *
+            </label>
+            <input
+              type="text"
+              name="author"
+              id="author"
+              value={formData.author}
+              onChange={handleChange}
+              required
+              className={inputClasses}
+              placeholder="Author name"
+            />
+          </div>
 
-        <div className="sm:col-span-2">
-          <label htmlFor="content" className="block text-sm font-medium text-gray-700">
-            Content *
-          </label>
-          <textarea
-            name="content"
-            id="content"
-            rows={6}
-            value={formData.content}
-            onChange={handleChange}
-            required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          />
-        </div>
+          <div className="md:col-span-2">
+            <label htmlFor="description" className={labelClasses}>
+              Description
+            </label>
+            <textarea
+              name="description"
+              id="description"
+              rows={4}
+              value={formData.description}
+              onChange={handleChange}
+              className={inputClasses}
+              placeholder="Brief summary of the news article"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="author" className="block text-sm font-medium text-gray-700">
-            Author *
-          </label>
-          <input
-            type="text"
-            name="author"
-            id="author"
-            value={formData.author}
-            onChange={handleChange}
-            required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          />
+          <div className="md:col-span-2">
+            <label htmlFor="content" className={labelClasses}>
+              Content *
+            </label>
+            <textarea
+              name="content"
+              id="content"
+              rows={10}
+              value={formData.content}
+              onChange={handleChange}
+              required
+              className={inputClasses}
+              placeholder="Full content of the news article"
+            />
+          </div>
         </div>
+      </div>
 
-        <div>
-          <label htmlFor="link" className="block text-sm font-medium text-gray-700">
-            Link *
-          </label>
-          <input
-            type="url"
-            name="link"
-            id="link"
-            value={formData.link}
-            onChange={handleChange}
-            required
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          />
+      {/* Media & Links Section */}
+      <div className="border border-emerald-200 rounded-xl p-6 bg-emerald-50/30">
+        <h2 className="text-2xl font-bold text-emerald-900 mb-6">Media & Links</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label htmlFor="image" className={labelClasses}>
+              Image URL
+            </label>
+            <input
+              type="url"
+              name="image"
+              id="image"
+              value={formData.image}
+              onChange={handleChange}
+              className={inputClasses}
+              placeholder="https://example.com/image.jpg"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="link" className={labelClasses}>
+              External Link
+            </label>
+            <input
+              type="url"
+              name="link"
+              id="link"
+              value={formData.link}
+              onChange={handleChange}
+              className={inputClasses}
+              placeholder="https://external-source.com/article"
+            />
+          </div>
         </div>
+      </div>
 
-        <div>
-          <label htmlFor="image" className="block text-sm font-medium text-gray-700">
-            Image URL
-          </label>
-          <input
-            type="url"
-            name="image"
-            id="image"
-            value={formData.image}
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          />
-        </div>
+      {/* Publishing Details Section */}
+      <div className="border border-emerald-200 rounded-xl p-6 bg-emerald-50/30">
+        <h2 className="text-2xl font-bold text-emerald-900 mb-6">Publishing Details</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div>
+            <label htmlFor="publishDate" className={labelClasses}>
+              Publish Date
+            </label>
+            <input
+              type="date"
+              name="publishDate"
+              id="publishDate"
+              value={formData.publishDate}
+              onChange={handleChange}
+              className={inputClasses}
+            />
+          </div>
 
-        <div>
-          <label htmlFor="publishDate" className="block text-sm font-medium text-gray-700">
-            Publish Date
-          </label>
-          <input
-            type="date"
-            name="publishDate"
-            id="publishDate"
-            value={formData.publishDate}
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          />
-        </div>
+          <div>
+            <label htmlFor="readTime" className={labelClasses}>
+              Read Time
+            </label>
+            <input
+              type="text"
+              name="readTime"
+              id="readTime"
+              value={formData.readTime}
+              onChange={handleChange}
+              placeholder="e.g., 3 min read"
+              className={inputClasses}
+            />
+          </div>
 
-        <div>
-          <label htmlFor="readTime" className="block text-sm font-medium text-gray-700">
-            Read Time
-          </label>
-          <input
-            type="text"
-            name="readTime"
-            id="readTime"
-            value={formData.readTime}
-            onChange={handleChange}
-            placeholder="e.g., 3 min read"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          />
-        </div>
+          <div>
+            <label htmlFor="views" className={labelClasses}>
+              Views
+            </label>
+            <input
+              type="number"
+              name="views"
+              id="views"
+              min="0"
+              value={formData.views}
+              onChange={handleChange}
+              className={inputClasses}
+            />
+          </div>
 
-        <div>
-          <label htmlFor="views" className="block text-sm font-medium text-gray-700">
-            Views
-          </label>
-          <input
-            type="number"
-            name="views"
-            id="views"
-            value={formData.views}
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          />
-        </div>
-
-        <div className="flex items-center">
-          <input
-            type="checkbox"
-            name="featured"
-            id="featured"
-            checked={formData.featured}
-            onChange={handleChange}
-            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-          />
-          <label htmlFor="featured" className="ml-2 block text-sm text-gray-700">
-            Featured Article
-          </label>
+          <div className="flex items-end">
+            <div className="flex items-center h-full pb-3">
+              <input
+                type="checkbox"
+                name="featured"
+                id="featured"
+                checked={formData.featured}
+                onChange={handleChange}
+                className="h-5 w-5 text-emerald-600 rounded focus:ring-emerald-500 border-emerald-300"
+              />
+              <label htmlFor="featured" className="ml-2 block text-sm font-medium text-emerald-800">
+                Featured Article
+              </label>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Tags Section */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Tags
-        </label>
-        <div className="mt-1 flex">
+      <div className="border border-emerald-200 rounded-xl p-6 bg-emerald-50/30">
+        <h2 className="text-2xl font-bold text-emerald-900 mb-4">Tags</h2>
+        <div className="mt-1 flex flex-col sm:flex-row gap-2">
           <input
             type="text"
             value={tagsInput}
             onChange={handleTagsChange}
-            placeholder="Add a tag"
-            className="flex-1 rounded-l-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            placeholder="Add a tag (e.g., finance, markets)"
+            className={`${inputClasses} flex-grow`}
+            onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
           />
           <button
             type="button"
             onClick={addTag}
-            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-r-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="px-5 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition whitespace-nowrap"
           >
-            Add
+            Add Tag
           </button>
         </div>
-        <div className="mt-2 flex flex-wrap gap-2">
+        <div className="mt-4 flex flex-wrap gap-2">
           {formData.tags.map((tag) => (
             <span
               key={tag}
-              className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800"
+              className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-emerald-100 text-emerald-800 border border-emerald-200"
             >
               {tag}
               <button
                 type="button"
                 onClick={() => removeTag(tag)}
-                className="flex-shrink-0 ml-1.5 h-4 w-4 rounded-full inline-flex items-center justify-center text-indigo-400 hover:bg-indigo-200 hover:text-indigo-500 focus:outline-none focus:bg-indigo-500 focus:text-white"
+                className="flex-shrink-0 ml-2 h-4 w-4 rounded-full inline-flex items-center justify-center text-emerald-500 hover:bg-emerald-200 hover:text-emerald-700 focus:outline-none focus:bg-emerald-500 focus:text-white"
+                aria-label={`Remove tag ${tag}`}
               >
                 <span className="sr-only">Remove</span>
-                <svg className="h-2 w-2" stroke="currentColor" fill="none" viewBox="0 0 8 8">
+                <svg className="h-3 w-3" stroke="currentColor" fill="none" viewBox="0 0 8 8">
                   <path strokeLinecap="round" strokeWidth="1.5" d="M1 1l6 6m0-6L1 7" />
                 </svg>
               </button>
@@ -332,13 +355,13 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
         </div>
       </div>
 
-      {/* IPO Specific Fields */}
+      {/* IPO Specific Fields Section */}
       {formData.category === 'IPO Scoop' && (
-        <div className="border-t border-gray-200 pt-6">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">IPO Details</h3>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <div className="border border-teal-200 rounded-xl p-6 bg-teal-50">
+          <h2 className="text-2xl font-bold text-teal-900 mb-6">IPO Details</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="ipoName" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="ipoName" className="block text-sm font-medium text-teal-800 mb-2">
                 IPO Name
               </label>
               <input
@@ -347,12 +370,13 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
                 id="ipoName"
                 value={formData.ipoName || ''}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className={inputClasses}
+                placeholder="Name of the IPO"
               />
             </div>
 
             <div>
-              <label htmlFor="companyName" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="companyName" className="block text-sm font-medium text-teal-800 mb-2">
                 Company Name
               </label>
               <input
@@ -361,12 +385,13 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
                 id="companyName"
                 value={formData.companyName || ''}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className={inputClasses}
+                placeholder="Full company name"
               />
             </div>
 
             <div>
-              <label htmlFor="priceRange" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="priceRange" className="block text-sm font-medium text-teal-800 mb-2">
                 Price Range
               </label>
               <input
@@ -375,12 +400,13 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
                 id="priceRange"
                 value={formData.priceRange || ''}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className={inputClasses}
+                placeholder="e.g., ₹XXX - ₹YYY"
               />
             </div>
 
             <div>
-              <label htmlFor="issueSize" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="issueSize" className="block text-sm font-medium text-teal-800 mb-2">
                 Issue Size
               </label>
               <input
@@ -389,12 +415,13 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
                 id="issueSize"
                 value={formData.issueSize || ''}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className={inputClasses}
+                placeholder="e.g., ₹XXXX Crores"
               />
             </div>
 
             <div>
-              <label htmlFor="listingDate" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="listingDate" className="block text-sm font-medium text-teal-800 mb-2">
                 Listing Date
               </label>
               <input
@@ -403,12 +430,13 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
                 id="listingDate"
                 value={formData.listingDate || ''}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className={inputClasses}
+                placeholder="e.g., DD MMM YYYY"
               />
             </div>
 
             <div>
-              <label htmlFor="currentPrice" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="currentPrice" className="block text-sm font-medium text-teal-800 mb-2">
                 Current Price
               </label>
               <input
@@ -417,12 +445,13 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
                 id="currentPrice"
                 value={formData.currentPrice || ''}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className={inputClasses}
+                placeholder="e.g., ₹XXX.XX"
               />
             </div>
 
             <div>
-              <label htmlFor="listingGain" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="listingGain" className="block text-sm font-medium text-teal-800 mb-2">
                 Listing Gain
               </label>
               <input
@@ -431,12 +460,13 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
                 id="listingGain"
                 value={formData.listingGain || ''}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className={inputClasses}
+                placeholder="e.g., +XX.XX%"
               />
             </div>
 
             <div>
-              <label htmlFor="subscriptionRate" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="subscriptionRate" className="block text-sm font-medium text-teal-800 mb-2">
                 Subscription Rate
               </label>
               <input
@@ -445,27 +475,40 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
                 id="subscriptionRate"
                 value={formData.subscriptionRate || ''}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className={inputClasses}
+                placeholder="e.g., XX.Xx times"
               />
             </div>
           </div>
         </div>
       )}
 
-      <div className="flex justify-end">
+      {/* Form Actions */}
+      <div className="flex flex-col sm:flex-row justify-end gap-4 pt-6 border-t border-emerald-200">
         <button
           type="button"
           onClick={() => router.back()}
-          className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          disabled={isSubmitting}
+          className="px-6 py-3 border border-emerald-300 rounded-lg text-emerald-700 hover:bg-emerald-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition flex items-center justify-center disabled:opacity-50"
         >
           Cancel
         </button>
         <button
           type="submit"
           disabled={isSubmitting}
-          className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+          className="px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-700 text-white rounded-lg hover:from-emerald-700 hover:to-teal-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition flex items-center justify-center shadow-md disabled:opacity-50"
         >
-          {isSubmitting ? 'Saving...' : 'Save'}
+          {isSubmitting ? (
+            <>
+              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Saving...
+            </>
+          ) : (
+            'Save News Item'
+          )}
         </button>
       </div>
     </form>

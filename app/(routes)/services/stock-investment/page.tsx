@@ -22,6 +22,7 @@ import {
   FaHeadset,
   FaRocket,
   FaAward,
+  FaWhatsapp,
 } from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -471,22 +472,37 @@ export default function CreditCardApplyPage() {
           </section> */}
 
           <section className="py-16 my-10 mx-4 sm:mx-auto max-w-4xl text-center bg-gradient-to-r from-teal-600 to-green-600 text-white rounded-2xl px-6">
-            <Phone className="w-16 h-16 mx-auto mb-6" />
-            <h2 className="text-3xl font-bold mb-4">
-              Need Help? Talk to an Expert
-            </h2>
-            <p className="text-xl mb-8 opacity-90">
-              Get personalized guidance on opening your Demat account or
-              transferring holdings.
-            </p>
-            <button
-              onClick={() => router.push("/services/stock-investment/contact")}
-              className="bg-white text-green-700 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3 mx-auto"
-            >
-              <Phone className="w-5 h-5" />
-              Schedule a Free Call
-            </button>
-          </section>
+                      <Phone className="w-16 h-16 mx-auto mb-6" />
+                      <h2 className="text-3xl font-bold mb-4">
+                        Need Help? Talk to an Expert
+                      </h2>
+                      <p className="text-xl mb-8 opacity-90">
+                        Get personalized guidance on opening your queries related to
+                        mutual funds.
+                      </p>
+                      <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <button
+                          onClick={() =>
+                            router.push("/services/stock-investment/contact")
+                          }
+                          className="bg-white text-green-700 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3"
+                        >
+                          <Phone className="w-5 h-5" />
+                          Schedule a Free Call
+                        </button>
+                        {/* WhatsApp Button */}
+                        <a
+                          href="https://wa.me/+918696060387" // Pre-filled number
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3" // Similar styling to the call button
+                        >
+                          <FaWhatsapp className="w-5 h-5" />{" "}
+                          {/* Make sure to import FaWhatsapp */}
+                          Chat with Us
+                        </a>
+                      </div>
+                    </section>
 
           {/* Call to Action (Kickstart & Level Up) */}
           <section className="py-16 px-4">

@@ -126,12 +126,12 @@ export default function NewsList() {
                   >
                     <Edit className="h-4 w-4" />
                   </Link>
-                  <button
-                    onClick={() => window.open(item.link, '_blank')}
+                  <Link
+                    href={`/admin/news/${item.id}`}
                     className="text-green-600 hover:text-green-900"
                   >
                     <Eye className="h-4 w-4" />
-                  </button>
+                  </Link>
                   <button
                     onClick={() => deleteNews(item.id)}
                     className="text-red-600 hover:text-red-900"

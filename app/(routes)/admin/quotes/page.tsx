@@ -16,36 +16,6 @@ export default async function QuoteRequestsPage() {
       <p className="text-gray-600 mb-8">Total: {quotes.length} request(s)</p>
 
       <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white p-6 rounded-xl shadow border">
-            <p className="text-sm font-medium text-gray-500">Total Requests</p>
-            <p className="text-2xl font-bold text-gray-800 mt-1">
-              {quotes.length}
-            </p>
-          </div>
-          <div className="bg-white p-6 rounded-xl shadow border">
-            <p className="text-sm font-medium text-gray-500">
-              Avg. Loan Amount
-            </p>
-            <p className="text-2xl font-bold text-gray-800 mt-1">
-              ₹
-              {Math.round(
-                quotes.reduce((acc, q) => acc + q.loanAmount, 0) /
-                  quotes.length || 0
-              ).toLocaleString()}
-            </p>
-          </div>
-          <div className="bg-white p-6 rounded-xl shadow border">
-            <p className="text-sm font-medium text-gray-500">Avg. Tenure</p>
-            <p className="text-2xl font-bold text-gray-800 mt-1">
-              {Math.round(
-                quotes.reduce((acc, q) => acc + q.tenure, 0) / quotes.length ||
-                  0
-              )}{" "}
-              yrs
-            </p>
-          </div>
-        </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">

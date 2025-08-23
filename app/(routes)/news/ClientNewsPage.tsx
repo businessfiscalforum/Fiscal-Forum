@@ -23,6 +23,7 @@ import {
 } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
 
 // --- Interface Definitions ---
 export interface NewsItem {
@@ -39,7 +40,6 @@ export interface NewsItem {
   link: string;
   featured?: boolean | null;
   tags?: string | null;
-  // IPO specific fields
   ipoName?: string | null;
   companyName?: string | null;
   priceRange?: string | null;
@@ -74,6 +74,7 @@ interface ClientNewsPageProps {
 }
 
 const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
+  const router = useRouter();
   // --- UI States ---
   const tabs = [
     { id: "news-buzz", label: "News Buzz" },
@@ -178,7 +179,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
 
   // --- NEW: API Fetching Effect for Stock Data ---
   useEffect(() => {
-    let isMounted = true; // Flag to prevent state updates if component unmounts
+    let isMounted = true; 
 
     const fetchStockData = async () => {
       setStockLoading(true);
@@ -270,14 +271,17 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
       day: "numeric",
     });
   };
-
-  const handleNewsClick = (link: string) => {
-    if (link.startsWith("http")) {
-      window.open(link, "_blank", "noopener,noreferrer");
-    } else {
-      window.open(`https://${link}`, "_blank", "noopener,noreferrer");
-    }
+  const handleNewsClick = (id: string) => {
+    // Navigate internally to the news detail page
+    router.push(`/news/${id}`);
   };
+  // const handleNewsClick = (link: string) => {
+  //   if (link.startsWith("http")) {
+  //     window.open(link, "_blank", "noopener,noreferrer");
+  //   } else {
+  //     window.open(`https://${link}`, "_blank", "noopener,noreferrer");
+  //   }
+  // };
   return (
     <div
       className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100"
@@ -508,7 +512,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                       {currentNews.length > 0 && (
                         <div
                           className="lg:col-span-2 bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer group border border-emerald-100 hover:border-emerald-300 transition-all duration-300"
-                          onClick={() => handleNewsClick(currentNews[0].link)}
+                          onClick={() => handleNewsClick(currentNews[0].id)}
                         >
                           <div className="relative h-100">
                             {currentNews[0].image ? (
@@ -563,7 +567,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                           <div
                             key={news.id}
                             className="flex gap-4 cursor-pointer group p-4 rounded-lg hover:bg-emerald-50/50 transition-colors duration-300 border border-transparent hover:border-emerald-200"
-                            onClick={() => handleNewsClick(news.link)}
+                            onClick={() => handleNewsClick(news.id)}
                           >
                             <div className="flex-shrink-0 w-24 h-24 bg-emerald-100 rounded overflow-hidden">
                               {news.image ? (
@@ -611,7 +615,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.1 }}
                           className="border-b border-emerald-100 pb-6 last:border-0 last:pb-0 group cursor-pointer hover:bg-emerald-50/30 p-2 rounded transition-colors duration-200"
-                          onClick={() => handleNewsClick(news.link)}
+                          onClick={() => handleNewsClick(news.id)}
                         >
                           <div className="flex flex-col md:flex-row gap-4">
                             {/* Image (only for IPO Scoop) */}

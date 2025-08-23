@@ -6,7 +6,12 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { FaFilePdf, FaInfoCircle, FaStar, FaCheck } from "react-icons/fa";
-import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogPanel,
+  DialogTitle,
+} from "@headlessui/react";
 
 // Define the enhanced card data type
 interface CreditCard {
@@ -62,10 +67,17 @@ const creditCards: CreditCard[] = [
       "Cashback offers up to 10%",
       "Fuel surcharge waiver",
     ],
-    eligibilityNote: "Fill in your details to check eligibility. HDFC will suggest the most suitable card based on your income and credit score.",
-    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
-    pdfLink: "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
-    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19iYW5r&bank_source=aGRmY19iYW5r&agent_code=",
+    eligibilityNote:
+      "Fill in your details to check eligibility. HDFC will suggest the most suitable card based on your income and credit score.",
+    howToApply: [
+      "Click 'Apply'",
+      "Fill your details",
+      "Get your credit card within 5-7 days",
+    ],
+    pdfLink:
+      "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
+    applyLink:
+      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19iYW5r&bank_source=aGRmY19iYW5r&agent_code=",
   },
   {
     id: "indusind",
@@ -100,10 +112,17 @@ const creditCards: CreditCard[] = [
       "Free add-on cards",
       "Fast-track airport security",
     ],
-    eligibilityNote: "Submit your details to know eligibility. IndusInd will recommend the best card option based on your profile and financials.",
-    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
-    pdfLink: "https://drive.google.com/file/d/1lIFkItdpCuZLvvz5Tp62DrkrV8uhxXIw/view?usp=sharing",
-    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aW5kdXNpbmRfYmFuaw==&bank_source=aW5kdXNfYmFuaw==&agent_code=",
+    eligibilityNote:
+      "Submit your details to know eligibility. IndusInd will recommend the best card option based on your profile and financials.",
+    howToApply: [
+      "Click 'Apply'",
+      "Fill your details",
+      "Get your credit card within 5-7 days",
+    ],
+    pdfLink:
+      "https://drive.google.com/file/d/1lIFkItdpCuZLvvz5Tp62DrkrV8uhxXIw/view?usp=sharing",
+    applyLink:
+      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aW5kdXNpbmRfYmFuaw==&bank_source=aW5kdXNfYmFuaw==&agent_code=",
   },
   {
     id: "hsbc",
@@ -137,10 +156,17 @@ const creditCards: CreditCard[] = [
       "24x7 concierge service",
       "Travel & dining privileges",
     ],
-    eligibilityNote: "Provide your information to verify eligibility. HSBC automatically selects the best card as per your credit history and income.",
-    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
-    pdfLink: "https://drive.google.com/file/d/1fUnUq44G-5sfNCWIbgzJ8cHG9_IvKdBK/view?usp=sharing",
-    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY19iYW5r&bank_source=aHNiY19iYW5r&agent_code=",
+    eligibilityNote:
+      "Provide your information to verify eligibility. HSBC automatically selects the best card as per your credit history and income.",
+    howToApply: [
+      "Click 'Apply'",
+      "Fill your details",
+      "Get your credit card within 5-7 days",
+    ],
+    pdfLink:
+      "https://drive.google.com/file/d/1fUnUq44G-5sfNCWIbgzJ8cHG9_IvKdBK/view?usp=sharing",
+    applyLink:
+      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY19iYW5r&bank_source=aHNiY19iYW5r&agent_code=",
   },
   {
     id: "hdfc-swiggy",
@@ -171,10 +197,17 @@ const creditCards: CreditCard[] = [
       "Reward points on online spends",
       "Fuel surcharge waiver",
     ],
-    eligibilityNote: "Check eligibility by filling your details. HDFC evaluates your credit score and income to provide the most relevant card.",
-    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
-    pdfLink: "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
-    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19zd2lnZ3k=&bank_source=aGRmY19iYW5r&agent_code=",
+    eligibilityNote:
+      "Check eligibility by filling your details. HDFC evaluates your credit score and income to provide the most relevant card.",
+    howToApply: [
+      "Click 'Apply'",
+      "Fill your details",
+      "Get your credit card within 5-7 days",
+    ],
+    pdfLink:
+      "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
+    applyLink:
+      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19zd2lnZ3k=&bank_source=aGRmY19iYW5r&agent_code=",
   },
   {
     id: "axis-lic",
@@ -203,10 +236,17 @@ const creditCards: CreditCard[] = [
       "Airport lounge access",
       "Dining and shopping offers",
     ],
-    eligibilityNote: "Fill in your details to proceed. Axis Bank matches your profile with the best LIC credit card variant available.",
-    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
-    pdfLink: "https://drive.google.com/file/d/1qCTgChpQVEQtvaBWymCHwC1LLdRT4T-y/view?usp=sharing",
-    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19saWM=&bank_source=YXhpc19saWM=&agent_code=",
+    eligibilityNote:
+      "Fill in your details to proceed. Axis Bank matches your profile with the best LIC credit card variant available.",
+    howToApply: [
+      "Click 'Apply'",
+      "Fill your details",
+      "Get your credit card within 5-7 days",
+    ],
+    pdfLink:
+      "https://drive.google.com/file/d/1qCTgChpQVEQtvaBWymCHwC1LLdRT4T-y/view?usp=sharing",
+    applyLink:
+      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19saWM=&bank_source=YXhpc19saWM=&agent_code=",
   },
   {
     id: "yes-popclub",
@@ -240,10 +280,17 @@ const creditCards: CreditCard[] = [
       "Fuel surcharge waiver",
       "Movie & food discounts",
     ],
-    eligibilityNote: "Enter your details to check eligibility. Yes Bank will filter the right Pop Club card based on your income and credit record.",
-    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
-    pdfLink: "https://drive.google.com/file/d/1KrMSQ8lPi4_kUYpn41KqlS5gpziYjfWM/view?usp=sharing",
-    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=eWVzX3BvcGNsdWI=&bank_source=eWVzX3BvcGNsdWI=&agent_code=",
+    eligibilityNote:
+      "Enter your details to check eligibility. Yes Bank will filter the right Pop Club card based on your income and credit record.",
+    howToApply: [
+      "Click 'Apply'",
+      "Fill your details",
+      "Get your credit card within 5-7 days",
+    ],
+    pdfLink:
+      "https://drive.google.com/file/d/1KrMSQ8lPi4_kUYpn41KqlS5gpziYjfWM/view?usp=sharing",
+    applyLink:
+      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=eWVzX3BvcGNsdWI=&bank_source=eWVzX3BvcGNsdWI=&agent_code=",
   },
   {
     id: "hsbc-liveplus",
@@ -273,10 +320,17 @@ const creditCards: CreditCard[] = [
       "Dining & travel discounts",
       "Global acceptance",
     ],
-    eligibilityNote: "Provide your details to check eligibility. HSBC recommends Live Plus card based on your spending profile and financial history.",
-    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
-    pdfLink: "https://drive.google.com/file/d/1fUnUq44G-5sfNCWIbgzJ8cHG9_IvKdBK/view?usp=sharing",
-    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY19saXZlX3BsdXM=&bank_source=aHNiY19iYW5r&agent_code=",
+    eligibilityNote:
+      "Provide your details to check eligibility. HSBC recommends Live Plus card based on your spending profile and financial history.",
+    howToApply: [
+      "Click 'Apply'",
+      "Fill your details",
+      "Get your credit card within 5-7 days",
+    ],
+    pdfLink:
+      "https://drive.google.com/file/d/1fUnUq44G-5sfNCWIbgzJ8cHG9_IvKdBK/view?usp=sharing",
+    applyLink:
+      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY19saXZlX3BsdXM=&bank_source=aHNiY19iYW5r&agent_code=",
   },
   {
     id: "hsbc-travelone",
@@ -306,10 +360,17 @@ const creditCards: CreditCard[] = [
       "Airport lounge access",
       "Travel insurance",
     ],
-    eligibilityNote: "Fill in your details to see if you qualify. HSBC automatically finds the best travel card depending on your income and credit.",
-    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
-    pdfLink: "https://drive.google.com/file/d/1fUnUq44G-5sfNCWIbgzJ8cHG9_IvKdBK/view?usp=sharing",
-    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY190cmF2ZWxvbmVfY2FyZA==&bank_source=aHNiY19iYW5r&agent_code=",
+    eligibilityNote:
+      "Fill in your details to see if you qualify. HSBC automatically finds the best travel card depending on your income and credit.",
+    howToApply: [
+      "Click 'Apply'",
+      "Fill your details",
+      "Get your credit card within 5-7 days",
+    ],
+    pdfLink:
+      "https://drive.google.com/file/d/1fUnUq44G-5sfNCWIbgzJ8cHG9_IvKdBK/view?usp=sharing",
+    applyLink:
+      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY190cmF2ZWxvbmVfY2FyZA==&bank_source=aHNiY19iYW5r&agent_code=",
   },
   {
     id: "axis-fd",
@@ -338,14 +399,21 @@ const creditCards: CreditCard[] = [
       "High approval chances",
       "Low annual fee",
     ],
-    eligibilityNote: "Enter your details to verify eligibility. Axis offers FD-backed cards based on your deposit and income profile.",
-    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
-    pdfLink: "https://drive.google.com/file/d/1qCTgChpQVEQtvaBWymCHwC1LLdRT4T-y/view?usp=sharing",
-    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19iYW5rX2ZkX2NyZWRpdF9jYXJk&bank_source=YXhpc19iYW5r&agent_code=",
+    eligibilityNote:
+      "Enter your details to verify eligibility. Axis offers FD-backed cards based on your deposit and income profile.",
+    howToApply: [
+      "Click 'Apply'",
+      "Fill your details",
+      "Get your credit card within 5-7 days",
+    ],
+    pdfLink:
+      "https://drive.google.com/file/d/1qCTgChpQVEQtvaBWymCHwC1LLdRT4T-y/view?usp=sharing",
+    applyLink:
+      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19iYW5rX2ZkX2NyZWRpdF9jYXJk&bank_source=YXhpc19iYW5r&agent_code=",
   },
   {
     id: "tataneu",
-    bank: "TataNeu", 
+    bank: "TataNeu",
     logo: "/tataneu.png",
     cardName: "TataNeu Credit Card",
     cardImage: "/Tataneu Card.svg",
@@ -371,10 +439,17 @@ const creditCards: CreditCard[] = [
       "Shopping discounts",
       "Fuel surcharge waiver",
     ],
-    eligibilityNote: "Provide your details to check eligibility. TataNeu will suggest the right card based on your spending capacity and profile.",
-    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
-    pdfLink: "https://www.hdfcbank.com/content/bbp/repositories/723fb80a-2dde-42a3-9793-7ae1be57c87f/?path=/Personal/Pay/Cards/Credit%20Card/Credit%20Card%20Landing%20Page/Credit%20Cards/TATA%20Neu%20Infinity%20HDFC%20Bank%20Credit%20Card/TATA_Neu_Infinity_Card_FAQ.pdf",
-    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=dGF0YW5ldV9jYXJk&bank_source=dGF0YW5ldQ==&agent_code=",
+    eligibilityNote:
+      "Provide your details to check eligibility. TataNeu will suggest the right card based on your spending capacity and profile.",
+    howToApply: [
+      "Click 'Apply'",
+      "Fill your details",
+      "Get your credit card within 5-7 days",
+    ],
+    pdfLink:
+      "https://www.hdfcbank.com/content/bbp/repositories/723fb80a-2dde-42a3-9793-7ae1be57c87f/?path=/Personal/Pay/Cards/Credit%20Card/Credit%20Card%20Landing%20Page/Credit%20Cards/TATA%20Neu%20Infinity%20HDFC%20Bank%20Credit%20Card/TATA_Neu_Infinity_Card_FAQ.pdf",
+    applyLink:
+      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=dGF0YW5ldV9jYXJk&bank_source=dGF0YW5ldQ==&agent_code=",
   },
   {
     id: "hdfc-giga",
@@ -404,10 +479,17 @@ const creditCards: CreditCard[] = [
       "Travel & dining discounts",
       "Fuel surcharge waiver",
     ],
-    eligibilityNote: "Fill your details to know eligibility. HDFC will shortlist GIGA or other suitable cards as per your credit score and income.",
-    howToApply: ["Click 'Apply'", "Fill your details", "Get your credit card within 5-7 days"],
-    pdfLink: "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
-    applyLink: "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19naWdh&bank_source=Z0lnYV9idXNpbmVzc19jcmVkaXRfY2FyZA==&agent_code=",
+    eligibilityNote:
+      "Fill your details to know eligibility. HDFC will shortlist GIGA or other suitable cards as per your credit score and income.",
+    howToApply: [
+      "Click 'Apply'",
+      "Fill your details",
+      "Get your credit card within 5-7 days",
+    ],
+    pdfLink:
+      "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
+    applyLink:
+      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19naWdh&bank_source=Z0lnYV9idXNpbmVzc19jcmVkaXRfY2FyZA==&agent_code=",
   },
 ];
 
@@ -457,7 +539,8 @@ export default function CreditCardsPage() {
             Find Your Perfect Credit Card
           </h1>
           <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 max-w-3xl md:max-w-4xl mx-auto leading-relaxed px-2">
-            Compare top credit cards from leading banks. Discover rewards, cashback, and features tailored to your lifestyle.
+            Compare top credit cards from leading banks. Discover rewards,
+            cashback, and features tailored to your lifestyle.
           </p>
         </motion.div>
       </header>
@@ -490,8 +573,14 @@ export default function CreditCardsPage() {
                       />
                     </div>
                     <div>
-                      <h3 className="text-base sm:text-lg font-bold text-gray-900">{card.cardName}</h3>
-                      {card.tagline && <p className="text-xs sm:text-sm text-emerald-700 mt-1">{card.tagline}</p>}
+                      <h3 className="text-base sm:text-lg font-bold text-gray-900">
+                        {card.cardName}
+                      </h3>
+                      {card.tagline && (
+                        <p className="text-xs sm:text-sm text-emerald-700 mt-1">
+                          {card.tagline}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -510,24 +599,38 @@ export default function CreditCardsPage() {
                   </div>
 
                   {/* Rewards Highlights */}
-                  {(card.cashbackRate || card.rewardPoints || card.welcomeBonus) && (
+                  {(card.cashbackRate ||
+                    card.rewardPoints ||
+                    card.welcomeBonus) && (
                     <div className="grid grid-cols-3 gap-2 mb-4 sm:mb-5 text-center">
                       {card.cashbackRate && (
                         <div className="bg-emerald-50 rounded-lg p-2">
-                          <p className="text-[10px] sm:text-xs text-emerald-800 font-semibold">Cashback</p>
-                          <p className="text-xs sm:text-sm font-bold text-emerald-600">{card.cashbackRate}</p>
+                          <p className="text-[10px] sm:text-xs text-emerald-800 font-semibold">
+                            Cashback
+                          </p>
+                          <p className="text-xs sm:text-sm font-bold text-emerald-600">
+                            {card.cashbackRate}
+                          </p>
                         </div>
                       )}
                       {card.rewardPoints && (
                         <div className="bg-teal-50 rounded-lg p-2">
-                          <p className="text-[10px] sm:text-xs text-teal-800 font-semibold">Rewards</p>
-                          <p className="text-xs sm:text-sm font-bold text-teal-600 truncate">{card.rewardPoints}</p>
+                          <p className="text-[10px] sm:text-xs text-teal-800 font-semibold">
+                            Rewards
+                          </p>
+                          <p className="text-xs sm:text-sm font-bold text-teal-600 truncate">
+                            {card.rewardPoints}
+                          </p>
                         </div>
                       )}
                       {card.welcomeBonus && (
                         <div className="bg-green-50 rounded-lg p-2">
-                          <p className="text-[10px] sm:text-xs text-green-800 font-semibold">Bonus</p>
-                          <p className="text-xs sm:text-sm font-bold text-green-600 truncate">{card.welcomeBonus}</p>
+                          <p className="text-[10px] sm:text-xs text-green-800 font-semibold">
+                            Bonus
+                          </p>
+                          <p className="text-xs sm:text-sm font-bold text-green-600 truncate">
+                            {card.welcomeBonus}
+                          </p>
                         </div>
                       )}
                     </div>
@@ -536,12 +639,18 @@ export default function CreditCardsPage() {
                   {/* Key Features */}
                   <div className="mb-5 sm:mb-6 flex-grow">
                     <h4 className="font-bold text-sm text-gray-800 mb-2 flex items-center gap-2">
-                      <FaStar className="text-emerald-500 text-xs" /> Key Features
+                      <FaStar className="text-emerald-500 text-xs" /> Key
+                      Features
                     </h4>
                     <ul className="space-y-1.5 sm:space-y-2">
                       {card.features.slice(0, 3).map((feature, i) => (
-                        <li key={i} className="text-xs sm:text-sm text-gray-700 flex items-start gap-2">
-                          <span className="text-emerald-400 mt-1.5 text-[8px]">•</span>
+                        <li
+                          key={i}
+                          className="text-xs sm:text-sm text-gray-700 flex items-start gap-2"
+                        >
+                          <span className="text-emerald-400 mt-1.5 text-[8px]">
+                            •
+                          </span>
                           <span>{feature}</span>
                         </li>
                       ))}
@@ -555,7 +664,8 @@ export default function CreditCardsPage() {
                       className="flex items-center justify-center gap-2 px-3 py-2.5 sm:px-4 sm:py-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 rounded-xl text-xs sm:text-sm font-semibold border border-emerald-200 transition-colors duration-200"
                       aria-label={`View details for ${card.cardName}`}
                     >
-                      <FaInfoCircle className="text-xs" /> <span>View Details</span>
+                      <FaInfoCircle className="text-xs" />{" "}
+                      <span>View Details</span>
                     </button>
 
                     <div className="flex gap-2.5 sm:gap-3">
@@ -590,32 +700,63 @@ export default function CreditCardsPage() {
       <section className="py-12 sm:py-16 bg-gradient-to-r from-emerald-800 to-teal-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10 sm:mb-14">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Why Apply Through Fiscal Forum?</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
+              Why Apply Through Fiscal Forum?
+            </h2>
             <p className="text-base sm:text-lg md:text-xl text-emerald-100 max-w-2xl sm:max-w-3xl mx-auto px-2">
               We simplify your search and add value to your application.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="bg-white/10 backdrop-blur-sm rounded-2xl p-5 sm:p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 text-center">
+              <div
+                key={i}
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-5 sm:p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 text-center"
+              >
                 <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                  {i === 0 && <FaStar className="text-white w-5 h-5 sm:w-6 sm:h-6" />}
-                  {i === 1 && <FaFilePdf className="text-white w-5 h-5 sm:w-6 sm:h-6" />}
-                  {i === 2 && <FaInfoCircle className="text-white w-5 h-5 sm:w-6 sm:h-6" />}
+                  {i === 0 && (
+                    <FaStar className="text-white w-5 h-5 sm:w-6 sm:h-6" />
+                  )}
+                  {i === 1 && (
+                    <FaFilePdf className="text-white w-5 h-5 sm:w-6 sm:h-6" />
+                  )}
+                  {i === 2 && (
+                    <FaInfoCircle className="text-white w-5 h-5 sm:w-6 sm:h-6" />
+                  )}
                   {i === 3 && (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 text-white" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732L14.146 12.8l-1.179 4.456a1 1 0 01-1.934 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732L9.854 7.2l1.179-4.456A1 1 0 0112 2z" clipRule="evenodd" />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 sm:h-6 sm:w-6 text-white"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M5 2a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732L14.146 12.8l-1.179 4.456a1 1 0 01-1.934 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732L9.854 7.2l1.179-4.456A1 1 0 0112 2z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                   )}
                 </div>
-                <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2">{["Smart Matching", "Instant Access", "Exclusive Insights", "No Extra Cost"][i]}</h3>
+                <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2">
+                  {
+                    [
+                      "Smart Matching",
+                      "Instant Access",
+                      "Exclusive Insights",
+                      "No Extra Cost",
+                    ][i]
+                  }
+                </h3>
                 <p className="text-emerald-100 text-xs sm:text-sm md:text-base">
-                  {[
-                    "Enter your details once, and we show you the cards you're most likely to get approved for.",
-                    "Get instant access to detailed PDF guides for each card to make informed decisions.",
-                    "Benefit from our expert-curated insights and tips for maximizing card benefits.",
-                    "Apply directly through us without any hidden fees or commissions."
-                  ][i]}
+                  {
+                    [
+                      "Enter your details once, and we show you the cards you're most likely to get approved for.",
+                      "Get instant access to detailed PDF guides for each card to make informed decisions.",
+                      "Benefit from our expert-curated insights and tips for maximizing card benefits.",
+                      "Apply directly through us without any hidden fees or commissions.",
+                    ][i]
+                  }
                 </p>
               </div>
             ))}
@@ -630,22 +771,25 @@ export default function CreditCardsPage() {
           className="fixed inset-0 bg-black/50 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200"
         />
 
-        <div className="fixed inset-0 flex items-start justify-center p-4 sm:p-6 md:p-8 lg:p-10 z-50 overflow-y-auto">
+        <div className="fixed inset-0 flex items-center justify-center p-8 sm:p-10 md:p-10 lg:p-12 z-50 overflow-y-auto">
           <DialogPanel
             transition
-            className="w-full max-w-md sm:max-w-2xl md:max-w-3xl mx-auto mt-10 sm:mt-12 rounded-2xl sm:rounded-3xl bg-white shadow-2xl border border-gray-200 transform transition-all data-[closed]:scale-95 data-[closed]:opacity-0"
+            className="w-full max-w-6xl mx-auto rounded-2xl sm:rounded-3xl bg-white shadow-2xl border border-gray-200 transform transition-all data-[closed]:scale-95 data-[closed]:opacity-0"
           >
             {selectedCard && (
-              <div className="p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-6">
-                <div className="text-center">
-                  <DialogTitle className="text-xl sm:text-2xl md:text-3xl font-bold text-emerald-900">
-                    {selectedCard.cardName}
-                  </DialogTitle>
-                  <p className="text-emerald-700 text-sm sm:text-base md:text-lg mt-1">{selectedCard.bank}</p>
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 p-6 sm:p-8">
+                {/* Left Side */}
+                <div className="flex flex-col items-center justify-start space-y-6">
+                  <div className="text-center">
+                    <DialogTitle className="text-3xl md:text-4xl font-bold text-emerald-900">
+                      {selectedCard.cardName}
+                    </DialogTitle>
+                    <p className="text-emerald-700 text-base md:text-lg mt-1">
+                      {selectedCard.bank}
+                    </p>
+                  </div>
 
-                <div className="flex justify-center">
-                  <div className="relative w-full max-w-[220px] sm:max-w-[280px] md:max-w-[300px] h-[140px] sm:h-[160px] md:h-[180px]">
+                  <div className="relative w-full max-w-[260px] h-[160px] md:h-[200px]">
                     <Image
                       src={selectedCard.cardImage}
                       alt={`${selectedCard.cardName} Image`}
@@ -653,84 +797,114 @@ export default function CreditCardsPage() {
                       className="object-contain"
                     />
                   </div>
+
+                  {(selectedCard.cashbackRate ||
+                    selectedCard.rewardPoints ||
+                    selectedCard.welcomeBonus) && (
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
+                      {selectedCard.cashbackRate && (
+                        <div className="bg-emerald-50 rounded-xl p-4 text-center border border-emerald-100">
+                          <p className="text-sm text-emerald-800 font-semibold">
+                            Cashback
+                          </p>
+                          <p className="text-lg font-bold text-emerald-600">
+                            {selectedCard.cashbackRate}
+                          </p>
+                        </div>
+                      )}
+                      {selectedCard.rewardPoints && (
+                        <div className="bg-teal-50 rounded-xl p-4 text-center border border-teal-100">
+                          <p className="text-sm text-teal-800 font-semibold">
+                            Rewards
+                          </p>
+                          <p className="text-lg font-bold text-teal-600">
+                            {selectedCard.rewardPoints}
+                          </p>
+                        </div>
+                      )}
+                      {selectedCard.welcomeBonus && (
+                        <div className="bg-green-50 rounded-xl p-4 text-center border border-green-100">
+                          <p className="text-sm text-green-800 font-semibold">
+                            Welcome Bonus
+                          </p>
+                          <p className="text-lg font-bold text-green-600">
+                            {selectedCard.welcomeBonus}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
 
-                {(selectedCard.cashbackRate || selectedCard.rewardPoints || selectedCard.welcomeBonus) && (
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-                    {selectedCard.cashbackRate && (
-                      <div className="bg-emerald-50 rounded-xl p-3 sm:p-4 text-center border border-emerald-100">
-                        <p className="text-xs sm:text-sm text-emerald-800 font-semibold">Cashback Rate</p>
-                        <p className="text-base sm:text-lg font-bold text-emerald-600">{selectedCard.cashbackRate}</p>
-                      </div>
-                    )}
-                    {selectedCard.rewardPoints && (
-                      <div className="bg-teal-50 rounded-xl p-3 sm:p-4 text-center border border-teal-100">
-                        <p className="text-xs sm:text-sm text-teal-800 font-semibold">Reward Points</p>
-                        <p className="text-base sm:text-lg font-bold text-teal-600">{selectedCard.rewardPoints}</p>
-                      </div>
-                    )}
-                    {selectedCard.welcomeBonus && (
-                      <div className="bg-green-50 rounded-xl p-3 sm:p-4 text-center border border-green-100">
-                        <p className="text-xs sm:text-sm text-green-800 font-semibold">Welcome Bonus</p>
-                        <p className="text-base sm:text-lg font-bold text-green-600">{selectedCard.welcomeBonus}</p>
-                      </div>
-                    )}
+                {/* Right Side */}
+                <div className="flex flex-col justify-between space-y-6">
+                  <div className="space-y-5 overflow-y-auto max-h-[60vh] pr-2">
+                    <div>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2 border-b border-gray-200 pb-1">
+                        Benefits
+                      </h3>
+                      <ul className="space-y-2">
+                        {selectedCard.detailedBenefits.map((benefit, i) => (
+                          <li
+                            key={i}
+                            className="text-lg text-gray-700 flex items-start gap-2"
+                          >
+                            <span className="text-emerald-500 mt-1">
+                              <FaCheck />
+                            </span>
+                            <span>{benefit}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2 border-b border-gray-200 pb-1">
+                        How to Apply
+                      </h3>
+                      <ol className="list-decimal list-inside text-lg text-gray-700 space-y-2">
+                        {selectedCard.howToApply.map((step, i) => (
+                          <li key={i}>{step}</li>
+                        ))}
+                      </ol>
+                    </div>
+
+                    <div>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2 border-b border-gray-200 pb-1">
+                        Eligibility
+                      </h3>
+                      <p className="text-lg text-gray-700 italic">
+                        {selectedCard.eligibilityNote}
+                      </p>
+                    </div>
                   </div>
-                )}
 
-                <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 border-b border-gray-200 pb-2">Benefits</h3>
-                  <ul className="space-y-2 sm:space-y-3">
-                    {selectedCard.detailedBenefits.map((benefit, i) => (
-                      <li key={i} className="text-sm sm:text-base text-gray-700 flex items-start gap-2 sm:gap-3">
-                        <span className="text-emerald-500 mt-1 text-base"><FaCheck /></span>
-                        <span>{benefit}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 border-b border-gray-200 pb-2">How to Apply</h3>
-                  <ol className="space-y-2 sm:space-y-3 list-decimal list-inside text-sm sm:text-base text-gray-700 pl-2">
-                    {selectedCard.howToApply.map((step, i) => (
-                      <li key={i}>{step}</li>
-                    ))}
-                  </ol>
-                </div>
-
-                <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 border-b border-gray-200 pb-2">Eligibility</h3>
-                  <p className="text-sm sm:text-base text-gray-700 italic">{selectedCard.eligibilityNote}</p>
-                </div>
-
-                <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t border-gray-200">
-                  <Link
-                    href={selectedCard.pdfLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2.5 sm:px-5 sm:py-3 bg-teal-100 hover:bg-teal-200 text-teal-800 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold border border-teal-200 flex items-center justify-center gap-2 transition-colors duration-200"
-                    aria-label={`Download PDF for ${selectedCard.cardName} in modal`}
-                  >
-                    <FaFilePdf className="w-4 h-4 sm:w-5 sm:h-5" /> <span>PDF</span>
-                  </Link>
-                  <Link
-                    href={selectedCard.applyLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2.5 sm:px-5 sm:py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-lg sm:rounded-xl text-sm sm:text-base font-bold flex items-center justify-center gap-2 shadow-lg transition-all duration-200"
-                    aria-label={`Apply for ${selectedCard.cardName} in modal`}
-                  >
-                    Apply Now
-                  </Link>
-                  <button
-                    type="button"
-                    onClick={closeModal}
-                    className="px-4 py-2.5 sm:px-5 sm:py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold transition-colors duration-200"
-                    aria-label="Close modal"
-                  >
-                    Close
-                  </button>
+                  {/* Actions */}
+                  <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t border-gray-200">
+                    <Link
+                      href={selectedCard.pdfLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-3 bg-teal-100 hover:bg-teal-200 text-teal-800 rounded-xl text-lg font-semibold border border-teal-200 flex items-center justify-center gap-2"
+                    >
+                      <FaFilePdf className="w-5 h-5" /> PDF
+                    </Link>
+                    <Link
+                      href={selectedCard.applyLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-xl text-lg font-bold flex items-center justify-center gap-2 shadow-lg"
+                    >
+                      Apply Now
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={closeModal}
+                      className="px-4 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-xl text-lg font-semibold"
+                    >
+                      Close
+                    </button>
+                  </div>
                 </div>
               </div>
             )}

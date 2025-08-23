@@ -20,6 +20,7 @@ import {
   FaAward,
   FaHandHoldingUsd,
   FaGem,
+  FaWhatsapp,
 } from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -118,13 +119,16 @@ export default function MutualPage() {
     try {
       // Simulate API call
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/subscribe`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/subscribe`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
       const data = await response.json();
       if (response.ok) {
         setMessage({ text: data.message, type: "success" });
@@ -351,25 +355,25 @@ export default function MutualPage() {
                     className="relative rounded-2xl shadow-lg overflow-hidden transition-all duration-300 transform hover:shadow-xl bg-white"
                   >
                     <div className="p-1 bg-gradient-to-r from-green-500 to-emerald-600"></div>
-                      <div className="p-6 space-y-4 h-full flex flex-col cursor-pointer">
-                        <div
-                          className={`p-3 rounded-xl ${option.iconBgColor} flex-shrink-0 w-12 h-12 flex items-center justify-center`}
-                        >
-                          {IconComponent && (
-                            <IconComponent
-                              className={`w-6 h-6 ${option.iconColor}`}
-                            />
-                          )}
-                        </div>
-                        <h2 className="text-xl font-bold text-gray-800">
-                          {option.title}
-                        </h2>
-                        <p className="text-sm leading-relaxed flex-grow text-gray-600">
-                          {option.description}
-                        </p>
-                        
-                        <div className="pt-4">
-                          <Link href={option.link} passHref>
+                    <div className="p-6 space-y-4 h-full flex flex-col cursor-pointer">
+                      <div
+                        className={`p-3 rounded-xl ${option.iconBgColor} flex-shrink-0 w-12 h-12 flex items-center justify-center`}
+                      >
+                        {IconComponent && (
+                          <IconComponent
+                            className={`w-6 h-6 ${option.iconColor}`}
+                          />
+                        )}
+                      </div>
+                      <h2 className="text-xl font-bold text-gray-800">
+                        {option.title}
+                      </h2>
+                      <p className="text-sm leading-relaxed flex-grow text-gray-600">
+                        {option.description}
+                      </p>
+
+                      <div className="pt-4">
+                        <Link href={option.link} passHref>
                           <div className="inline-flex items-center gap-2 font-medium text-green-600 hover:text-green-700">
                             Learn More
                             <svg
@@ -383,9 +387,9 @@ export default function MutualPage() {
                               <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
                           </div>
-                          </Link>
-                        </div>
+                        </Link>
                       </div>
+                    </div>
                   </motion.div>
                 );
               })}
@@ -400,13 +404,27 @@ export default function MutualPage() {
               Get personalized guidance on opening your queries related to
               mutual funds.
             </p>
-            <button
-              onClick={() => router.push("/services/stock-investment/contact")}
-              className="bg-white text-green-700 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3 mx-auto"
-            >
-              <Phone className="w-5 h-5" />
-              Schedule a Free Call
-            </button>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <button
+                onClick={() =>
+                  router.push("/services/stock-investment/contact")
+                }
+                className="bg-white text-green-700 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3"
+              >
+                <Phone className="w-5 h-5" />
+                Schedule a Free Call
+              </button>
+              {/* WhatsApp Button */}
+              <a
+                href="https://wa.me/+918696060387" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3" 
+              >
+                <FaWhatsapp className="w-5 h-5" />{" "}
+                Chat with Us
+              </a>
+            </div>
           </section>
 
           {/* Account Options (Kickstart & Level Up) */}
@@ -429,9 +447,7 @@ export default function MutualPage() {
                 </div>
                 <button
                   onClick={() =>
-                    router.push(
-                      "/services/mutual-funds/open-demat-account"
-                    )
+                    router.push("/services/mutual-funds/open-demat-account")
                   }
                   className="mt-6 w-fit border border-white text-white px-6 py-3 rounded-full font-medium hover:bg-white hover:text-green-700 transition-all duration-300"
                 >
@@ -456,7 +472,9 @@ export default function MutualPage() {
                 </div>
                 <button
                   onClick={() =>
-                    router.push("/services/mutual-funds/already-have-an-account")
+                    router.push(
+                      "/services/mutual-funds/already-have-an-account"
+                    )
                   }
                   className="mt-6 w-fit border border-green-600 text-green-600 px-6 py-3 rounded-full font-medium hover:bg-green-600 hover:text-white transition-all duration-300"
                 >
