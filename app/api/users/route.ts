@@ -1,111 +1,72 @@
 import { db } from "../../../config/db";
 import { usersTable } from "../../../config/schema";
-import { currentUser } from "@clerk/nextjs/server";
-import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
+import { eq } from "drizzle-orm";
 
 const allowedOrigins = [
   "https://www.fiscalforum.in",
   "https://fiscalforum.in",
-  "http://localhost:3000",
+  "http://localhost:3000"
 ];
 
-function corsHeaders(origin: string | null): HeadersInit {
+function corsHeaders(origin: string | null):HeadersInit {
   if (origin && allowedOrigins.includes(origin)) {
     return {
       "Access-Control-Allow-Origin": origin,
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type, Authorization",
-      "Access-Control-Allow-Credentials": "true",
     };
   }
   return {};
 }
 
+// GET - fetch user by email query param
 export async function GET(req: NextRequest) {
   const origin = req.headers.get("origin");
   const headers = corsHeaders(origin);
 
+  const email = req.nextUrl.searchParams.get("email");
+  if (!email) {
+    return NextResponse.json({ error: "Email is required" }, { status: 400, headers });
+  }
+
   try {
-    const clerkUser = await currentUser();
-
-    if (!clerkUser || !clerkUser.emailAddresses.length) {
-      return NextResponse.json(
-        { error: "Unauthorized" },
-        { status: 401, headers }
-      );
-    }
-
-    const userEmail = clerkUser.emailAddresses[0]?.emailAddress ?? "";
-    const userName = clerkUser.fullName ?? "Anonymous";
-
-    if (!userEmail) {
-      return NextResponse.json(
-        { error: "Invalid email address" },
-        { status: 400, headers }
-      );
-    }
-
-    // Check if user exists in your DB
     const existing = await db
       .select()
       .from(usersTable)
-      .where(eq(usersTable.email, userEmail));
+      .where(eq(usersTable.email, email));
 
-    if (existing.length > 0) {
-      return NextResponse.json(existing[0], { status: 200, headers });
+    if (!existing.length) {
+      return NextResponse.json({ error: "User not found" }, { status: 404, headers });
     }
 
-    // If user not found in DB, just return Clerk details
-    return NextResponse.json(
-      {
-        id: clerkUser.id,
-        name: userName,
-        email: userEmail,
-      },
-      { status: 200, headers }
-    );
+    return NextResponse.json(existing[0], { status: 200, headers });
   } catch (error) {
-    console.error("GET user error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500, headers }
-    );
+    console.error("User fetch error:", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500, headers });
   }
 }
 
-// Handle POST /api/your-endpoint
+// POST - create new user
 export async function POST(req: NextRequest) {
   const origin = req.headers.get("origin");
   const headers = corsHeaders(origin);
 
-  const clerkUser = await currentUser();
+  const body = await req.json();
+  const { email, name } = body;
 
-  if (!clerkUser || !clerkUser.emailAddresses.length) {
-    return NextResponse.json(
-      { error: "Unauthorized" },
-      { status: 401, headers }
-    );
-  }
-
-  const userEmail = clerkUser.emailAddresses[0]?.emailAddress ?? "";
-  const userName = clerkUser.fullName ?? "Anonymous";
-
-  if (!userEmail) {
-    return NextResponse.json(
-      { error: "Invalid email address" },
-      { status: 400, headers }
-    );
+  if (!email) {
+    return NextResponse.json({ error: "Email is required" }, { status: 400, headers });
   }
 
   try {
     const existing = await db
       .select()
       .from(usersTable)
-      .where(eq(usersTable.email, userEmail));
+      .where(eq(usersTable.email, email));
 
-    if (existing.length > 0) {
+    if (existing.length) {
       return NextResponse.json(existing[0], { status: 200, headers });
     }
 
@@ -114,8 +75,8 @@ export async function POST(req: NextRequest) {
     const [newUser] = await db
       .insert(usersTable)
       .values({
-        name: userName,
-        email: userEmail,
+        name: name || "Anonymous",
+        email,
         age: 18,
         password: hashedPassword,
         role: "USER",
@@ -126,15 +87,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(newUser, { status: 201, headers });
   } catch (error) {
     console.error("User insert error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500, headers }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500, headers });
   }
-}
-
-// Handle preflight CORS
-export async function OPTIONS(req: NextRequest) {
-  const origin = req.headers.get("origin");
-  return NextResponse.json({}, { status: 200, headers: corsHeaders(origin) });
 }

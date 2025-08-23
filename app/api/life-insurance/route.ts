@@ -103,7 +103,7 @@ export async function POST(req: NextRequest) {
         } else {
           const [created] = await db
             .insert(usersTable)
-            .values({ name: fullName, email: clerkEmail, age: 18, password: "", role: "USER", status: "PENDING" })
+            .values({ id: cu?.id,  name: fullName, email: clerkEmail, age: 18, password: "", role: "USER", status: "PENDING" })
             .returning();
           userId = created.id as string;
         }

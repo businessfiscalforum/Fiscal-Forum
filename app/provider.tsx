@@ -27,20 +27,48 @@ function Provider({ children }: { children: React.ReactNode }) {
 
   const createNewUser = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
-        method: "POST",
-        credentials: "include", 
+      const userEmail = user?.emailAddresses[0]?.emailAddress;
+      const userName = user?.fullName || "Anonymous";
+
+      if (!userEmail) throw new Error("User email not available");
+
+      // First, try fetching the user
+      const fetchRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users?email=${userEmail}`, {
+        method: "GET",
+        credentials: "include",
       });
 
-      if (!res.ok) {
-        throw new Error(`Failed to fetch user: ${res.statusText}`);
+      if (fetchRes.ok) {
+        const data: UsersDetail = await fetchRes.json();
+        setUserDetail(data);
+        console.log("Fetched user:", data);
+        return;
       }
 
-      const data: UsersDetail = await res.json();
-      setUserDetail(data);
-      console.log("Fetched/Created user:", data);
+      // If user not found, create a new one
+      if (fetchRes.status === 404) {
+        const createRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: userEmail, name: userName }),
+        });
+
+        if (!createRes.ok) {
+          throw new Error(`Failed to create user: ${createRes.statusText}`);
+        }
+
+        const newData: UsersDetail = await createRes.json();
+        setUserDetail(newData);
+        console.log("Created new user:", newData);
+        return;
+      }
+
+      throw new Error(`Failed to fetch user: ${fetchRes.statusText}`);
     } catch (error) {
-      console.error("Error creating or fetching user:", error);
+      console.error("Error fetching or creating user:", error);
     }
   };
 
