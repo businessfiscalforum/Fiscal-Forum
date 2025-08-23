@@ -91,7 +91,8 @@ export default function HealthInsuranceFormPage() {
     if (!formData.name.trim()) newErrors.name = "Name is required";
 
     if (!formData.phone.trim()) newErrors.phone = "Phone number is required";
-    else if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = "Phone must be a 10-digit number";
+    else if (!/^\d{10}$/.test(formData.phone))
+      newErrors.phone = "Phone must be a 10-digit number";
 
     if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Invalid email format";
@@ -104,9 +105,14 @@ export default function HealthInsuranceFormPage() {
   const validateStep2 = () => {
     const newErrors: Record<string, string> = {};
 
-    if (!formData.policyType.trim()) newErrors.policyType = "Policy type is required";
+    if (!formData.policyType.trim())
+      newErrors.policyType = "Policy type is required";
 
-    if (formData.membersCount && (!/^\d+$/.test(formData.membersCount) || Number(formData.membersCount) < 1)) {
+    if (
+      formData.membersCount &&
+      (!/^\d+$/.test(formData.membersCount) ||
+        Number(formData.membersCount) < 1)
+    ) {
       newErrors.membersCount = "Members count must be a positive number";
     }
 
@@ -121,7 +127,10 @@ export default function HealthInsuranceFormPage() {
   const validateStep3 = () => {
     const newErrors: Record<string, string> = {};
 
-    if (formData.policyExpiry && !/^\d{2}\/\d{2}\/\d{4}$/.test(formData.policyExpiry)) {
+    if (
+      formData.policyExpiry &&
+      !/^\d{2}\/\d{2}\/\d{4}$/.test(formData.policyExpiry)
+    ) {
       newErrors.policyExpiry = "Use dd/mm/yyyy format";
     }
 
@@ -170,10 +179,12 @@ export default function HealthInsuranceFormPage() {
 
     let userId: string;
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
-        method: "GET",
-        credentials: "include", // 🔑 ensure Clerk session cookies are sent
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/users`,
+        {
+          method: "GET",
+        }
+      );
 
       console.log("Data:", response);
       if (response.ok) {
@@ -195,19 +206,27 @@ export default function HealthInsuranceFormPage() {
       formDataToSend.append("policyType", formData.policyType);
       formDataToSend.append("membersCount", formData.membersCount);
       formDataToSend.append("memberAges", formData.memberAges);
-      formDataToSend.append("preExistingDiseases", formData.preExistingDiseases);
+      formDataToSend.append(
+        "preExistingDiseases",
+        formData.preExistingDiseases
+      );
       formDataToSend.append("previousInsurer", formData.previousInsurer);
       formDataToSend.append("policyExpiry", formData.policyExpiry);
       formDataToSend.append("prevPolicyLink", formData.prevPolicyLink);
-      formDataToSend.append("insurerPrefs", JSON.stringify(formData.insurerPrefs));
+      formDataToSend.append(
+        "insurerPrefs",
+        JSON.stringify(formData.insurerPrefs)
+      );
       formDataToSend.append("otherInsurer", formData.otherInsurer);
       formDataToSend.append("userId", userId);
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/health-insurance`, {
-        method: "POST",
-        body: formDataToSend,
-        credentials: "include",
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/health-insurance`,
+        {
+          method: "POST",
+          body: formDataToSend,
+        }
+      );
 
       const result = await response.json();
 
@@ -239,7 +258,7 @@ export default function HealthInsuranceFormPage() {
         setStep(1);
         setErrors({});
       }, 3000);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Submission error:", error);
       setMessage({
@@ -288,7 +307,8 @@ export default function HealthInsuranceFormPage() {
               Health Insurance Form
             </h2>
             <p className="text-gray-600 mt-2 max-w-2xl mx-auto">
-              Provide your details, insurance requirements, previous policy information, and select your preferred insurers.
+              Provide your details, insurance requirements, previous policy
+              information, and select your preferred insurers.
             </p>
           </div>
 
@@ -300,11 +320,16 @@ export default function HealthInsuranceFormPage() {
               { label: "Previous Policy Info", idx: 3 },
               { label: "Insurer Preference", idx: 4 },
             ].map((s, i) => (
-              <div key={s.idx} className="flex flex-col md:flex-row items-center relative">
+              <div
+                key={s.idx}
+                className="flex flex-col md:flex-row items-center relative"
+              >
                 {/* Step Circle */}
                 <div
                   className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                    step === s.idx ? "bg-emerald-600 text-white" : "bg-gray-200 text-gray-600"
+                    step === s.idx
+                      ? "bg-emerald-600 text-white"
+                      : "bg-gray-200 text-gray-600"
                   }`}
                 >
                   {s.idx}
@@ -313,7 +338,9 @@ export default function HealthInsuranceFormPage() {
                 {/* Step Label */}
                 <span
                   className={`mt-2 md:mt-0 md:ml-2 text-center md:text-left ${
-                    step === s.idx ? "text-emerald-600 font-medium" : "text-gray-500"
+                    step === s.idx
+                      ? "text-emerald-600 font-medium"
+                      : "text-gray-500"
                   }`}
                 >
                   {s.label}
@@ -327,7 +354,6 @@ export default function HealthInsuranceFormPage() {
             ))}
           </div>
 
-
           {message && (
             <div
               className={`mb-6 p-4 rounded-2xl text-center ${
@@ -336,7 +362,9 @@ export default function HealthInsuranceFormPage() {
                   : "bg-red-100 text-red-800 border border-red-200"
               }`}
             >
-              {message.type === "success" ? <FaCheck className="inline mr-2" /> : null}
+              {message.type === "success" ? (
+                <FaCheck className="inline mr-2" />
+              ) : null}
               {message.text}
             </div>
           )}
@@ -347,8 +375,12 @@ export default function HealthInsuranceFormPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Name */}
                   <div>
-                    <label htmlFor="name" className="text-sm font-medium text-gray-700 mb-1 flex items-center">
-                      <FaUser className="mr-2 text-emerald-600" /> Name <span className="text-red-500 ml-1">*</span>
+                    <label
+                      htmlFor="name"
+                      className="text-sm font-medium text-gray-700 mb-1 flex items-center"
+                    >
+                      <FaUser className="mr-2 text-emerald-600" /> Name{" "}
+                      <span className="text-red-500 ml-1">*</span>
                     </label>
                     <input
                       type="text"
@@ -359,12 +391,17 @@ export default function HealthInsuranceFormPage() {
                       className={`w-full px-4 py-3 rounded-xl border ${errors.name ? "border-red-500" : "border-gray-300"} focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
                       placeholder="Enter your full name"
                     />
-                    {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
+                    {errors.name && (
+                      <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+                    )}
                   </div>
 
                   {/* Email (optional) */}
                   <div>
-                    <label htmlFor="email" className="text-sm font-medium text-gray-700 mb-1 flex items-center">
+                    <label
+                      htmlFor="email"
+                      className="text-sm font-medium text-gray-700 mb-1 flex items-center"
+                    >
                       <FaEnvelope className="mr-2 text-emerald-600" /> Email ID
                     </label>
                     <input
@@ -376,13 +413,21 @@ export default function HealthInsuranceFormPage() {
                       className={`w-full px-4 py-3 rounded-xl border ${errors.email ? "border-red-500" : "border-gray-300"} focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
                       placeholder="you@example.com"
                     />
-                    {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
+                    {errors.email && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
 
                   {/* Phone */}
                   <div>
-                    <label htmlFor="phone" className="text-sm font-medium text-gray-700 mb-1 flex items-center">
-                      <FaPhone className="mr-2 text-emerald-600" /> Mobile Number <span className="text-red-500 ml-1">*</span>
+                    <label
+                      htmlFor="phone"
+                      className="text-sm font-medium text-gray-700 mb-1 flex items-center"
+                    >
+                      <FaPhone className="mr-2 text-emerald-600" /> Mobile
+                      Number <span className="text-red-500 ml-1">*</span>
                     </label>
                     <input
                       type="tel"
@@ -393,7 +438,11 @@ export default function HealthInsuranceFormPage() {
                       className={`w-full px-4 py-3 rounded-xl border ${errors.phone ? "border-red-500" : "border-gray-300"} focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
                       placeholder="10-digit mobile number"
                     />
-                    {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone}</p>}
+                    {errors.phone && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.phone}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -414,11 +463,21 @@ export default function HealthInsuranceFormPage() {
                   {/* Policy Type */}
                   <div>
                     <label className="text-sm font-medium text-gray-700 mb-3 block">
-                      Type of Policy <span className="text-red-500">*</span> (select one)
+                      Type of Policy <span className="text-red-500">*</span>{" "}
+                      (select one)
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {["Individual", "Family Floater", "Senior Citizen", "Critical Illness", "Top-up Policy"].map((type) => (
-                        <label key={type} className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                      {[
+                        "Individual",
+                        "Family Floater",
+                        "Senior Citizen",
+                        "Critical Illness",
+                        "Top-up Policy",
+                      ].map((type) => (
+                        <label
+                          key={type}
+                          className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer"
+                        >
                           <input
                             type="radio"
                             name="policyType"
@@ -431,13 +490,21 @@ export default function HealthInsuranceFormPage() {
                         </label>
                       ))}
                     </div>
-                    {errors.policyType && <p className="mt-1 text-sm text-red-600">{errors.policyType}</p>}
+                    {errors.policyType && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.policyType}
+                      </p>
+                    )}
                   </div>
 
                   {/* Members Count */}
                   <div>
-                    <label htmlFor="membersCount" className="text-sm font-medium text-gray-700 mb-1 flex items-center">
-                      <FaUsers className="mr-2 text-emerald-600" /> Total No. of Members to be Insured
+                    <label
+                      htmlFor="membersCount"
+                      className="text-sm font-medium text-gray-700 mb-1 flex items-center"
+                    >
+                      <FaUsers className="mr-2 text-emerald-600" /> Total No. of
+                      Members to be Insured
                     </label>
                     <input
                       type="number"
@@ -449,13 +516,21 @@ export default function HealthInsuranceFormPage() {
                       placeholder="Enter number of members"
                       min="1"
                     />
-                    {errors.membersCount && <p className="mt-1 text-sm text-red-600">{errors.membersCount}</p>}
+                    {errors.membersCount && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.membersCount}
+                      </p>
+                    )}
                   </div>
 
                   {/* Member Ages */}
                   <div>
-                    <label htmlFor="memberAges" className="text-sm font-medium text-gray-700 mb-1 flex items-center">
-                      <FaCalendarAlt className="mr-2 text-emerald-600" /> Age of Each Member (Comma-separated)
+                    <label
+                      htmlFor="memberAges"
+                      className="text-sm font-medium text-gray-700 mb-1 flex items-center"
+                    >
+                      <FaCalendarAlt className="mr-2 text-emerald-600" /> Age of
+                      Each Member (Comma-separated)
                     </label>
                     <input
                       type="text"
@@ -466,13 +541,21 @@ export default function HealthInsuranceFormPage() {
                       className={`w-full px-4 py-3 rounded-xl border ${errors.memberAges ? "border-red-500" : "border-gray-300"} focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
                       placeholder="e.g., 25, 30, 45"
                     />
-                    {errors.memberAges && <p className="mt-1 text-sm text-red-600">{errors.memberAges}</p>}
+                    {errors.memberAges && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.memberAges}
+                      </p>
+                    )}
                   </div>
 
                   {/* Pre-existing Diseases */}
                   <div>
-                    <label htmlFor="preExistingDiseases" className="text-sm font-medium text-gray-700 mb-1 flex items-center">
-                      <FaInfoCircle className="mr-2 text-emerald-600" /> Pre-Existing Diseases (if any)
+                    <label
+                      htmlFor="preExistingDiseases"
+                      className="text-sm font-medium text-gray-700 mb-1 flex items-center"
+                    >
+                      <FaInfoCircle className="mr-2 text-emerald-600" />{" "}
+                      Pre-Existing Diseases (if any)
                     </label>
                     <input
                       type="text"
@@ -513,8 +596,12 @@ export default function HealthInsuranceFormPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Previous Insurer */}
                     <div>
-                      <label htmlFor="previousInsurer" className="text-sm font-medium text-gray-700 mb-1 flex items-center">
-                        <FaBuilding className="mr-2 text-emerald-600" /> Previous Insurer Name
+                      <label
+                        htmlFor="previousInsurer"
+                        className="text-sm font-medium text-gray-700 mb-1 flex items-center"
+                      >
+                        <FaBuilding className="mr-2 text-emerald-600" />{" "}
+                        Previous Insurer Name
                       </label>
                       <input
                         type="text"
@@ -529,8 +616,12 @@ export default function HealthInsuranceFormPage() {
 
                     {/* Policy Expiry */}
                     <div>
-                      <label htmlFor="policyExpiry" className="text-sm font-medium text-gray-700 mb-1 flex items-center">
-                        <FaCalendarAlt className="mr-2 text-emerald-600" /> Policy Expiry Date
+                      <label
+                        htmlFor="policyExpiry"
+                        className="text-sm font-medium text-gray-700 mb-1 flex items-center"
+                      >
+                        <FaCalendarAlt className="mr-2 text-emerald-600" />{" "}
+                        Policy Expiry Date
                       </label>
                       <input
                         type="text"
@@ -541,14 +632,22 @@ export default function HealthInsuranceFormPage() {
                         className={`w-full px-4 py-3 rounded-xl border ${errors.policyExpiry ? "border-red-500" : "border-gray-300"} focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
                         placeholder="dd/mm/yyyy"
                       />
-                      {errors.policyExpiry && <p className="mt-1 text-sm text-red-600">{errors.policyExpiry}</p>}
+                      {errors.policyExpiry && (
+                        <p className="mt-1 text-sm text-red-600">
+                          {errors.policyExpiry}
+                        </p>
+                      )}
                     </div>
                   </div>
 
                   {/* Previous Policy Upload */}
                   <div>
-                    <label htmlFor="prevPolicyLink" className="text-sm font-medium text-gray-700 mb-1 flex items-center">
-                      <FaFileUpload className="mr-2 text-emerald-600" /> Upload Previous Policy Copy (optional)
+                    <label
+                      htmlFor="prevPolicyLink"
+                      className="text-sm font-medium text-gray-700 mb-1 flex items-center"
+                    >
+                      <FaFileUpload className="mr-2 text-emerald-600" /> Upload
+                      Previous Policy Copy (optional)
                     </label>
                     <input
                       type="url"
@@ -559,9 +658,14 @@ export default function HealthInsuranceFormPage() {
                       className={`w-full px-4 py-3 rounded-xl border ${errors.prevPolicyLink ? "border-red-500" : "border-gray-300"} focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
                       placeholder="https://drive.google.com/file/d/..."
                     />
-                    {errors.prevPolicyLink && <p className="mt-1 text-sm text-red-600">{errors.prevPolicyLink}</p>}
+                    {errors.prevPolicyLink && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.prevPolicyLink}
+                      </p>
+                    )}
                     <p className="mt-2 text-sm text-gray-600">
-                      If uploaded, we&apos;ll provide you with the best available renewal price.
+                      If uploaded, we&apos;ll provide you with the best
+                      available renewal price.
                     </p>
                   </div>
 
@@ -574,8 +678,13 @@ export default function HealthInsuranceFormPage() {
                         </p>
                         <ol className="list-decimal pl-5 space-y-1 text-emerald-700">
                           <li>Upload your previous policy to Google Drive</li>
-                          <li>Right-click the file and select &quot;Get link&quot;</li>
-                          <li>Change permissions to &quot;Anyone with the link can view&quot;</li>
+                          <li>
+                            Right-click the file and select &quot;Get link&quot;
+                          </li>
+                          <li>
+                            Change permissions to &quot;Anyone with the link can
+                            view&quot;
+                          </li>
                           <li>Copy the link and paste it above</li>
                         </ol>
                       </div>
@@ -586,8 +695,11 @@ export default function HealthInsuranceFormPage() {
                       onClick={copyInstructions}
                       className="mt-4 flex items-center text-emerald-600 hover:text-emerald-800 text-sm"
                     >
-                      <FaCopy className="mr-1" /> {copied ? "Copied!" : "Copy instructions"}
-                      {copied && <FaCheckCircle className="ml-1 text-green-500" />}
+                      <FaCopy className="mr-1" />{" "}
+                      {copied ? "Copied!" : "Copy instructions"}
+                      {copied && (
+                        <FaCheckCircle className="ml-1 text-green-500" />
+                      )}
                     </button>
                   </div>
                 </div>
@@ -618,12 +730,28 @@ export default function HealthInsuranceFormPage() {
                   </h3>
 
                   <div>
-                    <p className="text-sm font-medium text-gray-700 mb-3">Select one or more</p>
-                    {errors.insurerPrefs && <p className="mt-1 text-sm text-red-600">{errors.insurerPrefs}</p>}
+                    <p className="text-sm font-medium text-gray-700 mb-3">
+                      Select one or more
+                    </p>
+                    {errors.insurerPrefs && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.insurerPrefs}
+                      </p>
+                    )}
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {["Niva Bupa", "Star Health", "HDFC Ergo", "Aditya Birla", "Care Health", "Manipal Cigna"].map((ins) => (
-                        <label key={ins} className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                      {[
+                        "Niva Bupa",
+                        "Star Health",
+                        "HDFC Ergo",
+                        "Aditya Birla",
+                        "Care Health",
+                        "Manipal Cigna",
+                      ].map((ins) => (
+                        <label
+                          key={ins}
+                          className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer"
+                        >
                           <input
                             type="checkbox"
                             value={ins}
@@ -683,8 +811,19 @@ export default function HealthInsuranceFormPage() {
                             fill="none"
                             viewBox="0 0 24 24"
                           >
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            ></circle>
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            ></path>
                           </svg>
                           Submitting...
                         </>
@@ -706,7 +845,9 @@ export default function HealthInsuranceFormPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <h3 className="text-xl font-bold text-emerald-900 mb-4">Process Information</h3>
+          <h3 className="text-xl font-bold text-emerald-900 mb-4">
+            Process Information
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="p-4 bg-emerald-50 rounded-xl">
               <div className="text-emerald-700 font-bold mb-2">Step 1</div>
@@ -714,11 +855,15 @@ export default function HealthInsuranceFormPage() {
             </div>
             <div className="p-4 bg-emerald-50 rounded-xl">
               <div className="text-emerald-700 font-bold mb-2">Step 2</div>
-              <p className="text-gray-700">Select policy type and member details</p>
+              <p className="text-gray-700">
+                Select policy type and member details
+              </p>
             </div>
             <div className="p-4 bg-emerald-50 rounded-xl">
               <div className="text-emerald-700 font-bold mb-2">Step 3</div>
-              <p className="text-gray-700">Provide previous policy information</p>
+              <p className="text-gray-700">
+                Provide previous policy information
+              </p>
             </div>
             <div className="p-4 bg-emerald-50 rounded-xl">
               <div className="text-emerald-700 font-bold mb-2">Step 4</div>
@@ -736,7 +881,10 @@ export default function HealthInsuranceFormPage() {
         >
           <p>
             Need help?{" "}
-            <Link href="/contact" className="text-emerald-600 hover:underline font-medium">
+            <Link
+              href="/contact"
+              className="text-emerald-600 hover:underline font-medium"
+            >
               Contact Support
             </Link>
           </p>

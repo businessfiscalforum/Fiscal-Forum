@@ -167,8 +167,7 @@ export default function LifeInsuranceFormPage() {
       fd.append("insurerPrefs", JSON.stringify(formData.insurerPrefs));
       fd.append("otherInsurer", formData.otherInsurer);
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/life-insurance`, { method: "POST", body: fd,
-        credentials: "include", });
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/life-insurance`, { method: "POST", body: fd });
       const result = await res.json();
       if (!res.ok || !result.success) throw new Error(result.error || "Failed to submit form");
 

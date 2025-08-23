@@ -35,7 +35,6 @@ function Provider({ children }: { children: React.ReactNode }) {
       // First, try fetching the user
       const fetchRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users?email=${userEmail}`, {
         method: "GET",
-        credentials: "include",
       });
 
       if (fetchRes.ok) {
@@ -49,7 +48,6 @@ function Provider({ children }: { children: React.ReactNode }) {
       if (fetchRes.status === 404) {
         const createRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
           method: "POST",
-          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
