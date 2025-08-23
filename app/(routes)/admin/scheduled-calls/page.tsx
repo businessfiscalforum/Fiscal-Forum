@@ -1,7 +1,7 @@
 // app/admin/scheduled-calls/page.tsx
-import { db } from "../../../../config/db";
-import { scheduledCalls } from "../../../../config/schema";
-import { desc, like, count, sql } from "drizzle-orm";
+import { db } from "../../../../config/db"; // Adjust path if needed
+import { scheduledCalls } from "../../../../config/schema"; // Adjust path if needed
+import { desc, count, sql } from "drizzle-orm";
 import Link from "next/link";
 import { Suspense } from "react";
 import {
@@ -14,19 +14,23 @@ import {
   FaUser,
   FaInfoCircle,
 } from "react-icons/fa";
-import { format } from 'date-fns'; // Import date-fns for formatting
-
-// Type for search params
-interface SearchParams {
-  page?: string;
-  search?: string;
-}
+import { format } from 'date-fns';
 
 // Define type for scheduled call data
 type ScheduledCall = typeof scheduledCalls.$inferSelect;
 
+// --- Adjusted the type for searchParams to match Next.js expectations ---
+type PageProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }> | { [key: string]: string | string[] | undefined };
+};
+
 // Fetch scheduled calls with pagination and search
-async function fetchScheduledCalls({ page = '1', search = '' }: SearchParams) {
+// --- Updated function signature to accept the broader type ---
+async function fetchScheduledCalls(searchParams: { [key: string]: string | string[] | undefined }) {
+  // --- Extract page and search from the resolved params ---
+  const page = typeof searchParams.page === 'string' ? searchParams.page : '1';
+  const search = typeof searchParams.search === 'string' ? searchParams.search : '';
+
   const currentPage = Math.max(1, parseInt(page, 10));
   const limit = 10;
   const offset = (currentPage - 1) * limit;
@@ -94,8 +98,9 @@ function CallsTableSkeleton() {
 }
 
 // Main Scheduled Calls Page Component (Server Component)
-export default async function ScheduledCallsPage({ searchParams }: { searchParams: SearchParams }) {
-  // Await searchParams if it's a Promise (Next.js 14+ App Router behavior)
+// --- Updated component signature ---
+export default async function ScheduledCallsPage({ searchParams }: PageProps) {
+  // --- Resolve the Promise for searchParams if it's one ---
   const resolvedSearchParams = await searchParams;
 
   return (
@@ -120,7 +125,8 @@ export default async function ScheduledCallsPage({ searchParams }: { searchParam
                 type="text"
                 name="search"
                 id="search"
-                defaultValue={resolvedSearchParams.search || ''}
+                // --- Use the resolved search param ---
+                defaultValue={typeof resolvedSearchParams.search === 'string' ? resolvedSearchParams.search : ''}
                 className="focus:ring-emerald-500 focus:border-emerald-500 block w-full pl-10 pr-12 py-2 sm:text-sm border-gray-300 rounded-md"
                 placeholder="Search by name, email, or phone..."
               />
@@ -139,6 +145,7 @@ export default async function ScheduledCallsPage({ searchParams }: { searchParam
 
       {/* Suspense boundary for loading state */}
       <Suspense fallback={<CallsTableSkeleton />}>
+        {/* Pass the resolved searchParams to the content component */}
         <CallsTableContent searchParams={resolvedSearchParams} />
       </Suspense>
     </div>
@@ -146,7 +153,9 @@ export default async function ScheduledCallsPage({ searchParams }: { searchParam
 }
 
 // Client-side rendered table content (within Suspense)
-async function CallsTableContent({ searchParams }: { searchParams: SearchParams }) {
+// --- Updated function signature ---
+async function CallsTableContent({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+  // --- Pass the resolved searchParams to fetchScheduledCalls ---
   const { scheduledCalls: callList, pagination } = await fetchScheduledCalls(searchParams);
 
   return (
@@ -174,7 +183,7 @@ async function CallsTableContent({ searchParams }: { searchParams: SearchParams 
                       if (!isNaN(dateObj.getTime())) {
                         // Format date (e.g., Jun 13, 2024)
                         const formattedDate = format(dateObj, 'MMM d, yyyy');
-                        // Use the time string as is, or format if it's a Date object
+                        // Use the time string as is
                         const formattedTime = call.time || 'N/A';
                         formattedScheduledDateTime = `${formattedDate} @ ${formattedTime}`;
                       } else {
@@ -254,7 +263,8 @@ async function CallsTableContent({ searchParams }: { searchParams: SearchParams 
                     <FaPhone className="mx-auto h-12 w-12 text-gray-300" />
                     <h3 className="mt-2 text-sm font-medium text-gray-900">No scheduled calls found</h3>
                     <p className="mt-1 text-sm text-gray-500">
-                      {searchParams.search
+                      {/* --- Safely access search param --- */}
+                      {typeof searchParams.search === 'string' && searchParams.search
                         ? `No scheduled calls match the search term "${searchParams.search}".`
                         : "There are currently no scheduled call requests."}
                     </p>
