@@ -17,9 +17,62 @@ function corsHeaders(origin: string | null): HeadersInit {
       "Access-Control-Allow-Origin": origin,
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      "Access-Control-Allow-Credentials": "true",
     };
   }
   return {};
+}
+
+export async function GET(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  const headers = corsHeaders(origin);
+
+  try {
+    const clerkUser = await currentUser();
+
+    if (!clerkUser || !clerkUser.emailAddresses.length) {
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401, headers }
+      );
+    }
+
+    const userEmail = clerkUser.emailAddresses[0]?.emailAddress ?? "";
+    const userName = clerkUser.fullName ?? "Anonymous";
+
+    if (!userEmail) {
+      return NextResponse.json(
+        { error: "Invalid email address" },
+        { status: 400, headers }
+      );
+    }
+
+    // Check if user exists in your DB
+    const existing = await db
+      .select()
+      .from(usersTable)
+      .where(eq(usersTable.email, userEmail));
+
+    if (existing.length > 0) {
+      return NextResponse.json(existing[0], { status: 200, headers });
+    }
+
+    // If user not found in DB, just return Clerk details
+    return NextResponse.json(
+      {
+        id: clerkUser.id,
+        name: userName,
+        email: userEmail,
+      },
+      { status: 200, headers }
+    );
+  } catch (error) {
+    console.error("GET user error:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500, headers }
+    );
+  }
 }
 
 // Handle POST /api/your-endpoint

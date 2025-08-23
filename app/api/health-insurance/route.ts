@@ -16,6 +16,7 @@ function corsHeaders(origin: string | null) {
       "Access-Control-Allow-Origin": origin,
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      "Access-Control-Allow-Credentials": "true",
     };
   }
   return {};
@@ -48,6 +49,7 @@ export async function POST(req: NextRequest) {
     const prevPolicyLink = ((form.get("prevPolicyLink") as string) || "").trim();
     const insurerPrefsRaw = (form.get("insurerPrefs") as string) || "[]";
     const otherInsurer = ((form.get("otherInsurer") as string) || "").trim();
+    const userId = ((form.get("userId") as string) || "").trim();
 
     if (!name) {
       return NextResponse.json(
@@ -97,38 +99,6 @@ export async function POST(req: NextRequest) {
       if (!Array.isArray(insurerPrefs)) insurerPrefs = [];
     } catch {
       insurerPrefs = [];
-    }
-
-    // Resolve Clerk user -> local usersTable UUID
-    let userId: string | null = null;
-    try {
-      const cu = await currentUser();
-      const clerkEmail = cu?.emailAddresses?.[0]?.emailAddress;
-      const fullName = cu?.fullName ?? "Anonymous";
-      if (clerkEmail) {
-        const existing = await db
-          .select()
-          .from(usersTable)
-          .where(eq(usersTable.email, clerkEmail));
-        if (existing.length > 0) {
-          userId = existing[0].id as string;
-        } else {
-          const [created] = await db
-            .insert(usersTable)
-            .values({
-              name: fullName,
-              email: clerkEmail,
-              age: 18,
-              password: "",
-              role: "USER",
-              status: "PENDING",
-            })
-            .returning();
-          userId = created.id as string;
-        }
-      }
-    } catch {
-      userId = null;
     }
 
     const [saved] = await db

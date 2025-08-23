@@ -38,6 +38,7 @@ export default function HealthInsuranceFormPage() {
     prevPolicyLink: "",
     insurerPrefs: [] as string[],
     otherInsurer: "",
+    userId: "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -167,6 +168,25 @@ export default function HealthInsuranceFormPage() {
     setIsSubmitting(true);
     setMessage(null);
 
+    let userId: string;
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
+        method: "GET",
+        credentials: "include", // 🔑 ensure Clerk session cookies are sent
+      });
+
+      console.log("Data:", response);
+      if (response.ok) {
+        const data = await response.json();
+        userId = data?.id ?? null; // DB id if available
+      } else {
+        userId = "";
+      }
+    } catch (err) {
+      console.error("Error fetching userId:", err);
+      userId = "";
+    }
+
     try {
       const formDataToSend = new FormData();
       formDataToSend.append("name", formData.name);
@@ -181,6 +201,7 @@ export default function HealthInsuranceFormPage() {
       formDataToSend.append("prevPolicyLink", formData.prevPolicyLink);
       formDataToSend.append("insurerPrefs", JSON.stringify(formData.insurerPrefs));
       formDataToSend.append("otherInsurer", formData.otherInsurer);
+      formDataToSend.append("userId", userId);
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/health-insurance`, {
         method: "POST",
@@ -213,6 +234,7 @@ export default function HealthInsuranceFormPage() {
           prevPolicyLink: "",
           insurerPrefs: [],
           otherInsurer: "",
+          userId: "",
         });
         setStep(1);
         setErrors({});
