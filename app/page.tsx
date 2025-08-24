@@ -227,7 +227,7 @@ const slides = [
 
 const partners = [
   {
-    title: "Business Partner",
+    title: "Business Development Partner",
     icon: FaBuilding,
     desc: "Join us in expanding financial services across the country.",
     gradient: "from-emerald-500 to-teal-600",

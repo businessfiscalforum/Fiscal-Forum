@@ -28,7 +28,7 @@ function Provider({ children }: { children: React.ReactNode }) {
   const createNewUser = async () => {
     try {
       const userEmail = user?.emailAddresses[0]?.emailAddress;
-      const userName = user?.fullName || "Anonymous";
+      const userName = user?.fullName || user?.username;
 
       if (!userEmail) throw new Error("User email not available");
 

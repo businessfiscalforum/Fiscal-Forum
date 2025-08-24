@@ -102,7 +102,7 @@ const investmentOptions = [
       "Own company shares or diversify smartly with ETFs. Spread risk, build wealth steadily, grow alongside markets.",
     icon: BarChart3,
     link: "/services/stock-investment/equity-etfs",
-    alink:"/services/stock-investment/equity-etfs/apply",
+    alink: "/services/stock-investment/equity-etfs/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-blue-100",
     iconColor: "text-blue-600",
@@ -114,7 +114,7 @@ const investmentOptions = [
       "Hedge risk or speculate on price moves. Requires strategy, discipline, and knowledge to manage market uncertainty.",
     icon: TrendingUp,
     link: "/services/stock-investment/futures-options",
-    alink:"/services/stock-investment/futures-options/apply",
+    alink: "/services/stock-investment/futures-options/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-purple-100",
     iconColor: "text-purple-600",
@@ -126,7 +126,7 @@ const investmentOptions = [
       "Invest early in growing companies. Get front-row access to expansion and potential long-term wealth creation.",
     icon: Sparkles,
     link: "/services/stock-investment/ipo",
-    alink:"/services/stock-investment/ipo/apply",
+    alink: "/services/stock-investment/ipo/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-emerald-100",
     iconColor: "text-emerald-600",
@@ -138,7 +138,7 @@ const investmentOptions = [
       "Borrow to buy more shares. Seize opportunities responsibly — leverage magnifies gains but can increase losses.",
     icon: Zap,
     link: "/services/stock-investment/mtf",
-    alink:"/services/stock-investment/mtf/apply",
+    alink: "/services/stock-investment/mtf/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-orange-100",
     iconColor: "text-orange-600",
@@ -150,7 +150,7 @@ const investmentOptions = [
       "Trade real assets like gold, silver, crude oil. Diversify portfolios, hedge inflation, and balance equity exposure.",
     icon: Coins,
     link: "/services/stock-investment/commodities",
-    alink:"/services/stock-investment/commodities/apply",
+    alink: "/services/stock-investment/commodities/apply",
     bgColor: "bg-gradient-to-br from-green-500 to-green-700",
     iconBgColor: "bg-yellow-100",
     iconColor: "text-yellow-600",
@@ -162,7 +162,7 @@ const investmentOptions = [
       "Invest early in companies before listing. Join growth journey, enjoy potential big returns upon public offering.",
     icon: Gem,
     link: "/services/stock-investment/unlisted-shares",
-    alink:"/services/stock-investment/unlisted-shares/apply",
+    alink: "/services/stock-investment/unlisted-shares/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-indigo-100",
     iconColor: "text-indigo-600",
@@ -196,13 +196,16 @@ export default function CreditCardApplyPage() {
     try {
       // Simulate API call
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/subscribe`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/subscribe`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
       const data = await response.json();
       if (response.ok) {
         setMessage({ text: data.message, type: "success" });
@@ -397,24 +400,24 @@ export default function CreditCardApplyPage() {
                     className="relative rounded-2xl shadow-lg overflow-hidden transition-all duration-300 transform hover:shadow-xl bg-white"
                   >
                     <div className="p-1 bg-gradient-to-r from-green-500 to-emerald-600"></div>
-                      <div className="p-6 space-y-4 h-full flex flex-col cursor-pointer">
-                        <div
-                          className={`p-3 rounded-xl ${option.iconBgColor} flex-shrink-0 w-12 h-12 flex items-center justify-center`}
-                        >
-                          {IconComponent && (
-                            <IconComponent
-                              className={`w-6 h-6 ${option.iconColor}`}
-                            />
-                          )}
-                        </div>
-                        <h2 className="text-xl font-bold text-gray-800">
-                          {option.title}
-                        </h2>
-                        <p className="text-sm leading-relaxed flex-grow text-gray-600">
-                          {option.description}
-                        </p>
-                        <div className="flex gap-4 pt-4">
-                          <Link href={option.link} passHref>
+                    <div className="p-6 space-y-4 h-full flex flex-col cursor-pointer">
+                      <div
+                        className={`p-3 rounded-xl ${option.iconBgColor} flex-shrink-0 w-12 h-12 flex items-center justify-center`}
+                      >
+                        {IconComponent && (
+                          <IconComponent
+                            className={`w-6 h-6 ${option.iconColor}`}
+                          />
+                        )}
+                      </div>
+                      <h2 className="text-xl font-bold text-gray-800">
+                        {option.title}
+                      </h2>
+                      <p className="text-sm leading-relaxed flex-grow text-gray-600">
+                        {option.description}
+                      </p>
+                      <div className="flex gap-4 pt-4">
+                        <Link href={option.link} passHref>
                           <div className="px-4 py-2 rounded-lg  text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
                             Learn More
                             <svg
@@ -428,8 +431,8 @@ export default function CreditCardApplyPage() {
                               <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
                           </div>
-                          </Link>
-                          {/* <Link href={option.alink} passHref>
+                        </Link>
+                        {/* <Link href={option.alink} passHref>
                           <div className="px-4 py-2 rounded-lg  text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
                             Apply Now
                             <svg
@@ -444,8 +447,8 @@ export default function CreditCardApplyPage() {
                             </svg>
                           </div>
                           </Link> */}
-                        </div>
                       </div>
+                    </div>
                   </motion.div>
                 );
               })}
@@ -472,37 +475,37 @@ export default function CreditCardApplyPage() {
           </section> */}
 
           <section className="py-16 my-10 mx-4 sm:mx-auto max-w-4xl text-center bg-gradient-to-r from-teal-600 to-green-600 text-white rounded-2xl px-6">
-                      <Phone className="w-16 h-16 mx-auto mb-6" />
-                      <h2 className="text-3xl font-bold mb-4">
-                        Need Help? Talk to an Expert
-                      </h2>
-                      <p className="text-xl mb-8 opacity-90">
-                        Get personalized guidance on opening your queries related to
-                        mutual funds.
-                      </p>
-                      <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <button
-                          onClick={() =>
-                            router.push("/services/stock-investment/contact")
-                          }
-                          className="bg-white text-green-700 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3"
-                        >
-                          <Phone className="w-5 h-5" />
-                          Schedule a Free Call
-                        </button>
-                        {/* WhatsApp Button */}
-                        <a
-                          href="https://wa.me/+918696060387" // Pre-filled number
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3" // Similar styling to the call button
-                        >
-                          <FaWhatsapp className="w-5 h-5" />{" "}
-                          {/* Make sure to import FaWhatsapp */}
-                          Chat with Us
-                        </a>
-                      </div>
-                    </section>
+            <Phone className="w-16 h-16 mx-auto mb-6" />
+            <h2 className="text-3xl font-bold mb-4">
+              Need Help? Talk to an Expert
+            </h2>
+            <p className="text-xl mb-8 opacity-90">
+              Get personalized guidance on opening your queries related to
+              mutual funds.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <button
+                onClick={() =>
+                  router.push("/services/stock-investment/contact")
+                }
+                className="bg-white text-green-700 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3"
+              >
+                <Phone className="w-5 h-5" />
+                Schedule a Free Call
+              </button>
+              {/* WhatsApp Button */}
+              <a
+                href="https://wa.me/+918696060387" // Pre-filled number
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3" // Similar styling to the call button
+              >
+                <FaWhatsapp className="w-5 h-5" />{" "}
+                {/* Make sure to import FaWhatsapp */}
+                Chat with Us
+              </a>
+            </div>
+          </section>
 
           {/* Call to Action (Kickstart & Level Up) */}
           <section className="py-16 px-4">
@@ -674,29 +677,33 @@ export default function CreditCardApplyPage() {
                 <div className="text-green-300 text-2xl mb-4">
                   <FaChartLine />
                 </div>
-                <h3 className="text-lg font-bold mb-2">Free Premarket Reports
-</h3>
+                <h3 className="text-lg font-bold mb-2">
+                  Free Premarket Reports
+                </h3>
                 <p className="text-green-100">
-                 Stay ahead with daily premarket reports.
+                  Stay ahead with daily premarket reports.
                 </p>
               </div>
               <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm hover:scale-105 transition-transform duration-300">
                 <div className="text-green-300 text-2xl mb-4">
                   <FaHeadset />
                 </div>
-                <h3 className="text-lg font-bold mb-2">24/7 Dedicated Support</h3>
+                <h3 className="text-lg font-bold mb-2">
+                  24/7 Dedicated Support
+                </h3>
                 <p className="text-green-100">
-                  Enjoy quick query resolution and hassle-free Demat account support.
+                  Enjoy quick query resolution and hassle-free Demat account
+                  support.
                 </p>
               </div>
               <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm hover:scale-105 transition-transform duration-300">
                 <div className="text-green-300 text-2xl mb-4">
                   <FaRocket />
                 </div>
-                <h3 className="text-lg font-bold mb-2">Brokerage Cashback
-</h3>
+                <h3 className="text-lg font-bold mb-2">Brokerage Cashback</h3>
                 <p className="text-green-100">
-                  Enhance your investing journey, now with exciting bokerage cashbacks.
+                  Enhance your investing journey, now with exciting bokerage
+                  cashbacks.
                 </p>
               </div>
               <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm hover:scale-105 transition-transform duration-300">
@@ -705,7 +712,8 @@ export default function CreditCardApplyPage() {
                 </div>
                 <h3 className="text-lg font-bold mb-2">Refer & Earn</h3>
                 <p className="text-green-100">
-                  Get Rewards for every friend who starts investing with you. Get rewarded for smart trading.
+                  Get Rewards for every friend who starts investing with you.
+                  Get rewarded for smart trading.
                 </p>
               </div>
             </div>

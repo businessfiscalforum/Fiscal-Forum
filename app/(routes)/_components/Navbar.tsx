@@ -36,11 +36,13 @@ export default function Navbar() {
   return (
     <nav
       className="fixed top-4 left-1/2 -translate-x-1/2 z-50 
-      bg-white/40 backdrop-blur-md 
-      border border-green-200 shadow-lg 
-      md:rounded-full rounded-lg 
-      px-4 md:px-6 py-3 md:py-4 
-      max-w-7xl w-[95%] md:w-full"
+  bg-white/40 backdrop-blur-md 
+  border border-green-200 shadow-lg 
+  rounded-lg md:rounded-lg
+  px-4 sm:px-5 md:px-6 lg:px-8 xl:px-10 2xl:px-12
+  py-3 sm:py-3.5 md:py-4 lg:py-5 xl:py-6 2xl:py-7
+  max-w-7xl w-[95%] md:w-full
+"
     >
       <div className="flex justify-between items-center relative">
         {/* Logo */}
@@ -80,13 +82,9 @@ export default function Navbar() {
 
             {servicesOpen && (
               <div
-                className="absolute top-full left-1/2 -translate-x-1/2 mt-4
-       w-[calc(100vw-2rem)] max-w-7xl
-       bg-white border border-green-100 rounded-2xl shadow-2xl z-50
-       overflow-hidden
-       md:w-[calc(100vw-4rem)]
-       lg:w-[calc(100vw-6rem)]
-       xl:w-[calc(100vw-8rem)]"
+                className="fixed top-[100px] left-1/2 -translate-x-1/2
+  w-[calc(100vw-2rem)] max-w-7xl
+  bg-white border border-green-100 shadow-2xl z-50"
               >
                 {/* Header Section */}
                 <div className="bg-gradient-to-r from-green-50 to-emerald-50 px-4 py-3 md:px-6 md:py-4 border-b border-green-100">

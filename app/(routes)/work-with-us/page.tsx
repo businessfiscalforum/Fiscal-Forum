@@ -13,79 +13,11 @@ import {
   FaAward,
   FaRocket,
   FaLightbulb,
+  FaWhatsapp,
 } from "react-icons/fa";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
-import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
 import Link from "next/link";
-
-const slides = [
-  {
-    title: "Loan Services",
-    subtitle: "Get Instant Access to",
-    description:
-      "Choose from personal, home, or education loans with low interest rates and flexible repayment options.",
-    image: "/asset-loan.jpg",
-    gradient: "from-blue-600 via-blue-500 to-purple-600",
-    path: "services/loan",
-  },
-  {
-    title: "Insurance Plans",
-    subtitle: "Protect Your Future with",
-    description:
-      "Health, car, and life insurance plans tailored to your needs — secure your family and assets today.",
-    image: "/asset-insurance.jpg",
-    gradient: "from-emerald-600 via-teal-500 to-cyan-600",
-    path: "services/insurance",
-  },
-  {
-    title: "Savings Account",
-    subtitle: "Grow Your Wealth with a",
-    description:
-      "High-interest savings accounts with zero balance requirements and easy online access.",
-    image: "/asset-saving.jpg",
-    gradient: "from-green-600 via-emerald-500 to-teal-600",
-    path: "services/saving-account",
-  },
-  {
-    title: "Stock Investment",
-    subtitle: "Invest Smartly in the",
-    description:
-      "Build a diversified portfolio and start investing in the stock market with expert guidance.",
-    image: "/asset-stock.jpg",
-    gradient: "from-violet-600 via-purple-500 to-indigo-600",
-    path: "services/stock-investment",
-  },
-  {
-    title: "Mutual Funds",
-    subtitle: "Explore High-Return",
-    description:
-      "Access professionally managed mutual funds to meet your financial goals across risk profiles.",
-    image: "/asset-mutual.jpg",
-    gradient: "from-cyan-600 via-blue-500 to-indigo-600",
-    path: "services/mutual-funds",
-  },
-  {
-    title: "Credit Card",
-    subtitle: "Power Your Spending with a",
-    description:
-      "Choose the right credit card for rewards, cashback, and low-interest EMIs.",
-    image: "/asset-credit.jpg",
-    gradient: "from-orange-600 via-red-500 to-pink-600",
-    path: "services/credit-card",
-  },
-  {
-    title: "Govt Bonds & FDs",
-    subtitle: "Secure Investments with",
-    description:
-      "Low-risk government bonds and fixed deposits to preserve capital and earn steady returns.",
-    image: "/asset-bondfd.jpg",
-    gradient: "from-yellow-600 via-amber-500 to-orange-600",
-    path: "services/govts-bond-&-fd",
-  },
-];
 
 const WorkWithUsPage = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
@@ -195,110 +127,10 @@ const WorkWithUsPage = () => {
 
   return (
     <>
-      <div className="text-gray-800 font-sans bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 ">
-        {/* Floating Background Elements */}
-        {/* <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-blue-400/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-1/2 right-20 w-96 h-96 bg-gradient-to-r from-emerald-400/20 to-teal-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-gradient-to-r from-pink-400/20 to-rose-600/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
-      </div> */}
-
-        {/* Hero Section */}
-        <section className="relative w-full h-screen overflow-hidden">
-          {/* Swiper will control background image and content */}
-          <Swiper
-            spaceBetween={30}
-            slidesPerView={1}
-            loop
-            autoplay={{ delay: 4000, disableOnInteraction: false }}
-            pagination={{ clickable: true }}
-            modules={[Autoplay, Pagination]}
-            className="w-full h-full"
-          >
-            {slides.map((slide, index) => (
-              <SwiperSlide key={index}>
-                {/* Background Image */}
-                <div className="absolute inset-0 z-0">
-                  {/* <Image
-                  src={slide.image}
-                  alt={slide.title}
-                  fill
-                  sizes="100vw"
-                  className="object-cover object-center"
-                  priority
-                /> */}
-                  {/* Gradient Overlay */}
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}/80`}
-                  ></div>
-                </div>
-
-                {/* Content */}
-                <div className="relative z-10 h-full flex items-center px-6 sm:px-12 md:px-20 lg:px-32">
-                  <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="text-white max-w-xl"
-                  >
-                    <motion.p
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2 }}
-                      className="uppercase tracking-widest text-sm text-yellow-200 font-semibold mb-2"
-                    >
-                      {slide.subtitle}
-                    </motion.p>
-                    <motion.h2
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.4 }}
-                      className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6"
-                    >
-                      {slide.title}
-                    </motion.h2>
-                    <motion.p
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.6 }}
-                      className="text-lg sm:text-xl mb-8 opacity-90 leading-relaxed"
-                    >
-                      {slide.description}
-                    </motion.p>
-                    <Link href={slide.path}>
-                      <motion.button
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.8 }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition-all duration-300 flex items-center gap-3"
-                      >
-                        Know More
-                        <FaRocket className="group-hover:translate-x-1 transition-transform" />
-                      </motion.button>
-                    </Link>
-                  </motion.div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-
-          {/* Swiper Pagination is now styled */}
-          <div className="swiper-pagination absolute bottom-8 w-full flex justify-center z-20"></div>
-        </section>
-      </div>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-        {/* Background Elements */}
-        <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-          <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-emerald-400/10 to-teal-600/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute top-1/2 right-20 w-96 h-96 bg-gradient-to-r from-blue-400/10 to-indigo-600/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-gradient-to-r from-purple-400/10 to-violet-600/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
-        </div>
-
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 py-30">
         <div className="relative z-10">
           {/* Hero Section */}
-          <section className="py-20 px-6">
+          <section className="pt-20 px-6">
             <div className="max-w-7xl mx-auto text-center">
               <div className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-100 to-teal-100 px-6 py-3 rounded-full mb-8">
                 <FaLightbulb className="text-emerald-600" />
@@ -318,7 +150,7 @@ const WorkWithUsPage = () => {
               </p>
 
               {/* Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+              {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
                 {stats.map((stat, index) => (
                   <div key={index} className="text-center">
                     <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
@@ -330,12 +162,12 @@ const WorkWithUsPage = () => {
                     <p className="text-gray-600">{stat.label}</p>
                   </div>
                 ))}
-              </div>
+              </div> */}
             </div>
           </section>
 
           {/* Partnership Cards */}
-          <section className="py-16 px-6">
+          <section className="py-8 px-6">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
                 <h2 className="text-4xl font-bold text-gray-800 mb-4">
@@ -347,32 +179,27 @@ const WorkWithUsPage = () => {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 h-full">
                 {partnerships.map((partnership, index) => (
                   <div
                     key={partnership.id}
-                    className={`group relative overflow-hidden rounded-3xl transition-all duration-500 ${
-                      hoveredCard === partnership.id
-                        ? "scale-105 shadow-2xl"
-                        : "shadow-lg hover:shadow-xl"
-                    }`}
-                    onMouseEnter={() => setHoveredCard(partnership.id)}
-                    onMouseLeave={() => setHoveredCard(null)}
+                    className={`flex flex-col bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden transition-all duration-500 hover:shadow-xl`}
                   >
-                    {/* Card Background */}
+                    {/* Card Header with Gradient Background */}
                     <div
-                      className={`absolute inset-0 bg-gradient-to-br ${partnership.bgColor} opacity-50`}
-                    ></div>
+                      className={`relative h-48 flex items-center justify-center ${partnership.bgColor} bg-opacity-20`}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-br opacity-20"></div>
+                      <div
+                        className={`relative z-10 w-24 h-24 bg-gradient-to-r ${partnership.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
+                      >
+                        <partnership.icon className="text-3xl text-white" />
+                      </div>
+                    </div>
 
-                    {/* Main Card Content */}
-                    <div className="relative bg-white/90 backdrop-blur-sm p-8 h-full border border-gray-100">
-                      {/* Header */}
-                      <div className="text-center mb-8">
-                        <div
-                          className={`w-20 h-20 bg-gradient-to-r ${partnership.color} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}
-                        >
-                          <partnership.icon className="text-3xl text-white" />
-                        </div>
+                    {/* Card Body - Flex grow to fill space */}
+                    <div className="flex flex-col flex-grow p-8">
+                      <div className="text-center mb-6 flex-grow">
                         <h3 className="text-2xl font-bold text-gray-800 mb-4">
                           {partnership.title}
                         </h3>
@@ -381,60 +208,22 @@ const WorkWithUsPage = () => {
                         </p>
                       </div>
 
-                      {/* Features */}
-                      {/* <div className="mb-8">
-                        <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                          <FaCheckCircle className="text-emerald-500" />
-                          Key Features
-                        </h4>
-                        <ul className="space-y-3">
-                          {partnership.features.map((feature, idx) => (
-                            <li
-                              key={idx}
-                              className="flex items-start gap-3 text-gray-600"
-                            >
-                              <div className="w-2 h-2 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
-                              <span>{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div> */}
-
-                      {/* Benefits */}
-                      {/* <div className="mb-8">
-                        <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                          <FaDollarSign className="text-green-500" />
-                          Benefits & Rewards
-                        </h4>
-                        <ul className="space-y-3">
-                          {partnership.benefits.map((benefit, idx) => (
-                            <li
-                              key={idx}
-                              className="flex items-start gap-3 text-gray-600"
-                            >
-                              <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                              <span>{benefit}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div> */}
-
-                      {/* CTA Button */}
-
-                      <Link
-                        href={
-                          partnership.id === 1
-                            ? "/work-with-us/bdp"
-                            : partnership.id === 2
-                              ? "/work-with-us/rp"
-                              : "/work-with-us/b2b" // Assuming id 3 is B2B
-                        }
-                        className={`w-full bg-gradient-to-r ${partnership.color} text-white py-4 px-6 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:shadow-lg transition-all duration-300 group/btn`}
-                        // Removed hover:cursor-pointer as links are naturally clickable
-                      >
-                        Learn More
-                        <FaArrowRight className="group-hover/btn:translate-x-1 transition-transform" />
-                      </Link>
+                      {/* CTA Button Container - Pushes button to bottom */}
+                      <div className="mt-auto">
+                        <Link
+                          href={
+                            partnership.id === 1
+                              ? "/work-with-us/bdp"
+                              : partnership.id === 2
+                                ? "/work-with-us/rp"
+                                : "/work-with-us/b2b"
+                          }
+                          className={`block w-full bg-gradient-to-r from-emerald-600 to-teal-700 text-white py-4 px-6 rounded-2xl font-semibold text-center transition-all duration-300 transform hover:scale-105 hover:from-emerald-700 hover:to-teal-800 hover:shadow-lg`}
+                        >
+                          Learn More
+                          <FaArrowRight className="inline-block ml-2 transition-transform duration-300 group-hover/link:translate-x-1" />
+                        </Link>
+                      </div>
                     </div>
 
                     {/* Floating Badge */}
@@ -443,46 +232,6 @@ const WorkWithUsPage = () => {
                         Most Popular
                       </div>
                     )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Testimonials */}
-          <section className="py-16 px-6 bg-white/50 backdrop-blur-sm">
-            <div className="max-w-7xl mx-auto">
-              <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold text-gray-800 mb-4">
-                  What Our Partners Say
-                </h2>
-                <p className="text-xl text-gray-600">
-                  Hear from successful partners who have grown with us
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {testimonials.map((testimonial, index) => (
-                  <div
-                    key={index}
-                    className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300"
-                  >
-                    <div className="flex items-center gap-1 mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <FaStar key={i} className="text-yellow-400" />
-                      ))}
-                    </div>
-                    <p className="text-gray-600 mb-6 italic">
-                      {testimonial.content}
-                    </p>
-                    <div>
-                      <h4 className="font-semibold text-gray-800">
-                        {testimonial.name}
-                      </h4>
-                      <p className="text-emerald-600 text-sm">
-                        {testimonial.role}
-                      </p>
-                    </div>
                   </div>
                 ))}
               </div>
@@ -499,8 +248,8 @@ const WorkWithUsPage = () => {
                   <div className="absolute bottom-10 right-10 w-40 h-40 bg-emerald-400 rounded-full blur-2xl"></div>
                 </div>
 
-                <div className="relative z-10">
-                  <h2 className="text-4xl font-bold mb-6">
+                <div className="relative z-10 text-center">
+                  <h2 className="text-4xl font-bold mb-6 text-white">
                     Ready to Partner with Us?
                   </h2>
                   <p className="text-xl mb-8 text-white/90">
@@ -510,31 +259,52 @@ const WorkWithUsPage = () => {
                   </p>
 
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-8 py-4 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:shadow-lg transition-all duration-300 group hover:cursor-pointer">
+                    {/* Call Button */}
+                    <a
+                      href="tel:+918696060387"
+                      className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-8 py-4 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:shadow-lg transition-all duration-300 group"
+                    >
                       <FaPhoneAlt />
                       Call Us Now
                       <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
-                    </button>
-                    <button className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:bg-white hover:text-gray-900 transition-all duration-300 group hover:cursor-pointer">
+                    </a>
+
+                    {/* Email Button */}
+                    <a
+                      href="mailto:support@fiscalforum.in"
+                      className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:bg-white hover:text-gray-900 transition-all duration-300 group"
+                    >
                       <FaEnvelope />
                       Send Inquiry
                       <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
-                    </button>
+                    </a>
+
+                    {/* WhatsApp Button */}
+                    <a
+                      href="https://wa.me/918696060387"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-green-500 text-white px-8 py-4 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:shadow-lg transition-all duration-300 group"
+                    >
+                      <FaWhatsapp />
+                      Chat on WhatsApp
+                      <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+                    </a>
                   </div>
 
                   <div className="mt-8 pt-8 border-t border-white/20">
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-white/80">
                       <div className="flex items-center gap-2">
                         <FaPhoneAlt className="text-emerald-400" />
-                        <span>+91 9876543210</span>
+                        <span>+91 8696060387</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <FaEnvelope className="text-emerald-400" />
-                        <span>partners@company.com</span>
+                        <span>support@fiscalforum.in</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <FaGlobe className="text-emerald-400" />
-                        <span>www.company.com</span>
+                        <span>www.fiscalforum.in</span>
                       </div>
                     </div>
                   </div>
