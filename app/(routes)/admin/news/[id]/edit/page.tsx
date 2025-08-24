@@ -1,188 +1,134 @@
-// app/admin/news/[id]/edit/page.tsx (or wherever this file is located)
-"use client";
+// app/(routes)/admin/news/[id]/edit/page.tsx
+import { revalidatePath } from "next/cache";
+import { db } from "../../../../../../config/db"; // Adjust path as needed
+import { newsTable } from "../../../../../../config/schema"; // Adjust path as needed
+import { eq } from "drizzle-orm";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+import { FaArrowLeft, FaSave } from "react-icons/fa";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import {
-  FaArrowLeft,
-  FaSave,
-  FaTimes,
-  FaSpinner,
-  FaExclamationTriangle,
-} from "react-icons/fa";
+// Define valid categories
+const categoryOptions = [
+  'News Buzz',
+  'Corp Pulse',
+  'IPO Scoop',
+  'Market News',
+  'Policy',
+  'Commodities',
+  'Forex',
+  'Cryptocurrency',
+  'Earnings',
+  'Automotive',
+  'Technology'
+] as const;
 
-export default function EditNewsPage({
+// Type guard for category
+function isValidCategory(value: string): value is (typeof categoryOptions)[number] {
+  return categoryOptions.includes(value as (typeof categoryOptions)[number]);
+}
+
+export default async function EditNewsPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: { id: string }; // Assuming params is resolved here
 }) {
-  const router = useRouter();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [initialData, setInitialData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    content: "",
-    image: "",
-    category: "",
-    author: "",
-    publishDate: "",
-    readTime: "",
-    views: "",
-    link: "",
-    featured: false,
-    tags: [] as string[],
-    // IPO specific fields
-    ipoName: "",
-    companyName: "",
-    priceRange: "",
-    issueSize: "",
-    listingDate: "",
-    currentPrice: "",
-    listingGain: "",
-    subscriptionRate: "",
-  });
+  const { id } = params;
 
-  useEffect(() => {
-    const fetchNewsItem = async () => {
-      try {
-        // Unwrap params promise
-        const { id } = await params;
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/news/${id}`
-        );
-        if (!response.ok) {
-          throw new Error(`Failed to fetch news item (${response.status})`);
-        }
-        const data = await response.json();
+  // Fetch the news item to edit
+  const [newsItem] = await db
+    .select()
+    .from(newsTable)
+    .where(eq(newsTable.id, id));
 
-        // Process data for form
-        setInitialData(data);
-        setFormData({
-          title: data.title || "",
-          description: data.description || "",
-          content: data.content || "",
-          image: data.image || "",
-          category: data.category || "",
-          author: data.author || "",
-          publishDate: data.publishDate ? data.publishDate.split("T")[0] : "", // Keep date handling
-          readTime: data.readTime || "",
-          views: data.views || "",
-          link: data.link || "",
-          featured: data.featured || false,
-          tags: (() => {
-            try {
-              if (!data.tags || data.tags === "null" || data.tags === "")
-                return [];
-              const parsed = JSON.parse(data.tags);
-              return Array.isArray(parsed) ? parsed : [];
-            } catch (e) {
-              console.error("Failed to parse tags:", e);
-              return [];
-            }
-          })(),
-          // IPO fields
-          ipoName: data.ipoName || "",
-          companyName: data.companyName || "",
-          priceRange: data.priceRange || "",
-          issueSize: data.issueSize || "",
-          listingDate: data.listingDate || "",
-          currentPrice: data.currentPrice || "",
-          listingGain: data.listingGain || "",
-          subscriptionRate: data.subscriptionRate || "",
-        });
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (err: any) {
-        console.error("Error fetching news item:", err);
-        setError(err.message || "Failed to load news item");
-      } finally {
-        setLoading(false);
-      }
-    };
+  if (!newsItem) {
+    // Redirect if news item not found
+    redirect("/admin/news");
+  }
 
-    fetchNewsItem();
-  }, [params]);
+  // Server Action to handle form submission
+  async function updateNews(formData: FormData) {
+    "use server";
 
-  const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    const { name, value, type } = e.target;
-    // Use type assertion for checkbox
-    const checked = (e.target as HTMLInputElement).checked;
+    // --- Extract and validate form data ---
+    const title = formData.get("title") as string;
+    const description = formData.get("description") as string;
+    const content = formData.get("content") as string;
+    const image = formData.get("image") as string;
+    const rawCategory = formData.get("category") as string;
+    const author = formData.get("author") as string;
+    const publishDate = formData.get("publishDate") as string; // Comes as YYYY-MM-DD string
+    const readTime = formData.get("readTime") as string;
+    const views = parseInt(formData.get("views") as string, 10) || 0; // Default to 0 if invalid
+    const link = formData.get("link") as string;
+    const featured = formData.get("featured") === "on";
+    const tags = (formData.get("tags") as string)
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter(Boolean);
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
+    // --- IPO Specific Fields ---
+    const ipoName = formData.get("ipoName") as string;
+    const companyName = formData.get("companyName") as string;
+    const priceRange = formData.get("priceRange") as string;
+    const issueSize = formData.get("issueSize") as string;
+    const listingDate = formData.get("listingDate") as string;
+    const currentPrice = formData.get("currentPrice") as string;
+    const listingGain = formData.get("listingGain") as string;
+    const subscriptionRate = formData.get("subscriptionRate") as string;
 
-  const handleTagsChange = (tags: string[]) => {
-    setFormData((prev) => ({
-      ...prev,
-      tags,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSaving(true);
-    setError(null);
+    // --- Validate Category ---
+    if (!isValidCategory(rawCategory)) {
+      console.error(`Invalid category submitted: ${rawCategory}`);
+      // In a real app, you might want to handle this more gracefully,
+      // e.g., by setting an error state and re-rendering the form.
+      // For now, we'll default to 'News Buzz' or let the DB handle it if it has constraints.
+      // Or throw an error to prevent the update:
+      // throw new Error(`Invalid category: ${rawCategory}`);
+    }
+    const category = rawCategory; // Use the validated/raw value
 
     try {
-      // Unwrap params promise
-      const { id } = await params;
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/news/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      // --- Update the database ---
+      await db
+        .update(newsTable)
+        .set({
+          title,
+          description: description,
+          content: content,
+          image: image || null,
+          category,
+          author,
+          publishDate: publishDate ? new Date(publishDate) : new Date(), // Convert string to Date
+          readTime: readTime || null,
+          views:views.toString(),
+          link: link || null,
+          featured,
+          tags:JSON.stringify(tags),
+          // IPO fields
+          ipoName: ipoName || null,
+          companyName: companyName || null,
+          priceRange: priceRange || null,
+          issueSize: issueSize || null,
+          listingDate: listingDate || null,
+          currentPrice: currentPrice || null,
+          listingGain: listingGain || null,
+          subscriptionRate: subscriptionRate || null,
+        })
+        .where(eq(newsTable.id, id));
 
-      if (!response.ok) {
-        throw new Error(`Failed to update news (${response.status})`);
-      }
+      // --- Revalidate relevant paths ---
+      revalidatePath("/news"); // Assuming public news list page
+      revalidatePath(`/news/${id}`); // Assuming public news detail page
+      revalidatePath("/admin/news"); // Admin news list
 
-      // Show success feedback
-      alert("News updated successfully!");
-      router.push("/admin/news");
-      router.refresh(); // Refresh the current route. Good for data consistency.
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      console.error("Error updating news:", err);
-      setError(err.message || "Failed to update news item");
-    } finally {
-      setSaving(false);
+      // --- Redirect after successful update ---
+      redirect("/admin/news");
+    } catch (error) {
+      console.error("Error updating news item:", error);
+      // Consider adding user-facing error handling here
+      // For now, it will likely result in a 500 error page
+      throw error; // Re-throw to trigger error page
     }
-  };
-
-  const handleCancel = () => {
-    if (
-      window.confirm(
-        "Are you sure you want to cancel? All changes will be lost."
-      )
-    ) {
-      router.back();
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 flex items-center justify-center">
-        <div className="text-center">
-          <FaSpinner className="animate-spin h-12 w-12 text-emerald-600 mx-auto" />
-          <p className="mt-4 text-lg text-emerald-800">Loading news details...</p>
-        </div>
-      </div>
-    );
   }
 
   return (
@@ -190,13 +136,13 @@ export default function EditNewsPage({
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back Button */}
         <div className="mb-6">
-          <button
-            onClick={() => router.back()}
+          <Link
+            href="/admin/news"
             className="flex items-center text-emerald-700 hover:text-emerald-900 transition-colors duration-200"
           >
             <FaArrowLeft className="mr-2" />
             <span>Back to News List</span>
-          </button>
+          </Link>
         </div>
 
         {/* Main Card */}
@@ -209,35 +155,18 @@ export default function EditNewsPage({
                   Edit News Article
                 </h1>
                 <p className="mt-1 text-emerald-100">
-                  Update the details for this news item
+                  Update the details for &quot;{newsItem.title}&quot;
                 </p>
               </div>
               <div className="bg-emerald-500 p-3 rounded-full">
-                <FaExclamationTriangle className="h-8 w-8 text-white" />
+                <FaSave className="h-8 w-8 text-white" />
               </div>
             </div>
           </div>
 
           {/* Form Content */}
           <div className="p-6 sm:p-8">
-            {/* Error Message Banner */}
-            {error && (
-              <div className="rounded-lg bg-red-50 p-4 mb-6 border border-red-200">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0">
-                    <FaExclamationTriangle className="h-5 w-5 text-red-400" />
-                  </div>
-                  <div className="ml-3">
-                    <h3 className="text-sm font-medium text-red-800">Error</h3>
-                    <div className="mt-2 text-sm text-red-700">
-                      <p>{error}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-8">
+            <form action={updateNews} className="space-y-8">
               {/* Basic Information */}
               <div className="border border-emerald-200 rounded-xl p-6 bg-emerald-50/30">
                 <h2 className="text-xl font-bold text-emerald-900 mb-6">
@@ -245,7 +174,7 @@ export default function EditNewsPage({
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
+                  <div className="md:col-span-2">
                     <label
                       htmlFor="title"
                       className="block text-sm font-medium text-emerald-800 mb-2"
@@ -256,14 +185,13 @@ export default function EditNewsPage({
                       type="text"
                       name="title"
                       id="title"
-                      value={formData.title}
-                      onChange={handleInputChange}
+                      defaultValue={newsItem.title || ""}
                       required
                       className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
                     />
                   </div>
 
-                  <div>
+                  <div className="md:col-span-2">
                     <label
                       htmlFor="category"
                       className="block text-sm font-medium text-emerald-800 mb-2"
@@ -273,23 +201,16 @@ export default function EditNewsPage({
                     <select
                       name="category"
                       id="category"
-                      value={formData.category}
-                      onChange={handleInputChange}
+                      defaultValue={newsItem.category || ""}
                       required
                       className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
                     >
                       <option value="">Select a category</option>
-                      <option value="News Buzz">News Buzz</option>
-                      <option value="Corp Pulse">Corp Pulse</option>
-                      <option value="IPO Scoop">IPO Scoop</option>
-                      <option value="Market News">Market News</option>
-                      <option value="Policy">Policy</option>
-                      <option value="Commodities">Commodities</option>
-                      <option value="Forex">Forex</option>
-                      <option value="Cryptocurrency">Cryptocurrency</option>
-                      <option value="Earnings">Earnings</option>
-                      <option value="Automotive">Automotive</option>
-                      <option value="Technology">Technology</option>
+                      {categoryOptions.map((cat) => (
+                        <option key={cat} value={cat}>
+                          {cat}
+                        </option>
+                      ))}
                     </select>
                   </div>
 
@@ -304,8 +225,7 @@ export default function EditNewsPage({
                       name="description"
                       id="description"
                       rows={3}
-                      value={formData.description}
-                      onChange={handleInputChange}
+                      defaultValue={newsItem.description || ""}
                       className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
                     />
                   </div>
@@ -321,10 +241,9 @@ export default function EditNewsPage({
                       name="content"
                       id="content"
                       rows={8}
-                      value={formData.content}
-                      onChange={handleInputChange}
+                      defaultValue={newsItem.content || ""}
                       required
-                      className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
+                      className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white font-mono text-sm" // Added monospace font for content
                     />
                   </div>
                 </div>
@@ -337,7 +256,7 @@ export default function EditNewsPage({
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
+                  <div className="md:col-span-2">
                     <label
                       htmlFor="image"
                       className="block text-sm font-medium text-emerald-800 mb-2"
@@ -348,13 +267,12 @@ export default function EditNewsPage({
                       type="url"
                       name="image"
                       id="image"
-                      value={formData.image}
-                      onChange={handleInputChange}
+                      defaultValue={newsItem.image || ""}
                       className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
                     />
                   </div>
 
-                  <div>
+                  <div className="md:col-span-2">
                     <label
                       htmlFor="link"
                       className="block text-sm font-medium text-emerald-800 mb-2"
@@ -365,8 +283,7 @@ export default function EditNewsPage({
                       type="url"
                       name="link"
                       id="link"
-                      value={formData.link}
-                      onChange={handleInputChange}
+                      defaultValue={newsItem.link || ""}
                       className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
                     />
                   </div>
@@ -391,8 +308,7 @@ export default function EditNewsPage({
                       type="text"
                       name="author"
                       id="author"
-                      value={formData.author}
-                      onChange={handleInputChange}
+                      defaultValue={newsItem.author || ""}
                       required
                       className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
                     />
@@ -409,8 +325,8 @@ export default function EditNewsPage({
                       type="date"
                       name="publishDate"
                       id="publishDate"
-                      value={formData.publishDate}
-                      onChange={handleInputChange}
+                      // Format the date for the input field (YYYY-MM-DD)
+                      defaultValue={newsItem.publishDate ? new Date(newsItem.publishDate).toISOString().split('T')[0] : ""}
                       className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
                     />
                   </div>
@@ -426,8 +342,7 @@ export default function EditNewsPage({
                       type="text"
                       name="readTime"
                       id="readTime"
-                      value={formData.readTime}
-                      onChange={handleInputChange}
+                      defaultValue={newsItem.readTime || ""}
                       placeholder="e.g., 3 min read"
                       className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
                     />
@@ -444,8 +359,8 @@ export default function EditNewsPage({
                       type="number"
                       name="views"
                       id="views"
-                      value={formData.views}
-                      onChange={handleInputChange}
+                      defaultValue={newsItem.views ?? "0"} // Use nullish coalescing
+                      min="0"
                       className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
                     />
                   </div>
@@ -456,8 +371,7 @@ export default function EditNewsPage({
                     type="checkbox"
                     name="featured"
                     id="featured"
-                    checked={formData.featured}
-                    onChange={handleInputChange}
+                    defaultChecked={!!newsItem.featured} // Handle potential null/undefined
                     className="h-5 w-5 text-emerald-600 rounded focus:ring-emerald-500 border-emerald-300"
                   />
                   <label
@@ -472,256 +386,184 @@ export default function EditNewsPage({
               {/* Tags Section */}
               <div className="border border-emerald-200 rounded-xl p-6 bg-emerald-50/30">
                 <h2 className="text-xl font-bold text-emerald-900 mb-6">Tags</h2>
-                <TagInput tags={formData.tags} onChange={handleTagsChange} />
+                <div>
+                  <label
+                    htmlFor="tags"
+                    className="block text-sm font-medium text-emerald-800 mb-2"
+                  >
+                    Comma-separated tags
+                  </label>
+                  <input
+                    type="text"
+                    name="tags"
+                    id="tags"
+                    // Convert tags array to comma-separated string
+                    defaultValue={Array.isArray(newsItem.tags) ? newsItem.tags.join(", ") : (newsItem.tags ? String(newsItem.tags) : "")}
+                    className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
+                    placeholder="e.g., finance, market, stocks"
+                  />
+                </div>
               </div>
 
               {/* IPO Specific Fields */}
-              {formData.category === "IPO Scoop" && (
-                <div className="border border-teal-200 rounded-xl p-6 bg-teal-50">
-                  <h2 className="text-xl font-bold text-teal-900 mb-6">
-                    IPO Details
-                  </h2>
+              {/* These fields are always present in the form, visibility can be handled by JS on the client if needed,
+                  but the server action handles them regardless. The category check can be done on submit if needed. */}
+              <div className="border border-teal-200 rounded-xl p-6 bg-teal-50">
+                <h2 className="text-xl font-bold text-teal-900 mb-6">
+                  IPO Details (Optional)
+                </h2>
+                <p className="text-sm text-teal-700 mb-4">Fill these fields if the category is &quot;IPO Scoop&quot;.</p>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label
-                        htmlFor="ipoName"
-                        className="block text-sm font-medium text-teal-800 mb-2"
-                      >
-                        IPO Name
-                      </label>
-                      <input
-                        type="text"
-                        name="ipoName"
-                        id="ipoName"
-                        value={formData.ipoName}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
-                      />
-                    </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label
+                      htmlFor="ipoName"
+                      className="block text-sm font-medium text-teal-800 mb-2"
+                    >
+                      IPO Name
+                    </label>
+                    <input
+                      type="text"
+                      name="ipoName"
+                      id="ipoName"
+                      defaultValue={newsItem.ipoName || ""}
+                      className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
+                    />
+                  </div>
 
-                    <div>
-                      <label
-                        htmlFor="companyName"
-                        className="block text-sm font-medium text-teal-800 mb-2"
-                      >
-                        Company Name
-                      </label>
-                      <input
-                        type="text"
-                        name="companyName"
-                        id="companyName"
-                        value={formData.companyName}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
-                      />
-                    </div>
+                  <div>
+                    <label
+                      htmlFor="companyName"
+                      className="block text-sm font-medium text-teal-800 mb-2"
+                    >
+                      Company Name
+                    </label>
+                    <input
+                      type="text"
+                      name="companyName"
+                      id="companyName"
+                      defaultValue={newsItem.companyName || ""}
+                      className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
+                    />
+                  </div>
 
-                    <div>
-                      <label
-                        htmlFor="priceRange"
-                        className="block text-sm font-medium text-teal-800 mb-2"
-                      >
-                        Price Range
-                      </label>
-                      <input
-                        type="text"
-                        name="priceRange"
-                        id="priceRange"
-                        value={formData.priceRange}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
-                      />
-                    </div>
+                  <div>
+                    <label
+                      htmlFor="priceRange"
+                      className="block text-sm font-medium text-teal-800 mb-2"
+                    >
+                      Price Range
+                    </label>
+                    <input
+                      type="text"
+                      name="priceRange"
+                      id="priceRange"
+                      defaultValue={newsItem.priceRange || ""}
+                      className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
+                    />
+                  </div>
 
-                    <div>
-                      <label
-                        htmlFor="issueSize"
-                        className="block text-sm font-medium text-teal-800 mb-2"
-                      >
-                        Issue Size
-                      </label>
-                      <input
-                        type="text"
-                        name="issueSize"
-                        id="issueSize"
-                        value={formData.issueSize}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
-                      />
-                    </div>
+                  <div>
+                    <label
+                      htmlFor="issueSize"
+                      className="block text-sm font-medium text-teal-800 mb-2"
+                    >
+                      Issue Size
+                    </label>
+                    <input
+                      type="text"
+                      name="issueSize"
+                      id="issueSize"
+                      defaultValue={newsItem.issueSize || ""}
+                      className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
+                    />
+                  </div>
 
-                    <div>
-                      <label
-                        htmlFor="listingDate"
-                        className="block text-sm font-medium text-teal-800 mb-2"
-                      >
-                        Listing Date
-                      </label>
-                      <input
-                        type="text"
-                        name="listingDate"
-                        id="listingDate"
-                        value={formData.listingDate}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
-                      />
-                    </div>
+                  <div>
+                    <label
+                      htmlFor="listingDate"
+                      className="block text-sm font-medium text-teal-800 mb-2"
+                    >
+                      Listing Date
+                    </label>
+                    <input
+                      type="text" 
+                      name="listingDate"
+                      id="listingDate"
+                      defaultValue={newsItem.listingDate || ""}
+                      className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
+                    />
+                  </div>
 
-                    <div>
-                      <label
-                        htmlFor="currentPrice"
-                        className="block text-sm font-medium text-teal-800 mb-2"
-                      >
-                        Current Price
-                      </label>
-                      <input
-                        type="text"
-                        name="currentPrice"
-                        id="currentPrice"
-                        value={formData.currentPrice}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
-                      />
-                    </div>
+                  <div>
+                    <label
+                      htmlFor="currentPrice"
+                      className="block text-sm font-medium text-teal-800 mb-2"
+                    >
+                      Current Price
+                    </label>
+                    <input
+                      type="text"
+                      name="currentPrice"
+                      id="currentPrice"
+                      defaultValue={newsItem.currentPrice || ""}
+                      className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
+                    />
+                  </div>
 
-                    <div>
-                      <label
-                        htmlFor="listingGain"
-                        className="block text-sm font-medium text-teal-800 mb-2"
-                      >
-                        Listing Gain
-                      </label>
-                      <input
-                        type="text"
-                        name="listingGain"
-                        id="listingGain"
-                        value={formData.listingGain}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
-                      />
-                    </div>
+                  <div>
+                    <label
+                      htmlFor="listingGain"
+                      className="block text-sm font-medium text-teal-800 mb-2"
+                    >
+                      Listing Gain
+                    </label>
+                    <input
+                      type="text"
+                      name="listingGain"
+                      id="listingGain"
+                      defaultValue={newsItem.listingGain || ""}
+                      className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
+                    />
+                  </div>
 
-                    <div>
-                      <label
-                        htmlFor="subscriptionRate"
-                        className="block text-sm font-medium text-teal-800 mb-2"
-                      >
-                        Subscription Rate
-                      </label>
-                      <input
-                        type="text"
-                        name="subscriptionRate"
-                        id="subscriptionRate"
-                        value={formData.subscriptionRate}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
-                      />
-                    </div>
+                  <div>
+                    <label
+                      htmlFor="subscriptionRate"
+                      className="block text-sm font-medium text-teal-800 mb-2"
+                    >
+                      Subscription Rate
+                    </label>
+                    <input
+                      type="text"
+                      name="subscriptionRate"
+                      id="subscriptionRate"
+                      defaultValue={newsItem.subscriptionRate || ""}
+                      className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
+                    />
                   </div>
                 </div>
-              )}
+              </div>
 
               {/* Form Actions */}
               <div className="flex flex-col sm:flex-row justify-end gap-4 pt-6 border-t border-emerald-200">
-                <button
-                  type="button"
-                  onClick={handleCancel}
-                  className="px-6 py-3 border border-emerald-300 rounded-lg text-emerald-700 hover:bg-emerald-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition flex items-center justify-center"
+                <Link
+                  href="/admin/news"
+                  className="px-6 py-3 border border-emerald-300 rounded-lg text-emerald-700 hover:bg-emerald-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition flex items-center justify-center text-center"
                 >
-                  <FaTimes className="mr-2" />
                   Cancel
-                </button>
+                </Link>
                 <button
                   type="submit"
-                  disabled={saving}
-                  className="px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-700 text-white rounded-lg hover:from-emerald-700 hover:to-teal-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition flex items-center justify-center shadow-md disabled:opacity-50"
+                  className="px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-700 text-white rounded-lg hover:from-emerald-700 hover:to-teal-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition flex items-center justify-center shadow-md"
                 >
-                  {saving ? (
-                    <>
-                      <FaSpinner className="animate-spin mr-2" />
-                      Saving...
-                    </>
-                  ) : (
-                    <>
-                      <FaSave className="mr-2" />
-                      Save Changes
-                    </>
-                  )}
+                  <FaSave className="mr-2" />
+                  Save Changes
                 </button>
               </div>
             </form>
           </div>
         </div>
-      </div>
-    </div>
-  );
-}
-
-// Tag Input Component with Emerald Theme
-function TagInput({
-  tags,
-  onChange,
-}: {
-  tags: string[];
-  onChange: (tags: string[]) => void;
-}) {
-  const [inputValue, setInputValue] = useState("");
-
-  const addTag = () => {
-    if (inputValue.trim() && !tags.includes(inputValue.trim())) {
-      onChange([...tags, inputValue.trim()]);
-      setInputValue("");
-    }
-  };
-
-  const removeTag = (tagToRemove: string) => {
-    onChange(tags.filter((tag) => tag !== tagToRemove));
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      addTag();
-    }
-  };
-
-  return (
-    <div>
-      <div className="flex flex-wrap gap-2 mb-4">
-        {tags.map((tag, index) => (
-          <span
-            key={index}
-            className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-emerald-100 text-emerald-800 border border-emerald-200"
-          >
-            {tag}
-            <button
-              type="button"
-              onClick={() => removeTag(tag)}
-              className="ml-2 inline-flex items-center rounded-full text-emerald-600 hover:text-emerald-900 focus:outline-none"
-            >
-              <FaTimes className="h-3 w-3" />
-            </button>
-          </span>
-        ))}
-      </div>
-
-      <div className="flex">
-        <input
-          type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyPress={handleKeyPress}
-          placeholder="Add a tag..."
-          className="flex-1 px-4 py-3 border border-emerald-200 rounded-l-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
-        />
-        <button
-          type="button"
-          onClick={addTag}
-          className="px-4 py-3 bg-emerald-600 text-white rounded-r-lg hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition"
-        >
-          Add
-        </button>
       </div>
     </div>
   );
