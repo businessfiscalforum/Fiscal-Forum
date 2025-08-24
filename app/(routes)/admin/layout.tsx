@@ -48,7 +48,7 @@ export default async function AdminLayout({
           <Link href="/admin/quotes" className="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition text-sm">💬 Quote Requests</Link>
           <Link href="/admin/demat" className="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition text-sm">📄 Demat Applications</Link>
           <Link href="/admin/demat-transfer" className="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition text-sm">🔁 Demat Transfers</Link>
-          <Link href="/admin/investment-forms" className="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition text-sm">📈 Unlisted Shares</Link>
+          <Link href="/admin/unlisted-shares" className="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition text-sm">📈 Unlisted Shares</Link>
           <Link href="/admin/mf-preferences" className="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition text-sm">📊 MF Preferences</Link>
           <Link href="/admin/mf-transfer" className="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition text-sm">💸 MF Transfers</Link>
           <Link href="/admin/document-submissions" className="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition text-sm">📎 Document Submissions</Link>
