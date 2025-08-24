@@ -54,8 +54,7 @@ export default async function QuoteRequestsPage() {
     </div>
   );
 }
-
-// Helper function for formatting values
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function formatValue(value: any) {
   if (value === null || value === undefined) return "—";
   if (typeof value === "number") return value.toLocaleString();
