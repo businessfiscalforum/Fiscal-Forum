@@ -17,6 +17,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "economictimes.indiatimes.com", 
       },
+       {
+        protocol: "https",
+        hostname: "images.news18.com", 
+      },
     ],
   },
   

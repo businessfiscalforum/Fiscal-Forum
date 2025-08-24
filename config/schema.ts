@@ -703,7 +703,16 @@ export const newsTable = pgTable('news', {
   listingGain: varchar('listing_gain', { length: 100 }),
   subscriptionRate: varchar('subscription_rate', { length: 100 }),
 });
-//research
+
+export const newsletter = pgTable("newsletter", {
+  id: uuid('id').defaultRandom().primaryKey().notNull(),
+  title: varchar('title', { length: 255 }).notNull(),
+  description: text('description').notNull(),
+  content: text('content').notNull(),
+  image: varchar('image', { length: 500 }),
+  author: varchar('author', { length: 100 }).notNull(),
+  publishDate: timestamp('publish_date').defaultNow().notNull(),
+});
 
 export const researchReportsTable = pgTable("research_reports", {
   id: uuid("id").defaultRandom().primaryKey().notNull(),
@@ -1037,6 +1046,9 @@ export type SelectQuoteRequest = typeof quoteRequestsTable.$inferSelect;
 
 export type InsertNews = typeof newsTable.$inferInsert;
 export type SelectNews = typeof newsTable.$inferSelect;
+
+export type InsertNewsLetters = typeof newsletter.$inferInsert;
+export type SelectNewsLetters = typeof newsletter.$inferSelect;
 
 export type InsertResearchReport = typeof researchReportsTable.$inferInsert;
 export type SelectResearchReport = typeof researchReportsTable.$inferSelect;

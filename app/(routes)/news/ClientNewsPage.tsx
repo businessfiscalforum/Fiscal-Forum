@@ -23,7 +23,7 @@ import {
 } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 // --- Interface Definitions ---
 export interface NewsItem {
@@ -51,11 +51,13 @@ export interface NewsItem {
 }
 
 export interface Newsletter {
-  id: string;
+  id: string; 
   title: string;
-  description: string;
+  description?: string;
+  content?: string;
+  image?: string;
+  author?: string;
   publishDate: string;
-  link: string;
 }
 
 // Interface for data fetched from the API route
@@ -136,7 +138,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
         }
         const data: NewsItem[] = await response.json();
         setNewsByTab((prev) => ({ ...prev, [tabId]: data }));
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         console.error(`Failed to fetch ${activeTab} news:`, err);
         setError(`Failed to load ${tabId} news. Please try again later.`);
@@ -159,14 +161,19 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
       setNewsletterLoading(true);
       setError(null);
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/newsletter`);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/newsletter`
+        );
         if (!response.ok) {
           const errorText = await response.text();
-          console.error(`Newsletter API Error (${response.status}):`, errorText);
+          console.error(
+            `Newsletter API Error (${response.status}):`,
+            errorText
+          );
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const data: Newsletter[] = await response.json();
-        setNewsletter(data);
+        const data= await response.json();
+        setNewsletter(data.newsletter || []);
       } catch (err) {
         console.error("Failed to fetch newsletter:", err);
       } finally {
@@ -179,14 +186,16 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
 
   // --- NEW: API Fetching Effect for Stock Data ---
   useEffect(() => {
-    let isMounted = true; 
+    let isMounted = true;
 
     const fetchStockData = async () => {
       setStockLoading(true);
       setStockError(null);
       try {
         // --- FETCH FROM YOUR NEW API ROUTE ---
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/yahoo-stock-data`);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/yahoo-stock-data`
+        );
         // --- END FETCH ---
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -200,7 +209,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
         if (isMounted) {
           setStockIndices(data.indices); // Set the fetched indices data
         }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         console.error("Failed to fetch stock data (Yahoo):", err);
         if (isMounted) {
@@ -274,6 +283,10 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
   const handleNewsClick = (id: string) => {
     // Navigate internally to the news detail page
     router.push(`/news/${id}`);
+  };
+  const handleNewsletterClick = (id: string) => {
+    // Navigate internally to the news detail page
+    router.push(`/newsletter/${id}`);
   };
   // const handleNewsClick = (link: string) => {
   //   if (link.startsWith("http")) {
@@ -452,58 +465,78 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                           Market Snapshot
                         </h2>
                         {/* Show loading indicator or error inline */}
-                        {stockLoading && <span className="text-sm text-gray-500">Loading market data...</span>}
-                        {stockError && <span className="text-sm text-red-500">({stockError})</span>}
+                        {stockLoading && (
+                          <span className="text-sm text-gray-500">
+                            Loading market data...
+                          </span>
+                        )}
+                        {stockError && (
+                          <span className="text-sm text-red-500">
+                            ({stockError})
+                          </span>
+                        )}
                       </div>
                       {stockLoading ? (
-                         <div className="flex justify-center py-4">
-                           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-emerald-500"></div>
-                         </div>
-                       ) : stockError ? (
-                         <p className="text-center text-gray-500 py-4">Error loading market data: {stockError}</p>
-                       ) : stockIndices.length > 0 ? (
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        {stockIndices.map((index) => (
-                          // Handle potential errors for individual indices
-                          <div
-                            key={index.symbol}
-                            className={`bg-gradient-to-r from-emerald-50 to-teal-50 rounded-lg p-4 flex items-center gap-4 border border-emerald-100 shadow-sm ${index.error ? 'opacity-70' : ''}`}
-                          >
-                            <div className={`rounded-full p-3 ${index.error ? 'bg-gray-300' : 'bg-emerald-500 text-white'}`}>
-                              {index.error ? '?' : <FaChartLine /> }
-                            </div>
-                            <div>
-                              <p className={`text-lg font-semibold ${index.error ? 'text-gray-500' : 'text-emerald-800'}`}>
-                                {index.name}
-                              </p>
-                              {index.error ? (
-                                <p className="text-xs text-gray-500">{index.error}</p>
-                              ) : (
-                              <p className="text-sm text-gray-600">
-                                {index.value.toLocaleString(undefined, { maximumFractionDigits: 2 })}{" "}
-                                <span
-                                  className={`font-bold ${
-                                    index.change > 0
-                                      ? "text-green-500"
-                                      : index.change < 0
-                                      ? "text-red-500"
-                                      : "text-gray-500"
-                                  }`}
+                        <div className="flex justify-center py-4">
+                          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-emerald-500"></div>
+                        </div>
+                      ) : stockError ? (
+                        <p className="text-center text-gray-500 py-4">
+                          Error loading market data: {stockError}
+                        </p>
+                      ) : stockIndices.length > 0 ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                          {stockIndices.map((index) => (
+                            // Handle potential errors for individual indices
+                            <div
+                              key={index.symbol}
+                              className={`bg-gradient-to-r from-emerald-50 to-teal-50 rounded-lg p-4 flex items-center gap-4 border border-emerald-100 shadow-sm ${index.error ? "opacity-70" : ""}`}
+                            >
+                              <div
+                                className={`rounded-full p-3 ${index.error ? "bg-gray-300" : "bg-emerald-500 text-white"}`}
+                              >
+                                {index.error ? "?" : <FaChartLine />}
+                              </div>
+                              <div>
+                                <p
+                                  className={`text-lg font-semibold ${index.error ? "text-gray-500" : "text-emerald-800"}`}
                                 >
-                                  {/* Ensure sign is shown for positive numbers */}
-                                  {index.change >= 0 ? "+" : ""}
-                                  {index.change.toFixed(2)} (
-                                  {index.percentageChange.toFixed(2)}%)
-                                </span>
-                              </p>
-                              )}
+                                  {index.name}
+                                </p>
+                                {index.error ? (
+                                  <p className="text-xs text-gray-500">
+                                    {index.error}
+                                  </p>
+                                ) : (
+                                  <p className="text-sm text-gray-600">
+                                    {index.value.toLocaleString(undefined, {
+                                      maximumFractionDigits: 2,
+                                    })}{" "}
+                                    <span
+                                      className={`font-bold ${
+                                        index.change > 0
+                                          ? "text-green-500"
+                                          : index.change < 0
+                                            ? "text-red-500"
+                                            : "text-gray-500"
+                                      }`}
+                                    >
+                                      {/* Ensure sign is shown for positive numbers */}
+                                      {index.change >= 0 ? "+" : ""}
+                                      {index.change.toFixed(2)} (
+                                      {index.percentageChange.toFixed(2)}%)
+                                    </span>
+                                  </p>
+                                )}
+                              </div>
                             </div>
-                          </div>
-                        ))}
-                      </div>
-                       ) : (
-                         <p className="text-center text-gray-500 py-4">No market data available.</p>
-                       )}
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-center text-gray-500 py-4">
+                          No market data available.
+                        </p>
+                      )}
                     </div>
 
                     {/* Featured News */}
@@ -511,15 +544,15 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                       {/* Main Featured Article */}
                       {currentNews.length > 0 && (
                         <div
-                          className="lg:col-span-2 bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer group border border-emerald-100 hover:border-emerald-300 transition-all duration-300"
+                          className="lg:col-span-2 bg-white rounded-lg shadow-lg cursor-pointer group border border-emerald-100 hover:border-emerald-300 transition-all duration-300"
                           onClick={() => handleNewsClick(currentNews[0].id)}
                         >
-                          <div className="relative h-100">
+                          <div className="relative aspect-video">
                             {currentNews[0].image ? (
                               <Image
                                 src={currentNews[0].image}
                                 width={400}
-                                height={250}
+                                height={450}
                                 alt={currentNews[0].title}
                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                               />
@@ -558,15 +591,59 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                         </div>
                       )}
 
-                      {/* Top Stories Sidebar */}
-                      <div className="space-y-6">
-                        <h3 className="text-xl font-bold text-emerald-800 border-b-2 border-emerald-500 pb-2">
-                          Top Stories
-                        </h3>
-                        {currentNews.slice(1, 4).map((news) => (
+                    {/* Top Stories Sidebar */}
+                    <div className="space-y-6">
+                      <h3 className="text-xl font-bold text-emerald-800 border-b-2 border-emerald-500 pb-2">
+                        Top Stories
+                      </h3>
+                      {currentNews.slice(1, 4).map((news) => (
+                        <div
+                          key={news.id}
+                          className="flex gap-4 cursor-pointer group p-4 rounded-lg hover:bg-emerald-50/50 transition-colors duration-300"
+                          onClick={() => handleNewsClick(news.id)}
+                        >
+                          <div className="flex-shrink-0 w-24 h-24 bg-emerald-100 rounded overflow-hidden">
+                            {news.image ? (
+                              <Image
+                                src={news.image}
+                                alt={news.title}
+                                width={400}
+                                height={250}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              />
+                            ) : (
+                              <div className="bg-gradient-to-br from-emerald-100 to-teal-100 w-full h-full flex items-center justify-center">
+                                <FaGlobe className="text-emerald-400" />
+                              </div>
+                            )}
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-emerald-900 group-hover:text-emerald-600 transition-colors line-clamp-3">
+                              {news.title}
+                            </h4>
+                            <div className="flex items-center text-emerald-700 text-xs mt-2">
+                              <span>{formatDate(news.publishDate)}</span>
+                              <span className="mx-2">•</span>
+                              <span>
+                                <FaEye className="inline mr-1" />
+                                {news.views || "0"}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Latest News - Added Below Top Stories */}
+                    <div className="space-y-6 mt-8"> {/* Added margin top for separation */}
+                      <h3 className="text-xl font-bold text-emerald-800 border-b-2 border-emerald-500 pb-2">
+                        Latest News
+                      </h3>
+                      {currentNews.slice(4).length > 0 ? (
+                        currentNews.slice(4).map((news) => (
                           <div
                             key={news.id}
-                            className="flex gap-4 cursor-pointer group p-4 rounded-lg hover:bg-emerald-50/50 transition-colors duration-300 border border-transparent hover:border-emerald-200"
+                            className="flex gap-4 cursor-pointer group p-4 rounded-lg hover:bg-emerald-50/50 transition-colors duration-300 border border-transparent hover:border-emerald-200" // Added border effect on hover
                             onClick={() => handleNewsClick(news.id)}
                           >
                             <div className="flex-shrink-0 w-24 h-24 bg-emerald-100 rounded overflow-hidden">
@@ -598,11 +675,14 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                               </div>
                             </div>
                           </div>
-                        ))}
-                      </div>
+                        ))
+                      ) : (
+                        <p className="text-emerald-600 text-center py-4">
+                          No more news articles at the moment.
+                        </p>
+                      )}
                     </div>
-
-                    {/* Removed "Latest News" Grid Section */}
+                  </div>
                   </div>
                 ) : (
                   // Corp Pulse & IPO Scoop - Text List Layout
@@ -847,7 +927,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                       <div
                         key={item.id}
                         className="border-b border-emerald-100 pb-4 last:border-0 last:pb-0 cursor-pointer group hover:bg-emerald-50/30 p-2 rounded transition-colors duration-200"
-                        onClick={() => handleNewsClick(item.link)}
+                        onClick={() => handleNewsletterClick(item.id)}
                       >
                         <h4 className="font-bold text-emerald-900 group-hover:text-emerald-600 text-sm md:text-base line-clamp-2">
                           {item.title}
@@ -866,15 +946,6 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                     No newsletters available.
                   </p>
                 )}
-
-                <div className="mt-6 pt-6 border-t border-emerald-200">
-                  <Link
-                    href="/newsletter"
-                    className="flex items-center gap-2 text-emerald-600 hover:text-emerald-800 font-medium text-sm md:text-base"
-                  >
-                    View All Newsletters <FaArrowRight />
-                  </Link>
-                </div>
               </div>
             </div>
           </div>

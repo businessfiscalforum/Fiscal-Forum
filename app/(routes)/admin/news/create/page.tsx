@@ -1,7 +1,6 @@
 "use client";
 
 import NewsForm from "../../../_components/NewsForm";
-// import { revalidatePath } from "next/cache";
 
 export default function CreateNewsPage() {
 
@@ -17,9 +16,6 @@ export default function CreateNewsPage() {
     if (!response.ok) {
       throw new Error("Failed to create news");
     }
-    // revalidatePath("/news");
-    // revalidatePath("/admin/news");
-    // redirect("/admin/news");
   };
 
   return (

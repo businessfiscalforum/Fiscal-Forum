@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "../../../config/db";
-import { newsTable } from "../../../config/schema";
-import { and, desc, eq, like, sql } from "drizzle-orm";
+import { newsletter } from "../../../config/schema";
+import { and, desc, like, sql } from "drizzle-orm";
 
 const allowedOrigins = [
   "https://www.fiscalforum.in",
@@ -20,7 +20,7 @@ function corsHeaders(origin: string | null): HeadersInit {
   return {};
 }
 
-// ✅ Handle preflight OPTIONS
+// ✅ Preflight request handler
 export async function OPTIONS(request: Request) {
   const origin = request.headers.get("origin");
   return new NextResponse(null, {
@@ -34,47 +34,40 @@ export async function GET(request: Request) {
   const page = parseInt(searchParams.get("page") || "1");
   const limit = parseInt(searchParams.get("limit") || "10");
   const search = searchParams.get("search") || "";
-  const category = searchParams.get("category") || "";
   const offset = (page - 1) * limit;
   const origin = request.headers.get("origin");
 
   try {
     const whereClause = and(
-      search ? like(newsTable.title, `%${search}%`) : undefined,
-      category ? eq(newsTable.category, category) : undefined
+      search ? like(newsletter.title, `%${search}%`) : undefined,
     );
 
-    const newsItems = await db
+    const newsletterItems = await db
       .select()
-      .from(newsTable)
+      .from(newsletter)
       .where(whereClause)
-      .orderBy(desc(newsTable.publishDate))
+      .orderBy(desc(newsletter.publishDate))
       .limit(limit)
       .offset(offset);
 
     const totalCountResult = await db
       .select({ count: sql`count(*)` })
-      .from(newsTable)
+      .from(newsletter)
       .where(whereClause);
 
     const totalCount = parseInt(totalCountResult[0].count as string);
 
     return NextResponse.json(
       {
-        news: newsItems,
-        pagination: {
-          currentPage: page,
-          totalPages: Math.ceil(totalCount / limit),
-          totalCount,
-        },
+        newsletter: newsletterItems,
       },
       { headers: corsHeaders(origin) }
     );
   } catch (error) {
-    console.error("Error fetching news:", error);
+    console.error("Error fetching newsletter:", error);
     return NextResponse.json(
-      { error: "Failed to fetch news" },
-      { status: 500, headers: corsHeaders(request.headers.get("origin")) }
+      { error: "Failed to fetch newsletter" },
+      { status: 500, headers: corsHeaders(origin) }
     );
   }
 }
@@ -84,18 +77,17 @@ export async function POST(request: Request) {
   try {
     const data = await request.json();
 
-    if (!data.title || !data.content || !data.category) {
+    if (!data.title || !data.content) {
       return NextResponse.json(
-        { error: "Title, content, and category are required" },
+        { error: "Title and content are required" },
         { status: 400, headers: corsHeaders(origin) }
       );
     }
 
     const [newItem] = await db
-      .insert(newsTable)
+      .insert(newsletter)
       .values({
         ...data,
-        tags: data.tags ? JSON.stringify(data.tags) : null,
         publishDate: data.publishDate ? new Date(data.publishDate) : new Date(),
       })
       .returning();
@@ -105,9 +97,9 @@ export async function POST(request: Request) {
       headers: corsHeaders(origin),
     });
   } catch (error) {
-    console.error("Error creating news:", error);
+    console.error("Error creating newsletter:", error);
     return NextResponse.json(
-      { error: "Failed to create news item" },
+      { error: "Failed to create newsletter item" },
       { status: 500, headers: corsHeaders(origin) }
     );
   }
