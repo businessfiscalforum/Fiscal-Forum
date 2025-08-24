@@ -30,10 +30,9 @@ function isValidCategory(value: string): value is (typeof categoryOptions)[numbe
 export default async function EditNewsPage({
   params,
 }: {
-  params: { id: string }; // Assuming params is resolved here
+  params:  Promise<{ id: string }>; 
 }) {
-  const { id } = params;
-
+  const { id } = await params;
   // Fetch the news item to edit
   const [newsItem] = await db
     .select()
@@ -79,11 +78,6 @@ export default async function EditNewsPage({
     // --- Validate Category ---
     if (!isValidCategory(rawCategory)) {
       console.error(`Invalid category submitted: ${rawCategory}`);
-      // In a real app, you might want to handle this more gracefully,
-      // e.g., by setting an error state and re-rendering the form.
-      // For now, we'll default to 'News Buzz' or let the DB handle it if it has constraints.
-      // Or throw an error to prevent the update:
-      // throw new Error(`Invalid category: ${rawCategory}`);
     }
     const category = rawCategory; // Use the validated/raw value
 
