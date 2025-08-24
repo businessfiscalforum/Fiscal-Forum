@@ -1,5 +1,5 @@
 // app/admin/news/[id]/edit/page.tsx (or wherever this file is located)
-"use client";
+"use server";
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
