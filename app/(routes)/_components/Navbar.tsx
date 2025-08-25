@@ -4,10 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
-import { SignOutButton, useUser } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignOutButton, useUser } from "@clerk/nextjs";
 
 export default function Navbar() {
-  const { isSignedIn } = useUser();
+  const { user } = useUser();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
 
@@ -156,17 +156,20 @@ export default function Navbar() {
           ))}
 
           {/* User Auth */}
-          {isSignedIn ? (
+          {/* User Auth (Desktop) */}
+          <SignedIn>
             <div className="relative">
               <button
                 className="flex items-center gap-2"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
-                <div className="bg-green-100 rounded-full p-1.5">
-                  <div className="bg-green-600 rounded-full w-6 h-6 flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">U</span>
-                  </div>
-                </div>
+                <Image
+                  src={user?.imageUrl || "/user-icon.webp"}
+                  alt={user?.fullName || "User"}
+                  width={32}
+                  height={32}
+                  className="rounded-full border border-green-200"
+                />
               </button>
 
               {mobileMenuOpen && (
@@ -189,13 +192,15 @@ export default function Navbar() {
                 </div>
               )}
             </div>
-          ) : (
+          </SignedIn>
+
+          <SignedOut>
             <Link href="/sign-up">
               <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors">
                 Register
               </button>
             </Link>
-          )}
+          </SignedOut>
         </div>
 
         {/* Mobile Toggle */}
@@ -255,33 +260,34 @@ export default function Navbar() {
           </div>
 
           {/* User Section */}
-          <div>
-            {isSignedIn ? (
-              <>
-                <Link
-                  href="/dashboard"
-                  className="block px-4 py-3 text-sm text-green-700 hover:bg-green-50"
-                >
-                  Dashboard
-                </Link>
-                <div className="px-4 py-3 border-b border-green-50">
-                  <SignOutButton>
-                    <button className="w-full bg-red-50 hover:bg-red-100 text-red-600 px-4 py-2.5 rounded-lg text-sm font-medium">
-                      Sign Out
-                    </button>
-                  </SignOutButton>
-                </div>
-              </>
-            ) : (
-              <div className="px-4 py-3">
-                <Link href="/sign-up">
-                  <button className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-lg text-sm font-medium">
-                    Register
+          {/* User Section (Mobile) */}
+          <SignedIn>
+            <>
+              <Link
+                href="/dashboard"
+                className="block px-4 py-3 text-sm text-green-700 hover:bg-green-50"
+              >
+                Dashboard
+              </Link>
+              <div className="px-4 py-3 border-b border-green-50">
+                <SignOutButton>
+                  <button className="w-full bg-red-50 hover:bg-red-100 text-red-600 px-4 py-2.5 rounded-lg text-sm font-medium">
+                    Sign Out
                   </button>
-                </Link>
+                </SignOutButton>
               </div>
-            )}
-          </div>
+            </>
+          </SignedIn>
+
+          <SignedOut>
+            <div className="px-4 py-3">
+              <Link href="/sign-up">
+                <button className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-lg text-sm font-medium">
+                  Register
+                </button>
+              </Link>
+            </div>
+          </SignedOut>
         </div>
       )}
     </nav>
