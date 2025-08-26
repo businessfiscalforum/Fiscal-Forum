@@ -29,7 +29,6 @@ interface ResearchReport {
   currentPrice: string;
   upside: string;
   pages: number;
-  views: number;
   recommendation: string;
   summary: string;
   pdfUrl: string;
@@ -158,9 +157,6 @@ export default function ClientReportsPage({
         case "author":
           comparison = a.author.localeCompare(b.author);
           break;
-        case "views":
-          comparison = (b.views || 0) - (a.views || 0);
-          break;
         case "upside":
           comparison = parseFloat(b.upside) - parseFloat(a.upside);
           break;
@@ -274,7 +270,6 @@ export default function ClientReportsPage({
                 <option value="date">Date</option>
                 <option value="title">Title</option>
                 <option value="author">Author</option>
-                <option value="views">Views</option>
                 <option value="upside">Upside</option>
               </select>
                 </div>
@@ -377,10 +372,6 @@ export default function ClientReportsPage({
                                 <span className="flex items-center gap-1">
                                   <FaFilePdf className="text-red-500" />
                                   {report.pages} pages
-                                </span>
-                                <span className="flex items-center gap-1">
-                                  <FaEye />
-                                  {report.views.toLocaleString()} views
                                 </span>
                               </div>
                             </div>

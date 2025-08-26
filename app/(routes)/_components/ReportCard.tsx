@@ -34,7 +34,6 @@ export interface ResearchReport {
   currentPrice: string;
   upside: string;
   pages: number;
-  views: number;
   recommendation: string;
   tags: string[];
   summary: string;
@@ -85,7 +84,6 @@ export function ReportCard({ report }: ReportCardProps) {
             </span>
             <span>{report.pages} pages</span>
             <span>•</span>
-            <span>{report.views.toLocaleString()} views</span>
           </div>
         </div>
       </td>

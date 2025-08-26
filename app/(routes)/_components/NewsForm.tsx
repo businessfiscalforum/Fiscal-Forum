@@ -15,7 +15,6 @@ interface NewsFormData {
   author: string;
   publishDate: string;
   readTime: string;
-  views: number; // Keep as number for the form state
   link: string;
   featured: boolean;
   tags: string[];
@@ -47,7 +46,6 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
       author: '',
       publishDate: new Date().toISOString().split('T')[0],
       readTime: '',
-      views: 0,
       link: '',
       featured: false,
       tags: [],
@@ -275,21 +273,6 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
               value={formData.readTime}
               onChange={handleChange}
               placeholder="e.g., 3 min read"
-              className={inputClasses}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="views" className={labelClasses}>
-              Views
-            </label>
-            <input
-              type="number"
-              name="views"
-              id="views"
-              min="0"
-              value={formData.views}
-              onChange={handleChange}
               className={inputClasses}
             />
           </div>

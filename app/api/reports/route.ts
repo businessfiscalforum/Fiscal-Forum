@@ -49,7 +49,6 @@ export async function GET(req: NextRequest) {
         currentPrice: researchReportsTable.currentPrice,
         upside: researchReportsTable.upside,
         pages: researchReportsTable.pages,
-        views: researchReportsTable.views,
         recommendation: researchReportsTable.recommendation,
         summary: researchReportsTable.summary,
         pdfUrl: researchReportsTable.pdfUrl,

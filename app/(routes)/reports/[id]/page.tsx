@@ -61,10 +61,6 @@ export default async function ReportDetailPage(context: {
             <FaCalendarAlt className="text-xs" />
             {format(new Date(report.publishDate), "MMM d, yyyy")}
           </span>
-          <span className="flex items-center gap-1">
-            <FaEye className="text-xs" />
-            {report.views.toLocaleString()} views
-          </span>
         </div>
       </div>
 

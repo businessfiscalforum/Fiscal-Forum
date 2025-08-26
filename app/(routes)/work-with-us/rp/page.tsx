@@ -137,9 +137,9 @@ const BDPPartnerDetails = () => {
                 </motion.button>
               </Link>
             </div>
-
-            {/* Services Section */}
-            <div className="flex-1 mt-12 lg:mt-0">
+          </div>
+          {/* Services Section */}
+            <div className="mt-16">
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
                 {[
                   { name: "Stock Investment", icon: FaChartLine },
@@ -164,7 +164,6 @@ const BDPPartnerDetails = () => {
                 ))}
               </div>
             </div>
-          </div>
         </div>
       </section>
 

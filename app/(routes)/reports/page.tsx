@@ -27,7 +27,6 @@ export default async function ReportsPage() {
     currentPrice: report.currentPrice,
     upside: report.upside,
     pages: report.pages,
-    views: report.views,
     recommendation: report.recommendation,
     summary: report.summary,
     pdfUrl: report.pdfUrl,

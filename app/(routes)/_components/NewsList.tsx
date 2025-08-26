@@ -11,7 +11,6 @@ interface NewsItem {
   category: string;
   author: string;
   publishDate: string;
-  views: number;
   featured: boolean;
   link:string;
 }
@@ -80,9 +79,6 @@ export default function NewsList() {
               Date
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Views
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Featured
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -109,9 +105,6 @@ export default function NewsList() {
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 {format(new Date(item.publishDate), 'MMM dd, yyyy')}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {item.views}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 {item.featured ? (

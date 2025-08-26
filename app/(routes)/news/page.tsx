@@ -27,7 +27,6 @@ export default async function NewsPage() {
       author: item.author,
       publishDate: item.publishDate.toISOString(), // Convert Date to ISO string
       readTime: item.readTime ?? undefined,
-      views: item.views !== null ? String(item.views) : null, // Convert number to string if not null
       link: item.link || "#", // Provide default if empty string
       featured: item.featured ?? false, // Convert null to false
       tags: item.tags ?? undefined, // Pass tags as string, component will parse if needed

@@ -19,10 +19,8 @@ import {
   FaChartLine,
   FaRupeeSign,
   FaEnvelope,
-  FaArrowRight,
 } from "react-icons/fa";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 // --- Interface Definitions ---
@@ -36,7 +34,6 @@ export interface NewsItem {
   author: string;
   publishDate: string;
   readTime?: string | null;
-  views: string | null;
   link: string;
   featured?: boolean | null;
   tags?: string | null;
@@ -255,10 +252,6 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
         return (
           new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime()
         );
-      } else if (sortBy === "popular") {
-        const viewsA = parseInt(a.views ?? "0", 10);
-        const viewsB = parseInt(b.views ?? "0", 10);
-        return viewsB - viewsA;
       }
       return 0;
     });
@@ -581,10 +574,6 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                                   {formatDate(currentNews[0].publishDate)}
                                 </span>
                                 <span className="mx-2">•</span>
-                                <span>
-                                  <FaEye className="inline mr-1" />
-                                  {currentNews[0].views || "0"}
-                                </span>
                               </div>
                             </div>
                           </div>
@@ -624,10 +613,6 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                             <div className="flex items-center text-emerald-700 text-xs mt-2">
                               <span>{formatDate(news.publishDate)}</span>
                               <span className="mx-2">•</span>
-                              <span>
-                                <FaEye className="inline mr-1" />
-                                {news.views || "0"}
-                              </span>
                             </div>
                           </div>
                         </div>
@@ -668,10 +653,6 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                               <div className="flex items-center text-emerald-700 text-xs mt-2">
                                 <span>{formatDate(news.publishDate)}</span>
                                 <span className="mx-2">•</span>
-                                <span>
-                                  <FaEye className="inline mr-1" />
-                                  {news.views || "0"}
-                                </span>
                               </div>
                             </div>
                           </div>
@@ -766,10 +747,6 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                                 <div className="flex items-center gap-1">
                                   <FaClock className="text-xs" />
                                   {formatDate(news.publishDate)}
-                                </div>
-                                <div className="flex items-center gap-1">
-                                  <FaEye className="text-xs" />
-                                  {news.views || "0"} views
                                 </div>
                                 {activeTab === "ipo-scoop" &&
                                   news.listingGain && (

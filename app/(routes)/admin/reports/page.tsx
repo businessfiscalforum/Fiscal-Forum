@@ -63,7 +63,6 @@ export default async function ReportsListPage() { // Renamed component for clari
                       <span className="flex items-center">📅 {new Date(item.publishDate).toLocaleDateString()}</span> {/* Format date */}
                       <span className="flex items-center">👤 {item.author}</span>
                       <span className="flex items-center">🔖 {item.stock}</span>
-                      <span className="flex items-center">👁️ {item.views ?? 0} views</span> {/* Handle potential null views */}
                       <span className="flex items-center">
                         Rating: 
                         <span className={`ml-1 px-2 py-0.5 rounded-full text-xs font-medium ${

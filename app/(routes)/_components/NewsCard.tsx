@@ -11,7 +11,6 @@ interface NewsCardProps {
   publishDate: string;
   readTime: string;
   category: string;
-  views: string | null;
   featured?: boolean;
 }
 
@@ -24,7 +23,6 @@ export function NewsCard({
   publishDate,
   readTime,
   category,
-  views,
   featured,
 }: NewsCardProps) {
   return (
@@ -73,7 +71,7 @@ export function NewsCard({
 
         <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
           <div className="text-xs text-gray-500">
-            By {author} • {readTime} • {views || "0"} views
+            By {author} • {readTime}
           </div>
           <Link
             href={`/news/${id}`}

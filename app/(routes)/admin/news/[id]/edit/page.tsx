@@ -57,7 +57,6 @@ export default async function EditNewsPage({
     const author = formData.get("author") as string;
     const publishDate = formData.get("publishDate") as string; // Comes as YYYY-MM-DD string
     const readTime = formData.get("readTime") as string;
-    const views = parseInt(formData.get("views") as string, 10) || 0; // Default to 0 if invalid
     const link = formData.get("link") as string;
     const featured = formData.get("featured") === "on";
     const tags = (formData.get("tags") as string)
@@ -94,7 +93,6 @@ export default async function EditNewsPage({
           author,
           publishDate: publishDate ? new Date(publishDate) : new Date(), // Convert string to Date
           readTime: readTime || null,
-          views:views.toString(),
           link: link || null,
           featured,
           tags:JSON.stringify(tags),
@@ -338,23 +336,6 @@ export default async function EditNewsPage({
                       id="readTime"
                       defaultValue={newsItem.readTime || ""}
                       placeholder="e.g., 3 min read"
-                      className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="views"
-                      className="block text-sm font-medium text-emerald-800 mb-2"
-                    >
-                      Views
-                    </label>
-                    <input
-                      type="number"
-                      name="views"
-                      id="views"
-                      defaultValue={newsItem.views ?? "0"} // Use nullish coalescing
-                      min="0"
                       className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
                     />
                   </div>

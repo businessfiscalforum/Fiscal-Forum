@@ -689,7 +689,6 @@ export const newsTable = pgTable('news', {
   author: varchar('author', { length: 100 }).notNull(),
   publishDate: timestamp('publish_date').defaultNow().notNull(),
   readTime: varchar('read_time', { length: 50 }),
-  views: varchar('views').notNull(),
   link: varchar('link', { length: 500 }),
   featured: boolean('featured').default(false),
   tags: text('tags'), // JSON string array
@@ -729,7 +728,6 @@ export const researchReportsTable = pgTable("research_reports", {
   currentPrice: text("current_price").notNull(),
   upside: text("upside").notNull(),
   pages: integer("pages").notNull(),
-  views: integer("views").notNull().default(0),
   recommendation: text("recommendation").notNull(),
   tags: text("tags").array(),
   summary: text("summary").notNull(),

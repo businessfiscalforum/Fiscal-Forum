@@ -57,7 +57,6 @@ export default async function EditReportPage({
     const currentPrice = formData.get("currentPrice") as string;
     const upside = formData.get("upside") as string;
     const pages = parseInt(formData.get("pages") as string);
-    const views = parseInt(formData.get("views") as string);
     const recommendation = formData.get("recommendation") as string;
     const tags = (formData.get("tags") as string)
       .split(",")
@@ -94,7 +93,6 @@ export default async function EditReportPage({
         currentPrice,
         upside,
         pages,
-        views,
         recommendation,
         tags,
         summary,
@@ -240,16 +238,6 @@ export default async function EditReportPage({
             name="pages"
             type="number"
             defaultValue={report.pages}
-            required
-            className="w-full border border-gray-300 rounded-lg p-2"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-1">Views</label>
-          <input
-            name="views"
-            type="number"
-            defaultValue={report.views}
             required
             className="w-full border border-gray-300 rounded-lg p-2"
           />

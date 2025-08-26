@@ -124,13 +124,6 @@ export default async function NewsDetailPage(context: { params: Promise<{ id: st
                   <span>{news.readTime}</span>
                 </div>
               )}
-              {news.views !== null && news.views !== undefined && (
-                <div className="flex items-center">
-                  <FaEye className="mr-1.5 text-emerald-500 flex-shrink-0" />
-                  {/* Parse views for display formatting if needed */}
-                  <span>{parseInt(news.views, 10).toLocaleString()} views</span>
-                </div>
-              )}
             </div>
 
             {/* Category Badge & Featured Badge */}
@@ -196,15 +189,6 @@ export default async function NewsDetailPage(context: { params: Promise<{ id: st
 
           {/* Article Footer */}
           <footer className="p-6 sm:p-8 pt-0 border-t border-gray-100 text-xs sm:text-sm text-gray-500 flex items-center justify-between">
-            <div className="flex items-center">
-              <FaEye className="mr-1.5 text-gray-400 flex-shrink-0" />
-              <span>
-                {news.views !== null && news.views !== undefined
-                  ? parseInt(news.views, 10).toLocaleString()
-                  : "0"}{" "}
-                views
-              </span>
-            </div>
             {news.featured && (
               <div>
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gradient-to-r from-amber-100 to-yellow-100 text-amber-800 border border-amber-200">
