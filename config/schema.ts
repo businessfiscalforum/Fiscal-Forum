@@ -203,7 +203,7 @@ export const homeLoanApplications = pgTable("home_loan_applications", {
   companyName: text("company_name"),
   designation: text("designation"),
   netMonthlySalary: integer("net_monthly_salary").notNull(),
-
+  
   // Property Details
   propertyType: varchar("property_type", { length: 20 }).notNull(),
   agreementValue: integer("agreement_value").notNull(),
@@ -211,11 +211,11 @@ export const homeLoanApplications = pgTable("home_loan_applications", {
   propertyAddressLine1: text("property_address_line1").notNull(),
   propertyAddressLine2: text("property_address_line2"),
   propertyCity: text("property_city").notNull(),
-
+  
   // Existing Obligations
   noOfCurrentLoans: integer("no_of_current_loans").notNull(),
   existingLoanType: varchar("existing_loan_type", { length: 20 }),
-
+  
   // Additional Details
   builderName: text("builder_name").notNull(),
   residenceSince: varchar("residence_since", { length: 20 }).notNull(),
@@ -225,16 +225,16 @@ export const homeLoanApplications = pgTable("home_loan_applications", {
   reference1Name: text("reference1_name").notNull(),
   reference1Mobile: varchar("reference1_mobile", { length: 15 }).notNull(),
   reference1Address: text("reference1_address").notNull(),
-
+  
   reference2Name: text("reference2_name").notNull(),
   reference2Mobile: varchar("reference2_mobile", { length: 15 }).notNull(),
   reference2Address: text("reference2_address").notNull(),
-
+  
   // Timestamps
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
-    .defaultNow()
-    .$onUpdateFn(() => new Date()),
+  .defaultNow()
+  .$onUpdateFn(() => new Date()),
 });
 
 
@@ -285,7 +285,7 @@ export const lapApplications = pgTable('lap_applications', {
   reference1Name: text("reference1_name").notNull(),
   reference1Mobile: varchar("reference1_mobile", { length: 15 }).notNull(),
   reference1Address: text("reference1_address").notNull(),
-
+  
   reference2Name: text("reference2_name").notNull(),
   reference2Mobile: varchar("reference2_mobile", { length: 15 }).notNull(),
   reference2Address: text("reference2_address").notNull(),
@@ -341,7 +341,7 @@ export const personalLoanApplications = pgTable('personal_loan_applications', {
   reference1Name: text("reference1_name").notNull(),
   reference1Mobile: varchar("reference1_mobile", { length: 15 }).notNull(),
   reference1Address: text("reference1_address").notNull(),
-
+  
   reference2Name: text("reference2_name").notNull(),
   reference2Mobile: varchar("reference2_mobile", { length: 15 }).notNull(),
   reference2Address: text("reference2_address").notNull(),
@@ -405,7 +405,7 @@ export const businessLoanApplications = pgTable('business_loan_applications', {
   reference1Name: text("reference1_name").notNull(),
   reference1Mobile: varchar("reference1_mobile", { length: 15 }).notNull(),
   reference1Address: text("reference1_address").notNull(),
-
+  
   reference2Name: text("reference2_name").notNull(),
   reference2Mobile: varchar("reference2_mobile", { length: 15 }).notNull(),
   reference2Address: text("reference2_address").notNull(),
@@ -461,7 +461,7 @@ export const goldLoanApplications = pgTable('gold_loan_applications', {
   reference1Name: text("reference1_name").notNull(),
   reference1Mobile: varchar("reference1_mobile", { length: 15 }).notNull(),
   reference1Address: text("reference1_address").notNull(),
-
+  
   reference2Name: text("reference2_name").notNull(),
   reference2Mobile: varchar("reference2_mobile", { length: 15 }).notNull(),
   reference2Address: text("reference2_address").notNull(),
@@ -523,7 +523,7 @@ export const carLoanApplications = pgTable('car_loan_applications', {
   reference1Name: text("reference1_name").notNull(),
   reference1Mobile: varchar("reference1_mobile", { length: 15 }).notNull(),
   reference1Address: text("reference1_address").notNull(),
-
+  
   reference2Name: text("reference2_name").notNull(),
   reference2Mobile: varchar("reference2_mobile", { length: 15 }).notNull(),
   reference2Address: text("reference2_address").notNull(),
@@ -549,7 +549,7 @@ export const educationLoanApplications = pgTable('education_loan_applications', 
   gender: varchar('gender', { length: 10, enum: ['Male', 'Female', 'Others'] }),
   mobileNo: varchar('mobile_no', { length: 15 }).notNull(),
   emailId: varchar('email_id', { length: 100 }).notNull().unique(),
-
+  
   // Address
   currentHomeAddress1: text("current_home_address1").notNull(),
   currentHomeAddress2: text("current_home_address2"),
@@ -564,31 +564,31 @@ export const educationLoanApplications = pgTable('education_loan_applications', 
   permanentPincode: varchar("permanent_pincode", { length: 6 }).notNull(),
   permanentState: text("permanent_state").notNull(),
   permanentCity: text("permanent_city").notNull(),
-
+  
   // Employment
   employmentType: varchar('employment_type', { length: 15, enum: ['Company', 'Self-Employed'] }),
   companyName: varchar('company_name', { length: 100 }),
   designation: varchar('designation', { length: 100 }),
   netMonthlySalary: integer('net_monthly_salary'),
-
+  
   // Course Details
   courseType: varchar('course_type', { length: 20, enum: ['Undergraduate', 'Postgraduate', 'PhD', 'Diploma', 'Certificate', 'Other'] }),
   courseName: varchar('course_name', { length: 100 }).notNull(),
   universityName: varchar('university_name', { length: 100 }).notNull(),
   countryName: varchar('country_name', { length: 50 }).notNull(),
-
+  
   // Loan Amount
   loanAmountRequired: integer('loan_amount_required').notNull(),
-
+  
   // Existing Obligations
   noOfCurrentLoans: integer('no_of_current_loans').default(0).$defaultFn(() => 0),
   existingLoanType: varchar('existing_loan_type', { length: 15, enum: ['None', 'Personal', 'Car', 'Education', 'Other'] }),
-
+  
   // References
   reference1Name: varchar('reference1_name', { length: 50 }).notNull(),
   reference1Mobile: varchar('reference1_mobile', { length: 15 }).notNull(),
   reference1Address: text('reference1_address').notNull(),
-
+  
   reference2Name: varchar('reference2_name', { length: 50 }).notNull(),
   reference2Mobile: varchar('reference2_mobile', { length: 15 }).notNull(),
   reference2Address: text('reference2_address').notNull(),
@@ -611,7 +611,7 @@ export const lasApplication = pgTable('loan_against_securities', {
   gender: varchar('gender', { enum: ["Male", "Female", "Others"] }).notNull(),
   mobileNo: varchar('mobile_no', { length: 15 }).notNull(),
   emailId: varchar('email_id', { length: 255 }).notNull(),
-
+  
   // Current Address
   currentHomeAddress1: text("current_home_address1").notNull(),
   currentHomeAddress2: text("current_home_address2"),
@@ -631,14 +631,14 @@ export const lasApplication = pgTable('loan_against_securities', {
   securityType: varchar('security_type', { enum: ["Gold", "Silver", "Jewelry", "Property", "Other"] }),
   securityValue: decimal('security_value', { precision: 14, scale: 2 }).notNull(),
   requiredLoanAmount: decimal('required_loan_amount', { precision: 14, scale: 2 }).notNull(),
-
+  
   // Loan Amount Required (Duplicate field from schema, but included as requested)
   loanAmountRequired: decimal('loan_amount_required', { precision: 14, scale: 2 }).notNull(),
-
+  
   // Existing Obligations
   noOfCurrentLoans: integer('no_of_current_loans').notNull(),
   existingLoanType: varchar('existing_loan_type', { enum: ["None", "Personal", "Car", "Education", "Other"] }),
-
+  
   // References (Stored as JSONB)
   reference1Name: varchar('reference1_name', { length: 50 }).notNull(),
   reference1Mobile: varchar('reference1_mobile', { length: 15 }).notNull(),
@@ -671,7 +671,7 @@ export const quoteRequestsTable = pgTable('quote_requests', {
   phone: text('phone').notNull(),
   loanType: text('loan_type').notNull(),
   loanAmount: integer('loan_amount').notNull(),
-
+  
   tenure: integer('tenure').notNull(), // in years
   emi: integer('emi'), // pre-calculated EMI (optional)
   createdAt: timestamp('created_at').defaultNow().notNull(),
@@ -950,7 +950,7 @@ export const personalAccidentInsuranceRequests = pgTable('personal_accident_insu
 });
 
 export const propertyInsuranceRequests = pgTable('property_insurance_requests', {
-	id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
+  id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
 	userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
 	// Personal Details
 	name: varchar('name', { length: 255 }).notNull(),
@@ -978,7 +978,7 @@ export const propertyInsuranceRequests = pgTable('property_insurance_requests', 
 });
 
 export const travelInsuranceRequests = pgTable('travel_insurance_requests', {
-	id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
+  id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
 	userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
 	// Personal Details
 	name: varchar('name', { length: 255 }).notNull(),
@@ -1033,6 +1033,36 @@ export const documentSubmissions = pgTable('document_submissions', {
   mobile: varchar('mobile', { length: 15 }).notNull(),
   documentSent: boolean('document_sent').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+export const businessDevelopmentPartner = pgTable('buisness_development_partner', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  name: varchar('name', { length: 255 }).notNull(),
+  email: varchar('email', { length: 255 }).notNull(),
+  mobile: varchar('mobile', { length: 15 }).notNull(),
+  panNumber: varchar('pan_number', { length: 10 }).notNull(),
+  accountNumber: varchar('account_number', { length: 20 }).notNull(),
+  ifscCode: varchar('ifsc_code', { length: 11 }).notNull(),
+});
+
+export const remisorship = pgTable('remisorship', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  name: varchar('name', { length: 255 }).notNull(),
+  email: varchar('email', { length: 255 }).notNull(),
+  mobile: varchar('mobile', { length: 15 }).notNull(),
+  panNumber: varchar('pan_number', { length: 10 }).notNull(),
+  accountNumber: varchar('account_number', { length: 20 }).notNull(),
+  ifscCode: varchar('ifsc_code', { length: 11 }).notNull(),
+});
+
+export const b2bPartner = pgTable('b2b_partner', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  name: varchar('name', { length: 255 }).notNull(),
+  email: varchar('email', { length: 255 }).notNull(),
+  mobile: varchar('mobile', { length: 15 }).notNull(),
+  panNumber: varchar('pan_number', { length: 10 }).notNull(),
+  accountNumber: varchar('account_number', { length: 20 }).notNull(),
+  ifscCode: varchar('ifsc_code', { length: 11 }).notNull(),
 });
 
 // Types
@@ -1124,3 +1154,12 @@ export type SelectMfTransfer = typeof mfTransferForms.$inferSelect;
 
 export type InsertDocMf = typeof documentSubmissions.$inferInsert;
 export type SelectDocMf = typeof documentSubmissions.$inferSelect;
+
+export type InsertBusinessDevelopmentPartner = typeof businessDevelopmentPartner.$inferInsert;
+export type SelectBusinessDevelopmentPartner = typeof businessDevelopmentPartner.$inferSelect;
+
+export type InsertRemisorship = typeof remisorship.$inferInsert;
+export type SelectRemisorship = typeof remisorship.$inferSelect;
+
+export type InsertB2BPartner = typeof b2bPartner.$inferInsert;
+export type SelectB2BPartner = typeof b2bPartner.$inferSelect;

@@ -127,7 +127,7 @@ const BDPPartnerDetails = () => {
                 partner with Fiscal Forum.
               </motion.p>
 
-              <Link href="/work-with-us/bdp/register">
+              <Link href="/work-with-us/b2b/register">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
