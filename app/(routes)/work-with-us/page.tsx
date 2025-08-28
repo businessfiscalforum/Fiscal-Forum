@@ -213,10 +213,10 @@ const WorkWithUsPage = () => {
                         <Link
                           href={
                             partnership.id === 1
-                              ? "/work-with-us/bdp"
+                              ? "/work-with-us/business-development-partnership"
                               : partnership.id === 2
-                                ? "/work-with-us/rp"
-                                : "/work-with-us/b2b"
+                                ? "/work-with-us/remisorship"
+                                : "/work-with-us/b2b-partnership"
                           }
                           className={`block w-full bg-gradient-to-r from-emerald-600 to-teal-700 text-white py-4 px-6 rounded-2xl font-semibold text-center transition-all duration-300 transform hover:scale-105 hover:from-emerald-700 hover:to-teal-800 hover:shadow-lg`}
                         >

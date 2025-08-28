@@ -1,3 +1,4 @@
+// app/(routes)/work-with-us/bdp/page.tsx
 "use client";
 
 import { motion } from "framer-motion";
@@ -18,7 +19,6 @@ import {
   FaUniversity,
 } from "react-icons/fa";
 import Link from "next/link";
-import { FileText, Users } from "lucide-react";
 
 const BDPPartnerDetails = () => {
   const benefits = [
@@ -101,7 +101,7 @@ const BDPPartnerDetails = () => {
 
   return (
     <>
-      {/* Hero Section */}
+      {/* Hero Section - Enhanced */}
       <section className="py-20 md:py-28 bg-gradient-to-br from-emerald-500 via-teal-600 to-green-700 text-white relative overflow-hidden">
         {/* Decorative Elements */}
         <div className="absolute top-0 left-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl -z-0"></div>
@@ -117,7 +117,7 @@ const BDPPartnerDetails = () => {
                 transition={{ duration: 0.8 }}
                 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight"
               >
-                Become a B2B Partner
+                Become a Business Development Partner
               </motion.h1>
               <motion.p
                 initial={{ opacity: 0, y: 30 }}
@@ -126,10 +126,10 @@ const BDPPartnerDetails = () => {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="text-xl md:text-2xl text-emerald-100 mb-8 max-w-2xl"
               >
-                Get Refund of ₹1000 by generating Net equity Sales of ₹1,00,000/- or Net SIP Sales of ₹10,000/- within 3 months of your registration.
+                Join fiscal Forum as a Business Development partner and unlock the potential to earn across multiple financial products.
               </motion.p>
 
-              <Link href="/work-with-us/b2b/register">
+              <Link href="/work-with-us/b2b-partnership/register">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -180,86 +180,22 @@ const BDPPartnerDetails = () => {
         </div>
       </section>
 
-      {/* Who is Eligible Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-emerald-50 to-teal-50">
-        <div className="max-w-7xl mx-auto">
+      {/* Benefits Section - Redesigned */}
+      <section className="py-16 px-4 bg-white">
+        <div className="max-w-6xl mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-extrabold text-center mb-4 text-gray-900"
+            className="text-3xl font-bold text-center mb-4 text-gray-900"
           >
-            Who Can Become a B2B Partner?
+            Benefits of Partnering with Us
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-lg text-center text-gray-700 max-w-3xl mx-auto mb-12"
-          >
-            Join our network and start earning through referrals. We welcome a diverse range of professionals.
-          </motion.p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Small Business Owners",
-                desc: "Whether you run a shop, consultancy, or startup, leverage your network to earn extra income.",
-                icon: Users,
-                bgColor: "bg-emerald-100",
-                iconColor: "bg-emerald-500",
-              },
-              {
-                title: "E-Mitra Services",
-                desc: "Integrate our financial services into your existing offerings and expand your revenue streams.",
-                icon: FileText,
-                bgColor: "bg-teal-100",
-                iconColor: "bg-teal-500",
-              },
-              {
-                title: "Financial Advisors",
-                desc: "Help your clients and earn referral benefits simultaneously.",
-                icon: FaChartLine,
-                bgColor: "bg-cyan-100",
-                iconColor: "bg-cyan-500",
-              },
-            ].map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className={`${item.bgColor} p-6 rounded-2xl shadow-md border border-emerald-200 flex flex-col items-center text-center transition-all duration-300 hover:shadow-lg`}
-              >
-                <div className={`${item.iconColor} p-3 rounded-full mb-4 text-white`}>
-                  <item.icon className="w-8 h-8" />
-                </div>
-                <h3 className="text-xl font-bold mb-2 text-gray-900">{item.title}</h3>
-                <p className="text-gray-700">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits Section - Redesigned */}
-      <section className="py-16 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <motion.h2
-             initial={{ opacity: 0, y: 20 }}
-             whileInView={{ opacity: 1, y: 0 }}
-             viewport={{ once: true }}
-            className="text-3xl font-bold text-center mb-4 text-gray-900"
-          >
-            Benefits of Partnering with Us
-          </motion.h2>
-          <motion.p
-             initial={{ opacity: 0, y: 20 }}
-             whileInView={{ opacity: 1, y: 0 }}
-             viewport={{ once: true }}
-             transition={{ delay: 0.1 }}
             className="text-lg text-center text-gray-600 mb-12"
           >
             Discover the unique advantages that make our partnership program stand out.
@@ -335,7 +271,7 @@ const BDPPartnerDetails = () => {
         </div>
       </section>
 
-      {/* CTA Banner */}
+      {/* CTA Banner - Enhanced */}
       <section className="py-16 bg-gradient-to-r from-teal-500 to-emerald-600">
         <div className="max-w-7xl mx-auto px-6">
           <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 text-center relative overflow-hidden border border-emerald-200">
@@ -351,7 +287,7 @@ const BDPPartnerDetails = () => {
                 transition={{ duration: 0.6 }}
                 className="text-3xl md:text-4xl font-extrabold text-emerald-900 mb-6 leading-tight"
               >
-                Ready to Check Your Revenue Sharing?
+                Check Your Revenue Sharing
               </motion.h2>
 
               <motion.div
@@ -361,7 +297,7 @@ const BDPPartnerDetails = () => {
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
                 <Link
-                  href="/work-with-us/b2b/get-started"
+                  href="/work-with-us/business-development-partnership/get-started"
                   className="inline-flex items-center gap-3 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-bold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-white text-lg"
                 >
                   Get Started Now
@@ -546,6 +482,16 @@ const BDPPartnerDetails = () => {
               </motion.div>
             ))}
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.8 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-16 text-center"
+          >
+            {/* Add button or CTA here if needed */}
+          </motion.div>
         </div>
       </section>
     </>

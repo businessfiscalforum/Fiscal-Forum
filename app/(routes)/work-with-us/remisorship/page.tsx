@@ -99,81 +99,83 @@ const BDPPartnerDetails = () => {
   return (
     <>
       {/* Hero Section - Enhanced */}
-<section className="py-20 md:py-28 bg-gradient-to-br from-emerald-500 via-teal-600 to-green-700 text-white relative overflow-hidden">
-  {/* Decorative Elements */}
-  <div className="absolute top-0 left-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl -z-0"></div>
-  <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-emerald-400/20 rounded-full blur-3xl -z-0"></div>
-
-  <div className="max-w-7xl mx-auto px-6 relative z-10">
-    {/* Main Content Flex Container */}
-    <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-      {/* Text Content (Left/Top on mobile, Left on desktop) */}
-      <div className="flex-1 text-center lg:text-left">
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight"
-        >
-          Become a Remisier
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-xl md:text-2xl text-emerald-100 mb-8 max-w-2xl"
-        >
-          A remisier goes out and rakes in clients for a stockbroker and receives a commission for bridging the two parties.
-        </motion.p>
-
-        <Link href="/work-with-us/rp/register">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-white text-emerald-700 hover:bg-gray-100 font-bold py-4 px-8 rounded-full shadow-lg transform transition duration-300 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-emerald-600 text-lg flex items-center gap-2 mx-auto lg:mx-0"
-          >
-            Register Now
-            <FaArrowRight />
-          </motion.button>
-        </Link>
-      </div>
-
-      {/* Services Offered Panel (Right/Bottom on mobile, Right on desktop) */}
-      <div className="flex-1 mt-10 lg:mt-0">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/20 shadow-2xl h-full" // Added h-full
-        >
-          <h3 className="text-2xl font-bold mb-6 text-center">Services You Can Offer</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            {[
-              { name: "Stock Investment", icon: FaChartLine },
-              { name: "Mutual Funds", icon: FaChartLine },
-              { name: "Insurance", icon: FaShieldAlt },
-            ].map((service, index) => (
-              <div
-                key={service.name}
-                className="flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10 hover:bg-white/20 transition-all duration-200"
+      <section className="py-20 md:py-28 bg-gradient-to-br from-emerald-500 via-teal-600 to-green-700 text-white relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute top-0 left-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl -z-0"></div>
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-emerald-400/20 rounded-full blur-3xl -z-0"></div>
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          {/* Main Content Flex Container */}
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+            {/* Text Content (Left/Top on mobile, Left on desktop) */}
+            <div className="flex-1 text-center lg:text-left">
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight"
               >
-                <div className="text-white mb-2">
-                  <service.icon className="w-6 h-6" />
+                Become a Remisier
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="text-xl md:text-2xl text-emerald-100 mb-8 max-w-2xl"
+              >
+                A remisier goes out and rakes in clients for a stockbroker and
+                receives a commission for bridging the two parties.
+              </motion.p>
+
+              <Link href="/work-with-us/remisorship/register">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-white text-emerald-700 hover:bg-gray-100 font-bold py-4 px-8 rounded-full shadow-lg transform transition duration-300 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-emerald-600 text-lg flex items-center gap-2 mx-auto lg:mx-0"
+                >
+                  Register Now
+                  <FaArrowRight />
+                </motion.button>
+              </Link>
+            </div>
+
+            {/* Services Offered Panel (Right/Bottom on mobile, Right on desktop) */}
+            <div className="flex-1 mt-10 lg:mt-0">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/20 shadow-2xl h-full" // Added h-full
+              >
+                <h3 className="text-2xl font-bold mb-6 text-center">
+                  Services You Can Offer
+                </h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  {[
+                    { name: "Stock Investment", icon: FaChartLine },
+                    { name: "Mutual Funds", icon: FaChartLine },
+                    { name: "Insurance", icon: FaShieldAlt },
+                  ].map((service, index) => (
+                    <div
+                      key={service.name}
+                      className="flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10 hover:bg-white/20 transition-all duration-200"
+                    >
+                      <div className="text-white mb-2">
+                        <service.icon className="w-6 h-6" />
+                      </div>
+                      <span className="font-medium text-white text-center text-xs">
+                        {service.name}
+                      </span>
+                    </div>
+                  ))}
                 </div>
-                <span className="font-medium text-white text-center text-xs">
-                  {service.name}
-                </span>
-              </div>
-            ))}
+              </motion.div>
+            </div>
           </div>
-        </motion.div>
-      </div>
-    </div>
-  </div>
-</section>
+        </div>
+      </section>
 
       {/* Benefits Section - Redesigned */}
       <section className="py-16 px-4 bg-white">
@@ -193,7 +195,8 @@ const BDPPartnerDetails = () => {
             transition={{ delay: 0.1 }}
             className="text-lg text-center text-gray-600 mb-12"
           >
-            Discover the unique advantages that make our partnership program stand out.
+            Discover the unique advantages that make our partnership program
+            stand out.
           </motion.p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -231,11 +234,17 @@ const BDPPartnerDetails = () => {
                 transition={{ delay: index * 0.05 }}
                 className="bg-gradient-to-br from-gray-50 to-white p-5 rounded-xl shadow-sm border border-gray-200 flex flex-col"
               >
-                <div className={`${benefit.color} w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg mb-4 flex-shrink-0`}>
+                <div
+                  className={`${benefit.color} w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg mb-4 flex-shrink-0`}
+                >
                   {benefit.num}
                 </div>
-                <h3 className="font-bold text-gray-800 mb-2">{benefit.title}</h3>
-                <p className="text-sm text-gray-600 flex-grow">{benefit.desc}</p>
+                <h3 className="font-bold text-gray-800 mb-2">
+                  {benefit.title}
+                </h3>
+                <p className="text-sm text-gray-600 flex-grow">
+                  {benefit.desc}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -268,7 +277,7 @@ const BDPPartnerDetails = () => {
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
                 <Link
-                  href="/work-with-us/rp/get-started"
+                  href="/work-with-us/remisorship/get-started"
                   className="inline-flex items-center gap-3 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-bold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-white text-lg"
                 >
                   Get Started Now
@@ -322,9 +331,13 @@ const BDPPartnerDetails = () => {
                     {/* Step Circle */}
                     <div className="relative mb-6 flex flex-col items-center">
                       <div className="absolute -inset-2">
-                        <div className={`w-16 h-16 rounded-full ${index % 2 === 0 ? 'bg-emerald-500' : 'bg-teal-500'} opacity-20 blur-md animate-pulse`}></div>
+                        <div
+                          className={`w-16 h-16 rounded-full ${index % 2 === 0 ? "bg-emerald-500" : "bg-teal-500"} opacity-20 blur-md animate-pulse`}
+                        ></div>
                       </div>
-                      <div className={`relative w-14 h-14 rounded-full bg-gradient-to-br ${index % 2 === 0 ? 'from-emerald-500 to-green-600' : 'from-teal-500 to-cyan-600'} flex items-center justify-center text-white font-bold shadow-lg border-2 border-white z-10`}>
+                      <div
+                        className={`relative w-14 h-14 rounded-full bg-gradient-to-br ${index % 2 === 0 ? "from-emerald-500 to-green-600" : "from-teal-500 to-cyan-600"} flex items-center justify-center text-white font-bold shadow-lg border-2 border-white z-10`}
+                      >
                         {index + 1}
                       </div>
                       <div className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-white border-4 border-emerald-300 flex items-center justify-center shadow-sm z-20">
@@ -361,9 +374,13 @@ const BDPPartnerDetails = () => {
                 {/* Step Number & Icon */}
                 <div className="relative mr-4 flex-shrink-0">
                   <div className="absolute -inset-1.5">
-                    <div className={`w-14 h-14 rounded-full ${index % 2 === 0 ? 'bg-emerald-500' : 'bg-teal-500'} opacity-20 blur-sm`}></div>
+                    <div
+                      className={`w-14 h-14 rounded-full ${index % 2 === 0 ? "bg-emerald-500" : "bg-teal-500"} opacity-20 blur-sm`}
+                    ></div>
                   </div>
-                  <div className={`relative w-12 h-12 rounded-full bg-gradient-to-br ${index % 2 === 0 ? 'from-emerald-500 to-green-600' : 'from-teal-500 to-cyan-600'} flex items-center justify-center text-white font-bold shadow z-10`}>
+                  <div
+                    className={`relative w-12 h-12 rounded-full bg-gradient-to-br ${index % 2 === 0 ? "from-emerald-500 to-green-600" : "from-teal-500 to-cyan-600"} flex items-center justify-center text-white font-bold shadow z-10`}
+                  >
                     {index + 1}
                   </div>
                   <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-white border-3 border-emerald-300 flex items-center justify-center shadow-sm z-20">
@@ -406,7 +423,8 @@ const BDPPartnerDetails = () => {
               transition={{ duration: 0.7, delay: 0.1 }}
               className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto"
             >
-              Experience the difference with our comprehensive financial ecosystem designed for your success.
+              Experience the difference with our comprehensive financial
+              ecosystem designed for your success.
             </motion.p>
           </div>
 

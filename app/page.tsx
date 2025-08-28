@@ -232,7 +232,7 @@ const partners = [
     desc: "Join us in expanding financial services across the country.",
     gradient: "from-emerald-500 to-teal-600",
     hoverGradient: "from-emerald-600 to-teal-700",
-    path: "/work-with-us/bdp",
+    path: "/work-with-us/business-development-partnership",
   },
   {
     title: "Remisorship",
@@ -240,7 +240,7 @@ const partners = [
     desc: "Start referral by remisorship to get benefits.",
     gradient: "from-green-500 to-emerald-600",
     hoverGradient: "from-green-600 to-emerald-700",
-    path: "/work-with-us/rp",
+    path: "/work-with-us/remisorship",
   },
   {
     title: "B2B Partner",
@@ -248,7 +248,7 @@ const partners = [
     desc: "Collaborate with us to deliver seamless financial integration.",
     gradient: "from-teal-500 to-cyan-600",
     hoverGradient: "from-teal-600 to-cyan-700",
-    path: "/work-with-us/b2b",
+    path: "/work-with-us/b2b-partnership",
   },
 ];
 
