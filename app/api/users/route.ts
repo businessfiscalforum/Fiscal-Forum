@@ -22,6 +22,14 @@ function corsHeaders(origin: string | null):HeadersInit {
   return {};
 }
 
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  return new NextResponse(null, {
+    status: 204,
+    headers: corsHeaders(origin) as HeadersInit,
+  });
+}
+
 // GET - fetch user by email query param
 export async function GET(req: NextRequest) {
   const origin = req.headers.get("origin");

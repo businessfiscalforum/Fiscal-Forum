@@ -21,6 +21,14 @@ function corsHeaders(origin: string | null) {
   return {};
 }
 
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  return new NextResponse(null, {
+    status: 204,
+    headers: corsHeaders(origin) as HeadersInit,
+  });
+}
+
 export async function POST(req: NextRequest) {
   const origin = req.headers.get("origin"); 
   try {

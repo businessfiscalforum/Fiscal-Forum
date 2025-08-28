@@ -21,6 +21,14 @@ function corsHeaders(origin: string | null) {
   return {};
 }
 
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  return new NextResponse(null, {
+    status: 204,
+    headers: corsHeaders(origin) as HeadersInit,
+  });
+}
+
 // Zod schema - EXACT MATCH with frontend
 const carLoanSchema = z.object({
   // Applicant Details
