@@ -21,7 +21,7 @@ export default function SignUpPage() {
       {refCode && (
         <div className='pt-25'>
           <div className="p-4 text-lg text-white bg-gradient-to-r from-emerald-500 via-green-600 to-teal-600 rounded-xl">
-            🎉 You're signing up with referral code: <strong>{refCode}</strong>
+            🎉 You&apos;re signing up with referral code: <strong>{refCode}</strong>
           </div>
         </div>
       )}

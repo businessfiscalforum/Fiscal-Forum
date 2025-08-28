@@ -121,12 +121,12 @@ export default function ReferralsPage() {
               <p className="text-gray-600">You earn 10 credits for each successful referral who signs up using your referral code.</p>
             </div>
             <div>
-              <h4 className="font-semibold text-gray-900 mb-2">Can I use someone else's referral code?</h4>
-              <p className="text-gray-600">Yes! When signing up, you can enter a friend's referral code to help them earn credits.</p>
+              <h4 className="font-semibold text-gray-900 mb-2">Can I use someone else&apos;s referral code?</h4>
+              <p className="text-gray-600">Yes! When signing up, you can enter a friend&apos;s referral code to help them earn credits.</p>
             </div>
             <div>
               <h4 className="font-semibold text-gray-900 mb-2">Is there a limit to how many referrals I can make?</h4>
-              <p className="text-gray-600">No, there's no limit! You can refer as many people as you want and earn credits for each one.</p>
+              <p className="text-gray-600">No, there&apos;s no limit! You can refer as many people as you want and earn credits for each one.</p>
             </div>
           </div>
         </div>

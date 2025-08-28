@@ -123,7 +123,7 @@ const ReferralSection = () => {
         <p className='font-bold text-xl'>Your referrals:</p>
         <div className='pl-5 p-2'>
           {referred && referred.map((refUser, index) => (
-            <div>
+            <div key={index}>
               <p>{refUser.name}</p>
             </div>
           ))}

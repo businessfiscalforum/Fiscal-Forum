@@ -51,6 +51,7 @@ function Provider({ children }: { children: React.ReactNode }) {
       if (fetchRes.status === 404) {
         // Check if there's a referral code in localStorage
         const referralCode = localStorage.getItem("referralCode");
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const requestBody: Record<string, any> = {
           email: userEmail,
           name: userName,
