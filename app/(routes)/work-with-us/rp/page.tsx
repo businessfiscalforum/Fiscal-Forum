@@ -139,63 +139,104 @@ const BDPPartnerDetails = () => {
             </div>
           </div>
           {/* Services Section */}
-            <div className="mt-16">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-                {[
-                  { name: "Stock Investment", icon: FaChartLine },
-                  { name: "Mutual Funds", icon: FaChartLine },
-                  { name: "Insurance", icon: FaShieldAlt },
-                ].map((service, index) => (
-                  <motion.div
-                    key={service.name}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="flex flex-col items-center p-4 bg-white/70 backdrop-blur-sm rounded-xl border border-emerald-200 shadow-sm hover:shadow-md transition-shadow duration-300"
-                  >
-                    <div className="text-emerald-600 mb-3">
-                      <service.icon className="w-8 h-8" />
-                    </div>
-                    <span className="font-medium text-gray-800 text-center text-sm">
-                      {service.name}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
+          <div className="mt-16">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+              {[
+                { name: "Stock Investment", icon: FaChartLine },
+                { name: "Mutual Funds", icon: FaChartLine },
+                { name: "Insurance", icon: FaShieldAlt },
+              ].map((service, index) => (
+                <motion.div
+                  key={service.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="flex flex-col items-center p-4 bg-white/70 backdrop-blur-sm rounded-xl border border-emerald-200 shadow-sm hover:shadow-md transition-shadow duration-300"
+                >
+                  <div className="text-emerald-600 mb-3">
+                    <service.icon className="w-8 h-8" />
+                  </div>
+                  <span className="font-medium text-gray-800 text-center text-sm">
+                    {service.name}
+                  </span>
+                </motion.div>
+              ))}
             </div>
+          </div>
         </div>
       </section>
 
-      {/* Image Grid Section */}
-      <section className="py-16 bg-gradient-to-b from-teal-50 to-emerald-50">
-        <div className="mb-20">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Benefits of Partnering With Us
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Everything you need to build a successful partnership
-            </p>
-          </div>
-        </div>
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex justify-center">
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-              className="relative w-full max-w-3xl h-80 md:h-96 rounded-2xl overflow-hidden shadow-lg"
-            >
-              <Image
-                src="/info2.png"
-                alt="Success Partnership"
-                fill
-                className="object-contain"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-            </motion.div>
+      <section className="py-12 px-4 bg-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-10 text-gray-800">
+            Benefits of Partnering with Us
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Left Column - First 2 Points */}
+            <div className="space-y-6">
+              <div className="flex items-start">
+                <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-pink-500 text-white font-bold mr-4">
+                  1
+                </div>
+                <div className="bg-gray-200 p-4 rounded-lg flex-grow">
+                  <h3 className="font-semibold text-gray-800">
+                    High Earning & High Referral Incentive
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Earn up to ₹900 per credit card and 0.75% on high-value
+                    loans.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start">
+                <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-indigo-500 text-white font-bold mr-4">
+                  2
+                </div>
+                <div className="bg-gray-200 p-4 rounded-lg flex-grow">
+                  <h3 className="font-semibold text-gray-800">
+                    Brokerage Sharing
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Get up to 25% brokerage sharing for 2–5 years on stock
+                    broking.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column - Next 4 Points */}
+            <div className="space-y-6">
+              <div className="flex items-start">
+                <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-amber-500 text-white font-bold mr-4">
+                  3
+                </div>
+                <div className="bg-gray-200 p-4 rounded-lg flex-grow">
+                  <h3 className="font-semibold text-gray-800">
+                    Very Low Targets
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    No pressure — earn consistently even with small referrals.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start">
+                <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-emerald-500 text-white font-bold mr-4">
+                  4
+                </div>
+                <div className="bg-gray-200 p-4 rounded-lg flex-grow">
+                  <h3 className="font-semibold text-gray-800">
+                    Monthly Giveaway
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Surprise rewards every month for top performers.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -218,7 +259,6 @@ const BDPPartnerDetails = () => {
               >
                 Check Your Revenue Sharing
               </motion.h2>
-
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}

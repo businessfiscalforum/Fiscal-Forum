@@ -174,50 +174,136 @@ const BDPPartnerDetails = () => {
       </section>
 
       {/* Image Grid Section */}
-      <section className="py-16 bg-gradient-to-b from-teal-50 to-emerald-50">
-        <div className="mb-20">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Benefits of Partnering With Us
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Everything you need to build a successful partnership
-            </p>
-          </div>
-        </div>
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-              className="relative h-80 md:h-96 rounded-2xl overflow-hidden shadow-lg"
-            >
-              <Image
-                src="/info1.png"
-                alt="Business Partnership Meeting"
-                fill
-                className="object-contain"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-            </motion.div>
+      <section className="py-12 px-4 bg-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-10 text-gray-800">
+            Benefits of Partnering with Us
+          </h2>
 
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-              className="relative h-80 md:h-96 rounded-2xl overflow-hidden shadow-lg"
-            >
-              <Image
-                src="/info2.png"
-                alt="Success Partnership"
-                fill
-                className="object-contain"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-            </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Left Column */}
+            <div className="space-y-6">
+              <div className="flex items-start">
+                <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-red-500 text-white font-bold mr-4">
+                  1
+                </div>
+                <div className="bg-gray-200 p-4 rounded-lg flex-grow">
+                  <h3 className="font-semibold text-gray-800">
+                    Deals in Multiple Products
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Earn incentives across stocks, loans, credit cards, savings
+                    accounts, and more.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start">
+                <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-indigo-500 text-white font-bold mr-4">
+                  2
+                </div>
+                <div className="bg-gray-200 p-4 rounded-lg flex-grow">
+                  <h3 className="font-semibold text-gray-800">
+                    No Registration or Investment Required
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Start earning instantly — no upfront cost or registration
+                    hassle.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start">
+                <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-amber-500 text-white font-bold mr-4">
+                  3
+                </div>
+                <div className="bg-gray-200 p-4 rounded-lg flex-grow">
+                  <h3 className="font-semibold text-gray-800">
+                    One Platform, Multiple Services
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Manage all referrals from a single dashboard with seamless
+                    integration.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start">
+                <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-emerald-500 text-white font-bold mr-4">
+                  4
+                </div>
+                <div className="bg-gray-200 p-4 rounded-lg flex-grow">
+                  <h3 className="font-semibold text-gray-800">
+                    Work Anytime, Anywhere
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Flexible income generation — access from mobile or desktop,
+                    anytime.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column */}
+            <div className="space-y-6">
+              <div className="flex items-start">
+                <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-pink-500 text-white font-bold mr-4">
+                  5
+                </div>
+                <div className="bg-gray-200 p-4 rounded-lg flex-grow">
+                  <h3 className="font-semibold text-gray-800">
+                    High Earning & High Referral Incentive
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Earn up to ₹900 per credit card and 0.75% on high-value
+                    loans.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start">
+                <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-indigo-500 text-white font-bold mr-4">
+                  6
+                </div>
+                <div className="bg-gray-200 p-4 rounded-lg flex-grow">
+                  <h3 className="font-semibold text-gray-800">
+                    Brokerage Sharing
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Get up to 25% brokerage sharing for 2–5 years on stock
+                    broking.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start">
+                <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-amber-500 text-white font-bold mr-4">
+                  7
+                </div>
+                <div className="bg-gray-200 p-4 rounded-lg flex-grow">
+                  <h3 className="font-semibold text-gray-800">
+                    Very Low Targets
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    No pressure — earn consistently even with small referrals.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start">
+                <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-emerald-500 text-white font-bold mr-4">
+                  8
+                </div>
+                <div className="bg-gray-200 p-4 rounded-lg flex-grow">
+                  <h3 className="font-semibold text-gray-800">
+                    Monthly Giveaway
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Surprise rewards every month for top performers.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

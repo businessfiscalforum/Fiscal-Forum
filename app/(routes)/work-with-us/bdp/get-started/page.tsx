@@ -1,11 +1,11 @@
 import React from 'react'
 
-const page = () => {
+const jgu = () => {
   return (
     <div>
-      iweuiof
+      hgkuygk
     </div>
   )
 }
 
-export default page
+export default jgu
