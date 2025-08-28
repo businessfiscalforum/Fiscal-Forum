@@ -49,6 +49,7 @@ const isPublicRoute = createRouteMatcher([
   '/ipo',
   '/contact',
   '/services(.*)',
+  '/api/referrals',
 ])
 
 

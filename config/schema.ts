@@ -167,6 +167,8 @@ export const usersTable = pgTable('users', {
   password: text('password').notNull(),
   role: roleEnum('role').default('USER').notNull(),
   status: statusEnum('status').default('PENDING').notNull(),
+  referCode: varchar('refer_code', { length: 8 }).unique(),
+  referrerCode: varchar('referrer_code', { length: 8 }),
 });
 
 

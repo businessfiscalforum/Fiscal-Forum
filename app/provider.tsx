@@ -13,6 +13,8 @@ export type UsersDetail = {
   password: string;
   role: "USER" | "ADMIN" | "AGENT" | "PARTNER";
   status: "PENDING" | "APPROVED" | "REJECTED" | "BANNED";
+  referCode?: string;
+  referrerCode?: string;
 };
 
 function Provider({ children }: { children: React.ReactNode }) {
@@ -32,10 +34,11 @@ function Provider({ children }: { children: React.ReactNode }) {
 
       if (!userEmail) throw new Error("User email not available");
 
-      // First, try fetching the user
-      const fetchRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users?email=${userEmail}`, {
-        method: "GET",
-      });
+      // 1️⃣ Try fetching the user first
+      const fetchRes = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/users?email=${userEmail}`,
+        { method: "GET" }
+      );
 
       if (fetchRes.ok) {
         const data: UsersDetail = await fetchRes.json();
@@ -44,15 +47,28 @@ function Provider({ children }: { children: React.ReactNode }) {
         return;
       }
 
-      // If user not found, create a new one
+      // 2️⃣ If user not found (404), create one
       if (fetchRes.status === 404) {
-        const createRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email: userEmail, name: userName }),
-        });
+        // Check if there's a referral code in localStorage
+        const referralCode = localStorage.getItem("referralCode");
+        const requestBody: Record<string, any> = {
+          email: userEmail,
+          name: userName,
+        };
+        if (referralCode) {
+          requestBody.referralCode = referralCode;
+        }
+
+        const createRes = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/users`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestBody),
+          }
+        );
 
         if (!createRes.ok) {
           throw new Error(`Failed to create user: ${createRes.statusText}`);
@@ -61,6 +77,11 @@ function Provider({ children }: { children: React.ReactNode }) {
         const newData: UsersDetail = await createRes.json();
         setUserDetail(newData);
         console.log("Created new user:", newData);
+
+        // Clear referralCode from localStorage after success
+        if (referralCode) {
+          localStorage.removeItem("referralCode");
+        }
         return;
       }
 

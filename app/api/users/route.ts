@@ -3,6 +3,8 @@ import { usersTable } from "../../../config/schema";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
+import { sql } from "drizzle-orm";
+import { nanoid } from 'nanoid'
 
 const allowedOrigins = [
   "https://www.fiscalforum.in",
@@ -63,7 +65,7 @@ export async function POST(req: NextRequest) {
   const headers = corsHeaders(origin);
 
   const body = await req.json();
-  const { email, name } = body;
+  const { email, name, referralCode } = body;  // ✅ include referralCode here
 
   if (!email) {
     return NextResponse.json({ error: "Email is required" }, { status: 400, headers });
@@ -90,6 +92,8 @@ export async function POST(req: NextRequest) {
         password: hashedPassword,
         role: "USER",
         status: "PENDING",
+        referCode: nanoid().substring(0, 8).toUpperCase(),
+        referrerCode: referralCode || null,   // ✅ now saved correctly
       })
       .returning();
 

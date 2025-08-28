@@ -1,10 +1,30 @@
 // app/sign-up/page.tsx
+"use client";
 
 import { SignUp } from '@clerk/nextjs';
+import { useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function SignUpPage() {
+  const searchParams = useSearchParams();
+  const refCode = searchParams.get('ref');
+
+  useEffect(() => {
+    if (refCode) {
+      // Store the referral code in localStorage so it can be used after signup
+      localStorage.setItem('referralCode', refCode);
+    }
+  }, [refCode]);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white text-black">
+    <div className="min-h-screen flex flex-col gap-10 items-center justify-center bg-white text-black">
+      {refCode && (
+        <div className='pt-25'>
+          <div className="p-4 text-lg text-white bg-gradient-to-r from-emerald-500 via-green-600 to-teal-600 rounded-xl">
+            🎉 You're signing up with referral code: <strong>{refCode}</strong>
+          </div>
+        </div>
+      )}
       <SignUp
         appearance={{
           variables: {
