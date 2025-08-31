@@ -48,6 +48,7 @@ const isPublicRoute = createRouteMatcher([
   '/api/travel-insurance',
   '/api/two-wheeler-insurance',
   '/api/yahoo-stock-data',
+  '/work-with-us',
   '/work-with-us/business-development-partnership',
   '/work-with-us/remisorship',
   '/work-with-us/b2b-partnership',
