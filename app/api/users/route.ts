@@ -3,7 +3,6 @@ import { usersTable } from "../../../config/schema";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
-import { sql } from "drizzle-orm";
 import { nanoid } from 'nanoid'
 
 const allowedOrigins = [

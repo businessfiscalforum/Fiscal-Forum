@@ -288,7 +288,7 @@ const creditCards: CreditCard[] = [
       "Get your credit card within 5-7 days",
     ],
     pdfLink:
-      "https://drive.google.com/file/d/1KrMSQ8lPi4_kUYpn41KqlS5gpziYjfWM/view?usp=sharing",
+      "https://drive.google.com/file/d/10VnJxQ08ptUlsF7_ljYMY_xUssrPiHXK/view?usp=sharing",
     applyLink:
       "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=eWVzX3BvcGNsdWI=&bank_source=eWVzX3BvcGNsdWI=&agent_code=",
   },
@@ -741,20 +741,20 @@ export default function CreditCardsPage() {
                 <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2">
                   {
                     [
-                      "Smart Matching",
-                      "Instant Access",
-                      "Exclusive Insights",
-                      "No Extra Cost",
+                      "Trusted Partners",
+                      "Guaranteed Cashback",
+                      "Fast & Paperless Process",
+                      "Dedicated Support",
                     ][i]
                   }
                 </h3>
                 <p className="text-emerald-100 text-xs sm:text-sm md:text-base">
                   {
                     [
-                      "Enter your details once, and we show you the cards you're most likely to get approved for.",
-                      "Get instant access to detailed PDF guides for each card to make informed decisions.",
-                      "Benefit from our expert-curated insights and tips for maximizing card benefits.",
-                      "Apply directly through us without any hidden fees or commissions.",
+                      "Get recommendations from top banks and verified partners.",
+                      "Get cashback up to ₹400 per card, directly credited to your bank account.",
+                      "Enjoy a fully digital, hassle-free application with quick approvals and zero paperwork delays.",
+                      "Count on our dedicated team for quick, reliable help with any query anytime.",
                     ][i]
                   }
                 </p>

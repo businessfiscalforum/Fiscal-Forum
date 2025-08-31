@@ -18,7 +18,7 @@ import Link from "next/link";
 // import Image from "next/image"; // Not used in current layout
 
 const BDPPartnerDetails = () => {
-  const benefits = [
+    const benefits = [
     {
       id: 1,
       title: "All Financial Services in One Place",
@@ -28,40 +28,27 @@ const BDPPartnerDetails = () => {
     },
     {
       id: 2,
-      title: "Exclusive Cashback & Rewards",
-      description:
-        "Enjoy cashback benefits when you avail services through our platform, whether it's investing, opening accounts, or getting a credit card.",
-      icon: FaStar,
-    },
-    {
-      id: 3,
       title: "Personalized Support",
       description:
         "Get tailored financial guidance with expert recommendations, ensuring you make the best decisions for your portfolio.",
       icon: FaThumbsUp,
     },
     {
-      id: 4,
-      title: "Exciting Giveaways & High Cashback Offers",
-      description:
-        "We value our customers! Stay tuned for special giveaways and extra cashback deals to maximize your savings.",
-      icon: FaUsers,
-    },
-    {
-      id: 5,
+      id: 3,
       title: "Trusted & Secure",
       description:
         "Your financial security is our priority. We use industry-leading practices to keep your data and transactions safe.",
       icon: FaShieldAlt,
     },
     {
-      id: 6,
+      id: 4,
       title: "Extensive Network",
       description:
         "Benefit from our wide network of financial institutions and service providers for the best options and deals.",
       icon: FaNetworkWired,
     },
   ];
+
 
   const steps = [
     {
@@ -139,43 +126,93 @@ const BDPPartnerDetails = () => {
                 </motion.button>
               </Link>
             </div>
-
-            {/* Services Offered Panel (Right/Bottom on mobile, Right on desktop) */}
-            <div className="flex-1 mt-10 lg:mt-0">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/20 shadow-2xl h-full" // Added h-full
-              >
-                <h3 className="text-2xl font-bold mb-6 text-center">
-                  Services You Can Offer
-                </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                  {[
-                    { name: "Stock Investment", icon: FaChartLine },
-                    { name: "Mutual Funds", icon: FaChartLine },
-                    { name: "Insurance", icon: FaShieldAlt },
-                  ].map((service, index) => (
-                    <div
-                      key={service.name}
-                      className="flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10 hover:bg-white/20 transition-all duration-200"
-                    >
-                      <div className="text-white mb-2">
-                        <service.icon className="w-6 h-6" />
-                      </div>
-                      <span className="font-medium text-white text-center text-xs">
-                        {service.name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
           </div>
         </div>
       </section>
+      <section className="py-20 bg-gradient-to-br from-emerald-50 to-teal-50">
+              <div className="max-w-7xl mx-auto px-6">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="text-center mb-12"
+                >
+                  <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    Services We Offer
+                  </h2>
+                  <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Empower your clients with a full suite of financial solutions —
+                    all under one trusted platform.
+                  </p>
+                </motion.div>
+      
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"
+                >
+                  {[
+                    {
+                      name: "Stock Investment",
+                      icon: FaChartLine,
+                      bg: "bg-gradient-to-br from-emerald-400 to-emerald-600",
+                      text: "text-white",
+                    },
+                    {
+                      name: "Mutual Funds",
+                      icon: FaChartLine,
+                      bg: "bg-gradient-to-br from-teal-400 to-teal-600",
+                      text: "text-white",
+                    },
+                    {
+                      name: "Insurance",
+                      icon: FaShieldAlt,
+                      bg: "bg-gradient-to-br from-blue-400 to-blue-600",
+                      text: "text-white",
+                    },
+                  ].map((service, index) => (
+                    <motion.div
+                      key={service.name}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      whileHover={{ y: -10, scale: 1.03 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        delay: 0.3 + index * 0.1,
+                        type: "spring",
+                        stiffness: 300,
+                      }}
+                      className="group p-5 rounded-2xl border border-gray-100 bg-white shadow-md hover:shadow-2xl transition-all duration-300 cursor-default text-center relative overflow-hidden"
+                    >
+                      <div
+                        className={`w-14 h-14 ${service.bg} text-white rounded-full flex items-center justify-center mb-4 mx-auto transform group-hover:scale-110 transition-transform duration-300 shadow-lg`}
+                      >
+                        <service.icon className="w-6 h-6 drop-shadow-sm" />
+                      </div>
+      
+                      {/* Service Name */}
+                      <h3 className="font-bold text-gray-800 text-base mb-1 group-hover:text-emerald-700 transition-colors">
+                        {service.name}
+                      </h3>
+      
+                      {/* Description */}
+                      <p className="text-xs text-gray-500 group-hover:text-gray-700 transition-colors">
+                        Tailored {service.name.toLowerCase()} solutions
+                      </p>
+      
+                      {/* Subtle Glow on Hover */}
+                      <div
+                        className="absolute inset-0 bg-gradient-to-tr opacity-0 group-hover:opacity-10
+                from-white/40 to-transparent rounded-2xl pointer-events-none transition-opacity duration-300"
+                      ></div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </div>
+            </section>
 
       {/* Benefits Section - Redesigned */}
       <section className="py-16 px-4 bg-white">
@@ -209,9 +246,9 @@ const BDPPartnerDetails = () => {
               },
               {
                 num: "2",
-                title: "Brokerage Sharing",
-                desc: "Get up to 25% brokerage sharing for 2–5 years on stock broking.",
-                color: "bg-indigo-500",
+                title: "Dashboard",
+                desc: "Get your personalised dashboard.",
+                color: "bg-purple-500",
               },
               {
                 num: "3",
@@ -428,7 +465,7 @@ const BDPPartnerDetails = () => {
             </motion.p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8">
             {benefits.map((benefit, index) => (
               <motion.div
                 key={benefit.id}

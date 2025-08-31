@@ -90,7 +90,7 @@ const Page = () => {
             Register as <span className="text-emerald-600">Remisier</span> Partner
           </h1>
           <p className="text-gray-600 mb-8 max-w-lg">
-            Join us as a trusted partner and unlock opportunities for growth. Fill in your details to get started today.
+            Join us as a trusted Remisier and unlock opportunities for growth. Fill in your details to get started today.
           </p>
         </div>
 

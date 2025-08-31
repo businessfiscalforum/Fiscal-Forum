@@ -91,7 +91,9 @@ const Page = () => {
             Register as <span className="text-emerald-600">B2B</span> Partner
           </h1>
           <p className="text-gray-600 mb-8 max-w-lg">
-            Join us as a trusted partner and unlock opportunities for growth. Fill in your details to get started today.
+            Join us as a trusted B2B partner and unlock opportunities for growth. Get Refund of ₹1000 by generating Net equity Sales of
+            ₹1,00,000/- or Net SIP Sales of ₹10,000/- within 3 months of
+            your registration. Fill in your details to get started today.
           </p>
         </div>
 

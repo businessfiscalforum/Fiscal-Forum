@@ -31,34 +31,20 @@ const BDPPartnerDetails = () => {
     },
     {
       id: 2,
-      title: "Exclusive Cashback & Rewards",
-      description:
-        "Enjoy cashback benefits when you avail services through our platform, whether it's investing, opening accounts, or getting a credit card.",
-      icon: FaStar,
-    },
-    {
-      id: 3,
       title: "Personalized Support",
       description:
         "Get tailored financial guidance with expert recommendations, ensuring you make the best decisions for your portfolio.",
       icon: FaThumbsUp,
     },
     {
-      id: 4,
-      title: "Exciting Giveaways & High Cashback Offers",
-      description:
-        "We value our customers! Stay tuned for special giveaways and extra cashback deals to maximize your savings.",
-      icon: FaUsers,
-    },
-    {
-      id: 5,
+      id: 3,
       title: "Trusted & Secure",
       description:
         "Your financial security is our priority. We use industry-leading practices to keep your data and transactions safe.",
       icon: FaShieldAlt,
     },
     {
-      id: 6,
+      id: 4,
       title: "Extensive Network",
       description:
         "Benefit from our wide network of financial institutions and service providers for the best options and deals.",
@@ -126,7 +112,7 @@ const BDPPartnerDetails = () => {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="text-xl md:text-2xl text-emerald-100 mb-8 max-w-2xl"
               >
-                Get Refund of ₹1000 by generating Net equity Sales of ₹1,00,000/- or Net SIP Sales of ₹10,000/- within 3 months of your registration.
+                Join fiscal Forum as a B2B partnership and unlock the potential to earn across multiple financial products.
               </motion.p>
 
               <Link href="/work-with-us/b2b-partnership/register">
@@ -142,41 +128,115 @@ const BDPPartnerDetails = () => {
             </div>
 
             {/* Services Offered Grid */}
-            <div className="flex-1 mt-10 lg:mt-0">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/20 shadow-2xl"
-              >
-                <h3 className="text-2xl font-bold mb-6 text-center">Services We Offer</h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                  {[
-                    { name: "Stock Investment", icon: FaChartLine },
-                    { name: "Mutual Funds", icon: FaChartLine },
-                    { name: "Insurance", icon: FaShieldAlt },
-                    { name: "Credit Card", icon: FaCreditCard },
-                    { name: "Saving Account", icon: FaPiggyBank },
-                    { name: "Loan", icon: FaHandshake },
-                    { name: "Govt Bonds & FD", icon: FaUniversity },
-                  ].map((service, index) => (
-                    <div
-                      key={service.name}
-                      className="flex flex-col items-center p-4 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10 hover:bg-white/20 transition-all duration-200"
-                    >
-                      <div className="text-white mb-2">
-                        <service.icon className="w-6 h-6" />
-                      </div>
-                      <span className="font-medium text-white text-center text-xs">
-                        {service.name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
           </div>
+        </div>
+      </section>
+      <section className="py-20 bg-gradient-to-br from-emerald-50 to-teal-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+              Services We Offer
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Empower your clients with a full suite of financial solutions —
+              all under one trusted platform.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-6 mt-8"
+          >
+            {[
+              {
+                name: "Stock Investment",
+                icon: FaChartLine,
+                bg: "bg-gradient-to-br from-emerald-400 to-emerald-600",
+                text: "text-white",
+              },
+              {
+                name: "Mutual Funds",
+                icon: FaChartLine,
+                bg: "bg-gradient-to-br from-teal-400 to-teal-600",
+                text: "text-white",
+              },
+              {
+                name: "Insurance",
+                icon: FaShieldAlt,
+                bg: "bg-gradient-to-br from-blue-400 to-blue-600",
+                text: "text-white",
+              },
+              {
+                name: "Credit Card",
+                icon: FaCreditCard,
+                bg: "bg-gradient-to-br from-purple-400 to-purple-600",
+                text: "text-white",
+              },
+              {
+                name: "Saving Account",
+                icon: FaPiggyBank,
+                bg: "bg-gradient-to-br from-amber-400 to-orange-500",
+                text: "text-white",
+              },
+              {
+                name: "Loan",
+                icon: FaHandshake,
+                bg: "bg-gradient-to-br from-red-400 to-pink-500",
+                text: "text-white",
+              },
+              {
+                name: "Govt Bonds & FD",
+                icon: FaUniversity,
+                bg: "bg-gradient-to-br from-green-400 to-cyan-500",
+                text: "text-white",
+              },
+            ].map((service, index) => (
+              <motion.div
+                key={service.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -10, scale: 1.03 }}
+                viewport={{ once: true }}
+                transition={{
+                  delay: 0.3 + index * 0.1,
+                  type: "spring",
+                  stiffness: 300,
+                }}
+                className="group p-5 rounded-2xl border border-gray-100 bg-white shadow-md hover:shadow-2xl transition-all duration-300 cursor-default text-center relative overflow-hidden"
+              >
+                <div
+                  className={`w-14 h-14 ${service.bg} text-white rounded-full flex items-center justify-center mb-4 mx-auto transform group-hover:scale-110 transition-transform duration-300 shadow-lg`}
+                >
+                  <service.icon className="w-6 h-6 drop-shadow-sm" />
+                </div>
+
+                {/* Service Name */}
+                <h3 className="font-bold text-gray-800 text-base mb-1 group-hover:text-emerald-700 transition-colors">
+                  {service.name}
+                </h3>
+
+                {/* Description */}
+                <p className="text-xs text-gray-500 group-hover:text-gray-700 transition-colors">
+                  Tailored {service.name.toLowerCase()} solutions
+                </p>
+
+                {/* Subtle Glow on Hover */}
+                <div
+                  className="absolute inset-0 bg-gradient-to-tr opacity-0 group-hover:opacity-10
+          from-white/40 to-transparent rounded-2xl pointer-events-none transition-opacity duration-300"
+                ></div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
@@ -198,7 +258,8 @@ const BDPPartnerDetails = () => {
             transition={{ delay: 0.1 }}
             className="text-lg text-center text-gray-700 max-w-3xl mx-auto mb-12"
           >
-            Join our network and start earning through referrals. We welcome a diverse range of professionals.
+            Join our network and start earning through referrals. We welcome a
+            diverse range of professionals.
           </motion.p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -233,10 +294,14 @@ const BDPPartnerDetails = () => {
                 transition={{ delay: index * 0.1 }}
                 className={`${item.bgColor} p-6 rounded-2xl shadow-md border border-emerald-200 flex flex-col items-center text-center transition-all duration-300 hover:shadow-lg`}
               >
-                <div className={`${item.iconColor} p-3 rounded-full mb-4 text-white`}>
+                <div
+                  className={`${item.iconColor} p-3 rounded-full mb-4 text-white`}
+                >
                   <item.icon className="w-8 h-8" />
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-gray-900">{item.title}</h3>
+                <h3 className="text-xl font-bold mb-2 text-gray-900">
+                  {item.title}
+                </h3>
                 <p className="text-gray-700">{item.desc}</p>
               </motion.div>
             ))}
@@ -248,21 +313,22 @@ const BDPPartnerDetails = () => {
       <section className="py-16 px-4 bg-white">
         <div className="max-w-6xl mx-auto">
           <motion.h2
-             initial={{ opacity: 0, y: 20 }}
-             whileInView={{ opacity: 1, y: 0 }}
-             viewport={{ once: true }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             className="text-3xl font-bold text-center mb-4 text-gray-900"
           >
             Benefits of Partnering with Us
           </motion.h2>
           <motion.p
-             initial={{ opacity: 0, y: 20 }}
-             whileInView={{ opacity: 1, y: 0 }}
-             viewport={{ once: true }}
-             transition={{ delay: 0.1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
             className="text-lg text-center text-gray-600 mb-12"
           >
-            Discover the unique advantages that make our partnership program stand out.
+            Discover the unique advantages that make our partnership program
+            stand out.
           </motion.p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -299,8 +365,8 @@ const BDPPartnerDetails = () => {
               },
               {
                 num: "6",
-                title: "Brokerage Sharing",
-                desc: "Get up to 25% brokerage sharing for 2–5 years on stock broking.",
+                title: "Dashboard",
+                desc: "Get your personalised dashboard.",
                 color: "bg-purple-500",
               },
               {
@@ -324,11 +390,17 @@ const BDPPartnerDetails = () => {
                 transition={{ delay: index * 0.05 }}
                 className="bg-gradient-to-br from-gray-50 to-white p-5 rounded-xl shadow-sm border border-gray-200 flex flex-col"
               >
-                <div className={`${benefit.color} w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg mb-4 flex-shrink-0`}>
+                <div
+                  className={`${benefit.color} w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg mb-4 flex-shrink-0`}
+                >
                   {benefit.num}
                 </div>
-                <h3 className="font-bold text-gray-800 mb-2">{benefit.title}</h3>
-                <p className="text-sm text-gray-600 flex-grow">{benefit.desc}</p>
+                <h3 className="font-bold text-gray-800 mb-2">
+                  {benefit.title}
+                </h3>
+                <p className="text-sm text-gray-600 flex-grow">
+                  {benefit.desc}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -415,9 +487,13 @@ const BDPPartnerDetails = () => {
                     {/* Step Circle */}
                     <div className="relative mb-6 flex flex-col items-center">
                       <div className="absolute -inset-2">
-                        <div className={`w-16 h-16 rounded-full ${index % 2 === 0 ? 'bg-emerald-500' : 'bg-teal-500'} opacity-20 blur-md animate-pulse`}></div>
+                        <div
+                          className={`w-16 h-16 rounded-full ${index % 2 === 0 ? "bg-emerald-500" : "bg-teal-500"} opacity-20 blur-md animate-pulse`}
+                        ></div>
                       </div>
-                      <div className={`relative w-14 h-14 rounded-full bg-gradient-to-br ${index % 2 === 0 ? 'from-emerald-500 to-green-600' : 'from-teal-500 to-cyan-600'} flex items-center justify-center text-white font-bold shadow-lg border-2 border-white z-10`}>
+                      <div
+                        className={`relative w-14 h-14 rounded-full bg-gradient-to-br ${index % 2 === 0 ? "from-emerald-500 to-green-600" : "from-teal-500 to-cyan-600"} flex items-center justify-center text-white font-bold shadow-lg border-2 border-white z-10`}
+                      >
                         {index + 1}
                       </div>
                       <div className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-white border-4 border-emerald-300 flex items-center justify-center shadow-sm z-20">
@@ -454,9 +530,13 @@ const BDPPartnerDetails = () => {
                 {/* Step Number & Icon */}
                 <div className="relative mr-4 flex-shrink-0">
                   <div className="absolute -inset-1.5">
-                    <div className={`w-14 h-14 rounded-full ${index % 2 === 0 ? 'bg-emerald-500' : 'bg-teal-500'} opacity-20 blur-sm`}></div>
+                    <div
+                      className={`w-14 h-14 rounded-full ${index % 2 === 0 ? "bg-emerald-500" : "bg-teal-500"} opacity-20 blur-sm`}
+                    ></div>
                   </div>
-                  <div className={`relative w-12 h-12 rounded-full bg-gradient-to-br ${index % 2 === 0 ? 'from-emerald-500 to-green-600' : 'from-teal-500 to-cyan-600'} flex items-center justify-center text-white font-bold shadow z-10`}>
+                  <div
+                    className={`relative w-12 h-12 rounded-full bg-gradient-to-br ${index % 2 === 0 ? "from-emerald-500 to-green-600" : "from-teal-500 to-cyan-600"} flex items-center justify-center text-white font-bold shadow z-10`}
+                  >
                     {index + 1}
                   </div>
                   <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-white border-3 border-emerald-300 flex items-center justify-center shadow-sm z-20">
@@ -499,11 +579,12 @@ const BDPPartnerDetails = () => {
               transition={{ duration: 0.7, delay: 0.1 }}
               className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto"
             >
-              Experience the difference with our comprehensive financial ecosystem designed for your success.
+              Experience the difference with our comprehensive financial
+              ecosystem designed for your success.
             </motion.p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8">
             {benefits.map((benefit, index) => (
               <motion.div
                 key={benefit.id}
