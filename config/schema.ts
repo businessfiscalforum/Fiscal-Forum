@@ -1045,6 +1045,7 @@ export const businessDevelopmentPartner = pgTable('buisness_development_partner'
   panNumber: varchar('pan_number', { length: 10 }).notNull(),
   accountNumber: varchar('account_number', { length: 20 }).notNull(),
   ifscCode: varchar('ifsc_code', { length: 11 }).notNull(),
+  aadhaar: varchar('aadhaar_number', { length: 12 }).notNull(),
 });
 
 export const remisorship = pgTable('remisorship', {
@@ -1055,6 +1056,7 @@ export const remisorship = pgTable('remisorship', {
   panNumber: varchar('pan_number', { length: 10 }).notNull(),
   accountNumber: varchar('account_number', { length: 20 }).notNull(),
   ifscCode: varchar('ifsc_code', { length: 11 }).notNull(),
+  aadhaar: varchar('aadhaar_number', { length: 12 }).notNull(),
 });
 
 export const b2bPartner = pgTable('b2b_partner', {
@@ -1065,6 +1067,7 @@ export const b2bPartner = pgTable('b2b_partner', {
   panNumber: varchar('pan_number', { length: 10 }).notNull(),
   accountNumber: varchar('account_number', { length: 20 }).notNull(),
   ifscCode: varchar('ifsc_code', { length: 11 }).notNull(),
+  aadhaar: varchar('aadhaar_number', { length: 12 }).notNull(),
 });
 
 // Types

@@ -10,6 +10,7 @@ const Page = () => {
     accountNumber: "",
     ifsc: "",
     pan: "",
+    aadhaar: "",
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -37,6 +38,9 @@ const Page = () => {
     }
     if (!/[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(formData.pan)) {
       newErrors.pan = "Enter valid PAN number (e.g., ABCDE1234F)";
+    }
+    if (!/[0-9]{12}$/.test(formData.aadhaar)) {
+      newErrors.aadhaar = "Enter valid Aadhaar number (e.g., 123456789012)";
     }
 
     setErrors(newErrors);
@@ -227,6 +231,25 @@ const Page = () => {
                   />
                   {errors.pan && (
                     <p className="mt-1 text-sm text-red-500">{errors.pan}</p>
+                  )}
+                </div>
+
+                {/* Aadhaar Number */}
+                <div>
+                  <label htmlFor="aadhaar" className="block text-sm font-medium text-gray-700 mb-1">Aadhaar Number</label>
+                  <input
+                    type="text"
+                    id="aadhaar"
+                    name="aadhaar"
+                    placeholder="1234XXXXXXXX"
+                    value={formData.aadhaar}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 uppercase ${
+                      errors.aadhaar ? "border-red-500" : "border-gray-300"
+                    }`}
+                  />
+                  {errors.aadhaar && (
+                    <p className="mt-1 text-sm text-red-500">{errors.aadhaar}</p>
                   )}
                 </div>
 

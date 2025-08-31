@@ -39,6 +39,7 @@ export async function POST(req: NextRequest) {
     const accountNumber = (body.accountNumber as string)?.trim() || "";
     const ifsc = (body.ifsc as string)?.trim().toUpperCase() || "";
     const panNumber = (body.pan as string)?.trim().toUpperCase() || "";
+    const aadhaar = (body.aadhaar as string)?.trim() || "";
 
     // --- Validations ---
     if (!name || !/^[a-zA-Z\s]+$/.test(name)) {
@@ -83,6 +84,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    if (!/^[0-9]{12}$/.test(aadhaar)) {
+      return NextResponse.json(
+        { success: false, error: "Invalid Aadhaar number" },
+        { status: 400, headers: corsHeaders(origin) as HeadersInit }
+      );
+    }
+
     // --- Insert into Neon DB ---
     const [saved] = await db
       .insert(businessDevelopmentPartner)
@@ -93,6 +101,7 @@ export async function POST(req: NextRequest) {
         accountNumber,
         ifscCode: ifsc,
         panNumber,
+        aadhaar,
       })
       .returning();
 
