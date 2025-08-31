@@ -351,7 +351,7 @@ const BDPPartnerDetails = () => {
                 transition={{ duration: 0.6 }}
                 className="text-3xl md:text-4xl font-extrabold text-emerald-900 mb-6 leading-tight"
               >
-                Ready to Check Your Revenue Sharing?
+                Check Your Revenue Sharing
               </motion.h2>
 
               <motion.div
