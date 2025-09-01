@@ -59,9 +59,6 @@ export default function Navbar() {
                 height={32}
               />
             </div>
-            <span className="text-xl font-bold text-green-900 hidden sm:block">
-              Fiscal Forum
-            </span>
           </Link>
         </div>
 
