@@ -48,9 +48,7 @@ const Page = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -59,13 +57,16 @@ const Page = () => {
     if (validate()) {
       setIsSubmitting(true);
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/b2b-partner`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/b2b-partner`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
 
         if (!res.ok) {
           throw new Error(`Error: ${res.status}`);
@@ -88,17 +89,53 @@ const Page = () => {
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-100 py-60 px-4">
       {/* Main Container */}
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
-        
         {/* Left Section - Text Content */}
         <div className="flex-1 text-center lg:text-left">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Register as <span className="text-emerald-600">B2B</span> Partner
           </h1>
-          <p className="text-gray-600 mb-8 max-w-lg">
-            Join us as a trusted B2B partner and unlock opportunities for growth. Get Refund of ₹1000 by generating Net equity Sales of
-            ₹1,00,000/- or Net SIP Sales of ₹10,000/- within 3 months of
-            your registration. Fill in your details to get started today.
-          </p>
+          <div className="text-gray-700 mb-8 max-w-2xl mx-auto text-lg leading-relaxed bg-blue-50 border-l-4 border-blue-500 p-6 rounded-xl shadow-sm">
+            <p>
+              <span className="font-semibold text-blue-700">
+                Join us as a trusted B2B partner
+              </span>{" "}
+              and unlock opportunities for growth.
+            </p>
+
+            <p className="mt-4">
+              <span className="font-bold text-gray-900">
+                Pay ₹1000 initially
+              </span>{" "}
+              to join.
+            </p>
+
+            <p className="mt-4">
+              <span className="text-green-700 font-semibold">
+                Get a Refund of ₹1000
+              </span>{" "}
+              by generating:
+            </p>
+
+            <ul className="list-disc list-inside mt-2 space-y-1 text-gray-800">
+              <li>
+                or Opening <span className="font-bold text-gray-900">15</span>{" "}
+                Demat accounts
+              </li>
+              <li>
+                Net Equity Sales of{" "}
+                <span className="font-bold text-gray-900">₹1,00,000/-</span>
+              </li>
+              <li>
+                or Net SIP Sales of{" "}
+                <span className="font-bold text-gray-900">₹10,000/-</span>
+              </li>
+            </ul>
+
+            <p className="mt-4">
+              within <span className="font-bold text-blue-600">3 months</span>{" "}
+              of your registration. Fill in your details to get started today.
+            </p>
+          </div>
         </div>
 
         {/* Right Section - Form or Success Message */}
@@ -107,25 +144,46 @@ const Page = () => {
           {isSubmitted ? (
             <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full border border-emerald-200 flex flex-col items-center justify-center text-center">
               <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-6">
-                <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                <svg
+                  className="w-8 h-8 text-emerald-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
                 </svg>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                Thank You!
+              </h2>
               <p className="text-gray-600">
-                Thank you for submitting. Our representative will contact you soon.
+                Thank you for submitting. Our representative will contact you
+                soon.
               </p>
             </div>
           ) : (
             <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full border border-emerald-200">
               <div className="text-center mb-6">
-                <h2 className="text-xl font-semibold text-gray-900">Become a B2B Partner</h2>
+                <h2 className="text-xl font-semibold text-gray-900">
+                  Become a B2B Partner
+                </h2>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Name */}
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Full Name
+                  </label>
                   <input
                     type="text"
                     id="name"
@@ -144,7 +202,12 @@ const Page = () => {
 
                 {/* Mobile */}
                 <div>
-                  <label htmlFor="mobile" className="block text-sm font-medium text-gray-700 mb-1">Mobile Number</label>
+                  <label
+                    htmlFor="mobile"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Mobile Number
+                  </label>
                   <input
                     type="text"
                     id="mobile"
@@ -163,7 +226,12 @@ const Page = () => {
 
                 {/* Email */}
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Email Address
+                  </label>
                   <input
                     type="email"
                     id="email"
@@ -182,7 +250,12 @@ const Page = () => {
 
                 {/* Account Number */}
                 <div>
-                  <label htmlFor="accountNumber" className="block text-sm font-medium text-gray-700 mb-1">Account Number</label>
+                  <label
+                    htmlFor="accountNumber"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Account Number
+                  </label>
                   <input
                     type="text"
                     id="accountNumber"
@@ -191,17 +264,26 @@ const Page = () => {
                     value={formData.accountNumber}
                     onChange={handleChange}
                     className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200 ${
-                      errors.accountNumber ? "border-red-500" : "border-gray-300"
+                      errors.accountNumber
+                        ? "border-red-500"
+                        : "border-gray-300"
                     }`}
                   />
                   {errors.accountNumber && (
-                    <p className="mt-1 text-sm text-red-500">{errors.accountNumber}</p>
+                    <p className="mt-1 text-sm text-red-500">
+                      {errors.accountNumber}
+                    </p>
                   )}
                 </div>
 
                 {/* IFSC Code */}
                 <div>
-                  <label htmlFor="ifsc" className="block text-sm font-medium text-gray-700 mb-1">IFSC Code</label>
+                  <label
+                    htmlFor="ifsc"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    IFSC Code
+                  </label>
                   <input
                     type="text"
                     id="ifsc"
@@ -220,7 +302,12 @@ const Page = () => {
 
                 {/* PAN Number */}
                 <div>
-                  <label htmlFor="pan" className="block text-sm font-medium text-gray-700 mb-1">PAN Number</label>
+                  <label
+                    htmlFor="pan"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    PAN Number
+                  </label>
                   <input
                     type="text"
                     id="pan"
@@ -239,7 +326,12 @@ const Page = () => {
 
                 {/* Aadhaar Number */}
                 <div>
-                  <label htmlFor="aadhaar" className="block text-sm font-medium text-gray-700 mb-1">Aadhaar Number</label>
+                  <label
+                    htmlFor="aadhaar"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Aadhaar Number
+                  </label>
                   <input
                     type="text"
                     id="aadhaar"
@@ -252,7 +344,9 @@ const Page = () => {
                     }`}
                   />
                   {errors.aadhaar && (
-                    <p className="mt-1 text-sm text-red-500">{errors.aadhaar}</p>
+                    <p className="mt-1 text-sm text-red-500">
+                      {errors.aadhaar}
+                    </p>
                   )}
                 </div>
 
@@ -264,9 +358,25 @@ const Page = () => {
                 >
                   {isSubmitting ? (
                     <span className="flex items-center justify-center">
-                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      <svg
+                        className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
                       </svg>
                       Processing...
                     </span>

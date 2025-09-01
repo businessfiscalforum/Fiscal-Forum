@@ -366,7 +366,7 @@ const BDPPartnerDetails = () => {
               {
                 num: "6",
                 title: "Dashboard",
-                desc: "Get your personalised dashboard.",
+                desc: "Get your personalised Fiscal Forum dashboard.",
                 color: "bg-purple-500",
               },
               {

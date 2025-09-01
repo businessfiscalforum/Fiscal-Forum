@@ -247,7 +247,7 @@ const BDPPartnerDetails = () => {
               {
                 num: "2",
                 title: "Dashboard",
-                desc: "Get your personalised dashboard.",
+                desc: "Get your personalised dashboard. You will get Angel-Next Dashboard",
                 color: "bg-purple-500",
               },
               {
