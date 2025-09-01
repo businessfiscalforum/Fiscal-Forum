@@ -9,7 +9,7 @@ export default async function AdminLayout({
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex py-20">
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-lg h-screen sticky top-0 py-6 overflow-y-auto">
+      <aside className="w-35 md:w-50 lg:wd-60 bg-white shadow-lg h-screen sticky top-0 py-6 overflow-y-auto">
         <div className="p-6 border-b border-gray-200">
           <h2 className="text-xl font-bold text-gray-800">Admin Panel</h2>
         </div>

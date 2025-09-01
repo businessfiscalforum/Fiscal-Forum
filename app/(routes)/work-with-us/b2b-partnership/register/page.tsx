@@ -113,20 +113,20 @@ const Page = () => {
               <span className="text-green-700 font-semibold">
                 Get a Refund of ₹1000
               </span>{" "}
-              by generating:
+              by:
             </p>
 
             <ul className="list-disc list-inside mt-2 space-y-1 text-gray-800">
               <li>
-                or Opening <span className="font-bold text-gray-900">15</span>{" "}
+                Opening <span className="font-bold text-gray-900">15</span>{" "}
                 Demat accounts
               </li>
               <li>
-                Net Equity Sales of{" "}
+                or generating Net Equity Sales of{" "}
                 <span className="font-bold text-gray-900">₹1,00,000/-</span>
               </li>
               <li>
-                or Net SIP Sales of{" "}
+                or generating Net SIP Sales of{" "}
                 <span className="font-bold text-gray-900">₹10,000/-</span>
               </li>
             </ul>

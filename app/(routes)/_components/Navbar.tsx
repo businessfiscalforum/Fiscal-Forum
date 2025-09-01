@@ -40,13 +40,12 @@ export default function Navbar() {
 
   return (
     <nav
-      className="fixed top-4 left-1/2 -translate-x-1/2 z-50 
-  bg-white/40 backdrop-blur-md 
-  border border-green-200 shadow-lg 
-  rounded-lg md:rounded-lg
+      className="fixed z-50 w-full 
+  bg-white
+   shadow-lg 
   px-4 sm:px-5 md:px-6 lg:px-8 xl:px-10 2xl:px-12
-  py-3 sm:py-3.5 md:py-4 lg:py-5 xl:py-6 2xl:py-7
-  max-w-7xl w-[95%] md:w-full"
+  py-4
+  "
     >
       <div className="flex justify-between items-center relative">
         {/* Logo */}
