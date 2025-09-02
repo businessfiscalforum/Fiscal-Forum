@@ -118,16 +118,20 @@ const Page = () => {
 
             <ul className="list-disc list-inside mt-2 space-y-1 text-gray-800">
               <li>
-                Opening <span className="font-bold text-gray-900">15</span>{" "}
+                Generating <span className="font-bold text-gray-900">15</span>{" "}
                 Demat accounts
               </li>
               <li>
-                or generating Net Equity Sales of{" "}
-                <span className="font-bold text-gray-900">₹1,00,000/-</span>
+                or {" "}
+                <span className="font-bold text-gray-900">1</span>
+                {" "} health and 
+                <span className="font-bold text-gray-900">1</span>
+                {" "} motor insurance policy
               </li>
               <li>
-                or generating Net SIP Sales of{" "}
-                <span className="font-bold text-gray-900">₹10,000/-</span>
+                or generating {" "}
+                <span className="font-bold text-gray-900">5</span>
+                {" "} SIP
               </li>
             </ul>
 

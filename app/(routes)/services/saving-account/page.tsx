@@ -356,7 +356,7 @@ const CreditCardApplyPage = () => {
                       className="w-full h-auto object-cover"
                     />
                   </div>
-                  <div className="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-lg p-4 border border-emerald-200">
+                  {/* <div className="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-lg p-4 border border-emerald-200">
                     <div className="flex items-center gap-3">
                       <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 flex items-center justify-center">
                         <Star className="text-white w-6 h-6" />
@@ -364,11 +364,11 @@ const CreditCardApplyPage = () => {
                       <div>
                         <p className="font-bold text-gray-900">4.9/5 Rating</p>
                         <p className="text-sm text-gray-600">
-                          Based on 15,000+ reviews
+                          Based on 1,000+ reviews
                         </p>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -486,9 +486,11 @@ const CreditCardApplyPage = () => {
                     </div>
 
                     {/* Buttons section always at bottom */}
-                    <div className="flex gap-4 pt-4">
+                    <div className="flex gap-3 pt-4 justify-evenly">
                       <Link href={bank.link} passHref>
-                        <button className="px-4 py-2 rounded-lg text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
+                        <button className="inline-flex items-center gap-1 px-3 py-2 rounded-lg 
+               text-emerald-600 font-medium text-md 
+               hover:text-emerald-700 transition">
                           Learn More
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -504,7 +506,12 @@ const CreditCardApplyPage = () => {
                       </Link>
 
                       <Link href={bank.alink} passHref>
-                        <button className="px-4 py-2 rounded-lg text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
+                        <button className="inline-flex items-center gap-1 px-3 py-2 rounded-lg 
+               bg-gradient-to-r from-emerald-500 to-teal-600 
+               hover:from-emerald-600 hover:to-teal-700 
+               text-white font-medium text-md 
+               transition-all duration-300 shadow-md 
+               hover:shadow-lg transform hover:scale-105">
                           Apply Now
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -526,6 +533,65 @@ const CreditCardApplyPage = () => {
           </div>
         </section>
 
+        
+
+        {/* Application Process */}
+        <section className="py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Simple Application Process
+              </h2>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                Get your account in just 4 easy steps
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+              {applicationSteps.map((step, index) => (
+                <div key={index} className="text-center relative">
+                  {index < applicationSteps.length - 1 && (
+                    <div className="hidden md:block absolute top-8 left-full w-full h-0.5 bg-emerald-200"></div>
+                  )}
+                  <div className="relative mb-6">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-r from-teal-500 to-emerald-600 flex items-center justify-center mx-auto mb-4">
+                      <step.icon className="h-8 w-8 text-white" />
+                    </div>
+                    <div className="absolute -top-2 -right-2 bg-white border-2 border-emerald-500 text-emerald-600 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">
+                      {step.step}
+                    </div>
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    {step.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm">{step.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-16 bg-gradient-to-r from-teal-600 to-emerald-700 text-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Ready to Transform Your Banking Experience?
+            </h2>
+            <p className="text-xl text-teal-100 mb-8 max-w-2xl mx-auto">
+              Join thousands of satisfied customers enjoying zero-fee banking
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="bg-white text-emerald-600 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition-all duration-300 flex items-center justify-center gap-3">
+                <Phone className="w-5 h-5" />
+                Call Now
+              </button>
+              <button className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-8 py-4 rounded-full font-bold shadow-lg transition-all duration-300 flex items-center justify-center gap-3">
+                <Mail className="w-5 h-5" />
+                Email Us
+              </button>
+            </div>
+          </div>
+        </section>
         {/* Why Choose Us Section */}
         <section className="py-16 bg-gradient-to-r from-teal-900 to-green-900 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -601,64 +667,6 @@ const CreditCardApplyPage = () => {
                   you need it most
                 </p>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Application Process */}
-        <section className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Simple Application Process
-              </h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                Get your account in just 4 easy steps
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              {applicationSteps.map((step, index) => (
-                <div key={index} className="text-center relative">
-                  {index < applicationSteps.length - 1 && (
-                    <div className="hidden md:block absolute top-8 left-full w-full h-0.5 bg-emerald-200"></div>
-                  )}
-                  <div className="relative mb-6">
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-r from-teal-500 to-emerald-600 flex items-center justify-center mx-auto mb-4">
-                      <step.icon className="h-8 w-8 text-white" />
-                    </div>
-                    <div className="absolute -top-2 -right-2 bg-white border-2 border-emerald-500 text-emerald-600 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">
-                      {step.step}
-                    </div>
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm">{step.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-16 bg-gradient-to-r from-teal-600 to-emerald-700 text-white">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Ready to Transform Your Banking Experience?
-            </h2>
-            <p className="text-xl text-teal-100 mb-8 max-w-2xl mx-auto">
-              Join thousands of satisfied customers enjoying zero-fee banking
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-emerald-600 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition-all duration-300 flex items-center justify-center gap-3">
-                <Phone className="w-5 h-5" />
-                Call Now
-              </button>
-              <button className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-8 py-4 rounded-full font-bold shadow-lg transition-all duration-300 flex items-center justify-center gap-3">
-                <Mail className="w-5 h-5" />
-                Email Us
-              </button>
             </div>
           </div>
         </section>

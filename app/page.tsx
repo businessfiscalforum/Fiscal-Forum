@@ -801,7 +801,7 @@ export default function HomePage() {
                       </p>
 
                       {/* Learn More Button */}
-                      <div className="mt-4">
+                      <div className="mt-auto">
                         <button className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-6 py-3 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 shadow-lg group-hover:shadow-2xl transform group-hover:scale-105">
                           Learn More
                           <svg

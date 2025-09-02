@@ -55,8 +55,8 @@ export default function Navbar() {
               <Image
                 src="/forum1.ico"
                 alt="Fiscal Forum"
-                width={32}
-                height={32}
+                width={80}
+                height={80}
               />
             </div>
           </Link>

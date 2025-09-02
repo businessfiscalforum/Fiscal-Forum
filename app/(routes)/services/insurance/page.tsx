@@ -170,7 +170,7 @@ const InsurancePage = () => {
     {
       step: 3,
       title: "Get a Quote",
-      description: "Receive an instant premium quote based on your details.",
+      description: "Receive a quote based on your details personally.",
       icon: Shield,
     },
     {
@@ -451,10 +451,9 @@ const InsurancePage = () => {
               <div className="w-12 h-12 rounded-full bg-gradient-to-r from-teal-400 to-emerald-500 flex items-center justify-center mb-4">
                 <Zap className="text-white w-6 h-6" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Quick Claim Process</h3>
+              <h3 className="text-xl font-bold mb-3">Compare & Save</h3>
               <p className="text-teal-200">
-                Experience a fast, simple, and transparent claim settlement
-                process.
+                Get the best premium with maximum benefits guaranteed.
               </p>
             </div>
 
@@ -462,10 +461,9 @@ const InsurancePage = () => {
               <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 flex items-center justify-center mb-4">
                 <Lock className="text-white w-6 h-6" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Data Security</h3>
+              <h3 className="text-xl font-bold mb-3">Quote Beat Promise</h3>
               <p className="text-teal-200">
-                Your personal information is protected with the highest
-                standards of security.
+                Upload your existing quote — we&apos;ll get you a better price.
               </p>
             </div>
 
@@ -473,10 +471,9 @@ const InsurancePage = () => {
               <div className="w-12 h-12 rounded-full bg-gradient-to-r from-emerald-400 to-green-500 flex items-center justify-center mb-4">
                 <Users className="text-white w-6 h-6" />
               </div>
-              <h3 className="text-xl font-bold mb-3">24/7 Support</h3>
+              <h3 className="text-xl font-bold mb-3">Hassle-Free Claims Support</h3>
               <p className="text-teal-200">
-                Our dedicated support team is always available to assist with
-                your queries.
+                Dedicated assistance to ensure smooth and quick claim settlement.
               </p>
             </div>
 
@@ -484,10 +481,19 @@ const InsurancePage = () => {
               <div className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-400 to-teal-500 flex items-center justify-center mb-4">
                 <Award className="text-white w-6 h-6" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Trusted by Millions</h3>
+              <h3 className="text-xl font-bold mb-3">Personalised Query Resolution</h3>
               <p className="text-teal-200">
-                Join millions of satisfied customers who trust us with their
-                protection.
+                One-to-one coordination for fast, clear answers to every concern.
+              </p>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-400 to-teal-500 flex items-center justify-center mb-4">
+                <Award className="text-white w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">Trusted Partnerships</h3>
+              <p className="text-teal-200">
+                We&apos;re partnered with top insurance companies across the country.
               </p>
             </div>
           </div>

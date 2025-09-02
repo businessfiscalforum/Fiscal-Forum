@@ -543,11 +543,10 @@ export default function MutualPage() {
                   <FaBalanceScale />
                 </div>
                 <h3 className="text-lg font-bold mb-2">
-                  Risk-Adjusted Returns
+                  Get Best-Fit Funds, Always
                 </h3>
                 <p className="text-emerald-100">
-                  Portfolio optimization for maximum returns with controlled
-                  risk
+                  We guide you with the best fund options for the current market and provide complete fund details.
                 </p>
               </div>
 
@@ -555,9 +554,9 @@ export default function MutualPage() {
                 <div className="text-yellow-400 text-2xl mb-4">
                   <FaUsers />
                 </div>
-                <h3 className="text-lg font-bold mb-2">Expert Management</h3>
+                <h3 className="text-lg font-bold mb-2">Dedicated Support</h3>
                 <p className="text-emerald-100">
-                  Professional fund managers with proven track records
+                  Dedicated calling support for any changes or help you need — hassle-free.
                 </p>
               </div>
 
@@ -565,9 +564,9 @@ export default function MutualPage() {
                 <div className="text-yellow-400 text-2xl mb-4">
                   <FaRegClock />
                 </div>
-                <h3 className="text-lg font-bold mb-2">Flexible SIP Options</h3>
+                <h3 className="text-lg font-bold mb-2">Your Fiscal Forum Investment Kit</h3>
                 <p className="text-emerald-100">
-                  Start investing with as little as ₹500 per month
+                  Stay consistent and confident in your 
                 </p>
               </div>
 
@@ -577,7 +576,7 @@ export default function MutualPage() {
                 </div>
                 <h3 className="text-lg font-bold mb-2">Referral Rewards</h3>
                 <p className="text-emerald-100">
-                  Earn 1% commission on friends&apos; investment amounts
+                  Earn commission on friends&apos; investment amounts
                 </p>
               </div>
             </div>

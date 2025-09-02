@@ -105,8 +105,8 @@ const GetStartedPage = () => {
               <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-2xl border-2 border-teal-200 shadow-xl p-8 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-xl font-bold text-teal-700 mb-2">First 4 Months</h3>
-                    <p className="text-4xl font-extrabold text-gray-800 mt-1">45%</p>
+                    <h3 className="text-xl font-bold text-teal-700 mb-2">Fixed</h3>
+                    <p className="text-4xl font-extrabold text-gray-800 mt-1">25%</p>
                     <p className="text-lg text-gray-600 mt-2">Brokerage Share</p>
                   </div>
                   <Target className="w-16 h-16 text-teal-600" />
@@ -116,9 +116,9 @@ const GetStartedPage = () => {
               <div className="bg-gradient-to-br from-gray-50 to-slate-50 rounded-2xl border-2 border-gray-200 shadow-xl p-8 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-xl font-bold text-gray-700 mb-2">After 5 Months</h3>
-                    <p className="text-4xl font-extrabold text-emerald-700 mt-1">20%</p>
-                    <p className="text-lg text-gray-600 mt-2">Variable Brokerage</p>
+                    <h3 className="text-xl font-bold text-gray-700 mb-2">Further</h3>
+                    <p className="text-4xl font-extrabold text-emerald-700 mt-1">MTF</p>
+                    <p className="text-lg text-gray-600 mt-2">Commission</p>
                   </div>
                   <Rocket className="w-16 h-16 text-gray-600" />
                 </div>
@@ -134,7 +134,7 @@ const GetStartedPage = () => {
                 {[
                   { icon: Sparkles, title: "High Rewards", desc: "Up to ₹500 per account" },
                   { icon: Trophy, title: "Lifetime Earnings", desc: "Extended sharing for top performers" },
-                  { icon: Flame, title: "Quick Start", desc: "45% sharing in first 4 months" },
+                  { icon: Flame, title: "Quick Start", desc: "Get 25% Brokerage Share" },
                   { icon: Lightbulb, title: "Flexible", desc: "Works with multiple brokers" },
                   { icon: Gift, title: "No Limits", desc: "Unlimited earning potential" },
                   { icon: Zap, title: "Easy Setup", desc: "Simple registration process" },

@@ -58,8 +58,8 @@ const WorkWithUsPage = () => {
       id: 1,
       title: "Business Development Partner",
       icon: FaBuilding,
-      color: "from-pink-500 to-rose-600",
-      bgColor: "from-pink-50 to-rose-100",
+      color: "from-emerald-500 to-teal-500",
+      bgColor: "from-emerald-500 to-teal-500",
       description:
         "Partner with us as a Business Development ally and help expand our reach to new heights. Build trusted relationships, connect with potential clients, and earn attractive rewards while growing your own network and success alongside a brand that values collaboration.",
       features: [
@@ -88,8 +88,8 @@ const WorkWithUsPage = () => {
       id: 2,
       title: "Remisorship",
       icon: FaUsers,
-      color: "from-blue-500 to-indigo-600",
-      bgColor: "from-blue-50 to-indigo-100",
+      color: "from-emerald-500 to-teal-500",
+      bgColor: "from-emerald-500 to-teal-500",
       description:
         "Join as a Remisier and share opportunities with your network while earning extra benefits. Once the client referred by Remisier starts trading with Angel One, the Remisier will get 25% of total brokerage for the whole trading life-span of the client.",
       features: [
@@ -118,8 +118,8 @@ const WorkWithUsPage = () => {
       id: 3,
       title: "B2B Partner",
       icon: FaHandshake,
-      color: "from-purple-500 to-violet-600",
-      bgColor: "from-purple-50 to-violet-100",
+      color: "from-emerald-500 to-teal-500",
+      bgColor: "from-emerald-500 to-teal-500",
       description:
         "Collaborate with us as a B2B Partner and unlock growth for your business too. Bring your services, align with our trusted network, and deliver greater value to your clients while expanding your reach and creating new possibilities together.",
       features: [
@@ -325,10 +325,19 @@ const WorkWithUsPage = () => {
                                   ? "/work-with-us/remisorship"
                                   : "/work-with-us/b2b-partnership";
                           }}
-                          className={`block w-full bg-gradient-to-r ${partnership.color} text-white py-4 px-6 rounded-2xl font-semibold text-center transition-all duration-300 transform hover:scale-105 hover:shadow-lg`}
+                          className={`w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-6 py-3 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 shadow-lg group-hover:shadow-2xl transform group-hover:scale-105`}
                         >
                           Learn More
-                          <FaArrowRight className="inline-block ml-2 transition-transform duration-300 group-hover/link:translate-x-1" />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
+                          >
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                          </svg>
                         </button>
                       </div>
                     </div>
