@@ -704,6 +704,106 @@ export default function HomePage() {
         <div className="swiper-pagination absolute bottom-4 sm:bottom-6 w-full flex justify-center z-20 gap-2"></div>
       </section>
 
+      {/* Referral section */}
+      {user && (
+        <section className="py-24 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 relative overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-gradient-to-r from-blue-200/20 to-purple-300/20 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-gradient-to-r from-indigo-200/20 to-cyan-300/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          </div>
+          
+          <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-5xl font-bold mb-8 p-2 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 bg-clip-text text-transparent"
+            >
+              🎉 Referral Program
+            </motion.h2>
+            
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto"
+            >
+              Invite your friends to join Fiscal Forum and earn exclusive rewards. 
+              Share your unique referral code and start building your financial network today!
+            </motion.p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              {/* Feature 1 */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
+              >
+                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <FaUsers className="text-white text-2xl" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Earn Credits</h3>
+                <p className="text-gray-600">
+                  Get 10 referral credits for each successful signup. Use credits for premium features and exclusive content.
+                </p>
+              </motion.div>
+
+              {/* Feature 2 */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
+              >
+                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <FaHandshake className="text-white text-2xl" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Build Network</h3>
+                <p className="text-gray-600">
+                  Connect with like-minded financial enthusiasts and grow your professional network in the finance industry.
+                </p>
+              </motion.div>
+
+              {/* Feature 3 */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
+              >
+                <div className="w-16 h-16 bg-gradient-to-r from-teal-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <FaAward className="text-white text-2xl" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Exclusive Rewards</h3>
+                <p className="text-gray-600">
+                  Unlock special benefits, early access to new features, and VIP treatment as you earn more referral credits.
+                </p>
+              </motion.div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 rounded-2xl p-8 text-white"
+            >
+              <h3 className="text-2xl font-bold mb-4">Ready to Start Referring?</h3>
+              <p className="text-indigo-100 mb-6">
+                Join thousands of users who are already earning rewards through our referral program.
+              </p>
+              <Link
+                href="/referrals"
+                className="inline-flex items-center px-8 py-3 bg-white text-emerald-600 font-semibold rounded-full hover:bg-gray-100 transition-colors duration-300 shadow-lg hover:shadow-xl"
+              >
+                <FaRocket className="mr-2" />
+                View My Referrals
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+      )}
+
       <HomeResearchAndNewsSection />
       <ResearchReportsSection />
 
@@ -1116,106 +1216,6 @@ export default function HomePage() {
           </div>
         </div>
       </section> */}
-
-      {/* Referral section */}
-      {user && (
-        <section className="py-24 bg-gradient-to-br from-slate-50 to-white relative overflow-hidden">
-          <div className="absolute inset-0">
-            <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-gradient-to-r from-blue-200/20 to-purple-300/20 rounded-full blur-3xl animate-pulse"></div>
-            <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-gradient-to-r from-indigo-200/20 to-cyan-300/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          </div>
-          
-          <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-5xl font-bold mb-8 p-2 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 bg-clip-text text-transparent"
-            >
-              🎉 Referral Program
-            </motion.h2>
-            
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto"
-            >
-              Invite your friends to join Fiscal Forum and earn exclusive rewards. 
-              Share your unique referral code and start building your financial network today!
-            </motion.p>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-              {/* Feature 1 */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
-              >
-                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <FaUsers className="text-white text-2xl" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Earn Credits</h3>
-                <p className="text-gray-600">
-                  Get 10 referral credits for each successful signup. Use credits for premium features and exclusive content.
-                </p>
-              </motion.div>
-
-              {/* Feature 2 */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
-              >
-                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <FaHandshake className="text-white text-2xl" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Build Network</h3>
-                <p className="text-gray-600">
-                  Connect with like-minded financial enthusiasts and grow your professional network in the finance industry.
-                </p>
-              </motion.div>
-
-              {/* Feature 3 */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
-              >
-                <div className="w-16 h-16 bg-gradient-to-r from-teal-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <FaAward className="text-white text-2xl" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Exclusive Rewards</h3>
-                <p className="text-gray-600">
-                  Unlock special benefits, early access to new features, and VIP treatment as you earn more referral credits.
-                </p>
-              </motion.div>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 rounded-2xl p-8 text-white"
-            >
-              <h3 className="text-2xl font-bold mb-4">Ready to Start Referring?</h3>
-              <p className="text-indigo-100 mb-6">
-                Join thousands of users who are already earning rewards through our referral program.
-              </p>
-              <Link
-                href="/referrals"
-                className="inline-flex items-center px-8 py-3 bg-white text-emerald-600 font-semibold rounded-full hover:bg-gray-100 transition-colors duration-300 shadow-lg hover:shadow-xl"
-              >
-                <FaRocket className="mr-2" />
-                View My Referrals
-              </Link>
-            </motion.div>
-          </div>
-        </section>
-      )}
 
       {/* Enhanced Affiliations Section */}
       <section className="py-20 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 relative ">
