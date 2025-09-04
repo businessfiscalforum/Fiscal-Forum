@@ -7,22 +7,28 @@ import { redirect } from "next/navigation";
 
 // ✅ Define valid enum values
 const reportTypeOptions = [
-  'Pre-Market Research Report',
-  'Quarterly Results',
-  'Industry Analysis',
-  'Thematic Research Report',
-  'Company Analysis',
-  'Equity Research Report'
+  "Pre-Market Research Report",
+  "Quarterly Results",
+  "Industry Analysis",
+  "Thematic Research Report",
+  "Company Analysis",
+  "Equity Research Report",
 ] as const;
 
 const ratingOptions = ["BUY", "HOLD", "SELL"] as const;
 
 // ✅ Type guards
-function isValidReportType(value: string): value is (typeof reportTypeOptions)[number] {
-  return reportTypeOptions.includes(value as (typeof reportTypeOptions)[number]);
+function isValidReportType(
+  value: string
+): value is (typeof reportTypeOptions)[number] {
+  return reportTypeOptions.includes(
+    value as (typeof reportTypeOptions)[number]
+  );
 }
 
-function isValidRating(value: string): value is (typeof ratingOptions)[number] {
+function isValidRating(
+  value: string
+): value is (typeof ratingOptions)[number] {
   return ratingOptions.includes(value as (typeof ratingOptions)[number]);
 }
 
@@ -58,16 +64,23 @@ export default async function EditReportPage({
     const upside = (formData.get("upside") as string) || undefined;
     const pagesStr = formData.get("pages") as string;
     const pages = pagesStr ? parseInt(pagesStr) : undefined;
-    const recommendation = (formData.get("recommendation") as string) || undefined;
+    const recommendation =
+      (formData.get("recommendation") as string) || undefined;
     const tagsStr = formData.get("tags") as string | null;
-    const tags = tagsStr ? tagsStr.split(",").map((tag) => tag.trim()).filter(Boolean) : undefined;
+    const tags = tagsStr
+      ? tagsStr.split(",").map((tag) => tag.trim()).filter(Boolean)
+      : undefined;
     const summary = (formData.get("summary") as string) || undefined;
     const pdfUrl = (formData.get("pdfUrl") as string) || undefined;
     const published = formData.get("published") === "on";
 
     // ✅ Validate enums only if provided
-    const reportType = rawReportType && isValidReportType(rawReportType) ? rawReportType : undefined;
-    const rating = rawRating && isValidRating(rawRating) ? rawRating : undefined;
+    const reportType =
+      rawReportType && isValidReportType(rawReportType)
+        ? rawReportType
+        : undefined;
+    const rating =
+      rawRating && isValidRating(rawRating) ? rawRating : undefined;
 
     await db
       .update(researchReportsTable)
@@ -93,11 +106,11 @@ export default async function EditReportPage({
       })
       .where(eq(researchReportsTable.id, id));
 
-      revalidatePath("/reports");
-      revalidatePath(`/reports/${id}`); 
-      revalidatePath("/admin/reports");
+    revalidatePath("/reports");
+    revalidatePath(`/reports/${id}`);
+    revalidatePath("/admin/reports");
 
-      redirect("/admin/reports");
+    redirect("/admin/reports");
   }
 
   return (
@@ -108,7 +121,7 @@ export default async function EditReportPage({
           <label className="block text-sm font-medium mb-1">Title</label>
           <input
             name="title"
-            defaultValue={report.title}
+            defaultValue={report.title || ""}
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
@@ -116,7 +129,7 @@ export default async function EditReportPage({
           <label className="block text-sm font-medium mb-1">Stock Symbol</label>
           <input
             name="stock"
-            defaultValue={report.stock}
+            defaultValue={report.stock || ""}
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
@@ -124,7 +137,7 @@ export default async function EditReportPage({
           <label className="block text-sm font-medium mb-1">Company</label>
           <input
             name="company"
-            defaultValue={report.company}
+            defaultValue={report.company || ""}
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
@@ -132,7 +145,7 @@ export default async function EditReportPage({
           <label className="block text-sm font-medium mb-1">Author</label>
           <input
             name="author"
-            defaultValue={report.author}
+            defaultValue={report.author || ""}
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
@@ -140,7 +153,7 @@ export default async function EditReportPage({
           <label className="block text-sm font-medium mb-1">Author Firm</label>
           <input
             name="authorFirm"
-            defaultValue={report.authorFirm}
+            defaultValue={report.authorFirm || ""}
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
@@ -149,7 +162,7 @@ export default async function EditReportPage({
           <input
             name="date"
             type="date"
-            defaultValue={report.publishDate}
+            defaultValue={report.publishDate || ""}
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
@@ -157,7 +170,7 @@ export default async function EditReportPage({
           <label className="block text-sm font-medium mb-1">Sector</label>
           <input
             name="sector"
-            defaultValue={report.sector}
+            defaultValue={report.sector || ""}
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
@@ -165,7 +178,7 @@ export default async function EditReportPage({
           <label className="block text-sm font-medium mb-1">Report Type</label>
           <select
             name="reportType"
-            defaultValue={report.reportType}
+            defaultValue={report.reportType || ""}
             className="w-full border border-gray-300 rounded-lg p-2"
           >
             {reportTypeOptions.map((type) => (
@@ -179,7 +192,7 @@ export default async function EditReportPage({
           <label className="block text-sm font-medium mb-1">Rating</label>
           <select
             name="rating"
-            defaultValue={report.rating}
+            defaultValue={report.rating || ""}
             className="w-full border border-gray-300 rounded-lg p-2"
           >
             {ratingOptions.map((r) => (
@@ -190,18 +203,22 @@ export default async function EditReportPage({
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">Target Price (₹)</label>
+          <label className="block text-sm font-medium mb-1">
+            Target Price (₹)
+          </label>
           <input
             name="targetPrice"
-            defaultValue={report.targetPrice}
+            defaultValue={report.targetPrice || ""}
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">Current Price (₹)</label>
+          <label className="block text-sm font-medium mb-1">
+            Current Price (₹)
+          </label>
           <input
             name="currentPrice"
-            defaultValue={report.currentPrice}
+            defaultValue={report.currentPrice || ""}
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
@@ -209,7 +226,7 @@ export default async function EditReportPage({
           <label className="block text-sm font-medium mb-1">Upside (%)</label>
           <input
             name="upside"
-            defaultValue={report.upside}
+            defaultValue={report.upside || ""}
             placeholder="+8.6%"
             className="w-full border border-gray-300 rounded-lg p-2"
           />
@@ -219,15 +236,17 @@ export default async function EditReportPage({
           <input
             name="pages"
             type="number"
-            defaultValue={report.pages}
+            defaultValue={report.pages ?? undefined}
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">Recommendation</label>
+          <label className="block text-sm font-medium mb-1">
+            Recommendation
+          </label>
           <input
             name="recommendation"
-            defaultValue={report.recommendation}
+            defaultValue={report.recommendation || ""}
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
@@ -243,7 +262,7 @@ export default async function EditReportPage({
           <label className="block text-sm font-medium mb-1">Summary</label>
           <textarea
             name="summary"
-            defaultValue={report.summary}
+            defaultValue={report.summary || ""}
             rows={3}
             className="w-full border border-gray-300 rounded-lg p-2"
           />
@@ -252,7 +271,7 @@ export default async function EditReportPage({
           <label className="block text-sm font-medium mb-1">PDF URL</label>
           <input
             name="pdfUrl"
-            defaultValue={report.pdfUrl}
+            defaultValue={report.pdfUrl || ""}
             type="url"
             placeholder="https://example.com/report.pdf"
             className="w-full border border-gray-300 rounded-lg p-2"
