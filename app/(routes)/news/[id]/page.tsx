@@ -5,16 +5,25 @@ import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 // Import format
-import { format } from 'date-fns';
-import Link from 'next/link';
-import { FaArrowLeft, FaCalendarAlt, FaUser, FaClock, FaEye, FaStar } from 'react-icons/fa';
+import { format } from "date-fns";
+import Link from "next/link";
+import {
+  FaArrowLeft,
+  FaCalendarAlt,
+  FaUser,
+  FaClock,
+  FaStar,
+} from "react-icons/fa";
 
 // Helper function to determine banner style
 const getBannerStyle = (category: string) => {
   const lowerCategory = category.toLowerCase();
-  if (lowerCategory.includes('ipo')) {
+  if (lowerCategory.includes("ipo")) {
     return "bg-gradient-to-r from-teal-600 to-emerald-700";
-  } else if (lowerCategory.includes('corp') || lowerCategory.includes('pulse')) {
+  } else if (
+    lowerCategory.includes("corp") ||
+    lowerCategory.includes("pulse")
+  ) {
     return "bg-gradient-to-r from-green-600 to-teal-700";
   } else {
     // Default for News Buzz or other categories
@@ -25,9 +34,12 @@ const getBannerStyle = (category: string) => {
 // Helper function to determine banner text
 const getBannerText = (category: string) => {
   const lowerCategory = category.toLowerCase();
-  if (lowerCategory.includes('ipo')) {
+  if (lowerCategory.includes("ipo")) {
     return "IPO Scoop";
-  } else if (lowerCategory.includes('corp') || lowerCategory.includes('pulse')) {
+  } else if (
+    lowerCategory.includes("corp") ||
+    lowerCategory.includes("pulse")
+  ) {
     return "Corp Pulse";
   } else {
     // Default for News Buzz or other categories
@@ -35,7 +47,9 @@ const getBannerText = (category: string) => {
   }
 };
 
-export default async function NewsDetailPage(context: { params: Promise<{ id: string }> }) {
+export default async function NewsDetailPage(context: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await context.params;
 
   const newsItems = await db
@@ -52,7 +66,7 @@ export default async function NewsDetailPage(context: { params: Promise<{ id: st
   // Ensure publishDate is a Date object (this is what Drizzle ORM should provide by default)
   // Handle potential cases where it might be a string (e.g., from serialization) gracefully
   let publishDateObj: Date;
-  if (typeof news.publishDate === 'string') {
+  if (typeof news.publishDate === "string") {
     // If it's unexpectedly a string, try to parse it
     publishDateObj = new Date(news.publishDate);
   } else if (news.publishDate instanceof Date) {
@@ -60,7 +74,11 @@ export default async function NewsDetailPage(context: { params: Promise<{ id: st
     publishDateObj = news.publishDate;
   } else {
     // Fallback if type is unexpected
-    console.error("Unexpected publishDate type:", typeof news.publishDate, news.publishDate);
+    console.error(
+      "Unexpected publishDate type:",
+      typeof news.publishDate,
+      news.publishDate
+    );
     publishDateObj = new Date(); // Use current date as fallback
   }
 
@@ -72,20 +90,19 @@ export default async function NewsDetailPage(context: { params: Promise<{ id: st
   // 2. Use the Date object (`publishDateObj`) with date-fns `format` for display.
   let formattedDate: string;
   try {
-    formattedDate = format(publishDateObj, 'MMMM d, yyyy');
+    formattedDate = format(publishDateObj, "MMMM d, yyyy");
   } catch (e) {
     console.error("Error formatting date:", e);
     formattedDate = "Invalid Date";
   }
   // --- End Critical Fix ---
 
-  const bannerText = getBannerText(news.category);
-  const bannerStyle = getBannerStyle(news.category);
+  const bannerText = getBannerText(news.category ?? "");
+  const bannerStyle = getBannerStyle(news.category ?? "");
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-8 sm:py-12 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
-
         {/* Back Button */}
         <div className="mb-6">
           <Link
@@ -98,12 +115,13 @@ export default async function NewsDetailPage(context: { params: Promise<{ id: st
         </div>
 
         {/* Category Banner */}
-        <div className={`${bannerStyle} text-white text-center py-4 px-6 rounded-xl mb-8 shadow-lg`}>
+        <div
+          className={`${bannerStyle} text-white text-center py-4 px-6 rounded-xl mb-8 shadow-lg`}
+        >
           <h2 className="text-xl sm:text-2xl font-bold">{bannerText}</h2>
         </div>
 
         <article className="bg-white rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border border-gray-100">
-
           {/* Header Section */}
           <header className="p-6 sm:p-8">
             {/* Meta Information */}
@@ -116,7 +134,7 @@ export default async function NewsDetailPage(context: { params: Promise<{ id: st
               </div>
               <div className="flex items-center">
                 <FaUser className="mr-1.5 text-emerald-500 flex-shrink-0" />
-                <span>By {news.author || 'Fiscal Forum'}</span>
+                <span>By {news.author || "Fiscal Forum"}</span>
               </div>
               {news.readTime && (
                 <div className="flex items-center">
@@ -183,7 +201,9 @@ export default async function NewsDetailPage(context: { params: Promise<{ id: st
                 dangerouslySetInnerHTML={{ __html: news.content }}
               />
             ) : (
-              <p className="text-gray-500 italic">Content for this article is currently unavailable.</p>
+              <p className="text-gray-500 italic">
+                Content for this article is currently unavailable.
+              </p>
             )}
           </div>
 
