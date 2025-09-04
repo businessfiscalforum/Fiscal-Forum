@@ -43,7 +43,7 @@ export async function GET(req: NextRequest) {
       NextResponse.json(
         reports.map((r) => ({
           ...r,
-          date: r.publishDate.toString(),
+          date: r?.publishDate?.toString(),
         }))
       )
     );
@@ -83,16 +83,14 @@ export async function POST(req: NextRequest) {
 export async function PUT(
   req: NextRequest,
   { params }: { params: { id: string } }
-) {
+): Promise<NextResponse> {
   try {
     const { id } = params;
     const body = await req.json();
 
     const [updated] = await db
       .update(researchReportsTable)
-      .set({
-        ...body,
-      })
+      .set({ ...body })
       .where(eq(researchReportsTable.id, id))
       .returning();
 
