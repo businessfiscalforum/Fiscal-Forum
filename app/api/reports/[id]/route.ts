@@ -80,12 +80,19 @@ export async function POST(req: NextRequest) {
 }
 
 // ✅ PUT: Update report (accepts partial payload)
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-): Promise<NextResponse> {
+export async function PUT(req: NextRequest): Promise<NextResponse> {
   try {
-    const { id } = params;
+    // Extract id from the URL path
+    const { pathname } = new URL(req.url);
+    const id = pathname.split("/").pop(); // gets the [id]
+
+    if (!id) {
+      return withCORS(
+        req,
+        NextResponse.json({ error: "Missing report ID" }, { status: 400 })
+      );
+    }
+
     const body = await req.json();
 
     const [updated] = await db
