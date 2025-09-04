@@ -7,22 +7,35 @@ import { format } from "date-fns";
 import { FaFilePdf, FaCalendarAlt } from "react-icons/fa";
 import { ShareButton } from "../../_components/ShareButton";
 
+// Define the expected structure of params for this dynamic route
+interface ReportPageParams {
+  id: string;
+}
+
+// Define the props type for the page component
+interface ReportDetailPageProps {
+  params: ReportPageParams;
+  // searchParams?: { [key: string]: string | string[] | undefined }; // Uncomment if you use searchParams
+}
+
 export default async function ReportDetailPage({
   params,
-}: {
-  params: { id: string };
-}) {
+}: ReportDetailPageProps) {
+  // Extract the 'id' directly from params
   const { id } = params;
 
+  // Fetch the report from the database using the id
   const [report] = await db
     .select()
     .from(researchReportsTable)
     .where(eq(researchReportsTable.id, id));
 
+  // If no report is found, trigger a 404 page
   if (!report) {
     return notFound();
   }
 
+  // Helper function to determine styling based on report rating
   const getRatingColor = (rating: string | null) => {
     switch (rating) {
       case "BUY":
@@ -36,11 +49,13 @@ export default async function ReportDetailPage({
     }
   };
 
+  // Render the report details page
   return (
     <article className="max-w-4xl mx-auto px-6 py-25">
-      {/* Header */}
+      {/* Header Section */}
       <div className="text-center mb-8">
         <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
+          {/* Display Rating Badge */}
           <span
             className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold ${getRatingColor(
               report.rating
@@ -48,20 +63,24 @@ export default async function ReportDetailPage({
           >
             {report.rating ?? "N/A"}
           </span>
+          {/* Display Report Type Badge */}
           {report.reportType && (
             <span className="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full">
               {report.reportType}
             </span>
           )}
+          {/* Display Sector Badge */}
           {report.sector && (
             <span className="inline-flex items-center px-3 py-1 bg-purple-100 text-purple-800 text-sm font-semibold rounded-full">
               {report.sector}
             </span>
           )}
         </div>
+        {/* Report Title */}
         <h1 className="text-4xl font-bold text-gray-800 mb-4 leading-tight">
           {report.title}
         </h1>
+        {/* Author and Date Information */}
         <div className="flex flex-wrap items-center justify-center gap-6 text-gray-500 text-sm">
           {report.author && <span>By {report.author}</span>}
           {report.authorFirm && <span>{report.authorFirm}</span>}
@@ -74,12 +93,13 @@ export default async function ReportDetailPage({
         </div>
       </div>
 
-      {/* Stock/Company Info */}
+      {/* Stock/Company Performance Summary */}
       <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100 mb-8">
         <h2 className="text-xl font-bold text-gray-800 mb-4">
           Company & Performance
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Stock Ticker and Company Name */}
           <div className="text-center">
             <p className="text-sm text-gray-500">Stock</p>
             <p className="text-2xl font-bold text-blue-600">
@@ -87,6 +107,7 @@ export default async function ReportDetailPage({
             </p>
             <p className="text-sm text-gray-600">{report.company ?? "N/A"}</p>
           </div>
+          {/* Target and Current Price */}
           <div className="text-center">
             <p className="text-sm text-gray-500">Target Price</p>
             <p className="text-2xl font-bold text-green-600">
@@ -96,6 +117,7 @@ export default async function ReportDetailPage({
               Current: {report.currentPrice ?? "N/A"}
             </p>
           </div>
+          {/* Projected Upside and Recommendation */}
           <div className="text-center">
             <p className="text-sm text-gray-500">Projected Upside</p>
             <p
@@ -114,7 +136,7 @@ export default async function ReportDetailPage({
         </div>
       </div>
 
-      {/* Summary */}
+      {/* Executive Summary */}
       {report.summary && (
         <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed mb-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">
@@ -129,7 +151,7 @@ export default async function ReportDetailPage({
         <div className="flex flex-wrap gap-2 mb-8">
           {report.tags.map((tag: string, i: number) => (
             <span
-              key={i}
+              key={i} // Using index as key, consider a unique ID if available
               className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm"
             >
               #{tag}
@@ -138,9 +160,10 @@ export default async function ReportDetailPage({
         </div>
       )}
 
-      {/* Actions */}
+      {/* Action Buttons (PDF View, Share) */}
       <div className="flex flex-col sm:flex-row gap-4 items-center justify-between bg-gray-50 p-6 rounded-xl">
         <div className="flex items-center gap-6 text-sm text-gray-600">
+          {/* Page Count and Publish Date */}
           {report.pages && <span>{report.pages} pages</span>}
           {report.publishDate && (
             <span>
@@ -149,6 +172,7 @@ export default async function ReportDetailPage({
           )}
         </div>
         <div className="flex items-center gap-4">
+          {/* View PDF Button */}
           {report.pdfUrl && (
             <a
               href={report.pdfUrl}
@@ -160,6 +184,7 @@ export default async function ReportDetailPage({
               View Full PDF
             </a>
           )}
+          {/* Share Button Component */}
           {report.pdfUrl && (
             <ShareButton
               title={report.title ?? "Untitled Report"}
