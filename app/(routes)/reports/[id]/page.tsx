@@ -7,35 +7,26 @@ import { format } from "date-fns";
 import { FaFilePdf, FaCalendarAlt } from "react-icons/fa";
 import { ShareButton } from "../../_components/ShareButton";
 
-// Define the expected structure of params for this dynamic route
-interface ReportPageParams {
-  id: string;
-}
-
-// Define the props type for the page component
-interface ReportDetailPageProps {
-  params: ReportPageParams;
-  // searchParams?: { [key: string]: string | string[] | undefined }; // Uncomment if you use searchParams
-}
-
+// --- The main component function with simplified typing ---
+// Let Next.js handle the internal typing for params/searchParams.
+// We explicitly type the awaited params object structure.
 export default async function ReportDetailPage({
   params,
-}: ReportDetailPageProps) {
-  // Extract the 'id' directly from params
-  const { id } = params;
-
-  // Fetch the report from the database using the id
+}: {
+  params: { id: string };
+}) {
+  const { id } = await params; 
   const [report] = await db
     .select()
     .from(researchReportsTable)
     .where(eq(researchReportsTable.id, id));
 
-  // If no report is found, trigger a 404 page
+  // --- 404 Handling ---
   if (!report) {
     return notFound();
   }
 
-  // Helper function to determine styling based on report rating
+  // --- Helper Function ---
   const getRatingColor = (rating: string | null) => {
     switch (rating) {
       case "BUY":
@@ -49,7 +40,7 @@ export default async function ReportDetailPage({
     }
   };
 
-  // Render the report details page
+  // --- Render UI ---
   return (
     <article className="max-w-4xl mx-auto px-6 py-25">
       {/* Header Section */}
