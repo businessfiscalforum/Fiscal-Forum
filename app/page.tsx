@@ -541,9 +541,17 @@ export default function HomePage() {
 
   const [user, setUser] = useState(null);
   useEffect(() => {
-    fetch("/api/users")
-      .then(res => res.json())
-      .then(data => setUser(data));
+    const fetchUser = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users?email=test@example.com`);
+        const data = await res.json();
+        setUser(data);
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
+
+    fetchUser();
   }, []);
 
   return (
@@ -703,106 +711,6 @@ export default function HomePage() {
         </Swiper>
         <div className="swiper-pagination absolute bottom-4 sm:bottom-6 w-full flex justify-center z-20 gap-2"></div>
       </section>
-
-      {/* Referral section */}
-      {user && (
-        <section className="py-24 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 relative overflow-hidden">
-          <div className="absolute inset-0">
-            <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-gradient-to-r from-blue-200/20 to-purple-300/20 rounded-full blur-3xl animate-pulse"></div>
-            <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-gradient-to-r from-indigo-200/20 to-cyan-300/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          </div>
-          
-          <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-5xl font-bold mb-8 p-2 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 bg-clip-text text-transparent"
-            >
-              🎉 Referral Program
-            </motion.h2>
-            
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto"
-            >
-              Invite your friends to join Fiscal Forum and earn exclusive rewards. 
-              Share your unique referral code and start building your financial network today!
-            </motion.p>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-              {/* Feature 1 */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
-              >
-                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <FaUsers className="text-white text-2xl" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Earn Credits</h3>
-                <p className="text-gray-600">
-                  Get 10 referral credits for each successful signup. Use credits for premium features and exclusive content.
-                </p>
-              </motion.div>
-
-              {/* Feature 2 */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
-              >
-                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <FaHandshake className="text-white text-2xl" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Build Network</h3>
-                <p className="text-gray-600">
-                  Connect with like-minded financial enthusiasts and grow your professional network in the finance industry.
-                </p>
-              </motion.div>
-
-              {/* Feature 3 */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
-              >
-                <div className="w-16 h-16 bg-gradient-to-r from-teal-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <FaAward className="text-white text-2xl" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Exclusive Rewards</h3>
-                <p className="text-gray-600">
-                  Unlock special benefits, early access to new features, and VIP treatment as you earn more referral credits.
-                </p>
-              </motion.div>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 rounded-2xl p-8 text-white"
-            >
-              <h3 className="text-2xl font-bold mb-4">Ready to Start Referring?</h3>
-              <p className="text-indigo-100 mb-6">
-                Join thousands of users who are already earning rewards through our referral program.
-              </p>
-              <Link
-                href="/referrals"
-                className="inline-flex items-center px-8 py-3 bg-white text-emerald-600 font-semibold rounded-full hover:bg-gray-100 transition-colors duration-300 shadow-lg hover:shadow-xl"
-              >
-                <FaRocket className="mr-2" />
-                View My Referrals
-              </Link>
-            </motion.div>
-          </div>
-        </section>
-      )}
 
       <HomeResearchAndNewsSection />
       <ResearchReportsSection />
@@ -984,78 +892,8 @@ export default function HomePage() {
               </motion.div>
             ))}
           </div>
-
-          {/* Additional Enhanced Features */}
-          {/* <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="mt-20"
-          >
-            <h3 className="text-3xl font-bold mb-12 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-              Advanced Financial Solutions
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {additionalServices.map((service, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  className="bg-gradient-to-br from-white to-emerald-50 p-8 rounded-2xl shadow-lg hover:shadow-emerald-500/25 transition-all duration-300 border border-emerald-100"
-                >
-                  <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-lg">
-                    <service.icon className="text-white text-2xl" />
-                  </div>
-                  <h4 className="text-xl font-bold text-emerald-700 mb-4">
-                    {service.title}
-                  </h4>
-                  <p className="text-gray-600 leading-relaxed">
-                    {service.desc}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div> */}
         </div>
       </section>
-
-      {/* Enhanced Security & Trust Section */}
-      {/* <section className="py-20 bg-gradient-to-br from-emerald-100 to-teal-100 relative">
-        <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="mb-16"
-          >
-            <div className="inline-block bg-gradient-to-r from-emerald-600 to-teal-700 p-6 rounded-3xl mb-8 shadow-2xl">
-              <FaShieldAlt className="text-white text-4xl" />
-            </div>
-            <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-emerald-700 to-teal-600 bg-clip-text text-transparent">
-              🛡️ Your Security is Our Priority
-            </h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {securityFeatures.map((security, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.2 }}
-                whileHover={{ scale: 1.05 }}
-                className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-emerald-500/25 transition-all duration-300"
-              >
-                <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                  <security.icon className="text-white text-2xl" />
-                </div>
-                <h4 className="text-xl font-bold text-emerald-700 mb-4">
-                  {security.title}
-                </h4>
-                <p className="text-gray-600">{security.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section> */}
 
       {/* Enhanced Work With Us Section */}
       <section className="py-24 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 relative">
@@ -1217,6 +1055,119 @@ export default function HomePage() {
         </div>
       </section> */}
 
+      {/* Referral section */}
+      {user && (
+        <section className="py-24 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 relative overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-gradient-to-r from-blue-200/20 to-purple-300/20 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-gradient-to-r from-indigo-200/20 to-cyan-300/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          </div>
+
+          <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-5xl font-bold mb-8 p-2 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 bg-clip-text text-transparent"
+            >
+              🎉 Referral Program
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto"
+            >
+              Invite your friends to join Fiscal Forum and earn exclusive
+              rewards. Share your unique referral code and start building your
+              financial network today!
+            </motion.p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              {/* Feature 1 */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
+              >
+                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <FaUsers className="text-white text-2xl" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  Earn Credits
+                </h3>
+                <p className="text-gray-600">
+                  Get 10 referral credits for each successful signup. Use
+                  credits for premium features and exclusive content.
+                </p>
+              </motion.div>
+
+              {/* Feature 2 */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
+              >
+                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <FaHandshake className="text-white text-2xl" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  Build Network
+                </h3>
+                <p className="text-gray-600">
+                  Connect with like-minded financial enthusiasts and grow your
+                  professional network in the finance industry.
+                </p>
+              </motion.div>
+
+              {/* Feature 3 */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
+              >
+                <div className="w-16 h-16 bg-gradient-to-r from-teal-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <FaAward className="text-white text-2xl" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  Exclusive Rewards
+                </h3>
+                <p className="text-gray-600">
+                  Unlock special benefits, early access to new features, and VIP
+                  treatment as you earn more referral credits.
+                </p>
+              </motion.div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 rounded-2xl p-8 text-white"
+            >
+              <h3 className="text-2xl font-bold mb-4">
+                Ready to Start Referring?
+              </h3>
+              <p className="text-indigo-100 mb-6">
+                Join thousands of users who are already earning rewards through
+                our referral program.
+              </p>
+              <Link
+                href="/referrals"
+                className="inline-flex items-center px-8 py-3 bg-white text-emerald-600 font-semibold rounded-full hover:bg-gray-100 transition-colors duration-300 shadow-lg hover:shadow-xl"
+              >
+                <FaRocket className="mr-2" />
+                View My Referrals
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+      )}
+
       {/* Enhanced Affiliations Section */}
       <section className="py-20 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 relative ">
         {/* Background gradient blobs */}
@@ -1258,182 +1209,7 @@ export default function HomePage() {
             ))}
           </div>
         </div>
-
-        {/* Keyframes for smooth infinite scroll */}
       </section>
-
-      {/* Newsletter Section */}
-      {/* <section className="py-28 bg-gradient-to-br from-emerald-900 via-teal-900 to-green-900 text-white text-center relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-emerald-400/20 to-teal-500/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-green-400/20 to-emerald-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        </div>
-
-        <div className="max-w-6xl mx-auto px-6 relative z-10 space-y-24">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-3xl mx-auto"
-          >
-            <div className="mb-10">
-              <div className="w-20 h-20 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl">
-                <FaHeart className="text-white text-2xl animate-pulse" />
-              </div>
-              <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-white to-emerald-200 bg-clip-text text-transparent">
-                📧 Stay Connected With Us
-              </h2>
-              <p className="text-xl text-white/80 leading-relaxed">
-                Subscribe to our newsletter for exclusive financial tips, market
-                insights, and special offers tailored just for you.
-              </p>
-            </div>
-            <form
-              onSubmit={handleSubscribe}
-              className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto"
-            >
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-                className="flex-1 px-6 py-4 border border-emerald-300 rounded-full bg-white text-base text-gray-800 focus:outline-none focus:ring-4 focus:ring-emerald-400/50 focus:border-emerald-500 transition-all duration-300 shadow-lg"
-                disabled={isSubmitting}
-              />
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold text-base uppercase tracking-wide rounded-full transition-all shadow-xl hover:shadow-emerald-500/25 disabled:opacity-70 disabled:cursor-not-allowed whitespace-nowrap"
-              >
-                {isSubmitting ? "Subscribing..." : "Subscribe"}
-              </button>
-            </form>
-            {message && (
-              <div
-                className={`mt-4 text-sm px-6 py-3 rounded-full max-w-xs mx-auto text-center font-medium ${
-                  message.type === "success"
-                    ? "bg-emerald-100 text-emerald-800"
-                    : "bg-red-100 text-red-800"
-                }`}
-              >
-                {message.text}
-              </div>
-            )}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className="mt-8 flex items-center justify-center gap-6 text-white/60 text-sm"
-            >
-              <div className="flex items-center gap-2">
-                <FaCheckCircle className="text-emerald-400" />
-                <span>No Spam</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <FaLock className="text-emerald-400" />
-                <span>Secure</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <FaGem className="text-emerald-400" />
-                <span>Exclusive Content</span>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          <div className="w-full h-px bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent"></div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="space-y-12"
-          >
-            <div className="relative">
-              <div className="relative w-24 h-24 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl">
-                <FaRocket className="text-white text-3xl" />
-              </div>
-            </div>
-
-            <h3 className="text-5xl font-bold bg-gradient-to-r from-white via-emerald-200 to-teal-300 bg-clip-text text-transparent leading-tight">
-              Ready to Transform Your Financial Future?
-            </h3>
-
-            <p className="text-2xl text-white/90 max-w-4xl mx-auto bg-white/10 p-8 rounded-3xl backdrop-blur-md border border-white/20">
-              Join thousands of satisfied customers who trust Fiscal Forum for
-              their financial needs. Start your journey towards financial
-              freedom today.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-6">
-              <motion.button
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold px-12 py-6 rounded-full shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 flex items-center gap-4 group text-xl"
-              >
-                Get Started Today
-                <FaRocket className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform text-2xl" />
-              </motion.button>
-
-              <motion.button
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="border-2 border-emerald-400 text-emerald-300 hover:bg-emerald-400 hover:text-emerald-900 font-bold px-12 py-6 rounded-full transition-all duration-300 flex items-center gap-4 group text-xl backdrop-blur-sm"
-              >
-                Schedule a Call
-                <FaHeadset className="group-hover:rotate-12 transition-transform text-2xl" />
-              </motion.button>
-            </div>
-            <div className="flex flex-wrap items-center justify-center gap-8 pt-12">
-              <div className="flex items-center gap-3 bg-white/10 px-6 py-4 rounded-2xl backdrop-blur-md">
-                <FaShieldAlt className="text-emerald-400 text-xl" />
-                <span className="text-white/90 font-semibold">100% Secure</span>
-              </div>
-              <div className="flex items-center gap-3 bg-white/10 px-6 py-4 rounded-2xl backdrop-blur-md">
-                <FaAward className="text-emerald-400 text-xl" />
-                <span className="text-white/90 font-semibold">
-                  Award Winning
-                </span>
-              </div>
-              <div className="flex items-center gap-3 bg-white/10 px-6 py-4 rounded-2xl backdrop-blur-md">
-                <FaUsers className="text-emerald-400 text-xl" />
-                <span className="text-white/90 font-semibold">
-                  50L+ Customers
-                </span>
-              </div>
-              <div className="flex items-center gap-3 bg-white/10 px-6 py-4 rounded-2xl backdrop-blur-md">
-                <FaHeadset className="text-emerald-400 text-xl" />
-                <span className="text-white/90 font-semibold">
-                  24/7 Support
-                </span>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 max-w-4xl mx-auto">
-              <div className="text-center bg-white/5 p-6 rounded-2xl backdrop-blur-sm">
-                <div className="text-3xl font-bold text-emerald-400 mb-2">
-                  ₹10,000 Cr+
-                </div>
-                <div className="text-white/80">Assets Managed</div>
-              </div>
-              <div className="text-center bg-white/5 p-6 rounded-2xl backdrop-blur-sm">
-                <div className="text-3xl font-bold text-emerald-400 mb-2">
-                  99.8%
-                </div>
-                <div className="text-white/80">Uptime</div>
-              </div>
-              <div className="text-center bg-white/5 p-6 rounded-2xl backdrop-blur-sm">
-                <div className="text-3xl font-bold text-emerald-400 mb-2">
-                  4.9★
-                </div>
-                <div className="text-white/80">Customer Rating</div>
-              </div>
-              <div className="text-center bg-white/5 p-6 rounded-2xl backdrop-blur-sm">
-                <div className="text-3xl font-bold text-emerald-400 mb-2">
-                  15+
-                </div>
-                <div className="text-white/80">Years Experience</div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section> */}
       <style jsx>{`
         @keyframes scroll {
           0% {

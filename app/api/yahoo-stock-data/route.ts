@@ -37,10 +37,13 @@ interface IndexData {
 
 // Map common Indian indices to their Yahoo Finance symbols
 const indexSymbols: { symbol: string; name: string }[] = [
-  { symbol: "^NSEI", name: "NIFTY 50" },
-  { symbol: "^BSESN", name: "SENSEX" },
-  { symbol: "^NSEBANK", name: "NIFTY BANK" },
-  { symbol: "^CNXIT", name: "NIFTY IT" },
+  { symbol: "^NSEI", name: "NIFTY 50" },           // Nifty 50
+  { symbol: "^BSESN", name: "SENSEX" },            // BSE Sensex
+  { symbol: "^NSEBANK", name: "NIFTY BANK" },      // Nifty Bank
+  { symbol: "^CNXIT", name: "NIFTY IT" },          // Nifty IT (Now Nifty Info Tech)
+  { symbol: "^NSEMDCP50", name: "NIFTY MIDCAP 50" }, // Nifty Midcap 50
+  { symbol: "^CNXFIN", name: "NIFTY FINANCIAL SERVICES" }, // Nifty Financial Services (Older name, check if ^NIFTYFINANCIALSERVICES is newer)
+  { symbol: "^CNXAUTO", name: "NIFTY AUTO" },      // Nifty Auto
 ];
 
 export async function GET(req: NextRequest) {

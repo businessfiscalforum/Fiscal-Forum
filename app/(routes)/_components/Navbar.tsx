@@ -16,6 +16,7 @@ export default function Navbar() {
     { label: "News & IPOs", href: "/news" },
     { label: "Work With Us", href: "/work-with-us" },
     { label: "Reports", href: "/reports" },
+    { label : "Refer & Earn", href:"/referrals"}
   ];
 
   const servicesDropdown = [
