@@ -6,16 +6,15 @@ import { notFound } from "next/navigation";
 import { format } from "date-fns";
 import { FaFilePdf, FaCalendarAlt } from "react-icons/fa";
 import { ShareButton } from "../../_components/ShareButton";
-
-// --- The main component function with simplified typing ---
-// Let Next.js handle the internal typing for params/searchParams.
-// We explicitly type the awaited params object structure.
 export default async function ReportDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: { id: string } | Promise<{ id: string }>;
 }) {
-  const { id } = await params; 
+  const resolvedParams = await params;
+  const { id } = resolvedParams; 
+
+  // --- Data Fetching ---
   const [report] = await db
     .select()
     .from(researchReportsTable)
