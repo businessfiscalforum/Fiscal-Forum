@@ -84,18 +84,13 @@ export async function POST(request: Request) {
   try {
     const data = await request.json();
 
-    if (!data.title || !data.content || !data.category) {
-      return NextResponse.json(
-        { error: "Title, content, and category are required" },
-        { status: 400, headers: corsHeaders(origin) }
-      );
-    }
+    // Relaxed: accept partial payloads; backend no longer enforces required fields
 
     const [newItem] = await db
       .insert(newsTable)
       .values({
         ...data,
-        tags: data.tags ? JSON.stringify(data.tags) : null,
+        tags: Array.isArray(data.tags) ? JSON.stringify(data.tags) : null,
         publishDate: data.publishDate ? new Date(data.publishDate) : new Date(),
       })
       .returning();

@@ -77,12 +77,7 @@ export async function POST(request: Request) {
   try {
     const data = await request.json();
 
-    if (!data.title || !data.content) {
-      return NextResponse.json(
-        { error: "Title and content are required" },
-        { status: 400, headers: corsHeaders(origin) }
-      );
-    }
+    // Relaxed: accept partial newsletter payloads
 
     const [newItem] = await db
       .insert(newsletter)

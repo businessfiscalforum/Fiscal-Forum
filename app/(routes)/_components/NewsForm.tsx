@@ -126,7 +126,7 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="md:col-span-2">
             <label htmlFor="title" className={labelClasses}>
-              Title *
+              Title
             </label>
             <input
               type="text"
@@ -134,7 +134,6 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
               id="title"
               value={formData.title}
               onChange={handleChange}
-              required
               className={inputClasses}
               placeholder="Enter the news title"
             />
@@ -142,14 +141,13 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
 
           <div>
             <label htmlFor="category" className={labelClasses}>
-              Category *
+              Category
             </label>
             <select
               name="category"
               id="category"
               value={formData.category}
               onChange={handleChange}
-              required
               className={`${inputClasses} appearance-none bg-white`}
             >
               <option value="">Select a category</option>
@@ -161,7 +159,7 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
 
           <div>
             <label htmlFor="author" className={labelClasses}>
-              Author *
+              Author
             </label>
             <input
               type="text"
@@ -169,7 +167,6 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
               id="author"
               value={formData.author}
               onChange={handleChange}
-              required
               className={inputClasses}
               placeholder="Author name"
             />
@@ -192,7 +189,7 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
 
           <div className="md:col-span-2">
             <label htmlFor="content" className={labelClasses}>
-              Content *
+              Content
             </label>
             <textarea
               name="content"
@@ -200,7 +197,6 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
               rows={10}
               value={formData.content}
               onChange={handleChange}
-              required
               className={inputClasses}
               placeholder="Full content of the news article"
             />

@@ -77,7 +77,7 @@ export default function NewsletterForm({ initialData, onSubmit }: NewsletterForm
         <div className="space-y-6">
           <div>
             <label htmlFor="title" className={labelClasses}>
-              Title *
+              Title
             </label>
             <input
               type="text"
@@ -85,7 +85,6 @@ export default function NewsletterForm({ initialData, onSubmit }: NewsletterForm
               id="title"
               value={formData.title}
               onChange={handleChange}
-              required
               className={inputClasses}
               placeholder="Enter the newsletter title"
             />
@@ -93,7 +92,7 @@ export default function NewsletterForm({ initialData, onSubmit }: NewsletterForm
 
           <div>
             <label htmlFor="author" className={labelClasses}>
-              Author *
+              Author
             </label>
             <input
               type="text"
@@ -101,7 +100,6 @@ export default function NewsletterForm({ initialData, onSubmit }: NewsletterForm
               id="author"
               value={formData.author}
               onChange={handleChange}
-              required
               className={inputClasses}
               placeholder="Author name"
             />
@@ -109,12 +107,11 @@ export default function NewsletterForm({ initialData, onSubmit }: NewsletterForm
 
           <div>
             <label htmlFor="description" className={labelClasses}>
-              Description *
+              Description
             </label>
             <textarea
               name="description"
               id="description"
-              required
               rows={4}
               value={formData.description}
               onChange={handleChange}
@@ -125,7 +122,7 @@ export default function NewsletterForm({ initialData, onSubmit }: NewsletterForm
 
           <div>
             <label htmlFor="content" className={labelClasses}>
-              Content *
+              Content
             </label>
             <textarea
               name="content"
@@ -133,7 +130,6 @@ export default function NewsletterForm({ initialData, onSubmit }: NewsletterForm
               rows={10}
               value={formData.content}
               onChange={handleChange}
-              required
               className={inputClasses}
               placeholder="Full content of the news article"
             />

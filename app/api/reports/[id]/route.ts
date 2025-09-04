@@ -2,6 +2,7 @@
 import { revalidatePath } from "next/cache";
 import { db } from "../../../../config/db";
 import { researchReportsTable } from "../../../../config/schema";
+import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
 const allowedOrigins = [
@@ -74,6 +75,37 @@ export async function POST(req: NextRequest) {
     return withCORS(
       req,
       NextResponse.json({ error: "Failed to create report" }, { status: 500 })
+    );
+  }
+}
+
+// ✅ PUT: Update report (accepts partial payload)
+export async function PUT(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const { id } = params;
+    const body = await req.json();
+
+    const [updated] = await db
+      .update(researchReportsTable)
+      .set({
+        ...body,
+      })
+      .where(eq(researchReportsTable.id, id))
+      .returning();
+
+    revalidatePath("/reports");
+    revalidatePath(`/reports/${id}`);
+    revalidatePath("/admin/reports");
+
+    return withCORS(req, NextResponse.json(updated));
+  } catch (error) {
+    console.error("PUT /api/reports/[id] error:", error);
+    return withCORS(
+      req,
+      NextResponse.json({ error: "Failed to update report" }, { status: 500 })
     );
   }
 }

@@ -44,38 +44,30 @@ export default async function EditReportPage({
   async function update(formData: FormData) {
     "use server";
 
-    const title = formData.get("title") as string;
-    const stock = formData.get("stock") as string;
-    const company = formData.get("company") as string;
-    const author = formData.get("author") as string;
-    const authorFirm = formData.get("authorFirm") as string;
-    const publishDate = formData.get("date") as string;
-    const sector = formData.get("sector") as string;
-    const rawReportType = formData.get("reportType") as string;
-    const rawRating = formData.get("rating") as string;
-    const targetPrice = formData.get("targetPrice") as string;
-    const currentPrice = formData.get("currentPrice") as string;
-    const upside = formData.get("upside") as string;
-    const pages = parseInt(formData.get("pages") as string);
-    const recommendation = formData.get("recommendation") as string;
-    const tags = (formData.get("tags") as string)
-      .split(",")
-      .map((tag) => tag.trim())
-      .filter(Boolean);
-    const summary = formData.get("summary") as string;
-    const pdfUrl = formData.get("pdfUrl") as string;
+    const title = (formData.get("title") as string) || undefined;
+    const stock = (formData.get("stock") as string) || undefined;
+    const company = (formData.get("company") as string) || undefined;
+    const author = (formData.get("author") as string) || undefined;
+    const authorFirm = (formData.get("authorFirm") as string) || undefined;
+    const publishDate = (formData.get("date") as string) || undefined;
+    const sector = (formData.get("sector") as string) || undefined;
+    const rawReportType = (formData.get("reportType") as string) || undefined;
+    const rawRating = (formData.get("rating") as string) || undefined;
+    const targetPrice = (formData.get("targetPrice") as string) || undefined;
+    const currentPrice = (formData.get("currentPrice") as string) || undefined;
+    const upside = (formData.get("upside") as string) || undefined;
+    const pagesStr = formData.get("pages") as string;
+    const pages = pagesStr ? parseInt(pagesStr) : undefined;
+    const recommendation = (formData.get("recommendation") as string) || undefined;
+    const tagsStr = formData.get("tags") as string | null;
+    const tags = tagsStr ? tagsStr.split(",").map((tag) => tag.trim()).filter(Boolean) : undefined;
+    const summary = (formData.get("summary") as string) || undefined;
+    const pdfUrl = (formData.get("pdfUrl") as string) || undefined;
     const published = formData.get("published") === "on";
 
-    // ✅ Validate enums
-    if (!isValidReportType(rawReportType)) {
-      throw new Error(`Invalid report type: ${rawReportType}`);
-    }
-    if (!isValidRating(rawRating)) {
-      throw new Error(`Invalid rating: ${rawRating}`);
-    }
-
-    const reportType = rawReportType;
-    const rating = rawRating;
+    // ✅ Validate enums only if provided
+    const reportType = rawReportType && isValidReportType(rawReportType) ? rawReportType : undefined;
+    const rating = rawRating && isValidRating(rawRating) ? rawRating : undefined;
 
     await db
       .update(researchReportsTable)
@@ -117,7 +109,6 @@ export default async function EditReportPage({
           <input
             name="title"
             defaultValue={report.title}
-            required
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
@@ -126,7 +117,6 @@ export default async function EditReportPage({
           <input
             name="stock"
             defaultValue={report.stock}
-            required
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
@@ -135,7 +125,6 @@ export default async function EditReportPage({
           <input
             name="company"
             defaultValue={report.company}
-            required
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
@@ -144,7 +133,6 @@ export default async function EditReportPage({
           <input
             name="author"
             defaultValue={report.author}
-            required
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
@@ -153,7 +141,6 @@ export default async function EditReportPage({
           <input
             name="authorFirm"
             defaultValue={report.authorFirm}
-            required
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
@@ -163,7 +150,6 @@ export default async function EditReportPage({
             name="date"
             type="date"
             defaultValue={report.publishDate}
-            required
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
@@ -172,7 +158,6 @@ export default async function EditReportPage({
           <input
             name="sector"
             defaultValue={report.sector}
-            required
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
@@ -209,7 +194,6 @@ export default async function EditReportPage({
           <input
             name="targetPrice"
             defaultValue={report.targetPrice}
-            required
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
@@ -218,7 +202,6 @@ export default async function EditReportPage({
           <input
             name="currentPrice"
             defaultValue={report.currentPrice}
-            required
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
@@ -227,7 +210,6 @@ export default async function EditReportPage({
           <input
             name="upside"
             defaultValue={report.upside}
-            required
             placeholder="+8.6%"
             className="w-full border border-gray-300 rounded-lg p-2"
           />
@@ -238,7 +220,6 @@ export default async function EditReportPage({
             name="pages"
             type="number"
             defaultValue={report.pages}
-            required
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
@@ -247,7 +228,6 @@ export default async function EditReportPage({
           <input
             name="recommendation"
             defaultValue={report.recommendation}
-            required
             className="w-full border border-gray-300 rounded-lg p-2"
           />
         </div>
@@ -264,7 +244,6 @@ export default async function EditReportPage({
           <textarea
             name="summary"
             defaultValue={report.summary}
-            required
             rows={3}
             className="w-full border border-gray-300 rounded-lg p-2"
           />
@@ -275,7 +254,6 @@ export default async function EditReportPage({
             name="pdfUrl"
             defaultValue={report.pdfUrl}
             type="url"
-            required
             placeholder="https://example.com/report.pdf"
             className="w-full border border-gray-300 rounded-lg p-2"
           />
