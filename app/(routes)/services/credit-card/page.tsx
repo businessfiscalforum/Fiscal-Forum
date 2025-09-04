@@ -12,6 +12,7 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
+import { CreditCard, Gem, Percent, ShieldCheck } from "lucide-react";
 
 // Define the enhanced card data type
 interface CreditCard {
@@ -529,24 +530,69 @@ export default function CreditCardsPage() {
       }}
     >
       {/* Header */}
-      <header className="py-12 md:py-16 px-4 sm:px-6 md:px-10 text-center">
+      <header className="relative py-10 md:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-r from-green-600 to-emerald-700 ">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
+          className="relative z-10 max-w-4xl mx-auto text-center"
         >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-emerald-900 mb-4 sm:mb-6">
-            Find Your Perfect Credit Card
-          </h1>
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 max-w-3xl md:max-w-4xl mx-auto leading-relaxed px-2">
-            Compare top credit cards from leading banks. Discover rewards,
-            cashback, and features tailored to your lifestyle.
-          </p>
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="flex justify-center mb-6"
+          >
+            <div className="bg-white/20 backdrop-blur-sm p-4 rounded-full shadow-lg">
+              <CreditCard className="w-10 h-10 text-white" />
+            </div>
+          </motion.div>
+
+          <motion.h1
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className="text-3xl sm:text-3xl md:text-3xl lg:text-4xl font-extrabold text-white mb-4 sm:mb-6 leading-tight"
+          >
+            Unlock the Best Credit Card Deals
+          </motion.h1>
+
+          <motion.p
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className="text-base sm:text-lg md:text-xl lg:text-2xl text-white max-w-3xl md:max-w-4xl mx-auto leading-relaxed px-2 mb-8"
+          >
+            Maximize rewards, minimize fees. Find the card that fits your
+            spending and elevates your lifestyle.
+          </motion.p>
+
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            className="flex flex-wrap justify-center gap-4 sm:gap-6 mt-6 text-white"
+          >
+            <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30 shadow-sm">
+              <Gem className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+              <span className="text-sm font-medium">Earn Reward Points</span>
+            </div>
+            <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30 shadow-sm">
+              <Percent className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+              <span className="text-sm font-medium">Get Cashback Offers</span>
+            </div>
+            <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30 shadow-sm">
+              <ShieldCheck className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+              <span className="text-sm font-medium">
+                Enjoy Security Features
+              </span>
+            </div>
+          </motion.div>
         </motion.div>
       </header>
 
       {/* Main Grid */}
-      <main className="pb-16 sm:pb-20">
+      <main className="py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {creditCards.map((card, index) => (

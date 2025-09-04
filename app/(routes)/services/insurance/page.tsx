@@ -446,7 +446,7 @@ const InsurancePage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
               <div className="w-12 h-12 rounded-full bg-gradient-to-r from-teal-400 to-emerald-500 flex items-center justify-center mb-4">
                 <Zap className="text-white w-6 h-6" />
@@ -471,9 +471,9 @@ const InsurancePage = () => {
               <div className="w-12 h-12 rounded-full bg-gradient-to-r from-emerald-400 to-green-500 flex items-center justify-center mb-4">
                 <Users className="text-white w-6 h-6" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Hassle-Free Claims Support</h3>
+              <h3 className="text-xl font-bold mb-3">Dedicated Support</h3>
               <p className="text-teal-200">
-                Dedicated assistance to ensure smooth and quick claim settlement.
+                Dedicated calling support for any changes or help you need.
               </p>
             </div>
 

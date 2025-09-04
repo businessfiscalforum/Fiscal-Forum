@@ -26,72 +26,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 // import { BrokerInfiniteScroll } from "../../_components/Broker"; // Adjust path as needed
 
-const slides = [
-  {
-    title: "Loan Services",
-    subtitle: "Get Instant Access to",
-    description:
-      "Choose from personal, home, or education loans with low interest rates and flexible repayment options.",
-    image: "/asset-loan.jpg",
-    gradient: "from-blue-600 via-blue-500 to-purple-600",
-    path: "services/loan",
-  },
-  {
-    title: "Insurance Plans",
-    subtitle: "Protect Your Future with",
-    description:
-      "Health, car, and life insurance plans tailored to your needs — secure your family and assets today.",
-    image: "/asset-insurance.jpg",
-    gradient: "from-emerald-600 via-teal-500 to-cyan-600",
-    path: "services/insurance",
-  },
-  {
-    title: "Savings Account",
-    subtitle: "Grow Your Wealth with a",
-    description:
-      "High-interest savings accounts with zero balance requirements and easy online access.",
-    image: "/asset-saving.jpg",
-    gradient: "from-green-600 via-emerald-500 to-teal-600",
-    path: "services/saving-account",
-  },
-  {
-    title: "Stock Investment",
-    subtitle: "Invest Smartly in the",
-    description:
-      "Build a diversified portfolio and start investing in the stock market with expert guidance.",
-    image: "/asset-stock.jpg",
-    gradient: "from-violet-600 via-purple-500 to-indigo-600",
-    path: "services/stock-investment",
-  },
-  {
-    title: "Mutual Funds",
-    subtitle: "Explore High-Return",
-    description:
-      "Access professionally managed mutual funds to meet your financial goals across risk profiles.",
-    image: "/asset-mutual.jpg",
-    gradient: "from-cyan-600 via-blue-500 to-indigo-600",
-    path: "services/mutual-funds",
-  },
-  {
-    title: "Credit Card",
-    subtitle: "Power Your Spending with a",
-    description:
-      "Choose the right credit card for rewards, cashback, and low-interest EMIs.",
-    image: "/asset-credit.jpg",
-    gradient: "from-orange-600 via-red-500 to-pink-600",
-    path: "services/credit-card",
-  },
-  {
-    title: "Govt Bonds & FDs",
-    subtitle: "Secure Investments with",
-    description:
-      "Low-risk government bonds and fixed deposits to preserve capital and earn steady returns.",
-    image: "/asset-bondfd.jpg",
-    gradient: "from-yellow-600 via-amber-500 to-orange-600",
-    path: "services/govts-bond-&-fd",
-  },
-];
-
 export default function MutualPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -184,147 +118,55 @@ export default function MutualPage() {
 
   return (
     <>
-      {/* Hero Section */}
-      <div className="text-gray-800 font-sans bg-gradient-to-br from-green-50 via-emerald-50 to-teal-100">
-        <section className="relative w-full h-[50vh] overflow-hidden">
-          <Swiper
-            spaceBetween={30}
-            slidesPerView={1}
-            loop
-            autoplay={{ delay: 4000, disableOnInteraction: false }}
-            pagination={{ clickable: true }}
-            modules={[Autoplay, Pagination]}
-            className="w-full h-full"
-          >
-            {slides.map((slide, index) => (
-              <SwiperSlide key={index}>
-                <div className="absolute inset-0 z-0">
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}/80`}
-                  ></div>
-                </div>
-                <div className="relative z-10 h-full flex items-center px-6 sm:px-12 md:px-20 lg:px-32">
-                  <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="text-white max-w-xl"
-                  >
-                    <motion.p
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2 }}
-                      className="uppercase tracking-widest text-sm text-yellow-200 font-semibold mb-2"
-                    >
-                      {slide.subtitle}
-                    </motion.p>
-                    <motion.h2
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.4 }}
-                      className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6"
-                    >
-                      {slide.title}
-                    </motion.h2>
-                    <motion.p
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.6 }}
-                      className="text-lg sm:text-xl mb-8 opacity-90 leading-relaxed"
-                    >
-                      {slide.description}
-                    </motion.p>
-                    <Link href={slide.path}>
-                      <motion.button
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.8 }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition-all duration-300 flex items-center gap-3"
-                      >
-                        Know More
-                        <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-                      </motion.button>
-                    </Link>
-                  </motion.div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-
-          {/* Swiper Pagination */}
-          <div className="swiper-pagination absolute bottom-8 w-full flex justify-center z-20"></div>
-        </section>
-      </div>
-
       {/* Main Layout: Content + Broker Scroll */}
       <div className="flex flex-col lg:flex-row min-h-screen bg-gray-50 pt-20">
         {/* Main Content */}
         <main className="flex-1">
-          {/* <section className="py-20 px-6 bg-gradient-to-br from-green-50 to-emerald-100">
-            <div className="max-w-4xl mx-auto text-center mb-12">
-              <h4 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-                Get Smarter Market Insights Delivered Daily
-              </h4>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Stay ahead of the curve with expert-curated market reports,
-                pre-market updates, and IPO alerts — straight to your inbox.
-              </p>
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="relative w-full py-10 sm:py-10 md:py-20 mb-16 px-4 overflow-hidden"
+          >
+            <div className="absolute inset-0 z-0">
+              <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-700 py-8"></div>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-xl p-8 max-w-2xl mx-auto">
-              <div className="flex items-center justify-center mb-6">
-                <TrendingUp className="w-10 h-10 text-green-600 mr-3" />
-                <span className="text-lg font-semibold text-gray-700">
-                  Daily Market Reports
-                </span>
-              </div>
-
-              <form onSubmit={handleSubscribe} className="space-y-4">
-                <div>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email address"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition text-gray-700"
-                    disabled={isSubmitting}
-                  />
+            {/* Content */}
+            <div className="relative z-10 max-w-4xl mx-auto text-center">
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+                className="flex justify-center mb-4"
+              >
+                <div className="bg-white/20 backdrop-blur-sm p-3 rounded-full border border-white/30">
+                  <BarChart3 className="text-white w-10 h-10 sm:w-12 sm:h-12" />
                 </div>
+              </motion.div>
 
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 disabled:opacity-70 text-white font-bold rounded-lg transition flex items-center justify-center"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <FaSpinner className="animate-spin mr-2" /> Processing...
-                    </>
-                  ) : (
-                    "Subscribe Now"
-                  )}
-                </button>
-              </form>
+              <motion.h1
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+                className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-4 leading-tight"
+              >
+                Mutual Fund Investment
+              </motion.h1>
 
-              {message && (
-                <div
-                  className={`mt-4 text-sm px-4 py-3 rounded-lg text-center ${
-                    message.type === "success"
-                      ? "bg-green-100 text-green-800 border border-green-200"
-                      : "bg-red-100 text-red-800 border border-red-200"
-                  }`}
-                >
-                  {message.text}
-                </div>
-              )}
-
-              <p className="text-xs text-gray-500 text-center mt-4">
-                No spam. Unsubscribe anytime. Your data is secure with us.
-              </p>
+              <motion.p
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+                className="text-lg sm:text-xl text-white/90 mb-6 max-w-3xl mx-auto leading-relaxed"
+              >
+                Plan your wealth journey with mutual funds. Explore a variety of
+                fund types—from equity to debt to hybrid—designed to meet your
+                financial goals. Build a diversified portfolio, manage risk, and
+                grow your wealth over time with confidence.
+              </motion.p>
             </div>
-          </section> */}
+          </motion.div>
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -416,13 +258,12 @@ export default function MutualPage() {
               </button>
               {/* WhatsApp Button */}
               <a
-                href="https://wa.me/+918696060387" 
+                href="https://wa.me/+918696060387"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3" 
+                className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3"
               >
-                <FaWhatsapp className="w-5 h-5" />{" "}
-                Chat with Us
+                <FaWhatsapp className="w-5 h-5" /> Chat with Us
               </a>
             </div>
           </section>
@@ -546,7 +387,8 @@ export default function MutualPage() {
                   Get Best-Fit Funds, Always
                 </h3>
                 <p className="text-emerald-100">
-                  We guide you with the best fund options for the current market and provide complete fund details.
+                  We guide you with the best fund options for the current market
+                  and provide complete fund details.
                 </p>
               </div>
 
@@ -556,7 +398,7 @@ export default function MutualPage() {
                 </div>
                 <h3 className="text-lg font-bold mb-2">Dedicated Support</h3>
                 <p className="text-emerald-100">
-                  Dedicated calling support for any changes or help you need — hassle-free.
+                  Dedicated calling support for any changes or help you need.
                 </p>
               </div>
 
@@ -564,9 +406,11 @@ export default function MutualPage() {
                 <div className="text-yellow-400 text-2xl mb-4">
                   <FaRegClock />
                 </div>
-                <h3 className="text-lg font-bold mb-2">Your Fiscal Forum Investment Kit</h3>
+                <h3 className="text-lg font-bold mb-2">
+                  Your Fiscal Forum Investment Kit
+                </h3>
                 <p className="text-emerald-100">
-                  Stay consistent and confident in your 
+                  Stay consistent and confident in your
                 </p>
               </div>
 

@@ -28,72 +28,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 // import { BrokerInfiniteScroll } from "../../_components/Broker";
 
-const slides = [
-  {
-    title: "Loan Services",
-    subtitle: "Get Instant Access to",
-    description:
-      "Choose from personal, home, or education loans with low interest rates and flexible repayment options.",
-    image: "/asset-loan.jpg",
-    gradient: "from-blue-600 via-blue-500 to-purple-600",
-    path: "services/loan",
-  },
-  {
-    title: "Insurance Plans",
-    subtitle: "Protect Your Future with",
-    description:
-      "Health, car, and life insurance plans tailored to your needs — secure your family and assets today.",
-    image: "/asset-insurance.jpg",
-    gradient: "from-emerald-600 via-teal-500 to-cyan-600",
-    path: "services/insurance",
-  },
-  {
-    title: "Savings Account",
-    subtitle: "Grow Your Wealth with a",
-    description:
-      "High-interest savings accounts with zero balance requirements and easy online access.",
-    image: "/asset-saving.jpg",
-    gradient: "from-green-600 via-emerald-500 to-teal-600",
-    path: "services/saving-account",
-  },
-  {
-    title: "Stock Investment",
-    subtitle: "Invest Smartly in the",
-    description:
-      "Build a diversified portfolio and start investing in the stock market with expert guidance.",
-    image: "/asset-stock.jpg",
-    gradient: "from-violet-600 via-purple-500 to-indigo-600",
-    path: "services/stock-investment",
-  },
-  {
-    title: "Mutual Funds",
-    subtitle: "Explore High-Return",
-    description:
-      "Access professionally managed mutual funds to meet your financial goals across risk profiles.",
-    image: "/asset-mutual.jpg",
-    gradient: "from-cyan-600 via-blue-500 to-indigo-600",
-    path: "services/mutual-funds",
-  },
-  {
-    title: "Credit Card",
-    subtitle: "Power Your Spending with a",
-    description:
-      "Choose the right credit card for rewards, cashback, and low-interest EMIs.",
-    image: "/asset-credit.jpg",
-    gradient: "from-orange-600 via-red-500 to-pink-600",
-    path: "services/credit-card",
-  },
-  {
-    title: "Govt Bonds & FDs",
-    subtitle: "Secure Investments with",
-    description:
-      "Low-risk government bonds and fixed deposits to preserve capital and earn steady returns.",
-    image: "/asset-bondfd.jpg",
-    gradient: "from-yellow-600 via-amber-500 to-orange-600",
-    path: "services/govts-bond-&-fd",
-  },
-];
-
 const investmentOptions = [
   {
     id: "equity-etfs",
@@ -229,96 +163,54 @@ export default function CreditCardApplyPage() {
 
   return (
     <>
-      {/* Hero Section */}
-      <div className="text-gray-800 font-sans bg-gradient-to-br from-green-50 via-emerald-50 to-teal-100">
-        <section className="relative w-full h-[50vh] overflow-hidden">
-          <Swiper
-            spaceBetween={30}
-            slidesPerView={1}
-            loop
-            autoplay={{ delay: 4000, disableOnInteraction: false }}
-            pagination={{ clickable: true }}
-            modules={[Autoplay, Pagination]}
-            className="w-full h-full"
-          >
-            {slides.map((slide, index) => (
-              <SwiperSlide key={index}>
-                <div className="absolute inset-0 z-0">
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}/80`}
-                  ></div>
-                </div>
-                <div className="relative z-10 h-full flex items-center">
-                  <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="text-white max-w-xl"
-                  >
-                    <motion.p
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2 }}
-                      className="uppercase tracking-widest text-sm text-yellow-200 font-semibold mb-2"
-                    >
-                      {slide.subtitle}
-                    </motion.p>
-                    <motion.h2
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.4 }}
-                      className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6"
-                    >
-                      {slide.title}
-                    </motion.h2>
-                    <motion.p
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.6 }}
-                      className="text-lg sm:text-xl mb-8 opacity-90 leading-relaxed"
-                    >
-                      {slide.description}
-                    </motion.p>
-                    <Link href={slide.path}>
-                      <motion.button
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.8 }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition-all duration-300 flex items-center gap-3"
-                      >
-                        Know More
-                        <FaRocket className="group-hover:translate-x-1 transition-transform" />
-                      </motion.button>
-                    </Link>
-                  </motion.div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          <div className="swiper-pagination absolute bottom-8 w-full flex justify-center z-20"></div>
-        </section>
-      </div>
-
       {/* Main Layout: Content + Sidebar */}
       <div className="flex flex-col lg:flex-row min-h-screen bg-gray-50 pt-20">
         {/* Main Content */}
         <main className="flex-1">
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12 max-w-3xl mx-auto"
+            transition={{ duration: 0.5 }}
+            className="relative w-full py-10 sm:py-10 md:py-20 mb-16 px-4 overflow-hidden"
           >
-            <h1 className="text-4xl font-extrabold text-gray-800 mb-4">
-              Stock Investment
-            </h1>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              Choose the right investment path to grow your wealth with
-              confidence and clarity.
-            </p>
+            <div className="absolute inset-0 z-0">
+              <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-700 py-8"></div>
+            </div>
+
+            {/* Content */}
+            <div className="relative z-10 max-w-4xl mx-auto text-center">
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+                className="flex justify-center mb-4"
+              >
+                <div className="bg-white/20 backdrop-blur-sm p-3 rounded-full border border-white/30">
+                  <BarChart3 className="text-white w-10 h-10 sm:w-12 sm:h-12" />
+                </div>
+              </motion.div>
+
+              <motion.h1
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+                className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-4 leading-tight"
+              >
+                Smart Stock Investment Strategies
+              </motion.h1>
+
+              <motion.p
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+                className="text-lg sm:text-xl text-white/90 mb-6 max-w-3xl mx-auto leading-relaxed"
+              >
+                Navigate the markets with confidence. Discover diversified
+                investment options tailored to your goals, whether you&apos;re
+                building long-term wealth or seeking strategic opportunities.
+              </motion.p>
+            </div>
           </motion.div>
 
           {/* Investment Cards Grid */}
@@ -336,25 +228,24 @@ export default function CreditCardApplyPage() {
                     className="relative rounded-2xl shadow-lg overflow-hidden transition-all duration-300 transform hover:shadow-xl bg-white"
                   >
                     <Link href={option.link} passHref>
-                    <div className="p-1 bg-gradient-to-r from-green-500 to-emerald-600"></div>
-                    <div className="p-6 space-y-4 h-full flex flex-col cursor-pointer">
-                      <div
-                        className={`p-3 rounded-xl ${option.iconBgColor} flex-shrink-0 w-12 h-12 flex items-center justify-center`}
-                      >
-                        {IconComponent && (
-                          <IconComponent
-                            className={`w-6 h-6 ${option.iconColor}`}
-                          />
-                        )}
-                      </div>
-                      <h2 className="text-xl font-bold text-gray-800">
-                        {option.title}
-                      </h2>
-                      <p className="text-sm leading-relaxed flex-grow text-gray-600">
-                        {option.description}
-                      </p>
-                      <div className="flex gap-4 pt-4">
-                        
+                      <div className="p-1 bg-gradient-to-r from-green-500 to-emerald-600"></div>
+                      <div className="p-6 space-y-4 h-full flex flex-col cursor-pointer">
+                        <div
+                          className={`p-3 rounded-xl ${option.iconBgColor} flex-shrink-0 w-12 h-12 flex items-center justify-center`}
+                        >
+                          {IconComponent && (
+                            <IconComponent
+                              className={`w-6 h-6 ${option.iconColor}`}
+                            />
+                          )}
+                        </div>
+                        <h2 className="text-xl font-bold text-gray-800">
+                          {option.title}
+                        </h2>
+                        <p className="text-sm leading-relaxed flex-grow text-gray-600">
+                          {option.description}
+                        </p>
+                        <div className="flex gap-4 pt-4">
                           {/* <div className="px-4 py-2 rounded-lg  text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -367,8 +258,8 @@ export default function CreditCardApplyPage() {
                               <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
                           </div> */}
+                        </div>
                       </div>
-                    </div>
                     </Link>
                   </motion.div>
                 );
@@ -525,7 +416,6 @@ export default function CreditCardApplyPage() {
             </div>
           </section>
         </main>
-
       </div>
     </>
   );

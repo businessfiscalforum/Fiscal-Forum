@@ -10,8 +10,6 @@ import {
   FaHeadset,
   FaLightbulb,
   FaRupeeSign,
-  FaShieldAlt,
-  FaUserTie,
   FaWallet,
 } from "react-icons/fa";
 import { CheckCircle, ChevronDown, ChevronUp } from "lucide-react";
@@ -225,50 +223,66 @@ export default function Page() {
       <div className="max-w-7xl mx-auto">
         {/* Hero Section */}
         <div className="text-center mb-12 pt-8">
-          <motion.h1
-            className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-green-800 mb-4"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            Open Your Demat Account & Unlock Exclusive Rewards
-          </motion.h1>
-          <motion.p
-            className="text-base sm:text-lg text-green-700 max-w-3xl mx-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
-            Join thousands of smart investors getting{" "}
-            <span className="font-semibold text-green-900">
-              free research reports, trading tips, and portfolio insights
-            </span>{" "}
-            when they open their account through us.
-          </motion.p>
+           <motion.h1
+              className="text-4xl sm:text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-800 via-emerald-700 to-teal-700 mb-6 leading-tight"
+              initial={{ opacity: 0, y: -30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+            >
+              Open Your Demat Account & 
+              <span className="block mt-2">Unlock Exclusive Rewards</span>
+            </motion.h1>
+            
+            <motion.p
+              className="text-lg sm:text-xl text-green-700 max-w-4xl mx-auto leading-relaxed font-medium"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+            >
+              Join thousands of smart investors getting{" "}
+              <span className="font-bold text-green-900 bg-green-100/50 px-2 py-1 rounded-lg">
+                free research reports, trading tips, and portfolio insights
+              </span>{" "}
+              when they open their account through us.
+            </motion.p>
         </div>
 
         {/* Rewards Banner */}
         <motion.div
-          className="bg-gradient-to-r from-green-600 to-emerald-700 text-white rounded-2xl p-6 mb-12 text-center shadow-xl"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
-        >
-          <h3 className="text-xl sm:text-2xl font-semibold mb-2">
-            🎁 Limited Time Offer
-          </h3>
-          <p className="text-base sm:text-lg">
-            Get{" "}
-            <span className="font-bold">
-              3 months of premium market research
-            </span>{" "}
-            &{" "}
-            <span className="font-bold">
-              ₹500 worth of investment strategies
-            </span>{" "}
-            FREE
-          </p>
-        </motion.div>
+            className="relative bg-gradient-to-r from-green-600 via-emerald-600 to-green-700 text-white rounded-3xl p-8 mb-16 text-center shadow-2xl overflow-hidden"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.6, type: "spring", stiffness: 100 }}
+          >
+            {/* Animated background pattern */}
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.3),transparent_50%)]" />
+              <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.2),transparent_50%)]" />
+            </div>
+            
+            <div className="relative z-10">
+              <motion.div 
+                className="text-2xl sm:text-3xl font-bold mb-4 flex items-center justify-center gap-3"
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+              >
+                <span className="text-4xl">🎁</span>
+                Limited Time Offer
+                <span className="text-4xl">🎁</span>
+              </motion.div>
+              <p className="text-lg sm:text-xl font-medium">
+                Get{" "}
+                <span className="font-black text-yellow-300 bg-green-800/30 px-3 py-1 rounded-xl">
+                  3 months of premium market research
+                </span>{" "}
+                &{" "}
+                <span className="font-black text-yellow-300 bg-green-800/30 px-3 py-1 rounded-xl">
+                  ₹500 worth of investment strategies
+                </span>{" "}
+                FREE
+              </p>
+            </div>
+          </motion.div>
 
         {/* Benefits */}
         <section className="bg-white border border-green-200 rounded-2xl shadow-md p-6 md:p-8 mb-16">
