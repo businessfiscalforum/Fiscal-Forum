@@ -56,11 +56,17 @@ export async function GET(req: NextRequest) {
   }
 }
 
+interface Params {
+  params: {
+    id: string;
+  };
+}
+
 export async function DELETE(
-  req: NextRequest,
-  context: { params: { id: string } }
+  req: Request,
+  { params } : Params
 ) {
-  const { id } = context.params;
+  const { id } = params;
 
   try {
     const [deleted] = await db
