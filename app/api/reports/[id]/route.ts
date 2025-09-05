@@ -56,17 +56,12 @@ export async function GET(req: NextRequest) {
   }
 }
 
-interface Params {
-  params: {
-    id: string;
-  };
-}
+type Context = {
+  params: Promise<{ id: string }>;
+};
 
-export async function DELETE(
-  req: Request,
-  { params } : Params
-) {
-  const { id } = params;
+export async function DELETE(request: Request, { params }: Context) {
+  const { id } = await params;
 
   try {
     const [deleted] = await db
