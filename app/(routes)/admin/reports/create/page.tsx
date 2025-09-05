@@ -84,7 +84,7 @@ export default async function CreateReportPage() {
   return (
     <div className="max-w-4xl mx-auto p-6 py-20">
       <h1 className="text-2xl font-bold mb-6">Create Research Report</h1>
-      <form action={create} className="space-y-6">
+      <form className="space-y-6">
         <div>
           <label className="block text-sm font-medium mb-1">Title</label>
           <input
@@ -223,7 +223,7 @@ export default async function CreateReportPage() {
           />
         </div>
         <button
-          type="submit"
+          formAction={create}
           className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
         >
           Publish Report
