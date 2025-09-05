@@ -2,8 +2,8 @@
 import { revalidatePath } from "next/cache";
 import { db } from "../../../../config/db";
 import { researchReportsTable } from "../../../../config/schema";
-import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
+import { eq } from "drizzle-orm";
 
 const allowedOrigins = [
   "https://www.fiscalforum.in",
@@ -56,17 +56,16 @@ export async function GET(req: NextRequest) {
   }
 }
 
-//delete
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
-  const { id } = params;
+  const { id } = context.params;
 
   try {
     const [deleted] = await db
       .delete(researchReportsTable)
-      .where(eq(researchReportsTable.id, id))
+      .where(eq(researchReportsTable.id, id)) // ensure correct type
       .returning();
 
     if (!deleted) {
@@ -86,7 +85,6 @@ export async function DELETE(
     );
   }
 }
-
 
 // (Optional) add POST if you want to create a report
 export async function POST(req: NextRequest) {
