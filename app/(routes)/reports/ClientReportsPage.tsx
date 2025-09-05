@@ -3,16 +3,12 @@
 import { useState, useEffect, useMemo } from "react";
 import {
   FaFilePdf,
-  FaEye,
   FaCalendarAlt,
-  FaSearch,
-  FaFilter,
   FaArrowUp,
   FaArrowDown,
   FaUser,
 } from "react-icons/fa";
 import Link from "next/link";
-import { motion } from "framer-motion";
 
 interface ResearchReport {
   id: string;
@@ -363,7 +359,7 @@ export default function ClientReportsPage({
                               <td className="px-6 py-4">
                                 <div className="flex items-center gap-2 text-sm text-gray-600">
                                   <FaCalendarAlt className="text-emerald-400 text-xs" />
-                                  {formatDate(report.publishDate)}
+                                  {formatDate(report?.publishDate)}
                                 </div>
                               </td>
 

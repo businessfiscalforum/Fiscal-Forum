@@ -10,7 +10,6 @@ import {
   FaUser,
   FaSearch,
   FaFilter,
-  FaEye,
   FaChevronLeft,
   FaChevronRight,
   FaArrowUp,

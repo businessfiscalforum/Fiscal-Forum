@@ -2,7 +2,6 @@
 "use client";
 
 import React from "react";
-import { FaUserFriends, FaRupeeSign, FaChartBar, FaGift, FaCopy, FaShareAlt } from "react-icons/fa";
 import ReferralSection from '../_components/ReferralSection';
 
 const Dashboard = () => {

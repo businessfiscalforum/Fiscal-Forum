@@ -60,7 +60,7 @@ export async function GET(req: NextRequest) {
 
     const sanitizedReports = reports.map((report) => ({
       ...report,
-      date: report.publishDate.toString(),
+      date: report?.publishDate?.toString(),
     }));
 
     return withCORS(req, NextResponse.json(sanitizedReports));

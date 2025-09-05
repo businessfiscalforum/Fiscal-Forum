@@ -4,7 +4,6 @@ import {
   BarChart3,
   FolderOpen,
   UserCheck,
-  ArrowRight,
   Phone,
 } from "lucide-react";
 

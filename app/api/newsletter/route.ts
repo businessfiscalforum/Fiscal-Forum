@@ -50,12 +50,12 @@ export async function GET(request: Request) {
       .limit(limit)
       .offset(offset);
 
-    const totalCountResult = await db
-      .select({ count: sql`count(*)` })
-      .from(newsletter)
-      .where(whereClause);
+    // const totalCountResult = await db
+    //   .select({ count: sql`count(*)` })
+    //   .from(newsletter)
+    //   .where(whereClause);
 
-    const totalCount = parseInt(totalCountResult[0].count as string);
+    // const totalCount = parseInt(totalCountResult[0].count as string);
 
     return NextResponse.json(
       {
@@ -63,6 +63,7 @@ export async function GET(request: Request) {
       },
       { headers: corsHeaders(origin) }
     );
+    
   } catch (error) {
     console.error("Error fetching newsletter:", error);
     return NextResponse.json(
