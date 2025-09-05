@@ -57,7 +57,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function DELETE(
-  req: Request,
+  req: NextRequest,
   context: { params: { id: string } }
 ) {
   const { id } = context.params;
