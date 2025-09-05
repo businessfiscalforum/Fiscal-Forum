@@ -7,11 +7,15 @@ import { format } from "date-fns";
 import { FaFilePdf, FaCalendarAlt } from "react-icons/fa";
 import { ShareButton } from "../../_components/ShareButton";
 
-type ReportDetailPageProps = {
-  params: { id: string };
-};
+// type ReportDetailPageProps = {
+//   params: { id: string };
+// };
 
-export default async function ReportDetailPage({ params }: ReportDetailPageProps) {
+export default async function ReportDetailPage({
+  params,
+}: {
+  params: Promise<{ id:string }>;
+}) {
   const { id } = await params;
 
   const [report] = await db
