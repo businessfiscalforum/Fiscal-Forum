@@ -56,6 +56,38 @@ export async function GET(req: NextRequest) {
   }
 }
 
+//delete
+export async function DELETE(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  const { id } = params;
+
+  try {
+    const [deleted] = await db
+      .delete(researchReportsTable)
+      .where(eq(researchReportsTable.id, id))
+      .returning();
+
+    if (!deleted) {
+      return NextResponse.json({ error: "Report not found" }, { status: 404 });
+    }
+
+    revalidatePath("/reports");
+    revalidatePath(`/reports/${id}`);
+    revalidatePath("/admin/reports");
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("DELETE /api/reports/[id] error:", error);
+    return NextResponse.json(
+      { error: "Failed to delete report" },
+      { status: 500 }
+    );
+  }
+}
+
+
 // (Optional) add POST if you want to create a report
 export async function POST(req: NextRequest) {
   try {

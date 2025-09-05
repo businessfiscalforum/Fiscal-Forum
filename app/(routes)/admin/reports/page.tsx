@@ -132,7 +132,6 @@ export default async function ReportsListPage() {
                       Edit
                     </Link>
                     <DeleteReportButton id={item.id} />{" "}
-                    {/* Assuming this component is styled */}
                   </div>
                 </div>
               </li>

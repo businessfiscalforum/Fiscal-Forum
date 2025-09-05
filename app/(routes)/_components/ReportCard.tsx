@@ -5,12 +5,12 @@ import { ShareButton } from "./ShareButton";
 
 // ✅ Define exact enum to match DB
 export const reportTypeOptions = [
-  'Pre-Market Research Report',
-  'Quarterly Results',
-  'Industry Analysis',
-  'Thematic Research Report',
-  'Company Analysis',
-  'Equity Research Report'
+  "Pre-Market Research Report",
+  "Quarterly Results",
+  "Industry Analysis",
+  "Thematic Research Report",
+  "Company Analysis",
+  "Equity Research Report",
 ] as const;
 
 export const ratingOptions = ["BUY", "HOLD", "SELL"] as const;
@@ -21,23 +21,23 @@ export type Rating = (typeof ratingOptions)[number];
 // ✅ Interface matches DB exactly
 export interface ResearchReport {
   id: string;
-  title: string;
-  stock: string;
-  company: string;
-  author: string;
-  authorFirm: string;
-  publishDate: string;
-  sector: string;
-  reportType: ReportType;
-  rating: Rating;
-  targetPrice: string;
-  currentPrice: string;
-  upside: string;
-  pages: number;
-  recommendation: string;
-  tags: string[];
-  summary: string;
-  pdfUrl: string;
+  title: string | null;
+  stock: string | null;
+  company: string | null;
+  author: string | null;
+  authorFirm: string | null;
+  publishDate: string | null;
+  sector: string | null;
+  reportType: ReportType | null;
+  rating: Rating | null;
+  targetPrice: string | null;
+  currentPrice: string | null;
+  upside: string | null;
+  pages: number | null;
+  recommendation: string | null;
+  tags: string[] | null;
+  summary: string | null;
+  pdfUrl: string | null;
   published: boolean | null;
   createdAt: string | null;
   updatedAt: string | null;
@@ -112,7 +112,7 @@ export function ReportCard({ report }: ReportCardProps) {
 
       {/* Date */}
       <td className="px-4 py-3 text-sm text-gray-600">
-        {formatDate(report.publishDate)}
+        {formatDate(report?.publishDate || "")}
       </td>
 
       {/* Rating & Target */}
@@ -122,8 +122,8 @@ export function ReportCard({ report }: ReportCardProps) {
             report.rating === "BUY"
               ? "text-green-600"
               : report.rating === "HOLD"
-              ? "text-yellow-600"
-              : "text-red-600"
+                ? "text-yellow-600"
+                : "text-red-600"
           }`}
         >
           {report.rating}
@@ -136,21 +136,24 @@ export function ReportCard({ report }: ReportCardProps) {
         <div className="flex items-center gap-1">
           <span
             className={`font-medium ${
-              report.upside.startsWith("+")
+              report?.upside?.startsWith("+")
                 ? "text-green-600"
                 : "text-red-600"
             }`}
           >
-            {report.upside}
+            {report?.upside ?? ""}
           </span>
-          <span className="text-xs text-gray-600">({report.recommendation})</span>
+
+          <span className="text-xs text-gray-600">
+            ({report.recommendation})
+          </span>
         </div>
       </td>
 
       {/* Actions */}
       <td className="px-4 py-3 whitespace-nowrap">
         <a
-          href={report.pdfUrl}
+          href={report.pdfUrl ?? ""}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors font-medium"
@@ -159,7 +162,10 @@ export function ReportCard({ report }: ReportCardProps) {
           <FaFilePdf />
           View PDF
         </a>
-        <ShareButton title={report.title} pdfUrl={report.pdfUrl} />
+        <ShareButton
+          title={report?.title ?? ""}
+          pdfUrl={report?.pdfUrl ?? ""}
+        />
       </td>
     </tr>
   );
