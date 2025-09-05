@@ -10,19 +10,18 @@ export default async function ReportDetailPage({
   params,
 }: {
   params: { id: string };
-}){
-  const { id } = params;
+}) {
+  const { id } = params; // no await here
+
   const [report] = await db
     .select()
     .from(researchReportsTable)
     .where(eq(researchReportsTable.id, id));
 
-  // --- 404 Handling ---
   if (!report) {
     return notFound();
   }
 
-  // --- Helper Function ---
   const getRatingColor = (rating: string | null) => {
     switch (rating) {
       case "BUY":
@@ -35,6 +34,7 @@ export default async function ReportDetailPage({
         return "bg-gray-100 text-gray-800";
     }
   };
+
 
   // --- Render UI ---
   return (
