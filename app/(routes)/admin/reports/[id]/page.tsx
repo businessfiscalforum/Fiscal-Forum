@@ -14,7 +14,7 @@ type ReportDetailPageProps = {
 export default async function ReportDetailPage({
   params,
 }: ReportDetailPageProps) {
-  const { id } = await params;
+  const { id } = params;
   const [report] = await db
     .select()
     .from(researchReportsTable)
