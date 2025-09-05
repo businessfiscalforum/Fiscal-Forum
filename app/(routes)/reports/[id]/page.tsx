@@ -9,10 +9,9 @@ import { ShareButton } from "../../_components/ShareButton";
 export default async function ReportDetailPage({
   params,
 }: {
-  params: { id: string } | Promise<{ id: string }>;
-}) {
-  const resolvedParams = await params;
-  const { id } = resolvedParams; 
+  params: { id: string };
+}){
+  const { id } = params;
   const [report] = await db
     .select()
     .from(researchReportsTable)
