@@ -1070,6 +1070,13 @@ export const b2bPartner = pgTable('b2b_partner', {
   aadhaar: varchar('aadhaar_number', { length: 12 }).notNull(),
 });
 
+export const customReportsRequest = pgTable('custom_reports_request', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  name: varchar('name', { length: 255 }).notNull(),
+  mobile: varchar('mobile', { length: 15 }).notNull(),
+  topic: varchar('topic').notNull(),
+});
+
 // Types
 export type InsertUser = typeof usersTable.$inferInsert;
 export type SelectUser = typeof usersTable.$inferSelect;
@@ -1168,3 +1175,6 @@ export type SelectRemisorship = typeof remisorship.$inferSelect;
 
 export type InsertB2BPartner = typeof b2bPartner.$inferInsert;
 export type SelectB2BPartner = typeof b2bPartner.$inferSelect;
+
+export type InsertCustomReportsRequests = typeof customReportsRequest.$inferInsert;
+export type SelectCustomReportsRequests = typeof customReportsRequest.$inferSelect;

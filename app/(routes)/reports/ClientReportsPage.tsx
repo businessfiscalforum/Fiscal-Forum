@@ -53,6 +53,7 @@ export default function ClientReportsPage({
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
   const [reportsByTab, setReportsByTab] = useState<
     Record<string, ResearchReport[]>
   >({
@@ -60,7 +61,55 @@ export default function ClientReportsPage({
     "thematic-report": [],
     "equity-research-report": [],
   });
+
   const itemsPerPage = 10;
+
+  // ---------------- NEW STATE FOR FORM ----------------
+  const [formData, setFormData] = useState({
+    name: "",
+    mobile: "",
+    topic: "",
+  });
+  const [formLoading, setFormLoading] = useState(false);
+  const [formMessage, setFormMessage] = useState<string | null>(null);
+
+  // ---------------- HANDLER FOR FORM INPUTS ----------------
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // ---------------- HANDLE FORM SUBMIT ----------------
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormLoading(true);
+    setFormMessage(null);
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/custom-reports`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+
+      setFormMessage("✅ Request submitted successfully!");
+      setFormData({ name: "", mobile: "", topic: "" }); // clear form
+    } catch (err) {
+      console.error("Failed to submit form:", err);
+      setFormMessage("❌ Failed to submit. Please try again.");
+    } finally {
+      setFormLoading(false);
+    }
+  };
 
   // Extract unique values for filters
   const allReports = Object.values(reportsByTab).flat();
@@ -76,12 +125,12 @@ export default function ClientReportsPage({
     if (reportsByTab[tabId] && reportsByTab[tabId].length > 0) {
       return; // Already loaded
     }
-
     setLoading(true);
     setError(null);
 
     try {
       let apiUrl = "";
+
       switch (tabId) {
         case "all":
           apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/reports`;
@@ -106,7 +155,6 @@ export default function ClientReportsPage({
 
       const data: ResearchReport[] = await response.json();
       setReportsByTab((prev) => ({ ...prev, [tabId]: data }));
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.error(`Failed to fetch ${tabId} reports:`, err);
       setError(`Failed to load ${tabId} reports. Please try again later.`);
@@ -134,15 +182,11 @@ export default function ClientReportsPage({
 
     const filtered = currentReports.filter((report) => {
       const matchesSearch =
-        (report.title ?? "")
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase()) ||
+        (report.title ?? "").toLowerCase().includes(searchTerm.toLowerCase()) ||
         (report.company ?? "")
           .toLowerCase()
           .includes(searchTerm.toLowerCase()) ||
-        (report.stock ?? "")
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase());
+        (report.stock ?? "").toLowerCase().includes(searchTerm.toLowerCase());
 
       const matchesSector =
         selectedSector === "all" || report.sector === selectedSector;
@@ -209,7 +253,7 @@ export default function ClientReportsPage({
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100">
       <div className="max-w-full">
-        {/* Header Section */}
+        {/* ---------------- HEADER SECTION ---------------- */}
         <div className="relative overflow-hidden bg-gradient-to-r from-emerald-900 via-teal-900 to-green-900 text-white py-30">
           <div className="absolute inset-0 z-0">
             <div className="absolute inset-0 bg-black/20"></div>
@@ -227,17 +271,21 @@ export default function ClientReportsPage({
               Stay updated with the latest financial news, market trends, and
               expert insights from around the world
             </p>
+            <div className="flex justify-center mt-6">
+              <button className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold rounded-xl shadow-lg transition">
+                Join Now
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Tab Navigation */}
+        {/* ---------------- TAB NAVIGATION ---------------- */}
         <div className="flex justify-center mb-6 h-20">
           {tabs.map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2 mx-2 relative text-xl font-medium transition-colors duration-300 
-              ${
+              onClick={() => handleTabChange(tab.id)}
+              className={`px-4 py-2 mx-2 relative text-xl font-medium transition-colors duration-300 ${
                 activeTab === tab.id
                   ? "text-emerald-600"
                   : "text-gray-600 hover:text-emerald-500"
@@ -251,7 +299,7 @@ export default function ClientReportsPage({
           ))}
         </div>
 
-        {/* Reports Table */}
+        {/* ---------------- REPORTS TABLE ---------------- */}
         <section className="py-16">
           <div className="max-w-8xl mx-auto px-7">
             {!loading && !error && (
@@ -425,6 +473,79 @@ export default function ClientReportsPage({
                 )}
               </>
             )}
+          </div>
+        </section>
+
+        {/* ---------------- CUSTOM REPORTS FORM ---------------- */}
+        <section className="py-16 bg-gradient-to-r from-emerald-50 to-teal-50">
+          <div className="max-w-3xl mx-auto px-6 bg-white rounded-2xl shadow-lg border border-emerald-200 p-10">
+            <h2 className="text-2xl font-bold text-emerald-800 text-center mb-6">
+              Get Your Custom Reports
+            </h2>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  placeholder="Enter your name"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Mobile Number
+                </label>
+                <input
+                  type="tel"
+                  name="mobile"
+                  value={formData.mobile}
+                  onChange={handleInputChange}
+                  placeholder="Enter your mobile number"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Topic
+                </label>
+                <input
+                  type="text"
+                  name="topic"
+                  value={formData.topic}
+                  onChange={handleInputChange}
+                  placeholder="Enter report topic"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
+                  required
+                />
+              </div>
+              {formMessage && (
+                <p
+                  className={`text-sm text-center ${
+                    formMessage.startsWith("✅")
+                      ? "text-green-600"
+                      : "text-red-600"
+                  }`}
+                >
+                  {formMessage}
+                </p>
+              )}
+              <div className="flex justify-center">
+                <button
+                  type="submit"
+                  disabled={formLoading}
+                  className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold rounded-xl shadow-lg transition disabled:opacity-50"
+                >
+                  {formLoading ? "Submitting..." : "Submit Request"}
+                </button>
+              </div>
+            </form>
           </div>
         </section>
       </div>
