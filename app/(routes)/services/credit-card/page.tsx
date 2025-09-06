@@ -530,7 +530,7 @@ export default function CreditCardsPage() {
       }}
     >
       {/* Header */}
-      <header className="relative py-10 md:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-r from-green-600 to-emerald-700 ">
+      <header className="relative py-10 md:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-r from-green-600 to-emerald-700">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -587,6 +587,23 @@ export default function CreditCardsPage() {
                 Enjoy Security Features
               </span>
             </div>
+          </motion.div>
+
+          {/* CTA Button */}
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
+            className="mt-10"
+          >
+            <Link
+              href="https://credue.in/next/credit-card-eligibility?cba_code=QzAwMTExMzI="
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-8 py-4 bg-white text-green-700 font-bold text-lg rounded-full shadow-lg hover:bg-gray-100 transform hover:-translate-y-1 transition-all duration-300"
+            >
+              Check Your Eligibility
+            </Link>
           </motion.div>
         </motion.div>
       </header>
