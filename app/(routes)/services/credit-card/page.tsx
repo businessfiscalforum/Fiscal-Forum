@@ -1,11 +1,11 @@
 // app/credit-cards/page.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { FaFilePdf, FaInfoCircle, FaStar, FaCheck } from "react-icons/fa";
+import { FaFilePdf, FaInfoCircle, FaStar, FaCheck, FaFilter } from "react-icons/fa";
 import {
   Dialog,
   DialogBackdrop,
@@ -499,6 +499,12 @@ export default function CreditCardsPage() {
   const [selectedCard, setSelectedCard] = useState<CreditCard | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  // --- Filter States ---
+  const [selectedBank, setSelectedBank] = useState<string>("All");
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [selectedRewardType, setSelectedRewardType] = useState<string>("All");
+  const [showWelcomeBonusOnly, setShowWelcomeBonusOnly] = useState<boolean>(false);
+
   useEffect(() => {
     // Simulate a slight delay or data loading if needed in the future
     setIsLoading(false);
@@ -514,6 +520,60 @@ export default function CreditCardsPage() {
     setSelectedCard(null);
   };
 
+  // --- Extract unique filter options using useMemo for performance ---
+  const { banks, categories, rewardTypes } = useMemo(() => {
+    const bankSet = new Set<string>();
+    const categorySet = new Set<string>();
+    const rewardTypeSet = new Set<string>();
+
+    creditCards.forEach((card) => {
+      bankSet.add(card.bank);
+      if (card.tagline) categorySet.add(card.tagline);
+      // Prioritize rewardPoints for the filter, fallback to cashbackRate
+      if (card.rewardPoints) rewardTypeSet.add(card.rewardPoints);
+      else if (card.cashbackRate) rewardTypeSet.add(`Cashback: ${card.cashbackRate}`);
+    });
+
+    return {
+      banks: ["All", ...Array.from(bankSet)],
+      categories: ["All", ...Array.from(categorySet)],
+      rewardTypes: ["All", ...Array.from(rewardTypeSet)],
+    };
+  }, [creditCards]); // Recalculate only if creditCards data changes
+
+  // --- Filtered cards logic ---
+  const filteredCards = useMemo(() => {
+    return creditCards.filter((card) => {
+      // Bank Filter
+      if (selectedBank !== "All" && card.bank !== selectedBank) {
+        return false;
+      }
+
+      // Category Filter (based on tagline)
+      if (selectedCategory !== "All" && card.tagline !== selectedCategory) {
+        return false;
+      }
+
+      // Reward Type Filter (based on rewardPoints or cashbackRate)
+      const cardRewardType = card.rewardPoints
+        ? card.rewardPoints
+        : card.cashbackRate
+        ? `Cashback: ${card.cashbackRate}`
+        : "";
+      if (selectedRewardType !== "All" && cardRewardType !== selectedRewardType) {
+        return false;
+      }
+
+      // Welcome Bonus Filter
+      if (showWelcomeBonusOnly && !card.welcomeBonus) {
+        return false;
+      }
+
+      // If all conditions pass, include the card
+      return true;
+    });
+  }, [creditCards, selectedBank, selectedCategory, selectedRewardType, showWelcomeBonusOnly]);
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50">
@@ -526,11 +586,11 @@ export default function CreditCardsPage() {
     <div
       className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 text-gray-800 pt-20"
       style={{
-        fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a7f3d0' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
       }}
     >
       {/* Header */}
-      <header className="relative py-10 md:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-r from-green-600 to-emerald-700">
+      <header className="relative py-10 md:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-r from-green-600 to-emerald-700 ">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -563,8 +623,7 @@ export default function CreditCardsPage() {
             transition={{ delay: 0.4, duration: 0.5 }}
             className="text-base sm:text-lg md:text-xl lg:text-2xl text-white max-w-3xl md:max-w-4xl mx-auto leading-relaxed px-2 mb-8"
           >
-            Maximize rewards, minimize fees. Find the card that fits your
-            spending and elevates your lifestyle.
+            Maximize rewards, minimize fees. Find the card that fits your spending and elevates your lifestyle.
           </motion.p>
 
           <motion.div
@@ -583,36 +642,123 @@ export default function CreditCardsPage() {
             </div>
             <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30 shadow-sm">
               <ShieldCheck className="w-5 h-5 text-yellow-400 flex-shrink-0" />
-              <span className="text-sm font-medium">
-                Enjoy Security Features
-              </span>
+              <span className="text-sm font-medium">Enjoy Security Features</span>
             </div>
-          </motion.div>
-
-          {/* CTA Button */}
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
-            className="mt-10"
-          >
-            <Link
-              href="https://credue.in/next/credit-card-eligibility?cba_code=QzAwMTExMzI="
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-8 py-4 bg-white text-green-700 font-bold text-lg rounded-full shadow-lg hover:bg-gray-100 transform hover:-translate-y-1 transition-all duration-300"
-            >
-              Check Your Eligibility
-            </Link>
           </motion.div>
         </motion.div>
       </header>
 
-      {/* Main Grid */}
+      {/* Filters Section */}
+      <section className="py-8 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 flex items-center gap-2">
+              <FaFilter className="text-emerald-600" /> Find Your Perfect Card
+            </h2>
+            <p className="text-sm text-gray-600">
+              {filteredCards.length} {filteredCards.length === 1 ? "Card" : "Cards"} Found
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {/* Bank Filter */}
+            <div>
+              <label htmlFor="bank-filter" className="block text-sm font-medium text-gray-700 mb-1">
+                Bank
+              </label>
+              <select
+                id="bank-filter"
+                value={selectedBank}
+                onChange={(e) => setSelectedBank(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
+              >
+                {banks.map((bank) => (
+                  <option key={bank} value={bank}>
+                    {bank}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Category Filter (Tagline) */}
+            <div>
+              <label htmlFor="category-filter" className="block text-sm font-medium text-gray-700 mb-1">
+                Category
+              </label>
+              <select
+                id="category-filter"
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
+              >
+                {categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category === "All" ? "Any Category" : category}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Reward Type Filter */}
+            <div>
+              <label htmlFor="reward-filter" className="block text-sm font-medium text-gray-700 mb-1">
+                Reward Type
+              </label>
+              <select
+                id="reward-filter"
+                value={selectedRewardType}
+                onChange={(e) => setSelectedRewardType(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
+              >
+                {rewardTypes.map((type) => (
+                  <option key={type} value={type}>
+                    {type === "All" ? "Any Reward" : type}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Welcome Bonus Filter */}
+            <div className="flex items-end">
+              <div className="flex items-center">
+                <input
+                  id="welcome-bonus-filter"
+                  name="welcome-bonus-filter"
+                  type="checkbox"
+                  checked={showWelcomeBonusOnly}
+                  onChange={(e) => setShowWelcomeBonusOnly(e.target.checked)}
+                  className="h-4 w-4 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500"
+                />
+                <label htmlFor="welcome-bonus-filter" className="ml-2 block text-sm text-gray-700">
+                  Has Welcome Bonus
+                </label>
+              </div>
+            </div>
+
+            {/* Reset Filters Button */}
+            <div className="flex items-end">
+              <button
+                onClick={() => {
+                  setSelectedBank("All");
+                  setSelectedCategory("All");
+                  setSelectedRewardType("All");
+                  setShowWelcomeBonusOnly(false);
+                }}
+                className="w-full py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
+              >
+                Reset Filters
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Grid - Now uses filteredCards */}
       <main className="py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {filteredCards.length > 0 ? ( 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {creditCards.map((card, index) => (
+            {filteredCards.map((card, index) => (
               <motion.div
                 key={card.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -756,73 +902,81 @@ export default function CreditCardsPage() {
               </motion.div>
             ))}
           </div>
+          ):(
+            <div className="text-center py-12">
+              <div className="text-5xl mb-4">🔍</div>
+              <h3 className="text-xl font-bold text-gray-800 mb-2">No Cards Found</h3>
+              <p className="text-gray-600 mb-4">
+                Try adjusting your filters to see more results.
+              </p>
+              <button
+                onClick={() => {
+                  setSelectedBank("All");
+                  setSelectedCategory("All");
+                  setSelectedRewardType("All");
+                  setShowWelcomeBonusOnly(false);
+                }}
+                className="px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors"
+              >
+                Reset All Filters
+              </button>
+            </div>
+          )}
         </div>
       </main>
 
       {/* Why Choose Us */}
-      <section className="py-12 sm:py-16 bg-gradient-to-r from-emerald-800 to-teal-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10 sm:mb-14">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
-              Why Apply Through Fiscal Forum?
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl text-emerald-100 max-w-2xl sm:max-w-3xl mx-auto px-2">
-              We simplify your search and add value to your application.
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-emerald-700 to-teal-800 text-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Why Choose Us for Your Credit Card Needs?</h2>
+            <p className="text-lg sm:text-xl text-emerald-100 max-w-3xl mx-auto">
+              We simplify the process of finding and applying for the perfect credit card for your lifestyle.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            {[...Array(4)].map((_, i) => (
-              <div
-                key={i}
-                className="bg-white/10 backdrop-blur-sm rounded-2xl p-5 sm:p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 text-center"
-              >
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                  {i === 0 && (
-                    <FaStar className="text-white w-5 h-5 sm:w-6 sm:h-6" />
-                  )}
-                  {i === 1 && (
-                    <FaFilePdf className="text-white w-5 h-5 sm:w-6 sm:h-6" />
-                  )}
-                  {i === 2 && (
-                    <FaInfoCircle className="text-white w-5 h-5 sm:w-6 sm:h-6" />
-                  )}
-                  {i === 3 && (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 sm:h-6 sm:w-6 text-white"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M5 2a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732L14.146 12.8l-1.179 4.456a1 1 0 01-1.934 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732L9.854 7.2l1.179-4.456A1 1 0 0112 2z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  )}
-                </div>
-                <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2">
-                  {
-                    [
-                      "Trusted Partners",
-                      "Guaranteed Cashback",
-                      "Fast & Paperless Process",
-                      "Dedicated Support",
-                    ][i]
-                  }
-                </h3>
-                <p className="text-emerald-100 text-xs sm:text-sm md:text-base">
-                  {
-                    [
-                      "Get recommendations from top banks and verified partners.",
-                      "Get cashback up to ₹400 per card, directly credited to your bank account.",
-                      "Enjoy a fully digital, hassle-free application with quick approvals and zero paperwork delays.",
-                      "Count on our dedicated team for quick, reliable help with any query anytime.",
-                    ][i]
-                  }
-                </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-emerald-500/30">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 flex items-center justify-center mb-4">
+                <FaCheck className="text-white w-6 h-6" />
               </div>
-            ))}
+              <h3 className="text-xl font-bold mb-2">Curated Selection</h3>
+              <p className="text-emerald-100">
+                We handpick the best credit cards from top banks, ensuring you get access to the latest offers and benefits.
+              </p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-emerald-500/30">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 flex items-center justify-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold mb-2">Secure & Trusted</h3>
+              <p className="text-emerald-100">
+                Your data security is our priority. We use industry-standard encryption to protect your information.
+              </p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-emerald-500/30">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 flex items-center justify-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold mb-2">Expert Guidance</h3>
+              <p className="text-emerald-100">
+                Our team of financial experts is here to help you understand the features and choose the right card.
+              </p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-emerald-500/30">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 flex items-center justify-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold mb-2">Exclusive Perks</h3>
+              <p className="text-emerald-100">
+                Get access to special bonuses, lower interest rates, and exclusive deals through our partnerships.
+              </p>
+            </div>
           </div>
         </div>
       </section>

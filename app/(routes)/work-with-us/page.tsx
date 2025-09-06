@@ -290,42 +290,37 @@ const WorkWithUsPage = () => {
                   >
                     {/* Card Header with Gradient Background */}
                     <div
-                      className={`relative h-48 flex items-center justify-center ${partnership.bgColor} bg-opacity-20`}
+                      className={`relative h-40 flex items-center justify-center ${partnership.bgColor} bg-opacity-20`}
                     >
-                      
                       <div
-                        className={`relative z-10 w-24 h-24 bg-gradient-to-r ${partnership.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
+                        className={`relative z-10 w-20 h-20 bg-gradient-to-r ${partnership.color} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
                       >
-                        <partnership.icon className="text-3xl text-white" />
+                        <partnership.icon className="text-2xl text-white" />
                       </div>
                     </div>
 
                     {/* Card Body - Flex grow to fill space */}
-                    <div className="flex flex-col flex-grow p-8">
-                      <div className="text-center mb-6 flex-grow">
-                        <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                    <div className="flex flex-col flex-grow p-6">
+                      <div className="text-center mb-4 flex-grow">
+                        <h3 className="text-xl font-bold text-gray-800 mb-2">
                           {partnership.title}
                         </h3>
-                        {/* <p className="text-gray-600 leading-relaxed">
-                          {partnership.description}
-                        </p> */}
+                        {/* <p className="text-gray-600 leading-relaxed">{partnership.description}</p> */}
                       </div>
 
-                      {/* CTA Button Container - Pushes button to bottom */}
+                      {/* CTA Button */}
                       <div className="mt-auto">
                         <button
                           onClick={(e) => {
-                            // Prevent event propagation to avoid triggering card selection
                             e.stopPropagation();
-                            // Handle button click - navigate to respective page
-                            window.location.href = 
+                            window.location.href =
                               partnership.id === 1
                                 ? "/work-with-us/business-development-partnership"
                                 : partnership.id === 2
                                   ? "/work-with-us/remisorship"
                                   : "/work-with-us/b2b-partnership";
                           }}
-                          className={`w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-6 py-3 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 shadow-lg group-hover:shadow-2xl transform group-hover:scale-105`}
+                          className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-6 py-3 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 shadow-lg group-hover:shadow-2xl transform group-hover:scale-105"
                         >
                           Learn More
                           <svg
@@ -355,13 +350,13 @@ const WorkWithUsPage = () => {
           </section>
 
           {/* Partnership Details Section */}
-          <section className="py-16 px-6">
+          <section className="pb-16 px-6">
             <div className="max-w-7xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-center mb-16"
+                className="text-center mb-8"
               >
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
                   Detailed Partnership Overview
@@ -478,12 +473,12 @@ const WorkWithUsPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 rounded-3xl p-12 text-white relative overflow-hidden"
+                className="bg-gradient-to-br from-emerald-600 via-teal-600 to-green-700 rounded-3xl p-12 text-white relative overflow-hidden shadow-xl"
               >
                 {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-10">
+                <div className="absolute inset-0 opacity-20">
                   <div className="absolute top-10 left-10 w-32 h-32 bg-white rounded-full blur-2xl"></div>
-                  <div className="absolute bottom-10 right-10 w-40 h-40 bg-emerald-400 rounded-full blur-2xl"></div>
+                  <div className="absolute bottom-10 right-10 w-40 h-40 bg-emerald-300 rounded-full blur-2xl"></div>
                 </div>
 
                 <div className="relative z-10 text-center">
@@ -499,45 +494,43 @@ const WorkWithUsPage = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
-                    className="text-xl mb-8 text-white/90"
+                    className="text-lg md:text-xl mb-8 text-white/90"
                   >
                     Take the first step towards a profitable partnership. Our
                     team is ready to discuss opportunities and help you get
                     started on your journey to success.
                   </motion.p>
 
+                  {/* Action Buttons */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
                     className="flex flex-col sm:flex-row gap-4 justify-center"
                   >
-                    {/* Call Button */}
                     <a
                       href="tel:+918696060387"
-                      className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-8 py-4 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:shadow-lg transition-all duration-300 group"
+                      className="bg-white text-emerald-700 px-8 py-4 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:bg-emerald-50 transition-all duration-300 group shadow-lg"
                     >
                       <FaPhoneAlt />
                       Call Us Now
                       <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
                     </a>
 
-                    {/* Email Button */}
                     <a
                       href="mailto:support@fiscalforum.in"
-                      className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:bg-white hover:text-gray-900 transition-all duration-300 group"
+                      className="bg-emerald-500 text-white px-8 py-4 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:bg-emerald-600 transition-all duration-300 group shadow-lg"
                     >
                       <FaEnvelope />
                       Send Inquiry
                       <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
                     </a>
 
-                    {/* WhatsApp Button */}
                     <a
-                      href="https://wa.me/918696060387  "
+                      href="https://wa.me/918696060387"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="bg-green-500 text-white px-8 py-4 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:shadow-lg transition-all duration-300 group"
+                      className="bg-green-500 text-white px-8 py-4 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:bg-green-600 transition-all duration-300 group shadow-lg"
                     >
                       <FaWhatsapp />
                       Chat on WhatsApp
@@ -545,23 +538,24 @@ const WorkWithUsPage = () => {
                     </a>
                   </motion.div>
 
+                  {/* Contact Info */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.4 }}
-                    className="mt-8 pt-8 border-t border-white/20"
+                    className="mt-8 pt-8 border-t border-white/30"
                   >
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-white/80">
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-white/90">
                       <div className="flex items-center gap-2">
-                        <FaPhoneAlt className="text-emerald-400" />
+                        <FaPhoneAlt className="text-white" />
                         <span>+91 8696060387</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <FaEnvelope className="text-emerald-400" />
+                        <FaEnvelope className="text-white" />
                         <span>support@fiscalforum.in</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <FaGlobe className="text-emerald-400" />
+                        <FaGlobe className="text-white" />
                         <span>www.fiscalforum.in</span>
                       </div>
                     </div>
