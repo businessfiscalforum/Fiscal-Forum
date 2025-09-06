@@ -155,7 +155,9 @@ export default function ClientReportsPage({
 
       const data: ResearchReport[] = await response.json();
       setReportsByTab((prev) => ({ ...prev, [tabId]: data }));
-    } catch (err: any) {
+    } 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    catch (err: any) {
       console.error(`Failed to fetch ${tabId} reports:`, err);
       setError(`Failed to load ${tabId} reports. Please try again later.`);
     } finally {

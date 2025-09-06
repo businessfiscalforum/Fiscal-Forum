@@ -292,7 +292,7 @@ const WorkWithUsPage = () => {
                     <div
                       className={`relative h-48 flex items-center justify-center ${partnership.bgColor} bg-opacity-20`}
                     >
-                      <div className="absolute inset-0 bg-gradient-to-br opacity-20"></div>
+                      
                       <div
                         className={`relative z-10 w-24 h-24 bg-gradient-to-r ${partnership.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
                       >
@@ -306,9 +306,9 @@ const WorkWithUsPage = () => {
                         <h3 className="text-2xl font-bold text-gray-800 mb-4">
                           {partnership.title}
                         </h3>
-                        <p className="text-gray-600 leading-relaxed">
+                        {/* <p className="text-gray-600 leading-relaxed">
                           {partnership.description}
-                        </p>
+                        </p> */}
                       </div>
 
                       {/* CTA Button Container - Pushes button to bottom */}

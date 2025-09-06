@@ -37,15 +37,18 @@ interface IndexData {
 
 // Map common Indian indices to their Yahoo Finance symbols
 const indexSymbols: { symbol: string; name: string }[] = [
-  { symbol: "^NSEI", name: "NIFTY 50" },           // Nifty 50
-  { symbol: "^BSESN", name: "SENSEX" },            // BSE Sensex
-  { symbol: "^NSEBANK", name: "NIFTY BANK" },      // Nifty Bank
-  { symbol: "^CNXIT", name: "NIFTY IT" },          // Nifty IT (Now Nifty Info Tech)
-  { symbol: "^NSEMDCP50", name: "NIFTY MIDCAP 50" }, // Nifty Midcap 50
+  { symbol: "^NSEI", name: "NIFTY 50" },              // Nifty 50
+  { symbol: "^BSESN", name: "SENSEX" },               // BSE Sensex
+  { symbol: "^NSEBANK", name: "NIFTY BANK" },         // Nifty Bank
+  { symbol: "^CNXIT", name: "NIFTY IT" },             // Nifty IT (Now Nifty Info Tech)
+  { symbol: "^NSEMDCP50", name: "NIFTY MIDCAP 50" },  // Nifty Midcap 50
 
-  // Bank Ex, Dowjones, Nasdaq, S&P 500--->> Add this
-  // 
+  // Added global + BankEx indices
+  { symbol: "^DJI", name: "Dow Jones Industrial Average" }, // Dow Jones
+  { symbol: "^IXIC", name: "NASDAQ Composite" },      // Nasdaq
+  { symbol: "^GSPC", name: "S&P 500" }                // S&P 500
 ];
+
 
 export async function GET(req: NextRequest) {
   const origin = req.headers.get("origin");

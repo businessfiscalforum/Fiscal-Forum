@@ -292,90 +292,86 @@ return (
         fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
       }}
     >
-      {/* --- MOVED & MODIFIED: Market Snapshot Section (Full Width) --- */}
-      <section className="pt-28 bg-white border-b border-emerald-200"> {/* Reduced padding */}
-        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8"> {/* Full width container */}
-          <div className="bg-white rounded-lg p-4 mb-4 border border-emerald-100"> {/* Reduced padding */}
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl md:text-2xl font-bold text-emerald-800"> {/* Adjusted font size */}
-                Market Snapshot
-              </h2>
-              {/* Show loading indicator or error inline */}
-              {stockLoading && (
-                <span className="text-sm text-gray-500">
-                  Loading market data...
-                </span>
-              )}
-              {stockError && (
-                <span className="text-sm text-red-500">
-                  ({stockError})
-                </span>
-              )}
-            </div>
-            {stockLoading ? (
-              <div className="flex justify-center py-4">
-                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-emerald-500"></div>
-              </div>
-            ) : stockError ? (
-              <p className="text-center text-gray-500 py-4">
-                Error loading market data: {stockError}
-              </p>
-            ) : stockIndices.length > 0 ? (
-              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-7 gap-3"> {/* Adjusted grid and gap */}
-                {stockIndices.map((index) => (
-                  // Handle potential errors for individual indices
-                  <div
-                    key={index.symbol}
-                    className={`bg-gradient-to-r from-emerald-50 to-teal-50 rounded-lg p-3 flex items-center gap-3 border border-emerald-100 shadow-sm ${index.error ? "opacity-70" : ""}`} // Reduced padding
-                  >
-                    <div
-                      className={`rounded-full p-2 ${index.error ? "bg-gray-300" : "bg-emerald-500 text-white"}`} // Reduced padding
-                    >
-                      {index.error ? "?" : <FaChartLine />}
-                    </div>
-                    <div>
-                      <p
-                        className={`text-sm md:text-base font-semibold ${index.error ? "text-gray-500" : "text-emerald-800"}`} // Adjusted font size
-                      >
-                        {index.name}
-                      </p>
-                      {index.error ? (
-                        <p className="text-xs text-gray-500">
-                          {index.error}
-                        </p>
-                      ) : (
-                        <p className="text-xs text-gray-600"> {/* Adjusted font size */}
-                          {index.value.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
-                          })}{" "}
-                          <span
-                            className={`font-bold ${
-                              index.change > 0
-                                ? "text-green-500"
-                                : index.change < 0
-                                  ? "text-red-500"
-                                  : "text-gray-500"
-                            }`}
-                          >
-                            {/* Ensure sign is shown for positive numbers */}
-                            {index.change >= 0 ? "+" : ""}
-                            {index.change.toFixed(2)} (
-                            {index.percentageChange.toFixed(2)}%)
-                          </span>
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-center text-gray-500 py-4">
-                No market data available.
-              </p>
-            )}
-          </div>
+      <section className="pt-24 bg-white border-b border-emerald-300">
+  <div className="max-w-8xl mx-auto px-2 sm:px-4 lg:px-6">
+    <div className="border-b border-emerald-200 bg-white py-2">
+      <div className="flex justify-between items-center mb-2">
+        {stockLoading && (
+          <span className="text-xs text-gray-500">Loading market data...</span>
+        )}
+        {stockError && (
+          <span className="text-xs text-red-500">({stockError})</span>
+        )}
+      </div>
+
+      {stockLoading ? (
+        <div className="flex justify-center py-3">
+          <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-emerald-500"></div>
         </div>
-      </section>
+      ) : stockError ? (
+        <p className="text-center text-gray-500 py-3">
+          Error loading market data: {stockError}
+        </p>
+      ) : stockIndices.length > 0 ? (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-2">
+          {stockIndices.map((index) => (
+            <div
+              key={index.symbol}
+              className={`px-3 py-2 border-r last:border-r-0 flex items-center gap-2 ${
+                index.error ? "opacity-70" : ""
+              }`}
+            >
+              <div
+                className={`flex items-center justify-center w-6 h-6 ${
+                  index.error
+                    ? "bg-gray-300 text-gray-600"
+                    : "bg-emerald-600 text-white"
+                }`}
+              >
+                {index.error ? "?" : <FaChartLine size={12} />}
+              </div>
+              <div className="leading-tight">
+                <p
+                  className={`text-xs font-semibold ${
+                    index.error ? "text-gray-500" : "text-emerald-800"
+                  }`}
+                >
+                  {index.name}
+                </p>
+                {index.error ? (
+                  <p className="text-[10px] text-gray-500">{index.error}</p>
+                ) : (
+                  <p className="text-[11px] text-gray-600">
+                    {index.value.toLocaleString(undefined, {
+                      maximumFractionDigits: 2,
+                    })}{" "}
+                    <span
+                      className={`font-bold ${
+                        index.change > 0
+                          ? "text-green-600"
+                          : index.change < 0
+                          ? "text-red-500"
+                          : "text-gray-500"
+                      }`}
+                    >
+                      {index.change >= 0 ? "+" : ""}
+                      {index.change.toFixed(2)} ({index.percentageChange.toFixed(2)}%)
+                    </span>
+                  </p>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-center text-gray-500 py-3">
+          No market data available.
+        </p>
+      )}
+    </div>
+  </div>
+</section>
+
 
       {/* --- REMOVED: Original Header Section --- */}
 
