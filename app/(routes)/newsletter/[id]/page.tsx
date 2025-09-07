@@ -49,11 +49,11 @@ export default async function NewsletterDetailPage(context: { params: Promise<{ 
         {/* Back Button */}
         <div className="mb-6">
           <Link
-            href="/news"
+            href="/newsletter"
             className="inline-flex items-center text-emerald-600 hover:text-emerald-800 font-medium transition-colors duration-200"
           >
             <FaArrowLeft className="mr-2 text-sm" />
-            <span className="text-sm">Back to News</span>
+            <span className="text-sm">Back to Newsletters</span>
           </Link>
         </div>
 

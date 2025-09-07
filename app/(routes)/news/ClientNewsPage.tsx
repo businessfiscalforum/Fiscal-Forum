@@ -886,7 +886,7 @@ return (
                 </p>
               )}
             </div> {/* End of Newsletter Card */}
-          </div> {/* End of Newsletter Wrapper */}
+          </div>
         </div>
       </section>
     </div>

@@ -10,26 +10,21 @@ export default async function NewsPage() {
       .select()
       .from(newsTable)
       .orderBy(desc(newsTable.publishDate));
-
-
-  // Serialize data for client-side component
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const serializedNews: NewsItem[] = news.map((item:any) => {
-    // Ensure all fields are strings or the correct primitive type
-    // Handle potential nulls or undefined values
     return {
-      id: String(item.id), // Ensure ID is a string
+      id: String(item.id), 
       title: item.title,
-      description: item.description ?? undefined, // Convert null to undefined if preferred
+      description: item.description ?? undefined, 
       content: item.content ?? undefined,
-      image: item.image ?? undefined, // Pass null/undefined as is, handled by <img>
+      image: item.image ?? undefined, 
       category: item.category,
       author: item.author,
-      publishDate: item.publishDate.toISOString(), // Convert Date to ISO string
+      publishDate: item.publishDate.toISOString(), 
       readTime: item.readTime ?? undefined,
-      link: item.link || "#", // Provide default if empty string
-      featured: item.featured ?? false, // Convert null to false
-      tags: item.tags ?? undefined, // Pass tags as string, component will parse if needed
+      link: item.link || "#", 
+      featured: item.featured ?? false, 
+      tags: item.tags ?? undefined, 
       ipoName: item.ipoName ?? undefined,
       companyName: item.companyName ?? undefined,
       priceRange: item.priceRange ?? undefined,
