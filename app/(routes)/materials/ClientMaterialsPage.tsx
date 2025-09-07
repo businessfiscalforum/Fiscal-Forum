@@ -1,4 +1,4 @@
-// app/(routes)/news/ClientNewsPage.tsx
+// app/(routes)/materials/ClientMaterialsPage.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -6,70 +6,54 @@ import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
 import {
-  FaClock,
-  FaUser,
-  FaSearch,
-  FaFilter,
-  FaChevronLeft,
-  FaChevronRight,
-  FaArrowUp,
-  FaGlobe,
-  FaNewspaper,
-  FaChartLine,
-  FaRupeeSign,
-  FaEnvelope,
+  FaBook,
 } from "react-icons/fa";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
-export interface Newsletter {
+
+export interface Materials {
   id: string;
   title: string;
-  description?: string;
-  content?: string;
-  image?: string;
-  author?: string;
-  publishDate: string;
+  link?: string;
 }
 
 // --- Main Component ---
-interface ClientNewsletterPageProps {
-  initialNews: Newsletter[]; // Accept initial news data
+interface ClientMaterialsPageProps {
+  initialMaterials: Materials[]; // Accept initial materials data
 }
 
-const ClientNewsletterPage = ({ initialNews }: ClientNewsletterPageProps) => {
+const ClientMaterialsPage = ({
+  initialMaterials,
+}: ClientMaterialsPageProps) => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState<string | null>(null);
-  const [newsletter, setNewsletter] = useState<Newsletter[]>([]);
-  const [newsletterLoading, setNewsletterLoading] = useState(true);
+  const [materials, setMaterials] = useState<Materials[]>([]);
+  const [materialsLoading, setMaterialsLoading] = useState(true);
 
-  // --- API Fetching Effect for Newsletter ---
+  // --- API Fetching Effect for Materials ---
   useEffect(() => {
-    const fetchNewsletter = async () => {
-      setNewsletterLoading(true);
+    const fetchMaterials = async () => {
+      setMaterialsLoading(true);
       setError(null);
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/newsletter`
+          `${process.env.NEXT_PUBLIC_API_URL}/api/materials`
         );
         if (!response.ok) {
           const errorText = await response.text();
-          console.error(
-            `Newsletter API Error (${response.status}):`,
-            errorText
-          );
+          console.error(`Materials API Error (${response.status}):`, errorText);
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        setNewsletter(data.newsletter || []);
+        setMaterials(data.materials || []);
       } catch (err) {
-        console.error("Failed to fetch newsletter:", err);
+        console.error("Failed to fetch materials:", err);
       } finally {
-        setNewsletterLoading(false);
+        setMaterialsLoading(false);
       }
     };
 
-    fetchNewsletter();
+    fetchMaterials();
   }, []);
 
   // --- Handler Functions ---
@@ -85,9 +69,11 @@ const ClientNewsletterPage = ({ initialNews }: ClientNewsletterPageProps) => {
       day: "numeric",
     });
   };
-  const handleNewsletterClick = (id: string) => {
-    router.push(`/newsletter/${id}`);
+
+  const handleMaterialClick = (id: string) => {
+    router.push(`/materials/${id}`);
   };
+
   return (
     <div
       className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100"
@@ -100,44 +86,45 @@ const ClientNewsletterPage = ({ initialNews }: ClientNewsletterPageProps) => {
         <div className="text-center mb-12">
           <div className="flex justify-center mb-6">
             <div className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white p-4 rounded-full shadow-lg">
-              <FaEnvelope className="w-10 h-10" />
+              <FaBook className="w-10 h-10" />
             </div>
           </div>
           <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-800 to-teal-700 mb-4">
-            Our Newsletters
+            Our Materials
           </h1>
           <p className="text-lg text-emerald-700">
-            Stay updated with the latest insights, market trends, and stories.
+            Access valuable resources, guides, and content.
           </p>
         </div>
 
-        {/* Newsletter Section */}
+        {/* Materials Section */}
         <div className="bg-white rounded-2xl shadow-lg p-6 border border-emerald-100">
-          {newsletterLoading ? (
+          {materialsLoading ? (
             <div className="flex justify-center py-12">
               <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-emerald-500"></div>
             </div>
-          ) : newsletter && newsletter.length > 0 ? (
+          ) : error ? (
+            <p className="text-center text-red-600">{error}</p>
+          ) : materials && materials.length > 0 ? (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {newsletter.slice(0, 6).map((item) => (
+              {materials.map((item) => (
                 <motion.div
                   key={item?.id}
                   whileHover={{ y: -5 }}
                   className="bg-white rounded-xl shadow-md overflow-hidden border border-emerald-100 cursor-pointer transition-all duration-300 hover:shadow-lg"
-                  onClick={() => handleNewsletterClick(item?.id)}
+                  onClick={() => handleMaterialClick(item?.id)}
                 >
                   {/* Image Section */}
                   <div className="relative h-40 w-full">
-                    {item?.image ? (
-                      <Image
-                        src={item.image}
-                        alt={item.title || "Newsletter"}
-                        fill
-                        className="object-cover transition-transform duration-500 ease-in-out hover:scale-105"
+                    {item?.link ? (
+                      <iframe
+                        src={item.link}
+                        className="w-full h-full rounded-lg"
+                        allowFullScreen
                       />
                     ) : (
                       <div className="absolute inset-0 bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center">
-                        <FaNewspaper className="text-white/30 w-16 h-16" />
+                        <FaBook className="text-white/30 w-16 h-16" />
                       </div>
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
@@ -148,16 +135,6 @@ const ClientNewsletterPage = ({ initialNews }: ClientNewsletterPageProps) => {
                     <h3 className="font-bold text-emerald-900 text-lg line-clamp-2">
                       {item?.title || "Untitled"}
                     </h3>
-                    {item?.description && (
-                      <p className="text-emerald-700 text-sm mt-2 line-clamp-2">
-                        {item.description}
-                      </p>
-                    )}
-                    <p className="text-emerald-600 text-xs mt-3">
-                      {item?.publishDate
-                        ? formatDate(item.publishDate)
-                        : "Unknown Date"}
-                    </p>
                   </div>
                 </motion.div>
               ))}
@@ -165,13 +142,13 @@ const ClientNewsletterPage = ({ initialNews }: ClientNewsletterPageProps) => {
           ) : (
             <div className="text-center py-16">
               <div className="w-20 h-20 bg-gradient-to-r from-emerald-200 to-teal-300 rounded-full flex items-center justify-center mx-auto mb-4">
-                <FaNewspaper className="text-3xl text-emerald-600" />
+                <FaBook className="text-3xl text-emerald-600" />
               </div>
               <h3 className="text-2xl font-bold text-emerald-800 mb-2">
-                No Newsletters Found
+                No Materials Found
               </h3>
               <p className="text-emerald-600">
-                Check back later for fresh content.
+                Check back later for new resources.
               </p>
             </div>
           )}
@@ -181,4 +158,4 @@ const ClientNewsletterPage = ({ initialNews }: ClientNewsletterPageProps) => {
   );
 };
 
-export default ClientNewsletterPage;
+export default ClientMaterialsPage;

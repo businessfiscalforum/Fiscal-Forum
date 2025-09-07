@@ -255,7 +255,6 @@ export default function ClientReportsPage({
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100">
       <div className="max-w-full">
-        {/* ---------------- HEADER SECTION ---------------- */}
         <div className="relative overflow-hidden bg-gradient-to-r from-emerald-900 via-teal-900 to-green-900 text-white py-30">
           <div className="absolute inset-0 z-0">
             <div className="absolute inset-0 bg-black/20"></div>
@@ -274,9 +273,11 @@ export default function ClientReportsPage({
               expert insights from around the world
             </p>
             <div className="flex justify-center mt-6">
-              <button className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold rounded-xl shadow-lg transition">
-                Join Now
-              </button>
+              <Link href="/reports/join">
+                <button className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold rounded-xl shadow-lg transition">
+                  Join Now
+                </button>
+              </Link>
             </div>
           </div>
         </div>
