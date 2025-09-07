@@ -5,11 +5,6 @@ import React from "react";
 import ReferralSection from '../_components/ReferralSection';
 
 const Dashboard = () => {
-  // --- Static Data ---
-  const user = {
-    name: "Amit Sharma",
-    referralCode: "FF123XYZ",
-  };
 
   const stats = {
     totalEarnings: 12500.75,
@@ -32,19 +27,12 @@ const Dashboard = () => {
     { id: 4, source: "Savings A/C (Vikram Singh)", amount: 200.00, date: "2023-09-28" },
   ];
 
-  // --- Functions ---
-  const copyReferralCode = () => {
-    navigator.clipboard.writeText(user.referralCode);
-    alert(`Referral code ${user.referralCode} copied to clipboard!`);
-    // In a real app, you'd use a toast notification instead of alert
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-30">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <header className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Welcome back, {user.name}!</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Welcome!</h1>
           <p className="text-gray-600">Track your referrals and earnings.</p>
         </header>
 

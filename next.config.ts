@@ -15,6 +15,14 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "www.canva.com",
+      },
+      {
+        protocol: "https",
+        hostname: "canva.com",
+      },
+      {
+        protocol: "https",
         hostname: "economictimes.indiatimes.com", 
       },
        {

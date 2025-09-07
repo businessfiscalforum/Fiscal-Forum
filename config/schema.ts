@@ -1077,6 +1077,12 @@ export const customReportsRequest = pgTable('custom_reports_request', {
   topic: varchar('topic').notNull(),
 });
 
+export const materials = pgTable('materials', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  title: varchar('title'),
+  link: varchar('link'),
+});
+
 // Types
 export type InsertUser = typeof usersTable.$inferInsert;
 export type SelectUser = typeof usersTable.$inferSelect;
@@ -1178,3 +1184,6 @@ export type SelectB2BPartner = typeof b2bPartner.$inferSelect;
 
 export type InsertCustomReportsRequests = typeof customReportsRequest.$inferInsert;
 export type SelectCustomReportsRequests = typeof customReportsRequest.$inferSelect;
+
+export type InsertMaterialsRequests = typeof materials.$inferInsert;
+export type SelectMaterialsRequests = typeof materials.$inferSelect;
