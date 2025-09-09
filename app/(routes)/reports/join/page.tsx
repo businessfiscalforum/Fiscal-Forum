@@ -11,6 +11,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { PricingTable } from "@clerk/nextjs";
+import CustomPricingTable from "../../_components/CustomPricingTable";
 
 const plans = [
   {
@@ -66,7 +67,8 @@ export default function ReportsPage() {
         </motion.div>
 
         <div className="flex justify-center">
-          <PricingTable />
+          {/* <PricingTable /> */}
+          <CustomPricingTable/>
         </div>
 
       </div>

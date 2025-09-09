@@ -846,8 +846,8 @@ return (
           </div> {/* End of Main News Content Area */}
 
           {/* Newsletter Section - Full Width Below Main Content */}
-          <div> {/* Wrapper div for spacing if needed */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 border border-emerald-100"> {/* Newsletter Card */}
+          {/* <div>
+            <div className="bg-white rounded-2xl shadow-lg p-6 border border-emerald-100">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full flex items-center justify-center">
                   <FaEnvelope className="text-white" />
@@ -862,7 +862,7 @@ return (
                 </div>
               ) : newsletter.length > 0 ? (
                 <div className="space-y-6">
-                  {newsletter.slice(0, 5).map((item) => ( // Adjust slice count if needed
+                  {newsletter.slice(0, 5).map((item) => ( 
                     <div
                       key={item.id}
                       className="border-b border-emerald-100 pb-4 last:border-0 last:pb-0 cursor-pointer group hover:bg-emerald-50/30 p-2 rounded transition-colors duration-200"
@@ -885,8 +885,8 @@ return (
                   No newsletters available.
                 </p>
               )}
-            </div> {/* End of Newsletter Card */}
-          </div>
+            </div>
+          </div> */}
         </div>
       </section>
     </div>
