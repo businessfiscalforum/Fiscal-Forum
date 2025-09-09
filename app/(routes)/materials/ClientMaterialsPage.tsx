@@ -5,9 +5,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
-import {
-  FaBook,
-} from "react-icons/fa";
+import { FaBook } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
 export interface Materials {
