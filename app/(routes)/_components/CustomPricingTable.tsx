@@ -153,7 +153,7 @@ export default function CustomPricingTable() {
 
             <div className="flex-1">
               <h3 className="text-xl font-bold text-emerald-900 mb-3">
-                Get FREE research report (₹500 value) delivered to your email after payment!
+                We will add you to a whatsapp community where you will receive free and latest premium reports and updates!
               </h3>
               <ul className="space-y-3">
                 <li className="flex items-start">

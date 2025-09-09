@@ -101,7 +101,7 @@ export default function ClientReportsPage({
         throw new Error(`Error: ${response.status}`);
       }
 
-      setFormMessage("✅ Request submitted successfully!");
+      setFormMessage("✅ Request submitted successfully! We will send your custom report on your whatsapp.");
       setFormData({ name: "", mobile: "", topic: "" }); // clear form
     } catch (err) {
       console.error("Failed to submit form:", err);
@@ -254,7 +254,7 @@ export default function ClientReportsPage({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100">
-      <div className="max-w-full">
+      <div className="max-w-full pb-30">
         <div className="relative overflow-hidden bg-gradient-to-r from-emerald-900 via-teal-900 to-green-900 text-white py-30">
           <div className="absolute inset-0 z-0">
             <div className="absolute inset-0 bg-black/20"></div>
@@ -480,77 +480,124 @@ export default function ClientReportsPage({
         </section>
 
         {/* ---------------- CUSTOM REPORTS FORM ---------------- */}
-        <section className="py-16 bg-gradient-to-r from-emerald-50 to-teal-50">
-          <div className="max-w-3xl mx-auto px-6 bg-white rounded-2xl shadow-lg border border-emerald-200 p-10">
-            <h2 className="text-2xl font-bold text-emerald-800 text-center mb-6">
-              Get Your Custom Reports
-            </h2>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  placeholder="Enter your name"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Mobile Number
-                </label>
-                <input
-                  type="tel"
-                  name="mobile"
-                  value={formData.mobile}
-                  onChange={handleInputChange}
-                  placeholder="Enter your mobile number"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Topic
-                </label>
-                <input
-                  type="text"
-                  name="topic"
-                  value={formData.topic}
-                  onChange={handleInputChange}
-                  placeholder="Enter report topic"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-emerald-500 focus:border-emerald-500"
-                  required
-                />
-              </div>
-              {formMessage && (
-                <p
-                  className={`text-sm text-center ${
-                    formMessage.startsWith("✅")
-                      ? "text-green-600"
-                      : "text-red-600"
-                  }`}
-                >
-                  {formMessage}
+        <div className="max-w-3xl mx-auto px-6">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-pink-100 p-8 md:p-12 relative overflow-hidden">
+            {/* Decorative Elements */}
+            <div className="absolute top-0 left-0 w-32 h-32 bg-pink-100 rounded-full -translate-x-1/2 -translate-y-1/2 opacity-70"></div>
+            <div className="absolute bottom-0 right-0 w-40 h-40 bg-rose-100 rounded-full translate-x-1/2 translate-y-1/2 opacity-70"></div>
+
+            <div className="relative z-10">
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-pink-100 to-rose-100 rounded-full mb-4">
+                  <div className="w-8 h-8 bg-gradient-to-r from-pink-400 to-rose-500 rounded-full"></div>
+                </div>
+                <h2 className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
+                  Get Your Custom Reports
+                </h2>
+                <p className="text-rose-600 mt-2">
+                  Personalized insights tailored just for you
                 </p>
-              )}
-              <div className="flex justify-center">
-                <button
-                  type="submit"
-                  disabled={formLoading}
-                  className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold rounded-xl shadow-lg transition disabled:opacity-50"
-                >
-                  {formLoading ? "Submitting..." : "Submit Request"}
-                </button>
               </div>
-            </form>
+
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="space-y-5">
+                  <div>
+                    <label className="block text-sm font-medium text-rose-800 mb-2">
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      placeholder="Enter your full name"
+                      className="w-full px-5 py-3 bg-rose-50/50 border border-rose-200 rounded-xl focus:ring-2 focus:ring-rose-300 focus:border-rose-400 transition-all placeholder-rose-300 text-rose-800"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-rose-800 mb-2">
+                      Mobile Number
+                    </label>
+                    <input
+                      type="tel"
+                      name="mobile"
+                      value={formData.mobile}
+                      onChange={handleInputChange}
+                      placeholder="Enter your mobile number"
+                      className="w-full px-5 py-3 bg-rose-50/50 border border-rose-200 rounded-xl focus:ring-2 focus:ring-rose-300 focus:border-rose-400 transition-all placeholder-rose-300 text-rose-800"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-rose-800 mb-2">
+                      Report Topic
+                    </label>
+                    <input
+                      type="text"
+                      name="topic"
+                      value={formData.topic}
+                      onChange={handleInputChange}
+                      placeholder="What topic would you like analyzed?"
+                      className="w-full px-5 py-3 bg-rose-50/50 border border-rose-200 rounded-xl focus:ring-2 focus:ring-rose-300 focus:border-rose-400 transition-all placeholder-rose-300 text-rose-800"
+                      required
+                    />
+                  </div>
+                </div>
+
+                {formMessage && (
+                  <div
+                    className={`text-center p-3 rounded-lg ${
+                      formMessage.startsWith("✅")
+                        ? "bg-green-100 text-green-700"
+                        : "bg-rose-100 text-rose-700"
+                    }`}
+                  >
+                    {formMessage}
+                  </div>
+                )}
+
+                <div className="pt-4">
+                  <button
+                    type="submit"
+                    disabled={formLoading}
+                    className="w-full py-4 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5 disabled:opacity-50 disabled:transform-none"
+                  >
+                    {formLoading ? (
+                      <div className="flex items-center justify-center">
+                        <svg
+                          className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
+                        </svg>
+                        Processing Request...
+                      </div>
+                    ) : (
+                      "Submit Request"
+                    )}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        </section>
+        </div>
       </div>
     </div>
   );
