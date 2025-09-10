@@ -156,6 +156,12 @@ export const reportTypeEnum = pgEnum('report_type', [
   'Equity Research Report'
 ]);
 
+export const RequestStatusEnum = pgEnum('request_status', [
+  'Pending',
+  'Approved',
+  'Rejected',
+]);
+
 export const ratingEnum = pgEnum("rating", ["BUY", "HOLD", "SELL"]);
 
 // Users Table
@@ -1083,6 +1089,17 @@ export const materials = pgTable('materials', {
   link: varchar('link'),
 });
 
+export const partnerRequests = pgTable('partner_requests', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  type: varchar('type'),
+  subType: varchar('sub_type'),
+  name: varchar('name'),
+  mobile: varchar('mobile', {length: 10}),
+  email: varchar('email'),
+  status: RequestStatusEnum('status').default("Pending"),
+  userId: varchar("user_id").notNull(),
+});
+
 // Types
 export type InsertUser = typeof usersTable.$inferInsert;
 export type SelectUser = typeof usersTable.$inferSelect;
@@ -1187,3 +1204,6 @@ export type SelectCustomReportsRequests = typeof customReportsRequest.$inferSele
 
 export type InsertMaterialsRequests = typeof materials.$inferInsert;
 export type SelectMaterialsRequests = typeof materials.$inferSelect;
+
+export type InsertPartnerRequests = typeof partnerRequests.$inferInsert;
+export type SelectPartnerRequests = typeof partnerRequests.$inferSelect;

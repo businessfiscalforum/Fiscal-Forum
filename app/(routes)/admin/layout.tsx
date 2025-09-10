@@ -41,6 +41,12 @@ export default async function AdminLayout({
           <Link href="/admin/newsletter" className="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition text-sm">📰 Newsletter</Link>
           <Link href="/admin/reports" className="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition text-sm">📈 Research Reports</Link>
           <Link href="/admin/subscribers" className="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition text-sm">📧 Subscribers</Link>
+          
+          {/* --- Partner Requests --- */}
+          <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider mt-4">
+            Partner Requests
+          </div>
+          <Link href="/admin/partner-requests" className="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition text-sm">Partner Requests</Link>
 
           {/* --- Financial Applications --- */}
           <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider mt-4">
