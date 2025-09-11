@@ -65,6 +65,7 @@ const isPublicRoute = createRouteMatcher([
 ]);
 
 const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
+const isPartnerRoute = createRouteMatcher(["/crm(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
   if (!isPublicRoute(req)) {
@@ -73,6 +74,13 @@ export default clerkMiddleware(async (auth, req) => {
   if (
     isAdminRoute(req) &&
     (await auth()).sessionClaims?.metadata?.role !== "ADMIN"
+  ) {
+    const url = new URL("/", req.url);
+    return NextResponse.redirect(url);
+  }
+  if (
+    isPartnerRoute(req) &&
+    (await auth()).sessionClaims?.metadata?.role !== "PARTNER"
   ) {
     const url = new URL("/", req.url);
     return NextResponse.redirect(url);

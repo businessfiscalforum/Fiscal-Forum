@@ -2,6 +2,7 @@
 import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { UserDetailContext } from "../../../context/UserDetailContext";
+import ReferralSection from "../_components/ReferralSection";
 
 const options = [
   "Stock Market",
@@ -44,11 +45,9 @@ export default function FinanceLeadsPage() {
   const [selected, setSelected] = useState<string>("Loan");
   const [loading, setLoading] = useState<boolean>(false);
 
-  // ✅ Fetch stats only when USER_ID is available
   useEffect(() => {
     async function fetchStats() {
       if (!USER_ID) return;
-
       try {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/api/crm?userId=${USER_ID}`
@@ -69,11 +68,9 @@ export default function FinanceLeadsPage() {
     fetchStats();
   }, [USER_ID]);
 
-  // ✅ Fetch leads only when USER_ID is available
   useEffect(() => {
     async function fetchData() {
       if (!selected || !USER_ID) return;
-
       try {
         setLoading(true);
         const res = await fetch(
@@ -82,9 +79,7 @@ export default function FinanceLeadsPage() {
           )}&userId=${USER_ID}`
         );
 
-        if (!res.ok) {
-          throw new Error(`Failed to fetch leads: ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`Failed to fetch leads: ${res.status}`);
 
         const leads = await res.json();
         setData(leads);
@@ -98,7 +93,6 @@ export default function FinanceLeadsPage() {
     fetchData();
   }, [selected, USER_ID]);
 
-  // ✅ Loader while waiting for user details
   if (!USER_ID) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-green-50">
@@ -108,48 +102,36 @@ export default function FinanceLeadsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-green-50 p-6 pt-30">
-      <h1 className="text-6xl font-bold text-green-700 mb-6 text-center">
+    <div className="min-h-screen bg-green-50 !pt-30 p-4 md:p-6">
+      <ReferralSection />
+      <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-green-700 mt-5 mb-6 text-center">
         Finance Leads
       </h1>
 
       {/* ✅ Stats Section */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-10 max-w-4xl mx-auto">
-        <div className="bg-white shadow rounded-xl p-6 text-center">
-          <p className="text-gray-500">Total Requests</p>
-          <p className="text-2xl font-bold text-green-700">{stats.total}</p>
-        </div>
-        <div className="bg-white shadow rounded-xl p-6 text-center">
-          <p className="text-gray-500">Accepted</p>
-          <p className="text-2xl font-bold text-green-700">{stats.accepted}</p>
-        </div>
-        <div className="bg-white shadow rounded-xl p-6 text-center">
-          <p className="text-gray-500">Rejected</p>
-          <p className="text-2xl font-bold text-red-600">{stats.rejected}</p>
-        </div>
-        <div className="bg-white shadow rounded-xl p-6 text-center">
-          <p className="text-gray-500">Pending</p>
-          <p className="text-2xl font-bold text-yellow-600">{stats.pending}</p>
-        </div>
-        <div className="bg-white shadow rounded-xl p-6 text-center">
-          <p className="text-gray-500">Credits</p>
-          <p className="text-2xl font-bold text-blue-600">{stats.accepted}</p>
-        </div>
-        <div className="bg-white shadow rounded-xl p-6 text-center">
-          <p className="text-gray-500">Value (₹)</p>
-          <p className="text-2xl font-bold text-purple-600">
-            ₹ {stats.accepted * 10}
-          </p>
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-10 max-w-6xl mx-auto">
+        {[
+          { label: "Total Requests", value: stats.total, color: "text-green-700" },
+          { label: "Accepted", value: stats.accepted, color: "text-green-700" },
+          { label: "Rejected", value: stats.rejected, color: "text-red-600" },
+          { label: "Pending", value: stats.pending, color: "text-yellow-600" },
+          { label: "Credits", value: stats.accepted, color: "text-blue-600" },
+          { label: "Value (₹)", value: `₹ ${stats.accepted * 10}`, color: "text-purple-600" },
+        ].map((item, idx) => (
+          <div key={idx} className="bg-white shadow rounded-xl p-4 sm:p-6 text-center">
+            <p className="text-gray-500 text-sm md:text-base">{item.label}</p>
+            <p className={`text-xl md:text-2xl font-bold ${item.color}`}>{item.value}</p>
+          </div>
+        ))}
       </div>
 
-      {/* Styled Navbar (tabs style) */}
-      <div className="flex justify-center mb-6 h-20">
+      {/* ✅ Responsive Navbar (scrollable on small screens) */}
+      <div className="flex overflow-x-auto no-scrollbar justify-start md:justify-center mb-6 h-16 space-x-4 px-2">
         {options.map((opt) => (
           <button
             key={opt}
             onClick={() => setSelected(opt)}
-            className={`px-4 py-2 mx-2 relative text-xl font-medium transition-colors duration-300
+            className={`whitespace-nowrap px-3 md:px-4 py-2 relative text-base md:text-lg font-medium transition-colors duration-300
               ${
                 selected === opt
                   ? "text-emerald-600"
@@ -170,15 +152,15 @@ export default function FinanceLeadsPage() {
           {/* Create Lead Button */}
           <div className="mb-6 text-center">
             <Link href={`/crm/${selected.toLowerCase().replace(/\s+/g, "-")}`}>
-              <button className="bg-green-600 text-white text-xl px-8 py-4 rounded-xl hover:bg-green-700">
+              <button className="bg-green-600 text-white text-base md:text-xl px-6 md:px-8 py-3 md:py-4 rounded-xl hover:bg-green-700">
                 Create Lead
               </button>
             </Link>
           </div>
 
-          {/* Table or Loader */}
-          <div className="bg-white shadow-md rounded-2xl p-4">
-            <h2 className="text-xl font-semibold text-green-700 mb-4">
+          {/* ✅ Responsive Table */}
+          <div className="bg-white shadow-md rounded-2xl p-4 overflow-x-auto">
+            <h2 className="text-lg md:text-xl font-semibold text-green-700 mb-4">
               {selected} Leads
             </h2>
 
@@ -187,33 +169,30 @@ export default function FinanceLeadsPage() {
                 <div className="w-10 h-10 border-4 border-green-600 border-t-transparent rounded-full animate-spin"></div>
               </div>
             ) : (
-              <table className="w-full border-collapse">
+              <table className="w-full border-collapse text-sm md:text-base">
                 <thead>
                   <tr className="bg-green-100 text-left">
-                    <th className="p-3 border-b">Subtype</th>
-                    <th className="p-3 border-b">Name</th>
-                    <th className="p-3 border-b">Mobile</th>
-                    <th className="p-3 border-b">Email</th>
-                    <th className="p-3 border-b">Status</th>
+                    <th className="p-2 md:p-3 border-b">Subtype</th>
+                    <th className="p-2 md:p-3 border-b">Name</th>
+                    <th className="p-2 md:p-3 border-b">Mobile</th>
+                    <th className="p-2 md:p-3 border-b">Email</th>
+                    <th className="p-2 md:p-3 border-b">Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {data.length > 0 ? (
                     data.map((row) => (
                       <tr key={row.id} className="hover:bg-green-50">
-                        <td className="p-3 border-b">{row.subType}</td>
-                        <td className="p-3 border-b">{row.name}</td>
-                        <td className="p-3 border-b">{row.mobile}</td>
-                        <td className="p-3 border-b">{row.email}</td>
-                        <td className="p-3 border-b">{row.status}</td>
+                        <td className="p-2 md:p-3 border-b">{row.subType}</td>
+                        <td className="p-2 md:p-3 border-b">{row.name}</td>
+                        <td className="p-2 md:p-3 border-b">{row.mobile}</td>
+                        <td className="p-2 md:p-3 border-b">{row.email}</td>
+                        <td className="p-2 md:p-3 border-b">{row.status}</td>
                       </tr>
                     ))
                   ) : (
                     <tr>
-                      <td
-                        colSpan={5}
-                        className="p-4 text-center text-gray-500"
-                      >
+                      <td colSpan={5} className="p-4 text-center text-gray-500">
                         No leads found.
                       </td>
                     </tr>
