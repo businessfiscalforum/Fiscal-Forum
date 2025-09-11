@@ -30,7 +30,14 @@ import "swiper/css/pagination";
 import Link from "next/link";
 import HomeResearchAndNewsSection from "./(routes)/_components/HomeResearchAndNewsSection";
 import { useEffect, useState } from "react";
-import { BarChart3, BookOpen, Shield, TrendingUp, Wallet } from "lucide-react";
+import {
+  BarChart3,
+  BookOpen,
+  Divide,
+  Shield,
+  TrendingUp,
+  Wallet,
+} from "lucide-react";
 import ResearchReportsSection from "./(routes)/_components/ResearchReportsSection";
 
 const slides = [
@@ -393,6 +400,14 @@ const securityFeatures = [
 ];
 
 export default function HomePage() {
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  useEffect(() => {
+    // This runs only on the client
+    const handleResize = () => setIsSmallScreen(window.innerWidth < 768);
+    handleResize(); // Check on first load
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{
@@ -543,7 +558,9 @@ export default function HomePage() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users?email=test@example.com`);
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/users?email=test@example.com`
+        );
         const data = await res.json();
         setUser(data);
       } catch (error) {
@@ -804,9 +821,13 @@ export default function HomePage() {
                       </div>
 
                       {/* Description */}
-                      <p className="text-sm leading-relaxed text-gray-600 text-center flex-grow">
-                        {item.description}
-                      </p>
+                      {!isSmallScreen ? (
+                        <p className="text-sm leading-relaxed text-gray-600 text-center flex-grow">
+                          {item.description}
+                        </p>
+                      ) : (
+                        <div></div>
+                      )}
 
                       {/* Learn More Button */}
                       <div className="mt-auto">
@@ -882,9 +903,13 @@ export default function HomePage() {
                   <h4 className="text-2xl font-bold text-emerald-700 mb-6 group-hover:text-teal-600 transition-colors">
                     {feature.title}
                   </h4>
-                  <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors text-lg">
-                    {feature.desc}
-                  </p>
+                  {!isSmallScreen ? (
+                    <p className="text-sm leading-relaxed text-gray-600 text-center flex-grow">
+                      {feature.desc}
+                    </p>
+                  ) : (
+                    <div></div>
+                  )}
 
                   {/* Decorative element */}
                   <div className="absolute bottom-6 right-6 w-2 h-2 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>

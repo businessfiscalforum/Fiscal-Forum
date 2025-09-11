@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BarChart3, FolderOpen, UserCheck, Phone } from "lucide-react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -21,6 +21,15 @@ import { useRouter } from "next/navigation";
 // import { BrokerInfiniteScroll } from "../../_components/Broker"; // Adjust path as needed
 
 export default function MutualPage() {
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  useEffect(() => {
+    // This runs only on the client
+    const handleResize = () => setIsSmallScreen(window.innerWidth < 768);
+    handleResize(); // Check on first load
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -474,11 +483,15 @@ export default function MutualPage() {
                       Begin Your Mutual Fund Journey
                     </h2>
                   </div>
-                  <p className="text-green-100 text-lg leading-relaxed">
-                    Open an investment account today and start building wealth
-                    with diversified mutual fund portfolios — all from the
-                    comfort of your home, paperless and hassle-free.
-                  </p>
+                  {!isSmallScreen ? (
+                    <p className="text-green-100 text-lg leading-relaxed">
+                      Open an investment account today and start building wealth
+                      with diversified mutual fund portfolios — all from the
+                      comfort of your home, paperless and hassle-free.
+                    </p>
+                  ) : (
+                    <div></div>
+                  )}
                 </div>
                 <button
                   onClick={() =>
@@ -499,11 +512,15 @@ export default function MutualPage() {
                       Optimize Your Mutual Fund Portfolio
                     </h2>
                   </div>
-                  <p className="text-gray-600 text-lg leading-relaxed">
-                    Already have mutual fund investments? Shift to direct plans,
-                    reduce expense ratios, and maximize your long-term returns
-                    with our personalized strategies.
-                  </p>
+                  {!isSmallScreen ? (
+                    <p className="text-gray-600 text-lg leading-relaxed">
+                      Already have mutual fund investments? Shift to direct
+                      plans, reduce expense ratios, and maximize your long-term
+                      returns with our personalized strategies.
+                    </p>
+                  ) : (
+                    <div></div>
+                  )}
                 </div>
                 <button
                   onClick={() =>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Gem,
   Coins,
@@ -104,6 +104,15 @@ const investmentOptions = [
 ];
 
 export default function CreditCardApplyPage() {
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  useEffect(() => {
+    // This runs only on the client
+    const handleResize = () => setIsSmallScreen(window.innerWidth < 768);
+    handleResize(); // Check on first load
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -185,8 +194,8 @@ export default function CreditCardApplyPage() {
     (totalInvestedAmount / calculateFutureValue()) * circumference;
   const returnsPortion =
     (estimatedReturns / calculateFutureValue()) * circumference;
-    const formatNumber = (num: number) =>
-  new Intl.NumberFormat("en-IN").format(num);
+  const formatNumber = (num: number) =>
+    new Intl.NumberFormat("en-IN").format(num);
   return (
     <>
       {/* Main Layout: Content + Sidebar */}
@@ -505,12 +514,16 @@ export default function CreditCardApplyPage() {
                       Start Your Wealth Journey
                     </h2>
                   </div>
-                  <p className="text-green-100 text-lg leading-relaxed">
-                    Ready to take the first step? Open your Demat & Trading
-                    account in minutes and begin investing with confidence. Zero
-                    paperwork, instant approval, and full support every step of
-                    the way.
-                  </p>
+                  {!isSmallScreen ? (
+                    <p className="text-green-100 text-lg leading-relaxed">
+                      Ready to take the first step? Open your Demat & Trading
+                      account in minutes and begin investing with confidence.
+                      Zero paperwork, instant approval, and full support every
+                      step of the way.
+                    </p>
+                  ) : (
+                    <div></div>
+                  )}
                 </div>
                 <button
                   onClick={() =>
@@ -530,12 +543,16 @@ export default function CreditCardApplyPage() {
                       Level Up Your Portfolio
                     </h2>
                   </div>
-                  <p className="text-gray-600 text-lg leading-relaxed">
-                    Already investing? Supercharge your strategy with advanced
-                    tools, real-time analytics, and personalized insights.
-                    Unlock higher potential and trade smarter with our premium
-                    platform.
-                  </p>
+                  {!isSmallScreen ? (
+                    <p className="text-gray-600 text-lg leading-relaxed">
+                      Already investing? Supercharge your strategy with advanced
+                      tools, real-time analytics, and personalized insights.
+                      Unlock higher potential and trade smarter with our premium
+                      platform.
+                    </p>
+                  ) : (
+                    <div></div>
+                  )}
                 </div>
                 <button
                   onClick={() =>

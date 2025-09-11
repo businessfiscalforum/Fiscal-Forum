@@ -289,7 +289,10 @@ export default function HomeNewsAndResearchSection() {
             {/* News Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
               <AnimatePresence mode="popLayout">
-                {currentItems.map((item, i) => (
+                {(window.innerWidth < 768
+                  ? currentItems.slice(0, Math.ceil(currentItems.length / 2))
+                  : currentItems
+                ).map((item, i) => (
                   <motion.div
                     key={item.id}
                     initial={{ opacity: 0, y: 15 }}
