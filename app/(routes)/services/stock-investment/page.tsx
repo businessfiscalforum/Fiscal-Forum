@@ -302,304 +302,340 @@ export default function CreditCardApplyPage() {
             </div>
           </div>
 
-          {/* SIP Calculator Section */}
-          <section className="py-16 bg-white rounded-2xl shadow-lg mx-4 sm:mx-auto max-w-5xl overflow-hidden">
-            <div className="px-6 pb-6">
-              <h2 className="text-3xl font-bold text-gray-800 mb-2">
-                SIP Calculator
-              </h2>
-              <p className="text-gray-600 mb-6">
-                The SIP calculator helps estimate the potential growth of your
-                Systematic Investment Plan (SIP) investment over your chosen
-                time frame. SIP is a convenient method to save for your
-                long-term financial goals.
-              </p>
+          <motion.section
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="py-20 mx-4 sm:mx-auto max-w-6xl"
+          >
+            <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+              <div className="bg-gradient-to-r from-green-600 to-emerald-600 px-8 py-6">
+                <h2 className="text-3xl font-bold text-white mb-2">
+                  SIP Calculator
+                </h2>
+                <p className="text-green-100">
+                  The SIP calculator helps estimate the potential growth of your
+                  Systematic Investment Plan (SIP) investment over your chosen
+                  time frame. SIP is a convenient method to save for your
+                  long-term financial goals.
+                </p>
+              </div>
 
-              <div className="bg-gray-50 rounded-xl p-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {/* Input Panel */}
-                  <div className="space-y-6">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+              <div className="p-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                  {/* Enhanced Input Panel */}
+                  <div className="space-y-8">
+                    <div className="flex items-center gap-4 p-4 bg-blue-50 rounded-xl">
+                      <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center shadow-lg">
                         <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
+                          className="w-6 h-6 text-white"
                           fill="currentColor"
-                          viewBox="0 0 16 16"
+                          viewBox="0 0 20 20"
                         >
-                          <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 .5a6.5 6.5 0 1 1 0 13A6.5 6.5 0 0 1 8 1.5zM2 8a6 6 0 1 1 10.89 3.476l4.817 4.817a1 1 0 0 1-1.414 1.414l-4.816-4.816A6 6 0 0 1 2 8z" />
+                          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500">
+                        <p className="font-semibold text-gray-800">
                           Returns Estimator
                         </p>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-sm text-gray-600">
                           Estimation is based on the past performance
                         </p>
                       </div>
                     </div>
 
-                    <div className="space-y-4">
+                    <div className="space-y-6">
                       <div>
-                        <label
-                          htmlFor="amount"
-                          className="block text-sm font-medium text-gray-700 mb-1"
-                        >
-                          Enter Amount
+                        <label className="block text-lg font-semibold text-gray-700 mb-3">
+                          Monthly Investment Amount
                         </label>
                         <div className="relative">
                           <input
                             type="number"
-                            id="amount"
                             value={monthlyAmount}
                             onChange={(e) =>
                               setMonthlyAmount(Number(e.target.value))
                             }
-                            className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                            className="w-full pl-12 pr-6 py-4 text-xl border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-green-500/20 focus:border-green-500 transition-all bg-white shadow-sm"
                             placeholder="₹5,000"
                           />
-                          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                          <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-xl font-medium">
                             ₹
                           </div>
                         </div>
                       </div>
 
                       <div>
-                        <label
-                          htmlFor="duration"
-                          className="block text-sm font-medium text-gray-700 mb-1"
-                        >
-                          Select Duration
+                        <label className="block text-lg font-semibold text-gray-700 mb-3">
+                          Investment Duration
                         </label>
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-xs text-gray-500">1 Yr</span>
-                          <span className="text-sm font-medium">
-                            {duration} Yrs
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-sm text-gray-500">1 Year</span>
+                          <div className="bg-green-100 px-4 py-2 rounded-full">
+                            <span className="text-lg font-bold text-green-700">
+                              {duration} Years
+                            </span>
+                          </div>
+                          <span className="text-sm text-gray-500">
+                            30 Years
                           </span>
-                          <span className="text-xs text-gray-500">30 Yrs</span>
                         </div>
                         <input
                           type="range"
-                          id="duration"
                           min="1"
                           max="30"
                           value={duration}
                           onChange={(e) => setDuration(Number(e.target.value))}
-                          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                          className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
                         />
                       </div>
 
                       <div>
-                        <label
-                          htmlFor="return"
-                          className="block text-sm font-medium text-gray-700 mb-1"
-                        >
-                          Expected Rate of Return
+                        <label className="block text-lg font-semibold text-gray-700 mb-3">
+                          Expected Annual Return
                         </label>
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-xs text-gray-500">8%</span>
-                          <span className="text-sm font-medium">
-                            {expectedReturn}%
-                          </span>
-                          <span className="text-xs text-gray-500">30%</span>
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-sm text-gray-500">8%</span>
+                          <div className="bg-blue-100 px-4 py-2 rounded-full">
+                            <span className="text-lg font-bold text-blue-700">
+                              {expectedReturn}%
+                            </span>
+                          </div>
+                          <span className="text-sm text-gray-500">30%</span>
                         </div>
                         <input
                           type="range"
-                          id="return"
                           min="8"
                           max="30"
                           value={expectedReturn}
                           onChange={(e) =>
                             setExpectedReturn(Number(e.target.value))
                           }
-                          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                          className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
                         />
                       </div>
                     </div>
                   </div>
 
-                  {/* Results Panel */}
-                  <div className="flex flex-col justify-center items-center text-center">
-                    <p className="text-gray-600 mb-2">
-                      The total value of your investment after {duration} Years
+                  {/* Enhanced Results Panel */}
+                  <div className="flex flex-col justify-center items-center text-center bg-gradient-to-br from-gray-50 to-white p-8 rounded-2xl border border-gray-100">
+                    <p className="text-gray-600 mb-4 text-lg">
+                      The total value of your investment after {duration} years
                       will be
                     </p>
-                    <div className="text-4xl font-bold text-gray-800 mb-6">
-                      ₹{formatNumber(calculateFutureValue())}
-                    </div>
 
-                    <div className="w-32 h-32 relative mb-6">
-                      <svg viewBox="0 0 100 100" className="w-32 h-32">
-                        {/* Background Circle */}
+                    <motion.div
+                      key={calculateFutureValue()}
+                      initial={{ scale: 0.9 }}
+                      animate={{ scale: 1 }}
+                      transition={{ duration: 0.3 }}
+                      className="text-5xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-8"
+                    >
+                      ₹{formatNumber(calculateFutureValue())}
+                    </motion.div>
+
+                    <div className="relative mb-8">
+                      <svg viewBox="0 0 100 100" className="w-40 h-40">
                         <circle
                           cx="50"
                           cy="50"
                           r="45"
                           fill="none"
                           stroke="#E5E7EB"
-                          strokeWidth="10"
+                          strokeWidth="8"
                         />
-                        {/* Invested Amount - ORANGE */}
                         <circle
                           cx="50"
                           cy="50"
                           r="45"
                           fill="none"
                           stroke="#F97316"
-                          strokeWidth="10"
+                          strokeWidth="8"
                           strokeDasharray={`${investedPortion} ${circumference}`}
                           strokeDashoffset={0}
                           strokeLinecap="round"
                           transform="rotate(-90 50 50)"
                         />
-                        {/* Estimated Returns - BLUE (starts after orange ends) */}
                         <circle
                           cx="50"
                           cy="50"
                           r="45"
                           fill="none"
                           stroke="#3B82F6"
-                          strokeWidth="10"
+                          strokeWidth="8"
                           strokeDasharray={`${returnsPortion} ${circumference}`}
                           strokeDashoffset={-investedPortion}
                           strokeLinecap="round"
                           transform="rotate(-90 50 50)"
                         />
                       </svg>
+                    </div>
 
-                      <div className="text-sm text-gray-600 mb-2">
-                        <div className="flex items-center gap-2 mb-1">
-                          <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-                          <span>Invested Amount</span>
+                    <div className="grid grid-cols-2 gap-6 mb-8 w-full">
+                      <div className="text-center p-4 bg-orange-50 rounded-xl">
+                        <div className="flex items-center justify-center gap-2 mb-2">
+                          <div className="w-4 h-4 bg-orange-500 rounded-full"></div>
+                          <span className="font-semibold text-gray-700">
+                            Invested
+                          </span>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                          <span>Est. Returns</span>
+                        <div className="text-xl font-bold text-orange-600">
+                          ₹{formatNumber(totalInvestedAmount)}
                         </div>
                       </div>
 
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center">
-                          <div className="text-2xl font-bold text-gray-800">
-                            ₹{formatNumber(totalInvestedAmount)}
-                          </div>
+                      <div className="text-center p-4 bg-blue-50 rounded-xl">
+                        <div className="flex items-center justify-center gap-2 mb-2">
+                          <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
+                          <span className="font-semibold text-gray-700">
+                            Returns
+                          </span>
+                        </div>
+                        <div className="text-xl font-bold text-blue-600">
+                          ₹{formatNumber(estimatedReturns)}
                         </div>
                       </div>
                     </div>
-
                     <Link
                       href="/services/stock-investment/open-demat-account"
                       passHref
                     >
-                      <button className="mt-6 bg-emerald-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-medium transition-colors">
-                        Invest Now
+                      <button className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-10 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                        Start Investing Today
                       </button>
                     </Link>
                   </div>
                 </div>
               </div>
             </div>
-          </section>
+          </motion.section>
 
           {/* Call to Action (Kickstart & Level Up) */}
-          <section className="py-16 px-4">
+          <motion.section
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="py-16 px-4"
+          >
             <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-3xl p-10 flex flex-col justify-between shadow-xl min-h-[300px] hover:-translate-y-2 transition-transform duration-300 group text-white">
-                <div>
+              <div className="relative bg-gradient-to-br from-green-600 via-emerald-600 to-teal-700 rounded-3xl p-10 shadow-2xl hover:shadow-3xl transform hover:-translate-y-3 transition-all duration-500 group overflow-hidden">
+                {/* Background Pattern */}
+                <div className="absolute inset-0 opacity-10">
+                  <div className="absolute top-4 right-4 w-24 h-24 border-2 border-white rounded-full"></div>
+                  <div className="absolute bottom-8 left-8 w-16 h-16 border border-white rounded-full"></div>
+                </div>
+
+                <div className="relative z-10">
                   <div className="flex items-center gap-4 mb-6">
-                    <FolderOpen className="w-10 h-10 text-white" />
-                    <h2 className="text-3xl font-bold leading-snug">
+                    <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl">
+                      <FolderOpen className="w-8 h-8 text-white" />
+                    </div>
+                    <h2 className="text-3xl font-bold leading-snug text-white">
                       Start Your Wealth Journey
                     </h2>
                   </div>
-                  {!isSmallScreen ? (
-                    <p className="text-green-100 text-lg leading-relaxed">
+
+                  {!isSmallScreen && (
+                    <p className="text-green-100 text-lg leading-relaxed mb-8">
                       Ready to take the first step? Open your Demat & Trading
                       account in minutes and begin investing with confidence.
                       Zero paperwork, instant approval, and full support every
                       step of the way.
                     </p>
-                  ) : (
-                    <div></div>
                   )}
+                  <Link href={"/services/stock-investment/open-demat-account"}>
+                  <button className="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-green-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+                    Start Investing Now
+                  </button>
+                  </Link>
                 </div>
-                <button
-                  onClick={() =>
-                    router.push("/services/stock-investment/open-demat-account")
-                  }
-                  className="mt-6 w-fit border border-white text-white px-6 py-3 rounded-full font-medium hover:bg-white hover:text-green-700 transition-all duration-300"
-                >
-                  Start Investing Now
-                </button>
               </div>
 
-              <div className="bg-white rounded-3xl p-10 flex flex-col justify-between border-2 border-green-200 shadow-xl min-h-[300px] hover:-translate-y-2 transition-transform duration-300 group">
-                <div>
+              <div className="relative bg-white rounded-3xl p-10 shadow-2xl hover:shadow-3xl border-2 border-green-100 hover:border-green-200 transform hover:-translate-y-3 transition-all duration-500 group overflow-hidden">
+                {/* Background Pattern */}
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute top-4 right-4 w-24 h-24 border-2 border-green-500 rounded-full"></div>
+                  <div className="absolute bottom-8 left-8 w-16 h-16 border border-green-400 rounded-full"></div>
+                </div>
+
+                <div className="relative z-10">
                   <div className="flex items-center gap-4 mb-6">
-                    <UserCheck className="w-10 h-10 text-green-600" />
+                    <div className="p-3 bg-green-100 rounded-xl">
+                      <UserCheck className="w-8 h-8 text-green-600" />
+                    </div>
                     <h2 className="text-3xl font-bold text-gray-800 leading-snug">
                       Level Up Your Portfolio
                     </h2>
                   </div>
-                  {!isSmallScreen ? (
-                    <p className="text-gray-600 text-lg leading-relaxed">
+
+                  {!isSmallScreen && (
+                    <p className="text-gray-600 text-lg leading-relaxed mb-8">
                       Already investing? Supercharge your strategy with advanced
                       tools, real-time analytics, and personalized insights.
                       Unlock higher potential and trade smarter with our premium
                       platform.
                     </p>
-                  ) : (
-                    <div></div>
                   )}
+
+
+                  <Link href={"/services/stock-investment/already-have-an-account"}>
+                  <button className="bg-green-100 border-2 border-green-500 text-green-700 px-8 py-4 rounded-full font-bold hover:bg-green-600 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+                    Continue Your Journey
+                  </button>
+                  </Link>
                 </div>
-                <button
-                  onClick={() =>
-                    router.push(
-                      "/services/stock-investment/already-have-an-account"
-                    )
-                  }
-                  className="mt-6 w-fit border border-green-600 text-green-600 px-6 py-3 rounded-full font-medium hover:bg-green-600 hover:text-white transition-all duration-300"
-                >
-                  Continue Your Journey
-                </button>
               </div>
             </div>
-          </section>
+          </motion.section>
 
-          <section className="py-16 my-10 mx-4 sm:mx-auto max-w-4xl text-center bg-gradient-to-r from-teal-600 to-green-600 text-white rounded-2xl px-6">
-            <Phone className="w-16 h-16 mx-auto mb-6" />
-            <h2 className="text-3xl font-bold mb-4">
-              Need Help? Talk to an Expert
-            </h2>
-            <p className="text-xl mb-8 opacity-90">
-              Get personalized guidance on opening your queries related to
-              mutual funds.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button
-                onClick={() =>
-                  router.push("/services/stock-investment/contact")
-                }
-                className="bg-white text-green-700 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3"
-              >
-                <Phone className="w-5 h-5" />
-                Schedule a Free Call
-              </button>
-              {/* WhatsApp Button */}
-              <a
-                href="https://wa.me/+918696060387" // Pre-filled number
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3" // Similar styling to the call button
-              >
-                <FaWhatsapp className="w-5 h-5" />{" "}
-                {/* Make sure to import FaWhatsapp */}
-                Chat with Us
-              </a>
+          {/* Enhanced Contact Section */}
+          <motion.section
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="py-10 mx-4 sm:mx-auto max-w-5xl"
+          >
+            <div className="bg-gradient-to-br from-teal-600 via-green-600 to-emerald-700 rounded-2xl shadow-xl relative overflow-hidden">
+              <div className="p-6 md:p-8">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                  {/* Text Content - Left Side */}
+                  <div className="flex-1 text-center md:text-left">
+                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                      Need Help? Talk to an Expert
+                    </h2>
+                    <p className="text-lg text-green-100 max-w-md">
+                      Get personalized guidance on your investment queries.
+                    </p>
+                  </div>
+
+                  {/* Buttons - Right Side */}
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <a
+                      href="tel:+918696060387"
+                      className="bg-white text-green-700 hover:bg-gray-100 px-5 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex items-center justify-center gap-2 text-sm whitespace-nowrap"
+                    >
+                      <Phone className="w-4 h-4" />
+                      <span>Call Now</span>
+                    </a>
+
+                    <a
+                      href="https://wa.me/+918696060387"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex items-center justify-center gap-2 text-sm whitespace-nowrap"
+                    >
+                      <FaWhatsapp className="w-4 h-4" />
+                      <span>WhatsApp</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
-          </section>
+          </motion.section>
 
           {/* Features Section */}
           <section className="py-16 bg-gradient-to-r from-green-900 to-emerald-900 text-white">
