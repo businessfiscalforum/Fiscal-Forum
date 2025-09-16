@@ -7,6 +7,9 @@ import {
   FaArrowUp,
   FaArrowDown,
   FaUser,
+  FaTimes,
+  FaPaperPlane,
+  FaCheck,
 } from "react-icons/fa";
 import Link from "next/link";
 
@@ -34,6 +37,7 @@ interface ResearchReport {
 interface ClientReportsPageProps {
   initialReports: ResearchReport[];
 }
+
 interface SectorData {
   name: string;
   value: number;
@@ -41,16 +45,51 @@ interface SectorData {
   percentageChange: number;
 }
 
+const tabs = [
+  { id: "all", label: "All" },
+  { id: "pre-market-research-report", label: "Pre-Market Research Report" },
+  { id: "thematic-report", label: "Thematic Report" },
+  { id: "equity-research-report", label: "Equity Research Report" },
+];
+
+const faqData = [
+  {
+    question: "How will I receive the daily PDF?",
+    answer: "The PDF will be sent to your WhatsApp number every Monday to Friday around 8:00 AM morning. You'll receive it directly in your chat, ready to read and analyze before the market opens."
+  },
+  {
+    question: "Can we request a refund if we change our minds?",
+    answer: "Yes, you have 3 days after purchase to request a refund. You will receive a 100% refund, no questions asked. Our goal is to ensure you're completely satisfied with your investment in our service."
+  },
+  {
+    question: "Will my subscription auto-renew after the plan ends?",
+    answer: "No, we do not auto-renew subscriptions. We will remind you 3 days before your plan ends, and you can choose to purchase again. There will be no automatic deductions - you're always in control of your subscription."
+  },
+  {
+    question: "Can I get a FREE 2-3 days Demo?",
+    answer: "Buy any plan and try it for 3 days. If it is not useful for you after the 3rd day, ask for a refund. You will get 100% of your money back with no questions asked. This risk-free trial lets you experience our service firsthand."
+  },
+  {
+    question: "Is this worth the money?",
+    answer: "Absolutely! You get daily market updates on WhatsApp for less than the cost of a 🍕 pizza for a YEAR, plus a 100% refund policy and extra FREE Bonuses with every purchase worth more than your payment. It's an incredible value for serious traders who want to stay ahead of the market."
+  },
+  {
+    question: "What happens if I miss a report?",
+    answer: "All reports are archived and available for download from your account dashboard. You can access any previous report at any time, so you never miss out on valuable insights."
+  },
+  {
+    question: "How accurate are your predictions?",
+    answer: "Our analysts use advanced technical analysis and fundamental research to provide accurate market insights. While no prediction is guaranteed, our track record shows consistent accuracy in identifying key market movements."
+  },
+  {
+    question: "Can I share the reports with others?",
+    answer: "Reports are intended for personal use only. Sharing with others violates our terms of service. However, we offer team plans for organizations that need multiple access points."
+  }
+];
+
 export default function ClientReportsPage({
   initialReports,
 }: ClientReportsPageProps) {
-  const tabs = [
-    { id: "all", label: "All" },
-    { id: "pre-market-research-report", label: "Pre-Market Research Report" },
-    { id: "thematic-report", label: "Thematic Report" },
-    { id: "equity-research-report", label: "Equity Research Report" },
-  ];
-
   const [activeTab, setActiveTab] = useState(tabs[0].id);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedSector, setSelectedSector] = useState<string>("all");
@@ -59,24 +98,17 @@ export default function ClientReportsPage({
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
   const [sectorsData, setSectorsData] = useState<SectorData[]>([]);
   const [sectorsLoading, setSectorsLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchSectors() {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/yahoo-stock-data?type=sectors`);
-        const data = await res.json();
-        setSectorsData(data.indices || []);
-      } catch (err) {
-        console.error("Error fetching sectors:", err);
-      } finally {
-        setSectorsLoading(false);
-      }
-    }
-    fetchSectors();
-  }, []);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    mobile: "",
+    topic: "",
+  });
+  const [formLoading, setFormLoading] = useState(false);
+  const [formMessage, setFormMessage] = useState<string | null>(null);
 
   const [reportsByTab, setReportsByTab] = useState<
     Record<string, ResearchReport[]>
@@ -88,22 +120,26 @@ export default function ClientReportsPage({
 
   const itemsPerPage = 10;
 
-  // ---------------- NEW STATE FOR FORM ----------------
-  const [formData, setFormData] = useState({
-    name: "",
-    mobile: "",
-    topic: "",
-  });
-  const [formLoading, setFormLoading] = useState(false);
-  const [formMessage, setFormMessage] = useState<string | null>(null);
+  useEffect(() => {
+    async function fetchSectors() {
+      try {
+        const res = await fetch("/api/yahoo-stock-data?type=sectors");
+        const data = await res.json();
+        setSectorsData(data.indices || []);
+      } catch (err) {
+        console.error("Error fetching sectors:", err);
+      } finally {
+        setSectorsLoading(false);
+      }
+    }
+    fetchSectors();
+  }, []);
 
-  // ---------------- HANDLER FOR FORM INPUTS ----------------
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // ---------------- HANDLE FORM SUBMIT ----------------
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormLoading(true);
@@ -128,7 +164,7 @@ export default function ClientReportsPage({
       setFormMessage(
         "✅ Request submitted successfully! We will send your custom report on your whatsapp."
       );
-      setFormData({ name: "", mobile: "", topic: "" }); // clear form
+      setFormData({ name: "", mobile: "", topic: "" });
     } catch (err) {
       console.error("Failed to submit form:", err);
       setFormMessage("❌ Failed to submit. Please try again.");
@@ -137,7 +173,6 @@ export default function ClientReportsPage({
     }
   };
 
-  // Extract unique values for filters
   const allReports = Object.values(reportsByTab).flat();
   const sectors = ["all", ...new Set(allReports.map((r) => r.sector ?? "N/A"))];
   const authors = ["all", ...new Set(allReports.map((r) => r.author ?? "N/A"))];
@@ -146,10 +181,9 @@ export default function ClientReportsPage({
     ...new Set(allReports.map((r) => r.reportType ?? "N/A")),
   ];
 
-  // Fetch reports for tab
   const fetchReportsForTab = async (tabId: string) => {
     if (reportsByTab[tabId] && reportsByTab[tabId].length > 0) {
-      return; // Already loaded
+      return;
     }
     setLoading(true);
     setError(null);
@@ -181,7 +215,7 @@ export default function ClientReportsPage({
 
       const data: ResearchReport[] = await response.json();
       setReportsByTab((prev) => ({ ...prev, [tabId]: data }));
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.error(`Failed to fetch ${tabId} reports:`, err);
       setError(`Failed to load ${tabId} reports. Please try again later.`);
@@ -190,12 +224,10 @@ export default function ClientReportsPage({
     }
   };
 
-  // Load reports when tab changes
   useEffect(() => {
     fetchReportsForTab(activeTab);
   }, [activeTab]);
 
-  // Handle tab change
   const handleTabChange = (tabId: string) => {
     setActiveTab(tabId);
     setCurrentPage(1);
@@ -203,7 +235,10 @@ export default function ClientReportsPage({
     setSelectedSector("all");
   };
 
-  // Filter and sort logic
+  const toggleFAQ = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
   const filteredAndSortedReports = useMemo(() => {
     const currentReports = reportsByTab[activeTab] || [];
 
@@ -246,7 +281,6 @@ export default function ClientReportsPage({
     });
   }, [reportsByTab, activeTab, selectedSector, searchTerm, sortBy, sortOrder]);
 
-  // Pagination
   const totalPages = Math.ceil(filteredAndSortedReports.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentReports = filteredAndSortedReports.slice(
@@ -254,7 +288,6 @@ export default function ClientReportsPage({
     startIndex + itemsPerPage
   );
 
-  // Helper functions
   const getRatingColor = (rating: string | null) => {
     switch (rating) {
       case "BUY":
@@ -279,6 +312,98 @@ export default function ClientReportsPage({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100">
+      {/* Sticky Custom Report Button - Mobile Only */}
+      <div className="lg:hidden fixed bottom-6 right-6 z-40">
+        <button
+          onClick={() => setIsFormOpen(true)}
+          className="bg-gradient-to-r from-emerald-500 to-green-600 text-white p-4 rounded-full shadow-lg hover:from-emerald-600 hover:to-green-700 transition-all"
+          aria-label="Request Custom Report"
+        >
+          <FaPaperPlane className="w-6 h-6" />
+        </button>
+      </div>
+
+      {/* Sticky Custom Report Form - Mobile Only */}
+      {isFormOpen && (
+        <div className="lg:hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
+          <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl p-6 max-h-[80vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-bold text-gray-900">Custom Report</h3>
+              <button
+                onClick={() => setIsFormOpen(false)}
+                className="text-gray-500 hover:text-gray-700"
+                aria-label="Close form"
+              >
+                <FaTimes className="w-6 h-6" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  placeholder="Your name"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Mobile
+                </label>
+                <input
+                  type="tel"
+                  name="mobile"
+                  value={formData.mobile}
+                  onChange={handleInputChange}
+                  placeholder="Your WhatsApp number"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Topic
+                </label>
+                <input
+                  type="text"
+                  name="topic"
+                  value={formData.topic}
+                  onChange={handleInputChange}
+                  placeholder="What do you need?"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  required
+                />
+              </div>
+
+              {formMessage && (
+                <div
+                  className={`p-2 rounded text-sm ${formMessage.startsWith("✅") ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}
+                >
+                  {formMessage}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={formLoading}
+                className="w-full bg-gradient-to-r from-emerald-500 to-green-600 text-white py-3 rounded-lg font-medium disabled:opacity-50"
+              >
+                {formLoading ? "Sending..." : "Request Report"}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
       <div className="max-w-full pb-30">
         <section className="relative bg-gradient-to-br from-teal-900 via-emerald-900 to-teal-800 text-white overflow-hidden">
           <div className="absolute inset-0 opacity-10">
@@ -329,7 +454,7 @@ export default function ClientReportsPage({
           </div>
         </section>
 
-        {/* ---------------- TAB NAVIGATION ---------------- */}
+        {/* TAB NAVIGATION */}
         <div className="flex justify-center mb-6 h-auto overflow-x-auto sm:overflow-visible">
           <div className="flex flex-wrap sm:flex-nowrap justify-center gap-3 sm:gap-6 px-2">
             {tabs.map((tab) => (
@@ -351,9 +476,9 @@ export default function ClientReportsPage({
           </div>
         </div>
 
-        {/* ---------------- REPORTS TABLE ---------------- */}
+        {/* REPORTS TABLE */}
         <section id="table" className="py-16">
-          <div className="max-w-8xl mx-auto px-7">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             {!loading && !error && (
               <>
                 {currentReports.length === 0 ? (
@@ -374,25 +499,25 @@ export default function ClientReportsPage({
                       <table className="w-full">
                         <thead className="bg-gradient-to-r from-emerald-50 to-teal-50 border-b border-emerald-200">
                           <tr>
-                            <th className="px-6 py-4 text-left text-sm font-semibold text-emerald-900">
+                            <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold text-emerald-900">
                               Report Details
                             </th>
-                            <th className="px-6 py-4 text-left text-sm font-semibold text-emerald-900">
+                            <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold text-emerald-900">
                               Stock / Company
                             </th>
-                            <th className="px-6 py-4 text-left text-sm font-semibold text-emerald-900">
+                            <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold text-emerald-900">
                               Author
                             </th>
-                            <th className="px-6 py-4 text-left text-sm font-semibold text-emerald-900">
+                            <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold text-emerald-900">
                               Date
                             </th>
-                            <th className="px-6 py-4 text-left text-sm font-semibold text-emerald-900">
+                            <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold text-emerald-900">
                               Rating & Target
                             </th>
-                            <th className="px-6 py-4 text-left text-sm font-semibold text-emerald-900">
+                            <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold text-emerald-900">
                               Performance
                             </th>
-                            <th className="px-6 py-4 text-center text-sm font-semibold text-emerald-900">
+                            <th className="px-4 py-3 sm:px-6 sm:py-4 text-center text-xs sm:text-sm font-semibold text-emerald-900">
                               Actions
                             </th>
                           </tr>
@@ -404,7 +529,7 @@ export default function ClientReportsPage({
                               className="hover:bg-emerald-50/50 transition-colors"
                             >
                               {/* Report Details */}
-                              <td className="px-6 py-4">
+                              <td className="px-4 py-3 sm:px-6 sm:py-4">
                                 <div className="space-y-2">
                                   <h3 className="font-semibold text-emerald-900 text-sm leading-tight">
                                     {report.title ?? "Untitled"}
@@ -427,7 +552,7 @@ export default function ClientReportsPage({
                               </td>
 
                               {/* Stock/Company */}
-                              <td className="px-6 py-4">
+                              <td className="px-4 py-3 sm:px-6 sm:py-4">
                                 <div className="space-y-1">
                                   <div className="font-bold text-emerald-700 text-sm">
                                     {report.stock ?? "N/A"}
@@ -439,7 +564,7 @@ export default function ClientReportsPage({
                               </td>
 
                               {/* Author */}
-                              <td className="px-6 py-4">
+                              <td className="px-4 py-3 sm:px-6 sm:py-4">
                                 <div className="flex items-center gap-3">
                                   <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full flex items-center justify-center">
                                     <FaUser className="text-white text-xs" />
@@ -456,7 +581,7 @@ export default function ClientReportsPage({
                               </td>
 
                               {/* Date */}
-                              <td className="px-6 py-4">
+                              <td className="px-4 py-3 sm:px-6 sm:py-4">
                                 <div className="flex items-center gap-2 text-sm text-gray-600">
                                   <FaCalendarAlt className="text-emerald-400 text-xs" />
                                   {formatDate(report?.publishDate)}
@@ -464,7 +589,7 @@ export default function ClientReportsPage({
                               </td>
 
                               {/* Rating & Target */}
-                              <td className="px-6 py-4">
+                              <td className="px-4 py-3 sm:px-6 sm:py-4">
                                 <div className="space-y-2">
                                   <span
                                     className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-bold ${getRatingColor(
@@ -485,7 +610,7 @@ export default function ClientReportsPage({
                               </td>
 
                               {/* Performance */}
-                              <td className="px-6 py-4">
+                              <td className="px-4 py-3 sm:px-6 sm:py-4">
                                 <div className="flex items-center gap-2">
                                   {parseFloat(report.upside ?? "0") > 0 ? (
                                     <FaArrowUp className="text-emerald-500" />
@@ -508,10 +633,10 @@ export default function ClientReportsPage({
                               </td>
 
                               {/* Actions */}
-                              <td className="px-6 py-4 text-center">
+                              <td className="px-4 py-3 sm:px-6 sm:py-4 text-center">
                                 <Link
                                   href={`/reports/${report.id}`}
-                                  className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white px-4 py-2 rounded-lg transition-colors font-medium"
+                                  className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white px-3 py-2 sm:px-4 sm:py-2 rounded-lg transition-colors font-medium text-sm"
                                 >
                                   View
                                 </Link>
@@ -528,16 +653,151 @@ export default function ClientReportsPage({
           </div>
         </section>
 
-        {/*--Inside Reports Table--*/}
+        {/* What's Inside Our Report Section */}
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold text-gray-900">
-                What&apos;s Inside Our Pre-Market Report?
+                What&apos;s Inside Our Report?
               </h2>
               <p className="text-gray-600 mt-4">
                 Everything you need to stay ahead before the market opens.
               </p>
+            </div>
+
+            {/* Three Report Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+              {/* Pre-Market Reports Card */}
+              <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl shadow-lg border border-emerald-100 overflow-hidden hover:shadow-xl transition-shadow">
+                <div className="p-6">
+                  <div className="w-12 h-12 bg-emerald-500 rounded-lg flex items-center justify-center mb-4">
+                    <svg
+                      className="w-6 h-6 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    Pre-Market Reports
+                  </h3>
+                  <p className="text-gray-600 text-sm mb-4">
+                    Get ahead with early market insights and analysis delivered
+                    daily before trading begins.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-2 py-1 bg-emerald-100 text-emerald-800 text-xs rounded-full">
+                      Global Markets
+                    </span>
+                    <span className="px-2 py-1 bg-emerald-100 text-emerald-800 text-xs rounded-full">
+                      Sector Analysis
+                    </span>
+                    <span className="px-2 py-1 bg-emerald-100 text-emerald-800 text-xs rounded-full">
+                      Fear & Greed Index
+                    </span>
+                  </div>
+                </div>
+                <div className="bg-emerald-500/10 px-6 py-3">
+                  <p className="text-emerald-700 text-sm font-medium">
+                    Delivered daily at 8:00 AM
+                  </p>
+                </div>
+              </div>
+
+              {/* Thematic Reports Card */}
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-lg border border-blue-100 overflow-hidden hover:shadow-xl transition-shadow">
+                <div className="p-6">
+                  <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-4">
+                    <svg
+                      className="w-6 h-6 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    Thematic Reports
+                  </h3>
+                  <p className="text-gray-600 text-sm mb-4">
+                    Deep-dive analysis on emerging trends and thematic
+                    investment opportunities.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
+                      Trend Analysis
+                    </span>
+                    <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
+                      Sector Deep Dive
+                    </span>
+                    <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
+                      Opportunity Spotting
+                    </span>
+                  </div>
+                </div>
+                <div className="bg-blue-500/10 px-6 py-3">
+                  <p className="text-blue-700 text-sm font-medium">
+                    Weekly specialized insights
+                  </p>
+                </div>
+              </div>
+
+              {/* Equity Reports Card */}
+              <div className="bg-gradient-to-br from-purple-50 to-fuchsia-50 rounded-2xl shadow-lg border border-purple-100 overflow-hidden hover:shadow-xl transition-shadow">
+                <div className="p-6">
+                  <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mb-4">
+                    <svg
+                      className="w-6 h-6 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    Equity Reports
+                  </h3>
+                  <p className="text-gray-600 text-sm mb-4">
+                    Detailed stock analysis with target prices, recommendations,
+                    and performance metrics.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">
+                      Stock Analysis
+                    </span>
+                    <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">
+                      Target Prices
+                    </span>
+                    <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">
+                      BUY/HOLD/SELL
+                    </span>
+                  </div>
+                </div>
+                <div className="bg-purple-500/10 px-6 py-3">
+                  <p className="text-purple-700 text-sm font-medium">
+                    In-depth company analysis
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div className="bg-gray-50 p-6 rounded-2xl">
@@ -724,237 +984,35 @@ export default function ClientReportsPage({
                   ))}
                 </div>
               </div>
-
-              {/* <div className="text-center mt-8">
-                <p className="text-sm text-gray-600 mb-4">
-                  Want to see it in action?
-                </p>
-                <button className="bg-gradient-to-r from-teal-600 to-emerald-600 text-white px-6 py-3 rounded-lg font-semibold flex items-center justify-center space-x-2 hover:from-teal-700 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg mx-auto">
-                  <svg
-                    className="w-5 h-5"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M15 17H17V19H15V17Z" />
-                    <path d="M10 17H12V19H10V17Z" />
-                    <path d="M5 17H7V19H5V17Z" />
-                    <path d="M20 11L15 6L10 11L5 6L1 11L5 16L10 11L15 16L20 11Z" />
-                  </svg>
-                  <span>View Sample PDF</span>
-                </button>
-              </div> */}
             </div>
           </div>
         </section>
 
-        {/* ---------------- CUSTOM REPORTS FORM ---------------- */}
-        <section className=" bg-white">
-        <div className="max-w-4xl mx-auto px-4 py-12">
-          <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl shadow-lg border border-emerald-200 p-8 relative overflow-hidden">
-            {/* Decorative Elements */}
-            <div className="absolute top-0 left-0 w-32 h-32 bg-emerald-100 rounded-full -translate-x-1/2 -translate-y-1/2 opacity-60"></div>
-            <div className="absolute bottom-0 right-0 w-40 h-40 bg-green-100 rounded-full translate-x-1/3 translate-y-1/3 opacity-60"></div>
-
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Form Content */}
-              <div>
-                <div className="mb-6">
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-emerald-100 to-green-100 rounded-full mb-3">
-                    <div className="w-6 h-6 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full"></div>
-                  </div>
-                  <h2 className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">
-                    Get Custom Reports
-                  </h2>
-                  <p className="text-green-600 mt-2">
-                    Personalized insights tailored just for you
-                  </p>
-                </div>
-
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-green-800 mb-1">
-                        Full Name
-                      </label>
-                      <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        placeholder="Enter your full name"
-                        className="w-full px-4 py-2.5 text-sm bg-white border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-300 focus:border-emerald-400 transition-all placeholder-emerald-300 text-green-800"
-                        required
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-green-800 mb-1">
-                        Mobile Number
-                      </label>
-                      <input
-                        type="tel"
-                        name="mobile"
-                        value={formData.mobile}
-                        onChange={handleInputChange}
-                        placeholder="Enter your mobile number"
-                        className="w-full px-4 py-2.5 text-sm bg-white border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-300 focus:border-emerald-400 transition-all placeholder-emerald-300 text-green-800"
-                        required
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-green-800 mb-1">
-                        Report Topic
-                      </label>
-                      <input
-                        type="text"
-                        name="topic"
-                        value={formData.topic}
-                        onChange={handleInputChange}
-                        placeholder="What topic would you like analyzed?"
-                        className="w-full px-4 py-2.5 text-sm bg-white border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-300 focus:border-emerald-400 transition-all placeholder-emerald-300 text-green-800"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  {formMessage && (
-                    <div
-                      className={`p-3 rounded-lg text-sm ${
-                        formMessage.startsWith("✅")
-                          ? "bg-green-100 text-green-700"
-                          : "bg-rose-100 text-rose-700"
-                      }`}
-                    >
-                      {formMessage}
-                    </div>
-                  )}
-
-                  <div className="pt-2">
-                    <button
-                      type="submit"
-                      disabled={formLoading}
-                      className="w-full py-3 bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-white font-semibold rounded-lg shadow transition-all disabled:opacity-50"
-                    >
-                      {formLoading ? (
-                        <div className="flex items-center justify-center">
-                          <svg
-                            className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                          >
-                            <circle
-                              className="opacity-25"
-                              cx="12"
-                              cy="12"
-                              r="10"
-                              stroke="currentColor"
-                              strokeWidth="4"
-                            ></circle>
-                            <path
-                              className="opacity-75"
-                              fill="currentColor"
-                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                            ></path>
-                          </svg>
-                          Processing Request...
-                        </div>
-                      ) : (
-                        "Submit Request"
-                      )}
-                    </button>
-                  </div>
-                </form>
+        {/* Why is Our Morning PDF a Must for You? */}
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Background and padding applied to this inner div */}
+            <div className="bg-gradient-to-br from-teal-900 via-emerald-900 to-teal-800 text-white rounded-2xl p-6 sm:p-8 md:p-12">
+              <div className="text-center mb-12 sm:mb-16">
+                <h2 className="text-2xl sm:text-3xl font-bold mb-2">
+                  Why is Our Morning PDF a
+                </h2>
+                <h2 className="text-2xl sm:text-3xl font-bold text-emerald-400 mb-2">
+                  Must for You?
+                </h2>
+                <p className="text-emerald-200 max-w-2xl mx-auto text-sm sm:text-base">
+                  Get ahead of the market with expert insights delivered
+                  directly to your WhatsApp every morning.
+                </p>
               </div>
 
-              {/* Info Section */}
-              <div className="flex flex-col justify-center">
-                <div className="bg-white/70 backdrop-blur-sm rounded-xl p-6 border border-emerald-100">
-                  <h3 className="text-lg font-semibold text-emerald-800 mb-3">
-                    Why Request Custom Reports?
-                  </h3>
-                  <ul className="space-y-2 text-sm text-gray-700">
-                    <li className="flex items-start">
-                      <div className="w-5 h-5 bg-white rounded-full flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
-                        <svg
-                          className="w-3 h-3 text-white"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={3}
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
-                      </div>
-                      <span>Get analysis on specific stocks or sectors</span>
-                    </li>
-                    <li className="flex items-start">
-                      <div className="w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
-                        <svg
-                          className="w-3 h-3 text-white"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={3}
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
-                      </div>
-                      <span>Receive personalized investment insights</span>
-                    </li>
-                    <li className="flex items-start">
-                      <div className="w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
-                        <svg
-                          className="w-3 h-3 text-white"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={3}
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
-                      </div>
-                      <span>
-                        Tailored recommendations based on your interests
-                      </span>
-                    </li>
-                    <li className="flex items-start">
-                      <div className="w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
-                        <svg
-                          className="w-3 h-3 text-white"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={3}
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
-                      </div>
-                      <span>Direct delivery to your WhatsApp</span>
-                    </li>
-                  </ul>
-
-                  <div className="mt-6 p-4 bg-emerald-50 rounded-lg border border-emerald-200">
-                    <p className="text-sm text-emerald-700 flex items-start">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                {/* Stay Updated */}
+                <div className="bg-white/10 backdrop-blur-sm p-4 sm:p-5 rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="flex items-center">
+                    <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mr-3">
                       <svg
-                        className="w-5 h-5 text-emerald-500 mr-2 mt-0.5 flex-shrink-0"
+                        className="w-4 h-4 text-white"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -963,20 +1021,397 @@ export default function ClientReportsPage({
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           strokeWidth={2}
-                          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          d="M5 13l4 4L19 7"
                         />
                       </svg>
-                      <span>
-                        After submission, our experts will prepare your report
-                        and send it directly to your WhatsApp within 24 hours.
+                    </div>
+                    <div className="flex items-center">
+                      <span className="font-medium text-sm sm:text-base">
+                        Stay Updated
                       </span>
-                    </p>
+                      <span className="ml-1 text-yellow-400">⚡</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Save Time */}
+                <div className="bg-white/10 backdrop-blur-sm p-4 sm:p-5 rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="flex items-center">
+                    <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mr-3">
+                      <svg
+                        className="w-4 h-4 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="font-medium text-sm sm:text-base">
+                        Save Time
+                      </span>
+                      <span className="ml-1 text-gray-300">⏳</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Understand Better */}
+                <div className="bg-white/10 backdrop-blur-sm p-4 sm:p-5 rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="flex items-center">
+                    <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mr-3">
+                      <svg
+                        className="w-4 h-4 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="font-medium text-sm sm:text-base">
+                        Understand Better
+                      </span>
+                      <span className="ml-1 text-orange-400">🧠</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Be Ready */}
+                <div className="bg-white/10 backdrop-blur-sm p-4 sm:p-5 rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="flex items-center">
+                    <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mr-3">
+                      <svg
+                        className="w-4 h-4 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="font-medium text-sm sm:text-base">
+                        Be Ready
+                      </span>
+                      <span className="ml-1 text-blue-400">🚀</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Easy Access */}
+                <div className="bg-white/10 backdrop-blur-sm p-4 sm:p-5 rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="flex items-center">
+                    <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mr-3">
+                      <svg
+                        className="w-4 h-4 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="font-medium text-sm sm:text-base">
+                        Easy Access
+                      </span>
+                      <span className="ml-1 text-purple-400">📱</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Boost Confidence */}
+                <div className="bg-white/10 backdrop-blur-sm p-4 sm:p-5 rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="flex items-center">
+                    <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mr-3">
+                      <svg
+                        className="w-4 h-4 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="font-medium text-sm sm:text-base">
+                        Boost Confidence
+                      </span>
+                      <span className="ml-1 text-green-400">😎</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Smarter Decisions */}
+                <div className="bg-white/10 backdrop-blur-sm p-4 sm:p-5 rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="flex items-center">
+                    <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mr-3">
+                      <svg
+                        className="w-4 h-4 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="font-medium text-sm sm:text-base">
+                        Smarter Decisions
+                      </span>
+                      <span className="ml-1 text-pink-400">💬</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Value for Money */}
+                <div className="bg-white/10 backdrop-blur-sm p-4 sm:p-5 rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="flex items-center">
+                    <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mr-3">
+                      <svg
+                        className="w-4 h-4 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="font-medium text-sm sm:text-base">
+                        Value for Money
+                      </span>
+                      <span className="ml-1 text-yellow-400">💰</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* New Updates, FREE */}
+                <div className="bg-white/10 backdrop-blur-sm p-4 sm:p-5 rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="flex items-center">
+                    <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mr-3">
+                      <svg
+                        className="w-4 h-4 text-white"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="font-medium text-sm sm:text-base">
+                        New Updates, FREE
+                      </span>
+                      <span className="ml-1 text-red-400">❤️</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="py-20 bg-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                Still Have Questions?
+              </h2>
+              <p className="text-gray-600 text-lg">
+                We&apos;ve got you covered with answers to the most common
+                inquiries.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              {faqData.map((item, index) => (
+                <div
+                  key={index}
+                  className="bg-gray-50 rounded-xl p-6 border border-gray-100 hover:bg-gray-100 transition-colors duration-300"
+                >
+                  <div
+                    className="flex justify-between items-center cursor-pointer"
+                    onClick={() => toggleFAQ(index)}
+                  >
+                    <h3 className="font-medium text-gray-900">
+                      {item.question}
+                    </h3>
+                    <button className="text-gray-400 hover:text-gray-600 transition-colors">
+                      {openIndex === index ? (
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M20 12H4"
+                          />
+                        </svg>
+                      ) : (
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                          />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+                  {openIndex === index && (
+                    <div className="mt-4 text-gray-700">{item.answer}</div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Desktop Custom Report Section - Visible only on large screens */}
+        <section className="hidden lg:block py-16 bg-gradient-to-r from-emerald-50 to-teal-50">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="bg-white rounded-2xl shadow-lg p-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                    Need Specific Insights?
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    Request a custom report tailored to your interests
+                  </p>
+
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        placeholder="Name"
+                        className="px-4 py-2 border border-gray-300 rounded-lg"
+                        required
+                      />
+                      <input
+                        type="tel"
+                        name="mobile"
+                        value={formData.mobile}
+                        onChange={handleInputChange}
+                        placeholder="WhatsApp"
+                        className="px-4 py-2 border border-gray-300 rounded-lg"
+                        required
+                      />
+                    </div>
+
+                    <input
+                      type="text"
+                      name="topic"
+                      value={formData.topic}
+                      onChange={handleInputChange}
+                      placeholder="What do you want analyzed?"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                      required
+                    />
+
+                    <button
+                      type="submit"
+                      disabled={formLoading}
+                      className="bg-gradient-to-r from-emerald-500 to-green-600 text-white px-6 py-3 rounded-lg font-medium hover:from-emerald-600 hover:to-green-700 transition-all disabled:opacity-50"
+                    >
+                      {formLoading ? "Processing..." : "Request Custom Report"}
+                    </button>
+
+                    {formMessage && (
+                      <div
+                        className={`p-2 rounded text-sm ${formMessage.startsWith("✅") ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}
+                      >
+                        {formMessage}
+                      </div>
+                    )}
+                  </form>
+                </div>
+
+                <div className="bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl p-6 text-white">
+                  <h4 className="text-xl font-bold mb-4">
+                    Why Custom Reports?
+                  </h4>
+                  <ul className="space-y-3">
+                    <li className="flex items-start">
+                      <div className="bg-white/20 rounded-full p-1 mt-1 mr-3">
+                        <FaCheck className="w-3 h-3" />
+                      </div>
+                      <span>Personalized stock analysis</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="bg-white/20 rounded-full p-1 mt-1 mr-3">
+                        <FaCheck className="w-3 h-3" />
+                      </div>
+                      <span>Direct WhatsApp delivery</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="bg-white/20 rounded-full p-1 mt-1 mr-3">
+                        <FaCheck className="w-3 h-3" />
+                      </div>
+                      <span>Expert insights in 24 hours</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
       </div>
     </div>
