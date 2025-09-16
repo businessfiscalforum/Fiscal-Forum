@@ -14,12 +14,15 @@ export default async function CRMLayout({
           <h2 className="text-xl font-bold text-gray-800">Admin Panel</h2>
         </div>
         <nav className="mt-6 space-y-1 px-4">
-          <Link
-            href="/crm/refferal"
-            className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition text-sm"
-          >
-            📋 Refferal
-          </Link>
+          <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider mt-4">
+            Refferals
+          </div>
+          <Link href="/crm/refferal-links" className="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition text-sm">Refferal Links</Link>
+          <Link href="/crm/create-leads" className="flex items-center px-4 py-2.5 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition text-sm">Create Leads</Link>
+
+          <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider mt-4">
+            Others
+          </div>
           <Link
             href="/crm/mis-reports"
             className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition text-sm"
