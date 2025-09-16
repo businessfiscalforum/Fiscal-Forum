@@ -276,7 +276,7 @@ export default function MutualPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="py-20 mx-4 sm:mx-auto max-w-6xl"
+            className="py-20 px-4 mx-4 sm:mx-auto max-w-6xl"
           >
             <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
               <div className="bg-gradient-to-r from-green-600 to-emerald-600 px-8 py-6">
@@ -621,7 +621,7 @@ export default function MutualPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="py-10 mx-4 sm:mx-auto max-w-5xl"
+            className="py-10 px-4 mx-4 sm:mx-auto max-w-5xl"
           >
             <div className="bg-gradient-to-br from-teal-600 via-green-600 to-emerald-700 rounded-2xl shadow-xl relative overflow-hidden">
               <div className="p-6 md:p-8">

@@ -302,7 +302,7 @@ export default function CreditCardApplyPage() {
             </div>
           </div>
 
-          <motion.section
+          {/* <motion.section
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -324,7 +324,6 @@ export default function CreditCardApplyPage() {
 
               <div className="p-8">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                  {/* Enhanced Input Panel */}
                   <div className="space-y-8">
                     <div className="flex items-center gap-4 p-4 bg-blue-50 rounded-xl">
                       <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center shadow-lg">
@@ -418,8 +417,6 @@ export default function CreditCardApplyPage() {
                       </div>
                     </div>
                   </div>
-
-                  {/* Enhanced Results Panel */}
                   <div className="flex flex-col justify-center items-center text-center bg-gradient-to-br from-gray-50 to-white p-8 rounded-2xl border border-gray-100">
                     <p className="text-gray-600 mb-4 text-lg">
                       The total value of your investment after {duration} years
@@ -510,7 +507,7 @@ export default function CreditCardApplyPage() {
                 </div>
               </div>
             </div>
-          </motion.section>
+          </motion.section> */}
 
           {/* Call to Action (Kickstart & Level Up) */}
           <motion.section
@@ -597,7 +594,7 @@ export default function CreditCardApplyPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="py-10 mx-4 sm:mx-auto max-w-5xl"
+            className="py-10 px-4 mx-4 sm:mx-auto max-w-5xl"
           >
             <div className="bg-gradient-to-br from-teal-600 via-green-600 to-emerald-700 rounded-2xl shadow-xl relative overflow-hidden">
               <div className="p-6 md:p-8">
