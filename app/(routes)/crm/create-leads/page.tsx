@@ -41,7 +41,7 @@ export default function Refferal() {
     rejected: 0,
     pending: 0,
   });
-  const [selected, setSelected] = useState<string>("Loan");
+  const [selected, setSelected] = useState<string>("Stock Market");
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -102,12 +102,11 @@ export default function Refferal() {
 
   return (
     <div className="min-h-screen bg-green-50 p-4 md:p-6">
-      {/* <ReferralSection /> */}
       <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-green-700 mt-5 mb-6 text-center">
         Finance Leads
       </h1>
 
-      {/* ✅ Stats Section */}
+      {/* Stats Section */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-10 max-w-6xl mx-auto">
         {[
           { label: "Total Requests", value: stats.total, color: "text-green-700" },
@@ -124,25 +123,26 @@ export default function Refferal() {
         ))}
       </div>
 
-      {/* ✅ Responsive Navbar (scrollable on small screens) */}
-      <div className="flex overflow-x-auto no-scrollbar justify-start md:justify-center mb-6 h-16 space-x-4 px-2">
-        {options.map((opt) => (
-          <button
-            key={opt}
-            onClick={() => setSelected(opt)}
-            className={`whitespace-nowrap px-3 md:px-4 py-2 relative text-base md:text-lg font-medium transition-colors duration-300
-              ${
-                selected === opt
-                  ? "text-emerald-600"
-                  : "text-gray-600 hover:text-emerald-500"
-              }`}
-          >
-            {opt}
-            {selected === opt && (
-              <span className="absolute left-0 bottom-0 w-full h-[2px] bg-emerald-600 rounded-full"></span>
-            )}
-          </button>
-        ))}
+      {/* Responsive Tabs */}
+      <div className="mb-6">
+        <div className="flex overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide justify-center">
+          <div className="flex space-x-1 min-w-max">
+            {options.map((opt) => (
+              <button
+                key={opt}
+                onClick={() => setSelected(opt)}
+                className={`px-4 py-2 text-sm md:text-base font-medium rounded-lg whitespace-nowrap transition-colors
+                  ${
+                    selected === opt
+                      ? "bg-green-600 text-white shadow"
+                      : "bg-white text-gray-600 hover:bg-green-50"
+                  }`}
+              >
+                {opt}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Content */}
@@ -151,14 +151,14 @@ export default function Refferal() {
           {/* Create Lead Button */}
           <div className="mb-6 text-center">
             <Link href={`/crm/${selected.toLowerCase().replace(/\s+/g, "-")}`}>
-              <button className="bg-green-600 text-white text-base md:text-xl px-6 md:px-8 py-3 md:py-4 rounded-xl hover:bg-green-700">
+              <button className="bg-green-600 text-white text-base md:text-xl px-6 md:px-8 py-3 md:py-4 rounded-xl hover:bg-green-700 transition-colors">
                 Create Lead
               </button>
             </Link>
           </div>
 
-          {/* ✅ Responsive Table */}
-          <div className="bg-white shadow-md rounded-2xl p-4 overflow-x-auto">
+          {/* Responsive Table */}
+          <div className="bg-white shadow-md rounded-2xl p-4 overflow-hidden">
             <h2 className="text-lg md:text-xl font-semibold text-green-700 mb-4">
               {selected} Leads
             </h2>
@@ -167,37 +167,45 @@ export default function Refferal() {
               <div className="flex justify-center items-center py-12">
                 <div className="w-10 h-10 border-4 border-green-600 border-t-transparent rounded-full animate-spin"></div>
               </div>
-            ) : (
-              <table className="w-full border-collapse text-sm md:text-base">
-                <thead>
-                  <tr className="bg-green-100 text-left">
-                    <th className="p-2 md:p-3 border-b">Subtype</th>
-                    <th className="p-2 md:p-3 border-b">Name</th>
-                    <th className="p-2 md:p-3 border-b">Mobile</th>
-                    <th className="p-2 md:p-3 border-b">Email</th>
-                    <th className="p-2 md:p-3 border-b">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.length > 0 ? (
-                    data.map((row) => (
-                      <tr key={row.id} className="hover:bg-green-50">
-                        <td className="p-2 md:p-3 border-b">{row.subType}</td>
-                        <td className="p-2 md:p-3 border-b">{row.name}</td>
-                        <td className="p-2 md:p-3 border-b">{row.mobile}</td>
-                        <td className="p-2 md:p-3 border-b">{row.email}</td>
-                        <td className="p-2 md:p-3 border-b">{row.status}</td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={5} className="p-4 text-center text-gray-500">
-                        No leads found.
-                      </td>
+            ) : data.length > 0 ? (
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="bg-green-100 text-left">
+                      <th className="p-3 text-xs md:text-sm font-semibold">Subtype</th>
+                      <th className="p-3 text-xs md:text-sm font-semibold">Name</th>
+                      <th className="p-3 text-xs md:text-sm font-semibold">Mobile</th>
+                      <th className="p-3 text-xs md:text-sm font-semibold">Email</th>
+                      <th className="p-3 text-xs md:text-sm font-semibold">Status</th>
                     </tr>
-                  )}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {data.map((row) => (
+                      <tr key={row.id} className="hover:bg-green-50">
+                        <td className="p-3 text-xs md:text-sm">{row.subType}</td>
+                        <td className="p-3 text-xs md:text-sm">{row.name}</td>
+                        <td className="p-3 text-xs md:text-sm">{row.mobile}</td>
+                        <td className="p-3 text-xs md:text-sm">{row.email}</td>
+                        <td className="p-3 text-xs md:text-sm">
+                          <span className={`px-2 py-1 rounded-full text-xs ${
+                            row.status === "Approved" 
+                              ? "bg-green-100 text-green-800" 
+                              : row.status === "Rejected" 
+                                ? "bg-red-100 text-red-800" 
+                                : "bg-yellow-100 text-yellow-800"
+                          }`}>
+                            {row.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="text-center py-12 text-gray-500">
+                No leads found.
+              </div>
             )}
           </div>
         </div>

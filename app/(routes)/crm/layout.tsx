@@ -11,7 +11,9 @@ export default async function CRMLayout({
       {/* Sidebar */}
       <aside className="w-40 md:w-56 lg:w-64 bg-white shadow-lg h-screen sticky top-0 py-6 overflow-y-auto">
         <div className="p-6 border-b border-gray-200">
-          <h2 className="text-xl font-bold text-gray-800">Admin Panel</h2>
+          <Link href="/crm">
+            <h2 className="text-xl font-bold text-gray-800">Dashboard</h2>
+          </Link>
         </div>
         <nav className="mt-6 space-y-1 px-4">
           <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider mt-4">

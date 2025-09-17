@@ -539,7 +539,7 @@ export default function CreditCardsPage() {
       categories: ["All", ...Array.from(categorySet)],
       rewardTypes: ["All", ...Array.from(rewardTypeSet)],
     };
-  }, [creditCards]); // Recalculate only if creditCards data changes
+  }, [creditCards]);
 
   // --- Filtered cards logic ---
   const filteredCards = useMemo(() => {

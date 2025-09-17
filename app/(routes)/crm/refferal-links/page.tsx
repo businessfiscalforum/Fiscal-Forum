@@ -1,28 +1,36 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
+import { useContext, useState } from "react";
+import Image from "next/image";
+import { UserDetailContext } from "../../../../context/UserDetailContext";
+import { Check, Copy } from "lucide-react";
 
 // Types
 interface Insurance {
+  id:string;
   title: string;
   description: string;
+  applyLink?: string;
 }
 
 interface Loan {
+  id:string;
   title: string;
   interest: string;
   amount: string;
   features: string[];
+  applyLink?: string;
 }
 
 interface BankAccount {
-  title: string;
-  cashback: string;
+  id: string;
+  name: string;
+  platform: string;
   features: string[];
+  applyLink: string;
 }
 
-interface StockMarket {
+interface StockInvestment {
   id: string;
   name: string;
   platform: string;
@@ -51,162 +59,212 @@ interface CreditCard {
 }
 
 export default function ReferralLinksPage() {
-  const [activeTab, setActiveTab] = useState("insurance");
+  const { userDetail } = useContext(UserDetailContext);
+  const userId = userDetail?.id;
+  const [activeTab, setActiveTab] = useState("stockInvestment");
 
   // Insurance Data
   const insurance: Insurance[] = [
     {
+      id:"health insurance",
       title: "Health Insurance",
       description:
         "Safeguard your priceless health with complete coverage. Hospitalization, treatments, emergencies — we handle bills, so you and loved ones receive stress-free care.",
+      applyLink: `https://fiscalforum.in/services/insurance/health-insurance/learn-more?partner=${userId}`,
     },
     {
+      id:"car insurance",
       title: "Car Insurance",
       description:
         "Protect your car and drive stress-free. From minor dents to major mishaps, enjoy quick claims and peace of mind.",
+      applyLink: `https://fiscalforum.in/services/insurance/car-insurance/learn-more?partner=${userId}`,
     },
     {
+      id:"two-wheeler insurance",
       title: "Two-Wheeler Insurance",
       description:
         "Ride worry-free with total two-wheeler protection. Stay covered for accidents, damages, or theft.",
+      applyLink: `https://fiscalforum.in/services/insurance/two-wheeler-insurance/learn-more?partner=${userId}`,
     },
     {
+      id:"life insurance",
       title: "Life Insurance",
       description:
         "Secure your family's tomorrow. Financial stability and peace of mind, ensuring loved ones remain protected.",
+      applyLink: `https://fiscalforum.in/services/insurance/life-insurance/learn-more?partner=${userId}`,
     },
     {
+      id:"home & shop insurance",
       title: "Home & Shop Insurance",
       description:
         "Protect your home and business from fire, theft, or natural disasters. Secure your property and contents.",
+      applyLink: `https://fiscalforum.in/services/insurance/home-shop-insurance/learn-more?partner=${userId}`,
     },
     {
+      id:"travel insurance",
       title: "Travel Insurance",
       description:
         "Travel fully protected. Lost bags, delays, or emergencies abroad — we’ve got your back.",
+      applyLink: `https://fiscalforum.in/services/insurance/travel-insurance/learn-more?partner=${userId}`,
     },
     {
+      id:"personal accident insurance",
       title: "Personal Accident Insurance",
       description:
         "Accidents strike unexpectedly — stay prepared. Cover treatments, recovery, and protect income.",
+      applyLink: `https://fiscalforum.in/services/insurance/personal-accident-insurance/learn-more?partner=${userId}`,
     },
     {
+      id:"commercial vehicle insurance",
       title: "Commercial Vehicle Insurance",
       description:
         "Keep your business moving with comprehensive protection for your fleet and liability coverage.",
+      applyLink: `https://fiscalforum.in/services/insurance/commercial-vehicle/learn-more?partner=${userId}`,
     },
   ];
 
   // Loans Data
   const loans: Loan[] = [
     {
+      id:"home loan",
       title: "Home Loan",
       interest: "8.5% onwards",
       amount: "Up to ₹5 Cr",
-      features: ["Up to ₹5 Crores", "Tenure up to 30 years", "Minimal documentation"],
+      features: [
+        "Up to ₹5 Crores",
+        "Tenure up to 30 years",
+        "Minimal documentation",
+      ],
+      applyLink: `https://fiscalforum.in/services/loan/home-loan?partner=${userId}`,
     },
     {
+      id:"loan against property",
       title: "Loan Against Property",
       interest: "9.0% onwards",
       amount: "Up to ₹10 Cr",
-      features: ["Up to ₹10 Crores", "Flexible repayment", "Retain property ownership"],
+      features: [
+        "Up to ₹10 Crores",
+        "Flexible repayment",
+        "Retain property ownership",
+      ],
+      applyLink: `https://fiscalforum.in/services/loan/loan-against-property?partner=${userId}`,
     },
     {
+      id:"persona loan",
       title: "Personal Loan",
       interest: "10.5% onwards",
       amount: "Up to ₹40 L",
-      features: ["Up to ₹40 Lakhs", "No collateral required", "Instant approval"],
+      features: [
+        "Up to ₹40 Lakhs",
+        "No collateral required",
+        "Instant approval",
+      ],
+      applyLink: `https://fiscalforum.in/services/loan/personal-loan?partner=${userId}`,
     },
     {
+      id:"business loan",
       title: "Business Loan",
       interest: "11.0% onwards",
       amount: "Up to ₹50 Cr",
       features: ["Up to ₹50 Crores", "Working capital", "Equipment financing"],
+      applyLink: `https://fiscalforum.in/services/loan/buiness-loan?partner=${userId}`,
     },
     {
+      id:"gold loan",
       title: "Gold Loan",
       interest: "7.5% onwards",
       amount: "Up to ₹1 Cr",
       features: ["Up to ₹1 Crore", "Instant approval", "Retain gold ownership"],
+      applyLink: `https://fiscalforum.in/services/loan/gold-loan?partner=${userId}`,
     },
     {
+      id:"car loan",
       title: "Car Loan",
       interest: "8.0% onwards",
       amount: "Up to ₹2 Cr",
       features: ["Up to ₹2 Crores", "New & used cars", "Up to 90% financing"],
+      applyLink: `https://fiscalforum.in/services/loan/car-loan?partner=${userId}`,
     },
     {
+      id:"education loan",
       title: "Education Loan",
       interest: "9.5% onwards",
       amount: "Up to ₹1.5 Cr",
-      features: ["Up to ₹1.5 Crores", "Abroad & domestic", "Flexible repayment"],
+      features: [
+        "Up to ₹1.5 Crores",
+        "Abroad & domestic",
+        "Flexible repayment",
+      ],
+      applyLink: `https://fiscalforum.in/services/loan/educational-loan?partner=${userId}`,
     },
     {
+      id:"loan against securities",
       title: "Loan Against Securities",
       interest: "9.5% onwards",
       amount: "Up to ₹1.5 Cr",
       features: ["Up to ₹1.5 Crores", "Retain ownership of securities"],
+      applyLink: `https://fiscalforum.in/services/loan/loan-against-securities?partner=${userId}`,
     },
   ];
 
   // Savings Accounts
   const banks: BankAccount[] = [
     {
-      title: "IndusInd Bank",
-      cashback: "Cashback Upto ₹250",
+      id: "IndusInd",
+      name: "IndusInd Bank",
+      platform: "Savings Account",
       features: [
-        "Choose your phone number as your account number",
-        "Zero AMC charges on your digital card",
-        "Smooth and fast application support",
+        "Open Saving Accounts In IndusInd Bank",
       ],
+      applyLink: `https://fiscalforum.in/services/saving-account/indusInd?partner=${userId}`,
     },
     {
-      title: "AXIS Bank",
-      cashback: "Cashback Upto ₹250",
+      id: "Axis",
+      name: "Axis Bank",
+      platform: "Savings Account",
       features: [
-        "Min. avg balance varies by location",
-        "₹2,500 to ₹10,000 for savings accounts",
-        "Metro branches need ₹5,000 balance",
+        "Open Saving Accounts In Axis Bank",
       ],
+      applyLink: `https://fiscalforum.in/services/saving-account/axis?partner=${userId}`,
     },
     {
-      title: "FI Bank",
-      cashback: "Cashback Upto ₹250",
+      id: "Fi",
+      name: "Fi",
+      platform: "Savings Account",
       features: [
-        "Zero balance account",
-        "No minimum balance ever",
-        "Open your account quickly online",
+        "Open Saving Accounts In Fi Bank",
       ],
+      applyLink: `https://fiscalforum.in/services/saving-account/fi?partner=${userId}`,
     },
   ];
 
-  // Stock Market (1 card)
-  const stockMarket: StockMarket[] = [
+  // Stock Investment
+  const stockInvestment: StockInvestment[] = [
     {
-      id: "zerodha",
-      name: "Zerodha",
-      platform: "Stock Market Trading Platform",
+      id: "stock-investment",
+      name: "Stock Investment",
+      platform: "Stock Investment Trading Platform",
       features: [
         "Low brokerage charges",
         "Easy-to-use Kite platform",
         "Direct mutual funds investment",
       ],
-      applyLink: "https://zerodha.com/open-account",
+      applyLink: `https://fiscalforum.in/services/stock-investment?partner=${userId}`,
     },
   ];
 
-  // Mutual Funds (1 card)
+  // Mutual Funds
   const mutualFund: MutualFund[] = [
     {
-      id: "groww",
-      name: "Groww Mutual Funds",
+      id: "mutual-funds",
+      name: "Mutual Funds",
       platform: "Direct Mutual Fund Investment",
       features: [
         "Zero commission direct mutual funds",
         "Track & manage investments easily",
         "Instant redemption on select funds",
       ],
-      applyLink: "https://groww.in/mutual-funds",
+      applyLink: `https://fiscalforum.in/services/mutual-funds?partner=${userId}`,
     },
   ];
 
@@ -392,16 +450,48 @@ export default function ReferralLinksPage() {
 
   // Categories
   const categories = [
-    { key: "stockMarket", label: "Stock Market", type: "stock", data: stockMarket },
-    { key: "mutualFund", label: "Mutual Fund", type: "mutual", data: mutualFund },
-    { key: "insurance", label: "Insurance", type: "insurance", data: insurance },
+    {
+      key: "stockInvestment",
+      label: "Stock Investment",
+      type: "stock",
+      data: stockInvestment,
+    },
+    {
+      key: "mutualFund",
+      label: "Mutual Fund",
+      type: "mutual",
+      data: mutualFund,
+    },
+    {
+      key: "insurance",
+      label: "Insurance",
+      type: "insurance",
+      data: insurance,
+    },
     { key: "loan", label: "Loan", type: "loan", data: loans },
-    { key: "govtBonds", label: "Government Bonds & FDs", type: "simple", data: [] },
-    { key: "savingAccount", label: "Saving Account", type: "bank", data: banks },
-    { key: "creditCard", label: "Credit Card", type: "credit", data: creditCards },
+    {
+      key: "govtBonds",
+      label: "Government Bonds & FDs",
+      type: "simple",
+      data: [],
+    },
+    {
+      key: "savingAccount",
+      label: "Saving Account",
+      type: "bank",
+      data: banks,
+    },
+    {
+      key: "creditCard",
+      label: "Credit Card",
+      type: "credit",
+      data: creditCards,
+    },
   ];
+  
 
   const activeCategory = categories.find((c) => c.key === activeTab);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   return (
     <div className="p-6 space-y-6">
@@ -428,15 +518,35 @@ export default function ReferralLinksPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
         {activeCategory?.type === "insurance" &&
           (activeCategory.data as Insurance[]).map((item) => (
-            <div key={item.title} className="bg-white rounded-xl border shadow-sm p-5">
+            <div
+              key={item.title}
+              className="bg-white rounded-xl border shadow-sm p-5"
+            >
               <h2 className="font-semibold text-lg mb-2">{item.title}</h2>
               <p className="text-sm text-gray-600">{item.description}</p>
               <div className="mt-4">
-                <button 
-                  onClick={() => navigator.clipboard.writeText("https://example.com/insurance")}
-                  className="w-full bg-green-600 text-white py-2 rounded-md text-sm"
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    if (item.applyLink) {
+                      navigator.clipboard.writeText(item.applyLink);
+                      setCopiedId(item.id);
+                      setTimeout(() => setCopiedId(null), 2000);
+                    }
+                  }}
+                  className="flex items-center gap-2 text-green-600"
                 >
-                  Copy Link
+                  {copiedId === item.id ? (
+                    <>
+                      <Check className="w-4 h-4 text-green-500" />
+                      <span className="text-sm">Copied</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4 text-green-600" />
+                      <span className="text-sm">Copy</span>
+                    </>
+                  )}
                 </button>
               </div>
             </div>
@@ -444,11 +554,17 @@ export default function ReferralLinksPage() {
 
         {activeCategory?.type === "loan" &&
           (activeCategory.data as Loan[]).map((item) => (
-            <div key={item.title} className="bg-white rounded-xl border shadow-sm p-5">
+            <div
+              key={item.title}
+              className="bg-white rounded-xl border shadow-sm p-5"
+            >
               <div className="flex justify-between items-start">
                 <h2 className="font-semibold text-lg">{item.title}</h2>
                 <div className="text-sm text-green-700 font-semibold">
-                  {item.interest} <span className="text-gray-500 font-normal ml-1">{item.amount}</span>
+                  {item.interest}{" "}
+                  <span className="text-gray-500 font-normal ml-1">
+                    {item.amount}
+                  </span>
                 </div>
               </div>
               <ul className="mt-2 space-y-1 text-sm text-gray-600">
@@ -457,11 +573,28 @@ export default function ReferralLinksPage() {
                 ))}
               </ul>
               <div className="mt-4">
-                <button 
-                  onClick={() => navigator.clipboard.writeText("https://example.com/loan")}
-                  className="w-full bg-green-600 text-white py-2 rounded-md text-sm"
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    if (item.applyLink) {
+                      navigator.clipboard.writeText(item.applyLink);
+                      setCopiedId(item.id);
+                      setTimeout(() => setCopiedId(null), 2000);
+                    }
+                  }}
+                  className="flex items-center gap-2 text-green-600"
                 >
-                  Copy Link
+                  {copiedId === item.id ? (
+                    <>
+                      <Check className="w-4 h-4 text-green-500" />
+                      <span className="text-sm">Copied</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4 text-green-600" />
+                      <span className="text-sm">Copy</span>
+                    </>
+                  )}
                 </button>
               </div>
             </div>
@@ -469,31 +602,11 @@ export default function ReferralLinksPage() {
 
         {activeCategory?.type === "bank" &&
           (activeCategory.data as BankAccount[]).map((item) => (
-            <div key={item.title} className="bg-white rounded-xl border shadow-sm p-5">
-              <div className="flex justify-between">
-                <h2 className="font-semibold text-lg">{item.title}</h2>
-                <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-md">{item.cashback}</span>
-              </div>
-              <ul className="mt-3 space-y-1 text-sm text-gray-600">
-                {item.features.map((f) => (
-                  <li key={f}>• {f}</li>
-                ))}
-              </ul>
-              <div className="mt-4">
-                <button 
-                  onClick={() => navigator.clipboard.writeText("https://example.com/savings")}
-                  className="w-full bg-green-600 text-white py-2 rounded-md text-sm"
-                >
-                  Copy Link
-                </button>
-              </div>
-            </div>
-          ))}
-
-        {activeCategory?.type === "stock" &&
-          (activeCategory.data as StockMarket[]).map((item) => (
-            <div key={item.id} className="bg-white rounded-xl border shadow-sm p-5">
-              <h2 className="font-semibold text-lg">Stock Market</h2>
+            <div
+              key={item.id}
+              className="bg-white rounded-xl border shadow-sm p-5"
+            >
+              <h2 className="font-semibold text-lg">{item.name}</h2>
               <p className="text-sm text-gray-600">{item.platform}</p>
               <ul className="mt-3 space-y-1 text-sm text-gray-600">
                 {item.features.map((f) => (
@@ -501,11 +614,69 @@ export default function ReferralLinksPage() {
                 ))}
               </ul>
               <div className="mt-4">
-                <button 
-                  onClick={() => navigator.clipboard.writeText(item.applyLink)}
-                  className="w-full bg-green-600 text-white py-2 rounded-md text-sm"
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    if (item.applyLink) {
+                      navigator.clipboard.writeText(item.applyLink);
+                      setCopiedId(item.id);
+                      setTimeout(() => setCopiedId(null), 2000);
+                    }
+                  }}
+                  className="flex items-center gap-2 text-green-600"
                 >
-                  Copy Link
+                  {copiedId === item.id ? (
+                    <>
+                      <Check className="w-4 h-4 text-green-500" />
+                      <span className="text-sm">Copied</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4 text-green-600" />
+                      <span className="text-sm">Copy</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          ))}
+
+        {activeCategory?.type === "stock" &&
+          (activeCategory.data as StockInvestment[]).map((item) => (
+            <div
+              key={item.id}
+              className="bg-white rounded-xl border shadow-sm p-5"
+            >
+              <h2 className="font-semibold text-lg">Stock Investment</h2>
+              <p className="text-sm text-gray-600">{item.platform}</p>
+              <ul className="mt-3 space-y-1 text-sm text-gray-600">
+                {item.features.map((f) => (
+                  <li key={f}>• {f}</li>
+                ))}
+              </ul>
+              <div className="mt-4">
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    if (item.applyLink) {
+                      navigator.clipboard.writeText(item.applyLink);
+                      setCopiedId(item.id);
+                      setTimeout(() => setCopiedId(null), 2000);
+                    }
+                  }}
+                  className="flex items-center gap-2 text-green-600"
+                >
+                  {copiedId === item.id ? (
+                    <>
+                      <Check className="w-4 h-4 text-green-500" />
+                      <span className="text-sm">Copied</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4 text-green-600" />
+                      <span className="text-sm">Copy</span>
+                    </>
+                  )}
                 </button>
               </div>
             </div>
@@ -513,7 +684,10 @@ export default function ReferralLinksPage() {
 
         {activeCategory?.type === "mutual" &&
           (activeCategory.data as MutualFund[]).map((item) => (
-            <div key={item.id} className="bg-white rounded-xl border shadow-sm p-5">
+            <div
+              key={item.id}
+              className="bg-white rounded-xl border shadow-sm p-5"
+            >
               <h2 className="font-semibold text-lg">Mutual Funds</h2>
               <p className="text-sm text-gray-600">{item.platform}</p>
               <ul className="mt-3 space-y-1 text-sm text-gray-600">
@@ -522,22 +696,49 @@ export default function ReferralLinksPage() {
                 ))}
               </ul>
               <div className="mt-4">
-                <button 
-                  onClick={() => navigator.clipboard.writeText(item.applyLink)}
-                  className="w-full bg-green-600 text-white py-2 rounded-md text-sm"
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    if (item.applyLink) {
+                      navigator.clipboard.writeText(item.applyLink);
+                      setCopiedId(item.id);
+                      setTimeout(() => setCopiedId(null), 2000);
+                    }
+                  }}
+                  className="flex items-center gap-2 text-green-600"
                 >
-                  Copy Link
+                  {copiedId === item.id ? (
+                    <>
+                      <Check className="w-4 h-4 text-green-500" />
+                      <span className="text-sm">Copied</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4 text-green-600" />
+                      <span className="text-sm">Copy</span>
+                    </>
+                  )}
                 </button>
               </div>
             </div>
           ))}
 
-         {/* Credit Card Rendering */}
-         {activeCategory?.type === "credit" &&
+        {/* Credit Card Rendering */}
+        {activeCategory?.type === "credit" &&
           (activeCategory.data as CreditCard[]).map((item) => (
-            <div key={item.id} className="bg-white rounded-xl border shadow-sm p-5 flex flex-col h-full">
+            <div
+              key={item.id}
+              className="bg-white rounded-xl border shadow-sm p-5 flex flex-col h-full"
+            >
               <div className="flex items-center mb-3">
-                <img src={item.cardImage} alt={item.cardName} className="h-12 w-auto mr-3" />
+                <Image
+                  src={item.cardImage}
+                  alt={item.cardName}
+                  width={40}
+                  height={40}
+                  className="h-12 w-auto mr-3"
+                />
+
                 <div>
                   <h2 className="font-semibold text-lg">{item.cardName}</h2>
                   <p className="text-xs text-gray-500">{item.bank}</p>
@@ -545,7 +746,10 @@ export default function ReferralLinksPage() {
               </div>
               <p className="text-sm text-gray-600 mb-2">{item.tagline}</p>
               <div className="text-sm mb-3">
-                <span className="font-medium">Cashback:</span> {item.cashbackRate} | <span className="font-medium">Rewards:</span> {item.rewardPoints}
+                <span className="font-medium">Cashback:</span>{" "}
+                {item.cashbackRate} |{" "}
+                <span className="font-medium">Rewards:</span>{" "}
+                {item.rewardPoints}
               </div>
               <ul className="mt-1 space-y-1 text-sm text-gray-600 flex-grow">
                 {item.features.slice(0, 3).map((f, index) => (
@@ -555,11 +759,28 @@ export default function ReferralLinksPage() {
                 ))}
               </ul>
               <div className="mt-4">
-                <button 
-                  onClick={() => navigator.clipboard.writeText(item.applyLink)}
-                  className="w-full bg-green-600 text-white py-2 rounded-md text-sm"
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    if (item.applyLink) {
+                      navigator.clipboard.writeText(item.applyLink);
+                      setCopiedId(item.id);
+                      setTimeout(() => setCopiedId(null), 2000);
+                    }
+                  }}
+                  className="flex items-center gap-2 text-green-600"
                 >
-                  Copy Link
+                  {copiedId === item.id ? (
+                    <>
+                      <Check className="w-4 h-4 text-green-500" />
+                      <span className="text-sm">Copied</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-4 h-4 text-green-600" />
+                      <span className="text-sm">Copy</span>
+                    </>
+                  )}
                 </button>
               </div>
             </div>

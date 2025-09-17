@@ -1100,6 +1100,26 @@ export const partnerRequests = pgTable('partner_requests', {
   userId: varchar("user_id").notNull(),
 });
 
+export const misReportSubmissions = pgTable('mis_report_submissions', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  name: varchar('name', { length: 255 }).notNull(),
+  email: varchar('email', { length: 255 }).notNull(),
+  documentLink: text('document_link').notNull(),
+  submittedAt: timestamp('submitted_at').defaultNow().notNull(),
+  status: varchar('status', { length: 50 }).default('pending').notNull(),
+});
+
+export const withdrawalRequests = pgTable('withdrawal_requests', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
+  name: varchar('name', { length: 255 }).notNull(),
+  email: varchar('email', { length: 255 }).notNull(),
+  mobile: varchar('mobile', { length: 15 }).notNull(),
+  status: varchar('status', { length: 50 }).default('pending').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
 // Types
 export type InsertUser = typeof usersTable.$inferInsert;
 export type SelectUser = typeof usersTable.$inferSelect;
@@ -1207,3 +1227,9 @@ export type SelectMaterialsRequests = typeof materials.$inferSelect;
 
 export type InsertPartnerRequests = typeof partnerRequests.$inferInsert;
 export type SelectPartnerRequests = typeof partnerRequests.$inferSelect;
+
+export type InsertMisReportSubmission = typeof misReportSubmissions.$inferSelect;
+export type SelectMisReportSubmission = typeof misReportSubmissions.$inferInsert;
+
+export type WithdrawalRequest = typeof withdrawalRequests.$inferSelect;
+export type NewWithdrawalRequest = typeof withdrawalRequests.$inferInsert;
