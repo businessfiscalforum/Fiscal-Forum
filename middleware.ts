@@ -8,6 +8,7 @@ const isPublicRoute = createRouteMatcher([
   "/sign-up(.*)",
   "/services(.*)",
   "/news",
+  "/newsletter",
   "/reports",
   "/api/news",
   "/api/news/ipo-scoop",
@@ -62,6 +63,7 @@ const isPublicRoute = createRouteMatcher([
   "/contact",
   "/services(.*)",
   "/api/referrals",
+
 ]);
 
 const isAdminRoute = createRouteMatcher(["/admin(.*)"]);

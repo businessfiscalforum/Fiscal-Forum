@@ -235,7 +235,7 @@ export default async function EditNewsPage({
                       rows={8}
                       defaultValue={newsItem.content || ""}
                       required
-                      className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white font-mono text-sm" // Added monospace font for content
+                      className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white font-sans text-sm whitespace-pre-wrap" // Added monospace font for content
                     />
                   </div>
                 </div>

@@ -33,6 +33,18 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "img.clerk.com",
       },
+      {
+        protocol: "https",
+        hostname: "images.moneycontrol.com",
+      },
+      {
+        protocol: "https",
+        hostname: "th-i.thgim.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.livemint.com",
+      },
     ],
   },
   

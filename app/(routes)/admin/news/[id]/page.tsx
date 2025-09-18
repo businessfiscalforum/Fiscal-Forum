@@ -180,9 +180,11 @@ export default async function NewsDetailPage(context: { params: Promise<{ id: st
                            prose-strong:text-gray-900
                            prose-li:marker:text-emerald-500
                            prose-img:rounded-xl prose-img:shadow-md
-                           prose-hr:border-gray-200"
-                dangerouslySetInnerHTML={{ __html: news.content }}
-              />
+                           prose-hr:border-gray-200
+                           whitespace-pre-wrap font-sans"
+              >
+                {news.content}
+                </div>
             ) : (
               <p className="text-gray-500 italic">Content for this article is currently unavailable.</p>
             )}

@@ -118,9 +118,11 @@ export default async function NewsletterDetailPage(context: { params: Promise<{ 
                            prose-strong:text-gray-900
                            prose-li:marker:text-emerald-500
                            prose-img:rounded-xl prose-img:shadow-md
-                           prose-hr:border-gray-200"
-                dangerouslySetInnerHTML={{ __html: item.content }}
-              />
+                           prose-hr:border-gray-200
+                           whitespace-pre-wrap fomt-sans"
+              >
+                {item.content }
+              </div>
             ) : (
               <p className="text-gray-500 italic">Content for this newsletter is currently unavailable.</p>
             )}

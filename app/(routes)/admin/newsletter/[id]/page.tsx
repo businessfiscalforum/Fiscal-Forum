@@ -150,23 +150,23 @@ export default async function NewsletterDetailPage({
               {/* Main Content */}
               {/* Conditionally render content or a message if it's missing */}
               {newslet.content ? (
-                <div
-                  className="prose prose-emerald max-w-none
-                             prose-headings:font-bold prose-headings:text-gray-900
-                             prose-p:leading-relaxed
-                             prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline
-                             prose-strong:text-gray-900
-                             prose-li:marker:text-emerald-500
-                             prose-img:rounded-xl prose-img:shadow-md
-                             prose-hr:border-gray-200"
-                  dangerouslySetInnerHTML={{ __html: newslet.content }}
-                />
-              ) : (
-                <p className="text-gray-500 italic">
-                  {/* Updated message to reflect newsletter context */}
-                  Content for this newsletter is currently unavailable.
-                </p>
-              )}
+              // Using the same styling classes as the news detail page for consistency
+              <div
+                className="prose prose-emerald max-w-none
+                           prose-headings:font-bold prose-headings:text-gray-900
+                           prose-p:leading-relaxed
+                           prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline
+                           prose-strong:text-gray-900
+                           prose-li:marker:text-emerald-500
+                           prose-img:rounded-xl prose-img:shadow-md
+                           prose-hr:border-gray-200
+                           whitespace-pre-wrap fomt-sans"
+              >
+                {newslet.content }
+              </div>
+            ) : (
+              <p className="text-gray-500 italic">Content for this newsletter is currently unavailable.</p>
+            )}
             </div>
           </article>
         </div>

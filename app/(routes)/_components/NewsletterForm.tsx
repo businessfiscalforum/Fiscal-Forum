@@ -68,6 +68,8 @@ export default function NewsletterForm({ initialData, onSubmit }: NewsletterForm
   // Helper function for consistent input classes
   const inputClasses = "w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white disabled:bg-gray-100";
   const labelClasses = "block text-sm font-medium text-emerald-800 mb-2";
+  // Special class for textarea to preserve whitespace
+  const textareaClasses = `${inputClasses} font-mono whitespace-pre-wrap`;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8 bg-white rounded-2xl shadow-lg p-6 sm:p-8 border border-emerald-100">
@@ -115,7 +117,7 @@ export default function NewsletterForm({ initialData, onSubmit }: NewsletterForm
               rows={4}
               value={formData.description}
               onChange={handleChange}
-              className={inputClasses}
+              className={textareaClasses}
               placeholder="Brief summary of the newsletter"
             />
           </div>
@@ -124,14 +126,17 @@ export default function NewsletterForm({ initialData, onSubmit }: NewsletterForm
             <label htmlFor="content" className={labelClasses}>
               Content
             </label>
+            <div className="mb-2 text-xs text-gray-500">
+              Tip: Use Shift+Enter for line breaks. Spaces and tabs will be preserved.
+            </div>
             <textarea
               name="content"
               id="content"
-              rows={10}
+              rows={15}
               value={formData.content}
               onChange={handleChange}
-              className={inputClasses}
-              placeholder="Full content of the news article"
+              className={textareaClasses}
+              placeholder={`Enter your newsletter content here...\n\nLine breaks, spaces, and tabs will be preserved.\n\nExample:\n  - First point\n  - Second point\n\nNew paragraph with indentation:\n    This is indented text.`}
             />
           </div>
         </div>
