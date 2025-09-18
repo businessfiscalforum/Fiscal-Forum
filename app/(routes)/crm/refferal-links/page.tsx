@@ -251,6 +251,28 @@ export default function ReferralLinksPage() {
       ],
       applyLink: `https://fiscalforum.in/services/stock-investment?partner=${userId}`,
     },
+    {
+      id: "stock-investment-start-your-wealth-journey",
+      name: "Stock Investment start your wealth journey",
+      platform: "Stock Investment Trading Platform",
+      features: [
+        "Low brokerage charges",
+        "Easy-to-use Kite platform",
+        "Direct mutual funds investment",
+      ],
+      applyLink: `https://fiscalforum.in/services/stock-investment/open-demat-account?partner=${userId}`,
+    },
+    {
+      id: "stock-investment-level-up-your-portfolio",
+      name: "Stock Investment level up your portfolio",
+      platform: "Stock Investment Trading Platform",
+      features: [
+        "Low brokerage charges",
+        "Easy-to-use Kite platform",
+        "Direct mutual funds investment",
+      ],
+      applyLink: `https://fiscalforum.in/services/stock-investment/allready-have-an-account?partner=${userId}`,
+    },
   ];
 
   // Mutual Funds
@@ -265,6 +287,28 @@ export default function ReferralLinksPage() {
         "Instant redemption on select funds",
       ],
       applyLink: `https://fiscalforum.in/services/mutual-funds?partner=${userId}`,
+    },
+    {
+      id: "mutual-funds-begin-your-mutual-fund-journey",
+      name: "Mutual Funds begin your mutual fund journey",
+      platform: "Direct Mutual Fund Investment",
+      features: [
+        "Zero commission direct mutual funds",
+        "Track & manage investments easily",
+        "Instant redemption on select funds",
+      ],
+      applyLink: `https://fiscalforum.in/services/mutual-funds/open-demat-accountpartner=${userId}`,
+    },
+    {
+      id: "mutual-funds-optimize-your-mutual-fund-portfolio",
+      name: "Mutual Funds optimize your mutual fund portfolio",
+      platform: "Direct Mutual Fund Investment",
+      features: [
+        "Zero commission direct mutual funds",
+        "Track & manage investments easily",
+        "Instant redemption on select funds",
+      ],
+      applyLink: `https://fiscalforum.in/services/mutual-funds/already-have-an-account?partner=${userId}`,
     },
   ];
 
@@ -647,7 +691,7 @@ export default function ReferralLinksPage() {
               key={item.id}
               className="bg-white rounded-xl border shadow-sm p-5"
             >
-              <h2 className="font-semibold text-lg">Stock Investment</h2>
+              <h2 className="font-semibold text-lg">{item.name}</h2>
               <p className="text-sm text-gray-600">{item.platform}</p>
               <ul className="mt-3 space-y-1 text-sm text-gray-600">
                 {item.features.map((f) => (
@@ -688,7 +732,7 @@ export default function ReferralLinksPage() {
               key={item.id}
               className="bg-white rounded-xl border shadow-sm p-5"
             >
-              <h2 className="font-semibold text-lg">Mutual Funds</h2>
+              <h2 className="font-semibold text-lg">{item.name}</h2>
               <p className="text-sm text-gray-600">{item.platform}</p>
               <ul className="mt-3 space-y-1 text-sm text-gray-600">
                 {item.features.map((f) => (
