@@ -1,6 +1,14 @@
 "use client";
 
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 export default function CRMHomePage() {
   // Dummy revenue data
@@ -25,12 +33,12 @@ export default function CRMHomePage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="bg-white rounded-2xl shadow p-4 flex flex-col">
           <span className="text-sm text-gray-500">Total revenue per sharing</span>
-          <span className="text-2xl font-semibold mt-2">₹ 0</span>
+          <span className="text-2xl font-semibold mt-2">0</span>
         </div>
 
         <div className="bg-white rounded-2xl shadow p-4 flex flex-col">
           <span className="text-sm text-gray-500">Revenue growth</span>
-          <span className="text-2xl font-semibold mt-2 text-red-500">0 % ↓</span>
+          <span className="text-2xl font-semibold mt-2 text-red-500">0 ↓</span>
         </div>
       </div>
 
@@ -50,7 +58,13 @@ export default function CRMHomePage() {
               <XAxis dataKey="month" />
               <YAxis />
               <Tooltip />
-              <Line type="monotone" dataKey="revenue" stroke="#2563eb" strokeWidth={2} dot={false} />
+              <Line
+                type="monotone"
+                dataKey="revenue"
+                stroke="#2563eb"
+                strokeWidth={2}
+                dot={false}
+              />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -60,20 +74,83 @@ export default function CRMHomePage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="bg-white rounded-2xl shadow p-4 flex flex-col items-center">
           <span className="text-sm text-gray-500">Yesterday</span>
-          <span className="text-xl font-semibold mt-1">₹0.00</span>
-          <span className="text-green-500 text-sm mt-1">↑ 0%</span>
+          <span className="text-xl font-semibold mt-1">0</span>
         </div>
 
         <div className="bg-white rounded-2xl shadow p-4 flex flex-col items-center">
           <span className="text-sm text-gray-500">This week</span>
-          <span className="text-xl font-semibold mt-1">₹0.00</span>
-          <span className="text-green-500 text-sm mt-1">↑ 0%</span>
+          <span className="text-xl font-semibold mt-1">0</span>
         </div>
 
         <div className="bg-white rounded-2xl shadow p-4 flex flex-col items-center">
           <span className="text-sm text-gray-500">Revenue per sharing</span>
-          <span className="text-xl font-semibold mt-1">₹0</span>
-          <span className="text-green-500 text-sm mt-1">↑ 0%</span>
+          <span className="text-xl font-semibold mt-1">0</span>
+        </div>
+
+        {/* New cards */}
+        <div className="bg-white rounded-2xl shadow p-4 flex flex-col items-center">
+          <span className="text-sm text-gray-500">Demat opened</span>
+          <span className="text-xl font-semibold mt-1">0</span>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow p-4 flex flex-col items-center">
+          <span className="text-sm text-gray-500">Brokerage generated</span>
+          <span className="text-xl font-semibold mt-1">0</span>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow p-4 flex flex-col items-center">
+          <span className="text-sm text-gray-500">SIP</span>
+          <span className="text-xl font-semibold mt-1">0</span>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow p-4 flex flex-col items-center">
+          <span className="text-sm text-gray-500">MF commission</span>
+          <span className="text-xl font-semibold mt-1">0</span>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow p-4 flex flex-col items-center">
+          <span className="text-sm text-gray-500">Insurance policy issued</span>
+          <span className="text-xl font-semibold mt-1">0</span>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow p-4 flex flex-col items-center">
+          <span className="text-sm text-gray-500">Insurance commission</span>
+          <span className="text-xl font-semibold mt-1">0</span>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow p-4 flex flex-col items-center">
+          <span className="text-sm text-gray-500">Saving account opened</span>
+          <span className="text-xl font-semibold mt-1">0</span>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow p-4 flex flex-col items-center">
+          <span className="text-sm text-gray-500">Saving account commission</span>
+          <span className="text-xl font-semibold mt-1">0</span>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow p-4 flex flex-col items-center">
+          <span className="text-sm text-gray-500">Credit card issued</span>
+          <span className="text-xl font-semibold mt-1">0</span>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow p-4 flex flex-col items-center">
+          <span className="text-sm text-gray-500">Credit card commission</span>
+          <span className="text-xl font-semibold mt-1">0</span>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow p-4 flex flex-col items-center">
+          <span className="text-sm text-gray-500">Loan disbursed</span>
+          <span className="text-xl font-semibold mt-1">0</span>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow p-4 flex flex-col items-center">
+          <span className="text-sm text-gray-500">Loan commission</span>
+          <span className="text-xl font-semibold mt-1">0</span>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow p-4 flex flex-col items-center">
+          <span className="text-sm text-gray-500">Govt bonds commission</span>
+          <span className="text-xl font-semibold mt-1">0</span>
         </div>
       </div>
     </div>
