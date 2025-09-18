@@ -1,93 +1,39 @@
-// components/RedesignedClerkPricingTable.tsx
 'use client'
 
 import { motion } from 'framer-motion'
 import { CheckCircle, Clock, ShieldCheck } from 'lucide-react'
-import { useUser } from '@clerk/nextjs'
 
 const plans = [
   {
     id: '3m',
     name: '3 Months',
     description: 'For 3 Months',
-    price: 5,
-    period: 'month',
+    price: 299,
+    period: 'one-time',
     features: ['Get Reports of your Choice'],
-    status: 'active',
-    active: true
+    link: 'https://www.upi.me/pay?pa=fiscalforum.36465083@hdfcbank&am=299&tn=Pre Market Report 3 Month Plan'
   },
   {
     id: '6m',
     name: '6 Months',
     description: 'For 6 Months',
-    price: 7,
-    period: 'month',
+    price: 499,
+    period: 'one-time',
     features: ['Get Reports of your Choice'],
-    status: 'inactive',
-    active: false
+    link: 'https://www.upi.me/pay?pa=fiscalforum.36465083@hdfcbank&am=499&tn=Pre Market Report 6 Month Plan'
   },
   {
     id: '1y',
     name: '1 Year',
     description: 'For 1 Year',
-    price: 12,
-    period: 'month',
+    price: 799,
+    period: 'one-time',
     features: ['Get Reports of your Choice'],
-    status: 'inactive',
-    active: false
+    link: 'https://www.upi.me/pay?pa=fiscalforum.36465083@hdfcbank&am=799&tn=Pre Market Report Annual Plan'
   }
 ]
 
 export default function RedesignedClerkPricingTable() {
-  const { user, isLoaded } = useUser()
-  
-  const handlePlanSelect = async (planId: string) => {
-    try {
-      // Show loading state
-      const button = event?.target as HTMLButtonElement
-      if (button) {
-        button.disabled = true
-        button.textContent = 'Processing...'
-      }
-
-      // Call your API route to create the checkout session
-      const response = await fetch('/api/join', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ planId }),
-      })
-
-      if (response.ok) {
-        const { url } = await response.json()
-        // Redirect to Clerk's checkout session
-        window.location.href = url
-      } else {
-        const errorData = await response.json()
-        alert(`Failed to process subscription: ${errorData.error}`)
-      }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      alert(`An error occurred: ${error.message}`)
-    } finally {
-      // Reset button state
-      const button = event?.target as HTMLButtonElement
-      if (button) {
-        button.disabled = false
-        button.textContent = 'Switch to this plan'
-      }
-    }
-  }
-  
-  if (!isLoaded) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
-      </div>
-    )
-  }
-  
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100 py-12 px-4">
       <div className="max-w-5xl mx-auto">
@@ -116,37 +62,27 @@ export default function RedesignedClerkPricingTable() {
           {plans.map((plan, index) => (
             <motion.div
               key={plan.id}
-              className={`relative rounded-xl shadow-lg overflow-hidden ${
-                plan.active ? 'ring-2 ring-emerald-500' : ''
-              }`}
+              className="relative rounded-xl shadow-lg overflow-hidden flex flex-col justify-between items-stretch h-full"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
               whileHover={{ y: -5 }}
             >
-              {/* Status Badge */}
-              {plan.status === 'active' && (
-                <div className="absolute top-4 right-4 bg-emerald-500 text-white text-xs font-medium px-2 py-1 rounded-full">
-                  Active
-                </div>
-              )}
-
-              {/* Plan Content */}
-              <div className="bg-white p-6">
-                <div className="flex items-center justify-between mb-4">
+              <div className="bg-white p-6 h-full flex flex-col justify-between items-stretch">
+                <div className="flex items-stretch justify-between mb-4">
                   <h3 className="text-xl font-bold text-emerald-900">{plan.name}</h3>
                   <span className="text-sm text-emerald-600">{plan.description}</span>
                 </div>
 
                 <div className="mb-6">
-                  <div className="flex items-baseline">
+                  <div className="flex items-stretch">
                     <span className="text-3xl font-bold text-emerald-900">
-                      ${plan.price}
+                      ₹{plan.price}
                     </span>
                     <span className="text-emerald-600 ml-1">/{plan.period}</span>
                   </div>
                   <p className="text-sm text-emerald-700 mt-1">
-                    Only billed monthly
+                    One-time payment
                   </p>
                 </div>
 
@@ -160,16 +96,14 @@ export default function RedesignedClerkPricingTable() {
                 </ul>
 
                 {/* Action Button */}
-                <button
-                  className={`w-full py-3 px-4 rounded-lg font-medium transition-colors ${
-                    plan.active
-                      ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
-                      : 'bg-emerald-100 hover:bg-emerald-200 text-emerald-800'
-                  }`}
-                  onClick={() => handlePlanSelect(plan.id)}
+                <a
+                  href={plan.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-center w-full py-3 px-4 rounded-lg font-medium bg-emerald-600 hover:bg-emerald-700 text-white transition-colors"
                 >
-                  {plan.active ? 'Resubscribe' : 'Switch to this plan'}
-                </button>
+                  Buy this plan
+                </a>
               </div>
             </motion.div>
           ))}
@@ -183,7 +117,7 @@ export default function RedesignedClerkPricingTable() {
           transition={{ duration: 0.5, delay: 0.5 }}
         >
           <ShieldCheck className="w-5 h-5 mr-2" />
-          <span className="text-sm">Secure payment processing powered by Clerk</span>
+          <span className="text-sm">Secure UPI payment powered by your bank</span>
         </motion.div>
       </div>
     </div>

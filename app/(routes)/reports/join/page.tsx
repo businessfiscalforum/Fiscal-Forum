@@ -51,7 +51,7 @@ export default function ReportsPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100 px-6 py-20">
       <div className="max-w-2xl w-full text-center space-y-8">
         {/* Heading */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -64,7 +64,7 @@ export default function ReportsPage() {
           <p className="text-base sm:text-lg text-emerald-700 max-w-md mx-auto">
             Choose the plan that fits you best. Save more with longer subscriptions!
           </p>
-        </motion.div>
+        </motion.div> */}
 
         <div className="flex justify-center">
           {/* <PricingTable /> */}
