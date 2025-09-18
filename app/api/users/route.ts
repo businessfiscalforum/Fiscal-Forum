@@ -3,21 +3,20 @@ import { usersTable } from "../../../config/schema";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
-import { nanoid } from 'nanoid'
+import { nanoid } from "nanoid";
 
 const allowedOrigins = [
   "https://www.fiscalforum.in",
   "https://fiscalforum.in",
-  "http://localhost:3000"
+  "http://localhost:3000",
 ];
 
-function corsHeaders(origin: string | null):HeadersInit {
+function corsHeaders(origin: string | null): HeadersInit {
   if (origin && allowedOrigins.includes(origin)) {
     return {
       "Access-Control-Allow-Origin": origin,
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type, Authorization",
-      
     };
   }
   return {};
@@ -38,7 +37,10 @@ export async function GET(req: NextRequest) {
 
   const email = req.nextUrl.searchParams.get("email");
   if (!email) {
-    return NextResponse.json({ error: "Email is required" }, { status: 400, headers });
+    return NextResponse.json(
+      { error: "Email is required" },
+      { status: 400, headers }
+    );
   }
 
   try {
@@ -48,13 +50,19 @@ export async function GET(req: NextRequest) {
       .where(eq(usersTable.email, email));
 
     if (!existing.length) {
-      return NextResponse.json({ error: "User not found" }, { status: 404, headers });
+      return NextResponse.json(
+        { error: "User not found" },
+        { status: 404, headers }
+      );
     }
 
     return NextResponse.json(existing[0], { status: 200, headers });
   } catch (error) {
     console.error("User fetch error:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500, headers });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500, headers }
+    );
   }
 }
 
@@ -64,10 +72,13 @@ export async function POST(req: NextRequest) {
   const headers = corsHeaders(origin);
 
   const body = await req.json();
-  const { email, name, referralCode } = body;  // ✅ include referralCode here
+  const { email, name, referralCode } = body; // ✅ include referralCode here
 
   if (!email) {
-    return NextResponse.json({ error: "Email is required" }, { status: 400, headers });
+    return NextResponse.json(
+      { error: "Email is required" },
+      { status: 400, headers }
+    );
   }
 
   try {
@@ -92,13 +103,16 @@ export async function POST(req: NextRequest) {
         role: "USER",
         status: "PENDING",
         referCode: nanoid().substring(0, 8).toUpperCase(),
-        referrerCode: referralCode || null,   // ✅ now saved correctly
+        referrerCode: referralCode || null, // ✅ now saved correctly
       })
       .returning();
 
     return NextResponse.json(newUser, { status: 201, headers });
   } catch (error) {
     console.error("User insert error:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500, headers });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500, headers }
+    );
   }
 }
