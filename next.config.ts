@@ -45,6 +45,14 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "www.livemint.com",
       },
+      {
+        protocol: "https",
+        hostname: "i.ibb.co",
+      },
+      {
+        protocol: "https",
+        hostname: "nakul-prajapat.imgbb.com",
+      },
     ],
   },
   

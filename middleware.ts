@@ -8,8 +8,11 @@ const isPublicRoute = createRouteMatcher([
   "/sign-up(.*)",
   "/services(.*)",
   "/news",
+  "/news(.*)",
   "/newsletter",
+  "/newsletter(.*)",
   "/reports",
+  "/reports(.*)",
   "/api/news",
   "/api/news/ipo-scoop",
   "/api/news/corp-pulse",
@@ -61,7 +64,6 @@ const isPublicRoute = createRouteMatcher([
   "/work-with-us/b2b-partnership/register",
   "/ipo",
   "/contact",
-  "/services(.*)",
   "/api/referrals",
 
 ]);
