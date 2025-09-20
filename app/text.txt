@@ -733,7 +733,7 @@ export default function HomePage() {
       <ResearchReportsSection />
 
       {/* Enhanced Services Section */}
-      <section className="pt-16 sm:py-10 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 relative overflow-hidden">
+      <section className="pt-20 sm:py-16 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 relative overflow-hidden">
         {/* Background decorations */}
         <div className="absolute inset-0">
           <div className="absolute top-10 left-10 w-64 h-64 bg-gradient-to-r from-emerald-200/30 to-teal-200/30 rounded-full blur-3xl"></div>

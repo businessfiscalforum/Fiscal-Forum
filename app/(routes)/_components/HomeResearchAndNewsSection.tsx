@@ -12,7 +12,7 @@ interface NewsItem {
   publishDate: string;
   views: string;
   featured: boolean;
-  link: string;
+  // Removed 'link' as we'll construct it based on the ID
 }
 
 // Helper functions
@@ -33,229 +33,83 @@ function formatDate(dateString: string) {
 }
 
 export default function HomeNewsAndResearchSection() {
-  const [activeTab, setActiveTab] = useState<
-    "NewsBuzz" | "CorpPulse" | "IPOScoop"
-  >("NewsBuzz");
+  const [activeTab, setActiveTab] = useState<"NewsBuzz" | "CorpPulse" | "IPOScoop">("NewsBuzz");
   const [filteredItems, setFilteredItems] = useState<NewsItem[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12;
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // 2025 News Data
-  const newsData: NewsItem[] = [
-    // News Buzz - Market News
-    {
-      id: "1",
-      title: "Sensex breaches 80,000 mark as Indian markets hit all-time high",
-      category: "NewsBuzz",
-      publishDate: "2025-03-15",
-      views: "18420",
-      featured: true,
-      link: "https://economictimes.indiatimes.com/markets/stocks/news/sensex-breaches-80000-mark-as-indian-markets-hit-all-time-high/articleshow/118789456.cms",
-    },
-    {
-      id: "2",
-      title: "RBI holds repo rate steady at 6.50% in April policy review",
-      category: "NewsBuzz",
-      publishDate: "2025-04-07",
-      views: "15200",
-      featured: false,
-      link: "https://economictimes.indiatimes.com/news/economy/policy/rbi-holds-repo-rate-steady-at-6-50-in-april-policy-review/articleshow/118954321.cms",
-    },
-    {
-      id: "3",
-      title: "Gold hits record ₹7,500 per 10 grams on global uncertainty",
-      category: "NewsBuzz",
-      publishDate: "2025-02-28",
-      views: "12650",
-      featured: true,
-      link: "https://economictimes.indiatimes.com/markets/commodities/gold-hits-record-7500-per-10-grams-on-global-uncertainty/articleshow/118523456.cms",
-    },
-    {
-      id: "4",
-      title: "Rupee strengthens to 78.20 against USD amid robust FPI inflows",
-      category: "NewsBuzz",
-      publishDate: "2025-03-22",
-      views: "9720",
-      featured: false,
-      link: "https://economictimes.indiatimes.com/markets/forex/rupee-strengthens-to-78-20-against-usd-amid-robust-fpi-inflows/articleshow/119098765.cms",
-    },
-    {
-      id: "5",
-      title: "Crude oil prices surge above $120 on Middle East tensions",
-      category: "NewsBuzz",
-      publishDate: "2025-01-18",
-      views: "14300",
-      featured: false,
-      link: "https://economictimes.indiatimes.com/markets/commodities/crude-oil-prices-surge-above-120-on-middle-east-tensions/articleshow/118154321.cms",
-    },
-    {
-      id: "6",
-      title: "Bitcoin crosses $100,000 as crypto adoption accelerates globally",
-      category: "NewsBuzz",
-      publishDate: "2025-05-03",
-      views: "21870",
-      featured: true,
-      link: "https://economictimes.indiatimes.com/markets/cryptocurrency/bitcoin-crosses-100000-as-crypto-adoption-accelerates-globally/articleshow/119312345.cms",
-    },
+  // Map tab names to API endpoints
+  const endpointMap = {
+    NewsBuzz: "/api/news/news-buzz",
+    CorpPulse: "/api/news/corp-pulse",
+    IPOScoop: "/api/news/ipo-scoop",
+  };
 
-    // Corp Pulse - Corporate
-    {
-      id: "7",
-      title:
-        "Reliance Industries Q4 profit surges 18% on Jio and retail growth",
-      category: "CorpPulse",
-      publishDate: "2025-05-20",
-      views: "16200",
-      featured: true,
-      link: "https://economictimes.indiatimes.com/news/company/earnings/reliance-industries-q4-profit-surges-18-on-jio-and-retail-growth/articleshow/119578945.cms",
-    },
-    {
-      id: "8",
-      title: "Tata Motors unveils $25,000 electric SUV for global markets",
-      category: "CorpPulse",
-      publishDate: "2025-04-15",
-      views: "13800",
-      featured: false,
-      link: "https://economictimes.indiatimes.com/industry/auto/auto-news/tata-motors-unveils-25000-electric-suv-for-global-markets/articleshow/119143210.cms",
-    },
-    {
-      id: "9",
-      title: "Infosys acquires UK-based AI firm for $1.2 billion",
-      category: "CorpPulse",
-      publishDate: "2025-03-10",
-      views: "11600",
-      featured: false,
-      link: "https://economictimes.indiatimes.com/tech/information-tech/infosys-acquires-uk-based-ai-firm-for-1-2-billion/articleshow/118812345.cms",
-    },
-    {
-      id: "10",
-      title: "HDFC Bank launches AI-powered wealth management platform",
-      category: "CorpPulse",
-      publishDate: "2025-02-25",
-      views: "12900",
-      featured: true,
-      link: "https://economictimes.indiatimes.com/industry/banking/finance/banking/hdfc-bank-launches-ai-powered-wealth-management-platform/articleshow/118687654.cms",
-    },
-    {
-      id: "11",
-      title: "Adani Group to invest $5 billion in green hydrogen projects",
-      category: "CorpPulse",
-      publishDate: "2025-01-30",
-      views: "17200",
-      featured: false,
-      link: "https://economictimes.indiatimes.com/news/company/mergers-acquisitions/adani-group-to-invest-5-billion-in-green-hydrogen-projects/articleshow/118343210.cms",
-    },
-    {
-      id: "12",
-      title: "Wipro announces $500 million share buyback program",
-      category: "CorpPulse",
-      publishDate: "2025-05-12",
-      views: "14600",
-      featured: true,
-      link: "https://economictimes.indiatimes.com/tech/information-tech/wipro-announces-500-million-share-buyback-program/articleshow/119401234.cms",
-    },
-
-    // IPO Scoop - Capital Markets
-    {
-      id: "13",
-      title:
-        "Ola Electric lists at 25% premium, valuing company at $8.5 billion",
-      category: "IPOScoop",
-      publishDate: "2025-04-28",
-      views: "19200",
-      featured: true,
-      link: "https://economictimes.indiatimes.com/markets/ipo/ola-electric-lists-at-25-premium-valuing-company-at-8-5-billion/articleshow/119265432.cms",
-    },
-    {
-      id: "14",
-      title: "Nykaa plans secondary offering to raise ₹3,500 crore",
-      category: "IPOScoop",
-      publishDate: "2025-03-18",
-      views: "13800",
-      featured: false,
-      link: "https://economictimes.indiatimes.com/markets/ipo/nykaa-plans-secondary-offering-to-raise-3500-crore/articleshow/118921098.cms",
-    },
-    {
-      id: "15",
-      title: "Paytm to raise $1 billion through convertible bonds",
-      category: "IPOScoop",
-      publishDate: "2025-02-14",
-      views: "15500",
-      featured: false,
-      link: "https://economictimes.indiatimes.com/markets/ipo/paytm-to-raise-1-billion-through-convertible-bonds/articleshow/118467890.cms",
-    },
-    {
-      id: "16",
-      title: "Zomato files for $500 million follow-on offering",
-      category: "IPOScoop",
-      publishDate: "2025-05-08",
-      views: "12800",
-      featured: true,
-      link: "https://economictimes.indiatimes.com/markets/ipo/zomato-files-for-500-million-follow-on-offering/articleshow/119334567.cms",
-    },
-    {
-      id: "17",
-      title: "Unicorn startup Polygon files for $1.5 billion IPO",
-      category: "IPOScoop",
-      publishDate: "2025-01-22",
-      views: "16900",
-      featured: false,
-      link: "https://economictimes.indiatimes.com/markets/ipo/unicorn-startup-polygon-files-for-1-5-billion-ipo/articleshow/118290123.cms",
-    },
-    {
-      id: "18",
-      title: "Policybazaar IPO valued at $4.2 billion on final day of bidding",
-      category: "IPOScoop",
-      publishDate: "2025-04-12",
-      views: "18200",
-      featured: true,
-      link: "https://economictimes.indiatimes.com/markets/ipo/policybazaar-ipo-valued-at-4-2-billion-on-final-day-of-bidding/articleshow/119056789.cms",
-    },
-  ];
-
-  // Filter items
+  // Fetch items
   useEffect(() => {
-    const items = newsData.filter((item) => item.category === activeTab);
-    setFilteredItems(items);
-    setCurrentPage(1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(endpointMap[activeTab]);
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch ${activeTab} news`);
+        }
+        
+        const data: NewsItem[] = await response.json();
+        // Limit to 6 items for desktop, will be handled by grid for mobile
+        setFilteredItems(data.slice(0, 6));
+      } catch (err) {
+        console.error("Error fetching news:", err);
+        setError("Failed to load news. Please try again later.");
+        setFilteredItems([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, [activeTab]);
 
-  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = filteredItems.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  // Determine category path for link construction
+  const getCategoryPath = (category: string) => {
+    switch (category) {
+      case "NewsBuzz": return "news-buzz";
+      case "CorpPulse": return "corp-pulse";
+      case "IPOScoop": return "ipo-scoop";
+      default: return "news-buzz";
+    }
+  };
 
   return (
     <section
-      className="py-20 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 relative"
+      className="pt-16 pb-12 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50"
       style={{
         fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
       }}
     >
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="mb-16"
+            className="mb-6"
           >
             <div className="inline-block bg-gradient-to-r from-emerald-500 to-teal-600 p-6 rounded-3xl mb-8 shadow-2xl">
-              <GiNewspaper className="text-white text-4xl" />
+              <GiNewspaper className="text-white text-4xl sm:text-3xl" />
             </div>
-            <h2 className="text-5xl font-bold mb-8 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-4 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
               Financial News Hub
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base text-gray-600 mt-2 max-w-md sm:max-w-lg mx-auto">
               Curated insights and breaking news from global markets
             </p>
           </motion.div>
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex flex-wrap justify-center gap-2 mb-10 border-b border-emerald-200 pb-3">
+        <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-8 border-b border-emerald-200 pb-2">
           {[
             { id: "NewsBuzz", label: "News Buzz" },
             { id: "CorpPulse", label: "Corp Pulse" },
@@ -263,81 +117,68 @@ export default function HomeNewsAndResearchSection() {
           ].map((tab) => (
             <button
               key={tab.id}
-              onClick={() =>
-                setActiveTab(tab.id as "NewsBuzz" | "CorpPulse" | "IPOScoop")
-              }
-              className={`px-6 py-3 text-sm md:text-base font-semibold transition-all duration-300 rounded-full ${
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              onClick={() => setActiveTab(tab.id as any)}
+              className={`px-3 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold transition-all duration-300 rounded-full ${
                 activeTab === tab.id
                   ? "bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-sm"
                   : "text-emerald-600 hover:text-emerald-800 hover:bg-emerald-50"
               }`}
-              style={{ minWidth: "120px" }}
             >
               {tab.label}
             </button>
           ))}
         </div>
 
-        {currentItems.length === 0 ? (
-          <div className="text-center py-16">
-            <h3 className="text-xl font-medium text-emerald-600">
+        {/* Loading & Error States */}
+        {loading && (
+          <div className="text-center py-10">
+            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent"></div>
+            <p className="mt-2 text-emerald-600">Loading news...</p>
+          </div>
+        )}
+
+        {error && (
+          <div className="text-center py-10">
+            <p className="text-red-500">{error}</p>
+          </div>
+        )}
+
+        {!loading && !error && filteredItems.length === 0 && (
+          <div className="text-center py-10">
+            <h3 className="text-lg font-medium text-emerald-600">
               No news available at this time
             </h3>
           </div>
-        ) : (
+        )}
+
+        {/* News Grid */}
+        {!loading && !error && filteredItems.length > 0 && (
           <>
-            {/* News Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 ">
               <AnimatePresence mode="popLayout">
-                {(window.innerWidth < 768
-                  ? currentItems.slice(0, Math.ceil(currentItems.length / 2))
-                  : currentItems
-                ).map((item, i) => (
+                {filteredItems.map((item, i) => (
                   <motion.div
                     key={item.id}
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -15 }}
                     transition={{ delay: i * 0.05 }}
-                    className="bg-white border border-emerald-200 hover:border-emerald-500 hover:shadow-lg transition-all duration-300 h-full rounded-xl"
+                    className="bg-white border shadow-2xl border-emerald-200 hover:border-emerald-500 hover:shadow-md transition-all duration-300 rounded-lg sm:rounded-xl overflow-hidden"
                   >
-                    <NewsCard item={item} />
+                    <NewsCard 
+                      item={item} 
+                      categoryPath={getCategoryPath(item.category)} 
+                    />
                   </motion.div>
                 ))}
               </AnimatePresence>
             </div>
 
-            {/* Pagination */}
-            {totalPages > 1 && (
-              <div className="flex justify-center items-center gap-4">
-                <button
-                  onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                  disabled={currentPage === 1}
-                  className="px-5 py-3 bg-emerald-100 hover:bg-emerald-200 disabled:bg-emerald-50 text-emerald-800 disabled:text-emerald-400 font-semibold text-sm rounded-full transition-all disabled:cursor-not-allowed min-w-28"
-                >
-                  ← Prev
-                </button>
-
-                <span className="px-5 py-3 text-sm text-emerald-700 font-medium bg-white border border-emerald-200 rounded-full min-w-36 text-center">
-                  Page {currentPage} of {totalPages}
-                </span>
-
-                <button
-                  onClick={() =>
-                    setCurrentPage(Math.min(totalPages, currentPage + 1))
-                  }
-                  disabled={currentPage === totalPages}
-                  className="px-5 py-3 bg-emerald-100 hover:bg-emerald-200 disabled:bg-emerald-50 text-emerald-800 disabled:text-emerald-400 font-semibold text-sm rounded-full transition-all disabled:cursor-not-allowed min-w-28"
-                >
-                  Next →
-                </button>
-              </div>
-            )}
-
-            <div className="flex justify-center mt-10">
+            <div className="flex justify-center mt-8">
               <Link
-                href="/news"
-                className="px-7 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold text-sm uppercase tracking-wide rounded-full transition-all shadow-md hover:shadow-lg transform hover:scale-105"
+                href={`/news`}
+                className="px-5 py-2.5 sm:px-6 sm:py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold text-xs sm:text-sm uppercase tracking-wide rounded-full transition-all shadow-sm hover:shadow-md transform hover:scale-105"
               >
                 View All News
               </Link>
@@ -349,41 +190,39 @@ export default function HomeNewsAndResearchSection() {
   );
 }
 
-// News Card
-function NewsCard({ item }: { item: NewsItem }) {
+// News Card Component
+function NewsCard({ item, categoryPath }: { item: NewsItem; categoryPath: string }) {
   return (
-    <article className="h-full flex flex-col p-6 rounded-xl">
-      <div className="flex items-center justify-between mb-3">
+    <article className="h-full flex flex-col p-4 sm:p-5">
+      <div className="flex items-center justify-between mb-2.5">
         {item.featured && (
-          <span className="bg-emerald-100 text-emerald-800 px-3 py-1 text-xs font-bold uppercase tracking-wide rounded-full shadow-sm">
+          <span className="bg-emerald-100 text-emerald-800 px-2 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-wide rounded-full shadow-sm">
             Featured
           </span>
         )}
-        <span className="text-xs text-emerald-600 font-medium">
+        <span className="text-[10px] sm:text-xs text-emerald-600 font-medium">
           {formatViews(item.views)} views
         </span>
       </div>
 
-      <h3 className="text-lg font-bold text-black mb-4 leading-tight flex-1">
+      <h3 className="text-sm sm:text-base font-bold text-gray-900 mb-3 leading-tight line-clamp-3 flex-1">
         {item.title}
       </h3>
 
-      <div className="flex items-center justify-between text-sm text-emerald-700 mt-auto">
+      <div className="flex items-center justify-between text-[10px] sm:text-xs text-emerald-700 mt-auto pt-2 border-t border-emerald-100">
         <span>{formatDate(item.publishDate)}</span>
         <Link
-          href={item.link}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={`/news/${item.id}`}
           className="text-emerald-600 hover:text-teal-600 font-semibold transition-colors flex items-center gap-1 group"
         >
           Read more
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="12"
+            height="12"
             fill="currentColor"
             viewBox="0 0 16 16"
-            className="transition-transform group-hover:translate-x-1"
+            className="transition-transform group-hover:translate-x-0.5"
           >
             <path
               fillRule="evenodd"
