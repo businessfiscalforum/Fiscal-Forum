@@ -102,7 +102,7 @@ const ResearchReportsSection = () => {
           className="mb-16"
         >
           <div className="inline-block bg-gradient-to-r from-emerald-500 to-teal-600 p-6 rounded-3xl mb-8 shadow-2xl">
-            <TbReportSearch className="text-white text-4xl" />
+            <TbReportSearch className="text-white text-2xl sm:text-3xl md:text-4xl" />
           </div>
           <h2 className="text-5xl pb-8 font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
             Research Reports

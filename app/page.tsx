@@ -750,7 +750,7 @@ export default function HomePage() {
               className="text-center mb-16 max-w-4xl mx-auto"
             >
               <div className="inline-block bg-gradient-to-r from-emerald-500 to-teal-600 p-6 rounded-3xl mb-8 shadow-2xl">
-                <FaCoins className="text-white text-3xl" />
+                <FaCoins className="text-white text-2xl sm:text-3xl md:text-4xl" />
               </div>
               <h1 className="text-5xl font-bold bg-gradient-to-r from-emerald-700 via-green-600 to-teal-600 bg-clip-text text-transparent mb-6">
                 Our Financial Premium Services
@@ -871,7 +871,7 @@ export default function HomePage() {
             className="mb-16"
           >
             <div className="inline-block bg-gradient-to-r from-emerald-500 to-teal-600 p-6 rounded-3xl mb-8 shadow-2xl">
-              <FaAward className="text-white text-4xl" />
+              <FaAward className="text-white text-2xl sm:text-3xl md:text-4xl" />
             </div>
             <h2 className="text-6xl font-bold bg-gradient-to-r from-emerald-600 via-green-600 to-teal-600 bg-clip-text text-transparent pb-10">
               Why Choose Fiscal Forum?
@@ -929,7 +929,7 @@ export default function HomePage() {
             className="mb-16"
           >
             <div className="inline-block bg-gradient-to-r from-emerald-500 to-teal-600 p-6 rounded-3xl mb-8 shadow-2xl">
-              <FaHandshake className="text-white text-4xl" />
+              <FaHandshake className="text-white text-2xl sm:text-3xl md:text-4xl" />
             </div>
             <h2 className="text-5xl font-bold mb-8 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
               Work With Us
@@ -964,9 +964,9 @@ export default function HomePage() {
                       {/* Icon */}
                       <div className="relative mb-8">
                         <div
-                          className={`relative w-24 h-24 bg-gradient-to-r ${partner.gradient} rounded-3xl flex items-center justify-center mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl`}
+                          className={`relative w-20 h-20 bg-gradient-to-r ${partner.gradient} rounded-3xl flex items-center justify-center mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl`}
                         >
-                          <partner.icon className="text-white text-4xl" />
+                          <partner.icon className="text-white text-2xl sm:text-3xl md:text-4xl" />
                         </div>
                       </div>
 

@@ -33,7 +33,9 @@ function formatDate(dateString: string) {
 }
 
 export default function HomeNewsAndResearchSection() {
-  const [activeTab, setActiveTab] = useState<"NewsBuzz" | "CorpPulse" | "IPOScoop">("NewsBuzz");
+  const [activeTab, setActiveTab] = useState<
+    "NewsBuzz" | "CorpPulse" | "IPOScoop"
+  >("NewsBuzz");
   const [filteredItems, setFilteredItems] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -52,11 +54,11 @@ export default function HomeNewsAndResearchSection() {
       setError(null);
       try {
         const response = await fetch(endpointMap[activeTab]);
-        
+
         if (!response.ok) {
           throw new Error(`Failed to fetch ${activeTab} news`);
         }
-        
+
         const data: NewsItem[] = await response.json();
         // Limit to 6 items for desktop, will be handled by grid for mobile
         setFilteredItems(data.slice(0, 6));
@@ -75,10 +77,14 @@ export default function HomeNewsAndResearchSection() {
   // Determine category path for link construction
   const getCategoryPath = (category: string) => {
     switch (category) {
-      case "NewsBuzz": return "news-buzz";
-      case "CorpPulse": return "corp-pulse";
-      case "IPOScoop": return "ipo-scoop";
-      default: return "news-buzz";
+      case "NewsBuzz":
+        return "news-buzz";
+      case "CorpPulse":
+        return "corp-pulse";
+      case "IPOScoop":
+        return "ipo-scoop";
+      default:
+        return "news-buzz";
     }
   };
 
@@ -97,7 +103,7 @@ export default function HomeNewsAndResearchSection() {
             className="mb-6"
           >
             <div className="inline-block bg-gradient-to-r from-emerald-500 to-teal-600 p-6 rounded-3xl mb-8 shadow-2xl">
-              <GiNewspaper className="text-white text-4xl sm:text-3xl" />
+              <GiNewspaper className="text-white text-2xl sm:text-3xl md:text-4xl" />
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-4 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
               Financial News Hub
@@ -166,9 +172,9 @@ export default function HomeNewsAndResearchSection() {
                     transition={{ delay: i * 0.05 }}
                     className="bg-white border shadow-2xl border-emerald-200 hover:border-emerald-500 hover:shadow-md transition-all duration-300 rounded-lg sm:rounded-xl overflow-hidden"
                   >
-                    <NewsCard 
-                      item={item} 
-                      categoryPath={getCategoryPath(item.category)} 
+                    <NewsCard
+                      item={item}
+                      categoryPath={getCategoryPath(item.category)}
                     />
                   </motion.div>
                 ))}
@@ -191,7 +197,13 @@ export default function HomeNewsAndResearchSection() {
 }
 
 // News Card Component
-function NewsCard({ item, categoryPath }: { item: NewsItem; categoryPath: string }) {
+function NewsCard({
+  item,
+  categoryPath,
+}: {
+  item: NewsItem;
+  categoryPath: string;
+}) {
   return (
     <article className="h-full flex flex-col p-4 sm:p-5">
       <div className="flex items-center justify-between mb-2.5">
