@@ -53,6 +53,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "nakul-prajapat.imgbb.com",
       },
+      {
+        protocol:"https",
+        hostname:"drive.google.com"
+      }
     ],
   },
   
