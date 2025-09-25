@@ -92,8 +92,6 @@ export default async function NewsletterDetailPage(context: { params: Promise<{ 
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                priority
-                unoptimized // Add if your images might not be from a standard image host
               />
             </div>
           )}
