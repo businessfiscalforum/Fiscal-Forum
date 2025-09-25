@@ -99,7 +99,7 @@ export default async function NewsDetailPage(context: {
 
   const bannerText = getBannerText(news.category ?? "");
   const bannerStyle = getBannerStyle(news.category ?? "");
-
+  console.log(news);
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-8 sm:py-12 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
@@ -164,6 +164,7 @@ export default async function NewsDetailPage(context: {
           </header>
 
           {/* Featured Image */}
+
           {news.image && (
             <div className="relative w-full h-64 sm:h-80 md:h-96">
               <Image

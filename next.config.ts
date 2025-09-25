@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "economictimes.indiatimes.com", 
       },
-       {
+      {
         protocol: "https",
         hostname: "images.news18.com", 
       },
@@ -52,6 +52,11 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "nakul-prajapat.imgbb.com",
+      },
+      {
+        protocol: "https",
+        hostname: "ibb.co",
+        pathname: '/**',
       },
       {
         protocol:"https",
