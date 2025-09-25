@@ -169,8 +169,7 @@ export default async function NewsDetailPage(context: {
             <div className="relative w-full h-64 sm:h-80 md:h-96">
               <Image
                 src={news.image}
-                width={400}
-                height={450}
+                fill
                 alt={`Featured image for ${news.title}`}
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
