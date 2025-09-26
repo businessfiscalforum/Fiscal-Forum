@@ -33,12 +33,12 @@ import { useEffect, useState } from "react";
 import {
   BarChart3,
   BookOpen,
-  Divide,
   Shield,
   TrendingUp,
   Wallet,
 } from "lucide-react";
 import ResearchReportsSection from "./(routes)/_components/ResearchReportsSection";
+import Head from "next/head";
 
 const slides = [
   {
@@ -381,23 +381,23 @@ const additionalServices = [
   },
 ];
 
-const securityFeatures = [
-  {
-    title: "Bank-Grade Security",
-    icon: FaShieldAlt,
-    desc: "256-bit SSL encryption and multi-factor authentication to keep your financial data completely secure.",
-  },
-  {
-    title: "Real-Time Monitoring",
-    icon: FaChartLine,
-    desc: "24/7 fraud detection and real-time transaction monitoring for your peace of mind.",
-  },
-  {
-    title: "Insured Deposits",
-    icon: FaUniversity,
-    desc: "All deposits are insured up to ₹5 lakhs by DICGC, ensuring complete protection of your funds.",
-  },
-];
+// const securityFeatures = [
+//   {
+//     title: "Bank-Grade Security",
+//     icon: FaShieldAlt,
+//     desc: "256-bit SSL encryption and multi-factor authentication to keep your financial data completely secure.",
+//   },
+//   {
+//     title: "Real-Time Monitoring",
+//     icon: FaChartLine,
+//     desc: "24/7 fraud detection and real-time transaction monitoring for your peace of mind.",
+//   },
+//   {
+//     title: "Insured Deposits",
+//     icon: FaUniversity,
+//     desc: "All deposits are insured up to ₹5 lakhs by DICGC, ensuring complete protection of your funds.",
+//   },
+// ];
 
 export default function HomePage() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -572,6 +572,72 @@ export default function HomePage() {
   }, []);
 
   return (
+    <>
+    <Head>
+      {/* Basic SEO */}
+      <title>Fiscal Forum | Financial Insights, Research & Premium Services</title>
+      <meta
+        name="description"
+        content="Fiscal Forum offers financial research, premium services, and expert insights. Explore tools, reports, and a trusted ecosystem to grow your financial journey."
+      />
+      <meta
+        name="keywords"
+        content="Fiscal Forum, financial services, research reports, investment tools, finance insights, premium financial services"
+      />
+      <meta name="author" content="Fiscal Forum" />
+
+      {/* Canonical */}
+      <link rel="canonical" href="https://fiscalforum.in/" />
+
+      {/* Open Graph / Facebook */}
+      <meta property="og:type" content="website" />
+      <meta
+        property="og:title"
+        content="Fiscal Forum | Financial Insights, Research & Premium Services"
+      />
+      <meta
+        property="og:description"
+        content="Explore financial research, premium services, and tools designed for every financial move at Fiscal Forum."
+      />
+      <meta property="og:url" content="https://fiscalforum.in/" />
+      <meta property="og:site_name" content="Fiscal Forum" />
+      <meta property="og:image" content="https://fiscalforum.in/cover.jpg" />
+
+      {/* Twitter Card */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta
+        name="twitter:title"
+        content="Fiscal Forum | Financial Insights, Research & Premium Services"
+      />
+      <meta
+        name="twitter:description"
+        content="Financial tools, premium services, and expert research from Fiscal Forum."
+      />
+      <meta name="twitter:image" content="https://fiscalforum.in/cover.jpg" />
+      <meta name="twitter:site" content="@fiscalforum" />
+
+      {/* Favicon */}
+      <link rel="icon" href="/favicon.ico" />
+
+      {/* Structured Data (JSON-LD) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "Fiscal Forum",
+            url: "https://fiscalforum.in",
+            logo: "https://fiscalforum.in/logo.png",
+            sameAs: [
+              "https://www.linkedin.com/company/fiscal-forum",
+              "https://twitter.com/fiscalforum",
+            ],
+          }),
+        }}
+      />
+    </Head>
+
     <div
       className="text-gray-800 font-sans min-h-screen"
       style={{
@@ -1239,5 +1305,6 @@ export default function HomePage() {
         }
       `}</style>
     </div>
+    </>
   );
 }
