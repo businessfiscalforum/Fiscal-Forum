@@ -2,6 +2,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import {
   FaFacebookF,
   FaTwitter,
@@ -200,6 +201,7 @@ const Footer = () => {
               <p className="text-gray-400 text-sm">
                 © {new Date().getFullYear()} Fiscal Forum. All rights reserved.
               </p>
+              <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">Priavcy Policy</Link>
               <div className="flex gap-6">
                 <button 
                   onClick={scrollToTop}
