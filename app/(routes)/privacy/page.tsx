@@ -168,7 +168,7 @@ const PoliciesPage = () => {
             </div>
 
             {/* Refund/Cancellation Policy */}
-            <div>
+            {/* <div>
               <h2 className="text-2xl font-bold text-emerald-800 mb-4 border-b-2 border-emerald-200 pb-2">
                 Refund/Cancellation Policy
               </h2>
@@ -197,7 +197,7 @@ const PoliciesPage = () => {
               <p className="text-gray-700 mb-4">
                 Refund approval revokes access to report or subscription immediately
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
