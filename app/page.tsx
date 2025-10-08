@@ -15,9 +15,6 @@ import {
   FaCheckCircle,
   FaHeadset,
   FaRegLightbulb,
-  FaShieldAlt,
-  FaChartLine,
-  FaUniversity,
   FaLaptopCode,
   FaGlobe,
   FaHandsHelping,
@@ -39,6 +36,8 @@ import {
 } from "lucide-react";
 import ResearchReportsSection from "./(routes)/_components/ResearchReportsSection";
 import Head from "next/head";
+import { UsersDetail } from "./provider";
+import { useUser } from "@clerk/nextjs";
 
 const slides = [
   {
@@ -554,22 +553,42 @@ export default function HomePage() {
     ],
   };
 
-  const [user, setUser] = useState(null);
+  const [userDetail, setUserDetail] = useState<UsersDetail | null>(null);
+  const { user, isLoaded } = useUser();
+
   useEffect(() => {
+    if (!isLoaded || !user) return;
+
     const fetchUser = async () => {
       try {
+        const userEmail = user.emailAddresses[0]?.emailAddress;
+        if (!userEmail) throw new Error("Logged-in user email not found");
+
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/users?email=test@example.com`
+          `${process.env.NEXT_PUBLIC_API_URL}/api/users?email=${encodeURIComponent(
+            userEmail
+          )}`
         );
-        const data = await res.json();
-        setUser(data);
+
+        if (!res.ok) {
+          if (res.status === 404) {
+            console.log("User not found, you may need to create it first");
+            return;
+          }
+          throw new Error(`Failed to fetch user: ${res.statusText}`);
+        }
+
+        const data: UsersDetail = await res.json();
+        setUserDetail(data);
+        // console.log("Fetched user:", data);
       } catch (error) {
-        console.error("Fetch error:", error);
+        console.error("Error fetching user:", error);
       }
     };
 
     fetchUser();
-  }, []);
+  }, [isLoaded, user]);
+
 
   return (
     <>

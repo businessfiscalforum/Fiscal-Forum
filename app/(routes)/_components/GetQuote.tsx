@@ -48,16 +48,16 @@ const GetQuote = () => {
         loanType: "home-loan",
       };
 
-      console.log("Sending payload:", payload);
+      // console.log("Sending payload:", payload);
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/send-quote`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      console.log("Response status:", response.status);
+      // console.log("Response status:", response.status);
       const result = await response.json();
-      console.log("Response data:", result);
+      // console.log("Response data:", result);
 
       setIsSubmitted(true);
     } catch (error: unknown) {

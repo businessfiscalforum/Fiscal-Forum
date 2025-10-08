@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
+import crypto from "crypto";
 
 const allowedOrigins = [
   "https://www.fiscalforum.in",
@@ -55,8 +56,8 @@ export async function GET(req: NextRequest) {
         { status: 404, headers }
       );
     }
-
-    return NextResponse.json(existing[0], { status: 200, headers });
+    const { password, ...safeUser } = existing[0];
+    return NextResponse.json(safeUser, { status: 200, headers });
   } catch (error) {
     console.error("User fetch error:", error);
     return NextResponse.json(
@@ -72,7 +73,7 @@ export async function POST(req: NextRequest) {
   const headers = corsHeaders(origin);
 
   const body = await req.json();
-  const { email, name, referralCode } = body; // ✅ include referralCode here
+  const { email, name, referralCode } = body; 
 
   if (!email) {
     return NextResponse.json(
@@ -88,10 +89,12 @@ export async function POST(req: NextRequest) {
       .where(eq(usersTable.email, email));
 
     if (existing.length) {
-      return NextResponse.json(existing[0], { status: 200, headers });
+      const { password, ...safeUser } = existing[0];
+      return NextResponse.json(safeUser, { status: 200, headers });
     }
 
-    const hashedPassword = await bcrypt.hash("defaultpassword123", 10);
+    const tempPassword = crypto.randomBytes(16).toString("hex");
+    const hashedPassword = await bcrypt.hash(tempPassword, 10);
 
     const [newUser] = await db
       .insert(usersTable)
@@ -103,11 +106,12 @@ export async function POST(req: NextRequest) {
         role: "USER",
         status: "PENDING",
         referCode: nanoid().substring(0, 8).toUpperCase(),
-        referrerCode: referralCode || null, // ✅ now saved correctly
+        referrerCode: referralCode || null,
       })
       .returning();
+      const { password, ...safeUser } = newUser;
 
-    return NextResponse.json(newUser, { status: 201, headers });
+    return NextResponse.json(safeUser, { status: 201, headers });
   } catch (error) {
     console.error("User insert error:", error);
     return NextResponse.json(

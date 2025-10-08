@@ -114,7 +114,7 @@ export default function GoldLoanApplication() {
       }
 
       const result = await res.json();
-      console.log("Application Submitted:", result);
+      // console.log("Application Submitted:", result);
       setSuccessMessage("Application submitted successfully!");
     } catch (err) {
       console.error("Submission Error:", err);

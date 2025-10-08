@@ -164,7 +164,7 @@ export async function POST(req: NextRequest) {
       reference2Address: parsedData.data.reference2.address,
     }).returning();
 
-    console.log('✅ Education Loan Application Saved:', newApplication);
+    // console.log('✅ Education Loan Application Saved:', newApplication);
 
     return NextResponse.json(
       { message: 'Application submitted successfully', data: newApplication },

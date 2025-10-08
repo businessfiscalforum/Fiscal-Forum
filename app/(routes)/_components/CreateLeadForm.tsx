@@ -64,7 +64,7 @@ export default function CreateLeadForm({ type }: CreateLeadFormProps) {
       }
 
       const result = await res.json();
-      console.log("Application Submitted:", result);
+      // console.log("Application Submitted:", result);
       setSuccessMessage("Application submitted successfully! Our representative will contact you shortly.");
     } catch (err) {
       console.error("Submission Error:", err);

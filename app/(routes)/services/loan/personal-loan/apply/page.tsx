@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 // Schema for Personal Loan Application
@@ -118,7 +118,7 @@ export default function PersonalLoanApplication() {
       }
 
       const result = await res.json();
-      console.log("Application Submitted:", result);
+      // console.log("Application Submitted:", result);
       setSuccessMessage("Application submitted successfully!");
     } catch (err) {
       console.error("Submission Error:", err);

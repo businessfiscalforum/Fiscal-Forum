@@ -186,7 +186,7 @@ export default function HealthInsuranceFormPage() {
         }
       );
 
-      console.log("Data:", response);
+      // console.log("Data:", response);
       if (response.ok) {
         const data = await response.json();
         userId = data?.id ?? null; // DB id if available

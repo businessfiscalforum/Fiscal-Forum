@@ -144,7 +144,7 @@ const LoanLandingPage = () => {
         loanType: "home-loan",
       };
 
-      console.log("Sending payload:", payload);
+      // console.log("Sending payload:", payload);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/send-quote`,
         {
@@ -154,9 +154,9 @@ const LoanLandingPage = () => {
         }
       );
 
-      console.log("Response status:", response.status);
+      // console.log("Response status:", response.status);
       const result = await response.json();
-      console.log("Response data:", result);
+      // console.log("Response data:", result);
 
       setIsSubmitted(true);
     } catch (error: unknown) {

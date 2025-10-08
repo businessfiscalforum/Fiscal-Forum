@@ -10,7 +10,7 @@ export type UsersDetail = {
   name: string;
   age: number;
   email: string;
-  password: string;
+  // password: string;
   role: "USER" | "ADMIN" | "AGENT" | "PARTNER";
   status: "PENDING" | "APPROVED" | "REJECTED" | "BANNED";
   referCode?: string;
@@ -36,14 +36,14 @@ function Provider({ children }: { children: React.ReactNode }) {
 
       // 1️⃣ Try fetching the user first
       const fetchRes = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/users?email=${userEmail}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/users?email=${encodeURIComponent(userEmail)}`,
         { method: "GET" }
       );
 
       if (fetchRes.ok) {
         const data: UsersDetail = await fetchRes.json();
         setUserDetail(data);
-        console.log("Fetched user:", data);
+        // console.log("Fetched user:", data);
         return;
       }
 
@@ -77,7 +77,7 @@ function Provider({ children }: { children: React.ReactNode }) {
 
         const newData: UsersDetail = await createRes.json();
         setUserDetail(newData);
-        console.log("Created new user:", newData);
+        // console.log("Created new user:", newData);
 
         // Clear referralCode from localStorage after success
         if (referralCode) {

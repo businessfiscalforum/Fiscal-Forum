@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
     const userId = searchParams.get("userId");
 
     let rows;
-    console.log("Type, userID: ", type, userId);
+    // console.log("Type, userID: ", type, userId);
 
     if (type && userId) {
       // filter by both type and userId
