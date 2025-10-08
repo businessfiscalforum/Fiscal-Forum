@@ -64,6 +64,8 @@ const isPublicRoute = createRouteMatcher([
   "/work-with-us/b2b-partnership/register",
   "/ipo",
   "/contact",
+  "/privacy",
+  "/terms-&-conditions",
   "/api/referrals",
 
 ]);

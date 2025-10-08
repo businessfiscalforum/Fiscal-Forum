@@ -17,7 +17,10 @@ import {
   FaNewspaper,
   FaChartLine,
   FaRupeeSign,
-  FaEnvelope,
+  FaStar,
+  FaBolt,
+  FaCalendarAlt,
+  FaTags
 } from "react-icons/fa";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -509,15 +512,15 @@ return (
                   {/* Main Featured Article */}
                   {currentNews.length > 0 && (
                     <div
-                      className="lg:col-span-2 bg-white rounded-lg shadow-lg cursor-pointer group border border-emerald-100 hover:border-emerald-300 transition-all duration-300"
+                      className="lg:col-span-2 bg-white rounded-lg shadow-md cursor-pointer group border border-emerald-100 hover:border-emerald-300 transition-all duration-300"
                       onClick={() => handleNewsClick(currentNews[0].id)}
                     >
-                      <div className="relative aspect-video">
+                      <div className="relative aspect-video w-full overflow-hidden">
                         {currentNews[0].image ? (
                           <Image
                             src={currentNews[0].image}
                             width={400}
-                            height={450}
+                            height={400}
                             alt={currentNews[0].title}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           />
@@ -534,7 +537,7 @@ return (
                         </div>
                         <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
                           <span className="bg-emerald-500 text-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-semibold mb-2 inline-block">
-                            {currentNews[0].category || "General"}
+                            {currentNews[0].category || "News"}
                           </span>
                           <h2 className="text-lg sm:text-2xl font-bold text-white mb-1 sm:mb-2 group-hover:text-emerald-200 transition-colors line-clamp-2">
                             {currentNews[0].title}
@@ -552,88 +555,74 @@ return (
                       </div>
                     </div>
                   )}
-                  {/* Top Stories Sidebar */}
+                  {/* Top Stories Sidebar - REMOVED IMAGES, ADDED ICONS */}
                   <div className="space-y-6">
-                    <h3 className="text-xl font-bold text-emerald-800 border-b-2 border-emerald-500 pb-2">
-                      Top Stories
-                    </h3>
-                    {currentNews.slice(1, 4).map((news) => (
+                    <div className="flex items-center gap-2 mb-4">
+                      <FaStar className="text-emerald-600" />
+                      <h3 className="text-xl font-bold text-emerald-800">
+                        Top Stories
+                      </h3>
+                    </div>
+                    {currentNews.slice(1, 5).map((news) => (
                       <div
                         key={news.id}
-                        className="flex gap-4 cursor-pointer group p-4 rounded-lg hover:bg-emerald-50/50 transition-colors duration-300"
+                        className="cursor-pointer group p-4 rounded-lg hover:bg-emerald-50/50 transition-colors duration-300 border border-transparent hover:border-emerald-200 flex items-start gap-3"
                         onClick={() => handleNewsClick(news.id)}
                       >
-                        <div className="flex-shrink-0 w-24 h-24 bg-emerald-100 rounded overflow-hidden">
-                          {news.image ? (
-                            <Image
-                              src={news.image}
-                              alt={news.title}
-                              width={400}
-                              height={250}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            />
-                          ) : (
-                            <div className="bg-gradient-to-br from-emerald-100 to-teal-100 w-full h-full flex items-center justify-center">
-                              <FaGlobe className="text-emerald-400" />
-                            </div>
-                          )}
+                        <div className="bg-emerald-100 p-2 rounded-lg flex-shrink-0">
+                          <FaBolt className="text-emerald-600 text-sm" />
                         </div>
                         <div>
-                          <h4 className="font-bold text-emerald-900 group-hover:text-emerald-600 transition-colors line-clamp-3">
+                          <h4 className="font-bold text-emerald-900 group-hover:text-emerald-600 transition-colors line-clamp-2">
                             {news.title}
                           </h4>
-                          <div className="flex items-center text-emerald-700 text-xs mt-2">
+                          <div className="flex items-center text-emerald-700 text-xs mt-1">
                             <span>{formatDate(news.publishDate)}</span>
                             <span className="mx-2">•</span>
+                            <span className="truncate max-w-[60px] sm:max-w-none">{news.author}</span>
                           </div>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
-                {/* Latest News - Added Below Top Stories */}
+                {/* Latest News - Added Below Top Stories, Responsive Grid */}
                 <div className="space-y-6 mt-8">
-                  <h3 className="text-xl font-bold text-emerald-800 border-b-2 border-emerald-500 pb-2">
-                    Latest News
-                  </h3>
-                  {currentNews.slice(4).length > 0 ? (
-                    currentNews.slice(4).map((news) => (
-                      <div
-                        key={news.id}
-                        className="flex gap-4 cursor-pointer group p-4 rounded-lg hover:bg-emerald-50/50 transition-colors duration-300 border border-transparent hover:border-emerald-200"
-                        onClick={() => handleNewsClick(news.id)}
-                      >
-                        <div className="flex-shrink-0 w-24 h-24 bg-emerald-100 rounded overflow-hidden">
-                          {news.image ? (
-                            <Image
-                              src={news.image}
-                              alt={news.title}
-                              width={400}
-                              height={250}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            />
-                          ) : (
-                            <div className="bg-gradient-to-br from-emerald-100 to-teal-100 w-full h-full flex items-center justify-center">
-                              <FaGlobe className="text-emerald-400" />
+                  <div className="flex items-center gap-2 mb-4">
+                    <FaCalendarAlt className="text-emerald-600" />
+                    <h3 className="text-xl font-bold text-emerald-800">
+                      Latest News
+                    </h3>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {currentNews.slice(5).length > 0 ? (
+                      currentNews.slice(5).map((news) => (
+                        <div
+                          key={news.id}
+                          className="cursor-pointer group p-4 rounded-lg hover:bg-emerald-50/50 transition-colors duration-300 border border-transparent hover:border-emerald-200 flex items-start gap-3"
+                          onClick={() => handleNewsClick(news.id)}
+                        >
+                          <div className="bg-emerald-100 p-2 rounded-lg flex-shrink-0">
+                            <FaTags className="text-emerald-600 text-sm" />
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-emerald-900 group-hover:text-emerald-600 transition-colors line-clamp-2">
+                              {news.title}
+                            </h4>
+                            <div className="flex items-center text-emerald-700 text-xs mt-1">
+                              <span>{formatDate(news.publishDate)}</span>
+                              <span className="mx-2">•</span>
+                              <span className="truncate max-w-[60px] sm:max-w-none">{news.author}</span>
                             </div>
-                          )}
-                        </div>
-                        <div>
-                          <h4 className="font-bold text-emerald-900 group-hover:text-emerald-600 transition-colors line-clamp-3">
-                            {news.title}
-                          </h4>
-                          <div className="flex items-center text-emerald-700 text-xs mt-2">
-                            <span>{formatDate(news.publishDate)}</span>
-                            <span className="mx-2">•</span>
                           </div>
                         </div>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-emerald-600 text-center py-4">
-                      No more news articles at the moment.
-                    </p>
-                  )}
+                      ))
+                    ) : (
+                      <p className="text-emerald-600 text-center py-4 col-span-2">
+                        No more news articles at the moment.
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
             ) : (
@@ -846,49 +835,6 @@ return (
             </motion.div>
           )}
         </div>{" "}
-        {/* End of Main News Content Area */}
-        {/* Newsletter Section - Full Width Below Main Content */}
-        {/* <div>
-            <div className="bg-white rounded-2xl shadow-lg p-6 border border-emerald-100">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full flex items-center justify-center">
-                  <FaEnvelope className="text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-emerald-800">
-                  Newsletter
-                </h3>
-              </div>
-              {newsletterLoading ? (
-                <div className="flex justify-center py-6">
-                  <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-emerald-500"></div>
-                </div>
-              ) : newsletter.length > 0 ? (
-                <div className="space-y-6">
-                  {newsletter.slice(0, 5).map((item) => ( 
-                    <div
-                      key={item.id}
-                      className="border-b border-emerald-100 pb-4 last:border-0 last:pb-0 cursor-pointer group hover:bg-emerald-50/30 p-2 rounded transition-colors duration-200"
-                      onClick={() => handleNewsletterClick(item.id)}
-                    >
-                      <h4 className="font-bold text-emerald-900 group-hover:text-emerald-600 text-sm md:text-base line-clamp-2">
-                        {item.title}
-                      </h4>
-                      <p className="text-emerald-700 text-xs md:text-sm line-clamp-2 mt-1">
-                        {item.description}
-                      </p>
-                      <p className="text-emerald-600 text-xs mt-2">
-                        {formatDate(item.publishDate)}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-emerald-600 text-sm">
-                  No newsletters available.
-                </p>
-              )}
-            </div>
-          </div> */}
       </div>
     </section>
   </div>

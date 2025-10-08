@@ -16,7 +16,7 @@ import {
   FaSpinner, 
   FaCheck
 } from "react-icons/fa";
-import { CheckCircle, ChevronDown, ChevronUp } from "lucide-react";
+import {  ChevronDown, ChevronUp } from "lucide-react";
 import { motion } from "framer-motion";
 
 // --- TYPES ---
@@ -53,7 +53,7 @@ const brokers: Broker[] = [
   {
     name: "NJ Wealth",
     logo: "/Nj-wealth.png",
-    link: "  https://www.njindiaonline.com/etada/partintiate.fin?cmdAction=showMenu&njBrcode=47283", 
+    link: "  http://p.njw.bz/47283", 
     brokerage:["• India’s largest mutual fund distributor",
     "• Advanced advisory tools for smarter investing",
     "• Vast partner network for wider access",

@@ -125,50 +125,50 @@ const creditCards: CreditCard[] = [
     applyLink:
       "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aW5kdXNpbmRfYmFuaw==&bank_source=aW5kdXNfYmFuaw==&agent_code=",
   },
-  {
-    id: "hsbc",
-    bank: "HSBC Bank",
-    logo: "/hsbc.png",
-    cardName: "HSBC Credit Cards",
-    cardImage: "/Hsbc Bank.svg",
-    tagline: "Flat Cashback on All Spends",
-    cashbackRate: "5%",
-    rewardPoints: "HSBC Rewards",
-    welcomeBonus: "Varies by Card",
-    features: [
-      "Flat 5% cashback on all spends",
-      "No joining or annual fees*",
-      "Global acceptance",
-    ],
-    detailedBenefits: [
-      "Flat 5% cashback on all domestic and international spends.",
-      "No joining fee and no annual fee (subject to HSBC terms and conditions).",
-      "Earn HSBC Rewards points per ₹100 spent.",
-      "Complimentary membership to HSBC Global Concierge Services.",
-      "Exclusive dining and entertainment discounts.",
-      "Travel insurance and purchase protection.",
-      "Contactless payment technology for faster checkout.",
-    ],
-    benefits: [
-      "Flat 5% cashback on all spends",
-      "No joining or annual fees",
-      "Global acceptance",
-      "Contactless payments",
-      "24x7 concierge service",
-      "Travel & dining privileges",
-    ],
-    eligibilityNote:
-      "Provide your information to verify eligibility. HSBC automatically selects the best card as per your credit history and income.",
-    howToApply: [
-      "Click 'Apply'",
-      "Fill your details",
-      "Get your credit card within 5-7 days",
-    ],
-    pdfLink:
-      "https://drive.google.com/file/d/1fUnUq44G-5sfNCWIbgzJ8cHG9_IvKdBK/view?usp=sharing",
-    applyLink:
-      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY19iYW5r&bank_source=aHNiY19iYW5r&agent_code=",
-  },
+  // {
+  //   id: "hsbc",
+  //   bank: "HSBC Bank",
+  //   logo: "/hsbc.png",
+  //   cardName: "HSBC Credit Cards",
+  //   cardImage: "/Hsbc Bank.svg",
+  //   tagline: "Flat Cashback on All Spends",
+  //   cashbackRate: "5%",
+  //   rewardPoints: "HSBC Rewards",
+  //   welcomeBonus: "Varies by Card",
+  //   features: [
+  //     "Flat 5% cashback on all spends",
+  //     "No joining or annual fees*",
+  //     "Global acceptance",
+  //   ],
+  //   detailedBenefits: [
+  //     "Flat 5% cashback on all domestic and international spends.",
+  //     "No joining fee and no annual fee (subject to HSBC terms and conditions).",
+  //     "Earn HSBC Rewards points per ₹100 spent.",
+  //     "Complimentary membership to HSBC Global Concierge Services.",
+  //     "Exclusive dining and entertainment discounts.",
+  //     "Travel insurance and purchase protection.",
+  //     "Contactless payment technology for faster checkout.",
+  //   ],
+  //   benefits: [
+  //     "Flat 5% cashback on all spends",
+  //     "No joining or annual fees",
+  //     "Global acceptance",
+  //     "Contactless payments",
+  //     "24x7 concierge service",
+  //     "Travel & dining privileges",
+  //   ],
+  //   eligibilityNote:
+  //     "Provide your information to verify eligibility. HSBC automatically selects the best card as per your credit history and income.",
+  //   howToApply: [
+  //     "Click 'Apply'",
+  //     "Fill your details",
+  //     "Get your credit card within 5-7 days",
+  //   ],
+  //   pdfLink:
+  //     "https://drive.google.com/file/d/1fUnUq44G-5sfNCWIbgzJ8cHG9_IvKdBK/view?usp=sharing",
+  //   applyLink:
+  //     "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY19iYW5r&bank_source=aHNiY19iYW5r&agent_code=",
+  // },
   {
     id: "hdfc-swiggy",
     bank: "HDFC Bank",
@@ -293,86 +293,86 @@ const creditCards: CreditCard[] = [
     applyLink:
       "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=eWVzX3BvcGNsdWI=&bank_source=eWVzX3BvcGNsdWI=&agent_code=",
   },
-  {
-    id: "hsbc-liveplus",
-    bank: "HSBC Bank",
-    logo: "/hsbc.png",
-    cardName: "HSBC Live Plus Card",
-    cardImage: "/Hsbc Live Plus.svg",
-    tagline: "Cashback on Daily Expenses",
-    cashbackRate: "Up to 10%",
-    rewardPoints: "HSBC Rewards",
-    welcomeBonus: "Varies by Card",
-    features: [
-      "Cashback on daily expenses",
-      "Dining & travel discounts",
-      "Global acceptance",
-    ],
-    detailedBenefits: [
-      "Earn cashback on everyday spending categories (specific rates vary).",
-      "Exclusive dining discounts locally and across Asia.",
-      "Travel discounts and offers.",
-      "Global acceptance for international transactions.",
-      "Earn HSBC Rewards points on all purchases.",
-      "Access to HSBC Global Concierge Services.",
-    ],
-    benefits: [
-      "Cashback on daily expenses",
-      "Dining & travel discounts",
-      "Global acceptance",
-    ],
-    eligibilityNote:
-      "Provide your details to check eligibility. HSBC recommends Live Plus card based on your spending profile and financial history.",
-    howToApply: [
-      "Click 'Apply'",
-      "Fill your details",
-      "Get your credit card within 5-7 days",
-    ],
-    pdfLink:
-      "https://drive.google.com/file/d/1fUnUq44G-5sfNCWIbgzJ8cHG9_IvKdBK/view?usp=sharing",
-    applyLink:
-      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY19saXZlX3BsdXM=&bank_source=aHNiY19iYW5r&agent_code=",
-  },
-  {
-    id: "hsbc-travelone",
-    bank: "HSBC Bank",
-    logo: "/hsbc.png",
-    cardName: "HSBC TravelOne Card",
-    cardImage: "/HsbcTraveloneCard.svg",
-    tagline: "Earn Air Miles & Travel Perks",
-    cashbackRate: "Miles/Points per ₹100",
-    rewardPoints: "HSBC Rewards / Air Miles",
-    welcomeBonus: "Varies by Card",
-    features: [
-      "Air miles on every spend",
-      "Airport lounge access",
-      "Travel insurance",
-    ],
-    detailedBenefits: [
-      "Earn air miles or HSBC Rewards points on every rupee spent.",
-      "Complimentary access to domestic and international airport lounges.",
-      "Comprehensive travel insurance covering accidents, delays, and lost baggage.",
-      "Earn accelerated points/miles on travel-related spends.",
-      "Priority check-in and boarding privileges (on select airlines).",
-      "Travel discounts and exclusive offers.",
-    ],
-    benefits: [
-      "Air miles on every spend",
-      "Airport lounge access",
-      "Travel insurance",
-    ],
-    eligibilityNote:
-      "Fill in your details to see if you qualify. HSBC automatically finds the best travel card depending on your income and credit.",
-    howToApply: [
-      "Click 'Apply'",
-      "Fill your details",
-      "Get your credit card within 5-7 days",
-    ],
-    pdfLink:
-      "https://drive.google.com/file/d/1fUnUq44G-5sfNCWIbgzJ8cHG9_IvKdBK/view?usp=sharing",
-    applyLink:
-      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY190cmF2ZWxvbmVfY2FyZA==&bank_source=aHNiY19iYW5r&agent_code=",
-  },
+  // {
+  //   id: "hsbc-liveplus",
+  //   bank: "HSBC Bank",
+  //   logo: "/hsbc.png",
+  //   cardName: "HSBC Live Plus Card",
+  //   cardImage: "/Hsbc Live Plus.svg",
+  //   tagline: "Cashback on Daily Expenses",
+  //   cashbackRate: "Up to 10%",
+  //   rewardPoints: "HSBC Rewards",
+  //   welcomeBonus: "Varies by Card",
+  //   features: [
+  //     "Cashback on daily expenses",
+  //     "Dining & travel discounts",
+  //     "Global acceptance",
+  //   ],
+  //   detailedBenefits: [
+  //     "Earn cashback on everyday spending categories (specific rates vary).",
+  //     "Exclusive dining discounts locally and across Asia.",
+  //     "Travel discounts and offers.",
+  //     "Global acceptance for international transactions.",
+  //     "Earn HSBC Rewards points on all purchases.",
+  //     "Access to HSBC Global Concierge Services.",
+  //   ],
+  //   benefits: [
+  //     "Cashback on daily expenses",
+  //     "Dining & travel discounts",
+  //     "Global acceptance",
+  //   ],
+  //   eligibilityNote:
+  //     "Provide your details to check eligibility. HSBC recommends Live Plus card based on your spending profile and financial history.",
+  //   howToApply: [
+  //     "Click 'Apply'",
+  //     "Fill your details",
+  //     "Get your credit card within 5-7 days",
+  //   ],
+  //   pdfLink:
+  //     "https://drive.google.com/file/d/1fUnUq44G-5sfNCWIbgzJ8cHG9_IvKdBK/view?usp=sharing",
+  //   applyLink:
+  //     "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY19saXZlX3BsdXM=&bank_source=aHNiY19iYW5r&agent_code=",
+  // },
+  // {
+  //   id: "hsbc-travelone",
+  //   bank: "HSBC Bank",
+  //   logo: "/hsbc.png",
+  //   cardName: "HSBC TravelOne Card",
+  //   cardImage: "/HsbcTraveloneCard.svg",
+  //   tagline: "Earn Air Miles & Travel Perks",
+  //   cashbackRate: "Miles/Points per ₹100",
+  //   rewardPoints: "HSBC Rewards / Air Miles",
+  //   welcomeBonus: "Varies by Card",
+  //   features: [
+  //     "Air miles on every spend",
+  //     "Airport lounge access",
+  //     "Travel insurance",
+  //   ],
+  //   detailedBenefits: [
+  //     "Earn air miles or HSBC Rewards points on every rupee spent.",
+  //     "Complimentary access to domestic and international airport lounges.",
+  //     "Comprehensive travel insurance covering accidents, delays, and lost baggage.",
+  //     "Earn accelerated points/miles on travel-related spends.",
+  //     "Priority check-in and boarding privileges (on select airlines).",
+  //     "Travel discounts and exclusive offers.",
+  //   ],
+  //   benefits: [
+  //     "Air miles on every spend",
+  //     "Airport lounge access",
+  //     "Travel insurance",
+  //   ],
+  //   eligibilityNote:
+  //     "Fill in your details to see if you qualify. HSBC automatically finds the best travel card depending on your income and credit.",
+  //   howToApply: [
+  //     "Click 'Apply'",
+  //     "Fill your details",
+  //     "Get your credit card within 5-7 days",
+  //   ],
+  //   pdfLink:
+  //     "https://drive.google.com/file/d/1fUnUq44G-5sfNCWIbgzJ8cHG9_IvKdBK/view?usp=sharing",
+  //   applyLink:
+  //     "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY190cmF2ZWxvbmVfY2FyZA==&bank_source=aHNiY19iYW5r&agent_code=",
+  // },
   {
     id: "axis-fd",
     bank: "Axis Bank",
@@ -646,6 +646,30 @@ export default function CreditCardsPage() {
             </div>
           </motion.div>
         </motion.div>
+        <motion.div
+  initial={{ opacity: 0, scale: 0.8 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ delay: 0.6, duration: 0.5 }}
+  className="absolute top-4 right-4 md:top-6 md:right-6 z-20"
+>
+  <div className="bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/30 shadow-xl w-72 text-center">
+    <h3 className="text-white font-semibold text-base mb-2">
+      Check Your Credit Card Offers
+    </h3>
+    <p className="text-white/80 text-sm mb-4">
+      Discover personalized deals based on your spending habits.
+    </p>
+    <a
+      href="https://credue.in/next/credit-card-eligibility?cba_code=QzAwMTExMzI="
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-block bg-green-600 hover:bg-green-700 text-white font-medium text-sm px-4 py-2 rounded-lg transition-all duration-300 shadow-md"
+    >
+      Click Here
+    </a>
+  </div>
+</motion.div>
+
       </header>
 
       {/* Filters Section */}

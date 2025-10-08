@@ -14,6 +14,7 @@ export default function Navbar() {
 
   const navItems = [
     { label: "News & IPOs", href: "/news" },
+    { label: "About Us", href: "/about-us" },
     { label: "Newsletters", href: "/newsletter" },
     // { label: "Materials", href: "/materials" },
     { label: "Work With Us", href: "/work-with-us" },

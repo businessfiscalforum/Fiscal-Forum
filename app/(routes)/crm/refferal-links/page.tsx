@@ -346,22 +346,22 @@ export default function ReferralLinksPage() {
       applyLink:
         "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aW5kdXNpbmRfYmFuaw==&bank_source=aW5kdXNfYmFuaw==&agent_code=",
     },
-    {
-      id: "hsbc",
-      bank: "HSBC Bank",
-      cardName: "HSBC Credit Cards",
-      cardImage: "/Hsbc Bank.svg",
-      tagline: "Flat Cashback on All Spends",
-      cashbackRate: "5%",
-      rewardPoints: "HSBC Rewards",
-      features: [
-        "Flat 5% cashback on all spends",
-        "No joining or annual fees*",
-        "Global acceptance",
-      ],
-      applyLink:
-        "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY19iYW5r&bank_source=aHNiY19iYW5r&agent_code=",
-    },
+    // {
+    //   id: "hsbc",
+    //   bank: "HSBC Bank",
+    //   cardName: "HSBC Credit Cards",
+    //   cardImage: "/Hsbc Bank.svg",
+    //   tagline: "Flat Cashback on All Spends",
+    //   cashbackRate: "5%",
+    //   rewardPoints: "HSBC Rewards",
+    //   features: [
+    //     "Flat 5% cashback on all spends",
+    //     "No joining or annual fees*",
+    //     "Global acceptance",
+    //   ],
+    //   applyLink:
+    //     "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY19iYW5r&bank_source=aHNiY19iYW5r&agent_code=",
+    // },
     {
       id: "hdfc-swiggy",
       bank: "HDFC Bank",
@@ -410,38 +410,38 @@ export default function ReferralLinksPage() {
       applyLink:
         "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=eWVzX3BvcGNsdWI=&bank_source=eWVzX3BvcGNsdWI=&agent_code=",
     },
-    {
-      id: "hsbc-liveplus",
-      bank: "HSBC Bank",
-      cardName: "HSBC Live Plus Card",
-      cardImage: "/Hsbc Live Plus.svg",
-      tagline: "Cashback on Daily Expenses",
-      cashbackRate: "Up to 10%",
-      rewardPoints: "HSBC Rewards",
-      features: [
-        "Cashback on daily expenses",
-        "Dining & travel discounts",
-        "Global acceptance",
-      ],
-      applyLink:
-        "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY19saXZlX3BsdXM=&bank_source=aHNiY19iYW5r&agent_code=",
-    },
-    {
-      id: "hsbc-travelone",
-      bank: "HSBC Bank",
-      cardName: "HSBC TravelOne Card",
-      cardImage: "/HsbcTraveloneCard.svg",
-      tagline: "Earn Air Miles & Travel Perks",
-      cashbackRate: "Miles/Points per ₹100",
-      rewardPoints: "HSBC Rewards / Air Miles",
-      features: [
-        "Air miles on every spend",
-        "Airport lounge access",
-        "Travel insurance",
-      ],
-      applyLink:
-        "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY190cmF2ZWxvbmVfY2FyZA==&bank_source=aHNiY19iYW5r&agent_code=",
-    },
+    // {
+    //   id: "hsbc-liveplus",
+    //   bank: "HSBC Bank",
+    //   cardName: "HSBC Live Plus Card",
+    //   cardImage: "/Hsbc Live Plus.svg",
+    //   tagline: "Cashback on Daily Expenses",
+    //   cashbackRate: "Up to 10%",
+    //   rewardPoints: "HSBC Rewards",
+    //   features: [
+    //     "Cashback on daily expenses",
+    //     "Dining & travel discounts",
+    //     "Global acceptance",
+    //   ],
+    //   applyLink:
+    //     "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY19saXZlX3BsdXM=&bank_source=aHNiY19iYW5r&agent_code=",
+    // },
+    // {
+    //   id: "hsbc-travelone",
+    //   bank: "HSBC Bank",
+    //   cardName: "HSBC TravelOne Card",
+    //   cardImage: "/HsbcTraveloneCard.svg",
+    //   tagline: "Earn Air Miles & Travel Perks",
+    //   cashbackRate: "Miles/Points per ₹100",
+    //   rewardPoints: "HSBC Rewards / Air Miles",
+    //   features: [
+    //     "Air miles on every spend",
+    //     "Airport lounge access",
+    //     "Travel insurance",
+    //   ],
+    //   applyLink:
+    //     "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY190cmF2ZWxvbmVfY2FyZA==&bank_source=aHNiY19iYW5r&agent_code=",
+    // },
     {
       id: "axis-fd",
       bank: "Axis Bank",
