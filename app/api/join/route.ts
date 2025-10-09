@@ -22,10 +22,10 @@ export async function POST(req: NextRequest) {
 
     // Fetch user from Clerk securely
     const userResponse = await fetch(`https://api.clerk.dev/v1/users/${userId}`, {
-      headers: {
-        Authorization: `Bearer ${process.env.CLERK_SECRET_KEY}`,
-        "Content-Type": "application/json",
-      },
+      // headers: {
+      //   Authorization: `Bearer ${process.env.CLERK_SECRET_KEY}`,
+      //   "Content-Type": "application/json",
+      // },
     });
 
     if (!userResponse.ok) {
@@ -69,14 +69,14 @@ export async function POST(req: NextRequest) {
     // Create checkout session securely
     const checkoutResponse = await fetch(
       `https://api.clerk.dev/v1/users/${userId}/checkout`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.CLERK_SECRET_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ plan_id: clerkPlanId }),
-      }
+      // {
+      //   method: "POST",
+      //   headers: {
+      //     Authorization: `Bearer ${process.env.CLERK_SECRET_KEY}`,
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({ plan_id: clerkPlanId }),
+      // }
     );
 
     if (!checkoutResponse.ok) {
