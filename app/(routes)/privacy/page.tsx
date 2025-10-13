@@ -79,7 +79,7 @@ const PoliciesPage = () => {
             </div>
 
             {/* Terms & Conditions */}
-            <div className="mb-12">
+            {/* <div className="mb-12">
               <h2 className="text-2xl font-bold text-emerald-800 mb-4 border-b-2 border-emerald-200 pb-2">
                 Terms & Conditions
               </h2>
@@ -165,7 +165,7 @@ const PoliciesPage = () => {
               <p className="text-gray-700 mb-4">
                 Governed by laws of India, disputes resolved in courts located in Bhilwara, Rajasthan, India
               </p>
-            </div>
+            </div> */}
 
             {/* Refund/Cancellation Policy */}
             {/* <div>

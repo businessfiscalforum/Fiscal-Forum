@@ -646,7 +646,7 @@ export default function CreditCardsPage() {
             </div>
           </motion.div>
         </motion.div>
-        <motion.div
+        {/* <motion.div
   initial={{ opacity: 0, scale: 0.8 }}
   animate={{ opacity: 1, scale: 1 }}
   transition={{ delay: 0.6, duration: 0.5 }}
@@ -668,7 +668,7 @@ export default function CreditCardsPage() {
       Click Here
     </a>
   </div>
-</motion.div>
+</motion.div> */}
 
       </header>
 
@@ -1152,6 +1152,71 @@ export default function CreditCardsPage() {
           </DialogPanel>
         </div>
       </Dialog>
+
+      <section className="py-12 bg-gradient-to-r from-blue-50 to-indigo-50">
+  <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+    <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+      {/* Left Side - Text and Buttons */}
+      <div className="lg:w-1/2 space-y-4">
+        <h3 className="text-xl font-bold text-gray-800">Not Sure Which Card to Pick?</h3>
+        <p className="text-gray-600">Find the perfect card for your client</p>
+        <div className="flex flex-wrap gap-4 pt-2">
+          <Link
+          href="https://credue.in/next/credit-card-eligibility?cba_code=QzAwMTExMzI="
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-300">
+            Add Lead
+          </Link>
+          <button className="text-green-600 hover:text-green-700 font-medium flex items-center gap-2 transition-colors duration-300">
+            Copy Link 
+            {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M13.5 1a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11 3.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/>
+              <path d="M4.5 1A1.5 1.5 0 003 2.5v9A1.5 1.5 0 004.5 13h11a1.5 1.5 0 001.5-1.5V2.5A1.5 1.5 0 0015.5 1h-11z"/>
+            </svg> */}
+          </button>
+        </div>
+      </div>
+
+      {/* Right Side - Credit Cards */}
+      <div className="lg:w-1/2 flex justify-center">
+        <div className="flex space-x-6">
+          {/* Card 1 */}
+          <div className="relative w-40 h-24 bg-black rounded-lg overflow-hidden shadow-lg transform rotate-3 hover:rotate-0 transition-transform duration-300">
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-black"></div>
+            <div className="absolute top-2 left-2 text-white text-xs">VISA</div>
+            <div className="absolute bottom-2 left-2 text-white text-xs font-mono">4321 0123 4567 8901</div>
+            {/* <div className="absolute bottom-2 right-2 text-white text-xs">VALID THRU 01/25</div>
+            <div className="absolute bottom-2 right-2 text-white text-xs">JANE DOE</div> */}
+          </div>
+
+          {/* Card 2 */}
+          <div className="relative w-40 h-24 bg-gradient-to-r from-orange-500 to-purple-600 rounded-lg overflow-hidden shadow-lg transform -rotate-3 hover:rotate-0 transition-transform duration-300">
+            <div className="absolute top-2 left-2 text-white text-xs">SWIGGY</div>
+            <div className="absolute top-2 right-2 text-white text-xs">HDFC BANK</div>
+            <div className="absolute bottom-2 left-2 text-white text-xs font-mono">4321 0123 4567 8901</div>
+            {/* <div className="absolute bottom-2 right-2 text-white text-xs">VALID THRU 01/25</div>
+            <div className="absolute bottom-2 right-2 text-white text-xs">JANE DOE</div> */}
+            <div className="absolute bottom-2 right-2 text-white text-xs">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M11 1a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11 3.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/>
+                <path d="M4.5 1A1.5 1.5 0 003 2.5v9A1.5 1.5 0 004.5 13h11a1.5 1.5 0 001.5-1.5V2.5A1.5 1.5 0 0015.5 1h-11z"/>
+              </svg>
+            </div>
+          </div>
+
+          {/* Card 3 */}
+          <div className="relative w-40 h-24 bg-gradient-to-r from-green-600 to-teal-500 rounded-lg overflow-hidden shadow-lg transform rotate-3 hover:rotate-0 transition-transform duration-300">
+            <div className="absolute top-2 left-2 text-white text-xs">ESB CARD</div>
+            <div className="absolute bottom-2 left-2 text-white text-xs font-mono">4321 0123 4567 8901</div>
+            {/* <div className="absolute bottom-2 right-2 text-white text-xs">VALID THRU 01/25</div>
+            <div className="absolute bottom-2 right-2 text-white text-xs">JANE DOE</div> */}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
     </div>
   );
 }
