@@ -136,8 +136,8 @@ const slides = [
     ],
     path: "services/credit-card",
     stats: [
-      { value: "50+", label: "Credit Card Variants" },
-      { value: "₹10K", label: "Rewards Distributed" },
+      { value: "10+", label: "Credit Card Variants" },
+      { value: "₹1K", label: "Rewards Distributed" },
       { value: "24x7", label: "Fraud Monitoring" },
     ],
     benefits: [
@@ -163,8 +163,8 @@ const slides = [
     ],
     path: "services/savings-account",
     stats: [
-      { value: "50L+", label: "Happy Customers" },
-      { value: "₹10K", label: "Deposits Managed" },
+      { value: "5K+", label: "Happy Customers" },
+      { value: "₹5K", label: "Deposits Managed" },
       { value: "99.9%", label: "Uptime Guarantee" },
     ],
     benefits: [
@@ -190,7 +190,7 @@ const slides = [
     ],
     path: "services/loans",
     stats: [
-      { value: "₹50K", label: "Loans Disbursed" },
+      { value: "₹10K", label: "Loans Disbursed" },
       { value: "95%", label: "Customer Approval" },
       { value: "24 hrs", label: "Fastest Approval" },
     ],
@@ -217,7 +217,7 @@ const slides = [
     ],
     path: "/services/govt-bond-&-fd",
     stats: [
-      { value: "₹10K", label: "Deposits Managed" },
+      { value: "₹5K", label: "Deposits Managed" },
       { value: "AAA", label: "Credit Rating" },
       { value: "90%", label: "Capital Guarantee" },
     ],

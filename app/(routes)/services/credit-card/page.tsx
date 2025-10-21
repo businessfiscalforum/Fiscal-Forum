@@ -5,7 +5,13 @@ import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { FaFilePdf, FaInfoCircle, FaStar, FaCheck, FaFilter } from "react-icons/fa";
+import {
+  FaFilePdf,
+  FaInfoCircle,
+  FaStar,
+  FaCheck,
+  FaFilter,
+} from "react-icons/fa";
 import {
   Dialog,
   DialogBackdrop,
@@ -503,7 +509,8 @@ export default function CreditCardsPage() {
   const [selectedBank, setSelectedBank] = useState<string>("All");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [selectedRewardType, setSelectedRewardType] = useState<string>("All");
-  const [showWelcomeBonusOnly, setShowWelcomeBonusOnly] = useState<boolean>(false);
+  const [showWelcomeBonusOnly, setShowWelcomeBonusOnly] =
+    useState<boolean>(false);
 
   useEffect(() => {
     // Simulate a slight delay or data loading if needed in the future
@@ -531,7 +538,8 @@ export default function CreditCardsPage() {
       if (card.tagline) categorySet.add(card.tagline);
       // Prioritize rewardPoints for the filter, fallback to cashbackRate
       if (card.rewardPoints) rewardTypeSet.add(card.rewardPoints);
-      else if (card.cashbackRate) rewardTypeSet.add(`Cashback: ${card.cashbackRate}`);
+      else if (card.cashbackRate)
+        rewardTypeSet.add(`Cashback: ${card.cashbackRate}`);
     });
 
     return {
@@ -558,9 +566,12 @@ export default function CreditCardsPage() {
       const cardRewardType = card.rewardPoints
         ? card.rewardPoints
         : card.cashbackRate
-        ? `Cashback: ${card.cashbackRate}`
-        : "";
-      if (selectedRewardType !== "All" && cardRewardType !== selectedRewardType) {
+          ? `Cashback: ${card.cashbackRate}`
+          : "";
+      if (
+        selectedRewardType !== "All" &&
+        cardRewardType !== selectedRewardType
+      ) {
         return false;
       }
 
@@ -572,7 +583,13 @@ export default function CreditCardsPage() {
       // If all conditions pass, include the card
       return true;
     });
-  }, [creditCards, selectedBank, selectedCategory, selectedRewardType, showWelcomeBonusOnly]);
+  }, [
+    creditCards,
+    selectedBank,
+    selectedCategory,
+    selectedRewardType,
+    showWelcomeBonusOnly,
+  ]);
 
   if (isLoading) {
     return (
@@ -623,7 +640,8 @@ export default function CreditCardsPage() {
             transition={{ delay: 0.4, duration: 0.5 }}
             className="text-base sm:text-lg md:text-xl lg:text-2xl text-white max-w-3xl md:max-w-4xl mx-auto leading-relaxed px-2 mb-8"
           >
-            Maximize rewards, minimize fees. Find the card that fits your spending and elevates your lifestyle.
+            Maximize rewards, minimize fees. Find the card that fits your
+            spending and elevates your lifestyle.
           </motion.p>
 
           <motion.div
@@ -642,7 +660,9 @@ export default function CreditCardsPage() {
             </div>
             <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30 shadow-sm">
               <ShieldCheck className="w-5 h-5 text-yellow-400 flex-shrink-0" />
-              <span className="text-sm font-medium">Enjoy Security Features</span>
+              <span className="text-sm font-medium">
+                Enjoy Security Features
+              </span>
             </div>
           </motion.div>
         </motion.div>
@@ -669,7 +689,6 @@ export default function CreditCardsPage() {
     </a>
   </div>
 </motion.div> */}
-
       </header>
 
       {/* Filters Section */}
@@ -680,14 +699,18 @@ export default function CreditCardsPage() {
               <FaFilter className="text-emerald-600" /> Find Your Perfect Card
             </h2>
             <p className="text-sm text-gray-600">
-              {filteredCards.length} {filteredCards.length === 1 ? "Card" : "Cards"} Found
+              {filteredCards.length}{" "}
+              {filteredCards.length === 1 ? "Card" : "Cards"} Found
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             {/* Bank Filter */}
             <div>
-              <label htmlFor="bank-filter" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="bank-filter"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Bank
               </label>
               <select
@@ -706,7 +729,10 @@ export default function CreditCardsPage() {
 
             {/* Category Filter (Tagline) */}
             <div>
-              <label htmlFor="category-filter" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="category-filter"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Category
               </label>
               <select
@@ -725,7 +751,10 @@ export default function CreditCardsPage() {
 
             {/* Reward Type Filter */}
             <div>
-              <label htmlFor="reward-filter" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="reward-filter"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Reward Type
               </label>
               <select
@@ -753,7 +782,10 @@ export default function CreditCardsPage() {
                   onChange={(e) => setShowWelcomeBonusOnly(e.target.checked)}
                   className="h-4 w-4 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500"
                 />
-                <label htmlFor="welcome-bonus-filter" className="ml-2 block text-sm text-gray-700">
+                <label
+                  htmlFor="welcome-bonus-filter"
+                  className="ml-2 block text-sm text-gray-700"
+                >
                   Has Welcome Bonus
                 </label>
               </div>
@@ -780,156 +812,158 @@ export default function CreditCardsPage() {
       {/* Main Grid - Now uses filteredCards */}
       <main className="py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {filteredCards.length > 0 ? ( 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {filteredCards.map((card, index) => (
-              <motion.div
-                key={card.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05, duration: 0.3 }}
-                whileHover={{ y: -8 }}
-                className="relative rounded-2xl sm:rounded-3xl shadow-lg sm:shadow-xl overflow-hidden transition-all duration-300 bg-white border border-emerald-200 flex flex-col h-full"
-              >
-                <div className="h-1.5 sm:h-2 bg-gradient-to-r from-green-500 to-emerald-600 w-full"></div>
+          {filteredCards.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              {filteredCards.map((card, index) => (
+                <motion.div
+                  key={card.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.05, duration: 0.3 }}
+                  whileHover={{ y: -8 }}
+                  className="relative rounded-2xl sm:rounded-3xl shadow-lg sm:shadow-xl overflow-hidden transition-all duration-300 bg-white border border-emerald-200 flex flex-col h-full"
+                >
+                  <div className="h-1.5 sm:h-2 bg-gradient-to-r from-green-500 to-emerald-600 w-full"></div>
 
-                <div className="p-5 sm:p-6 flex flex-col flex-grow">
-                  {/* Logo & Name */}
-                  <div className="flex items-start gap-3 mb-4 sm:mb-5">
-                    <div className="bg-white border border-emerald-200 rounded-lg p-2">
-                      <Image
-                        src={card.logo}
-                        alt={`${card.bank} Logo`}
-                        width={40}
-                        height={40}
-                        className="h-8 w-auto object-contain"
-                      />
+                  <div className="p-5 sm:p-6 flex flex-col flex-grow">
+                    {/* Logo & Name */}
+                    <div className="flex items-start gap-3 mb-4 sm:mb-5">
+                      <div className="bg-white border border-emerald-200 rounded-lg p-2">
+                        <Image
+                          src={card.logo}
+                          alt={`${card.bank} Logo`}
+                          width={40}
+                          height={40}
+                          className="h-8 w-auto object-contain"
+                        />
+                      </div>
+                      <div>
+                        <h3 className="text-base sm:text-lg font-bold text-gray-900">
+                          {card.cardName}
+                        </h3>
+                        {card.tagline && (
+                          <p className="text-xs sm:text-sm text-emerald-700 mt-1">
+                            {card.tagline}
+                          </p>
+                        )}
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-base sm:text-lg font-bold text-gray-900">
-                        {card.cardName}
-                      </h3>
-                      {card.tagline && (
-                        <p className="text-xs sm:text-sm text-emerald-700 mt-1">
-                          {card.tagline}
-                        </p>
-                      )}
-                    </div>
-                  </div>
 
-                  {/* Card Image */}
-                  <div className="flex justify-center mb-5 sm:mb-6 flex-grow">
-                    <div className="relative w-full max-w-[200px] sm:max-w-[240px] h-[120px] sm:h-[140px]">
-                      <Image
-                        src={card.cardImage}
-                        alt={`${card.cardName} Image`}
-                        fill
-                        sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                        className="object-contain"
-                        priority={index === 0} // Prioritize first card image
-                      />
+                    {/* Card Image */}
+                    <div className="flex justify-center mb-5 sm:mb-6 flex-grow">
+                      <div className="relative w-full max-w-[200px] sm:max-w-[240px] h-[120px] sm:h-[140px]">
+                        <Image
+                          src={card.cardImage}
+                          alt={`${card.cardName} Image`}
+                          fill
+                          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                          className="object-contain"
+                          priority={index === 0} // Prioritize first card image
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Rewards Highlights */}
-                  {(card.cashbackRate ||
-                    card.rewardPoints ||
-                    card.welcomeBonus) && (
-                    <div className="grid grid-cols-3 gap-2 mb-4 sm:mb-5 text-center">
-                      {card.cashbackRate && (
-                        <div className="bg-emerald-50 rounded-lg p-2">
-                          <p className="text-[10px] sm:text-xs text-emerald-800 font-semibold">
-                            Cashback
-                          </p>
-                          <p className="text-xs sm:text-sm font-bold text-emerald-600">
-                            {card.cashbackRate}
-                          </p>
-                        </div>
-                      )}
-                      {card.rewardPoints && (
-                        <div className="bg-teal-50 rounded-lg p-2">
-                          <p className="text-[10px] sm:text-xs text-teal-800 font-semibold">
-                            Rewards
-                          </p>
-                          <p className="text-xs sm:text-sm font-bold text-teal-600 truncate">
-                            {card.rewardPoints}
-                          </p>
-                        </div>
-                      )}
-                      {card.welcomeBonus && (
-                        <div className="bg-green-50 rounded-lg p-2">
-                          <p className="text-[10px] sm:text-xs text-green-800 font-semibold">
-                            Bonus
-                          </p>
-                          <p className="text-xs sm:text-sm font-bold text-green-600 truncate">
-                            {card.welcomeBonus}
-                          </p>
-                        </div>
-                      )}
+                    {/* Rewards Highlights */}
+                    {(card.cashbackRate ||
+                      card.rewardPoints ||
+                      card.welcomeBonus) && (
+                      <div className="grid grid-cols-3 gap-2 mb-4 sm:mb-5 text-center">
+                        {card.cashbackRate && (
+                          <div className="bg-emerald-50 rounded-lg p-2">
+                            <p className="text-[10px] sm:text-xs text-emerald-800 font-semibold">
+                              Cashback
+                            </p>
+                            <p className="text-xs sm:text-sm font-bold text-emerald-600">
+                              {card.cashbackRate}
+                            </p>
+                          </div>
+                        )}
+                        {card.rewardPoints && (
+                          <div className="bg-teal-50 rounded-lg p-2">
+                            <p className="text-[10px] sm:text-xs text-teal-800 font-semibold">
+                              Rewards
+                            </p>
+                            <p className="text-xs sm:text-sm font-bold text-teal-600 truncate">
+                              {card.rewardPoints}
+                            </p>
+                          </div>
+                        )}
+                        {card.welcomeBonus && (
+                          <div className="bg-green-50 rounded-lg p-2">
+                            <p className="text-[10px] sm:text-xs text-green-800 font-semibold">
+                              Bonus
+                            </p>
+                            <p className="text-xs sm:text-sm font-bold text-green-600 truncate">
+                              {card.welcomeBonus}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Key Features */}
+                    <div className="mb-5 sm:mb-6 flex-grow">
+                      <h4 className="font-bold text-sm text-gray-800 mb-2 flex items-center gap-2">
+                        <FaStar className="text-emerald-500 text-xs" /> Key
+                        Features
+                      </h4>
+                      <ul className="space-y-1.5 sm:space-y-2">
+                        {card.features.slice(0, 3).map((feature, i) => (
+                          <li
+                            key={i}
+                            className="text-xs sm:text-sm text-gray-700 flex items-start gap-2"
+                          >
+                            <span className="text-emerald-400 mt-1.5 text-[8px]">
+                              •
+                            </span>
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  )}
 
-                  {/* Key Features */}
-                  <div className="mb-5 sm:mb-6 flex-grow">
-                    <h4 className="font-bold text-sm text-gray-800 mb-2 flex items-center gap-2">
-                      <FaStar className="text-emerald-500 text-xs" /> Key
-                      Features
-                    </h4>
-                    <ul className="space-y-1.5 sm:space-y-2">
-                      {card.features.slice(0, 3).map((feature, i) => (
-                        <li
-                          key={i}
-                          className="text-xs sm:text-sm text-gray-700 flex items-start gap-2"
+                    {/* Buttons */}
+                    <div className="flex flex-col gap-2.5 sm:gap-3 mt-auto">
+                      <button
+                        onClick={() => openModal(card)}
+                        className="flex items-center justify-center gap-2 px-3 py-2.5 sm:px-4 sm:py-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 rounded-xl text-xs sm:text-sm font-semibold border border-emerald-200 transition-colors duration-200"
+                        aria-label={`View details for ${card.cardName}`}
+                      >
+                        <FaInfoCircle className="text-xs" />{" "}
+                        <span>View Details</span>
+                      </button>
+
+                      <div className="flex gap-2.5 sm:gap-3">
+                        <Link
+                          href={card.pdfLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-1.5 sm:gap-2 px-3 py-2.5 sm:px-4 sm:py-3 bg-teal-100 hover:bg-teal-200 text-teal-800 rounded-xl text-xs sm:text-sm font-semibold border border-teal-200 flex-shrink-0 transition-colors duration-200 w-2/5"
+                          aria-label={`Download PDF for ${card.cardName}`}
                         >
-                          <span className="text-emerald-400 mt-1.5 text-[8px]">
-                            •
-                          </span>
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Buttons */}
-                  <div className="flex flex-col gap-2.5 sm:gap-3 mt-auto">
-                    <button
-                      onClick={() => openModal(card)}
-                      className="flex items-center justify-center gap-2 px-3 py-2.5 sm:px-4 sm:py-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 rounded-xl text-xs sm:text-sm font-semibold border border-emerald-200 transition-colors duration-200"
-                      aria-label={`View details for ${card.cardName}`}
-                    >
-                      <FaInfoCircle className="text-xs" />{" "}
-                      <span>View Details</span>
-                    </button>
-
-                    <div className="flex gap-2.5 sm:gap-3">
-                      <Link
-                        href={card.pdfLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-1.5 sm:gap-2 px-3 py-2.5 sm:px-4 sm:py-3 bg-teal-100 hover:bg-teal-200 text-teal-800 rounded-xl text-xs sm:text-sm font-semibold border border-teal-200 flex-shrink-0 transition-colors duration-200 w-2/5"
-                        aria-label={`Download PDF for ${card.cardName}`}
-                      >
-                        <FaFilePdf className="text-xs" /> <span>PDF</span>
-                      </Link>
-                      <Link
-                        href={card.applyLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 px-3 py-2.5 sm:px-4 sm:py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-xl text-xs sm:text-sm font-bold transition-all shadow-md text-center"
-                        aria-label={`Apply for ${card.cardName}`}
-                      >
-                        Apply Now
-                      </Link>
+                          <FaFilePdf className="text-xs" /> <span>PDF</span>
+                        </Link>
+                        <Link
+                          href={card.applyLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 px-3 py-2.5 sm:px-4 sm:py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-xl text-xs sm:text-sm font-bold transition-all shadow-md text-center"
+                          aria-label={`Apply for ${card.cardName}`}
+                        >
+                          Apply Now
+                        </Link>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-          ):(
+                </motion.div>
+              ))}
+            </div>
+          ) : (
             <div className="text-center py-12">
               <div className="text-5xl mb-4">🔍</div>
-              <h3 className="text-xl font-bold text-gray-800 mb-2">No Cards Found</h3>
+              <h3 className="text-xl font-bold text-gray-800 mb-2">
+                No Cards Found
+              </h3>
               <p className="text-gray-600 mb-4">
                 Try adjusting your filters to see more results.
               </p>
@@ -948,52 +982,47 @@ export default function CreditCardsPage() {
           )}
         </div>
       </main>
-      <section className="py-12 bg-gradient-to-r from-blue-50 to-indigo-50">
-  <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-    <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+      <section className="py-6 sm:py-8 bg-gradient-to-r from-blue-50 to-indigo-50">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 sm:gap-8">
       {/* Left Side - Text and Buttons */}
-      <div className="lg:w-1/2 space-y-4">
-        <h3 className="text-xl font-bold text-gray-800">Not Sure Which Card to Pick?</h3>
-        <p className="text-gray-600">Find the perfect card for your client</p>
-        <div className="flex flex-wrap gap-4 pt-2">
+      <div className="sm:w-auto flex-shrink-0 w-full sm:max-w-[200px]">
+        <h3 className="text-lg sm:text-xl font-bold text-gray-800">
+          Not Sure Which Card to Pick?
+        </h3>
+        <p className="text-gray-600 text-sm mt-1">Find the perfect card for your client</p>
+        <div className="flex flex-wrap gap-2 sm:gap-3 pt-3">
           <Link
-          href="https://credue.in/next/credit-card-eligibility?cba_code=QzAwMTExMzI="
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-300">
+            href="https://credue.in/next/credit-card-eligibility?cba_code=QzAwMTExMzI="
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 sm:px-4 sm:py-2.5 text-sm rounded-lg font-medium transition-colors duration-300 whitespace-nowrap"
+          >
             Add Lead
           </Link>
-          <button className="text-green-600 hover:text-green-700 font-medium flex items-center gap-2 transition-colors duration-300">
-            Copy Link 
-            {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M13.5 1a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11 3.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/>
-              <path d="M4.5 1A1.5 1.5 0 003 2.5v9A1.5 1.5 0 004.5 13h11a1.5 1.5 0 001.5-1.5V2.5A1.5 1.5 0 0015.5 1h-11z"/>
-            </svg> */}
+          <button className="text-green-600 hover:text-green-700 font-medium text-sm flex items-center gap-1 sm:gap-2 transition-colors duration-300 whitespace-nowrap">
+            Copy Link
           </button>
         </div>
       </div>
 
-      {/* Right Side - Credit Cards */}
-      <div className="lg:w-1/2 flex justify-center">
-        <div className="flex space-x-6">
+      {/* Right Side - Credit Cards (Smaller, Horizontal) */}
+      <div className="flex justify-start sm:justify-end w-full sm:w-auto">
+        <div className="flex space-x-2 sm:space-x-3">
           {/* Card 1 */}
-          <div className="relative w-40 h-24 bg-black rounded-lg overflow-hidden shadow-lg transform rotate-3 hover:rotate-0 transition-transform duration-300">
+          <div className="relative w-20 h-12 sm:w-24 sm:h-14 bg-black rounded-md overflow-hidden shadow-sm transform hover:scale-105 transition-transform duration-200">
             <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-black"></div>
-            <div className="absolute top-2 left-2 text-white text-xs">VISA</div>
-            <div className="absolute bottom-2 left-2 text-white text-xs font-mono">4321 0123 4567 8901</div>
-            {/* <div className="absolute bottom-2 right-2 text-white text-xs">VALID THRU 01/25</div>
-            <div className="absolute bottom-2 right-2 text-white text-xs">JANE DOE</div> */}
+            <div className="absolute top-1 left-1.5 text-white text-[8px] sm:text-xs">VISA</div>
+            <div className="absolute bottom-1 left-1.5 text-white text-[7px] sm:text-[9px] font-mono">•••• 8901</div>
           </div>
 
           {/* Card 2 */}
-          <div className="relative w-40 h-24 bg-gradient-to-r from-orange-500 to-purple-600 rounded-lg overflow-hidden shadow-lg transform -rotate-3 hover:rotate-0 transition-transform duration-300">
-            <div className="absolute top-2 left-2 text-white text-xs">SWIGGY</div>
-            <div className="absolute top-2 right-2 text-white text-xs">HDFC BANK</div>
-            <div className="absolute bottom-2 left-2 text-white text-xs font-mono">4321 0123 4567 8901</div>
-            {/* <div className="absolute bottom-2 right-2 text-white text-xs">VALID THRU 01/25</div>
-            <div className="absolute bottom-2 right-2 text-white text-xs">JANE DOE</div> */}
-            <div className="absolute bottom-2 right-2 text-white text-xs">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <div className="relative w-20 h-12 sm:w-24 sm:h-14 bg-gradient-to-r from-orange-500 to-purple-600 rounded-md overflow-hidden shadow-sm transform hover:scale-105 transition-transform duration-200">
+            <div className="absolute top-1 left-1.5 text-white text-[8px] sm:text-xs">SWIGGY</div>
+            <div className="absolute top-1 right-1.5 text-white text-[7px] sm:text-[9px]">HDFC</div>
+            <div className="absolute bottom-1 left-1.5 text-white text-[7px] sm:text-[9px] font-mono">•••• 8901</div>
+            <div className="absolute bottom-1 right-1.5 text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16">
                 <path d="M11 1a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11 3.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/>
                 <path d="M4.5 1A1.5 1.5 0 003 2.5v9A1.5 1.5 0 004.5 13h11a1.5 1.5 0 001.5-1.5V2.5A1.5 1.5 0 0015.5 1h-11z"/>
               </svg>
@@ -1001,11 +1030,9 @@ export default function CreditCardsPage() {
           </div>
 
           {/* Card 3 */}
-          <div className="relative w-40 h-24 bg-gradient-to-r from-green-600 to-teal-500 rounded-lg overflow-hidden shadow-lg transform rotate-3 hover:rotate-0 transition-transform duration-300">
-            <div className="absolute top-2 left-2 text-white text-xs">ESB CARD</div>
-            <div className="absolute bottom-2 left-2 text-white text-xs font-mono">4321 0123 4567 8901</div>
-            {/* <div className="absolute bottom-2 right-2 text-white text-xs">VALID THRU 01/25</div>
-            <div className="absolute bottom-2 right-2 text-white text-xs">JANE DOE</div> */}
+          <div className="relative w-20 h-12 sm:w-24 sm:h-14 bg-gradient-to-r from-green-600 to-teal-500 rounded-md overflow-hidden shadow-sm transform hover:scale-105 transition-transform duration-200">
+            <div className="absolute top-1 left-1.5 text-white text-[8px] sm:text-xs">ESB</div>
+            <div className="absolute bottom-1 left-1.5 text-white text-[7px] sm:text-[9px] font-mono">•••• 8901</div>
           </div>
         </div>
       </div>
@@ -1017,9 +1044,12 @@ export default function CreditCardsPage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-emerald-700 to-teal-800 text-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Why Choose Us for Your Credit Card Needs?</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+              Why Choose Us for Your Credit Card Needs?
+            </h2>
             <p className="text-lg sm:text-xl text-emerald-100 max-w-3xl mx-auto">
-              We simplify the process of finding and applying for the perfect credit card for your lifestyle.
+              We simplify the process of finding and applying for the perfect
+              credit card for your lifestyle.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -1029,40 +1059,77 @@ export default function CreditCardsPage() {
               </div>
               <h3 className="text-xl font-bold mb-2">Curated Selection</h3>
               <p className="text-emerald-100">
-                We handpick the best credit cards from top banks, ensuring you get access to the latest offers and benefits.
+                We handpick the best credit cards from top banks, ensuring you
+                get access to the latest offers and benefits.
               </p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-emerald-500/30">
               <div className="w-12 h-12 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                  />
                 </svg>
               </div>
               <h3 className="text-xl font-bold mb-2">Secure & Trusted</h3>
               <p className="text-emerald-100">
-                Your data security is our priority. We use industry-standard encryption to protect your information.
+                Your data security is our priority. We use industry-standard
+                encryption to protect your information.
               </p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-emerald-500/30">
               <div className="w-12 h-12 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
                 </svg>
               </div>
               <h3 className="text-xl font-bold mb-2">Expert Guidance</h3>
               <p className="text-emerald-100">
-                Our team of financial experts is here to help you understand the features and choose the right card.
+                Our team of financial experts is here to help you understand the
+                features and choose the right card.
               </p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-emerald-500/30">
               <div className="w-12 h-12 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
                 </svg>
               </div>
               <h3 className="text-xl font-bold mb-2">Exclusive Perks</h3>
               <p className="text-emerald-100">
-                Get access to special bonuses, lower interest rates, and exclusive deals through our partnerships.
+                Get access to special bonuses, lower interest rates, and
+                exclusive deals through our partnerships.
               </p>
             </div>
           </div>
