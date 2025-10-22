@@ -209,15 +209,15 @@ export default function ReferralLinksPage() {
 
   // Savings Accounts
   const banks: BankAccount[] = [
-    {
-      id: "IndusInd",
-      name: "IndusInd Bank",
-      platform: "Savings Account",
-      features: [
-        "Open Saving Accounts In IndusInd Bank",
-      ],
-      applyLink: `https://fiscalforum.in/services/saving-account/indusInd?partner=${userId}`,
-    },
+    // {
+    //   id: "IndusInd",
+    //   name: "IndusInd Bank",
+    //   platform: "Savings Account",
+    //   features: [
+    //     "Open Saving Accounts In IndusInd Bank",
+    //   ],
+    //   applyLink: `https://fiscalforum.in/services/saving-account/indusInd?partner=${userId}`,
+    // },
     {
       id: "Axis",
       name: "Axis Bank",

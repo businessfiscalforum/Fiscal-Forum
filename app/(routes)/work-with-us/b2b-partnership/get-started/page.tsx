@@ -218,7 +218,7 @@ const GetStartedPage = () => {
             <h2 className="text-3xl font-bold text-center text-gray-800">Savings Account Incentives</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
-                { bank: "IndusInd Bank", incentive: "₹200", remark: "One-time deposit of ₹5,000" },
+                // { bank: "IndusInd Bank", incentive: "₹200", remark: "One-time deposit of ₹5,000" },
                 { bank: "Axis Bank", incentive: "₹500", remark: "Maintain ₹10,000 balance" },
                 { bank: "Fi Money", incentive: "₹90", remark: "0 balance account" },
               ].map((item, i) => (
