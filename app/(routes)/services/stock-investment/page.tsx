@@ -12,8 +12,6 @@ import {
   Phone,
 } from "lucide-react";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -103,7 +101,7 @@ const investmentOptions = [
   },
 ];
 
-export default function CreditCardApplyPage() {
+export default function StockInvestmentPage() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   useEffect(() => {
     // This runs only on the client

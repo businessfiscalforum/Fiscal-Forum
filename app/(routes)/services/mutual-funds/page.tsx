@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { BarChart3, FolderOpen, UserCheck, Phone } from "lucide-react";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";

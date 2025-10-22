@@ -28,12 +28,12 @@ import Image from "next/image";
 
 // Updated slides with green/teal/emerald theme
 
-const CreditCardApplyPage = () => {
+const SavingAccountPage = () => {
   const applicationSteps = [
     {
       step: 1,
-      title: "Choose Card",
-      description: "Select the credit card that suits your lifestyle",
+      title: "Choose Bank",
+      description: "Select the bank that suits your lifestyle",
       icon: CreditCard,
     },
     {
@@ -537,4 +537,4 @@ const CreditCardApplyPage = () => {
   );
 };
 
-export default CreditCardApplyPage;
+export default SavingAccountPage;

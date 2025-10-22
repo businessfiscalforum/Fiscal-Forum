@@ -1,9 +1,11 @@
-"use client"
+"use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
+
+
 export default function AboutUs() {
-    const services = [
+  const services = [
     {
       title: "Stock Investment",
       desc: "Comprehensive Demat and portfolio solutions with real-time tracking, insights, and guidance for investors at every level.",
@@ -34,10 +36,19 @@ export default function AboutUs() {
     },
   ];
 
-   const reportTypes = [
-    { name: "Pre-Market Research Report", desc: "Start your trading day informed with expert analysis and daily pre-market insights." },
-    { name: "Thematic Report", desc: "Deep dives into trending sectors and investment themes to help you plan long-term strategies." },
-    { name: "Equity Report", desc: "Comprehensive analysis on stocks and sectors, helping you make data-driven investment decisions." },
+  const reportTypes = [
+    {
+      name: "Pre-Market Research Report",
+      desc: "Start your trading day informed with expert analysis and daily pre-market insights.",
+    },
+    {
+      name: "Thematic Report",
+      desc: "Deep dives into trending sectors and investment themes to help you plan long-term strategies.",
+    },
+    {
+      name: "Equity Report",
+      desc: "Comprehensive analysis on stocks and sectors, helping you make data-driven investment decisions.",
+    },
   ];
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-teal-100 relative overflow-hidden text-gray-800">
@@ -55,14 +66,22 @@ export default function AboutUs() {
           About Fiscal Forum
         </motion.h1>
         <p className="text-gray-700 max-w-3xl mx-auto text-lg leading-relaxed">
-          At <span className="font-semibold text-emerald-600">Fiscal Forum</span>, we’re redefining financial guidance.
-          From investments to insurance, our mission is to make <span className="text-emerald-700 font-medium">smart financial decisions accessible</span> — completely free.
+          At{" "}
+          <span className="font-semibold text-emerald-600">Fiscal Forum</span>,
+          we’re redefining financial guidance. From investments to insurance,
+          our mission is to make{" "}
+          <span className="text-emerald-700 font-medium">
+            smart financial decisions accessible
+          </span>{" "}
+          — completely free.
         </p>
       </section>
 
       {/* Services Section */}
-<section className="relative py-16 px-6 md:px-20 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-3xl mx-4 md:mx-16 shadow-md z-10">
-        <h2 className="text-3xl font-semibold text-emerald-800 text-center mb-10">Services We Offer</h2>
+      <section className="relative py-16 px-6 md:px-20 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-3xl mx-4 md:mx-16 shadow-md z-10">
+        <h2 className="text-3xl font-semibold text-emerald-800 text-center mb-10">
+          Services We Offer
+        </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, idx) => (
             <motion.div
@@ -71,8 +90,12 @@ export default function AboutUs() {
               transition={{ duration: 0.3 }}
               className="bg-white/90 rounded-2xl p-6 border border-emerald-200 shadow-md hover:shadow-lg"
             >
-              <h3 className="text-lg font-semibold text-emerald-700 mb-2">{service.title}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{service.desc}</p>
+              <h3 className="text-lg font-semibold text-emerald-700 mb-2">
+                {service.title}
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                {service.desc}
+              </p>
             </motion.div>
           ))}
         </div>
@@ -80,9 +103,13 @@ export default function AboutUs() {
 
       {/* Research Reports Section */}
       <section className="py-20 px-6 md:px-20 text-center relative z-10">
-        <h2 className="text-3xl font-semibold text-emerald-800 mb-8">Research Reports</h2>
+        <h2 className="text-3xl font-semibold text-emerald-800 mb-8">
+          Research Reports
+        </h2>
         <p className="text-gray-700 max-w-2xl mx-auto mb-12">
-          Stay ahead in the market with our well-researched reports curated by experts. We deliver actionable insights and market trends so you can invest confidently.
+          Stay ahead in the market with our well-researched reports curated by
+          experts. We deliver actionable insights and market trends so you can
+          invest confidently.
         </p>
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {reportTypes.map((report, idx) => (
@@ -92,8 +119,12 @@ export default function AboutUs() {
               transition={{ duration: 0.3 }}
               className="bg-white/90 rounded-2xl p-6 border border-emerald-200 shadow-md hover:shadow-lg"
             >
-              <h3 className="text-lg font-semibold text-emerald-700 mb-2">{report.name}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{report.desc}</p>
+              <h3 className="text-lg font-semibold text-emerald-700 mb-2">
+                {report.name}
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                {report.desc}
+              </p>
             </motion.div>
           ))}
         </div>
@@ -106,8 +137,6 @@ export default function AboutUs() {
           </Link>
         </div>
       </section>
-
-
 
       {/* Why Choose Us */}
       {/* <section className="py-20 px-6 md:px-16 text-center relative z-10">
@@ -136,42 +165,58 @@ export default function AboutUs() {
           Commissions & Rewards
         </h2>
         <p className="text-gray-700 text-center max-w-3xl mx-auto mb-12">
-          Fiscal Forum offers one of the most transparent and rewarding earning structures in the industry. Here’s a
-          complete overview of how you earn across our products, partnerships, and referrals.
+          Fiscal Forum offers one of the most transparent and rewarding earning
+          structures in the industry. Here’s a complete overview of how you earn
+          across our products, partnerships, and referrals.
         </p>
 
         <div className="space-y-10">
           {/* Referral Rewards */}
           <div>
-            <h3 className="text-2xl font-semibold text-emerald-700 mb-3">1. Referral & Brokerage Sharing</h3>
+            <h3 className="text-2xl font-semibold text-emerald-700 mb-3">
+              1. Referral & Brokerage Sharing
+            </h3>
             <ul className="text-gray-700 space-y-2 text-sm leading-relaxed list-disc list-inside">
               <li>
-                Refer a trading lead who joins Fiscal Forum’s partner brokers (Motilal Oswal, Choice Broking, Angel One,
-                Paytm Money).
+                Refer a trading lead who joins Fiscal Forum’s partner brokers
+                (Motilal Oswal, Choice Broking, Angel One, Paytm Money).
               </li>
               <li>
-                You and your lead share <span className="font-semibold text-emerald-700">18% brokerage equally</span>{" "}
+                You and your lead share{" "}
+                <span className="font-semibold text-emerald-700">
+                  18% brokerage equally
+                </span>{" "}
                 (9% each) on transferred accounts.
               </li>
               <li>
-                Additional model: <span className="font-semibold text-emerald-700">10% brokerage sharing per month</span>{" "}
-                for 2 years + cash bonus up to ₹2,000 (based on brokerage volume).
+                Additional model:{" "}
+                <span className="font-semibold text-emerald-700">
+                  10% brokerage sharing per month
+                </span>{" "}
+                for 2 years + cash bonus up to ₹2,000 (based on brokerage
+                volume).
               </li>
               <li>
-                Minimum monthly brokerage target: ₹5,000 to stay eligible for rewards.
+                Minimum monthly brokerage target: ₹5,000 to stay eligible for
+                rewards.
               </li>
             </ul>
           </div>
 
           {/* Partner-Specific Info */}
           <div>
-            <h3 className="text-2xl font-semibold text-emerald-700 mb-3">2. Partner-Specific Bonuses</h3>
+            <h3 className="text-2xl font-semibold text-emerald-700 mb-3">
+              2. Partner-Specific Bonuses
+            </h3>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-white rounded-xl p-5 border border-emerald-200 shadow-sm">
-                <h4 className="font-semibold text-emerald-700 mb-2">Angel One</h4>
+                <h4 className="font-semibold text-emerald-700 mb-2">
+                  Angel One
+                </h4>
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  • Login within 15 days to earn ₹200 bonus.<br />
-                  • 10% brokerage sharing for 1 year — extendable to 3 years if consistent activity is maintained.
+                  • Login within 15 days to earn ₹200 bonus.
+                  <br />• 10% brokerage sharing for 1 year — extendable to 3
+                  years if consistent activity is maintained.
                 </p>
               </div>
               {/* <div className="bg-white rounded-xl p-5 border border-emerald-200 shadow-sm">
@@ -183,10 +228,16 @@ export default function AboutUs() {
                 </p>
               </div> */}
               <div className="bg-white rounded-xl p-5 border border-emerald-200 shadow-sm">
-                <h4 className="font-semibold text-emerald-700 mb-2">Choice & Motilal Oswal</h4>
+                <h4 className="font-semibold text-emerald-700 mb-2">
+                  Choice & Motilal Oswal
+                </h4>
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  • Contest-based incentives.<br />
-                  • Up to <span className="font-semibold text-emerald-700">20% brokerage sharing</span> depending on contest results.
+                  • Contest-based incentives.
+                  <br />• Up to{" "}
+                  <span className="font-semibold text-emerald-700">
+                    20% brokerage sharing
+                  </span>{" "}
+                  depending on contest results.
                 </p>
               </div>
             </div>
@@ -194,26 +245,38 @@ export default function AboutUs() {
 
           {/* Investment Commissions */}
           <div>
-            <h3 className="text-2xl font-semibold text-emerald-700 mb-3">3. Investment Product Commissions</h3>
+            <h3 className="text-2xl font-semibold text-emerald-700 mb-3">
+              3. Investment Product Commissions
+            </h3>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="bg-white rounded-xl p-5 border border-emerald-200 shadow-sm">
-                <h4 className="font-semibold text-emerald-700 mb-2">Mutual Funds</h4>
+                <h4 className="font-semibold text-emerald-700 mb-2">
+                  Mutual Funds
+                </h4>
                 <p className="text-sm text-gray-700">
                   Commission depends on the selected fund. Average sharing:{" "}
-                  <span className="font-semibold text-emerald-700">~10%</span> for 1 year, extendable to 3 years based on consistent performance.
+                  <span className="font-semibold text-emerald-700">~10%</span>{" "}
+                  for 1 year, extendable to 3 years based on consistent
+                  performance.
                 </p>
               </div>
               <div className="bg-white rounded-xl p-5 border border-emerald-200 shadow-sm">
-                <h4 className="font-semibold text-emerald-700 mb-2">Insurance</h4>
+                <h4 className="font-semibold text-emerald-700 mb-2">
+                  Insurance
+                </h4>
                 <p className="text-sm text-gray-700">
                   Health: <b>11%</b>, Life: <b>18%</b>, Motor: <b>3%</b>.<br />
-                  Commission varies with premium amount and insurer; can exceed these figures for high-value policies.
+                  Commission varies with premium amount and insurer; can exceed
+                  these figures for high-value policies.
                 </p>
               </div>
               <div className="bg-white rounded-xl p-5 border border-emerald-200 shadow-sm">
-                <h4 className="font-semibold text-emerald-700 mb-2">Credit Cards</h4>
+                <h4 className="font-semibold text-emerald-700 mb-2">
+                  Credit Cards
+                </h4>
                 <p className="text-sm text-gray-700">
-                  Earn ₹400–₹1000 per approved card issuance depending on card type and bank, plus cashback incentives.
+                  Earn ₹400–₹1000 per approved card issuance depending on card
+                  type and bank, plus cashback incentives.
                 </p>
               </div>
             </div>
@@ -221,16 +284,23 @@ export default function AboutUs() {
 
           {/* Savings Account Commissions */}
           <div>
-            <h3 className="text-2xl font-semibold text-emerald-700 mb-3">4. Savings Account Onboarding</h3>
+            <h3 className="text-2xl font-semibold text-emerald-700 mb-3">
+              4. Savings Account Onboarding
+            </h3>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
               <div className="bg-white rounded-xl p-5 border border-emerald-200 shadow-sm text-sm">
-                <b>Axis Bank</b> — ₹550 per account<br />Minimum ₹5,000 balance.
+                <b>Axis Bank</b> — ₹550 per account
+                <br />
+                Minimum ₹5,000 balance.
               </div>
               <div className="bg-white rounded-xl p-5 border border-emerald-200 shadow-sm text-sm">
-                <b>IndusInd Bank</b> — ₹250 per account<br />Instant video KYC activation.
+                <b>IndusInd Bank</b> — ₹250 per account
+                <br />
+                Instant video KYC activation.
               </div>
               <div className="bg-white rounded-xl p-5 border border-emerald-200 shadow-sm text-sm">
-                <b>FI Money</b> — ₹90 per account<br />0 balance account option.
+                <b>FI Money</b> — ₹90 per account
+                <br />0 balance account option.
               </div>
               {/* <div className="bg-white rounded-xl p-5 border border-emerald-200 shadow-sm text-sm">
                 <b>Airtel Payments Bank</b> — ₹80 per account<br />0 balance account.
@@ -242,7 +312,9 @@ export default function AboutUs() {
 
       {/* Contact Section */}
       <section className="py-20 text-center relative z-10">
-        <h2 className="text-3xl font-semibold text-emerald-800 mb-4">Get in Touch</h2>
+        <h2 className="text-3xl font-semibold text-emerald-800 mb-4">
+          Get in Touch
+        </h2>
         <p className="text-gray-700 mb-6">
           Have questions or want to partner with us? Reach out anytime.
         </p>
