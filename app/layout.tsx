@@ -7,7 +7,7 @@ import Navbar from "./(routes)/_components/Navbar";
 import Provider from "./provider";
 import Footer from "./(routes)/_components/Footer";
 import { GoogleAnalytics } from "./(routes)/_components/GoogleAnalytics";
-
+import { Analytics } from "@vercel/analytics/next"
 export const metadata: Metadata = {
   title: "Fiscal Forum",
   description: "Financial discussions and insights",
@@ -27,6 +27,7 @@ export default function RootLayout({
         <body className={""}>
           {/* <GlowCursor /> */}
           <GoogleAnalytics/>
+          <Analytics />
           <Navbar />
           <Provider>{children}</Provider>
           <Footer />
