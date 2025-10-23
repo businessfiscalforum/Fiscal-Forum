@@ -47,7 +47,6 @@ export const metadata = {
     title: "Market News & IPO Updates | Fiscal Forum",
     description:
       "Real-time financial news, IPO analysis, and market trends for smart investing in India.",
-    site: "@FiscalForum",
-    creator: "@FiscalForum",
+    site: "https://x.com/FiscalForum?t=wozZYda22CGrRjCN5ciBfA&s=08"
   },
 };

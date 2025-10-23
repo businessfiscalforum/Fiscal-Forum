@@ -6,6 +6,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import Navbar from "./(routes)/_components/Navbar";
 import Provider from "./provider";
 import Footer from "./(routes)/_components/Footer";
+import { GoogleAnalytics } from "./(routes)/_components/GoogleAnalytics";
 
 export const metadata: Metadata = {
   title: "Fiscal Forum",
@@ -25,6 +26,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={""}>
           {/* <GlowCursor /> */}
+          <GoogleAnalytics/>
           <Navbar />
           <Provider>{children}</Provider>
           <Footer />
