@@ -107,7 +107,7 @@ export default function Refferal() {
       </h1>
 
       {/* Stats Section */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-10 max-w-6xl mx-auto">
+      {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-10 max-w-6xl mx-auto">
         {[
           { label: "Total Requests", value: stats.total, color: "text-green-700" },
           { label: "Accepted", value: stats.accepted, color: "text-green-700" },
@@ -121,7 +121,16 @@ export default function Refferal() {
             <p className={`text-xl md:text-2xl font-bold ${item.color}`}>{item.value}</p>
           </div>
         ))}
-      </div>
+      </div> */}
+
+      {/* Create Lead Button */}
+          <div className="mb-6 text-center">
+            <Link href={`/crm/${selected.toLowerCase().replace(/\s+/g, "-")}`}>
+              <button className="bg-green-600 text-white text-base md:text-xl px-6 md:px-8 py-3 md:py-4 rounded-xl hover:bg-green-700 transition-colors">
+                Create Lead
+              </button>
+            </Link>
+          </div>
 
       {/* Responsive Tabs */}
       <div className="mb-6">
@@ -149,13 +158,13 @@ export default function Refferal() {
       {selected && (
         <div>
           {/* Create Lead Button */}
-          <div className="mb-6 text-center">
+          {/* <div className="mb-6 text-center">
             <Link href={`/crm/${selected.toLowerCase().replace(/\s+/g, "-")}`}>
               <button className="bg-green-600 text-white text-base md:text-xl px-6 md:px-8 py-3 md:py-4 rounded-xl hover:bg-green-700 transition-colors">
                 Create Lead
               </button>
             </Link>
-          </div>
+          </div> */}
 
           {/* Responsive Table */}
           <div className="bg-white shadow-md rounded-2xl p-4 overflow-hidden">

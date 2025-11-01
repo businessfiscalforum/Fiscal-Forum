@@ -2,13 +2,14 @@
 "use client";
 
 import { useState } from "react";
-import { FaUser, FaEnvelope, FaMobileAlt, FaCheckCircle } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaMobileAlt, FaCheckCircle, FaRupeeSign } from "react-icons/fa";
 
 export default function WithdrawalRequestForm() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     mobile: "",
+    amount: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
@@ -58,7 +59,7 @@ export default function WithdrawalRequestForm() {
           text: "Your request has been submitted! It would take 5-7 business days to process the request. Our representative will contact you.", 
           type: "success" 
         });
-        setFormData({ name: "", email: "", mobile: "" });
+        setFormData({ name: "", email: "", mobile: "" , amount: "",});
       } else {
         throw new Error(data.error || "Failed to submit request");
       }
@@ -156,6 +157,29 @@ export default function WithdrawalRequestForm() {
             />
           </div>
         </div>
+
+        <div>
+  <label htmlFor="amount" className="block text-sm font-medium text-gray-700 mb-1">
+    Amount (in ₹)
+  </label>
+  <div className="relative">
+    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+      <FaRupeeSign className="text-emerald-500" />
+    </div>
+    <input
+      type="number"
+      id="amount"
+      name="amount"
+      value={formData.amount}
+      onChange={handleChange}
+      placeholder="Enter withdrawal amount"
+      required
+      min="1"
+      className="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
+    />
+  </div>
+</div>
+
 
         <div className="bg-emerald-50 p-4 rounded-lg border border-emerald-200">
           <h3 className="font-medium text-emerald-800 mb-2 flex items-center">

@@ -1115,6 +1115,7 @@ export const withdrawalRequests = pgTable('withdrawal_requests', {
   name: varchar('name', { length: 255 }).notNull(),
   email: varchar('email', { length: 255 }).notNull(),
   mobile: varchar('mobile', { length: 15 }).notNull(),
+  amount: integer('amount').notNull(),
   status: varchar('status', { length: 50 }).default('pending').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),

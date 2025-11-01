@@ -38,6 +38,7 @@ export async function POST(req: NextRequest) {
     const name = (body.name || "").trim();
     const email = (body.email || "").trim();
     const mobile = (body.mobile || "").trim();
+    const amount = Number(body.amount);
 
     // Validation
     if (!name) {
@@ -71,6 +72,13 @@ export async function POST(req: NextRequest) {
     if (!/^\d{10}$/.test(mobile)) {
       return NextResponse.json(
         { success: false, error: "Mobile must be 10 digits" },
+        { status: 400, headers: corsHeaders(origin) }
+      );
+    }
+
+    if (!amount || isNaN(amount) || amount <= 0) {
+      return NextResponse.json(
+        { success: false, error: "Valid amount is required" },
         { status: 400, headers: corsHeaders(origin) }
       );
     }
@@ -114,15 +122,16 @@ export async function POST(req: NextRequest) {
         name,
         email,
         mobile,
-        status: 'pending',
-        userId: userId || null
+        amount,
+        status: "pending",
+        userId: userId || null,
       })
       .returning();
 
     return NextResponse.json(
       { success: true, data: saved },
       { status: 201, headers: corsHeaders(origin) }
-      );
+    );
   } catch (error: unknown) {
     console.error("Withdrawal request POST error:", error);
     const message = error instanceof Error ? error.message : "Internal error";

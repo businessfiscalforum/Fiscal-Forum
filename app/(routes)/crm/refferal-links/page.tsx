@@ -4,17 +4,18 @@ import { useContext, useState } from "react";
 import Image from "next/image";
 import { UserDetailContext } from "../../../../context/UserDetailContext";
 import { Check, Copy } from "lucide-react";
+import Link from "next/link";
 
 // Types
 interface Insurance {
-  id:string;
+  id: string;
   title: string;
   description: string;
   applyLink?: string;
 }
 
 interface Loan {
-  id:string;
+  id: string;
   title: string;
   interest: string;
   amount: string;
@@ -27,23 +28,23 @@ interface BankAccount {
   name: string;
   platform: string;
   features: string[];
-  applyLink: string;
+  applyLink?: string;
 }
 
 interface StockInvestment {
   id: string;
   name: string;
-  platform: string;
-  features: string[];
-  applyLink: string;
+  logo: string;
+  applyLink?: string;
+  brokerage: string[];
 }
 
 interface MutualFund {
   id: string;
   name: string;
-  platform: string;
-  features: string[];
-  applyLink: string;
+  logo: string;
+  brokerage: string[];
+  applyLink?: string;
 }
 
 interface CreditCard {
@@ -55,7 +56,7 @@ interface CreditCard {
   cashbackRate: string;
   rewardPoints: string;
   features: string[];
-  applyLink: string;
+  applyLink?: string;
 }
 
 export default function ReferralLinksPage() {
@@ -66,56 +67,56 @@ export default function ReferralLinksPage() {
   // Insurance Data
   const insurance: Insurance[] = [
     {
-      id:"health insurance",
+      id: "health insurance",
       title: "Health Insurance",
       description:
         "Safeguard your priceless health with complete coverage. Hospitalization, treatments, emergencies — we handle bills, so you and loved ones receive stress-free care.",
       applyLink: `https://fiscalforum.in/services/insurance/health-insurance/learn-more?partner=${userId}`,
     },
     {
-      id:"car insurance",
+      id: "car insurance",
       title: "Car Insurance",
       description:
         "Protect your car and drive stress-free. From minor dents to major mishaps, enjoy quick claims and peace of mind.",
       applyLink: `https://fiscalforum.in/services/insurance/car-insurance/learn-more?partner=${userId}`,
     },
     {
-      id:"two-wheeler insurance",
+      id: "two-wheeler insurance",
       title: "Two-Wheeler Insurance",
       description:
         "Ride worry-free with total two-wheeler protection. Stay covered for accidents, damages, or theft.",
       applyLink: `https://fiscalforum.in/services/insurance/two-wheeler-insurance/learn-more?partner=${userId}`,
     },
     {
-      id:"life insurance",
+      id: "life insurance",
       title: "Life Insurance",
       description:
         "Secure your family's tomorrow. Financial stability and peace of mind, ensuring loved ones remain protected.",
       applyLink: `https://fiscalforum.in/services/insurance/life-insurance/learn-more?partner=${userId}`,
     },
     {
-      id:"home & shop insurance",
+      id: "home & shop insurance",
       title: "Home & Shop Insurance",
       description:
         "Protect your home and business from fire, theft, or natural disasters. Secure your property and contents.",
       applyLink: `https://fiscalforum.in/services/insurance/home-shop-insurance/learn-more?partner=${userId}`,
     },
     {
-      id:"travel insurance",
+      id: "travel insurance",
       title: "Travel Insurance",
       description:
         "Travel fully protected. Lost bags, delays, or emergencies abroad — we’ve got your back.",
       applyLink: `https://fiscalforum.in/services/insurance/travel-insurance/learn-more?partner=${userId}`,
     },
     {
-      id:"personal accident insurance",
+      id: "personal accident insurance",
       title: "Personal Accident Insurance",
       description:
         "Accidents strike unexpectedly — stay prepared. Cover treatments, recovery, and protect income.",
       applyLink: `https://fiscalforum.in/services/insurance/personal-accident-insurance/learn-more?partner=${userId}`,
     },
     {
-      id:"commercial vehicle insurance",
+      id: "commercial vehicle insurance",
       title: "Commercial Vehicle Insurance",
       description:
         "Keep your business moving with comprehensive protection for your fleet and liability coverage.",
@@ -126,7 +127,7 @@ export default function ReferralLinksPage() {
   // Loans Data
   const loans: Loan[] = [
     {
-      id:"home loan",
+      id: "home loan",
       title: "Home Loan",
       interest: "8.5% onwards",
       amount: "Up to ₹5 Cr",
@@ -138,7 +139,7 @@ export default function ReferralLinksPage() {
       applyLink: `https://fiscalforum.in/services/loan/home-loan?partner=${userId}`,
     },
     {
-      id:"loan against property",
+      id: "loan against property",
       title: "Loan Against Property",
       interest: "9.0% onwards",
       amount: "Up to ₹10 Cr",
@@ -150,7 +151,7 @@ export default function ReferralLinksPage() {
       applyLink: `https://fiscalforum.in/services/loan/loan-against-property?partner=${userId}`,
     },
     {
-      id:"persona loan",
+      id: "persona loan",
       title: "Personal Loan",
       interest: "10.5% onwards",
       amount: "Up to ₹40 L",
@@ -162,7 +163,7 @@ export default function ReferralLinksPage() {
       applyLink: `https://fiscalforum.in/services/loan/personal-loan?partner=${userId}`,
     },
     {
-      id:"business loan",
+      id: "business loan",
       title: "Business Loan",
       interest: "11.0% onwards",
       amount: "Up to ₹50 Cr",
@@ -170,7 +171,7 @@ export default function ReferralLinksPage() {
       applyLink: `https://fiscalforum.in/services/loan/buiness-loan?partner=${userId}`,
     },
     {
-      id:"gold loan",
+      id: "gold loan",
       title: "Gold Loan",
       interest: "7.5% onwards",
       amount: "Up to ₹1 Cr",
@@ -178,7 +179,7 @@ export default function ReferralLinksPage() {
       applyLink: `https://fiscalforum.in/services/loan/gold-loan?partner=${userId}`,
     },
     {
-      id:"car loan",
+      id: "car loan",
       title: "Car Loan",
       interest: "8.0% onwards",
       amount: "Up to ₹2 Cr",
@@ -186,7 +187,7 @@ export default function ReferralLinksPage() {
       applyLink: `https://fiscalforum.in/services/loan/car-loan?partner=${userId}`,
     },
     {
-      id:"education loan",
+      id: "education loan",
       title: "Education Loan",
       interest: "9.5% onwards",
       amount: "Up to ₹1.5 Cr",
@@ -198,7 +199,7 @@ export default function ReferralLinksPage() {
       applyLink: `https://fiscalforum.in/services/loan/educational-loan?partner=${userId}`,
     },
     {
-      id:"loan against securities",
+      id: "loan against securities",
       title: "Loan Against Securities",
       interest: "9.5% onwards",
       amount: "Up to ₹1.5 Cr",
@@ -222,18 +223,14 @@ export default function ReferralLinksPage() {
       id: "Axis",
       name: "Axis Bank",
       platform: "Savings Account",
-      features: [
-        "Open Saving Accounts In Axis Bank",
-      ],
+      features: ["Open Saving Accounts In Axis Bank"],
       applyLink: `https://fiscalforum.in/services/saving-account/axis?partner=${userId}`,
     },
     {
       id: "Fi",
       name: "Fi",
       platform: "Savings Account",
-      features: [
-        "Open Saving Accounts In Fi Bank",
-      ],
+      features: ["Open Saving Accounts In Fi Bank"],
       applyLink: `https://fiscalforum.in/services/saving-account/fi?partner=${userId}`,
     },
   ];
@@ -241,74 +238,130 @@ export default function ReferralLinksPage() {
   // Stock Investment
   const stockInvestment: StockInvestment[] = [
     {
-      id: "stock-investment",
-      name: "Stock Investment",
-      platform: "Stock Investment Trading Platform",
-      features: [
-        "Low brokerage charges",
-        "Easy-to-use Kite platform",
-        "Direct mutual funds investment",
+      id: "alice-blue",
+      name: "Alice Blue",
+      logo: "/alice-blue.png",
+      applyLink: "https://ekyc.aliceblueonline.com/?source=WRAJ1101",
+      brokerage: [
+        "• Equity Futures: ₹20 per executed order or 0.05% (whichever is lower)",
+        "• Equity Options: ₹20 per executed order",
       ],
-      applyLink: `https://fiscalforum.in/services/stock-investment?partner=${userId}`,
     },
     {
-      id: "stock-investment-start-your-wealth-journey",
-      name: "Stock Investment start your wealth journey",
-      platform: "Stock Investment Trading Platform",
-      features: [
-        "Low brokerage charges",
-        "Easy-to-use Kite platform",
-        "Direct mutual funds investment",
+      id: "angel-one",
+      name: "Angel One",
+      logo: "/angel-one.png",
+      applyLink: "https://a.aonelink.in/ANGOne/6pTAS0u",
+      brokerage: [
+        "• Equity Intraday: ₹20 or 0.03% (whichever is lower) per executed order",
+        "• Equity Delivery: ₹20 or 0.1% whichever is lower",
       ],
-      applyLink: `https://fiscalforum.in/services/stock-investment/open-demat-account?partner=${userId}`,
     },
     {
-      id: "stock-investment-level-up-your-portfolio",
-      name: "Stock Investment level up your portfolio",
-      platform: "Stock Investment Trading Platform",
-      features: [
-        "Low brokerage charges",
-        "Easy-to-use Kite platform",
-        "Direct mutual funds investment",
-      ],
-      applyLink: `https://fiscalforum.in/services/stock-investment/allready-have-an-account?partner=${userId}`,
+      id: "choice",
+      name: "Choice",
+      logo: "/choice.png",
+      applyLink:
+        "https://choiceindia.com/open-free-demat-account?refercode=QzAwMTExMzI=&source=Q0hPSUNFX0NPTk5FQ1Q=",
+      brokerage: ["• Equity Delivery: 0.20%", "• Equity Intraday: 0.02%"],
+    },
+    {
+      id: "motilal-oswal",
+      name: "Motilal Oswal",
+      logo: "/motilal-oswal.png",
+      applyLink:
+        "https://ekyc.motilaloswal.com/Partner/?diyid=8eb2b8cb-c9f3-47f5-b206-70c847d9f8b7",
+      brokerage: ["• Equity Delivery: 0.20%", "• Equity Options: ₹20 per lot"],
+    },
+    {
+      id: "upstox",
+      name: "Upstox",
+      logo: "/upstox.png",
+      applyLink: "https://upstox.com/open-account/?f=4ZAVSY",
+      brokerage: ["• ₹0 AMC for first year", "• ₹20 max brokerage per order"],
+    },
+    {
+      id: "nuvama",
+      name: "Nuvama",
+      logo: "/nuvama.png",
+      applyLink:
+        "https://onboarding.nuvamawealth.com/Partner?utm_source=EMPLOYEE&utm_campaign=43065&utm_content=ELITE&utm_term=1572814v",
+      brokerage: ["• Equity Delivery: ₹0", "• Intraday/F&O: ₹15 or lower %"],
+    },
+    {
+      id: "prudent",
+      name: "Prudent",
+      logo: "/prudent.png",
+      applyLink: "https://fundzbazar.com/Link/jRkmixvcvvw",
+      brokerage: ["• Equity Delivery: 0.30%", "• Options: ₹15 per lot"],
+    },
+    {
+      id: "unlisted-shares",
+      name: "Unlisted Shares",
+      logo: "/unlisted-shares.png",
+      applyLink: "/services/stock-investment/unlisted-shares/apply",
+      brokerage: [""],
     },
   ];
 
   // Mutual Funds
   const mutualFund: MutualFund[] = [
     {
-      id: "mutual-funds",
-      name: "Mutual Funds",
-      platform: "Direct Mutual Fund Investment",
-      features: [
-        "Zero commission direct mutual funds",
-        "Track & manage investments easily",
-        "Instant redemption on select funds",
+      id: "choice",
+      name: "Choice",
+      logo: "/choice.png",
+      applyLink:
+        "https://choiceindia.com/mutual-funds-investment?refercode=QzAwMTExMzI=&source=Q0hPSUNFX0NPTk5FQ1Q=",
+      brokerage: [
+        "• Smart mutual fund investing with expert recommendations",
+        "• Research-driven suggestions to grow your portfolio",
+        "• Smooth, flexible tracking of investments",
+        "• User-friendly platform for all experience levels",
+        "• Hassle-free wealth creation made simple",
+        "• 0 AMC charges — more money stays invested",
       ],
-      applyLink: `https://fiscalforum.in/services/mutual-funds?partner=${userId}`,
     },
     {
-      id: "mutual-funds-begin-your-mutual-fund-journey",
-      name: "Mutual Funds begin your mutual fund journey",
-      platform: "Direct Mutual Fund Investment",
-      features: [
-        "Zero commission direct mutual funds",
-        "Track & manage investments easily",
-        "Instant redemption on select funds",
+      id: "nuvama",
+      name: "Nuvama",
+      logo: "/nuvama.png",
+      applyLink:
+        "  https://onboarding.nuvamawealth.com/Partner?utm_source=EMPLOYEE&utm_campaign=43065&utm_content=ELITE&utm_term=1572814",
+      brokerage: [
+        "• 30+ years of wealth management expertise",
+        "• ₹4.6+ trillion client assets under management",
+        "• Personalized wealth and investment solutions",
+        "• Alternative strategies for steady returns",
+        "• Private markets, EDGE funds, Infinity portfolios",
       ],
-      applyLink: `https://fiscalforum.in/services/mutual-funds/open-demat-accountpartner=${userId}`,
     },
     {
-      id: "mutual-funds-optimize-your-mutual-fund-portfolio",
-      name: "Mutual Funds optimize your mutual fund portfolio",
-      platform: "Direct Mutual Fund Investment",
-      features: [
-        "Zero commission direct mutual funds",
-        "Track & manage investments easily",
-        "Instant redemption on select funds",
+      id: "nj-wealth",
+      name: "NJ Wealth",
+      logo: "/Nj-wealth.png",
+      applyLink: "  http://p.njw.bz/47283",
+      brokerage: [
+        "• India’s largest mutual fund distributor",
+        "• Advanced advisory tools for smarter investing",
+        "• Vast partner network for wider access",
+        "• Seamless, paperless transactions",
+        "• Empowers investors to grow wealth smartly",
+        "• 0 AMC charges — invest more, pay less",
       ],
-      applyLink: `https://fiscalforum.in/services/mutual-funds/already-have-an-account?partner=${userId}`,
+    },
+    {
+      id: "prudent",
+      name: "Prudent",
+      logo: "/prudent.png",
+      applyLink: "  https://fundzbazar.com/Link/jRkmixvcvvw  ",
+      brokerage: [
+        "• Trusted investment platform with 25+ years of expertise",
+        "• Powerful research support for informed decisions",
+        "• Personalized investment guidance for all investors",
+        "• Simplifies mutual fund investments",
+        "• Backed by a strong track record of trust",
+        "• 0 AMC charges — maximum savings for clients",
+      ],
     },
   ];
 
@@ -532,7 +585,6 @@ export default function ReferralLinksPage() {
       data: creditCards,
     },
   ];
-  
 
   const activeCategory = categories.find((c) => c.key === activeTab);
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -564,11 +616,20 @@ export default function ReferralLinksPage() {
           (activeCategory.data as Insurance[]).map((item) => (
             <div
               key={item.title}
-              className="bg-white rounded-xl border shadow-sm p-5"
+              className="bg-white rounded-2xl border border-green-200 shadow-md hover:shadow-lg transition-all duration-300 p-6 flex flex-col items-center text-center"
             >
               <h2 className="font-semibold text-lg mb-2">{item.title}</h2>
               <p className="text-sm text-gray-600">{item.description}</p>
-              <div className="mt-4">
+              <div className="flex gap-3 mt-auto">
+                {item.applyLink && (
+                  <Link
+                    href={item.applyLink}
+                    target="_blank"
+                    className="w-full px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white rounded-lg text-base font-semibold hover:bg-green-700 transition text-center shadow-md"
+                  >
+                    Link
+                  </Link>
+                )}
                 <button
                   key={item.id}
                   onClick={() => {
@@ -600,7 +661,7 @@ export default function ReferralLinksPage() {
           (activeCategory.data as Loan[]).map((item) => (
             <div
               key={item.title}
-              className="bg-white rounded-xl border shadow-sm p-5"
+              className="bg-white rounded-2xl border border-green-200 shadow-md hover:shadow-lg transition-all duration-300 p-6 flex flex-col items-center text-center"
             >
               <div className="flex justify-between items-start">
                 <h2 className="font-semibold text-lg">{item.title}</h2>
@@ -616,7 +677,16 @@ export default function ReferralLinksPage() {
                   <li key={f}>• {f}</li>
                 ))}
               </ul>
-              <div className="mt-4">
+              <div className="flex gap-3 mt-auto">
+                {item.applyLink && (
+                  <Link
+                    href={item.applyLink}
+                    target="_blank"
+                    className="w-full px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white rounded-lg text-base font-semibold hover:bg-green-700 transition text-center shadow-md"
+                  >
+                    Link
+                  </Link>
+                )}
                 <button
                   key={item.id}
                   onClick={() => {
@@ -648,7 +718,7 @@ export default function ReferralLinksPage() {
           (activeCategory.data as BankAccount[]).map((item) => (
             <div
               key={item.id}
-              className="bg-white rounded-xl border shadow-sm p-5"
+              className="bg-white rounded-2xl border border-green-200 shadow-md hover:shadow-lg transition-all duration-300 p-6 flex flex-col items-center text-center"
             >
               <h2 className="font-semibold text-lg">{item.name}</h2>
               <p className="text-sm text-gray-600">{item.platform}</p>
@@ -657,7 +727,16 @@ export default function ReferralLinksPage() {
                   <li key={f}>• {f}</li>
                 ))}
               </ul>
-              <div className="mt-4">
+              <div className="flex gap-3 mt-auto">
+                {item.applyLink && (
+                  <Link
+                    href={item.applyLink}
+                    target="_blank"
+                    className="w-full px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white rounded-lg text-base font-semibold hover:bg-green-700 transition text-center shadow-md"
+                  >
+                    Link
+                  </Link>
+                )}
                 <button
                   key={item.id}
                   onClick={() => {
@@ -689,39 +768,64 @@ export default function ReferralLinksPage() {
           (activeCategory.data as StockInvestment[]).map((item) => (
             <div
               key={item.id}
-              className="bg-white rounded-xl border shadow-sm p-5"
+              className="bg-white rounded-2xl border border-green-200 shadow-md hover:shadow-lg transition-all duration-300 p-6 flex flex-col items-center text-center"
             >
-              <h2 className="font-semibold text-lg">{item.name}</h2>
-              <p className="text-sm text-gray-600">{item.platform}</p>
-              <ul className="mt-3 space-y-1 text-sm text-gray-600">
-                {item.features.map((f) => (
-                  <li key={f}>• {f}</li>
-                ))}
-              </ul>
-              <div className="mt-4">
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    if (item.applyLink) {
-                      navigator.clipboard.writeText(item.applyLink);
-                      setCopiedId(item.id);
-                      setTimeout(() => setCopiedId(null), 2000);
-                    }
-                  }}
-                  className="flex items-center gap-2 text-green-600"
-                >
-                  {copiedId === item.id ? (
-                    <>
-                      <Check className="w-4 h-4 text-green-500" />
-                      <span className="text-sm">Copied</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-4 h-4 text-green-600" />
-                      <span className="text-sm">Copy</span>
-                    </>
-                  )}
-                </button>
+              {/* Broker Logo */}
+              {item.logo && (
+                <Image
+                  src={item.logo}
+                  alt={`${item.name} logo`}
+                  width={80}
+                  height={80}
+                  className="mb-4 object-contain"
+                />
+              )}
+
+              {/* Broker Name & Platform */}
+              <h2 className="text-lg font-semibold text-green-800">
+                {item.name}
+              </h2>
+              {item.name && (
+                <p className="text-sm text-gray-600 mb-3">{item.name}</p>
+              )}
+
+              {/* Actions: Open + Copy */}
+              <div className="flex gap-3 mt-auto">
+                {item.applyLink && (
+                  <Link
+                    href={item.applyLink}
+                    target="_blank"
+                    className="w-full px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white rounded-lg text-base font-semibold hover:bg-green-700 transition text-center shadow-md"
+                  >
+                    Open Account
+                  </Link>
+                )}
+
+                {item.applyLink && (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      if (item.applyLink) {
+                        navigator.clipboard.writeText(item.applyLink);
+                        setCopiedId(item.id);
+                        setTimeout(() => setCopiedId(null), 2000);
+                      }
+                    }}
+                    className="flex items-center gap-2 text-green-600"
+                  >
+                    {copiedId === item.id ? (
+                      <>
+                        <Check className="w-4 h-4 text-green-500" />
+                        <span className="text-sm">Copied</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-4 h-4 text-green-600" />
+                        <span className="text-sm">Copy</span>
+                      </>
+                    )}
+                  </button>
+                )}
               </div>
             </div>
           ))}
@@ -730,39 +834,64 @@ export default function ReferralLinksPage() {
           (activeCategory.data as MutualFund[]).map((item) => (
             <div
               key={item.id}
-              className="bg-white rounded-xl border shadow-sm p-5"
+              className="bg-white rounded-2xl border border-green-200 shadow-md hover:shadow-lg transition-all duration-300 p-6 flex flex-col items-center text-center"
             >
-              <h2 className="font-semibold text-lg">{item.name}</h2>
-              <p className="text-sm text-gray-600">{item.platform}</p>
-              <ul className="mt-3 space-y-1 text-sm text-gray-600">
-                {item.features.map((f) => (
-                  <li key={f}>• {f}</li>
-                ))}
-              </ul>
-              <div className="mt-4">
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    if (item.applyLink) {
-                      navigator.clipboard.writeText(item.applyLink);
-                      setCopiedId(item.id);
-                      setTimeout(() => setCopiedId(null), 2000);
-                    }
-                  }}
-                  className="flex items-center gap-2 text-green-600"
-                >
-                  {copiedId === item.id ? (
-                    <>
-                      <Check className="w-4 h-4 text-green-500" />
-                      <span className="text-sm">Copied</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-4 h-4 text-green-600" />
-                      <span className="text-sm">Copy</span>
-                    </>
-                  )}
-                </button>
+              {/* Broker Logo */}
+              {item.logo && (
+                <Image
+                  src={item.logo}
+                  alt={`${item.name} logo`}
+                  width={80}
+                  height={80}
+                  className="mb-4 object-contain"
+                />
+              )}
+
+              {/* Broker Name & Platform */}
+              <h2 className="text-lg font-semibold text-green-800">
+                {item.name}
+              </h2>
+              {item.name && (
+                <p className="text-sm text-gray-600 mb-3">{item.name}</p>
+              )}
+
+              {/* Actions: Open + Copy */}
+              <div className="flex gap-3 mt-auto">
+                {item.applyLink && (
+                  <Link
+                    href={item.applyLink}
+                    target="_blank"
+                    className="w-full px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white rounded-lg text-base font-semibold hover:bg-green-700 transition text-center shadow-md"
+                  >
+                    Open Account
+                  </Link>
+                )}
+
+                {item.applyLink && (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      if (item.applyLink) {
+                        navigator.clipboard.writeText(item.applyLink);
+                        setCopiedId(item.id);
+                        setTimeout(() => setCopiedId(null), 2000);
+                      }
+                    }}
+                    className="flex items-center gap-2 text-green-600"
+                  >
+                    {copiedId === item.id ? (
+                      <>
+                        <Check className="w-4 h-4 text-green-500" />
+                        <span className="text-sm">Copied</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-4 h-4 text-green-600" />
+                        <span className="text-sm">Copy</span>
+                      </>
+                    )}
+                  </button>
+                )}
               </div>
             </div>
           ))}
@@ -829,6 +958,21 @@ export default function ReferralLinksPage() {
               </div>
             </div>
           ))}
+      </div>
+
+      {/* Consultancy Contact Card */}
+      <div className="w-full flex justify-center mt-8">
+        <div className="bg-green-600 text-white text-center rounded-full px-8 py-4 shadow-lg hover:shadow-xl transition-all duration-300">
+          <p className="text-lg sm:text-xl font-semibold">
+            For Consultancy Contact:{" "}
+            <a
+              href="tel:8696060387"
+              className="text-yellow-200 hover:underline"
+            >
+              +91 8696060387
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   );
