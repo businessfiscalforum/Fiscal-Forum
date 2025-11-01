@@ -125,7 +125,7 @@ export default function Refferal() {
 
       {/* Responsive Tabs */}
       <div className="mb-6">
-        <div className="flex overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide justify-center">
+        <div className="flex overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide justify-start">
           <div className="flex space-x-1 min-w-max">
             {options.map((opt) => (
               <button
