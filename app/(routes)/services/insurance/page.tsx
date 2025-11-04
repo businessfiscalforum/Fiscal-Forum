@@ -28,6 +28,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { useRouter } from "next/navigation";
 import { FaWhatsapp } from "react-icons/fa";
+import FeatureBannerCarousel from "../../_components/FeatureBannerCarousel";
 
 // Slides for the hero section carousel, themed for insurance
 const slides = [
@@ -339,6 +340,8 @@ const InsurancePage = () => {
           </div>
         </div>
       </section>
+
+      <FeatureBannerCarousel />
 
       <section className="py-16 my-10 mx-4 sm:mx-auto max-w-4xl text-center bg-gradient-to-r from-teal-600 to-green-600 text-white rounded-2xl px-6">
         <Phone className="w-16 h-16 mx-auto mb-6" />
