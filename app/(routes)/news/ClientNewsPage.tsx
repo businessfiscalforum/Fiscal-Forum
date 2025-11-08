@@ -103,7 +103,7 @@ const getIpoStatus = (openDateStr: string | null | undefined, closeDateStr: stri
     const openTimestamp = Date.parse(openDateStr);
     const closeTimestamp = Date.parse(closeDateStr);
 
-    if (isNaN(openTimestamp) || isNaN(closeTimestamp)) {
+    if (isNaN(openTimestamp)|| isNaN(closeTimestamp)) {
         return { status: 'Invalid', dotClass: 'bg-gray-400', textClass: 'text-gray-600' };
     }
     
