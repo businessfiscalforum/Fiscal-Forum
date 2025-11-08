@@ -38,7 +38,7 @@ export default async function EditNewsPage({
 }: {
   params: { id: string };
 }) {
-  const { id } = params;
+  const { id } = await params;
 
   // Fetch the news item to edit
   const [newsItem] = await db
