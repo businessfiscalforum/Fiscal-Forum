@@ -7,7 +7,7 @@ import Image from "next/image";
 // Import format
 import { format } from 'date-fns';
 import Link from 'next/link';
-import { FaArrowLeft, FaCalendarAlt, FaUser, FaClock, FaEye, FaStar } from 'react-icons/fa';
+import { FaArrowLeft, FaCalendarAlt, FaUser, FaClock , FaStar } from 'react-icons/fa';
 
 // Helper function to determine banner style
 const getBannerStyle = (category: string) => {

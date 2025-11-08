@@ -33,6 +33,12 @@ export default async function NewsPage() {
       currentPrice: item.currentPrice ?? undefined,
       listingGain: item.listingGain ?? undefined,
       subscriptionRate: item.subscriptionRate ?? undefined,
+      applyLink: item.applyLink ?? undefined,
+      offerPrice: item.offerPrice ?? undefined,
+      openDate: item.openDate ?? undefined,
+      closeDate: item.closeDate ?? undefined,
+      allotmentDate: item.allotmentDate ?? undefined,
+      refundDate: item.refundDate ?? undefined,
     };
   });
 

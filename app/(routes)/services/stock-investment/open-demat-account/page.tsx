@@ -421,7 +421,7 @@ export default function Page() {
         {/* How to Transfer Section */}
         <section className="py-12 px-4 sm:px-6 mb-12">
           <div className="max-w-5xl mx-auto">
-            <motion.div
+            {/* <motion.div
               className="text-center mb-10"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -562,7 +562,7 @@ export default function Page() {
                 >
                   Share with - support@fiscalforum.in
                 </button>
-              </motion.div>
+              </motion.div> */}
 
             <motion.div
               className="mt-12 text-center bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl p-8 border-2 border-green-300 shadow-xl"

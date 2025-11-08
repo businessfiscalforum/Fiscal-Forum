@@ -709,6 +709,12 @@ export const newsTable = pgTable('news', {
   currentPrice: varchar('current_price', { length: 100 }),
   listingGain: varchar('listing_gain', { length: 100 }),
   subscriptionRate: varchar('subscription_rate', { length: 100 }),
+  applyLink: varchar('apply_link', { length: 500 }),
+  offerPrice: varchar('offer_price', { length: 100 }),
+  openDate: varchar('open_date', { length: 100 }),
+  closeDate: varchar('close_date', { length: 100 }),
+  allotmentDate: varchar('allotment_date', { length: 100 }),
+  refundDate: varchar('refund_date', { length: 100 }),
 });
 
 export const newsletter = pgTable("newsletter", {

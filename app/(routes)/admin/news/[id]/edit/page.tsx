@@ -1,4 +1,3 @@
-// app/(routes)/admin/news/[id]/edit/page.tsx
 import { revalidatePath } from "next/cache";
 import { db } from "../../../../../../config/db"; // Adjust path as needed
 import { newsTable } from "../../../../../../config/schema"; // Adjust path as needed
@@ -9,30 +8,39 @@ import { FaArrowLeft, FaSave } from "react-icons/fa";
 
 // Define valid categories
 const categoryOptions = [
-  'News Buzz',
-  'Corp Pulse',
-  'IPO Scoop',
-  'Market News',
-  'Policy',
-  'Commodities',
-  'Forex',
-  'Cryptocurrency',
-  'Earnings',
-  'Automotive',
-  'Technology'
+  "News Buzz",
+  "Corp Pulse",
+  "IPO Scoop",
 ] as const;
 
 // Type guard for category
-function isValidCategory(value: string): value is (typeof categoryOptions)[number] {
+function isValidCategory(
+  value: string
+): value is (typeof categoryOptions)[number] {
   return categoryOptions.includes(value as (typeof categoryOptions)[number]);
 }
+
+// Helper to format Date objects from Drizzle result to YYYY-MM-DD string for input[type="date"]
+const formatDateForInput = (dateValue: string | Date | null | undefined): string => {
+  if (!dateValue) return "";
+  try {
+    // Drizzle returns ISO strings or Date objects. We ensure it's a Date first.
+    const date = typeof dateValue === 'string' ? new Date(dateValue) : dateValue;
+    return date.toISOString().split("T")[0];
+  } catch {
+    return String(dateValue).split("T")[0] || "";
+  }
+};
+
 
 export default async function EditNewsPage({
   params,
 }: {
-  params:  Promise<{ id: string }>; 
+  params: { id: string };
 }) {
-  const { id } = await params;
+  const awaitedParams = await params; 
+  const { id } = awaitedParams;
+
   // Fetch the news item to edit
   const [newsItem] = await db
     .select()
@@ -40,7 +48,6 @@ export default async function EditNewsPage({
     .where(eq(newsTable.id, id));
 
   if (!newsItem) {
-    // Redirect if news item not found
     redirect("/admin/news");
   }
 
@@ -48,14 +55,14 @@ export default async function EditNewsPage({
   async function updateNews(formData: FormData) {
     "use server";
 
-    // --- Extract and validate form data ---
+    // --- Extract Standard Fields ---
     const title = formData.get("title") as string;
     const description = formData.get("description") as string;
     const content = formData.get("content") as string;
     const image = formData.get("image") as string;
     const rawCategory = formData.get("category") as string;
     const author = formData.get("author") as string;
-    const publishDate = formData.get("publishDate") as string; // Comes as YYYY-MM-DD string
+    const publishDate = formData.get("publishDate") as string;
     const readTime = formData.get("readTime") as string;
     const link = formData.get("link") as string;
     const featured = formData.get("featured") === "on";
@@ -64,7 +71,7 @@ export default async function EditNewsPage({
       .map((tag) => tag.trim())
       .filter(Boolean);
 
-    // --- IPO Specific Fields ---
+    // --- Extract ALL IPO Specific Fields ---
     const ipoName = formData.get("ipoName") as string;
     const companyName = formData.get("companyName") as string;
     const priceRange = formData.get("priceRange") as string;
@@ -73,12 +80,18 @@ export default async function EditNewsPage({
     const currentPrice = formData.get("currentPrice") as string;
     const listingGain = formData.get("listingGain") as string;
     const subscriptionRate = formData.get("subscriptionRate") as string;
+    const offerPrice = formData.get("offerPrice") as string;
+    const openDate = formData.get("openDate") as string;
+    const closeDate = formData.get("closeDate") as string;
+    const allotmentDate = formData.get("allotmentDate") as string;
+    const refundDate = formData.get("refundDate") as string;
+    const applyLink = formData.get("applyLink") as string;
 
     // --- Validate Category ---
     if (!isValidCategory(rawCategory)) {
       console.error(`Invalid category submitted: ${rawCategory}`);
     }
-    const category = rawCategory; // Use the validated/raw value
+    const category = rawCategory;
 
     try {
       // --- Update the database ---
@@ -91,12 +104,13 @@ export default async function EditNewsPage({
           image: image || null,
           category,
           author,
-          publishDate: publishDate ? new Date(publishDate) : new Date(), // Convert string to Date
+          publishDate: publishDate ? new Date(publishDate) : new Date(),
           readTime: readTime || null,
           link: link || null,
           featured,
-          tags:JSON.stringify(tags),
-          // IPO fields
+          tags: JSON.stringify(tags),
+          
+          // --- IPO fields mapped ---
           ipoName: ipoName || null,
           companyName: companyName || null,
           priceRange: priceRange || null,
@@ -105,22 +119,28 @@ export default async function EditNewsPage({
           currentPrice: currentPrice || null,
           listingGain: listingGain || null,
           subscriptionRate: subscriptionRate || null,
+          
+          applyLink: applyLink || null,
+          offerPrice: offerPrice || null,
+          openDate: openDate || null,
+          closeDate: closeDate || null,
+          allotmentDate: allotmentDate || null,
+          refundDate: refundDate || null,
         })
         .where(eq(newsTable.id, id));
 
       // --- Revalidate relevant paths ---
-      revalidatePath("/news"); // Assuming public news list page
-      revalidatePath(`/news/${id}`); // Assuming public news detail page
-      revalidatePath("/admin/news"); // Admin news list
+      revalidatePath("/news");
+      revalidatePath(`/news/${id}`);
+      revalidatePath("/admin/news");
 
       // --- Redirect after successful update ---
-      redirect("/admin/news");
+      
     } catch (error) {
       console.error("Error updating news item:", error);
-      // Consider adding user-facing error handling here
-      // For now, it will likely result in a 500 error page
-      throw error; // Re-throw to trigger error page
+      throw error;
     }
+    redirect("/admin/news");
   }
 
   return (
@@ -159,363 +179,194 @@ export default async function EditNewsPage({
           {/* Form Content */}
           <div className="p-6 sm:p-8">
             <form action={updateNews} className="space-y-8">
-              {/* Basic Information */}
+              {/* 1. Basic Information */}
               <div className="border border-emerald-200 rounded-xl p-6 bg-emerald-50/30">
                 <h2 className="text-xl font-bold text-emerald-900 mb-6">
                   Basic Information
                 </h2>
-
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="md:col-span-2">
-                    <label
-                      htmlFor="title"
-                      className="block text-sm font-medium text-emerald-800 mb-2"
-                    >
-                      Title *
-                    </label>
-                    <input
-                      type="text"
-                      name="title"
-                      id="title"
-                      defaultValue={newsItem.title || ""}
-                      required
-                      className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
-                    />
+                    <label htmlFor="title" className="block text-sm font-medium text-emerald-800 mb-2">Title *</label>
+                    <input type="text" name="title" id="title" defaultValue={newsItem.title || ""} required className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white" />
                   </div>
 
                   <div className="md:col-span-2">
-                    <label
-                      htmlFor="category"
-                      className="block text-sm font-medium text-emerald-800 mb-2"
-                    >
-                      Category *
-                    </label>
-                    <select
-                      name="category"
-                      id="category"
-                      defaultValue={newsItem.category || ""}
-                      required
-                      className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
-                    >
+                    <label htmlFor="category" className="block text-sm font-medium text-emerald-800 mb-2">Category *</label>
+                    <select name="category" id="category" defaultValue={newsItem.category || ""} required className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white">
                       <option value="">Select a category</option>
                       {categoryOptions.map((cat) => (
-                        <option key={cat} value={cat}>
-                          {cat}
-                        </option>
+                        <option key={cat} value={cat}>{cat}</option>
                       ))}
                     </select>
                   </div>
 
                   <div className="md:col-span-2">
-                    <label
-                      htmlFor="description"
-                      className="block text-sm font-medium text-emerald-800 mb-2"
-                    >
-                      Description
-                    </label>
-                    <textarea
-                      name="description"
-                      id="description"
-                      rows={3}
-                      defaultValue={newsItem.description || ""}
-                      className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
-                    />
+                    <label htmlFor="description" className="block text-sm font-medium text-emerald-800 mb-2">Description</label>
+                    <textarea name="description" id="description" rows={3} defaultValue={newsItem.description || ""} className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white" />
                   </div>
 
                   <div className="md:col-span-2">
-                    <label
-                      htmlFor="content"
-                      className="block text-sm font-medium text-emerald-800 mb-2"
-                    >
-                      Content *
-                    </label>
-                    <textarea
-                      name="content"
-                      id="content"
-                      rows={8}
-                      defaultValue={newsItem.content || ""}
-                      required
-                      className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white font-sans text-sm whitespace-pre-wrap" // Added monospace font for content
-                    />
+                    <label htmlFor="content" className="block text-sm font-medium text-emerald-800 mb-2">Content *</label>
+                    <textarea name="content" id="content" rows={8} defaultValue={newsItem.content || ""} required className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white font-sans text-sm whitespace-pre-wrap" />
                   </div>
                 </div>
               </div>
 
-              {/* Media & Links */}
+              {/* 2. Media & Links */}
               <div className="border border-emerald-200 rounded-xl p-6 bg-emerald-50/30">
-                <h2 className="text-xl font-bold text-emerald-900 mb-6">
-                  Media & Links
-                </h2>
-
+                <h2 className="text-xl font-bold text-emerald-900 mb-6">Media & Links</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="md:col-span-2">
-                    <label
-                      htmlFor="image"
-                      className="block text-sm font-medium text-emerald-800 mb-2"
-                    >
-                      Image URL
-                    </label>
-                    <input
-                      type="url"
-                      name="image"
-                      id="image"
-                      defaultValue={newsItem.image || ""}
-                      className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
-                    />
+                    <label htmlFor="image" className="block text-sm font-medium text-emerald-800 mb-2">Image URL</label>
+                    <input type="url" name="image" id="image" defaultValue={newsItem.image || ""} className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white" />
                   </div>
 
                   <div className="md:col-span-2">
-                    <label
-                      htmlFor="link"
-                      className="block text-sm font-medium text-emerald-800 mb-2"
-                    >
-                      External Link
-                    </label>
-                    <input
-                      type="url"
-                      name="link"
-                      id="link"
-                      defaultValue={newsItem.link || ""}
-                      className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
-                    />
+                    <label htmlFor="link" className="block text-sm font-medium text-emerald-800 mb-2">External Link</label>
+                    <input type="url" name="link" id="link" defaultValue={newsItem.link || ""} className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white" />
                   </div>
                 </div>
               </div>
 
-              {/* Publishing Details */}
+              {/* 3. Publishing Details */}
               <div className="border border-emerald-200 rounded-xl p-6 bg-emerald-50/30">
-                <h2 className="text-xl font-bold text-emerald-900 mb-6">
-                  Publishing Details
-                </h2>
-
+                <h2 className="text-xl font-bold text-emerald-900 mb-6">Publishing Details</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label
-                      htmlFor="author"
-                      className="block text-sm font-medium text-emerald-800 mb-2"
-                    >
-                      Author *
-                    </label>
-                    <input
-                      type="text"
-                      name="author"
-                      id="author"
-                      defaultValue={newsItem.author || ""}
-                      required
-                      className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
-                    />
+                    <label htmlFor="author" className="block text-sm font-medium text-emerald-800 mb-2">Author *</label>
+                    <input type="text" name="author" id="author" defaultValue={newsItem.author || ""} required className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white" />
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="publishDate"
-                      className="block text-sm font-medium text-emerald-800 mb-2"
-                    >
-                      Publish Date
-                    </label>
+                    <label htmlFor="publishDate" className="block text-sm font-medium text-emerald-800 mb-2">Publish Date</label>
                     <input
                       type="date"
                       name="publishDate"
                       id="publishDate"
-                      // Format the date for the input field (YYYY-MM-DD)
-                      defaultValue={newsItem.publishDate ? new Date(newsItem.publishDate).toISOString().split('T')[0] : ""}
+                      defaultValue={formatDateForInput(newsItem.publishDate)}
                       className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
                     />
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="readTime"
-                      className="block text-sm font-medium text-emerald-800 mb-2"
-                    >
-                      Read Time
-                    </label>
+                    <label htmlFor="readTime" className="block text-sm font-medium text-emerald-800 mb-2">Read Time</label>
+                    <input type="text" name="readTime" id="readTime" defaultValue={newsItem.readTime || ""} placeholder="e.g., 3 min read" className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white" />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="tags" className="block text-sm font-medium text-emerald-800 mb-2">Comma-separated tags</label>
                     <input
                       type="text"
-                      name="readTime"
-                      id="readTime"
-                      defaultValue={newsItem.readTime || ""}
-                      placeholder="e.g., 3 min read"
+                      name="tags"
+                      id="tags"
+                      defaultValue={typeof newsItem.tags === 'string' ? newsItem.tags.replace(/[\["\]]/g, '') : (newsItem.tags || "")}
                       className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
+                      placeholder="e.g., finance, market, stocks"
                     />
                   </div>
                 </div>
 
                 <div className="mt-6 flex items-center">
-                  <input
-                    type="checkbox"
-                    name="featured"
-                    id="featured"
-                    defaultChecked={!!newsItem.featured} // Handle potential null/undefined
-                    className="h-5 w-5 text-emerald-600 rounded focus:ring-emerald-500 border-emerald-300"
-                  />
-                  <label
-                    htmlFor="featured"
-                    className="ml-2 block text-sm text-emerald-800"
-                  >
-                    Featured Article
-                  </label>
+                  <input type="checkbox" name="featured" id="featured" defaultChecked={!!newsItem.featured} className="h-5 w-5 text-emerald-600 rounded focus:ring-emerald-500 border-emerald-300" />
+                  <label htmlFor="featured" className="ml-2 block text-sm text-emerald-800">Featured Article</label>
                 </div>
               </div>
 
-              {/* Tags Section */}
-              <div className="border border-emerald-200 rounded-xl p-6 bg-emerald-50/30">
-                <h2 className="text-xl font-bold text-emerald-900 mb-6">Tags</h2>
-                <div>
-                  <label
-                    htmlFor="tags"
-                    className="block text-sm font-medium text-emerald-800 mb-2"
-                  >
-                    Comma-separated tags
-                  </label>
-                  <input
-                    type="text"
-                    name="tags"
-                    id="tags"
-                    // Convert tags array to comma-separated string
-                    defaultValue={Array.isArray(newsItem.tags) ? newsItem.tags.join(", ") : (newsItem.tags ? String(newsItem.tags) : "")}
-                    className="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white"
-                    placeholder="e.g., finance, market, stocks"
-                  />
-                </div>
-              </div>
-
-              {/* IPO Specific Fields */}
-              {/* These fields are always present in the form, visibility can be handled by JS on the client if needed,
-                  but the server action handles them regardless. The category check can be done on submit if needed. */}
-              <div className="border border-teal-200 rounded-xl p-6 bg-teal-50">
-                <h2 className="text-xl font-bold text-teal-900 mb-6">
-                  IPO Details (Optional)
+              {/* 4. IPO Specific Fields (TEAL SECTION) */}
+              <div className="border border-teal-200 rounded-xl p-6 bg-teal-50 shadow-md">
+                <h2 className="text-2xl font-extrabold text-teal-900 mb-6 border-b border-teal-300 pb-2">
+                  🚀 IPO Detail Fields (Optional)
                 </h2>
-                <p className="text-sm text-teal-700 mb-4">Fill these fields if the category is &quot;IPO Scoop&quot;.</p>
+                <p className="text-sm text-teal-700 mb-6 font-medium">
+                  Fill these fields only if the content category is **IPO Scoop**.
+                </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+
+                  {/* IPO Identification */}
                   <div>
-                    <label
-                      htmlFor="ipoName"
-                      className="block text-sm font-medium text-teal-800 mb-2"
-                    >
-                      IPO Name
-                    </label>
-                    <input
-                      type="text"
-                      name="ipoName"
-                      id="ipoName"
-                      defaultValue={newsItem.ipoName || ""}
-                      className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
-                    />
+                    <label htmlFor="ipoName" className="block text-sm font-medium text-teal-800 mb-2">IPO Name</label>
+                    <input type="text" name="ipoName" id="ipoName" defaultValue={newsItem.ipoName || ""} placeholder="Ex: XYZ Tech IPO" className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white" />
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="companyName"
-                      className="block text-sm font-medium text-teal-800 mb-2"
-                    >
-                      Company Name
-                    </label>
-                    <input
-                      type="text"
-                      name="companyName"
-                      id="companyName"
-                      defaultValue={newsItem.companyName || ""}
-                      className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
-                    />
+                    <label htmlFor="companyName" className="block text-sm font-medium text-teal-800 mb-2">Company Name</label>
+                    <input type="text" name="companyName" id="companyName" defaultValue={newsItem.companyName || ""} placeholder="Ex: XYZ Technology Solutions Ltd." className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white" />
+                  </div>
+
+                  {/* Pricing and Size */}
+                  <div>
+                    <label htmlFor="offerPrice" className="block text-sm font-medium text-teal-800 mb-2">Offer Price (Upper Band)</label>
+                    <input type="text" name="offerPrice" id="offerPrice" defaultValue={newsItem.offerPrice || ""} placeholder="Ex: ₹105" className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white" />
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="priceRange"
-                      className="block text-sm font-medium text-teal-800 mb-2"
-                    >
-                      Price Range
-                    </label>
-                    <input
-                      type="text"
-                      name="priceRange"
-                      id="priceRange"
-                      defaultValue={newsItem.priceRange || ""}
-                      className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
-                    />
+                    <label htmlFor="priceRange" className="block text-sm font-medium text-teal-800 mb-2">Price Range (Ex: ₹100-105)</label>
+                    <input type="text" name="priceRange" id="priceRange" defaultValue={newsItem.priceRange || ""} placeholder="Ex: ₹100 - ₹105" className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white" />
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="issueSize"
-                      className="block text-sm font-medium text-teal-800 mb-2"
-                    >
-                      Issue Size
-                    </label>
-                    <input
-                      type="text"
-                      name="issueSize"
-                      id="issueSize"
-                      defaultValue={newsItem.issueSize || ""}
-                      className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
-                    />
+                    <label htmlFor="issueSize" className="block text-sm font-medium text-teal-800 mb-2">Issue Size</label>
+                    <input type="text" name="issueSize" id="issueSize" defaultValue={newsItem.issueSize || ""} placeholder="Ex: 500 Cr" className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white" />
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="listingDate"
-                      className="block text-sm font-medium text-teal-800 mb-2"
-                    >
-                      Listing Date
-                    </label>
-                    <input
-                      type="text" 
-                      name="listingDate"
-                      id="listingDate"
-                      defaultValue={newsItem.listingDate || ""}
-                      className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
-                    />
+                    <label htmlFor="subscriptionRate" className="block text-sm font-medium text-teal-800 mb-2">Subscription Rate (Ex: 2.5x)</label>
+                    <input type="text" name="subscriptionRate" id="subscriptionRate" defaultValue={newsItem.subscriptionRate || ""} placeholder="Ex: 2.5x" className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white" />
+                  </div>
+
+                  {/* IPO Timeline Dates */}
+                  <div className="md:col-span-2 border-t border-teal-300 pt-6">
+                    <h3 className="text-lg font-bold text-teal-800 mb-4">IPO Timeline</h3>
+                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
+                      
+                      {/* Open Date */}
+                      <div>
+                        <label htmlFor="openDate" className="block text-sm font-medium text-teal-800 mb-2">IPO Open Date</label>
+                        <input type="date" name="openDate" id="openDate" defaultValue={formatDateForInput(newsItem.openDate)} className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white" />
+                      </div>
+
+                      {/* Close Date */}
+                      <div>
+                        <label htmlFor="closeDate" className="block text-sm font-medium text-teal-800 mb-2">IPO Close Date</label>
+                        <input type="date" name="closeDate" id="closeDate" defaultValue={formatDateForInput(newsItem.closeDate)} className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white" />
+                      </div>
+
+                      {/* Allotment Date */}
+                      <div>
+                        <label htmlFor="allotmentDate" className="block text-sm font-medium text-teal-800 mb-2">Allotment Date</label>
+                        <input type="date" name="allotmentDate" id="allotmentDate" defaultValue={formatDateForInput(newsItem.allotmentDate)} className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white" />
+                      </div>
+
+                      {/* Refund Date */}
+                      <div>
+                        <label htmlFor="refundDate" className="block text-sm font-medium text-teal-800 mb-2">Refund Date</label>
+                        <input type="date" name="refundDate" id="refundDate" defaultValue={formatDateForInput(newsItem.refundDate)} className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white" />
+                      </div>
+
+                      {/* Listing Date */}
+                      <div>
+                        <label htmlFor="listingDate" className="block text-sm font-medium text-teal-800 mb-2">Listing Date</label>
+                        <input type="date" name="listingDate" id="listingDate" defaultValue={formatDateForInput(newsItem.listingDate)} className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Gains and Links */}
+                  <div>
+                    <label htmlFor="listingGain" className="block text-sm font-medium text-teal-800 mb-2">Listing Gain (Ex: +10%)</label>
+                    <input type="text" name="listingGain" id="listingGain" defaultValue={newsItem.listingGain || ""} placeholder="Ex: +10% or -5%" className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white" />
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="currentPrice"
-                      className="block text-sm font-medium text-teal-800 mb-2"
-                    >
-                      Current Price
-                    </label>
-                    <input
-                      type="text"
-                      name="currentPrice"
-                      id="currentPrice"
-                      defaultValue={newsItem.currentPrice || ""}
-                      className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
-                    />
+                    <label htmlFor="currentPrice" className="block text-sm font-medium text-teal-800 mb-2">Current Price</label>
+                    <input type="text" name="currentPrice" id="currentPrice" defaultValue={newsItem.currentPrice || ""} placeholder="Ex: ₹125" className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white" />
                   </div>
 
-                  <div>
-                    <label
-                      htmlFor="listingGain"
-                      className="block text-sm font-medium text-teal-800 mb-2"
-                    >
-                      Listing Gain
-                    </label>
-                    <input
-                      type="text"
-                      name="listingGain"
-                      id="listingGain"
-                      defaultValue={newsItem.listingGain || ""}
-                      className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="subscriptionRate"
-                      className="block text-sm font-medium text-teal-800 mb-2"
-                    >
-                      Subscription Rate
-                    </label>
-                    <input
-                      type="text"
-                      name="subscriptionRate"
-                      id="subscriptionRate"
-                      defaultValue={newsItem.subscriptionRate || ""}
-                      className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
-                    />
+                  {/* Apply Link URL (Stretches across full width) */}
+                  <div className="md:col-span-2">
+                    <label htmlFor="applyLink" className="block text-sm font-medium text-teal-800 mb-2">Apply Link URL</label>
+                    <input type="url" name="applyLink" id="applyLink" defaultValue={newsItem.applyLink || ""} placeholder="https://brokerage.com/apply-ipo" className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white" />
                   </div>
                 </div>
               </div>

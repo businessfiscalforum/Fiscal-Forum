@@ -1,8 +1,8 @@
 // components/admin/NewsForm.tsx (or wherever this component is located)
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 // Removed unused import
 // import { uuid } from 'drizzle-orm/pg-core';
 
@@ -27,6 +27,12 @@ interface NewsFormData {
   currentPrice?: string;
   listingGain?: string;
   subscriptionRate?: string;
+  offerPrice?: string;
+  openDate?: string;
+  closeDate?: string;
+  allotmentDate?: string;
+  refundDate?: string;
+  applyLink?: string;
 }
 
 interface NewsFormProps {
@@ -38,28 +44,28 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
   const router = useRouter();
   const [formData, setFormData] = useState<NewsFormData>(
     initialData || {
-      title: '',
-      description: '',
-      content: '',
-      image: '',
-      category: '',
-      author: '',
-      publishDate: new Date().toISOString().split('T')[0],
-      readTime: '',
-      link: '',
+      title: "",
+      description: "",
+      content: "",
+      image: "",
+      category: "",
+      author: "",
+      publishDate: new Date().toISOString().split("T")[0],
+      readTime: "",
+      link: "",
       featured: false,
       tags: [],
-      ipoName: '',
-      companyName: '',
-      priceRange: '',
-      issueSize: '',
-      listingDate: '',
-      currentPrice: '',
-      listingGain: '',
-      subscriptionRate: '',
+      ipoName: "",
+      companyName: "",
+      priceRange: "",
+      issueSize: "",
+      listingDate: "",
+      currentPrice: "",
+      listingGain: "",
+      subscriptionRate: "",
     }
   );
-  const [tagsInput, setTagsInput] = useState('');
+  const [tagsInput, setTagsInput] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (
@@ -73,7 +79,7 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
 
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
@@ -87,14 +93,14 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
         ...formData,
         tags: [...formData.tags, tagsInput.trim()],
       });
-      setTagsInput('');
+      setTagsInput("");
     }
   };
 
   const removeTag = (tagToRemove: string) => {
     setFormData({
       ...formData,
-      tags: formData.tags.filter(tag => tag !== tagToRemove),
+      tags: formData.tags.filter((tag) => tag !== tagToRemove),
     });
   };
 
@@ -104,25 +110,31 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
 
     try {
       await onSubmit(formData);
-      router.push('/admin/news');
+      router.push("/admin/news");
       router.refresh(); // Refresh the current route. Good for data consistency.
     } catch (error) {
-      console.error('Error submitting form:', error);
-      alert('Failed to save news item');
+      console.error("Error submitting form:", error);
+      alert("Failed to save news item");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   // Helper function for consistent input classes
-  const inputClasses = "w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white disabled:bg-gray-100";
+  const inputClasses =
+    "w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition bg-white disabled:bg-gray-100";
   const labelClasses = "block text-sm font-medium text-emerald-800 mb-2";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8 bg-white rounded-2xl shadow-lg p-6 sm:p-8 border border-emerald-100">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-8 bg-white rounded-2xl shadow-lg p-6 sm:p-8 border border-emerald-100"
+    >
       {/* Basic Information Section */}
       <div className="border border-emerald-200 rounded-xl p-6 bg-emerald-50/30">
-        <h2 className="text-2xl font-bold text-emerald-900 mb-6">Basic Information</h2>
+        <h2 className="text-2xl font-bold text-emerald-900 mb-6">
+          Basic Information
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="md:col-span-2">
             <label htmlFor="title" className={labelClasses}>
@@ -206,7 +218,9 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
 
       {/* Media & Links Section */}
       <div className="border border-emerald-200 rounded-xl p-6 bg-emerald-50/30">
-        <h2 className="text-2xl font-bold text-emerald-900 mb-6">Media & Links</h2>
+        <h2 className="text-2xl font-bold text-emerald-900 mb-6">
+          Media & Links
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label htmlFor="image" className={labelClasses}>
@@ -242,7 +256,9 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
 
       {/* Publishing Details Section */}
       <div className="border border-emerald-200 rounded-xl p-6 bg-emerald-50/30">
-        <h2 className="text-2xl font-bold text-emerald-900 mb-6">Publishing Details</h2>
+        <h2 className="text-2xl font-bold text-emerald-900 mb-6">
+          Publishing Details
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div>
             <label htmlFor="publishDate" className={labelClasses}>
@@ -283,7 +299,10 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
                 onChange={handleChange}
                 className="h-5 w-5 text-emerald-600 rounded focus:ring-emerald-500 border-emerald-300"
               />
-              <label htmlFor="featured" className="ml-2 block text-sm font-medium text-emerald-800">
+              <label
+                htmlFor="featured"
+                className="ml-2 block text-sm font-medium text-emerald-800"
+              >
                 Featured Article
               </label>
             </div>
@@ -301,7 +320,9 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
             onChange={handleTagsChange}
             placeholder="Add a tag (e.g., finance, markets)"
             className={`${inputClasses} flex-grow`}
-            onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
+            onKeyPress={(e) =>
+              e.key === "Enter" && (e.preventDefault(), addTag())
+            }
           />
           <button
             type="button"
@@ -325,8 +346,17 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
                 aria-label={`Remove tag ${tag}`}
               >
                 <span className="sr-only">Remove</span>
-                <svg className="h-3 w-3" stroke="currentColor" fill="none" viewBox="0 0 8 8">
-                  <path strokeLinecap="round" strokeWidth="1.5" d="M1 1l6 6m0-6L1 7" />
+                <svg
+                  className="h-3 w-3"
+                  stroke="currentColor"
+                  fill="none"
+                  viewBox="0 0 8 8"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeWidth="1.5"
+                    d="M1 1l6 6m0-6L1 7"
+                  />
                 </svg>
               </button>
             </span>
@@ -335,127 +365,290 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
       </div>
 
       {/* IPO Specific Fields Section */}
-      {formData.category === 'IPO Scoop' && (
-        <div className="border border-teal-200 rounded-xl p-6 bg-teal-50">
-          <h2 className="text-2xl font-bold text-teal-900 mb-6">IPO Details</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {formData.category === "IPO Scoop" && (
+        <div className="border border-teal-200 rounded-xl p-6 bg-teal-50 shadow-md">
+          <h2 className="text-2xl font-extrabold text-teal-900 mb-6 border-b border-teal-300 pb-2">
+            IPO Detail Fields (Optional)
+          </h2>
+          <p className="text-sm text-teal-700 mb-6 font-medium">
+            Fill these fields only if the content category is IPO Scoop.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+            {/* --- IPO Identification --- */}
+
+            {/* IPO Name */}
             <div>
-              <label htmlFor="ipoName" className="block text-sm font-medium text-teal-800 mb-2">
+              <label
+                htmlFor="ipoName"
+                className="block text-sm font-medium text-teal-800 mb-2"
+              >
                 IPO Name
               </label>
               <input
                 type="text"
                 name="ipoName"
                 id="ipoName"
-                value={formData.ipoName || ''}
-                onChange={handleChange}
-                className={inputClasses}
-                placeholder="Name of the IPO"
+                defaultValue={formData.ipoName || ""}
+                placeholder="Ex: XYZ Tech IPO"
+                className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
               />
             </div>
 
+            {/* Company Name */}
             <div>
-              <label htmlFor="companyName" className="block text-sm font-medium text-teal-800 mb-2">
+              <label
+                htmlFor="companyName"
+                className="block text-sm font-medium text-teal-800 mb-2"
+              >
                 Company Name
               </label>
               <input
                 type="text"
                 name="companyName"
                 id="companyName"
-                value={formData.companyName || ''}
-                onChange={handleChange}
-                className={inputClasses}
-                placeholder="Full company name"
+                defaultValue={formData.companyName || ""}
+                placeholder="Ex: XYZ Technology Solutions Ltd."
+                className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
               />
             </div>
 
+            {/* --- Pricing and Size --- */}
+
+            {/* Offer Price (NEW: Single Attractive Price) */}
             <div>
-              <label htmlFor="priceRange" className="block text-sm font-medium text-teal-800 mb-2">
-                Price Range
+              <label
+                htmlFor="offerPrice"
+                className="block text-sm font-medium text-teal-800 mb-2"
+              >
+                Offer Price (Upper Band)
+              </label>
+              <input
+                type="text"
+                name="offerPrice"
+                id="offerPrice"
+                defaultValue={formData.offerPrice || ""}
+                placeholder="Ex: ₹105"
+                className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
+              />
+            </div>
+
+            {/* Price Range */}
+            <div>
+              <label
+                htmlFor="priceRange"
+                className="block text-sm font-medium text-teal-800 mb-2"
+              >
+                Price Range (Ex: ₹100-105)
               </label>
               <input
                 type="text"
                 name="priceRange"
                 id="priceRange"
-                value={formData.priceRange || ''}
-                onChange={handleChange}
-                className={inputClasses}
-                placeholder="e.g., ₹XXX - ₹YYY"
+                defaultValue={formData.priceRange || ""}
+                placeholder="Ex: ₹100 - ₹105"
+                className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
               />
             </div>
 
+            {/* Issue Size */}
             <div>
-              <label htmlFor="issueSize" className="block text-sm font-medium text-teal-800 mb-2">
+              <label
+                htmlFor="issueSize"
+                className="block text-sm font-medium text-teal-800 mb-2"
+              >
                 Issue Size
               </label>
               <input
                 type="text"
                 name="issueSize"
                 id="issueSize"
-                value={formData.issueSize || ''}
-                onChange={handleChange}
-                className={inputClasses}
-                placeholder="e.g., ₹XXXX Crores"
+                defaultValue={formData.issueSize || ""}
+                placeholder="Ex: 500 Cr"
+                className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
               />
             </div>
 
+            {/* Subscription Rate */}
             <div>
-              <label htmlFor="listingDate" className="block text-sm font-medium text-teal-800 mb-2">
-                Listing Date
+              <label
+                htmlFor="subscriptionRate"
+                className="block text-sm font-medium text-teal-800 mb-2"
+              >
+                Subscription Rate (Ex: 2.5x)
               </label>
               <input
                 type="text"
-                name="listingDate"
-                id="listingDate"
-                value={formData.listingDate || ''}
-                onChange={handleChange}
-                className={inputClasses}
-                placeholder="e.g., DD MMM YYYY"
+                name="subscriptionRate"
+                id="subscriptionRate"
+                defaultValue={formData.subscriptionRate || ""}
+                placeholder="Ex: 2.5x"
+                className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
               />
             </div>
 
+            {/* --- IPO Timeline Dates (Date inputs are often simpler than text inputs for dates) --- */}
+            <div className="md:col-span-2 border-t border-teal-300 pt-6">
+              <h3 className="text-lg font-bold text-teal-800 mb-4">
+                IPO Timeline
+              </h3>
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* Open Date */}
+                <div>
+                  <label
+                    htmlFor="openDate"
+                    className="block text-sm font-medium text-teal-800 mb-2"
+                  >
+                    IPO Open Date
+                  </label>
+                  <input
+                    type="date"
+                    name="openDate"
+                    id="openDate"
+                    defaultValue={
+                      formData.openDate ? formData.openDate.split("T")[0] : ""
+                    } // Cleans potential timestamp formatting for date input
+                    className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
+                  />
+                </div>
+
+                {/* Close Date */}
+                <div>
+                  <label
+                    htmlFor="closeDate"
+                    className="block text-sm font-medium text-teal-800 mb-2"
+                  >
+                    IPO Close Date
+                  </label>
+                  <input
+                    type="date"
+                    name="closeDate"
+                    id="closeDate"
+                    defaultValue={
+                      formData.closeDate ? formData.closeDate.split("T")[0] : ""
+                    }
+                    className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
+                  />
+                </div>
+
+                {/* Allotment Date */}
+                <div>
+                  <label
+                    htmlFor="allotmentDate"
+                    className="block text-sm font-medium text-teal-800 mb-2"
+                  >
+                    Allotment Date
+                  </label>
+                  <input
+                    type="date"
+                    name="allotmentDate"
+                    id="allotmentDate"
+                    defaultValue={
+                      formData.allotmentDate
+                        ? formData.allotmentDate.split("T")[0]
+                        : ""
+                    }
+                    className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
+                  />
+                </div>
+
+                {/* Refund Date */}
+                <div>
+                  <label
+                    htmlFor="refundDate"
+                    className="block text-sm font-medium text-teal-800 mb-2"
+                  >
+                    Refund Date
+                  </label>
+                  <input
+                    type="date"
+                    name="refundDate"
+                    id="refundDate"
+                    defaultValue={
+                      formData.refundDate
+                        ? formData.refundDate.split("T")[0]
+                        : ""
+                    }
+                    className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
+                  />
+                </div>
+
+                {/* Listing Date */}
+                <div>
+                  <label
+                    htmlFor="listingDate"
+                    className="block text-sm font-medium text-teal-800 mb-2"
+                  >
+                    Listing Date
+                  </label>
+                  <input
+                    type="date"
+                    name="listingDate"
+                    id="listingDate"
+                    defaultValue={
+                      formData.listingDate
+                        ? formData.listingDate.split("T")[0]
+                        : ""
+                    }
+                    className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* --- Gains and Links --- */}
+
+            {/* Listing Gain */}
             <div>
-              <label htmlFor="currentPrice" className="block text-sm font-medium text-teal-800 mb-2">
+              <label
+                htmlFor="listingGain"
+                className="block text-sm font-medium text-teal-800 mb-2"
+              >
+                Listing Gain (Ex: +10%)
+              </label>
+              <input
+                type="text"
+                name="listingGain"
+                id="listingGain"
+                defaultValue={formData.listingGain || ""}
+                placeholder="Ex: +10% or -5%"
+                className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
+              />
+            </div>
+
+            {/* Current Price (Retained for flexibility, assuming you track it) */}
+            <div>
+              <label
+                htmlFor="currentPrice"
+                className="block text-sm font-medium text-teal-800 mb-2"
+              >
                 Current Price
               </label>
               <input
                 type="text"
                 name="currentPrice"
                 id="currentPrice"
-                value={formData.currentPrice || ''}
-                onChange={handleChange}
-                className={inputClasses}
-                placeholder="e.g., ₹XXX.XX"
+                defaultValue={formData.currentPrice || ""}
+                placeholder="Ex: ₹125"
+                className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
               />
             </div>
 
-            <div>
-              <label htmlFor="listingGain" className="block text-sm font-medium text-teal-800 mb-2">
-                Listing Gain
+            {/* Apply Link URL (Stretches across full width) */}
+            <div className="md:col-span-2">
+              <label
+                htmlFor="applyLink"
+                className="block text-sm font-medium text-teal-800 mb-2"
+              >
+                Apply Link URL
               </label>
               <input
-                type="text"
-                name="listingGain"
-                id="listingGain"
-                value={formData.listingGain || ''}
-                onChange={handleChange}
-                className={inputClasses}
-                placeholder="e.g., +XX.XX%"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="subscriptionRate" className="block text-sm font-medium text-teal-800 mb-2">
-                Subscription Rate
-              </label>
-              <input
-                type="text"
-                name="subscriptionRate"
-                id="subscriptionRate"
-                value={formData.subscriptionRate || ''}
-                onChange={handleChange}
-                className={inputClasses}
-                placeholder="e.g., XX.Xx times"
+                type="url"
+                name="applyLink"
+                id="applyLink"
+                defaultValue={formData.applyLink || ""}
+                placeholder="https://brokerage.com/apply-ipo"
+                className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"
               />
             </div>
           </div>
@@ -479,14 +672,30 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
         >
           {isSubmitting ? (
             <>
-              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              <svg
+                className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
               </svg>
               Saving...
             </>
           ) : (
-            'Save News Item'
+            "Save News Item"
           )}
         </button>
       </div>
