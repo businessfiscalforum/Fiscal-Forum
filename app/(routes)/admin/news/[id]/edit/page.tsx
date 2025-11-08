@@ -20,11 +20,6 @@ function isValidCategory(
   return categoryOptions.includes(value as (typeof categoryOptions)[number]);
 }
 
-interface EditNewsPageProps {
-  params: { id: string };
-}
-
-
 // Helper to format Date objects from Drizzle result to YYYY-MM-DD string for input[type="date"]
 const formatDateForInput = (dateValue: string | Date | null | undefined): string => {
   if (!dateValue) return "";
@@ -38,8 +33,9 @@ const formatDateForInput = (dateValue: string | Date | null | undefined): string
 };
 
 
-export default async function EditNewsPage({ params }: EditNewsPageProps) {
-  const { id } = params;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default async function EditNewsPage(props: any) {
+  const { id } = props.params;
 
   // Fetch the news item to edit
   const [newsItem] = await db
