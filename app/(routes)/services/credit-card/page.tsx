@@ -84,7 +84,7 @@ const creditCards: CreditCard[] = [
     pdfLink:
       "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
     applyLink:
-      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19iYW5r&bank_source=aGRmY19iYW5r&agent_code=",
+      "https://credue.in/next/credit-card/QzAwMTExMzI=?lead_source=YXBwX2FuZHJvaWQ=&bank_name=aGRmY19iYW5r&bank_source=aGRmY19iYW5r&agent_code=",
   },
   {
     id: "indusind",
@@ -129,7 +129,7 @@ const creditCards: CreditCard[] = [
     pdfLink:
       "https://drive.google.com/file/d/1lIFkItdpCuZLvvz5Tp62DrkrV8uhxXIw/view?usp=sharing",
     applyLink:
-      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aW5kdXNpbmRfYmFuaw==&bank_source=aW5kdXNfYmFuaw==&agent_code=",
+      "https://credue.in/next/credit-card/QzAwMTExMzI=?lead_source=YXBwX2FuZHJvaWQ=&bank_name=aW5kdXNpbmRfYmFuaw==&bank_source=aW5kdXNfYmFuaw==&agent_code=",
   },
   // {
   //   id: "hsbc",
@@ -214,7 +214,7 @@ const creditCards: CreditCard[] = [
     pdfLink:
       "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
     applyLink:
-      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19zd2lnZ3k=&bank_source=aGRmY19iYW5r&agent_code=",
+      "https://credue.in/next/credit-card/QzAwMTExMzI=?lead_source=YXBwX2FuZHJvaWQ=&bank_name=aGRmY19zd2lnZ3k=&bank_source=aGRmY19iYW5r&agent_code=",
   },
   {
     id: "axis-lic",
@@ -253,7 +253,7 @@ const creditCards: CreditCard[] = [
     pdfLink:
       "https://drive.google.com/file/d/1qCTgChpQVEQtvaBWymCHwC1LLdRT4T-y/view?usp=sharing",
     applyLink:
-      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19saWM=&bank_source=YXhpc19saWM=&agent_code=",
+      "https://credue.in/next/credit-card/QzAwMTExMzI=?lead_source=YXBwX2FuZHJvaWQ=&bank_name=YXhpc19saWM=&bank_source=YXhpc19saWM=&agent_code=",
   },
   {
     id: "yes-popclub",
@@ -297,7 +297,7 @@ const creditCards: CreditCard[] = [
     pdfLink:
       "https://drive.google.com/file/d/10VnJxQ08ptUlsF7_ljYMY_xUssrPiHXK/view?usp=sharing",
     applyLink:
-      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=eWVzX3BvcGNsdWI=&bank_source=eWVzX3BvcGNsdWI=&agent_code=",
+      "https://credue.in/next/credit-card/QzAwMTExMzI=?lead_source=YXBwX2FuZHJvaWQ=&bank_name=eWVzX3BvcGNsdWI=&bank_source=eWVzX3BvcGNsdWI=&agent_code=",
   },
   // {
   //   id: "hsbc-liveplus",
@@ -496,7 +496,209 @@ const creditCards: CreditCard[] = [
     pdfLink:
       "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
     applyLink:
-      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19naWdh&bank_source=Z0lnYV9idXNpbmVzc19jcmVkaXRfY2FyZA==&agent_code=",
+      "https://credue.in/next/credit-card/QzAwMTExMzI=?lead_source=YXBwX2FuZHJvaWQ=&bank_name=aGRmY19naWdh&bank_source=Z0lnYV9idXNpbmVzc19jcmVkaXRfY2FyZA==&agent_code=",
+  },
+  {
+    id: "scapia-credit-card",
+    bank: "Federal Bank",
+    logo: "/Federal_Bank.png",
+    cardName: "Federal Bank Scapia Credit Card",
+    cardImage: "/scapia2.png",
+    tagline: "Special Rewards on Online and Offline Spends",
+    cashbackRate: "Up to 10%",
+    rewardPoints: "Scapia Coins",
+    welcomeBonus: "Varies by Card",
+    features: [
+      "Unlimited domestic airport lounge access",
+      "Zero forex mark-up on international spends",
+      "Up to 20% Scapia coins on card spend",
+      "10% Scapia Coins on online and offline transactions made across all merchants in India",
+    ],
+    detailedBenefits: [
+      "Earn 10% rewards on your VISA card on all eligible online and offline spends.",
+      "Earn 20% rewards on all bookings and purchases on the Scapia app.",
+      "Exclusive travel discounts.",
+      "Spend ₹10k monthly on VISA or ₹15k on RuPay Card to get unlimited domestic airport lounge access.",
+      "Earn 5% rewards on your RuPay card on all eligible online and offline spends.",
+      "Redeem Scapia coins for exciting rewards and vouchers on the Scapia app.",
+    ],
+    benefits: [
+      "Special rewards on online and offline spends",
+      "Travel & bookings discounts",
+      "Zero forex mark-up",
+    ],
+    eligibilityNote:
+      "Fill your details to know eligibility. Federal Bank will shortlist Scapia or other suitable cards as per your credit score and income.",
+    howToApply: [
+      "Click 'Apply'",
+      "Fill your details",
+      "Get your credit card within 5-7 days",
+    ],
+    pdfLink:
+      "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
+    applyLink:
+      "https://credue.in/next/credit-card/QzAwMTExMzI=?lead_source=YXBwX2FuZHJvaWQ=&bank_name=c2NhcGlhX2NyZWRpdF9jYXJk&bank_source=c2NhcGlh&agent_code=",
+  },
+  {
+    id: "Bank-of-Baroda",
+    bank: "Bank of Baroda",
+    logo: "/bob_logo.svg",
+    cardName: "Bank of Baroda Credit Card",
+    cardImage: "/Bank of Baroda Credit Card.png",
+    tagline:
+      "Special Rewards on Travel, Dining, Online & International Spends.",
+    cashbackRate: "Up to 10%",
+    rewardPoints: "15 Reward Points per ₹100 spent",
+    welcomeBonus: "Varies by Card",
+    features: [
+      "15 Reward Points on every ₹100 Spent on Travel, Dining, Online & International Spends",
+      "Complementary Domestic Airport Lounge Access",
+      "12 Months Amazon prime Membership",
+      "Complementary women centric health packages and Accidental Insurance Cover",
+    ],
+    detailedBenefits: [
+      "15 Reward Points on every ₹100 Spent on Travel, Dining, Online & International Spends.",
+      "Complementary Domestic Airport Lounge Access.",
+      "12 Months Amazon prime Membership.",
+      "Complementary women centric health packages and Accidental Insurance Cover.",
+    ],
+    benefits: [
+      "Reward Points on every Spent on Travel, Dining, Online & International Spends",
+      "Complementary Domestic Airport Lounge Access",
+      "Complementary women centric health packages and Accidental Insurance Cover",
+    ],
+    eligibilityNote:
+      "Fill your details to know eligibility. Bank of Baroda will shortlist Premier or other suitable cards as per your credit score and income.",
+    howToApply: [
+      "Click 'Apply'",
+      "Fill your details",
+      "Get your credit card within 5-7 days",
+    ],
+    pdfLink:
+      "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
+    applyLink:
+      "https://credue.in/next/credit-card/QzAwMTExMzI=?lead_source=YXBwX2FuZHJvaWQ=&bank_name=YmFua19vZl9iYXJvZGE=&bank_source=cmtwbA==&agent_code=",
+  },
+  {
+    id: "au-bank",
+    bank: "AU Bank",
+    logo: "/au_bank.svg",
+    cardName: "Bank of Baroda Credit Card",
+    cardImage: "/AU Bank Credit Card.png",
+    tagline: "Special Rewards on Grocery, Retail spends.",
+    cashbackRate: "Up to 10%",
+    rewardPoints: "Amazon Prime, ZEE5 and Cult Fit",
+    welcomeBonus: "Varies by Card",
+    features: [
+      "Customisable card according to your preference",
+      "5% cashback on grocery, retail",
+      "Complimentary Amazon Prime, ZEE5 and Cult Fit",
+      "Low forex markup fee of 0.99%",
+    ],
+    detailedBenefits: [
+      "Customisable card according to your preference",
+      "5% cashback on grocery, retail",
+      "Complimentary Amazon Prime, ZEE5 and Cult Fit",
+      "Low forex markup fee of 0.99%",
+    ],
+    benefits: [
+      "Customisable card according to your preference",
+      "5% cashback on grocery, retail",
+      "Complimentary Amazon Prime, ZEE5 and Cult Fit",
+      "Low forex markup fee of 0.99%",
+    ],
+    eligibilityNote:
+      "Fill your details to know eligibility. AU Bank will shortlist Vetta or other suitable cards as per your credit score and income.",
+    howToApply: [
+      "Click 'Apply'",
+      "Fill your details",
+      "Get your credit card within 5-7 days",
+    ],
+    pdfLink:
+      "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
+    applyLink:
+      "https://credue.in/next/credit-card/QzAwMTExMzI=?lead_source=YXBwX2FuZHJvaWQ=&bank_name=YXVfYmFuaw==&bank_source=YXVfYmFuaw==&agent_code=",
+  },
+  {
+    id: "idfc-bank",
+    bank: "IDFC Bank",
+    logo: "/idfc_bank.svg",
+    cardName: "IDFC Bank Credit Card",
+    cardImage: "/IDFC First Bank Credit Card.png",
+    tagline: "Special Rewards on Travel, Dining and Entertainmnet",
+    cashbackRate: "Up to 5%",
+    rewardPoints: "1% Unlimited Cashback",
+    welcomeBonus: "Varies by Card",
+    features: [
+      "Complimentary lounge access worldwide",
+      "1% Unlimited Cashback",
+      "5% cashback on dining, entertainment and travel",
+      "25% savings on Swiggy Dineout",
+    ],
+    detailedBenefits: [
+      "Complimentary lounge access worldwide",
+      "1% Unlimited Cashback",
+      "5% cashback on dining, entertainment and travel",
+      "25% savings on Swiggy Dineout",
+    ],
+    benefits: [
+      "You will get complimentary lounge access worldwide",
+      "1% Unlimited Cashback on the spends",
+      "5% cashback on dining, entertainment and travel spends",
+      "25% savings on Swiggy Dineout",
+    ],
+    eligibilityNote:
+      "Fill your details to know eligibility. IDFC Bank will shortlist First Select or other suitable cards as per your credit score and income.",
+    howToApply: [
+      "Click 'Apply'",
+      "Fill your details",
+      "Get your credit card within 5-7 days",
+    ],
+    pdfLink:
+      "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
+    applyLink:
+      "https://credue.in/next/credit-card/QzAwMTExMzI=?lead_source=YXBwX2FuZHJvaWQ=&bank_name=aWRmY19iYW5r&bank_source=aWRmY19iYW5r&agent_code=",
+  },
+  {
+    id: "idfc-first-power-bank",
+    bank: "IDFC Bank",
+    logo: "/idfc_bank.svg",
+    cardName: "IDFC Bank RUPAY Credit Card",
+    cardImage: "/IDFC-First-Bank-HPCL.png",
+    tagline: "Special Rewards on Fuel Spends",
+    cashbackRate: "N/A",
+    rewardPoints: "N/A",
+    welcomeBonus:
+      "₹500 gift voucher on 1st HPCL fuel transaction of ₹500 or above",
+    features: [
+      "6.5% savings on fuel spends as reward points",
+      "Up to 8.83% savings on travel via IDFC FIRST app",
+      "25% off on movie tickets up to ₹100, once every month",
+      "₹500 gift voucher on 1st HPCL fuel transaction of ₹500 or above",
+    ],
+    detailedBenefits: [
+      "When you purchase fuel, you receive 6.5% of the total amount back in the form of reward points.",
+      "You can achieve savings of up to 8.83% on expenses related to travel (such as booking flights, hotels, or bus tickets) when these transactions are processed specifically through the bank's IDFC FIRST mobile application or portal.",
+      "This benefit provides a 25% discount on the cost of movie tickets. The maximum discount you can claim per transaction is ₹100, and you can avail of this offer one time during each calendar month.",
+      "As a welcome benefit or promotion, after successfully completing your very first fuel transaction at any HPCL (Hindustan Petroleum Corporation Ltd.) outlet that is valued at ₹500 or more, you will be rewarded with a ₹500 gift voucher.",
+    ],
+    benefits: [
+      "6.5% savings on fuel spends as reward points",
+      "Up to 8.83% savings on travel via IDFC FIRST app",
+      "25% off on movie tickets up to ₹100, once every month",
+      "₹500 gift voucher on 1st HPCL fuel transaction of ₹500 or above",
+    ],
+    eligibilityNote:
+      "Fill your details to know eligibility. IDFC Bank will shortlist First Power or other suitable cards as per your credit score and income.",
+    howToApply: [
+      "Click 'Apply'",
+      "Fill your details",
+      "Get your credit card within 5-7 days",
+    ],
+    pdfLink:
+      "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
+    applyLink:
+      "https://credue.in/next/credit-card/QzAwMTExMzI=?lead_source=YXBwX2FuZHJvaWQ=&bank_name=aWRmY19wb3dlcl9ydXBheV9jYXJk&bank_source=aWRmY19iYW5r&agent_code=",
   },
 ];
 
@@ -690,7 +892,85 @@ export default function CreditCardsPage() {
   </div>
 </motion.div> */}
       </header>
+      <section className="py-6 sm:py-8 bg-gradient-to-r from-blue-50 to-indigo-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 sm:gap-8">
+            {/* Left Side - Text and Buttons */}
+            <div className="sm:w-auto flex-shrink-0 w-full sm:max-w-[200px]">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-800">
+                Not Sure Which Card to Pick?
+              </h3>
+              <p className="text-gray-600 text-sm mt-1">
+                Find the perfect card for your client
+              </p>
+              <div className="flex flex-wrap gap-2 sm:gap-3 pt-3">
+                <Link
+                  href="https://credue.in/next/credit-card-eligibility?cba_code=QzAwMTExMzI="
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 sm:px-4 sm:py-2.5 text-sm rounded-lg font-medium transition-colors duration-300 whitespace-nowrap"
+                >
+                  Add Lead
+                </Link>
+                <button className="text-green-600 hover:text-green-700 font-medium text-sm flex items-center gap-1 sm:gap-2 transition-colors duration-300 whitespace-nowrap">
+                  Copy Link
+                </button>
+              </div>
+            </div>
 
+            {/* Right Side - Credit Cards (Smaller, Horizontal) */}
+            <div className="flex justify-start sm:justify-end w-full sm:w-auto">
+              <div className="flex space-x-2 sm:space-x-3">
+                {/* Card 1 */}
+                <div className="relative w-20 h-12 sm:w-24 sm:h-14 bg-black rounded-md overflow-hidden shadow-sm transform hover:scale-105 transition-transform duration-200">
+                  <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-black"></div>
+                  <div className="absolute top-1 left-1.5 text-white text-[8px] sm:text-xs">
+                    VISA
+                  </div>
+                  <div className="absolute bottom-1 left-1.5 text-white text-[7px] sm:text-[9px] font-mono">
+                    •••• 8901
+                  </div>
+                </div>
+
+                {/* Card 2 */}
+                <div className="relative w-20 h-12 sm:w-24 sm:h-14 bg-gradient-to-r from-orange-500 to-purple-600 rounded-md overflow-hidden shadow-sm transform hover:scale-105 transition-transform duration-200">
+                  <div className="absolute top-1 left-1.5 text-white text-[8px] sm:text-xs">
+                    SWIGGY
+                  </div>
+                  <div className="absolute top-1 right-1.5 text-white text-[7px] sm:text-[9px]">
+                    HDFC
+                  </div>
+                  <div className="absolute bottom-1 left-1.5 text-white text-[7px] sm:text-[9px] font-mono">
+                    •••• 8901
+                  </div>
+                  <div className="absolute bottom-1 right-1.5 text-white">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="10"
+                      height="10"
+                      fill="currentColor"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M11 1a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11 3.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3z" />
+                      <path d="M4.5 1A1.5 1.5 0 003 2.5v9A1.5 1.5 0 004.5 13h11a1.5 1.5 0 001.5-1.5V2.5A1.5 1.5 0 0015.5 1h-11z" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Card 3 */}
+                <div className="relative w-20 h-12 sm:w-24 sm:h-14 bg-gradient-to-r from-green-600 to-teal-500 rounded-md overflow-hidden shadow-sm transform hover:scale-105 transition-transform duration-200">
+                  <div className="absolute top-1 left-1.5 text-white text-[8px] sm:text-xs">
+                    ESB
+                  </div>
+                  <div className="absolute bottom-1 left-1.5 text-white text-[7px] sm:text-[9px] font-mono">
+                    •••• 8901
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       {/* Filters Section */}
       <section className="py-8 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto">
@@ -982,63 +1262,6 @@ export default function CreditCardsPage() {
           )}
         </div>
       </main>
-      <section className="py-6 sm:py-8 bg-gradient-to-r from-blue-50 to-indigo-50">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 sm:gap-8">
-      {/* Left Side - Text and Buttons */}
-      <div className="sm:w-auto flex-shrink-0 w-full sm:max-w-[200px]">
-        <h3 className="text-lg sm:text-xl font-bold text-gray-800">
-          Not Sure Which Card to Pick?
-        </h3>
-        <p className="text-gray-600 text-sm mt-1">Find the perfect card for your client</p>
-        <div className="flex flex-wrap gap-2 sm:gap-3 pt-3">
-          <Link
-            href="https://credue.in/next/credit-card-eligibility?cba_code=QzAwMTExMzI="
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 sm:px-4 sm:py-2.5 text-sm rounded-lg font-medium transition-colors duration-300 whitespace-nowrap"
-          >
-            Add Lead
-          </Link>
-          <button className="text-green-600 hover:text-green-700 font-medium text-sm flex items-center gap-1 sm:gap-2 transition-colors duration-300 whitespace-nowrap">
-            Copy Link
-          </button>
-        </div>
-      </div>
-
-      {/* Right Side - Credit Cards (Smaller, Horizontal) */}
-      <div className="flex justify-start sm:justify-end w-full sm:w-auto">
-        <div className="flex space-x-2 sm:space-x-3">
-          {/* Card 1 */}
-          <div className="relative w-20 h-12 sm:w-24 sm:h-14 bg-black rounded-md overflow-hidden shadow-sm transform hover:scale-105 transition-transform duration-200">
-            <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-black"></div>
-            <div className="absolute top-1 left-1.5 text-white text-[8px] sm:text-xs">VISA</div>
-            <div className="absolute bottom-1 left-1.5 text-white text-[7px] sm:text-[9px] font-mono">•••• 8901</div>
-          </div>
-
-          {/* Card 2 */}
-          <div className="relative w-20 h-12 sm:w-24 sm:h-14 bg-gradient-to-r from-orange-500 to-purple-600 rounded-md overflow-hidden shadow-sm transform hover:scale-105 transition-transform duration-200">
-            <div className="absolute top-1 left-1.5 text-white text-[8px] sm:text-xs">SWIGGY</div>
-            <div className="absolute top-1 right-1.5 text-white text-[7px] sm:text-[9px]">HDFC</div>
-            <div className="absolute bottom-1 left-1.5 text-white text-[7px] sm:text-[9px] font-mono">•••• 8901</div>
-            <div className="absolute bottom-1 right-1.5 text-white">
-              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M11 1a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11 3.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/>
-                <path d="M4.5 1A1.5 1.5 0 003 2.5v9A1.5 1.5 0 004.5 13h11a1.5 1.5 0 001.5-1.5V2.5A1.5 1.5 0 0015.5 1h-11z"/>
-              </svg>
-            </div>
-          </div>
-
-          {/* Card 3 */}
-          <div className="relative w-20 h-12 sm:w-24 sm:h-14 bg-gradient-to-r from-green-600 to-teal-500 rounded-md overflow-hidden shadow-sm transform hover:scale-105 transition-transform duration-200">
-            <div className="absolute top-1 left-1.5 text-white text-[8px] sm:text-xs">ESB</div>
-            <div className="absolute bottom-1 left-1.5 text-white text-[7px] sm:text-[9px] font-mono">•••• 8901</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
       {/* Why Choose Us */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-emerald-700 to-teal-800 text-white">

@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 
-// Mock tracking function (replace with your GA/GTM)
 const trackEvent = (category: string, label: string) => {
   console.log(`[GA] ${category} | ${label}`);
 };
@@ -15,7 +15,7 @@ type FeatureCard = {
   subtitle: string;
   buttonText?: string;
   href: string;
-  bgColor: string; // Tailwind class or custom color
+  bgColor: string; 
   icon: React.ReactNode;
   trackLabel: string;
 };
@@ -114,59 +114,120 @@ export default function FeatureCardCarousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: false,
     align: 'start',
-    slidesToScroll: 3, // 👈 GROUP BY 3
-    skipSnaps: false,
+    slidesToScroll: 1, 
     dragFree: false,
+    
+    breakpoints: {
+      '(min-width: 640px)': { slidesToScroll: 2 }, 
+      '(min-width: 1024px)': { slidesToScroll: 3, dragFree: false }, 
+    },
   });
 
+  const AUTOSCROLL_DELAY = 4000; 
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [autoScrollActive, setAutoScrollActive] = useState(true);
 
-  const onSelect = useCallback(() => {
+  // --- Dot Navigation/Index Update Logic ---
+  const updateSelectedIndex = useCallback(() => {
     if (!emblaApi) return;
     setSelectedIndex(emblaApi.selectedScrollSnap());
   }, [emblaApi]);
 
+  const onInit = useCallback(() => {
+    if (!emblaApi) return;
+    setScrollSnaps(emblaApi.scrollSnapList()); 
+    updateSelectedIndex();
+  }, [emblaApi, updateSelectedIndex]);
+
+
+  // --- Autoplay Logic ---
+  const autoScroll = useCallback(() => {
+    if (!emblaApi) return;
+    
+    if (emblaApi.canScrollNext()) {
+      emblaApi.scrollNext();
+    } else {
+      emblaApi.scrollTo(0);
+    }
+  }, [emblaApi]);
+
+  const toggleAutoplay = useCallback((active: boolean) => {
+    setAutoScrollActive(active);
+  }, []);
+
   useEffect(() => {
     if (!emblaApi) return;
-    setScrollSnaps(emblaApi.scrollSnapList());
-    onSelect();
-    emblaApi.on('select', onSelect);
-  }, [emblaApi, onSelect]);
+
+    // 1. Setup listeners for dot navigation
+    emblaApi.on('select', updateSelectedIndex);
+    emblaApi.on('init', onInit);
+    emblaApi.on('reInit', onInit);
+    
+    // 2. Setup listeners for autoplay pause/resume
+    emblaApi.on('pointerDown', () => setAutoScrollActive(false)); 
+    emblaApi.on('pointerUp', () => setAutoScrollActive(true)); 
+
+    // Cleanup listeners
+    return () => {
+        emblaApi.off('select', updateSelectedIndex);
+        emblaApi.off('init', onInit);
+        emblaApi.off('reInit', onInit);
+        emblaApi.off('pointerDown', () => setAutoScrollActive(false));
+        emblaApi.off('pointerUp', () => setAutoScrollActive(true));
+    };
+  }, [emblaApi, updateSelectedIndex, onInit]);
+
+  useEffect(() => {
+    if (!emblaApi || !autoScrollActive) return;
+
+    // Autoplay Timer Management
+    const timer = setInterval(autoScroll, AUTOSCROLL_DELAY);
+
+    return () => {
+      clearInterval(timer); // Clear timer on unmount or when autoScrollActive changes to false
+    };
+  }, [emblaApi, autoScroll, autoScrollActive]);
+  // ------------------------------------------------------------------
 
   const handleCardClick = (trackLabel: string) => {
-    trackEvent('carousel-featurebanner', trackLabel);
+    trackEvent('carousel-featurebanner', trackLabel); 
   };
 
   return (
-    <div className="blk-prd featurebox py-8">
-      <div className="container mx-auto px-4">
+    <div className="blk-prd featurebox py-8 bg-gradient-to-br from-slate-50 via-teal-50 to-emerald-100"> 
+      <div className="container mx-auto px-4 max-w-7xl"> 
+        <h2 className="text-3xl font-extrabold text-gray-800 mb-6 text-center">Featured Solutions</h2>
+        
         <div className="featurebanner relative">
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex -mx-2">
               {featureCards.map((card) => (
-                <div key={card.id} className="flex-[0_0_calc(100%/3)] px-2">
-                  {/* Your card JSX — remove the inner <button> to fix drag */}
+                <div 
+                    key={card.id} 
+                    className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_calc(100%/3)] px-2"
+                >
                   <Link
                     href={card.href}
                     onClick={() => handleCardClick(card.trackLabel)}
-                    className={`block rounded-xl p-5 shadow-lg ${card.bgColor} text-white h-[220px] flex flex-col justify-between`}
+                    className={`block rounded-xl p-5 shadow-2xl transition-all duration-300 transform hover:-translate-y-1 ${card.bgColor} text-white h-[220px] flex flex-col justify-between`}
                   >
                     <div className="flex items-start justify-between mb-3">
-                      <div className="text-xs font-medium opacity-80">
+                      <div className="text-sm font-medium opacity-80 uppercase">
                         {card.title}
                       </div>
                       <div className="text-2xl">{card.icon}</div>
                     </div>
                     <div className="mb-4 flex-grow">
                       <p
-                        className="text-lg font-semibold leading-tight"
+                        className="text-lg md:text-xl font-semibold leading-snug"
                         dangerouslySetInnerHTML={{ __html: card.subtitle }}
                       />
                     </div>
                     {card.buttonText && (
-                      <div className="text-white/90 text-sm font-medium">
-                        {card.buttonText} →
+                      <div className="mt-4 text-white font-bold flex items-center gap-2">
+                        <span>{card.buttonText}</span>
+                        <span className="text-xl transition-transform group-hover:translate-x-1">→</span>
                       </div>
                     )}
                   </Link>
@@ -175,19 +236,19 @@ export default function FeatureCardCarousel() {
             </div>
           </div>
 
-          {/* Dots — now based on real scroll snaps */}
-          <div className="embla__dots flex justify-center gap-2 mt-6">
-            {scrollSnaps.map((_, idx) => (
+          {/* Dots: Fixed logic to iterate over scroll snap positions */}
+          {/* <div className="embla__dots flex justify-center gap-2 mt-6">
+            {scrollSnaps.map((snap, idx) => (
               <button
-                key={idx}
-                className={`w-3 h-3 rounded-full ${
-                  selectedIndex === idx ? 'bg-blue-600' : 'bg-gray-300'
+                key={snap}
+                onClick={() => emblaApi?.scrollTo(snap)} 
+                className={`w-3 h-3 rounded-full transition-colors duration-300 ${
+                  selectedIndex === snap ? 'bg-blue-600 scale-110' : 'bg-gray-300 hover:bg-gray-400'
                 }`}
-                onClick={() => emblaApi?.scrollTo(idx)}
-                aria-label={`Go to slide ${idx + 1}`}
+                aria-label={`Go to slide group ${idx + 1}`}
               />
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
