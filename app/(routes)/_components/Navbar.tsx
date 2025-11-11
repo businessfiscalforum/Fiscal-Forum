@@ -2,34 +2,35 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Menu, X, ChevronDown, LineChart, Banknote, Shield, CreditCard, PiggyBank, Landmark, FileText } from "lucide-react";
 import { SignedIn, SignedOut, SignOutButton, useUser } from "@clerk/nextjs";
 
 export default function Navbar() {
   const { user } = useUser();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
-  const [isClient, setIsClient] = useState(false); // <-- Fix hydration mismatch
+  const [isClient, setIsClient] = useState(false);
+
+  const navRef = useRef<HTMLDivElement>(null);
 
   const navItems = [
     { label: "News & IPOs", href: "/news" },
     { label: "About Us", href: "/about-us" },
     { label: "Newsletters", href: "/newsletter" },
-    // { label: "Materials", href: "/materials" },
     { label: "Work With Us", href: "/work-with-us" },
     { label: "Reports", href: "/reports" },
     { label: "Refer & Earn", href: "/referrals" },
   ];
 
   const servicesDropdown = [
-    { name: "Stock Investment", href: "/services/stock-investment" },
-    { name: "Mutual Funds", href: "/services/mutual-funds" },
-    { name: "Insurance", href: "/services/insurance" },
-    { name: "Credit Card", href: "/services/credit-card" },
-    { name: "Saving Account", href: "/services/saving-account" },
-    { name: "Loan", href: "/services/loan" },
-    { name: "Govt Bonds & FD", href: "/services/govt-bonds-&-fd" },
+    { name: "Stock Investment", href: "/services/stock-investment", icon: <LineChart className="w-5 h-5 text-green-600" /> },
+    { name: "Mutual Funds", href: "/services/mutual-funds", icon: <Banknote className="w-5 h-5 text-green-600" /> },
+    { name: "Insurance", href: "/services/insurance", icon: <Shield className="w-5 h-5 text-green-600" /> },
+    { name: "Credit Card", href: "/services/credit-card", icon: <CreditCard className="w-5 h-5 text-green-600" /> },
+    { name: "Saving Account", href: "/services/saving-account", icon: <PiggyBank className="w-5 h-5 text-green-600" /> },
+    { name: "Loan", href: "/services/loan", icon: <Landmark className="w-5 h-5 text-green-600" /> },
+    { name: "Govt Bonds & FD", href: "/services/govt-bonds-&-fd", icon: <FileText className="w-5 h-5 text-green-600" /> },
   ];
 
   const closeAll = () => {
@@ -37,34 +38,35 @@ export default function Navbar() {
     setServicesOpen(false);
   };
 
-  // Mark as client-side after mount
+  // Detect outside click
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        closeAll();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Fix hydration mismatch
   useEffect(() => {
     setIsClient(true);
   }, []);
 
   return (
     <nav
-      className="fixed z-50 w-full 
-  bg-white
-   shadow-lg 
-  px-4 sm:px-5 md:px-6 lg:px-8 xl:px-10 2xl:px-12
-  py-4
-  "
+      ref={navRef}
+      className="fixed z-50 w-full bg-white shadow-lg 
+      px-4 sm:px-5 md:px-6 lg:px-8 xl:px-10 2xl:px-12 py-4"
     >
       <div className="flex justify-between items-center relative">
         {/* Logo */}
-        <div className="flex items-center gap-3">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="rounded-full flex items-center justify-center p-1 overflow-hidden">
-              <Image
-                src="/forum1.ico"
-                alt="Fiscal Forum"
-                width={80}
-                height={80}
-              />
-            </div>
-          </Link>
-        </div>
+        <Link href="/" className="flex items-center gap-3">
+          <div className="rounded-full flex items-center justify-center p-1 overflow-hidden">
+            <Image src="/forum1.ico" alt="Fiscal Forum" width={80} height={80} />
+          </div>
+        </Link>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-6 lg:space-x-8 text-sm font-medium text-green-900">
@@ -73,7 +75,6 @@ export default function Navbar() {
             <button
               onClick={() => setServicesOpen(!servicesOpen)}
               className="flex items-center gap-1 text-green-800 hover:text-green-600 font-medium transition-colors py-2 relative"
-              aria-expanded={servicesOpen}
             >
               Services
               <ChevronDown
@@ -86,8 +87,8 @@ export default function Navbar() {
             {servicesOpen && (
               <div
                 className="fixed top-[100px] left-1/2 -translate-x-1/2
-  w-[calc(100vw-2rem)] max-w-7xl
-  bg-white border border-green-100 shadow-2xl z-50"
+                w-[calc(100vw-2rem)] max-w-7xl
+                bg-white border border-green-100 shadow-2xl z-50 rounded-xl overflow-hidden"
               >
                 <div className="bg-gradient-to-r from-green-50 to-emerald-50 px-4 py-3 md:px-6 md:py-4 border-b border-green-100">
                   <h3 className="text-base md:text-lg font-bold text-green-900">
@@ -107,11 +108,7 @@ export default function Navbar() {
                       className="group/item p-3 md:p-4 rounded-xl border border-green-100 hover:border-green-300 hover:shadow-md transition-all duration-300 bg-white"
                     >
                       <div className="flex items-start gap-3">
-                        <div className="flex-shrink-0 mt-1">
-                          <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-green-100 flex items-center justify-center group-hover/item:bg-green-600 transition-colors">
-                            <div className="w-4 h-4 md:w-5 md:h-5 rounded-sm bg-green-600 group-hover/item:bg-white transition-colors"></div>
-                          </div>
-                        </div>
+                        <div className="flex-shrink-0 mt-1">{service.icon}</div>
                         <div>
                           <h4 className="font-semibold text-green-900 group-hover/item:text-green-700 transition-colors text-sm md:text-base">
                             {service.name}
@@ -155,55 +152,55 @@ export default function Navbar() {
             </Link>
           ))}
 
-          {/* Authenticated User Menu or Sign Up */}
-          {isClient ? (
-            <SignedIn>
-              <div className="relative">
-                <button
-                  className="flex items-center gap-2"
-                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                >
-                  <Image
-                    src={user?.imageUrl || "/user-icon.webp"}
-                    alt={user?.fullName || "User"}
-                    width={32}
-                    height={32}
-                    className="rounded-full border border-green-200"
-                  />
-                </button>
+          {/* Authenticated User Menu */}
+          {isClient && (
+            <>
+              <SignedIn>
+                <div className="relative">
+                  <button
+                    className="flex items-center gap-2"
+                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  >
+                    <Image
+                      src={user?.imageUrl || "/user-icon.webp"}
+                      alt={user?.fullName || "User"}
+                      width={32}
+                      height={32}
+                      className="rounded-full border border-green-200"
+                    />
+                  </button>
 
-                {mobileMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white text-green-900 border border-green-100 shadow-lg rounded-lg z-50 py-2">
-                    <Link
-                      href="/dashboard"
-                      className="block px-4 py-2.5 hover:bg-green-50 text-sm"
-                      onClick={closeAll}
-                    >
-                      Dashboard
-                    </Link>
-                    <SignOutButton>
-                      <button
-                        className="w-full text-left px-4 py-2.5 hover:bg-red-50 text-red-600 text-sm"
+                  {mobileMenuOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-white text-green-900 border border-green-100 shadow-lg rounded-lg z-50 py-2">
+                      <Link
+                        href="/dashboard"
+                        className="block px-4 py-2.5 hover:bg-green-50 text-sm"
                         onClick={closeAll}
                       >
-                        Sign Out
-                      </button>
-                    </SignOutButton>
-                  </div>
-                )}
-              </div>
-            </SignedIn>
-          ) : null}
+                        Dashboard
+                      </Link>
+                      <SignOutButton>
+                        <button
+                          className="w-full text-left px-4 py-2.5 hover:bg-red-50 text-red-600 text-sm"
+                          onClick={closeAll}
+                        >
+                          Sign Out
+                        </button>
+                      </SignOutButton>
+                    </div>
+                  )}
+                </div>
+              </SignedIn>
 
-          {isClient ? (
-            <SignedOut>
-              <Link href="/sign-up">
-                <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors">
-                  Register
-                </button>
-              </Link>
-            </SignedOut>
-          ) : null}
+              <SignedOut>
+                <Link href="/sign-up">
+                  <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors">
+                    Register
+                  </button>
+                </Link>
+              </SignedOut>
+            </>
+          )}
         </div>
 
         {/* Mobile Toggle */}
@@ -221,78 +218,74 @@ export default function Navbar() {
       {/* Mobile Nav Drawer */}
       {mobileMenuOpen && (
         <div className="mt-4 bg-white shadow-xl md:hidden border border-green-100 rounded-lg">
-          <div>
-            <button
-              className="flex items-center justify-between w-full px-4 py-3 text-green-900 font-medium"
-              onClick={() => setServicesOpen(!servicesOpen)}
-            >
-              <span>Services</span>
-              <ChevronDown
-                size={20}
-                className={`${servicesOpen ? "rotate-180" : ""} transition-transform`}
-              />
-            </button>
+          <button
+            className="flex items-center justify-between w-full px-4 py-3 text-green-900 font-medium"
+            onClick={() => setServicesOpen(!servicesOpen)}
+          >
+            <span>Services</span>
+            <ChevronDown
+              size={20}
+              className={`${servicesOpen ? "rotate-180" : ""} transition-transform`}
+            />
+          </button>
 
-            {servicesOpen && (
-              <div className="bg-green-50 border-t border-green-100">
-                {servicesDropdown.map((service) => (
-                  <Link
-                    key={service.name}
-                    href={service.href}
-                    className="block px-4 py-3 text-sm text-gray-700 border-b border-green-50 last:border-0 hover:bg-green-100"
-                    onClick={closeAll}
-                  >
-                    {service.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div>
-            {navItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="block px-4 py-3 text-sm text-gray-700 border-b border-green-50 last:border-0 hover:bg-green-50"
-                onClick={closeAll}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-
-          {/* Mobile User Section */}
-          {isClient ? (
-            <SignedIn>
-              <Link
-                href="/dashboard"
-                className="block px-4 py-3 text-sm text-green-700 hover:bg-green-50"
-                onClick={closeAll}
-              >
-                Dashboard
-              </Link>
-              <div className="px-4 py-3 border-b border-green-50">
-                <SignOutButton>
-                  <button className="w-full bg-red-50 hover:bg-red-100 text-red-600 px-4 py-2.5 rounded-lg text-sm font-medium">
-                    Sign Out
-                  </button>
-                </SignOutButton>
-              </div>
-            </SignedIn>
-          ) : null}
-
-          {isClient ? (
-            <SignedOut>
-              <div className="px-4 py-3">
-                <Link href="/sign-up">
-                  <button className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-lg text-sm font-medium">
-                    Register
-                  </button>
+          {servicesOpen && (
+            <div className="bg-green-50 border-t border-green-100">
+              {servicesDropdown.map((service) => (
+                <Link
+                  key={service.name}
+                  href={service.href}
+                  className="flex items-center gap-2 px-4 py-3 text-sm text-gray-700 border-b border-green-50 last:border-0 hover:bg-green-100"
+                  onClick={closeAll}
+                >
+                  {service.icon}
+                  {service.name}
                 </Link>
-              </div>
-            </SignedOut>
-          ) : null}
+              ))}
+            </div>
+          )}
+
+          {navItems.map((item) => (
+            <Link
+              key={item.label}
+              href={item.href}
+              className="block px-4 py-3 text-sm text-gray-700 border-b border-green-50 last:border-0 hover:bg-green-50"
+              onClick={closeAll}
+            >
+              {item.label}
+            </Link>
+          ))}
+
+          {isClient && (
+            <>
+              <SignedIn>
+                <Link
+                  href="/dashboard"
+                  className="block px-4 py-3 text-sm text-green-700 hover:bg-green-50"
+                  onClick={closeAll}
+                >
+                  Dashboard
+                </Link>
+                <div className="px-4 py-3 border-b border-green-50">
+                  <SignOutButton>
+                    <button className="w-full bg-red-50 hover:bg-red-100 text-red-600 px-4 py-2.5 rounded-lg text-sm font-medium">
+                      Sign Out
+                    </button>
+                  </SignOutButton>
+                </div>
+              </SignedIn>
+
+              <SignedOut>
+                <div className="px-4 py-3">
+                  <Link href="/sign-up">
+                    <button className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-lg text-sm font-medium">
+                      Register
+                    </button>
+                  </Link>
+                </div>
+              </SignedOut>
+            </>
+          )}
         </div>
       )}
     </nav>

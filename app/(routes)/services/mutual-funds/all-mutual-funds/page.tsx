@@ -117,7 +117,7 @@ export default function AllMutualFundsPage() {
         </div>
 
         {/* PDF Viewer (Google Drive) */}
-        <motion.div
+        {/* <motion.div
           className="bg-white rounded-2xl shadow-xl border border-emerald-200 overflow-hidden h-[calc(100vh-220px)]"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -128,7 +128,7 @@ export default function AllMutualFundsPage() {
             className="w-full h-full border-none"
             allow="autoplay"
           />
-        </motion.div>
+        </motion.div> */}
       </div>
     </div>
   );

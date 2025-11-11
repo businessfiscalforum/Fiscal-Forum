@@ -129,7 +129,7 @@ const SavingAccountPage = () => {
       <div className="text-gray-800 font-sans bg-gradient-to-br from-slate-50 via-teal-50 to-emerald-100 min-h-screen">
 
         {/* Zero Fee Banking Section */}
-        <section className="py-16 bg-gradient-to-r from-teal-50 to-emerald-50">
+        <section className="py-30 bg-gradient-to-r from-teal-50 to-emerald-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-teal-900 mb-4">

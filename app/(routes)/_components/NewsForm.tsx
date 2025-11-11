@@ -598,18 +598,18 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
 
             {/* --- Gains and Links --- */}
 
-            {/* Listing Gain */}
+            {/* Listing Gain / gmp */}
             <div>
               <label
                 htmlFor="listingGain"
                 className="block text-sm font-medium text-teal-800 mb-2"
               >
-                Listing Gain (Ex: +10%)
+                GMP (Ex: +10%)
               </label>
               <input
                 type="text"
-                name="listingGain"
-                id="listingGain"
+                name="gmp"
+                id="gmp"
                 defaultValue={formData.listingGain || ""}
                 placeholder="Ex: +10% or -5%"
                 className="w-full px-4 py-3 border border-teal-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition bg-white"

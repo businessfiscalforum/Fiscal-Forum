@@ -78,7 +78,8 @@ export default function AboutUs() {
       </section>
 
       {/* Services Section */}
-      <section className="relative py-16 px-6 md:px-20 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-3xl mx-4 md:mx-16 shadow-md z-10">
+      <section className="relative py-16 px-4 md:px-10 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-3xl mx-4 md:mx-10 shadow-xl z-10">
+    <div className="max-w-5xl mx-auto"> 
         <h2 className="text-3xl font-semibold text-emerald-800 text-center mb-10">
           Services We Offer
         </h2>
@@ -99,10 +100,11 @@ export default function AboutUs() {
             </motion.div>
           ))}
         </div>
-      </section>
+    </div>
+</section>
 
       {/* Research Reports Section */}
-      <section className="py-20 px-6 md:px-20 text-center relative z-10">
+      {/* <section className="py-20 px-6 md:px-20 text-center relative z-10">
         <h2 className="text-3xl font-semibold text-emerald-800 mb-8">
           Research Reports
         </h2>
@@ -136,7 +138,7 @@ export default function AboutUs() {
             Explore All Reports
           </Link>
         </div>
-      </section>
+      </section> */}
 
       {/* Why Choose Us */}
       {/* <section className="py-20 px-6 md:px-16 text-center relative z-10">
@@ -160,7 +162,7 @@ export default function AboutUs() {
       </section> */}
 
       {/* Comprehensive Commission Section */}
-      <section className="py-20 px-6 md:px-20 bg-emerald-50 rounded-3xl mx-4 md:mx-16 shadow-md relative z-10">
+      {/* <section className="py-20 px-6 md:px-20 bg-emerald-50 rounded-3xl mx-4 md:mx-16 shadow-md relative z-10">
         <h2 className="text-3xl font-semibold text-emerald-800 text-center mb-8">
           Commissions & Rewards
         </h2>
@@ -171,7 +173,6 @@ export default function AboutUs() {
         </p>
 
         <div className="space-y-10">
-          {/* Referral Rewards */}
           <div>
             <h3 className="text-2xl font-semibold text-emerald-700 mb-3">
               1. Referral & Brokerage Sharing
@@ -202,8 +203,6 @@ export default function AboutUs() {
               </li>
             </ul>
           </div>
-
-          {/* Partner-Specific Info */}
           <div>
             <h3 className="text-2xl font-semibold text-emerald-700 mb-3">
               2. Partner-Specific Bonuses
@@ -219,14 +218,6 @@ export default function AboutUs() {
                   years if consistent activity is maintained.
                 </p>
               </div>
-              {/* <div className="bg-white rounded-xl p-5 border border-emerald-200 shadow-sm">
-                <h4 className="font-semibold text-emerald-700 mb-2">Paytm Money</h4>
-                <p className="text-sm text-gray-700 leading-relaxed">
-                  • ₹300 commission after successful trades.<br />
-                  • Deposit ₹600, execute buy & sell trades, then withdraw funds.<br />
-                  • 10% brokerage sharing for 1 year, extendable to 3 years on regular trading.
-                </p>
-              </div> */}
               <div className="bg-white rounded-xl p-5 border border-emerald-200 shadow-sm">
                 <h4 className="font-semibold text-emerald-700 mb-2">
                   Choice & Motilal Oswal
@@ -242,8 +233,6 @@ export default function AboutUs() {
               </div>
             </div>
           </div>
-
-          {/* Investment Commissions */}
           <div>
             <h3 className="text-2xl font-semibold text-emerald-700 mb-3">
               3. Investment Product Commissions
@@ -281,8 +270,6 @@ export default function AboutUs() {
               </div>
             </div>
           </div>
-
-          {/* Savings Account Commissions */}
           <div>
             <h3 className="text-2xl font-semibold text-emerald-700 mb-3">
               4. Savings Account Onboarding
@@ -302,13 +289,10 @@ export default function AboutUs() {
                 <b>FI Money</b> — ₹90 per account
                 <br />0 balance account option.
               </div>
-              {/* <div className="bg-white rounded-xl p-5 border border-emerald-200 shadow-sm text-sm">
-                <b>Airtel Payments Bank</b> — ₹80 per account<br />0 balance account.
-              </div> */}
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Contact Section */}
       <section className="py-20 text-center relative z-10">

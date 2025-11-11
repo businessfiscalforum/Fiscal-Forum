@@ -653,7 +653,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                   <div className="space-y-6">
                     {currentNews.map((news, index) => {
                       
-                      // 🎯 IPO STATUS CALCULATION
+                      // IPO STATUS CALCULATION
                       const ipoStatus = getIpoStatus(news.openDate, news.closeDate);
 
                       return (
@@ -685,19 +685,19 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                             <div
                               className={`${activeTab === "ipo-scoop" && news.image ? "md:w-3/4" : "w-full"}`}
                             >
-                              <h3 className="text-lg md:text-xl font-bold text-emerald-900 mb-2 group-hover:text-emerald-600 transition-colors">
+                              <h3 className="text-lg md:text-xl font-bold text-emerald-900 mb-2 group-hover:text-emerald-600 transition-colors"onClick={(e) => e.stopPropagation()}>
                                 {news.title}
                               </h3>
                               
                               {/* --- IPO DETAIL GRID LAYOUT (Only for ipo-scoop) --- */}
                               {activeTab === "ipo-scoop" && news.ipoName && (
-                                <div className="max-w-6xl mx-auto p-4 bg-white rounded-lg border border-gray-100">
+                                <div className="max-w-6xl mx-auto p-4 bg-white rounded-lg border border-gray-100" onClick={(e) => e.stopPropagation()}>
                                   <div className="grid grid-cols-5 gap-4">
                                     
                                     {/* Div 1: IPO Name (Col Span 2) */}
                                     <div className="col-span-2 bg-emerald-50 p-3 rounded-lg border border-emerald-100 shadow-sm">
-                                      <div className="text-sm font-semibold text-emerald-700">IPO Name</div>
-                                      <div className="text-xl font-bold text-emerald-900">{news.ipoName || "N/A"}</div>
+                                      <div className="text-sm font-semibold text-emerald-700">Considerations</div>
+                                      <div className="text-xl font-bold text-emerald-900">May Apply</div>
                                     </div>
 
                                     {/* Div 2: Price Range (Col Start 3) */}
@@ -761,7 +761,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                                         rel="noopener noreferrer"
                                         className="mt-2 inline-block text-indigo-600 hover:text-indigo-800 text-sm underline"
                                       >
-                                        Read Full Prospectus
+                                        View Allotment
                                       </a>
                                     </div>
 
@@ -802,7 +802,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
 
                                     {/* Div 11: Listing Gain (Col Span 2, Col Start 4, Row Start 5) */}
                                     <div className="col-span-2 col-start-4 row-start-5 p-3 bg-red-50/50 rounded-lg border border-red-100 shadow-sm">
-                                      <div className="text-sm font-semibold text-red-700">Listing Gain</div>
+                                      <div className="text-sm font-semibold text-red-700">GMP</div>
                                       <div className="text-base font-bold text-red-900">{news.listingGain || "N/A"}</div>
                                     </div>
                                     
@@ -821,14 +821,14 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                                       </div>
 
                                       {/* Listing Gain / Current Price (Col Span 3, starting at Col 3) */}
-                                      <div className="col-span-3 col-start-3 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                                      {/* <div className="col-span-3 col-start-3 flex flex-col sm:flex-row items-start sm:items-center gap-4">
                                         {news.listingGain && (
                                           <div
                                             className={`flex items-center gap-2 p-2 rounded-lg ${parseFloat(news.listingGain) >= 0 ? "bg-green-50 text-green-700 border border-green-200" : "bg-red-50 text-red-700 border border-red-200"}`}
                                           >
                                             <FaChartLine className="text-xs" />
                                             <span className="font-semibold text-sm">
-                                              Listing Gain: {news.listingGain}
+                                              GMP: {news.listingGain}
                                             </span>
                                           </div>
                                         )}
@@ -844,7 +844,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                                             </span>
                                           </div>
                                         )}
-                                      </div>
+                                      </div> */}
                                     </div>
                                   </div>
                                 </div>

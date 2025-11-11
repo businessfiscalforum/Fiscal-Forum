@@ -1,4 +1,3 @@
-// app/page.tsx
 "use client";
 
 import Image from "next/image";
@@ -16,8 +15,14 @@ import {
   FaSpinner, 
   FaCheck
 } from "react-icons/fa";
-import {  ChevronDown, ChevronUp } from "lucide-react";
+import { CheckCircle, ChevronDown, ChevronUp, X } from "lucide-react"; 
 import { motion } from "framer-motion";
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogPanel,
+  DialogTitle,
+} from "@headlessui/react";
 
 // --- TYPES ---
 type Broker = {
@@ -27,53 +32,6 @@ type Broker = {
   brokerage: string[];
 };
 
-// --- DATA ---
-const brokers: Broker[] = [
-  {
-    name: "Choice",
-    logo: "/choice.png",
-    link: "https://choiceindia.com/mutual-funds-investment?refercode=QzAwMTExMzI=&source=Q0hPSUNFX0NPTk5FQ1Q=",
-    brokerage:["• Smart mutual fund investing with expert recommendations",
-    "• Research-driven suggestions to grow your portfolio",
-    "• Smooth, flexible tracking of investments",
-    "• User-friendly platform for all experience levels",
-    "• Hassle-free wealth creation made simple",
-    "• 0 AMC charges — more money stays invested"]
-  },
-  {
-    name: "Nuvama",
-    logo: "/nuvama.png",
-    link: "  https://onboarding.nuvamawealth.com/Partner?utm_source=EMPLOYEE&utm_campaign=43065&utm_content=ELITE&utm_term=1572814",
-    brokerage:["• 30+ years of wealth management expertise",
-    "• ₹4.6+ trillion client assets under management",
-    "• Personalized wealth and investment solutions",
-    "• Alternative strategies for steady returns",
-    "• Private markets, EDGE funds, Infinity portfolios",]
-  },
-  {
-    name: "NJ Wealth",
-    logo: "/Nj-wealth.png",
-    link: "  http://p.njw.bz/47283", 
-    brokerage:["• India’s largest mutual fund distributor",
-    "• Advanced advisory tools for smarter investing",
-    "• Vast partner network for wider access",
-    "• Seamless, paperless transactions",
-    "• Empowers investors to grow wealth smartly",
-    "• 0 AMC charges — invest more, pay less"]
-  },
-  {
-    name: "Prudent",
-    logo: "/prudent.png",
-    link: "  https://fundzbazar.com/Link/jRkmixvcvvw  ",
-    brokerage:["• Trusted investment platform with 25+ years of expertise",
-    "• Powerful research support for informed decisions",
-    "• Personalized investment guidance for all investors",
-    "• Simplifies mutual fund investments",
-    "• Backed by a strong track record of trust",
-    "• 0 AMC charges — maximum savings for clients"]
-  },
-];
-
 type PreferencesFormData = {
   name: string;
   clientId: string;
@@ -81,13 +39,66 @@ type PreferencesFormData = {
   company: string;
 };
 
-// --- SUB-COMPONENTS ---
-const BrokerCard = ({ broker }: { broker: Broker }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  
+// --- DATA ---
+const brokers: Broker[] = [
+  {
+    name: "Choice",
+    logo: "/choice.png",
+    link: "https://choiceindia.com/mutual-funds-investment?refercode=QzAwMTExMzI=&source=Q0hPSUNFX0NPTk5FQ1Q=",
+    brokerage:[
+      "• Smart mutual fund investing with expert recommendations",
+      "• Research-driven suggestions to grow your portfolio",
+      "• Smooth, flexible tracking of investments",
+      "• User-friendly platform for all experience levels",
+      "• Hassle-free wealth creation made simple",
+      "• 0 AMC charges — more money stays invested"
+    ]
+  },
+  {
+    name: "Nuvama",
+    logo: "/nuvama.png",
+    link: "https://onboarding.nuvamawealth.com/Partner?utm_source=EMPLOYEE&utm_campaign=43065&utm_content=ELITE&utm_term=1572814",
+    brokerage:[
+      "• 30+ years of wealth management expertise",
+      "• ₹4.6+ trillion client assets under management",
+      "• Personalized wealth and investment solutions",
+      "• Alternative strategies for steady returns",
+      "• Private markets, EDGE funds, Infinity portfolios",
+    ]
+  },
+  {
+    name: "NJ Wealth",
+    logo: "/Nj-wealth.png",
+    link: "http://p.njw.bz/47283", 
+    brokerage:[
+      "• India’s largest mutual fund distributor",
+      "• Advanced advisory tools for smarter investing",
+      "• Vast partner network for wider access",
+      "• Seamless, paperless transactions",
+      "• Empowers investors to grow wealth smartly",
+      "• 0 AMC charges — invest more, pay less"
+    ]
+  },
+  {
+    name: "Prudent",
+    logo: "/prudent.png",
+    link: "https://fundzbazar.com/Link/jRkmixvcvvw",
+    brokerage:[
+      "• Trusted investment platform with 25+ years of expertise",
+      "• Powerful research support for informed decisions",
+      "• Personalized investment guidance for all investors",
+      "• Simplifies mutual fund investments",
+      "• Backed by a strong track record of trust",
+      "• 0 AMC charges — maximum savings for clients"
+    ]
+  },
+];
 
+
+// --- SUB-COMPONENT: BrokerCard ---
+const BrokerCard = ({ broker, onOpenModal }: { broker: Broker, onOpenModal: (broker: Broker) => void }) => {
   return (
-    <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col border border-green-200 overflow-hidden">
+    <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col border border-green-200 overflow-hidden h-full">
       {/* Top Section */}
       <div className="p-6 flex flex-col items-center text-center">
         <div className="w-20 h-20 mb-4 flex items-center justify-center bg-green-50 rounded-full">
@@ -102,57 +113,193 @@ const BrokerCard = ({ broker }: { broker: Broker }) => {
         <h2 className="text-xl font-semibold text-green-800">{broker.name}</h2>
       </div>
 
-      {/* Brokerage Details (Collapsible) */}
-      {isExpanded && (
-        <div className="px-6 pb-4 text-left bg-white">
-          <h3 className="font-bold text-green-800 mb-2">Description:</h3>
-          <ul className="space-y-1">
-            {broker.brokerage.map((detail, index) => (
-              <li
-                key={index}
-                className="text-xs text-green-900 leading-relaxed"
-              >
-                {detail}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {/* Brokerage Details (Fixed Height Section) */}
+      <div className="px-6 pb-4 text-left bg-white flex-grow">
+        <h3 className="font-bold text-green-800 mb-2">Key Benefits:</h3>
+        <ul className="space-y-1">
+          {broker.brokerage.slice(0, 3).map((detail, index) => ( 
+            <li
+              key={index}
+              className="text-xs text-green-900 leading-relaxed truncate"
+            >
+              {detail}
+            </li>
+          ))}
+          {broker.brokerage.length > 3 && (
+             <li className="text-xs text-green-700 leading-relaxed font-semibold cursor-pointer pt-1" onClick={() => onOpenModal(broker)}>
+                ... View All Details
+            </li>
+          )}
+        </ul>
+      </div>
 
-      {/* Footer & Actions */}
+      {/* Footer & Actions (Fixed height bottom) */}
       <div className="mt-auto p-4 bg-gray-50 border-t border-green-100 flex flex-col space-y-3">
         <button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full text-sm text-green-700 font-semibold flex items-center justify-center hover:text-green-900 transition-colors"
-        >
-          {isExpanded ? "Hide" : "View Description"}
-          {isExpanded ? (
-            <ChevronUp className="w-4 h-4 ml-1" />
-          ) : (
-            <ChevronDown className="w-4 h-4 ml-1" />
-          )}
-        </button>
-        <Link
-          href={broker.link}
-          target="_blank"
-          className="w-full px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white rounded-lg text-base font-semibold hover:bg-green-700 transition text-center shadow-md"
+          onClick={() => onOpenModal(broker)}
+          className="w-full px-4 py-2  bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-lg text-base font-semibold transition text-center shadow-md"
         >
           Open Account
-        </Link>
+        </button>
       </div>
     </div>
   );
 };
 
+
+// --- NEW COMPONENT: DematAccountModal (for detailed comparison) ---
+const DematAccountModal = ({ isOpen, closeModal, broker }: { isOpen: boolean, closeModal: () => void, broker: Broker | null }) => {
+    if (!broker) return null;
+
+    return (
+        <Dialog open={isOpen} onClose={closeModal} className="relative z-50">
+            <DialogBackdrop
+                transition
+                className="fixed inset-0 bg-black/50 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200"
+            />
+
+            <div className="fixed inset-0 flex items-center justify-center p-4 sm:p-6 md:p-8 z-50 overflow-y-auto">
+                <DialogPanel
+                    transition
+                    className="w-full max-w-5xl mx-auto rounded-2xl sm:rounded-3xl bg-white shadow-2xl border border-gray-200 transform transition-all data-[closed]:scale-95 data-[closed]:opacity-0"
+                >
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 p-6 sm:p-8">
+                        {/* Left Side: Logo & Quick Details */}
+                        <div className="flex flex-col items-center justify-start space-y-6 md:border-r md:pr-6 border-gray-100">
+                            <div className="text-center w-full relative">
+                                {/* Close Button for mobile/convenience */}
+                                <button onClick={closeModal} className="absolute top-0 right-0 md:hidden text-gray-500 hover:text-gray-900">
+                                     <X size={24} />
+                                </button>
+                                
+                                <DialogTitle className="text-3xl md:text-4xl font-bold text-green-800 mb-2">
+                                    {broker.name}
+                                </DialogTitle>
+                                <p className="text-green-600 text-base md:text-lg">
+                                    Trusted Mutual Fund Partner
+                                </p>
+                            </div>
+
+                            <div className="w-full flex items-center justify-center py-4 bg-green-50 rounded-xl border border-green-100">
+                                <Image
+                                    src={broker.logo}
+                                    alt={`${broker.name} Logo`}
+                                    width={150}
+                                    height={150}
+                                    className="object-contain max-h-[150px] max-w-[150px] p-2"
+                                />
+                            </div>
+
+                            {/* Account Opening Link Card */}
+                            <div className="w-full bg-emerald-50 rounded-xl p-4 text-center border border-emerald-100">
+                                <p className="text-sm text-emerald-800 font-semibold">
+                                    Direct Investment Link
+                                </p>
+                                <Link
+                                    href={broker.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={closeModal}
+                                    className="text-lg font-bold text-emerald-600 block truncate hover:text-emerald-700 transition"
+                                >
+                                    Click to View Plans
+                                </Link>
+                            </div>
+                            
+                             {/* Exclusive Reward Card */}
+                             <div className="w-full bg-yellow-50 rounded-xl p-4 text-center border border-yellow-100">
+                                <p className="text-sm text-yellow-800 font-semibold">
+                                    Exclusive Fiscal Forum Bonus
+                                </p>
+                                <p className="text-lg font-bold text-yellow-600">
+                                    Personalized Investment Strategy
+                                </p>
+                            </div>
+                            
+                            <button
+                                type="button"
+                                onClick={closeModal}
+                                className="w-full px-4 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-xl text-lg font-semibold mt-4 hidden md:block"
+                            >
+                                Close Comparison
+                            </button>
+                        </div>
+
+                        {/* Right Side: Detailed Brokerage List (Benefits) */}
+                        <div className="flex flex-col justify-start space-y-6">
+                            <div className="space-y-5 overflow-y-auto max-h-[70vh] pr-2"> 
+                                <div>
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-2 border-b border-gray-200 pb-1">
+                                        Key Investment Benefits
+                                    </h3>
+                                    <ul className="space-y-3">
+                                        {broker.brokerage.map((detail, i) => (
+                                            <li
+                                                key={i}
+                                                className="text-lg text-gray-700 flex items-start gap-2"
+                                            >
+                                                <span className="text-green-500 mt-1 flex-shrink-0">
+                                                    <FaCheck className="w-5 h-5" />
+                                                </span>
+                                                <span className="font-medium text-gray-800">{detail}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            {/* Direct Apply Link (Repeated for convenience) */}
+                            <div className="flex flex-col justify-end gap-3 pt-4 border-t border-gray-200">
+                                <Link
+                                    href={broker.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={closeModal}
+                                    className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white rounded-xl text-lg font-bold flex items-center justify-center gap-2 shadow-lg transition"
+                                >
+                                    Open {broker.name} Account
+                                </Link>
+                                <button
+                                    type="button"
+                                    onClick={closeModal}
+                                    className="px-4 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-xl text-lg font-semibold md:hidden" 
+                                >
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </DialogPanel>
+            </div>
+        </Dialog>
+    );
+};
+
 // --- MAIN PAGE COMPONENT ---
 export default function Page() {
   const router = useRouter();
+  
+  // --- MODAL STATE ---
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedBroker, setSelectedBroker] = useState<Broker | null>(null);
+
+  const openModal = (broker: Broker) => {
+    setSelectedBroker(broker);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedBroker(null);
+  };
+  // --- END MODAL STATE ---
+
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{ text: string; type: string } | null>(
     null
   );
-    const [preferencesForm, setPreferencesForm] = useState<PreferencesFormData>({
+  const [preferencesForm, setPreferencesForm] = useState<PreferencesFormData>({
     name: "",
     clientId: "",
     fundType: [], // Initialize as empty array
@@ -323,10 +470,10 @@ export default function Page() {
         {/* Hero Section */}
         <div className="text-center mb-12 pt-8">
           <motion.h1
-            className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-green-800 mb-4"
-            initial={{ opacity: 0, y: -20 }}
+            className="text-3xl sm:text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-800 via-emerald-700 to-teal-700 mb-6 leading-tight"
+            initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.7 }}
           >
             Open Your Mutual Funds Account
           </motion.h1>
@@ -408,7 +555,7 @@ export default function Page() {
           </div>
         </section>
 
-         <motion.section 
+          {/* <motion.section 
           className="bg-white border border-green-200 rounded-2xl shadow-md p-6 md:p-8 mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -550,195 +697,35 @@ export default function Page() {
               </button>
             </div>
           </form>
-        </motion.section>
+        </motion.section> */}
 
-        {/* Brokers List */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
+        {/* Brokers List (Container for equal heights) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
           {brokers.map((broker) => (
             <motion.div
               key={broker.name}
+              // Applied h-full and flex to the motion.div to ensure BrokerCard uses full height
+              className="h-full flex" 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
             >
-              <BrokerCard broker={broker} />
+              {/* CORRECTED: Passing openModal handler */}
+              <BrokerCard 
+                  broker={broker} 
+                  onOpenModal={openModal} 
+              />
             </motion.div>
           ))}
         </div>
 
-        {/* How to Transfer Section */}
-        {/* <section className="py-12 px-4 sm:px-6 mb-12">
-          <div className="max-w-5xl mx-auto">
-            <motion.div
-              className="text-center mb-10"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-3">
-                If you want to transfer your holdings with us, See how you can!
-              </h2>
-              <p className="text-base sm:text-lg text-gray-600">
-                Seamless, paperless, and completed in just a few steps.
-              </p>
-            </motion.div>
-
-            <div className="relative space-y-8">
-              <motion.div
-                className="flex items-start"
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 text-white rounded-2xl flex items-center justify-center text-lg font-bold shadow-md">
-                  1
-                </div>
-                <div className="ml-5 bg-white p-5 rounded-2xl shadow-md flex-1 border border-green-200">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
-                    Open a Demat Account with Us
-                  </h3>
-                  <p className="text-gray-600 text-sm sm:text-base">
-                    Log in to your current broker’s portal and generate a Client
-                    Master Report (CMR) or submit a DIS slip.
-                  </p>
-                </div>
-              </motion.div>
-              <motion.div
-                className="flex items-start"
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 text-white rounded-2xl flex items-center justify-center text-lg font-bold shadow-md">
-                  2
-                </div>
-                <div className="ml-5 bg-white p-5 rounded-2xl shadow-md flex-1 border border-green-200">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
-                    Initiate Transfer Request
-                  </h3>
-                  <p className="text-gray-600 text-sm sm:text-base">
-                    Log in to your current broker’s portal and generate a Client
-                    Master Report (CMR) or submit a DIS slip.
-                  </p>
-                </div>
-              </motion.div>
-
-              <motion.div
-                className="flex items-start"
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-              >
-                <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 text-white rounded-2xl flex items-center justify-center text-lg font-bold shadow-md">
-                  3
-                </div>
-                <div className="ml-5 bg-white p-5 rounded-2xl shadow-md flex-1 border border-green-200">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
-                    Share Details with Us
-                  </h3>
-                  <p className="text-gray-600 text-sm sm:text-base">
-                    Email CMR or DIS to support@fiscalforum.in with your
-                    name and client ID.
-                  </p>
-                </div>
-              </motion.div>
-
-              <motion.div
-                className="flex items-start"
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.6 }}
-              >
-                <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 text-white rounded-2xl flex items-center justify-center text-lg font-bold shadow-md">
-                  4
-                </div>
-                <div className="ml-5 bg-white p-5 rounded-2xl shadow-md flex-1 border border-green-200">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
-                    We Handle the Rest
-                  </h3>
-                  <p className="text-gray-600 text-sm sm:text-base">
-                    Our team coordinates with your current broker to initiate
-                    the transfer. No action needed from you.
-                  </p>
-                </div>
-              </motion.div>
-
-              <motion.div
-                className="flex items-start"
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.8 }}
-              >
-                <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 text-white rounded-2xl flex items-center justify-center text-lg font-bold shadow-md">
-                  <CheckCircle className="w-7 h-7" />
-                </div>
-                <div className="ml-5 bg-white p-5 rounded-2xl shadow-md flex-1 border border-emerald-200">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">
-                    Transfer Complete
-                  </h3>
-                  <p className="text-gray-600 text-sm sm:text-base">
-                    Your holdings will be transferred in 3-7 working days.
-                    You&apos;ll receive a confirmation email.
-                  </p>
-                </div>
-              </motion.div>
-            </div>
-
-            <motion.div
-            className="mt-12 text-center bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl p-8 border-2 border-green-300 shadow-xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.0 }}>
-                <h3 className="text-2xl sm:text-3xl font-bold text-green-900 mb-4">
-                Click here to share your DIS/CMR
-              </h3>
-                <button
-                  onClick={() => {
-                    try {
-                      // Try to open Gmail compose window
-                      window.open(
-                        "https://mail.google.com/mail/?view=cm&fs=1&to=business.fiscalforum@gmail.com&su=DIS%20Form%20Submission&body=Please%20find%20attached%20my%20DIS%20form.",
-                        "_blank"
-                      );
-                    } catch (error) {
-                      // Fallback to default email client
-                      window.location.href =
-                        "mailto:business.fiscalforum@gmail.com?subject=DIS%20Form%20Submission&body=Please%20find%20attached%20my%20DIS%20form.";
-                    }
-                  }}
-                  className="px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white font-bold text-lg rounded-full transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-300"
-                >
-                  Share with - support@fiscalforum.in
-                </button>
-              </motion.div>
-
-            <motion.div
-              className="mt-12 text-center bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl p-8 border-2 border-green-300 shadow-xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.0 }}
-            >
-              <h3 className="text-2xl sm:text-3xl font-bold text-green-900 mb-4">
-                Perks of Transferring with Us
-              </h3>
-              <div className="flex flex-wrap justify-center gap-6 mb-8 text-green-800">
-                <div className="flex items-center gap-2 text-base sm:text-lg font-semibold">
-                  <FaGift className="text-emerald-700 text-xl" />
-                  <span>Free Research Reports</span>
-                </div>
-                <div className="flex items-center gap-2 text-base sm:text-lg font-semibold">
-                  <FaRupeeSign className="text-emerald-700 text-xl" />
-                  <span>50% Brokerage Cashback for 6 months</span>
-                </div>
-                <div className="flex items-center gap-2 text-base sm:text-lg font-semibold">
-                  <FaHeadset className="text-emerald-700 text-xl" />
-                  <span>Dedicated Support</span>
-                </div>
-              </div>
-              
-            </motion.div>
-          </div>
-        </section> */}
+        {/* The Modal Component */}
+        <DematAccountModal 
+            isOpen={isModalOpen} 
+            closeModal={closeModal} 
+            broker={selectedBroker} 
+        />
+  
       </div>
     </main>
   );

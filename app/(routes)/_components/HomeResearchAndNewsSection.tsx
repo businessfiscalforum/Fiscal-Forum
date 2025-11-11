@@ -212,9 +212,9 @@ function NewsCard({
             Featured
           </span>
         )}
-        <span className="text-[10px] sm:text-xs text-emerald-600 font-medium">
+        {/* <span className="text-[10px] sm:text-xs text-emerald-600 font-medium">
           {formatViews(item.views)} views
-        </span>
+        </span> */}
       </div>
 
       <h3 className="text-sm sm:text-base font-bold text-gray-900 mb-3 leading-tight line-clamp-3 flex-1">

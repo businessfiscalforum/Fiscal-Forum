@@ -55,7 +55,7 @@ const creditCards: CreditCard[] = [
     features: [
       "Reward points/cashback",
       "Airport lounge access",
-      "Zero liability protection",
+      "Buy 1 get 1 offer-Bookmyshow",
     ],
     detailedBenefits: [
       "Earn reward points or cashback on all purchases (varies by specific card).",
@@ -64,7 +64,7 @@ const creditCards: CreditCard[] = [
       "Convert high-value purchases into easy EMIs.",
       "Avail cashback offers up to 10% on select categories (e.g., online spends, Amazon, Flipkart, Swiggy).",
       "Get 1% fuel surcharge waiver on transactions between ₹500 and ₹4000.",
-      "Dining discounts at partner outlets (e.g., 15% off).",
+      "Buy 1 Get 1 offer on movie tickets via BookMyShow (on select cards).",
     ],
     benefits: [
       "Reward points on every purchase",
@@ -73,6 +73,7 @@ const creditCards: CreditCard[] = [
       "EMI conversion facility",
       "Cashback offers up to 10%",
       "Fuel surcharge waiver",
+      "Buy 1 get 1 offer-Bookmyshow",
     ],
     eligibilityNote:
       "Fill in your details to check eligibility. HDFC will suggest the most suitable card based on your income and credit score.",
@@ -97,11 +98,13 @@ const creditCards: CreditCard[] = [
     rewardPoints: "Edge Points / Rewards",
     welcomeBonus: "Varies by Card",
     features: [
+      "Free vouchers from MakeMyTrip, Nykaa",
       "Platinum Aura & Edge benefits",
       "Unlimited rewards on shopping",
       "Fuel surcharge waiver",
     ],
     detailedBenefits: [
+      "Free vouchers from Makemytrip, Nykaa on joining (on select cards).",
       "Earn high reward points (e.g., 8 Edge Points per ₹100 on select spends).",
       "1% fuel surcharge waiver on fuel transactions between ₹500 and ₹4000.",
       "2 complimentary movie tickets per month via BookMyShow (on some cards).",
@@ -195,14 +198,14 @@ const creditCards: CreditCard[] = [
       "5% cashback on other online spends (Amazon, Flipkart, etc.).",
       "Complimentary 3 months Swiggy One membership on card activation.",
       "Dining discounts at select partner restaurants.",
-      "1% fuel surcharge waiver on fuel transactions between ₹500 and ₹4000.",
+      "Get 1% cashback on all other category spends, including offline transactions.",
       "Earn reward points on all other purchases.",
     ],
     benefits: [
       "Extra cashback on Swiggy orders",
       "Dining discounts",
       "Reward points on online spends",
-      "Fuel surcharge waiver",
+      "Cashback on all other spends",
     ],
     eligibilityNote:
       "Check eligibility by filling your details. HDFC evaluates your credit score and income to provide the most relevant card.",
@@ -222,24 +225,25 @@ const creditCards: CreditCard[] = [
     logo: "/axis.png",
     cardName: "Axis LIC Credit Card",
     cardImage: "/Axis Lic.svg",
-    tagline: "Rewards on LIC Premiums",
+    tagline: "Reward points on Insurance Policy and International spends",
     cashbackRate: "Up to 4%",
     rewardPoints: "Axis Reward Points",
     welcomeBonus: "Varies by Card",
     features: [
-      "Reward points on LIC premiums",
-      "Airport lounge access",
-      "Dining and shopping offers",
+      "Reward points on Insurance Policy and International spends",
+      "Reward Points for every ₹100 spends online",
+      "Complimentary Card Lost Liablity Insurance",
     ],
     detailedBenefits: [
-      "Earn accelerated Axis Reward Points when paying LIC premiums.",
-      "Complimentary access to domestic airport lounges.",
-      "Special offers and discounts on dining and shopping.",
+      "Earn 2 Reward Points for every ₹100 spends on Insurance Policy and International spends.",
+      "Complimentary Card Lost Liablity Insurance Cover upto the card limit.",
+      "Earn 2 Reward Points for every ₹100 spends online",
+      "1% Fuel Surcharge waiver",
       "Earn standard Axis Reward Points on all other spends.",
       "Zero liability for unauthorized transactions.",
     ],
     benefits: [
-      "Reward points on LIC premium payments",
+      "Reward points on Insurance Policy and International spends",
       "Airport lounge access",
       "Dining and shopping offers",
     ],
@@ -379,85 +383,85 @@ const creditCards: CreditCard[] = [
   //   applyLink:
   //     "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aHNiY190cmF2ZWxvbmVfY2FyZA==&bank_source=aHNiY19iYW5r&agent_code=",
   // },
-  {
-    id: "axis-fd",
-    bank: "Axis Bank",
-    logo: "/axis.png",
-    cardName: "Axis Bank FD Credit Card",
-    cardImage: "/AxisBankFdCard.svg",
-    tagline: "Credit Card Against Fixed Deposit",
-    cashbackRate: "N/A",
-    rewardPoints: "Axis Reward Points",
-    welcomeBonus: "N/A",
-    features: [
-      "Get a credit card against FD",
-      "High approval chances",
-      "Low annual fee",
-    ],
-    detailedBenefits: [
-      "Designed for customers holding a Fixed Deposit with Axis Bank.",
-      "High approval chances as the credit limit is backed by the FD.",
-      "Earn Axis Reward Points on spends.",
-      "Lower annual fees compared to regular credit cards.",
-      "Standard credit card features like EMI conversion, insurance (subject to terms).",
-    ],
-    benefits: [
-      "Get a credit card against FD",
-      "High approval chances",
-      "Low annual fee",
-    ],
-    eligibilityNote:
-      "Enter your details to verify eligibility. Axis offers FD-backed cards based on your deposit and income profile.",
-    howToApply: [
-      "Click 'Apply'",
-      "Fill your details",
-      "Get your credit card within 5-7 days",
-    ],
-    pdfLink:
-      "https://drive.google.com/file/d/1qCTgChpQVEQtvaBWymCHwC1LLdRT4T-y/view?usp=sharing",
-    applyLink:
-      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19iYW5rX2ZkX2NyZWRpdF9jYXJk&bank_source=YXhpc19iYW5r&agent_code=",
-  },
-  {
-    id: "tataneu",
-    bank: "TataNeu",
-    logo: "/tataneu.png",
-    cardName: "TataNeu Credit Card",
-    cardImage: "/Tataneu Card.svg",
-    tagline: "Rewards on Tata Brand Spends",
-    cashbackRate: "Up to 5%",
-    rewardPoints: "NeuCoins",
-    welcomeBonus: "Varies by Card",
-    features: [
-      "Rewards on Tata brand spends",
-      "Shopping discounts",
-      "Fuel surcharge waiver",
-    ],
-    detailedBenefits: [
-      "Earn accelerated NeuCoins when shopping at Tata brands (Tata CLiQ, Croma, Tanishq, etc.).",
-      "Earn NeuCoins on all other spends.",
-      "Exclusive shopping discounts and offers within the Tata ecosystem.",
-      "1% fuel surcharge waiver on fuel transactions between ₹500 and ₹4000.",
-      "Redeem NeuCoins for products, vouchers, or experiences on the Tata Neu platform.",
-      "Standard HDFC Bank credit card benefits like insurance, EMI options.",
-    ],
-    benefits: [
-      "Rewards on Tata brand spends",
-      "Shopping discounts",
-      "Fuel surcharge waiver",
-    ],
-    eligibilityNote:
-      "Provide your details to check eligibility. TataNeu will suggest the right card based on your spending capacity and profile.",
-    howToApply: [
-      "Click 'Apply'",
-      "Fill your details",
-      "Get your credit card within 5-7 days",
-    ],
-    pdfLink:
-      "https://www.hdfcbank.com/content/bbp/repositories/723fb80a-2dde-42a3-9793-7ae1be57c87f/?path=/Personal/Pay/Cards/Credit%20Card/Credit%20Card%20Landing%20Page/Credit%20Cards/TATA%20Neu%20Infinity%20HDFC%20Bank%20Credit%20Card/TATA_Neu_Infinity_Card_FAQ.pdf",
-    applyLink:
-      "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=dGF0YW5ldV9jYXJk&bank_source=dGF0YW5ldQ==&agent_code=",
-  },
+  // {
+  //   id: "axis-fd",
+  //   bank: "Axis Bank",
+  //   logo: "/axis.png",
+  //   cardName: "Axis Bank FD Credit Card",
+  //   cardImage: "/AxisBankFdCard.svg",
+  //   tagline: "Credit Card Against Fixed Deposit",
+  //   cashbackRate: "N/A",
+  //   rewardPoints: "Axis Reward Points",
+  //   welcomeBonus: "N/A",
+  //   features: [
+  //     "Get a credit card against FD",
+  //     "High approval chances",
+  //     "Low annual fee",
+  //   ],
+  //   detailedBenefits: [
+  //     "Designed for customers holding a Fixed Deposit with Axis Bank.",
+  //     "High approval chances as the credit limit is backed by the FD.",
+  //     "Earn Axis Reward Points on spends.",
+  //     "Lower annual fees compared to regular credit cards.",
+  //     "Standard credit card features like EMI conversion, insurance (subject to terms).",
+  //   ],
+  //   benefits: [
+  //     "Get a credit card against FD",
+  //     "High approval chances",
+  //     "Low annual fee",
+  //   ],
+  //   eligibilityNote:
+  //     "Enter your details to verify eligibility. Axis offers FD-backed cards based on your deposit and income profile.",
+  //   howToApply: [
+  //     "Click 'Apply'",
+  //     "Fill your details",
+  //     "Get your credit card within 5-7 days",
+  //   ],
+  //   pdfLink:
+  //     "https://drive.google.com/file/d/1qCTgChpQVEQtvaBWymCHwC1LLdRT4T-y/view?usp=sharing",
+  //   applyLink:
+  //     "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19iYW5rX2ZkX2NyZWRpdF9jYXJk&bank_source=YXhpc19iYW5r&agent_code=",
+  // },
+  // {
+  //   id: "tataneu",
+  //   bank: "TataNeu",
+  //   logo: "/tataneu.png",
+  //   cardName: "TataNeu Credit Card",
+  //   cardImage: "/Tataneu Card.svg",
+  //   tagline: "Rewards on Tata Brand Spends",
+  //   cashbackRate: "Up to 5%",
+  //   rewardPoints: "NeuCoins",
+  //   welcomeBonus: "Varies by Card",
+  //   features: [
+  //     "Rewards on Tata brand spends",
+  //     "Shopping discounts",
+  //     "Fuel surcharge waiver",
+  //   ],
+  //   detailedBenefits: [
+  //     "Earn accelerated NeuCoins when shopping at Tata brands (Tata CLiQ, Croma, Tanishq, etc.).",
+  //     "Earn NeuCoins on all other spends.",
+  //     "Exclusive shopping discounts and offers within the Tata ecosystem.",
+  //     "1% fuel surcharge waiver on fuel transactions between ₹500 and ₹4000.",
+  //     "Redeem NeuCoins for products, vouchers, or experiences on the Tata Neu platform.",
+  //     "Standard HDFC Bank credit card benefits like insurance, EMI options.",
+  //   ],
+  //   benefits: [
+  //     "Rewards on Tata brand spends",
+  //     "Shopping discounts",
+  //     "Fuel surcharge waiver",
+  //   ],
+  //   eligibilityNote:
+  //     "Provide your details to check eligibility. TataNeu will suggest the right card based on your spending capacity and profile.",
+  //   howToApply: [
+  //     "Click 'Apply'",
+  //     "Fill your details",
+  //     "Get your credit card within 5-7 days",
+  //   ],
+  //   pdfLink:
+  //     "https://www.hdfcbank.com/content/bbp/repositories/723fb80a-2dde-42a3-9793-7ae1be57c87f/?path=/Personal/Pay/Cards/Credit%20Card/Credit%20Card%20Landing%20Page/Credit%20Cards/TATA%20Neu%20Infinity%20HDFC%20Bank%20Credit%20Card/TATA_Neu_Infinity_Card_FAQ.pdf",
+  //   applyLink:
+  //     "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=dGF0YW5ldV9jYXJk&bank_source=dGF0YW5ldQ==&agent_code=",
+  // },
   {
     id: "hdfc-giga",
     bank: "HDFC Bank",
