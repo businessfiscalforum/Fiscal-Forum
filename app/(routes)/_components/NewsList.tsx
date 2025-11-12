@@ -137,7 +137,7 @@ export default function NewsList() {
         if (!confirm('Are you sure you want to delete this news item?')) return;
         
         try {
-            const res = await fetch(`/api/admin/news/${id}`, { 
+            const res = await fetch(`/api/news/${id}`, { 
                 method: 'DELETE',
             });
             

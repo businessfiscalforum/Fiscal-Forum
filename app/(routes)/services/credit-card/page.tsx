@@ -587,7 +587,7 @@ const creditCards: CreditCard[] = [
     id: "au-bank",
     bank: "AU Bank",
     logo: "/au_bank.svg",
-    cardName: "Bank of Baroda Credit Card",
+    cardName: "AU Bank Credit Card",
     cardImage: "/AU Bank Credit Card.png",
     tagline: "Special Rewards on Grocery, Retail spends.",
     cashbackRate: "Up to 10%",

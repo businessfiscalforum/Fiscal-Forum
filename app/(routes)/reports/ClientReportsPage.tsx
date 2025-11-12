@@ -414,12 +414,11 @@ export default function ClientReportsPage({
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
             <div className="text-center">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-                Get Pre-Market, Thematic & Equity Reports
-                <span className="text-green-400"> WhatsApp PDF at 8 AM.</span>
+                Before You Invest,
+                <span className="text-green-400"> Read What Matters</span>
               </h1>
               <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
-                Get your Pre-market Research Report, Thematic Report, Equity
-                Report daily on your whatsapp.
+                Turn every report into an opportunity - join Fiscal Forum and stay a step ahead.
               </p>
 
               <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">

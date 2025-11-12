@@ -5,14 +5,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
-  FaGift,
-  FaHeadset,
-  FaLightbulb,
-  FaRupeeSign,
-  FaWallet,
   FaCheck, // Added FaCheck for the modal list items
 } from "react-icons/fa";
-import { CheckCircle, ChevronDown, ChevronUp, X } from "lucide-react"; 
+import { X } from "lucide-react"; 
 import { motion } from "framer-motion";
 import {
   Dialog,
@@ -107,14 +102,14 @@ const brokers: Broker[] = [
       "• Equity Options: ₹15 per lot",
     ],
   },
-  {
-    name: "Unlisted Shares",
-    logo: "/unlisted-shares.png",
-    link: "/services/stock-investment/unlisted-shares/apply",
-    brokerage: [
-      "• Unlisted Shares: Brokerage as per deal basis. Contact us for the best rate.",
-    ],
-  },
+  // {
+  //   name: "Unlisted Shares",
+  //   logo: "/unlisted-shares.png",
+  //   link: "/services/stock-investment/unlisted-shares/apply",
+  //   brokerage: [
+  //     "• Unlisted Shares: Brokerage as per deal basis. Contact us for the best rate.",
+  //   ],
+  // },
 ];
 
 // --- MODIFIED SUB-COMPONENT: BrokerCard ---
@@ -128,12 +123,12 @@ const BrokerCard = ({
   return (
     <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 flex flex-col border border-green-200 overflow-hidden h-[420px] w-full">
       <div className="p-5 flex flex-col items-center text-center">
-        <div className="w-16 h-16 mb-3 flex items-center justify-center bg-green-50 rounded-full">
+        <div className="w-24 h-24 mb-3 flex items-center justify-center bg-white rounded-full">
           <Image
             src={broker.logo}
             alt={`${broker.name} logo`}
-            width={60}
-            height={60}
+            width={200}
+            height={200}
             className="object-contain p-1"
           />
         </div>

@@ -101,12 +101,12 @@ const BrokerCard = ({ broker, onOpenModal }: { broker: Broker, onOpenModal: (bro
     <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col border border-green-200 overflow-hidden h-full">
       {/* Top Section */}
       <div className="p-6 flex flex-col items-center text-center">
-        <div className="w-20 h-20 mb-4 flex items-center justify-center bg-green-50 rounded-full">
+        <div className="w-24 h-24 mb-4 flex items-center justify-center bg-white rounded-full">
           <Image
             src={broker.logo}
             alt={`${broker.name} logo`}
-            width={80}
-            height={80}
+            width={200}
+            height={200}
             className="max-h-full max-w-full object-contain p-2"
           />
         </div>
@@ -492,7 +492,7 @@ export default function Page() {
         </div>
 
         {/* Benefits */}
-        <section className="bg-white border border-green-200 rounded-2xl shadow-md p-6 md:p-8 mb-16">
+        {/* <section className="bg-white border border-green-200 rounded-2xl shadow-md p-6 md:p-8 mb-16">
           <motion.h3
             className="text-2xl font-bold text-green-800 text-center mb-8"
             initial={{ opacity: 0, y: 20 }}
@@ -553,7 +553,7 @@ export default function Page() {
               </p>
             </motion.div>
           </div>
-        </section>
+        </section> */}
 
           {/* <motion.section 
           className="bg-white border border-green-200 rounded-2xl shadow-md p-6 md:p-8 mb-16"
@@ -725,8 +725,75 @@ export default function Page() {
             closeModal={closeModal} 
             broker={selectedBroker} 
         />
+
+        {/* why chooose us */}
+
+        <section className="bg-white border border-green-200 rounded-2xl shadow-md p-6 md:p-8 my-16">
+          <motion.h3
+            className="text-2xl font-bold text-green-800 text-center mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+          >
+            Why Choose Us?
+          </motion.h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <motion.div
+              className="bg-green-50 rounded-2xl p-6 flex flex-col items-start text-left border border-green-100"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-2xl">
+                <FaWallet />
+              </div>
+              <h4 className="font-semibold text-green-800 mb-2 text-lg">
+                Get Best-Fit Funds, Always
+              </h4>
+              <p className="text-green-700 text-sm">
+                We guide you with the best fund options for the current market and provide complete fund details.
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="bg-green-50 rounded-2xl p-6 flex flex-col items-start text-left border border-green-100"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-2xl">
+                <FaLightbulb />
+              </div>
+              <h4 className="font-semibold text-green-800 mb-2 text-lg">
+                Full Support, Anytime
+              </h4>
+              <p className="text-green-700 text-sm">
+                Dedicated calling support for any changes or help you need — hassle-free.
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="bg-green-50 rounded-2xl p-6 flex flex-col items-start text-left border border-green-100"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+            >
+              <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center text-green-700 text-2xl">
+                <FaGift />
+              </div>
+              <h4 className="font-semibold text-green-800 mb-2 text-lg">
+                Your Fiscal Forum Investment Kit
+              </h4>
+              <p className="text-green-700 text-sm">
+                Stay consistent and confident in your investment journey with our exclusive kit.
+              </p>
+            </motion.div>
+          </div>
+        </section>
   
       </div>
+      
     </main>
+    
   );
 }

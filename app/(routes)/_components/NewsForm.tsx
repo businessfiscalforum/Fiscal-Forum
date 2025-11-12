@@ -239,7 +239,7 @@ export default function NewsForm({ initialData, onSubmit }: NewsFormProps) {
 
           <div>
             <label htmlFor="link" className={labelClasses}>
-              External Link
+              External Link/ Allotment Link (ipo)
             </label>
             <input
               type="url"

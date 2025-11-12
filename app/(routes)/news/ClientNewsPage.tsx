@@ -1,3 +1,4 @@
+// components/ClientNewsPage.tsx
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -6,27 +7,22 @@ import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
 import {
-  FaClock,
-  FaUser,
   FaSearch,
   FaFilter,
   FaChevronLeft,
   FaChevronRight,
   FaArrowUp,
-  FaGlobe,
   FaNewspaper,
   FaChartLine,
-  FaRupeeSign,
-  FaStar,
-  FaBolt,
-  FaCalendarAlt,
-  FaTags,
 } from "react-icons/fa";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import NewsBuzzList from "./NewsBuzzList";
+import IpoScoopList from "./IpoScoopList";
+import CorpPulseList from "./CorpPulseList";
 
-// --- Interface Definitions (Updated to Final Schema) ---
+
+
+// --- Interface Definitions (Moved to this file as they are essential for the overall structure) ---
 export interface NewsItem {
   id: string;
   title: string;
@@ -45,7 +41,7 @@ export interface NewsItem {
   priceRange?: string | null;
   issueSize?: string | null;
   currentPrice?: string | null;
-  listingGain?: string | null; // Kept as requested
+  listingGain?: string | null;
   subscriptionRate?: string | null;
   applyLink?: string | null;
   offerPrice?: string | null;
@@ -75,49 +71,39 @@ interface ApiIndexData {
   error?: string;
 }
 
-// --- GLOBAL HELPER FUNCTIONS ---
+// --- GLOBAL HELPER FUNCTIONS (Kept here for state/data logic) ---
 
 // 1. Date Formatter (handles null/undefined)
 const formatDate = (dateString: string | undefined | null): string => {
-  if (!dateString) return 'N/A';
+  if (!dateString) return "N/A";
   try {
-      // Use IN locale for Indian date format
-      return new Date(dateString).toLocaleDateString("en-IN", {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-      });
+    // Use IN locale for Indian date format
+    return new Date(dateString).toLocaleDateString("en-IN", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
   } catch (e) {
-      return dateString;
+    return dateString;
   }
 };
 
-// 2. IPO Status Logic (DSA: Range Checking)
-const getIpoStatus = (openDateStr: string | null | undefined, closeDateStr: string | null | undefined) => {
-    const today = Date.now();
-    
-    if (!openDateStr || !closeDateStr) {
-        return { status: 'N/A', dotClass: 'bg-gray-400', textClass: 'text-gray-600' };
-    }
-    
-    const openTimestamp = Date.parse(openDateStr);
-    const closeTimestamp = Date.parse(closeDateStr);
+// 2. IPO Status Logic (Can be removed if moved to IpoScoopList, keeping a placeholder/minimal version here)
+const getIpoStatus = (
+  openDateStr: string | null | undefined,
+  closeDateStr: string | null | undefined
+) => {
+  const today = Date.now();
+  if (!openDateStr || !closeDateStr) return { status: "N/A", dotClass: "bg-gray-400", textClass: "text-gray-600" };
+  const openTimestamp = Date.parse(openDateStr);
+  const closeTimestamp = Date.parse(closeDateStr);
 
-    if (isNaN(openTimestamp)|| isNaN(closeTimestamp)) {
-        return { status: 'Invalid', dotClass: 'bg-gray-400', textClass: 'text-gray-600' };
-    }
-    
-    // Core Range Check: Current Time is within [Open, Close]
-    const isLive = today >= openTimestamp && today <= closeTimestamp;
-
-    if (isLive) {
-        return { status: 'Live', dotClass: 'bg-green-500', textClass: 'text-green-600' };
-    } else if (today < openTimestamp) {
-        return { status: 'Upcoming', dotClass: 'bg-yellow-500', textClass: 'text-yellow-600' };
-    } else {
-        return { status: 'Closed', dotClass: 'bg-red-500', textClass: 'text-red-600' };
-    }
+  const isLive = today >= openTimestamp && today <= closeTimestamp;
+  if (isLive) return { status: "Live", dotClass: "bg-green-500", textClass: "text-green-600" };
+  else if (today < openTimestamp) return { status: "Upcoming", dotClass: "bg-yellow-500", textClass: "text-yellow-600" };
+  else return { status: "Closed", dotClass: "bg-red-500", textClass: "text-red-600" };
 };
+
 
 // --- Main Component ---
 interface ClientNewsPageProps {
@@ -126,8 +112,8 @@ interface ClientNewsPageProps {
 
 const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
   const router = useRouter();
-  
-  // --- UI States & Data States (Remains the same) ---
+
+  // --- UI States & Data States ---
   const tabs = [
     { id: "news-buzz", label: "News Buzz" },
     { id: "corp-pulse", label: "Corp Pulse" },
@@ -151,75 +137,79 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
   const [stockIndices, setStockIndices] = useState<ApiIndexData[]>([]);
   const [stockLoading, setStockLoading] = useState(true);
   const [stockError, setStockError] = useState<string | null>(null);
-  
-  // --- API Fetching Effects (Remain the same) ---
+
+  // --- API Fetching Effects (Keep unchanged) ---
 
   useEffect(() => {
     // ... (Your fetchNewsForTab logic) ...
     const fetchNewsForTab = async (tabId: string) => {
-        setLoading(true);
-        setError(null);
-        try {
-          let apiUrl = "";
-          switch (tabId) {
-            case "news-buzz":
-              apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/news/news-buzz`;
-              break;
-            case "corp-pulse":
-              apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/news/corp-pulse`;
-              break;
-            case "ipo-scoop":
-              apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/news/ipo-scoop`;
-              break;
-            default:
-              apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/news`;
-          }
-
-          const response = await fetch(apiUrl);
-          if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`HTTP error! status: ${response.status}: ${errorText}`);
-          }
-          const data: NewsItem[] = await response.json();
-          setNewsByTab((prev) => ({ ...prev, [tabId]: data }));
-        } catch (err: any) {
-          console.error(`Failed to fetch ${activeTab} news:`, err);
-          setError(`Failed to load ${tabId} news. Please try again later.`);
-        } finally {
-          setLoading(false);
-          setCurrentPage(1);
+      setLoading(true);
+      setError(null);
+      try {
+        let apiUrl = "";
+        switch (tabId) {
+          case "news-buzz":
+            apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/news/news-buzz`;
+            break;
+          case "corp-pulse":
+            apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/news/corp-pulse`;
+            break;
+          case "ipo-scoop":
+            apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/news/ipo-scoop`;
+            break;
+          default:
+            apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/news`;
         }
-      };
 
-      if (activeTab !== "news-buzz" && !newsByTab[activeTab]) {
-        fetchNewsForTab(activeTab);
-      } else {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(
+            `HTTP error! status: ${response.status}: ${errorText}`
+          );
+        }
+        const data: NewsItem[] = await response.json();
+        setNewsByTab((prev) => ({ ...prev, [tabId]: data }));
+      } catch (err: any) {
+        console.error(`Failed to fetch ${activeTab} news:`, err);
+        setError(`Failed to load ${tabId} news. Please try again later.`);
+      } finally {
+        setLoading(false);
         setCurrentPage(1);
       }
+    };
+
+    if (activeTab !== "news-buzz" && !newsByTab[activeTab]) {
+      fetchNewsForTab(activeTab);
+    } else {
+      setCurrentPage(1);
+    }
   }, [activeTab, newsByTab]);
 
   useEffect(() => {
     // ... (Your newsletter fetching logic remains the same) ...
     const fetchNewsletter = async () => {
-        setNewsletterLoading(true);
-        setError(null);
-        try {
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/newsletter`
+      setNewsletterLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/newsletter`
+        );
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(
+            `HTTP error! status: ${response.status}: ${errorText}`
           );
-          if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`HTTP error! status: ${response.status}: ${errorText}`);
-          }
-          const data = await response.json();
-          setNewsletter(data.newsletter || []);
-        } catch (err) {
-          console.error("Failed to fetch newsletter:", err);
-        } finally {
-          setNewsletterLoading(false);
         }
-      };
-      fetchNewsletter();
+        const data = await response.json();
+        setNewsletter(data.newsletter || []);
+      } catch (err) {
+        console.error("Failed to fetch newsletter:", err);
+      } finally {
+        setNewsletterLoading(false);
+      }
+    };
+    fetchNewsletter();
   }, []);
 
   useEffect(() => {
@@ -242,7 +232,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
         }
 
         if (isMounted) {
-          setStockIndices(data.indices); 
+          setStockIndices(data.indices);
         }
       } catch (err: any) {
         console.error("Failed to fetch stock data (Yahoo):", err);
@@ -256,14 +246,14 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
       }
     };
     fetchStockData();
-    const intervalId = setInterval(fetchStockData, 60000); 
+    const intervalId = setInterval(fetchStockData, 60000);
     return () => {
       isMounted = false;
       clearInterval(intervalId);
     };
-  }, []); 
+  }, []);
 
-  // --- Data Processing (Remains the same) ---
+  // --- Data Processing (Keep unchanged) ---
   const currentNewsData = newsByTab[activeTab] || [];
   const categories = [
     "all",
@@ -292,18 +282,110 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentNews = filteredNews.slice(startIndex, startIndex + itemsPerPage);
 
-  // --- Handler Functions (Remains the same) ---
+  // --- Handler Functions (Keep unchanged) ---
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-  
+
   const handleNewsClick = (id: string) => {
     router.push(`/news/${id}`);
   };
   const handleNewsletterClick = (id: string) => {
     router.push(`/newsletter/${id}`);
   };
+
+  // --- RENDER LOGIC (UPDATED) ---
+
+  const renderNewsContent = () => {
+    if (loading) {
+      return (
+        <div className="flex justify-center items-center py-20">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
+        </div>
+      );
+    }
+    if (error) {
+      return (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center py-16"
+        >
+          <div className="w-24 h-24 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full flex items-center justify-center mx-auto mb-6">
+            <FaNewspaper className="text-3xl text-gray-500" />
+          </div>
+          <h3 className="text-2xl font-bold text-gray-800 mb-4">
+            Oops! Something went wrong.
+          </h3>
+          <p className="text-gray-600 mb-6">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
+          >
+            Retry
+          </button>
+        </motion.div>
+      );
+    }
+    if (currentNews.length === 0) {
+      return (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center py-16"
+        >
+          <div className="w-24 h-24 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full flex items-center justify-center mx-auto mb-6">
+            <FaNewspaper className="text-3xl text-gray-500" />
+          </div>
+          <h3 className="text-2xl font-bold text-emerald-800 mb-4">
+            No News Articles Found
+          </h3>
+          <p className="text-emerald-600 mb-6">
+            {searchTerm || selectedCategory !== "all"
+              ? "Try adjusting your search or filter criteria"
+              : `No news has been published yet for ${activeTab}.`}
+          </p>
+          <button
+            onClick={() => {
+              setSearchTerm("");
+              setSelectedCategory("all");
+            }}
+            className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
+          >
+            Clear Filters
+          </button>
+        </motion.div>
+      );
+    }
+
+    switch (activeTab) {
+      case "news-buzz":
+        return (
+          <NewsBuzzList
+            currentNews={currentNews}
+            handleNewsClick={handleNewsClick}
+          />
+        );
+      case "corp-pulse":
+        return (
+          <CorpPulseList
+            currentNews={currentNews}
+            handleNewsClick={handleNewsClick}
+          />
+        );
+      case "ipo-scoop":
+        return (
+          <IpoScoopList
+            currentNews={currentNews}
+            handleNewsClick={handleNewsClick}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
 
   return (
     <div
@@ -312,7 +394,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
         fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
       }}
     >
-      {/* --- Stock Indices Section --- */}
+      {/* --- Stock Indices Section --- (Unchanged) */}
       <section className="pt-24 bg-white border-b border-emerald-300">
         <div className="max-w-8xl mx-auto px-2 sm:px-4 lg:px-6">
           <div className="border-b border-emerald-200 bg-white py-2">
@@ -398,7 +480,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
         </div>
       </section>
 
-      {/* Tab Navigation - Updated Theme */}
+      {/* Tab Navigation (Unchanged) */}
       <div className="flex justify-center mb-6 h-20">
         {tabs.map((tab) => (
           <button
@@ -415,7 +497,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
         ))}
       </div>
 
-      {/* Search & Filter - Updated Theme */}
+      {/* Search & Filter (Unchanged) */}
       <section className="py-12 bg-white border-b border-emerald-200">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
@@ -496,417 +578,10 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                 </>
               )}
             </motion.div>
-            {/* Show loading spinner, error message, or news grid */}
-            {loading ? (
-              <div className="flex justify-center items-center py-20">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
-              </div>
-            ) : error ? (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-center py-16"
-              >
-                <div className="w-24 h-24 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <FaNewspaper className="text-3xl text-gray-500" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                  Oops! Something went wrong.
-                </h3>
-                <p className="text-gray-600 mb-6">{error}</p>
-                <button
-                  onClick={() => window.location.reload()}
-                  className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
-                >
-                  Retry
-                </button>
-              </motion.div>
-            ) : currentNews.length > 0 ? (
-              activeTab === "news-buzz" ? (
-                // News Buzz Layout (Remains the same)
-                <div className="space-y-8">
-                  {/* Featured News */}
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Main Featured Article */}
-                    {currentNews.length > 0 && (
-                      <div
-                        className="lg:col-span-2 bg-white rounded-lg shadow-md cursor-pointer group border border-emerald-100 hover:border-emerald-300 transition-all duration-300"
-                        onClick={() => handleNewsClick(currentNews[0].id)}
-                      >
-                        <div className="relative aspect-video w-full overflow-hidden">
-                          {currentNews[0].image ? (
-                            <Image
-                              src={currentNews[0].image}
-                              width={400}
-                              height={400}
-                              alt={currentNews[0].title}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            />
-                          ) : (
-                            <div className="bg-gradient-to-br from-emerald-100 to-teal-100 w-full h-full flex items-center justify-center">
-                              <FaGlobe className="text-6xl text-emerald-400" />
-                            </div>
-                          )}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                          <div className="absolute top-4 left-4">
-                            <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-sm font-bold">
-                              FEATURED
-                            </span>
-                          </div>
-                          <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
-                            <span className="bg-emerald-500 text-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-semibold mb-2 inline-block">
-                              {currentNews[0].category || "News"}
-                            </span>
-                            <h2 className="text-lg sm:text-2xl font-bold text-white mb-1 sm:mb-2 group-hover:text-emerald-200 transition-colors line-clamp-2">
-                              {currentNews[0].title}
-                            </h2>
-                            <div className="flex flex-wrap items-center gap-1 sm:gap-2 text-white/80 text-[10px] sm:text-sm">
-                              <span className="truncate max-w-[100px] sm:max-w-none">
-                                {currentNews[0].author}
-                              </span>
-                              <span className="hidden sm:inline">•</span>
-                              <span>
-                                {formatDate(currentNews[0].publishDate)}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                    {/* Top Stories Sidebar */}
-                    <div className="space-y-6">
-                      <div className="flex items-center gap-2 mb-4">
-                        <FaStar className="text-emerald-600" />
-                        <h3 className="text-xl font-bold text-emerald-800">
-                          Top Stories
-                        </h3>
-                      </div>
-                      {currentNews.slice(1, 5).map((news) => (
-                        <div
-                          key={news.id}
-                          className="cursor-pointer group p-4 rounded-lg hover:bg-emerald-50/50 transition-colors duration-300 border border-transparent hover:border-emerald-200 flex items-start gap-3"
-                          onClick={() => handleNewsClick(news.id)}
-                        >
-                          <div className="bg-emerald-100 p-2 rounded-lg flex-shrink-0">
-                            <FaBolt className="text-emerald-600 text-sm" />
-                          </div>
-                          <div>
-                            <h4 className="font-bold text-emerald-900 group-hover:text-emerald-600 transition-colors line-clamp-2">
-                              {news.title}
-                            </h4>
-                            <div className="flex items-center text-emerald-700 text-xs mt-1">
-                              <span>{formatDate(news.publishDate)}</span>
-                              <span className="mx-2">•</span>
-                              <span className="truncate max-w-[60px] sm:max-w-none">
-                                {news.author}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  {/* Latest News */}
-                  <div className="space-y-6 mt-8">
-                    <div className="flex items-center gap-2 mb-4">
-                      <FaCalendarAlt className="text-emerald-600" />
-                      <h3 className="text-xl font-bold text-emerald-800">
-                        Latest News
-                      </h3>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {currentNews.slice(5).length > 0 ? (
-                        currentNews.slice(5).map((news) => (
-                          <div
-                            key={news.id}
-                            className="cursor-pointer group p-4 rounded-lg hover:bg-emerald-50/50 transition-colors duration-300 border border-transparent hover:border-emerald-200 flex items-start gap-3"
-                            onClick={() => handleNewsClick(news.id)}
-                          >
-                            <div className="bg-emerald-100 p-2 rounded-lg flex-shrink-0">
-                              <FaTags className="text-emerald-600 text-sm" />
-                            </div>
-                            <div>
-                              <h4 className="font-bold text-emerald-900 group-hover:text-emerald-600 transition-colors line-clamp-2">
-                                {news.title}
-                              </h4>
-                              <div className="flex items-center text-emerald-700 text-xs mt-1">
-                                <span>{formatDate(news.publishDate)}</span>
-                                <span className="mx-2">•</span>
-                                <span className="truncate max-w-[60px] sm:max-w-none">
-                                  {news.author}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        ))
-                      ) : (
-                        <p className="text-emerald-600 text-center py-4 col-span-2">
-                          No more news articles at the moment.
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                // Corp Pulse & IPO Scoop - Grid/List Layout
-                <div className="bg-white rounded-2xl shadow-lg p-6 border border-emerald-100">
-                  <div className="space-y-6">
-                    {currentNews.map((news, index) => {
-                      
-                      // IPO STATUS CALCULATION
-                      const ipoStatus = getIpoStatus(news.openDate, news.closeDate);
+            {/* DELEGATE RENDERING */}
+            {renderNewsContent()}
 
-                      return (
-                        <motion.div
-                          key={news.id}
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.1 }}
-                          className="border-b border-emerald-100 pb-6 last:border-0 last:pb-0 group cursor-pointer hover:bg-emerald-50/30 p-2 rounded transition-colors duration-200"
-                          onClick={() => handleNewsClick(news.id)}
-                        >
-                          <div className="flex flex-col md:flex-row gap-4">
-                            
-                            {/* Image (conditionally rendered for IPO Scoop, left side) */}
-                            {activeTab === "ipo-scoop" && news.image && (
-                              <div className="md:w-1/4">
-                                <div className="relative h-32 md:h-full rounded-lg overflow-hidden">
-                                  <Image
-                                    src={news.image}
-                                    alt={news.title}
-                                    width={400}
-                                    height={250}
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                  />
-                                </div>
-                              </div>
-                            )}
-
-                            <div
-                              className={`${activeTab === "ipo-scoop" && news.image ? "md:w-3/4" : "w-full"}`}
-                            >
-                              <h3 className="text-lg md:text-xl font-bold text-emerald-900 mb-2 group-hover:text-emerald-600 transition-colors"onClick={(e) => e.stopPropagation()}>
-                                {news.title}
-                              </h3>
-                              
-                              {/* --- IPO DETAIL GRID LAYOUT (Only for ipo-scoop) --- */}
-                              {activeTab === "ipo-scoop" && news.ipoName && (
-                                <div className="max-w-6xl mx-auto p-4 bg-white rounded-lg border border-gray-100" onClick={(e) => e.stopPropagation()}>
-                                  <div className="grid grid-cols-5 gap-4">
-                                    
-                                    {/* Div 1: IPO Name (Col Span 2) */}
-                                    <div className="col-span-2 bg-emerald-50 p-3 rounded-lg border border-emerald-100 shadow-sm">
-                                      <div className="text-sm font-semibold text-emerald-700">Considerations</div>
-                                      <div className="text-xl font-bold text-emerald-900">May Apply</div>
-                                    </div>
-
-                                    {/* Div 2: Price Range (Col Start 3) */}
-                                    <div className="col-start-3 bg-green-50 p-3 rounded-lg border border-green-100 shadow-sm">
-                                      <div className="text-sm font-semibold text-green-700">Price Range</div>
-                                      <div className="text-xl font-bold text-green-900">{news.priceRange || "N/A"}</div>
-                                    </div>
-
-                                    {/* Div 3: Issue Size (Col Start 4) */}
-                                    <div className="col-start-4 bg-teal-50 p-3 rounded-lg border border-teal-100 shadow-sm">
-                                      <div className="text-sm font-semibold text-teal-700">Issue Size</div>
-                                      <div className="text-xl font-bold text-teal-900">{news.issueSize || "N/A"}</div>
-                                    </div>
-
-                                    {/* Div 4: Subscription Rate (Col Start 5) */}
-                                    <div className="col-start-5 bg-orange-50 p-3 rounded-lg border border-orange-100 shadow-sm">
-                                      <div className="text-sm font-semibold text-orange-700">Subscription</div>
-                                      <div className="text-xl font-bold text-orange-900">{news.subscriptionRate || "0x"}</div>
-                                    </div>
-
-                                    {/* Div 5: Open/Close Dates & Dynamic Status Dot (Col Span 3, Row Start 2) */}
-                                    <div className="col-span-3 row-start-2 p-3 bg-indigo-50/50 rounded-lg border border-indigo-100 shadow-sm flex justify-between items-center">
-                                      <div className="flex flex-col">
-                                        <span className="text-sm font-medium text-indigo-700 mb-1">Status/Dates</span>
-                                        <div className="flex space-x-6 text-base font-bold">
-                                          <span className="text-green-600">Open: {formatDate(news.openDate)}</span>
-                                          <span className="text-red-600">Close: {formatDate(news.closeDate)}</span>
-                                        </div>
-                                      </div>
-                                      
-                                      {/* Dynamic Status Dot (Uses ipoStatus) */}
-                                      <div className="flex items-center space-x-2">
-                                        <span className={`w-3 h-3 rounded-full ${ipoStatus.dotClass}`}></span>
-                                        <span className={`text-sm font-semibold ${ipoStatus.textClass}`}>
-                                          {ipoStatus.status}
-                                        </span>
-                                      </div>
-                                    </div>
-
-                                    {/* Div 6: Allotment Date (Col Start 4, Row Start 2) */}
-                                    <div className="col-start-4 row-start-2 p-3 bg-blue-50/50 rounded-lg border border-blue-100 shadow-sm">
-                                      <div className="text-sm font-semibold text-blue-700">Allotment Date</div>
-                                      <div className="text-base font-bold text-blue-900">{formatDate(news.allotmentDate)}</div>
-                                    </div>
-
-                                    {/* Div 7: Refund Date (Col Start 5, Row Start 2) */}
-                                    <div className="col-start-5 row-start-2 p-3 bg-purple-50/50 rounded-lg border border-purple-100 shadow-sm">
-                                      <div className="text-sm font-semibold text-purple-700">Refund Date</div>
-                                      <div className="text-base font-bold text-purple-900">{formatDate(news.refundDate)}</div>
-                                    </div>
-
-                                    {/* Div 8: Description (Col Span 3, Row Span 2, Row Start 3) */}
-                                    <div className="col-span-3 row-span-2 row-start-3 p-4 bg-gray-50 rounded-lg border border-gray-200 shadow-inner">
-                                      <h3 className="text-lg font-bold text-gray-800 mb-2">Description</h3>
-                                      <p className="text-gray-700 text-sm leading-relaxed line-clamp-4">
-                                        {news.description || "No detailed description available."}
-                                      </p>
-                                      <a
-                                        href={news.link || "#"}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="mt-2 inline-block text-indigo-600 hover:text-indigo-800 text-sm underline"
-                                      >
-                                        View Allotment
-                                      </a>
-                                    </div>
-
-                                    {/* Div 9: Offer Price & Apply Action (Col Span 2, Row Span 2, Col Start 4, Row Start 3) */}
-                                    <div className="col-span-2 row-span-2 col-start-4 row-start-3 flex flex-col justify-between items-center p-4 space-y-4">
-                                      {/* Offer Price (Attractive Red Box) */}
-                                      <div className="w-full p-4 bg-red-50 border-4 border-red-300 rounded-xl text-center shadow-lg">
-                                        <p className="text-sm font-medium text-red-600 mb-1">Offer Price</p>
-                                        <p className="text-4xl font-extrabold text-red-700">{news.offerPrice || "₹ N/A"}</p>
-                                      </div>
-
-                                      {/* Apply Now Button (Uses ipoStatus.status for logic and text) */}
-                                      <Link
-                                        href={news.applyLink || "#"}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        onClick={(e) => {
-                                          if (ipoStatus.status !== 'Live') {
-                                            e.preventDefault();
-                                          }
-                                          e.stopPropagation();
-                                        }}
-                                        className={`w-full text-center px-4 py-3 text-lg font-bold rounded-lg shadow-xl transition-colors duration-300 
-                                          ${ipoStatus.status === 'Live'
-                                              ? "bg-indigo-600 text-white hover:bg-indigo-700"
-                                              : "bg-gray-400 text-gray-700 cursor-not-allowed pointer-events-none"
-                                          }`}
-                                      >
-                                        {ipoStatus.status === 'Live' ? 'Apply Now' : ipoStatus.status}
-                                      </Link>
-                                    </div>
-
-                                    {/* Div 10: Listing Date (Col Span 2, Row Start 5) */}
-                                    <div className="col-span-2 row-start-5 p-3 bg-yellow-50/50 rounded-lg border border-yellow-100 shadow-sm">
-                                      <div className="text-sm font-semibold text-yellow-700">Listing Date</div>
-                                      <div className="text-base font-bold text-yellow-900">{formatDate(news.listingDate)}</div>
-                                    </div>
-
-                                    {/* Div 11: Listing Gain (Col Span 2, Col Start 4, Row Start 5) */}
-                                    <div className="col-span-2 col-start-4 row-start-5 p-3 bg-red-50/50 rounded-lg border border-red-100 shadow-sm">
-                                      <div className="text-sm font-semibold text-red-700">GMP</div>
-                                      <div className="text-base font-bold text-red-900">{news.listingGain || "N/A"}</div>
-                                    </div>
-                                    
-                                    {/* Footer Metadata/Gains - Placed below all 5 rows */}
-                                    <div className="col-span-5 grid grid-cols-5 gap-4 mt-4 pt-4 border-t border-gray-200">
-                                      {/* Author & Publish Date (Col Span 2) */}
-                                      <div className="col-span-2 flex flex-wrap items-center gap-4 text-sm text-emerald-700">
-                                        <div className="flex items-center gap-1">
-                                          <FaUser className="text-xs text-gray-600" />
-                                          <span className="font-medium text-emerald-900">{news.author}</span>
-                                        </div>
-                                        <div className="flex items-center gap-1">
-                                          <FaClock className="text-xs text-gray-600" />
-                                          <span className="font-medium text-emerald-900">{formatDate(news.publishDate)}</span>
-                                        </div>
-                                      </div>
-
-                                      {/* Listing Gain / Current Price (Col Span 3, starting at Col 3) */}
-                                      {/* <div className="col-span-3 col-start-3 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                                        {news.listingGain && (
-                                          <div
-                                            className={`flex items-center gap-2 p-2 rounded-lg ${parseFloat(news.listingGain) >= 0 ? "bg-green-50 text-green-700 border border-green-200" : "bg-red-50 text-red-700 border border-red-200"}`}
-                                          >
-                                            <FaChartLine className="text-xs" />
-                                            <span className="font-semibold text-sm">
-                                              GMP: {news.listingGain}
-                                            </span>
-                                          </div>
-                                        )}
-
-                                        {news.currentPrice && news.currentPrice !== "-" && (
-                                          <div className="flex items-center gap-2 p-2 rounded-lg bg-indigo-50/50 border border-indigo-200">
-                                            <span className="text-sm text-indigo-700 font-medium">
-                                              Current Price:
-                                            </span>
-                                            <span className="font-semibold text-indigo-900 text-base">
-                                              <FaRupeeSign className="inline text-xs mr-0.5" />
-                                              {news.currentPrice}
-                                            </span>
-                                          </div>
-                                        )}
-                                      </div> */}
-                                    </div>
-                                  </div>
-                                </div>
-                              )}
-                              
-                              {/* Default Description for Corp Pulse / News Buzz */}
-                              {activeTab !== "ipo-scoop" && (
-                                <p className="text-gray-600 line-clamp-2 mb-2">{news.description}</p>
-                              )}
-                              
-                              {/* Default Metadata Row for Corp Pulse / News Buzz */}
-                              {activeTab !== "ipo-scoop" && (
-                                <div className="flex flex-wrap items-center gap-4 text-sm text-emerald-700">
-                                  <div className="flex items-center gap-1">
-                                    <FaUser className="text-xs" />
-                                    {news.author}
-                                  </div>
-                                  <div className="flex items-center gap-1">
-                                    <FaClock className="text-xs" />
-                                    {formatDate(news.publishDate)}
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-                </div>
-              )
-            ) : (
-              // No results found
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-center py-16"
-              >
-                <div className="w-24 h-24 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <FaNewspaper className="text-3xl text-gray-500" />
-                </div>
-                <h3 className="text-2xl font-bold text-emerald-800 mb-4">
-                  No News Articles Found
-                </h3>
-                <p className="text-emerald-600 mb-6">
-                  {searchTerm || selectedCategory !== "all"
-                    ? "Try adjusting your search or filter criteria"
-                    : `No news has been published yet for ${activeTab}.`}
-                </p>
-                <button
-                  onClick={() => {
-                    setSearchTerm("");
-                    setSelectedCategory("all");
-                  }}
-                  className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
-                >
-                  Clear Filters
-                </button>
-              </motion.div>
-            )}
-            
-            {/* Pagination - Updated Theme */}
+            {/* Pagination - Updated Theme (Unchanged) */}
             {!loading && !error && totalPages > 1 && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
