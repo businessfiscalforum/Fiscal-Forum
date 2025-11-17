@@ -15,7 +15,7 @@ export default async function AdminLayout({
         </div>
         <nav className="mt-6 space-y-1 px-4">
           <Link
-            href="/admin"
+            href="/admin/dashboard"
             className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 rounded-lg font-medium transition"
           >
             📊 Dashboard
