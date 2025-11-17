@@ -57,24 +57,24 @@ const SavingAccountPage = () => {
   ];
 
   const bankOffers = [
-    // {
-    //   id: 1,
-    //   name: "IndusInd Bank",
-    //   logo: "/indusind.png",
-    //   features: [
-    //     "Choose your phone number as your easy-to-remember account number.",
-    //     "Zero AMC charges on your digital card — save more every year.",
-    //     "Complete application support for a smooth, hassle-free banking experience.",
-    //     "Minimum initial deposit: ₹5,000 during account opening on the same day.",
-    //     "Withdrawals allowed 15 minutes after initial funding is completed.",
-    //     "No hidden charges — complete transparency for your peace of mind.",
-    //   ],
-    //   rating: 4.8,
-    //   reviews: "12,450",
-    //   offer: "Cashback Upto ₹250",
-    //   link: "/services/saving-account/indusInd",
-    //   alink: "/services/saving-account/indusInd/apply",
-    // },
+    {
+      id: 1,
+      name: "IndusInd Bank",
+      logo: "/indusind.png",
+      features: [
+        "Choose your phone number as your easy-to-remember account number.",
+        "Zero AMC charges on your digital card — save more every year.",
+        "Complete application support for a smooth, hassle-free banking experience.",
+        "Minimum initial deposit: ₹5,000 during account opening on the same day.",
+        "Withdrawals allowed 15 minutes after initial funding is completed.",
+        "No hidden charges — complete transparency for your peace of mind.",
+      ],
+      rating: 4.8,
+      reviews: "12,450",
+      offer: "Cashback Upto ₹250",
+      link: "/services/saving-account/indusInd",
+      alink: "/services/saving-account/indusInd/apply",
+    },
     {
       id: 2,
       name: "AXIS Bank",

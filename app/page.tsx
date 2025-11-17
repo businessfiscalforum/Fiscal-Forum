@@ -998,9 +998,6 @@ export default function HomePage() {
                     ) : (
                       <div></div>
                     )}
-
-                    {/* Decorative element */}
-                    <div className="absolute bottom-6 right-6 w-2 h-2 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   </div>
                 </motion.div>
               ))}
@@ -1317,6 +1314,7 @@ export default function HomePage() {
             }
           }
         `}</style>
+
       </div>
     </>
   );

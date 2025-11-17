@@ -513,9 +513,9 @@ export default function ClientReportsPage({
                             <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold text-emerald-900">
                               Rating & Target
                             </th>
-                            <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold text-emerald-900">
+                            {/* <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold text-emerald-900">
                               Performance
-                            </th>
+                            </th> */}
                             <th className="px-4 py-3 sm:px-6 sm:py-4 text-center text-xs sm:text-sm font-semibold text-emerald-900">
                               Actions
                             </th>
@@ -609,7 +609,7 @@ export default function ClientReportsPage({
                               </td>
 
                               {/* Performance */}
-                              <td className="px-4 py-3 sm:px-6 sm:py-4">
+                              {/* <td className="px-4 py-3 sm:px-6 sm:py-4">
                                 <div className="flex items-center gap-2">
                                   {parseFloat(report.upside ?? "0") > 0 ? (
                                     <FaArrowUp className="text-emerald-500" />
@@ -629,12 +629,12 @@ export default function ClientReportsPage({
                                 <div className="text-xs text-gray-500 mt-1">
                                   {report.recommendation ?? ""}
                                 </div>
-                              </td>
+                              </td> */}
 
                               {/* Actions */}
                               <td className="px-4 py-3 sm:px-6 sm:py-4 text-center">
                                 <Link
-                                  href={`/reports/${report.id}`}
+                                  href={report.pdfUrl || "#"}
                                   className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white px-3 py-2 sm:px-4 sm:py-2 rounded-lg transition-colors font-medium text-sm"
                                 >
                                   View
