@@ -4,11 +4,8 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {
-  FaFacebookF,
-  FaTwitter,
   FaLinkedinIn,
   FaInstagram,
-  FaYoutube,
   FaPhone,
   FaEnvelope,
   FaClock,
@@ -17,6 +14,7 @@ import {
   FaChartLine,
   FaPiggyBank,
 } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   const quickLinks = [
@@ -58,27 +56,26 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    {
-      name: "Facebook",
-      icon: FaFacebookF,
-      href: "#",
-      color: "hover:bg-blue-600",
-    },
-    { name: "Twitter", icon: FaTwitter, href: "#", color: "hover:bg-sky-500" },
-    {
-      name: "LinkedIn",
-      icon: FaLinkedinIn,
-      href: "#",
-      color: "hover:bg-blue-700",
-    },
-    {
-      name: "Instagram",
-      icon: FaInstagram,
-      href: "#",
-      color: "hover:bg-pink-600",
-    },
-    { name: "YouTube", icon: FaYoutube, href: "#", color: "hover:bg-red-600" },
-  ];
+  {
+    name: "X",
+    icon: FaXTwitter,  
+    href: "https://x.com/FiscalForum?t=wozZYda22CGrRjCN5ciBfA&s=08",
+    color: "hover:bg-black", 
+  },
+  {
+    name: "LinkedIn",
+    icon: FaLinkedinIn,
+    href: "https://www.linkedin.com/company/fiscal-forum/posts/?feedView=all",
+    color: "hover:bg-blue-700",
+  },
+  {
+    name: "Instagram",
+    icon: FaInstagram,
+    href: "https://www.instagram.com/fiscal.forum?igsh=eXAzb3JvOXd5MGox#",
+    color: "hover:bg-pink-600",
+  },
+];
+
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -96,7 +93,7 @@ const Footer = () => {
       <div className="relative z-10">
         {/* Top Section */}
         <div className="border-b border-white/10">
-          <div className="max-w-4xl mx-auto px-4 py-12">
+          <div className="max-w-4xl mx-auto px-4 pt-12">
             <div className="flex flex-col items-center text-center">
               {/* Company Info */}
               <motion.div
@@ -105,7 +102,7 @@ const Footer = () => {
                 transition={{ duration: 0.6 }}
                 className="mb-8"
               >
-                <div className="mb-6">
+                <div className="">
                   <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
                     Fiscal Forum
                   </h2>
@@ -171,7 +168,7 @@ const Footer = () => {
                 </div>
 
                 {/* Social Links */}
-                <div className="mb-8">
+                <div className="">
                   <h4 className="text-xl font-semibold mb-4 text-white">
                     Follow Us
                   </h4>

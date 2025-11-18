@@ -20,8 +20,6 @@ import NewsBuzzList from "./NewsBuzzList";
 import IpoScoopList from "./IpoScoopList";
 import CorpPulseList from "./CorpPulseList";
 
-
-
 // --- Interface Definitions (Moved to this file as they are essential for the overall structure) ---
 export interface NewsItem {
   id: string;
@@ -70,40 +68,6 @@ interface ApiIndexData {
   percentageChange: number;
   error?: string;
 }
-
-// --- GLOBAL HELPER FUNCTIONS (Kept here for state/data logic) ---
-
-// 1. Date Formatter (handles null/undefined)
-const formatDate = (dateString: string | undefined | null): string => {
-  if (!dateString) return "N/A";
-  try {
-    // Use IN locale for Indian date format
-    return new Date(dateString).toLocaleDateString("en-IN", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  } catch (e) {
-    return dateString;
-  }
-};
-
-// 2. IPO Status Logic (Can be removed if moved to IpoScoopList, keeping a placeholder/minimal version here)
-const getIpoStatus = (
-  openDateStr: string | null | undefined,
-  closeDateStr: string | null | undefined
-) => {
-  const today = Date.now();
-  if (!openDateStr || !closeDateStr) return { status: "N/A", dotClass: "bg-gray-400", textClass: "text-gray-600" };
-  const openTimestamp = Date.parse(openDateStr);
-  const closeTimestamp = Date.parse(closeDateStr);
-
-  const isLive = today >= openTimestamp && today <= closeTimestamp;
-  if (isLive) return { status: "Live", dotClass: "bg-green-500", textClass: "text-green-600" };
-  else if (today < openTimestamp) return { status: "Upcoming", dotClass: "bg-yellow-500", textClass: "text-yellow-600" };
-  else return { status: "Closed", dotClass: "bg-red-500", textClass: "text-red-600" };
-};
-
 
 // --- Main Component ---
 interface ClientNewsPageProps {
@@ -386,7 +350,6 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
     }
   };
 
-
   return (
     <div
       className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100"
@@ -410,88 +373,152 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
             </div>
 
             {stockLoading ? (
-              <div className="flex justify-center py-3">
-                <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-emerald-500"></div>
-              </div>
-            ) : stockError ? (
-              <p className="text-center text-gray-500 py-3">
-                Error loading market data: {stockError}
+  /* LOADING STATE */
+  <div className="flex justify-center py-3">
+    <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-emerald-500"></div>
+  </div>
+
+) : stockError ? (
+  /* ERROR STATE */
+  <p className="text-center text-gray-500 py-3">
+    Error loading market data: {stockError}
+  </p>
+
+) : stockIndices.length > 0 ? (
+  <>
+
+    {/* Mobile: Horizontal Scroll */}
+    <div className="block sm:hidden overflow-x-auto no-scrollbar py-2">
+      <div className="flex gap-3 min-w-max">
+        {stockIndices.map((index) => (
+          <div
+            key={index.symbol}
+            className={`px-3 py-2 border rounded-lg bg-white shadow-sm flex items-center gap-2 min-w-[160px] ${
+              index.error ? "opacity-70" : ""
+            }`}
+          >
+            <div
+              className={`flex items-center justify-center w-6 h-6 ${
+                index.error
+                  ? "bg-gray-300 text-gray-600"
+                  : "bg-emerald-600 text-white"
+              }`}
+            >
+              {index.error ? "?" : <FaChartLine size={12} />}
+            </div>
+
+            <div className="leading-tight">
+              <p
+                className={`text-xs font-semibold ${
+                  index.error ? "text-gray-500" : "text-emerald-800"
+                }`}
+              >
+                {index.name}
               </p>
-            ) : stockIndices.length > 0 ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-2">
-                {stockIndices.map((index) => (
-                  <div
-                    key={index.symbol}
-                    className={`px-3 py-2 border-r last:border-r-0 flex items-center gap-2 ${
-                      index.error ? "opacity-70" : ""
+
+              {index.error ? (
+                <p className="text-[10px] text-gray-500">{index.error}</p>
+              ) : (
+                <p className="text-[11px] text-gray-600">
+                  {index.value.toLocaleString(undefined, {
+                    maximumFractionDigits: 2,
+                  })}{" "}
+                  <span
+                    className={`font-bold ${
+                      index.change > 0
+                        ? "text-green-600"
+                        : index.change < 0
+                        ? "text-red-500"
+                        : "text-gray-500"
                     }`}
                   >
-                    <div
-                      className={`flex items-center justify-center w-6 h-6 ${
-                        index.error
-                          ? "bg-gray-300 text-gray-600"
-                          : "bg-emerald-600 text-white"
-                      }`}
-                    >
-                      {index.error ? "?" : <FaChartLine size={12} />}
-                    </div>
-                    <div className="leading-tight">
-                      <p
-                        className={`text-xs font-semibold ${
-                          index.error ? "text-gray-500" : "text-emerald-800"
-                        }`}
-                      >
-                        {index.name}
-                      </p>
-                      {index.error ? (
-                        <p className="text-[10px] text-gray-500">
-                          {index.error}
-                        </p>
-                      ) : (
-                        <p className="text-[11px] text-gray-600">
-                          {index.value.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
-                          })}{" "}
-                          <span
-                            className={`font-bold ${
-                              index.change > 0
-                                ? "text-green-600"
-                                : index.change < 0
-                                ? "text-red-500"
-                                : "text-gray-500"
-                            }`}
-                          >
-                            {index.change >= 0 ? "+" : ""}
-                            {index.change.toFixed(2)} (
-                            {index.percentageChange.toFixed(2)}%)
-                          </span>
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
+                    {index.change >= 0 ? "+" : ""}
+                    {index.change.toFixed(2)} ({index.percentageChange.toFixed(2)}%)
+                  </span>
+                </p>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* Desktop Grid */}
+    <div className="hidden sm:grid grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-2">
+      {stockIndices.map((index) => (
+        <div
+          key={index.symbol}
+          className={`px-3 py-2 border rounded-lg bg-white shadow-sm flex items-center gap-2 min-w-[160px] ${
+              index.error ? "opacity-70" : ""
+            }`}
+        >
+          <div
+            className={`flex items-center justify-center w-6 h-6 ${
+              index.error
+                ? "bg-gray-300 text-gray-600"
+                : "bg-emerald-600 text-white"
+            }`}
+          >
+            {index.error ? "?" : <FaChartLine size={12} />}
+          </div>
+          <div className="leading-tight">
+            <p
+              className={`text-xs font-semibold ${
+                index.error ? "text-gray-500" : "text-emerald-800"
+              }`}
+            >
+              {index.name}
+            </p>
+            {index.error ? (
+              <p className="text-[10px] text-gray-500">{index.error}</p>
             ) : (
-              <p className="text-center text-gray-500 py-3">
-                No market data available.
+              <p className="text-[11px] text-gray-600">
+                {index.value.toLocaleString(undefined, {
+                  maximumFractionDigits: 2,
+                })}{" "}
+                <span
+                  className={`font-bold ${
+                    index.change > 0
+                      ? "text-green-600"
+                      : index.change < 0
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  }`}
+                >
+                  {index.change >= 0 ? "+" : ""}
+                  {index.change.toFixed(2)} ({index.percentageChange.toFixed(2)}%)
+                </span>
               </p>
             )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </>
+) : (
+  <p className="text-center text-gray-500 py-3">
+    No market data available.
+  </p>
+)}
+
           </div>
         </div>
       </section>
 
       {/* Tab Navigation (Unchanged) */}
-      <div className="flex justify-center mb-6 h-20">
+      <div className="flex justify-center mb-4 h-14 sm:h-16">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-2 mx-2 relative text-xl font-medium transition-colors duration-300
-          ${activeTab === tab.id ? "text-emerald-600" : "text-gray-600 hover:text-emerald-500"}`}
+            className={`px-2 sm:px-3 py-1 sm:py-1.5 mx-1 sm:mx-2 relative
+text-sm lg:text-lg font-medium transition-colors duration-300
+${activeTab === tab.id ? "text-emerald-600" : "text-gray-600 hover:text-emerald-500"}`}
           >
             {tab.label}
+
             {activeTab === tab.id && (
-              <span className="absolute left-0 bottom-0 w-full h-[2px] bg-emerald-600 rounded-full"></span>
+              <span className="absolute left-0 bottom-0 w-full h-[1.5px] sm:h-[2px] bg-emerald-600 rounded-full"></span>
             )}
           </button>
         ))}
@@ -548,12 +575,10 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
 
       {/* Main Content Grid (3:1) */}
       <section className="py-16">
-        <div className="max-w-8xl mx-auto px-7">
+        <div className="max-w-7xl mx-auto px-7">
           {/* Main News Content Area */}
-          <div className="space-y-8 mb-16">
+          <div className=" space-y-8 mb-16">
             {" "}
-            {/* Added mb-16 for spacing below main content */}
-            {/* Show loading/error/sorting info */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -580,7 +605,6 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
             </motion.div>
             {/* DELEGATE RENDERING */}
             {renderNewsContent()}
-
             {/* Pagination - Updated Theme (Unchanged) */}
             {!loading && !error && totalPages > 1 && (
               <motion.div

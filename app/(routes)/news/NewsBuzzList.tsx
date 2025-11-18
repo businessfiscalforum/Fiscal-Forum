@@ -72,7 +72,7 @@ const NewsBuzzList: React.FC<NewsBuzzListProps> = ({
             className="lg:col-span-2 bg-white rounded-lg shadow-md cursor-pointer group border border-emerald-100 hover:border-emerald-300 transition-all duration-300"
             onClick={() => handleNewsClick(featuredArticle.id)}
           >
-            <div className="relative aspect-video w-full overflow-hidden rounded-t-lg">
+            <div className="relative aspect-[3/2] w-full overflow-hidden rounded-lg">
               {featuredArticle.image ? (
                 <Image
                   src={featuredArticle.image}

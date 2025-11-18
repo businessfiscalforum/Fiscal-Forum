@@ -161,7 +161,7 @@ const IpoScoopList: React.FC<IpoScoopListProps> = ({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="border-b border-emerald-200 pb-4 last:border-0 last:pb-0 group hover:bg-emerald-50/50 p-3 -m-3 rounded-xl transition-colors duration-200"
+              className="border-b border-emerald-200 pb-4  group hover:bg-emerald-50/50 p-3 rounded-xl transition-colors duration-200"
             >
               
               {/* IPO Title and Consideration (Prominent at the top) */}

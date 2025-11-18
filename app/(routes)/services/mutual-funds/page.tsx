@@ -274,29 +274,42 @@ export default function MutualPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="py-20 px-4 mx-4 sm:mx-auto max-w-6xl"
+            className="py-10 sm:py-16 lg:py-20 px-3 sm:px-4 lg:px-4 max-w-6xl mx-auto"
           >
-            <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
-              <div className="bg-gradient-to-r from-green-600 to-emerald-600 px-8 py-6">
-                <h2 className="text-3xl font-bold text-white mb-2">
+            <div className="bg-white/70 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+              {/* HEADER */}
+              <div
+                className="
+      bg-gradient-to-r from-green-600 to-emerald-600
+      px-4 py-4
+      sm:px-6 sm:py-5
+      lg:px-8 lg:py-6
+    "
+              >
+                <h2
+                  className="
+        text-xl sm:text-2xl lg:text-3xl
+        font-bold text-white mb-1 sm:mb-2
+      "
+                >
                   SIP Calculator
                 </h2>
-                <p className="text-green-100">
+                <p className="text-green-100 text-xs sm:text-sm lg:text-base leading-relaxed">
                   The SIP calculator helps estimate the potential growth of your
-                  Systematic Investment Plan (SIP) investment over your chosen
-                  time frame. SIP is a convenient method to save for your
-                  long-term financial goals.
+                  investment over time.
                 </p>
               </div>
 
-              <div className="p-8">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                  {/* Enhanced Input Panel */}
-                  <div className="space-y-8">
-                    <div className="flex items-center gap-4 p-4 bg-blue-50 rounded-xl">
-                      <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center shadow-lg">
+              {/* BODY CONTENT */}
+              <div className="p-4 sm:p-6 lg:p-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
+                  {/* ---------------- INPUT PANEL ---------------- */}
+                  <div className="space-y-5 sm:space-y-7 lg:space-y-8">
+                    {/* Box */}
+                    <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-blue-50 rounded-xl">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-500 rounded-xl flex items-center justify-center shadow-lg">
                         <svg
-                          className="w-6 h-6 text-white"
+                          className="w-5 h-5 sm:w-6 sm:h-6 text-white"
                           fill="currentColor"
                           viewBox="0 0 20 20"
                         >
@@ -304,18 +317,20 @@ export default function MutualPage() {
                         </svg>
                       </div>
                       <div>
-                        <p className="font-semibold text-gray-800">
+                        <p className="font-semibold text-gray-800 text-sm sm:text-base">
                           Returns Estimator
                         </p>
-                        <p className="text-sm text-gray-600">
-                          Estimation is based on the past performance
+                        <p className="text-xs sm:text-sm text-gray-600">
+                          Based on historical performance
                         </p>
                       </div>
                     </div>
 
-                    <div className="space-y-6">
+                    {/* Input Fields */}
+                    <div className="space-y-5 sm:space-y-6 lg:space-y-6">
+                      {/* Monthly Investment */}
                       <div>
-                        <label className="block text-lg font-semibold text-gray-700 mb-3">
+                        <label className="block text-base sm:text-lg font-semibold text-gray-700 mb-2 sm:mb-3">
                           Monthly Investment Amount
                         </label>
                         <div className="relative">
@@ -325,53 +340,70 @@ export default function MutualPage() {
                             onChange={(e) =>
                               setMonthlyAmount(Number(e.target.value))
                             }
-                            className="w-full pl-12 pr-6 py-4 text-xl border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-green-500/20 focus:border-green-500 transition-all bg-white shadow-sm"
+                            className="
+                    w-full pl-10 pr-4 py-3
+                    text-base sm:text-lg
+                    border-2 border-gray-200 rounded-xl
+                    focus:ring-4 focus:ring-green-500/20 focus:border-green-500
+                    bg-white shadow-sm
+                  "
                             placeholder="₹5,000"
                           />
-                          <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-xl font-medium">
+                          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-lg sm:text-xl font-medium">
                             ₹
                           </div>
                         </div>
                       </div>
 
+                      {/* Duration */}
                       <div>
-                        <label className="block text-lg font-semibold text-gray-700 mb-3">
+                        <label className="block text-base sm:text-lg font-semibold text-gray-700 mb-2 sm:mb-3">
                           Investment Duration
                         </label>
-                        <div className="flex items-center justify-between mb-3">
-                          <span className="text-sm text-gray-500">1 Year</span>
-                          <div className="bg-green-100 px-4 py-2 rounded-full">
-                            <span className="text-lg font-bold text-green-700">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs sm:text-sm text-gray-500">
+                            1 Year
+                          </span>
+                          <div className="bg-green-100 px-3 py-1 rounded-full">
+                            <span className="text-sm sm:text-lg font-bold text-green-700">
                               {duration} Years
                             </span>
                           </div>
-                          <span className="text-sm text-gray-500">
+                          <span className="text-xs sm:text-sm text-gray-500">
                             30 Years
                           </span>
                         </div>
+
                         <input
                           type="range"
                           min="1"
                           max="30"
                           value={duration}
                           onChange={(e) => setDuration(Number(e.target.value))}
-                          className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                         />
                       </div>
 
+                      {/* Expected Returns */}
                       <div>
-                        <label className="block text-lg font-semibold text-gray-700 mb-3">
+                        <label className="block text-base sm:text-lg font-semibold text-gray-700 mb-2 sm:mb-3">
                           Expected Annual Return
                         </label>
-                        <div className="flex items-center justify-between mb-3">
-                          <span className="text-sm text-gray-500">8%</span>
-                          <div className="bg-blue-100 px-4 py-2 rounded-full">
-                            <span className="text-lg font-bold text-blue-700">
+
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs sm:text-sm text-gray-500">
+                            8%
+                          </span>
+                          <div className="bg-blue-100 px-3 py-1 rounded-full">
+                            <span className="text-sm sm:text-lg font-bold text-blue-700">
                               {expectedReturn}%
                             </span>
                           </div>
-                          <span className="text-sm text-gray-500">30%</span>
+                          <span className="text-xs sm:text-sm text-gray-500">
+                            30%
+                          </span>
                         </div>
+
                         <input
                           type="range"
                           min="8"
@@ -380,17 +412,16 @@ export default function MutualPage() {
                           onChange={(e) =>
                             setExpectedReturn(Number(e.target.value))
                           }
-                          className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                         />
                       </div>
                     </div>
                   </div>
 
-                  {/* Enhanced Results Panel */}
-                  <div className="flex flex-col justify-center items-center text-center bg-gradient-to-br from-gray-50 to-white p-8 rounded-2xl border border-gray-100">
-                    <p className="text-gray-600 mb-4 text-lg">
-                      The total value of your investment after {duration} years
-                      will be
+                  {/* ---------------- RESULTS PANEL ---------------- */}
+                  <div className="flex flex-col justify-center items-center text-center bg-gradient-to-br from-gray-50 to-white p-5 sm:p-6 lg:p-8 rounded-2xl border border-gray-100">
+                    <p className="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-lg">
+                      Your total value after {duration} years:
                     </p>
 
                     <motion.div
@@ -398,13 +429,16 @@ export default function MutualPage() {
                       initial={{ scale: 0.9 }}
                       animate={{ scale: 1 }}
                       transition={{ duration: 0.3 }}
-                      className="text-5xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-8"
+                      className="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-6 sm:mb-8"
                     >
                       ₹{formatNumber(calculateFutureValue())}
                     </motion.div>
 
-                    <div className="relative mb-8">
-                      <svg viewBox="0 0 100 100" className="w-40 h-40">
+                    <div className="relative mb-6 sm:mb-8">
+                      <svg
+                        viewBox="0 0 100 100"
+                        className="w-28 h-28 sm:w-40 sm:h-40"
+                      >
                         <circle
                           cx="50"
                           cy="50"
@@ -421,9 +455,8 @@ export default function MutualPage() {
                           stroke="#F97316"
                           strokeWidth="8"
                           strokeDasharray={`${investedPortion} ${circumference}`}
-                          strokeDashoffset={0}
-                          strokeLinecap="round"
                           transform="rotate(-90 50 50)"
+                          strokeLinecap="round"
                         />
                         <circle
                           cx="50"
@@ -433,43 +466,54 @@ export default function MutualPage() {
                           stroke="#3B82F6"
                           strokeWidth="8"
                           strokeDasharray={`${returnsPortion} ${circumference}`}
-                          strokeDashoffset={-investedPortion}
-                          strokeLinecap="round"
                           transform="rotate(-90 50 50)"
+                          strokeLinecap="round"
+                          strokeDashoffset={-investedPortion}
                         />
                       </svg>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-6 mb-8 w-full">
-                      <div className="text-center p-4 bg-orange-50 rounded-xl">
-                        <div className="flex items-center justify-center gap-2 mb-2">
-                          <div className="w-4 h-4 bg-orange-500 rounded-full"></div>
-                          <span className="font-semibold text-gray-700">
+                    <div className="grid grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8 w-full">
+                      <div className="text-center p-3 sm:p-4 bg-orange-50 rounded-xl">
+                        <div className="flex items-center justify-center gap-2 mb-1 sm:mb-2">
+                          <div className="w-3 h-3 sm:w-4 sm:h-4 bg-orange-500 rounded-full"></div>
+                          <span className="font-semibold text-gray-700 text-xs sm:text-sm">
                             Invested
                           </span>
                         </div>
-                        <div className="text-xl font-bold text-orange-600">
+                        <div className="text-lg sm:text-xl font-bold text-orange-600">
                           ₹{formatNumber(totalInvestedAmount)}
                         </div>
                       </div>
 
-                      <div className="text-center p-4 bg-blue-50 rounded-xl">
-                        <div className="flex items-center justify-center gap-2 mb-2">
-                          <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
-                          <span className="font-semibold text-gray-700">
+                      <div className="text-center p-3 sm:p-4 bg-blue-50 rounded-xl">
+                        <div className="flex items-center justify-center gap-2 mb-1 sm:mb-2">
+                          <div className="w-3 h-3 sm:w-4 sm:h-4 bg-blue-500 rounded-full"></div>
+                          <span className="font-semibold text-gray-700 text-xs sm:text-sm">
                             Returns
                           </span>
                         </div>
-                        <div className="text-xl font-bold text-blue-600">
+                        <div className="text-lg sm:text-xl font-bold text-blue-600">
                           ₹{formatNumber(estimatedReturns)}
                         </div>
                       </div>
                     </div>
+
                     <Link
                       href="/services/mutual-funds/open-demat-account"
                       passHref
                     >
-                      <button className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-10 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                      <button
+                        className="
+              bg-gradient-to-r from-green-600 to-emerald-600
+              hover:from-green-700 hover:to-emerald-700
+              text-white px-6 sm:px-10 py-3 sm:py-4
+              rounded-full font-bold
+              text-base sm:text-lg
+              shadow-lg hover:shadow-xl
+              transform hover:scale-105 transition-all duration-300
+            "
+                      >
                         Start Investing Today
                       </button>
                     </Link>
@@ -507,13 +551,15 @@ export default function MutualPage() {
 
                   {!isSmallScreen && (
                     <p className="text-green-100 text-lg leading-relaxed mb-8">
-                      Open an investment account today and start building wealth with diversified mutual fund portfolios — all from the comfort of your home, paperless and hassle-free.
+                      Open an investment account today and start building wealth
+                      with diversified mutual fund portfolios — all from the
+                      comfort of your home, paperless and hassle-free.
                     </p>
                   )}
                   <Link href={"/services/mutual-funds/open-demat-account"}>
-                  <button className="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-green-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-                    Start Growing
-                  </button>
+                    <button className="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-green-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+                      Start Growing
+                    </button>
                   </Link>
                 </div>
               </div>
@@ -532,19 +578,20 @@ export default function MutualPage() {
                     </div>
                     <h2 className="text-3xl font-bold text-gray-800 leading-snug">
                       Optimize Your Mutual Fund Portfolio
-
                     </h2>
                   </div>
 
                   {!isSmallScreen && (
                     <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                      Already have mutual fund investments? Shift to direct plans, reduce expense ratios, and maximize your long-term returns with our personalized strategies.
+                      Already have mutual fund investments? Shift to direct
+                      plans, reduce expense ratios, and maximize your long-term
+                      returns with our personalized strategies.
                     </p>
                   )}
                   <Link href={"/services/mutual-funds/already-have-an-account"}>
-                  <button className="bg-green-100 border-2 border-green-500 text-green-700 px-8 py-4 rounded-full font-bold hover:bg-green-600 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-                    Continue Your Journey
-                  </button>
+                    <button className="bg-green-100 border-2 border-green-500 text-green-700 px-8 py-4 rounded-full font-bold hover:bg-green-600 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+                      Continue Your Journey
+                    </button>
                   </Link>
                 </div>
               </div>
