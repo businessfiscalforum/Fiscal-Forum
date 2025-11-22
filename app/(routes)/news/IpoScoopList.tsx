@@ -138,8 +138,8 @@ const IpoScoopList: React.FC<IpoScoopListProps> = ({
 
   return (
     // Max width added here for better appearance on large screens
-    <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl p-4 sm:p-6 border border-emerald-100">
-      <div className="space-y-6">
+    <div className="max-w-6xl mx-auto p-4 sm:p-6">
+      <div className="space-y-6 gap-10">
         {currentNews.map((news, index) => {
           const ipoStatus = getIpoStatus(news.openDate, news.closeDate);
 
@@ -161,7 +161,7 @@ const IpoScoopList: React.FC<IpoScoopListProps> = ({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="border-b border-emerald-200 pb-4  group hover:bg-emerald-50/50 p-3 rounded-xl transition-colors duration-200"
+              className="border-b border-emerald-200 pb-4  group hover:bg-emerald-50/50 p-3 rounded-xl transition-colors duration-200 bg-white"
             >
               
               {/* IPO Title and Consideration (Prominent at the top) */}

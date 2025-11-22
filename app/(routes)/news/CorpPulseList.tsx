@@ -57,7 +57,7 @@ const CorpPulseList: React.FC<CorpPulseListProps> = ({
   handleNewsClick,
 }) => {
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-6 border border-emerald-100">
+    <div className=" p-6 ">
       <div className="space-y-6">
         {currentNews.map((news, index) => (
           <motion.div
@@ -65,7 +65,7 @@ const CorpPulseList: React.FC<CorpPulseListProps> = ({
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.1 }}
-            className="border-b border-emerald-100 pb-6 last:border-0 last:pb-0 group cursor-pointer hover:bg-emerald-50/30 p-2 rounded transition-colors duration-200"
+            className="border-b border-emerald-100 pb-6 last:border-0 last:pb-0 group cursor-pointer hover:bg-emerald-50/30 p-2 rounded-xl transition-colors duration-200 bg-white"
             onClick={() => handleNewsClick(news.id)}
           >
             <div className="w-full">
