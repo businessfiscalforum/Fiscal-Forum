@@ -67,6 +67,16 @@ const nextConfig: NextConfig = {
         protocol:"https",
         hostname:"www.chittorgarh.net",
         pathname: '/**',
+      },
+      {
+        protocol:"https",
+        hostname:"m.economictimes.com",
+        pathname: '/**',
+      },
+      {
+        protocol:"https",
+        hostname:"substackcdn.com",
+        pathname: '/**',
       }
     ],
   },
