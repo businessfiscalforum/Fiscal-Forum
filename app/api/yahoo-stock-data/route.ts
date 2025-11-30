@@ -19,13 +19,11 @@ function corsHeaders(origin: string | null) {
   return {};
 }
 
-// Preflight handler (important for POST/fetch requests)
 export async function OPTIONS(req: NextRequest) {
   const origin = req.headers.get("origin");
-  return NextResponse.json({}, { headers: corsHeaders(origin)as HeadersInit });
+  return NextResponse.json({}, { headers: corsHeaders(origin) as HeadersInit });
 }
 
-// Define the structure for your simplified index data
 interface IndexData {
   symbol: string;
   name: string;
@@ -35,86 +33,75 @@ interface IndexData {
   error?: string;
 }
 
-// Map common Indian indices to their Yahoo Finance symbols
-const indexSymbols: { symbol: string; name: string }[] = [
-  { symbol: "^NSEI", name: "NIFTY 50" },              // Nifty 50
-  { symbol: "^BSESN", name: "SENSEX" },               // BSE Sensex
-  { symbol: "^NSEBANK", name: "NIFTY BANK" },         // Nifty Bank
-  { symbol: "^CNXIT", name: "NIFTY IT" },             // Nifty IT (Now Nifty Info Tech)
-  { symbol: "^NSEMDCP50", name: "NIFTY MIDCAP 50" },  // Nifty Midcap 50
+interface YahooQuote {
+  regularMarketPrice?: number;
+  regularMarketChange?: number;
+  regularMarketChangePercent?: number;
+}
 
-  // Added global + BankEx indices
-  { symbol: "^DJI", name: "Dow Jones Industrial Average" }, // Dow Jones
-  { symbol: "^IXIC", name: "NASDAQ Composite" },      // Nasdaq
-  { symbol: "^GSPC", name: "S&P 500" }                // S&P 500
+const indexSymbols = [
+  { symbol: "^NSEI", name: "NIFTY 50" },
+  { symbol: "^BSESN", name: "SENSEX" },
+  { symbol: "^NSEBANK", name: "NIFTY BANK" },
+  { symbol: "^CNXIT", name: "NIFTY IT" },
+  { symbol: "^NSEMDCP50", name: "NIFTY MIDCAP 50" },
+  { symbol: "^DJI", name: "Dow Jones Industrial Average" },
+  { symbol: "^IXIC", name: "NASDAQ Composite" },
+  { symbol: "^GSPC", name: "S&P 500" }
 ];
 
+// Safe wrapper for Yahoo quote()
+async function safeQuote(symbol: string): Promise<YahooQuote | null> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 3000); // 3 sec timeout
+
+  try {
+    const data = await yahooFinance.quote(
+      symbol,
+      {},
+      { signal: controller.signal, validateResult: false }
+    );
+
+    clearTimeout(timeout);
+    return data as YahooQuote;
+  } catch (err) {
+    console.error("Yahoo API error for symbol:", symbol, err);
+    return null;
+  }
+}
 
 export async function GET(req: NextRequest) {
   const origin = req.headers.get("origin");
 
-  try {
-    const indexDataPromises = indexSymbols.map(async ({ symbol, name }) => {
-      try {
-        const result = await yahooFinance.quote(symbol);
+  const indexDataPromises = indexSymbols.map(async ({ symbol, name }) => {
+    const result = await safeQuote(symbol);
 
-        if (
-          !result ||
-          result.regularMarketPrice === undefined ||
-          result.regularMarketPrice === null
-        ) {
-          console.warn(`No valid data returned for symbol: ${symbol}`);
-          return {
-            symbol,
-            name,
-            value: 0,
-            change: 0,
-            percentageChange: 0,
-            error: `No data available for ${name}`,
-          };
-        }
+    // If symbol failed / Yahoo returned null
+    if (!result || result.regularMarketPrice == null) {
+      return {
+        symbol,
+        name,
+        value: 0,
+        change: 0,
+        percentageChange: 0,
+        error: `No data available for ${name}`
+      };
+    }
 
-        return {
-          symbol,
-          name,
-          value: result.regularMarketPrice,
-          change:
-            result.regularMarketChange !== undefined &&
-            result.regularMarketChange !== null
-              ? result.regularMarketChange
-              : 0,
-          percentageChange:
-            result.regularMarketChangePercent !== undefined &&
-            result.regularMarketChangePercent !== null
-              ? result.regularMarketChangePercent
-              : 0,
-        };
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (fetchError: any) {
-        console.error(
-          `Error fetching data for ${symbol} from Yahoo Finance:`,
-          fetchError.message
-        );
-        return {
-          symbol,
-          name,
-          value: 0,
-          change: 0,
-          percentageChange: 0,
-          error: `Failed to fetch ${name}`,
-        };
-      }
-    });
+    // Normal success response
+    return {
+      symbol,
+      name,
+      value: result.regularMarketPrice ?? 0,
+      change: result.regularMarketChange ?? 0,
+      percentageChange: result.regularMarketChangePercent ?? 0,
+    };
+  });
 
-    const results: IndexData[] = await Promise.all(indexDataPromises);
+  const results: IndexData[] = await Promise.all(indexDataPromises);
 
-    return NextResponse.json({ indices: results }, { headers: corsHeaders(origin) as HeadersInit });
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (err: any) {
-    console.error("Unexpected error in Yahoo Finance API route:", err);
-    return NextResponse.json(
-      { error: "Failed to fetch stock data from Yahoo Finance" },
-      { status: 500, headers: corsHeaders(origin) as HeadersInit  }
-    );
-  }
+  return NextResponse.json(
+    { indices: results },
+    { headers: corsHeaders(origin) as HeadersInit }
+  );
 }
