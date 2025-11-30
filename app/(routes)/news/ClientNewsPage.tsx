@@ -176,46 +176,46 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
     fetchNewsletter();
   }, []);
 
-  useEffect(() => {
-    // ... (Your stock data fetching logic remains the same) ...
-    let isMounted = true;
-    const fetchStockData = async () => {
-      setStockLoading(true);
-      setStockError(null);
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/yahoo-stock-data`
-        );
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
+  // useEffect(() => {
+  //   // ... (Your stock data fetching logic remains the same) ...
+  //   let isMounted = true;
+  //   const fetchStockData = async () => {
+  //     setStockLoading(true);
+  //     setStockError(null);
+  //     try {
+  //       const response = await fetch(
+  //         `${process.env.NEXT_PUBLIC_API_URL}/api/yahoo-stock-data`
+  //       );
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! status: ${response.status}`);
+  //       }
+  //       const data = await response.json();
 
-        if (data.error) {
-          throw new Error(data.error);
-        }
+  //       if (data.error) {
+  //         throw new Error(data.error);
+  //       }
 
-        if (isMounted) {
-          setStockIndices(data.indices);
-        }
-      } catch (err: any) {
-        console.error("Failed to fetch stock data (Yahoo):", err);
-        if (isMounted) {
-          setStockError(err.message || "Failed to load market data.");
-        }
-      } finally {
-        if (isMounted) {
-          setStockLoading(false);
-        }
-      }
-    };
-    fetchStockData();
-    const intervalId = setInterval(fetchStockData, 60000);
-    return () => {
-      isMounted = false;
-      clearInterval(intervalId);
-    };
-  }, []);
+  //       if (isMounted) {
+  //         setStockIndices(data.indices);
+  //       }
+  //     } catch (err: any) {
+  //       console.error("Failed to fetch stock data (Yahoo):", err);
+  //       if (isMounted) {
+  //         setStockError(err.message || "Failed to load market data.");
+  //       }
+  //     } finally {
+  //       if (isMounted) {
+  //         setStockLoading(false);
+  //       }
+  //     }
+  //   };
+  //   fetchStockData();
+  //   const intervalId = setInterval(fetchStockData, 60000);
+  //   return () => {
+  //     isMounted = false;
+  //     clearInterval(intervalId);
+  //   };
+  // }, []);
 
   // --- Data Processing (Keep unchanged) ---
   const currentNewsData = newsByTab[activeTab] || [];
@@ -352,13 +352,13 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
 
   return (
     <div
-      className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100"
+      className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100 py-30"
       style={{
         fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
       }}
     >
       {/* --- Stock Indices Section --- (Unchanged) */}
-      <section className="pt-24 bg-white border-b border-emerald-300">
+      {/* <section className="pt-24 bg-white border-b border-emerald-300">
         <div className="max-w-8xl mx-auto px-2 sm:px-4 lg:px-6">
           <div className="border-b border-emerald-200 bg-white py-2">
             <div className="flex justify-between items-center mb-2">
@@ -373,139 +373,136 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
             </div>
 
             {stockLoading ? (
-  /* LOADING STATE */
-  <div className="flex justify-center py-3">
-    <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-emerald-500"></div>
-  </div>
-
-) : stockError ? (
-  /* ERROR STATE */
-  <p className="text-center text-gray-500 py-3">
-    Error loading market data: {stockError}
-  </p>
-
-) : stockIndices.length > 0 ? (
-  <>
-
-    {/* Mobile: Horizontal Scroll */}
-    <div className="block sm:hidden overflow-x-auto no-scrollbar py-2">
-      <div className="flex gap-3 min-w-max">
-        {stockIndices.map((index) => (
-          <div
-            key={index.symbol}
-            className={`px-3 py-2 border rounded-lg bg-white shadow-sm flex items-center gap-2 min-w-[160px] ${
-              index.error ? "opacity-70" : ""
-            }`}
-          >
-            <div
-              className={`flex items-center justify-center w-6 h-6 ${
-                index.error
-                  ? "bg-gray-300 text-gray-600"
-                  : "bg-emerald-600 text-white"
-              }`}
-            >
-              {index.error ? "?" : <FaChartLine size={12} />}
-            </div>
-
-            <div className="leading-tight">
-              <p
-                className={`text-xs font-semibold ${
-                  index.error ? "text-gray-500" : "text-emerald-800"
-                }`}
-              >
-                {index.name}
+              <div className="flex justify-center py-3">
+                <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-emerald-500"></div>
+              </div>
+            ) : stockError ? (
+              <p className="text-center text-gray-500 py-3">
+                Error loading market data: {stockError}
               </p>
+            ) : stockIndices.length > 0 ? (
+              <>
+                <div className="block sm:hidden overflow-x-auto no-scrollbar py-2">
+                  <div className="flex gap-3 min-w-max">
+                    {stockIndices.map((index) => (
+                      <div
+                        key={index.symbol}
+                        className={`px-3 py-2 border rounded-lg bg-white shadow-sm flex items-center gap-2 min-w-[160px] ${
+                          index.error ? "opacity-70" : ""
+                        }`}
+                      >
+                        <div
+                          className={`flex items-center justify-center w-6 h-6 ${
+                            index.error
+                              ? "bg-gray-300 text-gray-600"
+                              : "bg-emerald-600 text-white"
+                          }`}
+                        >
+                          {index.error ? "?" : <FaChartLine size={12} />}
+                        </div>
 
-              {index.error ? (
-                <p className="text-[10px] text-gray-500">{index.error}</p>
-              ) : (
-                <p className="text-[11px] text-gray-600">
-                  {index.value.toLocaleString(undefined, {
-                    maximumFractionDigits: 2,
-                  })}{" "}
-                  <span
-                    className={`font-bold ${
-                      index.change > 0
-                        ? "text-green-600"
-                        : index.change < 0
-                        ? "text-red-500"
-                        : "text-gray-500"
-                    }`}
-                  >
-                    {index.change >= 0 ? "+" : ""}
-                    {index.change.toFixed(2)} ({index.percentageChange.toFixed(2)}%)
-                  </span>
-                </p>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+                        <div className="leading-tight">
+                          <p
+                            className={`text-xs font-semibold ${
+                              index.error ? "text-gray-500" : "text-emerald-800"
+                            }`}
+                          >
+                            {index.name}
+                          </p>
 
-    {/* Desktop Grid */}
-    <div className="hidden sm:grid grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-2">
-      {stockIndices.map((index) => (
-        <div
-          key={index.symbol}
-          className={`px-3 py-2 border rounded-lg bg-white shadow-sm flex items-center gap-2 min-w-[160px] ${
-              index.error ? "opacity-70" : ""
-            }`}
-        >
-          <div
-            className={`flex items-center justify-center w-6 h-6 ${
-              index.error
-                ? "bg-gray-300 text-gray-600"
-                : "bg-emerald-600 text-white"
-            }`}
-          >
-            {index.error ? "?" : <FaChartLine size={12} />}
-          </div>
-          <div className="leading-tight">
-            <p
-              className={`text-xs font-semibold ${
-                index.error ? "text-gray-500" : "text-emerald-800"
-              }`}
-            >
-              {index.name}
-            </p>
-            {index.error ? (
-              <p className="text-[10px] text-gray-500">{index.error}</p>
+                          {index.error ? (
+                            <p className="text-[10px] text-gray-500">
+                              {index.error}
+                            </p>
+                          ) : (
+                            <p className="text-[11px] text-gray-600">
+                              {index.value.toLocaleString(undefined, {
+                                maximumFractionDigits: 2,
+                              })}{" "}
+                              <span
+                                className={`font-bold ${
+                                  index.change > 0
+                                    ? "text-green-600"
+                                    : index.change < 0
+                                      ? "text-red-500"
+                                      : "text-gray-500"
+                                }`}
+                              >
+                                {index.change >= 0 ? "+" : ""}
+                                {index.change.toFixed(2)} (
+                                {index.percentageChange.toFixed(2)}%)
+                              </span>
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="hidden sm:grid grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-2">
+                  {stockIndices.map((index) => (
+                    <div
+                      key={index.symbol}
+                      className={`px-3 py-2 border rounded-lg bg-white shadow-sm flex items-center gap-2 min-w-[160px] ${
+                        index.error ? "opacity-70" : ""
+                      }`}
+                    >
+                      <div
+                        className={`flex items-center justify-center w-6 h-6 ${
+                          index.error
+                            ? "bg-gray-300 text-gray-600"
+                            : "bg-emerald-600 text-white"
+                        }`}
+                      >
+                        {index.error ? "?" : <FaChartLine size={12} />}
+                      </div>
+                      <div className="leading-tight">
+                        <p
+                          className={`text-xs font-semibold ${
+                            index.error ? "text-gray-500" : "text-emerald-800"
+                          }`}
+                        >
+                          {index.name}
+                        </p>
+                        {index.error ? (
+                          <p className="text-[10px] text-gray-500">
+                            {index.error}
+                          </p>
+                        ) : (
+                          <p className="text-[11px] text-gray-600">
+                            {index.value.toLocaleString(undefined, {
+                              maximumFractionDigits: 2,
+                            })}{" "}
+                            <span
+                              className={`font-bold ${
+                                index.change > 0
+                                  ? "text-green-600"
+                                  : index.change < 0
+                                    ? "text-red-500"
+                                    : "text-gray-500"
+                              }`}
+                            >
+                              {index.change >= 0 ? "+" : ""}
+                              {index.change.toFixed(2)} (
+                              {index.percentageChange.toFixed(2)}%)
+                            </span>
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
             ) : (
-              <p className="text-[11px] text-gray-600">
-                {index.value.toLocaleString(undefined, {
-                  maximumFractionDigits: 2,
-                })}{" "}
-                <span
-                  className={`font-bold ${
-                    index.change > 0
-                      ? "text-green-600"
-                      : index.change < 0
-                      ? "text-red-500"
-                      : "text-gray-500"
-                  }`}
-                >
-                  {index.change >= 0 ? "+" : ""}
-                  {index.change.toFixed(2)} ({index.percentageChange.toFixed(2)}%)
-                </span>
+              <p className="text-center text-gray-500 py-3">
+                No market data available.
               </p>
             )}
           </div>
         </div>
-      ))}
-    </div>
-  </>
-) : (
-  <p className="text-center text-gray-500 py-3">
-    No market data available.
-  </p>
-)}
+      </section> */}
 
-          </div>
-        </div>
-      </section>
-
-      {/* Tab Navigation (Unchanged) */}
       <div className="flex justify-center mb-4 h-14 sm:h-16">
         {tabs.map((tab) => (
           <button
@@ -524,7 +521,6 @@ ${activeTab === tab.id ? "text-emerald-600" : "text-gray-600 hover:text-emerald-
         ))}
       </div>
 
-      {/* Search & Filter (Unchanged) */}
       <section className="py-12 bg-white border-b border-emerald-200">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div

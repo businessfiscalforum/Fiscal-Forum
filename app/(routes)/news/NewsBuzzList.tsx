@@ -1,8 +1,7 @@
 // components/news/NewsBuzzList.tsx
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { motion } from "framer-motion";
-import { FaGlobe, FaStar, FaBolt, FaCalendarAlt, FaTags, FaUser, FaClock } from "react-icons/fa";
+import { FaGlobe, FaStar, FaBolt, FaCalendarAlt, FaTags } from "react-icons/fa";
 import Image from "next/image";
 export interface NewsItem {
   id: string;
@@ -58,9 +57,12 @@ const NewsBuzzList: React.FC<NewsBuzzListProps> = ({
   currentNews,
   handleNewsClick,
 }) => {
-  const featuredArticle = currentNews.length > 0 ? currentNews[0] : null;
-  const topStories = currentNews.slice(1, 5);
-  const latestNews = currentNews.slice(5);
+  const filteredNews = currentNews.filter(
+    (item) => item.category?.toLowerCase() === "news buzz"
+  );
+  const featuredArticle = filteredNews.length > 0 ? filteredNews[0] : null;
+  const topStories = filteredNews.slice(1, 5);
+  const latestNews = filteredNews.slice(5);
 
   return (
     <div className="space-y-8">
