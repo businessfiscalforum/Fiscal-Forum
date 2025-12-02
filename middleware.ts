@@ -59,7 +59,6 @@ const isPublicRoute = createRouteMatcher([
   "/privacy",
   "/terms-&-conditions",
   "/api/referrals",
-
 ]);
 
 const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
