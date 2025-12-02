@@ -18,7 +18,7 @@ export default function sitemap() {
     { url: `${base}/services/insurance`, lastModified: new Date() },
     { url: `${base}/services/loan`, lastModified: new Date() },
     { url: `${base}/services/credit-card`, lastModified: new Date() },
-    { url: `${base}/services/govt-bonds-&-fd`, lastModified: new Date() },
+    { url: `${base}/services/govt-bonds-&amp;-fd`, lastModified: new Date() },
     { url: `${base}/work-with-us`, lastModified: new Date() },
     { url: `${base}/work-with-us/business-development-partnership`, lastModified: new Date() },
     { url: `${base}/work-with-us/remisorship`, lastModified: new Date() },
