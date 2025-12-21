@@ -625,7 +625,7 @@ export default function HomeDesktop() {
         />
         <meta property="og:url" content="https://www.fiscalforum.in/" />
         <meta property="og:site_name" content="Fiscal Forum" />
-        <meta property="og:image" content="https://fiscalforum.in/cover.jpg" />
+        <meta property="og:image" content="https://www.fiscalforum.in/cover.jpg" />
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
@@ -637,7 +637,7 @@ export default function HomeDesktop() {
           name="twitter:description"
           content="Financial tools, premium services, and expert research from Fiscal Forum."
         />
-        <meta name="twitter:image" content="https://fiscalforum.in/cover.jpg" />
+        <meta name="twitter:image" content="https://www.fiscalforum.in/cover.jpg" />
         <meta name="twitter:site" content="@fiscalforum" />
 
         {/* Favicon */}
