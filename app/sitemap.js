@@ -1,6 +1,6 @@
 /** @type {import('next').MetadataRoute.Sitemap} */
 export default function sitemap() {
-  const base = "https://fiscalforum.in";
+  const base = "https://www.fiscalforum.in";
 
   return [
     { url: `${base}/`, lastModified: new Date() },
