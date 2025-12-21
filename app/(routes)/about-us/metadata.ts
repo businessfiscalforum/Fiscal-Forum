@@ -16,7 +16,7 @@ export const metadata = {
     "brokerage sharing",
     "referral rewards India",
   ],
-  authors: [{ name: "Fiscal Forum Team", url: "https://fiscalforum.in" }],
+  authors: [{ name: "Fiscal Forum Team", url: "https://www.fiscalforum.in" }],
   creator: "Fiscal Forum",
   publisher: "Fiscal Forum",
   robots: {

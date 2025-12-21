@@ -611,7 +611,7 @@ export default function HomeDesktop() {
         <meta name="author" content="Fiscal Forum" />
 
         {/* Canonical */}
-        <link rel="canonical" href="https://fiscalforum.in/" />
+        <link rel="canonical" href="https://www.fiscalforum.in/" />
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
@@ -623,7 +623,7 @@ export default function HomeDesktop() {
           property="og:description"
           content="Explore financial research, premium services, and tools designed for every financial move at Fiscal Forum."
         />
-        <meta property="og:url" content="https://fiscalforum.in/" />
+        <meta property="og:url" content="https://www.fiscalforum.in/" />
         <meta property="og:site_name" content="Fiscal Forum" />
         <meta property="og:image" content="https://fiscalforum.in/cover.jpg" />
 
@@ -651,7 +651,7 @@ export default function HomeDesktop() {
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "Fiscal Forum",
-              url: "https://fiscalforum.in",
+              url: "https://www.fiscalforum.in",
               logo: "https://fiscalforum.in/logo.png",
               sameAs: [
                 "https://www.linkedin.com/company/fiscal-forum",
