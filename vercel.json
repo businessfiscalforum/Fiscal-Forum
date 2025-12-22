@@ -1,8 +1,15 @@
 {
-  "rewrites": [
-    { 
-      "source": "/(.*)", 
-    "destination": "/" 
-  }
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "fiscalforum.in"
+        }
+      ],
+      "destination": "https://www.fiscalforum.in/$1",
+      "permanent": true
+    }
   ]
 }

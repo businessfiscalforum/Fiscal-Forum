@@ -22,7 +22,7 @@ const PoliciesPage = () => {
                 Privacy Policy
               </h2>
               <p className="text-gray-700 mb-4">
-                We are Fiscal Forum, committed to protecting your privacy. This Privacy Policy explains how we handle personal information when you use our website: https://fiscalforum.in.
+                We are Fiscal Forum, committed to protecting your privacy. This Privacy Policy explains how we handle personal information when you use our website: https://www.fiscalforum.in.
               </p>
 
               <h3 className="text-xl font-semibold text-emerald-700 mt-6 mb-3">1. Information We Collect</h3>

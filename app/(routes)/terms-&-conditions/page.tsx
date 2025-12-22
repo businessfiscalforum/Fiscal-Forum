@@ -23,7 +23,7 @@ const PoliciesPage = () => {
                 Terms & Conditions
               </h2>
               <p className="text-gray-700 mb-4">
-                These Terms govern your use of Fiscal Forum and its website: https://fiscalforum.in.
+                These Terms govern your use of Fiscal Forum and its website: https://www.fiscalforum.in.
               </p>
 
               <h3 className="text-xl font-semibold text-emerald-700 mt-6 mb-3">1. Eligibility</h3>
