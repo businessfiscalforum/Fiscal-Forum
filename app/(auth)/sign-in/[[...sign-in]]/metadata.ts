@@ -9,7 +9,7 @@ export const metadata = {
   openGraph: {
     title: 'Sign In | Fiscal Forum',
     description: 'Securely sign in to your Fiscal Forum account.',
-    url: 'https://fiscalforum.in/sign-in',
+    url: 'https://www.fiscalforum.in/sign-in',
     siteName: 'Fiscal Forum',
     locale: 'en_US',
     type: 'website',

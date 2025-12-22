@@ -71,56 +71,56 @@ export default function ReferralLinksPage() {
       title: "Health Insurance",
       description:
         "Safeguard your priceless health with complete coverage. Hospitalization, treatments, emergencies — we handle bills, so you and loved ones receive stress-free care.",
-      applyLink: `https://fiscalforum.in/services/insurance/health-insurance/learn-more?partner=${userId}`,
+      applyLink: `https://www.fiscalforum.in/services/insurance/health-insurance/learn-more?partner=${userId}`,
     },
     {
       id: "car insurance",
       title: "Car Insurance",
       description:
         "Protect your car and drive stress-free. From minor dents to major mishaps, enjoy quick claims and peace of mind.",
-      applyLink: `https://fiscalforum.in/services/insurance/car-insurance/learn-more?partner=${userId}`,
+      applyLink: `https://www.fiscalforum.in/services/insurance/car-insurance/learn-more?partner=${userId}`,
     },
     {
       id: "two-wheeler insurance",
       title: "Two-Wheeler Insurance",
       description:
         "Ride worry-free with total two-wheeler protection. Stay covered for accidents, damages, or theft.",
-      applyLink: `https://fiscalforum.in/services/insurance/two-wheeler-insurance/learn-more?partner=${userId}`,
+      applyLink: `https://www.fiscalforum.in/services/insurance/two-wheeler-insurance/learn-more?partner=${userId}`,
     },
     {
       id: "life insurance",
       title: "Life Insurance",
       description:
         "Secure your family's tomorrow. Financial stability and peace of mind, ensuring loved ones remain protected.",
-      applyLink: `https://fiscalforum.in/services/insurance/life-insurance/learn-more?partner=${userId}`,
+      applyLink: `https://www.fiscalforum.in/services/insurance/life-insurance/learn-more?partner=${userId}`,
     },
     {
       id: "home & shop insurance",
       title: "Home & Shop Insurance",
       description:
         "Protect your home and business from fire, theft, or natural disasters. Secure your property and contents.",
-      applyLink: `https://fiscalforum.in/services/insurance/home-shop-insurance/learn-more?partner=${userId}`,
+      applyLink: `https://www.fiscalforum.in/services/insurance/home-shop-insurance/learn-more?partner=${userId}`,
     },
     {
       id: "travel insurance",
       title: "Travel Insurance",
       description:
         "Travel fully protected. Lost bags, delays, or emergencies abroad — we’ve got your back.",
-      applyLink: `https://fiscalforum.in/services/insurance/travel-insurance/learn-more?partner=${userId}`,
+      applyLink: `https://www.fiscalforum.in/services/insurance/travel-insurance/learn-more?partner=${userId}`,
     },
     {
       id: "personal accident insurance",
       title: "Personal Accident Insurance",
       description:
         "Accidents strike unexpectedly — stay prepared. Cover treatments, recovery, and protect income.",
-      applyLink: `https://fiscalforum.in/services/insurance/personal-accident-insurance/learn-more?partner=${userId}`,
+      applyLink: `https://www.fiscalforum.in/services/insurance/personal-accident-insurance/learn-more?partner=${userId}`,
     },
     {
       id: "commercial vehicle insurance",
       title: "Commercial Vehicle Insurance",
       description:
         "Keep your business moving with comprehensive protection for your fleet and liability coverage.",
-      applyLink: `https://fiscalforum.in/services/insurance/commercial-vehicle/learn-more?partner=${userId}`,
+      applyLink: `https://www.fiscalforum.in/services/insurance/commercial-vehicle/learn-more?partner=${userId}`,
     },
   ];
 
@@ -136,7 +136,7 @@ export default function ReferralLinksPage() {
         "Tenure up to 30 years",
         "Minimal documentation",
       ],
-      applyLink: `https://fiscalforum.in/services/loan/home-loan?partner=${userId}`,
+      applyLink: `https://www.fiscalforum.in/services/loan/home-loan?partner=${userId}`,
     },
     {
       id: "loan against property",
@@ -148,7 +148,7 @@ export default function ReferralLinksPage() {
         "Flexible repayment",
         "Retain property ownership",
       ],
-      applyLink: `https://fiscalforum.in/services/loan/loan-against-property?partner=${userId}`,
+      applyLink: `https://www.fiscalforum.in/services/loan/loan-against-property?partner=${userId}`,
     },
     {
       id: "persona loan",
@@ -160,7 +160,7 @@ export default function ReferralLinksPage() {
         "No collateral required",
         "Instant approval",
       ],
-      applyLink: `https://fiscalforum.in/services/loan/personal-loan?partner=${userId}`,
+      applyLink: `https://www.fiscalforum.in/services/loan/personal-loan?partner=${userId}`,
     },
     {
       id: "business loan",
@@ -168,7 +168,7 @@ export default function ReferralLinksPage() {
       interest: "11.0% onwards",
       amount: "Up to ₹50 Cr",
       features: ["Up to ₹50 Crores", "Working capital", "Equipment financing"],
-      applyLink: `https://fiscalforum.in/services/loan/buiness-loan?partner=${userId}`,
+      applyLink: `https://www.fiscalforum.in/services/loan/buiness-loan?partner=${userId}`,
     },
     {
       id: "gold loan",
@@ -176,7 +176,7 @@ export default function ReferralLinksPage() {
       interest: "7.5% onwards",
       amount: "Up to ₹1 Cr",
       features: ["Up to ₹1 Crore", "Instant approval", "Retain gold ownership"],
-      applyLink: `https://fiscalforum.in/services/loan/gold-loan?partner=${userId}`,
+      applyLink: `https://www.fiscalforum.in/services/loan/gold-loan?partner=${userId}`,
     },
     {
       id: "car loan",
@@ -184,7 +184,7 @@ export default function ReferralLinksPage() {
       interest: "8.0% onwards",
       amount: "Up to ₹2 Cr",
       features: ["Up to ₹2 Crores", "New & used cars", "Up to 90% financing"],
-      applyLink: `https://fiscalforum.in/services/loan/car-loan?partner=${userId}`,
+      applyLink: `https://www.fiscalforum.in/services/loan/car-loan?partner=${userId}`,
     },
     {
       id: "education loan",
@@ -196,7 +196,7 @@ export default function ReferralLinksPage() {
         "Abroad & domestic",
         "Flexible repayment",
       ],
-      applyLink: `https://fiscalforum.in/services/loan/educational-loan?partner=${userId}`,
+      applyLink: `https://www.fiscalforum.in/services/loan/educational-loan?partner=${userId}`,
     },
     {
       id: "loan against securities",
@@ -204,7 +204,7 @@ export default function ReferralLinksPage() {
       interest: "9.5% onwards",
       amount: "Up to ₹1.5 Cr",
       features: ["Up to ₹1.5 Crores", "Retain ownership of securities"],
-      applyLink: `https://fiscalforum.in/services/loan/loan-against-securities?partner=${userId}`,
+      applyLink: `https://www.fiscalforum.in/services/loan/loan-against-securities?partner=${userId}`,
     },
   ];
 
@@ -217,21 +217,21 @@ export default function ReferralLinksPage() {
     //   features: [
     //     "Open Saving Accounts In IndusInd Bank",
     //   ],
-    //   applyLink: `https://fiscalforum.in/services/saving-account/indusInd?partner=${userId}`,
+    //   applyLink: `https://www.fiscalforum.in/services/saving-account/indusInd?partner=${userId}`,
     // },
     {
       id: "Axis",
       name: "Axis Bank",
       platform: "Savings Account",
       features: ["Open Saving Accounts In Axis Bank"],
-      applyLink: `https://fiscalforum.in/services/saving-account/axis?partner=${userId}`,
+      applyLink: `https://www.fiscalforum.in/services/saving-account/axis?partner=${userId}`,
     },
     {
       id: "Fi",
       name: "Fi",
       platform: "Savings Account",
       features: ["Open Saving Accounts In Fi Bank"],
-      applyLink: `https://fiscalforum.in/services/saving-account/fi?partner=${userId}`,
+      applyLink: `https://www.fiscalforum.in/services/saving-account/fi?partner=${userId}`,
     },
   ];
 

@@ -15,7 +15,7 @@ import { useEffect } from 'react';
 //   openGraph: {
 //     title: 'Sign Up | Fiscal Forum',
 //     description: 'Securely sign in to your Fiscal Forum account.',
-//     url: 'https://fiscalforum.in/sign-up',
+//     url: 'https://www.fiscalforum.in/sign-up',
 //     siteName: 'Fiscal Forum',
 //     locale: 'en_US',
 //     type: 'website',

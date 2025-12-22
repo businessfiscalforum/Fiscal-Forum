@@ -652,7 +652,7 @@ export default function HomeDesktop() {
               "@type": "Organization",
               name: "Fiscal Forum",
               url: "https://www.fiscalforum.in",
-              logo: "https://fiscalforum.in/logo.png",
+              logo: "https://www.fiscalforum.in/logo.png",
               sameAs: [
                 "https://www.linkedin.com/company/fiscal-forum",
                 "https://twitter.com/fiscalforum",
