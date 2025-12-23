@@ -30,7 +30,7 @@ export default function Navbar() {
     { name: "Credit Card", href: "/services/credit-card", icon: <CreditCard className="w-5 h-5 text-green-600" /> },
     { name: "Saving Account", href: "/services/saving-account", icon: <PiggyBank className="w-5 h-5 text-green-600" /> },
     { name: "Loan", href: "/services/loan", icon: <Landmark className="w-5 h-5 text-green-600" /> },
-    { name: "Govt Bonds & FD", href: "/services/govt-bonds-&-fd", icon: <FileText className="w-5 h-5 text-green-600" /> },
+    { name: "Govt Bonds & FD", href: "/services/govt-bonds-%26-fd", icon: <FileText className="w-5 h-5 text-green-600" /> },
   ];
 
   const closeAll = () => {

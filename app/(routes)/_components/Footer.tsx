@@ -199,7 +199,7 @@ const Footer = () => {
                 © {new Date().getFullYear()} Fiscal Forum. All rights reserved.
               </p>
               <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">Priavcy Policy</Link>
-              <Link href="/terms-&-conditions" className="text-gray-400 hover:text-white text-sm transition-colors">Terms & Conditions</Link>
+              <Link href="/terms-%26-conditions" className="text-gray-400 hover:text-white text-sm transition-colors">Terms & Conditions</Link>
               <Link href="/refund" className="text-gray-400 hover:text-white text-sm transition-colors">Refund Policy</Link>
               <div className="flex gap-6">
                 <button 

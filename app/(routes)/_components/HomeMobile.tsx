@@ -203,7 +203,7 @@ const slides = [
       "Monthly/Quarterly interest payout",
       "Loan against FD facility",
     ],
-    path: "/services/govt-bond-&-fd",
+    path: "/services/govt-bond-%26-fd",
     stats: [
       { value: "₹5K", label: "Deposits Managed" },
       { value: "AAA", label: "Credit Rating" },
@@ -404,7 +404,7 @@ const content = {
       icon: Wallet,
       description:
         "Grow your savings safely with a thoughtful mix of Fixed Deposits and Government Bonds. Enjoy steady growth and dependable protection, giving you the calm confidence that your hard-earned money is secure while you're working.",
-      link: "/services/govt-bonds-&-fd",
+      link: "/services/govt-bonds-%26-fd",
     },
   ],
   "banking-products": [

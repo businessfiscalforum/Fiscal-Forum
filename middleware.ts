@@ -59,7 +59,7 @@ const isPublicRoute = createRouteMatcher([
   "/ipo",
   "/contact",
   "/privacy",
-  "/terms-&-conditions",
+  "/terms-%26-conditions",
   "/api/referrals",
   "/sitemap.xml",
   "/robots.txt",
