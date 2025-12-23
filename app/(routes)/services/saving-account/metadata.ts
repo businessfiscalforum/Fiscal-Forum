@@ -37,7 +37,7 @@ export const metadata = {
     title: "Zero Balance Savings Accounts | Fiscal Forum",
     description:
       "Open an instant savings account with top banks. Zero balance, up to 7% interest, and cashback up to ₹250. Apply online in minutes!",
-    url: "https://www.fiscalforum.in/saving-accounts",
+    url: "https://www.fiscalforum.in/saving-account",
     siteName: "Fiscal Forum",
     locale: "en_IN",
     type: "website",
