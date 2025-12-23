@@ -2,6 +2,7 @@ User-agent: *
 Disallow: /admin/
 Disallow: /crm/
 Disallow: /private/
+Disallow: /feeds/
 Allow: /
 
 Sitemap: https://www.fiscalforum.in/sitemap.xml
