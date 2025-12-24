@@ -1,0 +1,43 @@
+export const metadata = {
+  title: "Government Bonds & Fixed Deposits | Secure Investment Options",
+  description: "Invest in Government Bonds and Fixed Deposits for guaranteed returns and capital safety. Sovereign-backed investment options with competitive interest rates.",
+  keywords: [
+    "government bonds",
+    "fixed deposits",
+    "sovereign bonds",
+    "treasury bills",
+    "secure investments",
+    "guaranteed returns",
+    "capital protection",
+    "tax saving investments",
+    "FD rates India",
+    "government securities",
+  ],
+  authors: [{ name: "Fiscal Forum Team", url: "https://www.fiscalforum.in" }],
+  creator: "Fiscal Forum",
+  publisher: "Fiscal Forum",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    title: "Government Bonds & Fixed Deposits – Secure Investment Options",
+    description: "Discover sovereign-backed investment opportunities with Government Bonds and Fixed Deposits for guaranteed returns and capital safety.",
+    url: "https://www.fiscalforum.in/services/govt-bonds-and-fd",
+    siteName: "Fiscal Forum",
+    locale: "en_IN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Government Bonds & FDs | Secure Investments",
+    description: "Invest in Government Bonds and Fixed Deposits for guaranteed returns and capital protection.",
+  },
+};
