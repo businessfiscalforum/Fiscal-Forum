@@ -46,11 +46,11 @@ const isPublicRoute = createRouteMatcher([
   "/api/personal-accident-insurance",
   "/api/personal-loan",
   "/api/property-insurance",
-  "/api/reports",
+  // "/api/reports",
   "/api/rp",
   "/api/savings-account",
   "/api/schedule-call",
-  "/api/send-quote",
+  // "/api/send-quote",
   "/api/subscribe",
   "/api/transfer-demat",
   "/api/travel-insurance",
@@ -77,14 +77,14 @@ export default clerkMiddleware(async (auth, req) => {
     (await auth()).sessionClaims?.metadata?.role !== "ADMIN"
   ) {
     const url = new URL("/", req.url);
-    return NextResponse.redirect(url);
+    return NextResponse.redirect(url,301);
   }
   if (
     isPartnerRoute(req) &&
     (await auth()).sessionClaims?.metadata?.role !== "PARTNER"
   ) {
     const url = new URL("/", req.url);
-    return NextResponse.redirect(url);
+    return NextResponse.redirect(url, 301);
   }
 });
 

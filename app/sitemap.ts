@@ -10,9 +10,9 @@ export default function sitemap() {
     { url: `${base}/reports`, lastModified: new Date() },
     { url: `${base}/contact`, lastModified: new Date() },
     { url: `${base}/privacy`, lastModified: new Date() },
-    { url: `${base}/about`, lastModified: new Date() },
+    { url: `${base}/about-us`, lastModified: new Date() },
     { url: `${base}/referrals`, lastModified: new Date() },
-    { url: `${base}/refunds`, lastModified: new Date() },
+    { url: `${base}/refund`, lastModified: new Date() },
     { url: `${base}/terms-and-conditions`, lastModified: new Date() },
 
     { url: `${base}/services/stock-investment`, lastModified: new Date() },
