@@ -1,6 +1,11 @@
 {
   "redirects": [
     {
+      "source": "fiscalforum.in",
+      "destination": "https://www.fiscalforum.in",
+      "permanent": true
+    },
+    {
       "source": "fiscalforum.in/:path*",
       "destination": "https://www.fiscalforum.in/:path*",
       "permanent": true
