@@ -1,12 +1,9 @@
 {
   "redirects": [
     {
-      "source": "/(.*)",
-      "destination": "https://www.fiscalforum.in/$1",
-      "permanent": true,
-      "condition": {
-        "host": "fiscalforum.in"
-      }
+      "source": "fiscalforum.in/:path*",
+      "destination": "https://www.fiscalforum.in/:path*",
+      "permanent": true
     }
   ]
 }
