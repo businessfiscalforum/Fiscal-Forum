@@ -69,13 +69,6 @@ const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
 const isPartnerRoute = createRouteMatcher(["/crm(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
-  // Redirect non-www to www
-  const url = req.nextUrl.clone();
-  if (url.hostname === 'fiscalforum.in') {
-    url.hostname = 'www.fiscalforum.in';
-    return NextResponse.redirect(url, 301);
-  }
-
   if (!isPublicRoute(req)) {
     await auth.protect();
   }
