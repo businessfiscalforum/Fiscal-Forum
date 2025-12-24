@@ -13,14 +13,14 @@ export default function sitemap() {
     { url: `${base}/about`, lastModified: new Date() },
     { url: `${base}/referrals`, lastModified: new Date() },
     { url: `${base}/refunds`, lastModified: new Date() },
-    { url: `${base}/terms-%26-conditions`, lastModified: new Date() },
+    { url: `${base}/terms-and-conditions`, lastModified: new Date() },
 
     { url: `${base}/services/stock-investment`, lastModified: new Date() },
     { url: `${base}/services/mutual-funds`, lastModified: new Date() },
     { url: `${base}/services/insurance`, lastModified: new Date() },
     { url: `${base}/services/loan`, lastModified: new Date() },
     { url: `${base}/services/credit-card`, lastModified: new Date() },
-    { url: `${base}/services/govt-bonds-%26-fd`, lastModified: new Date() },
+    { url: `${base}/services/govt-bonds-and-fd`, lastModified: new Date() },
 
     { url: `${base}/work-with-us/business-development-partnership`, lastModified: new Date() },
     { url: `${base}/work-with-us/remisorship`, lastModified: new Date() },
