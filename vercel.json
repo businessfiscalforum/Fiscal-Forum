@@ -1,6 +1,18 @@
 {
   "redirects": [
     {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "query",
+          "key": "m",
+          "value": "1"
+        }
+      ],
+      "destination": "/$1",
+      "permanent": true
+    },
+    {
       "source": "/feeds/:path*",
       "destination": "/",
       "permanent": true
