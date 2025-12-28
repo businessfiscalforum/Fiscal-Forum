@@ -1,3 +1,14 @@
 {
-  "redirects": []
+  "redirects": [
+    {
+      "source": "/feeds/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:slug.html",
+      "destination": "/:slug",
+      "permanent": true
+    }
+  ]
 }
