@@ -69,24 +69,25 @@ const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
 const isPartnerRoute = createRouteMatcher(["/crm(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
-  if (!isPublicRoute(req)) {
-    await auth.protect();
+  // Public routes → Clerk skip
+  if (isPublicRoute(req)) {
+    return NextResponse.next();
   }
-  if (
-    isAdminRoute(req) &&
-    (await auth()).sessionClaims?.metadata?.role !== "ADMIN"
-  ) {
-    const url = new URL("/", req.url);
-    return NextResponse.redirect(url,301);
+
+  // Protected routes
+  await auth.protect();
+
+  // Role-based checks
+  const user = await auth();
+  if (isAdminRoute(req) && user?.sessionClaims?.metadata?.role !== "ADMIN") {
+    return NextResponse.redirect(new URL("/", req.url), 302);
   }
-  if (
-    isPartnerRoute(req) &&
-    (await auth()).sessionClaims?.metadata?.role !== "PARTNER"
-  ) {
-    const url = new URL("/", req.url);
-    return NextResponse.redirect(url, 301);
+  if (isPartnerRoute(req) && user?.sessionClaims?.metadata?.role !== "PARTNER") {
+    return NextResponse.redirect(new URL("/", req.url), 302);
   }
 });
+
+
 
 export const config = {
   matcher: [
