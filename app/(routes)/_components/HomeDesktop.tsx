@@ -144,33 +144,33 @@ const slides = [
     ],
     tagline: "Spend Smart, Earn More",
   },
-  {
-    title: "Savings Accounts",
-    subtitle: "Grow Your Wealth",
-    description:
-      "Maximize your savings with our high-interest savings accounts. Enjoy zero balance requirements, easy online access, and a range of value-added services.",
-    image: "/bg.jpg",
-    cta: "Open Account",
-    features: [
-      "Interest rates up to 7%",
-      "Zero minimum balance",
-      "24/7 mobile banking",
-      "Free ATM withdrawals",
-    ],
-    path: "services/savings-account",
-    stats: [
-      { value: "5K+", label: "Happy Customers" },
-      { value: "₹5K", label: "Deposits Managed" },
-      { value: "99.9%", label: "Uptime Guarantee" },
-    ],
-    benefits: [
-      "Competitive interest rates",
-      "Digital banking solutions",
-      "Multiple account variants",
-      "24/7 customer support",
-    ],
-    tagline: "Save Today, Prosper Tomorrow",
-  },
+  // {
+  //   title: "Savings Accounts",
+  //   subtitle: "Grow Your Wealth",
+  //   description:
+  //     "Maximize your savings with our high-interest savings accounts. Enjoy zero balance requirements, easy online access, and a range of value-added services.",
+  //   image: "/bg.jpg",
+  //   cta: "Open Account",
+  //   features: [
+  //     "Interest rates up to 7%",
+  //     "Zero minimum balance",
+  //     "24/7 mobile banking",
+  //     "Free ATM withdrawals",
+  //   ],
+  //   path: "services/savings-account",
+  //   stats: [
+  //     { value: "5K+", label: "Happy Customers" },
+  //     { value: "₹5K", label: "Deposits Managed" },
+  //     { value: "99.9%", label: "Uptime Guarantee" },
+  //   ],
+  //   benefits: [
+  //     "Competitive interest rates",
+  //     "Digital banking solutions",
+  //     "Multiple account variants",
+  //     "24/7 customer support",
+  //   ],
+  //   tagline: "Save Today, Prosper Tomorrow",
+  // },
   {
     title: "Loans",
     subtitle: "Flexible Financing Solutions",
@@ -517,13 +517,13 @@ export default function HomeDesktop() {
           "Enjoy life's moments with a credit card that matches your lifestyle. From everyday essentials to special treats, spend smartly, earn rewards, and manage your money with ease — all while knowing you have support whenever you need it.",
         link: "/services/credit-card",
       },
-      {
-        title: "Savings Account",
-        icon: Wallet,
-        description:
-          "Open a savings account that does more than just hold money — let your everyday savings gently grow, giving you freedom to plan, spend wisely, and handle life's surprises with a sense of security and confidence in the future.",
-        link: "/services/saving-account",
-      },
+      // {
+      //   title: "Savings Account",
+      //   icon: Wallet,
+      //   description:
+      //     "Open a savings account that does more than just hold money — let your everyday savings gently grow, giving you freedom to plan, spend wisely, and handle life's surprises with a sense of security and confidence in the future.",
+      //   link: "/services/saving-account",
+      // },
       {
         title: "Loans",
         icon: Wallet,

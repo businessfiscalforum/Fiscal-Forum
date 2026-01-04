@@ -153,79 +153,138 @@ export default function AllMutualFundsPage() {
         </motion.div>
 
         {/* Cards */}
-        <div className="items-center justify-between mb-8 p-6 bg-white rounded-2xl shadow-lg border border-emerald-200">
-          <h2 className="text-2xl font-bold text-center mb-6">Top Mutual Funds For You</h2>
+        <section
+            id="all-mutual-funds"
+            className="max-w-7xl mx-auto w-full px-4 md:px-6 lg:px-8"
+          >
+            <div className="bg-white rounded-2xl shadow-lg border border-emerald-200 p-5 md:p-6 mb-10">
+              <h2 className="text-2xl font-bold text-center mb-6">
+                Top Mutual Funds For You
+              </h2>
 
-          {/* Tabs */}
-          <div className="flex justify-center gap-3 mb-6 flex-wrap">
-            {tabs.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition ${
-                  activeTab === tab
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-
-          {/* Responsive Grid Table Layout */}
-          <div className="space-y-3">
-            {/* Column Headers */}
-            <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-4 px-4 py-3 bg-gray-50 rounded-t-lg border-b border-gray-200 text-sm font-medium text-gray-700">
-              <div>Fund</div>
-              <div className="text-center">Rank</div>
-              <div className="text-right">Min SIP</div>
-              <div className="text-right">3Y Returns</div>
-              <div className="text-center">Rating</div>
-            </div>
-
-            {/* Fund Rows */}
-            {sampleFunds[activeTab].map((fund, i) => (
-              <div
-                key={i}
-                className="grid grid-cols-1 sm:grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-4 items-center p-4 border bg-white hover:shadow-md transition rounded-lg"
-              >
-                {/* Fund Name + Type */}
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-600">
-                    {fund.name.charAt(0)}
-                  </div>
-                  <div>
-                    <div className="text-xs text-gray-500 uppercase tracking-wide">{fund.type}</div>
-                    <h3 className="font-semibold text-base">{fund.name}</h3>
-                  </div>
-                </div>
-
-                {/* Rank */}
-                <div className="flex justify-center">
-                  <MedalIcon rank={fund.rank} />
-                </div>
-
-                {/* Min SIP */}
-                <div className="text-right">
-                  <span className="text-sm font-medium">₹{fund.minSIP}</span>
-                </div>
-
-                {/* 3Y Returns */}
-                <div className="text-right">
-                  <span className="text-sm text-green-600 font-medium">{fund.threeYReturns}</span>
-                </div>
-
-                {/* Rating */}
-                <div className="flex justify-center">
-                  <div className="flex items-center text-yellow-500 text-sm font-medium">
-                    {"⭐".repeat(fund.rating)}
-                  </div>
-                </div>
+              {/* Tabs */}
+              <div className="flex justify-center gap-2 mb-6 flex-wrap">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition
+            ${
+              activeTab === tab
+                ? "bg-blue-600 text-white shadow"
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+            }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
+
+              {/* ================= MOBILE VIEW ================= */}
+              <div className="md:hidden space-y-4">
+                {sampleFunds[activeTab].map((fund, i) => (
+                  <div
+                    key={i}
+                    className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm"
+                  >
+                    {/* Header */}
+                    <div className="flex items-start gap-3">
+                      <div className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-sm font-bold text-gray-600">
+                        {fund.name.charAt(0)}
+                      </div>
+
+                      <div className="flex-1">
+                        <div className="text-[10px] text-gray-500 uppercase">
+                          {fund.type}
+                        </div>
+                        <h3 className="font-semibold text-sm leading-snug">
+                          {fund.name}
+                        </h3>
+                      </div>
+
+                      <MedalIcon rank={fund.rank} />
+                    </div>
+
+                    {/* Divider */}
+                    <div className="border-t border-gray-100 my-3" />
+
+                    {/* Stats */}
+                    <div className="grid grid-cols-3 gap-3 text-center text-xs">
+                      <div>
+                        <div className="text-gray-500">Min SIP</div>
+                        <div className="font-semibold">₹{fund.minSIP}</div>
+                      </div>
+
+                      <div>
+                        <div className="text-gray-500">3Y Return</div>
+                        <div className="font-semibold text-green-600">
+                          {fund.threeYReturns}
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="text-gray-500">Rating</div>
+                        <div className="text-yellow-500">
+                          {"⭐".repeat(fund.rating)}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* ================= DESKTOP VIEW ================= */}
+              <div className="hidden md:block space-y-3">
+                {/* Header Row */}
+                <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-4 px-4 py-3 bg-gray-50 rounded-t-lg border-b text-sm font-semibold text-gray-700">
+                  <div>Fund</div>
+                  <div className="text-center">Rank</div>
+                  <div className="text-right">Min SIP</div>
+                  <div className="text-right">3Y Returns</div>
+                  <div className="text-center">Rating</div>
+                </div>
+
+                {/* Rows */}
+                {sampleFunds[activeTab].map((fund, i) => (
+                  <div
+                    key={i}
+                    className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-4 items-center px-4 py-4 border bg-white rounded-lg hover:bg-gray-50 transition"
+                  >
+                    {/* Fund */}
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600">
+                        {fund.name.charAt(0)}
+                      </div>
+                      <div>
+                        <div className="text-xs text-gray-500 uppercase">
+                          {fund.type}
+                        </div>
+                        <h3 className="font-semibold text-sm">{fund.name}</h3>
+                      </div>
+                    </div>
+
+                    {/* Rank */}
+                    <div className="flex justify-center">
+                      <MedalIcon rank={fund.rank} />
+                    </div>
+
+                    {/* Min SIP */}
+                    <div className="text-right font-medium">₹{fund.minSIP}</div>
+
+                    {/* Returns */}
+                    <div className="text-right font-medium text-green-600">
+                      {fund.threeYReturns}
+                    </div>
+
+                    {/* Rating */}
+                    <div className="flex justify-center text-yellow-500 text-sm">
+                      {"⭐".repeat(fund.rating)}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
 
         {/* Optional: PDF Viewer (Google Drive) - Commented out for now */}
         {/* <motion.div
