@@ -55,36 +55,44 @@ const tabs = [
 const faqData = [
   {
     question: "How will I receive the daily PDF?",
-    answer: "The PDF will be sent to your WhatsApp number every Monday to Friday around 8:00 AM morning. You'll receive it directly in your chat, ready to read and analyze before the market opens."
+    answer:
+      "The PDF will be sent to your WhatsApp number every Monday to Friday around 8:00 AM morning. You'll receive it directly in your chat, ready to read and analyze before the market opens.",
   },
   {
     question: "Can we request a refund if we change our minds?",
-    answer: "Yes, you have 3 days after purchase to request a refund. You will receive a 100% refund, no questions asked. Our goal is to ensure you're completely satisfied with your investment in our service."
+    answer:
+      "Yes, you have 3 days after purchase to request a refund. You will receive a 100% refund, no questions asked. Our goal is to ensure you're completely satisfied with your investment in our service.",
   },
   {
     question: "Will my subscription auto-renew after the plan ends?",
-    answer: "No, we do not auto-renew subscriptions. We will remind you 3 days before your plan ends, and you can choose to purchase again. There will be no automatic deductions - you're always in control of your subscription."
+    answer:
+      "No, we do not auto-renew subscriptions. We will remind you 3 days before your plan ends, and you can choose to purchase again. There will be no automatic deductions - you're always in control of your subscription.",
   },
   {
     question: "Can I get a FREE 2-3 days Demo?",
-    answer: "Buy any plan and try it for 3 days. If it is not useful for you after the 3rd day, ask for a refund. You will get 100% of your money back with no questions asked. This risk-free trial lets you experience our service firsthand."
+    answer:
+      "Buy any plan and try it for 3 days. If it is not useful for you after the 3rd day, ask for a refund. You will get 100% of your money back with no questions asked. This risk-free trial lets you experience our service firsthand.",
   },
   {
     question: "Is this worth the money?",
-    answer: "Absolutely! You get daily market updates on WhatsApp for less than the cost of a 🍕 pizza for a YEAR, plus a 100% refund policy and extra FREE Bonuses with every purchase worth more than your payment. It's an incredible value for serious traders who want to stay ahead of the market."
+    answer:
+      "Absolutely! You get daily market updates on WhatsApp for less than the cost of a 🍕 pizza for a YEAR, plus a 100% refund policy and extra FREE Bonuses with every purchase worth more than your payment. It's an incredible value for serious traders who want to stay ahead of the market.",
   },
   {
     question: "What happens if I miss a report?",
-    answer: "All reports are archived and available for download from your account dashboard. You can access any previous report at any time, so you never miss out on valuable insights."
+    answer:
+      "All reports are archived and available for download from your account dashboard. You can access any previous report at any time, so you never miss out on valuable insights.",
   },
   {
     question: "How accurate are your predictions?",
-    answer: "Our analysts use advanced technical analysis and fundamental research to provide accurate market insights. While no prediction is guaranteed, our track record shows consistent accuracy in identifying key market movements."
+    answer:
+      "Our analysts use advanced technical analysis and fundamental research to provide accurate market insights. While no prediction is guaranteed, our track record shows consistent accuracy in identifying key market movements.",
   },
   {
     question: "Can I share the reports with others?",
-    answer: "Reports are intended for personal use only. Sharing with others violates our terms of service. However, we offer team plans for organizations that need multiple access points."
-  }
+    answer:
+      "Reports are intended for personal use only. Sharing with others violates our terms of service. However, we offer team plans for organizations that need multiple access points.",
+  },
 ];
 
 export default function ClientReportsPage({
@@ -120,20 +128,20 @@ export default function ClientReportsPage({
 
   const itemsPerPage = 10;
 
-  useEffect(() => {
-    async function fetchSectors() {
-      try {
-        const res = await fetch("/api/yahoo-stock-data?type=sectors");
-        const data = await res.json();
-        setSectorsData(data.indices || []);
-      } catch (err) {
-        console.error("Error fetching sectors:", err);
-      } finally {
-        setSectorsLoading(false);
-      }
-    }
-    fetchSectors();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchSectors() {
+  //     try {
+  //       const res = await fetch("/api/yahoo-stock-data");
+  //       const data = await res.json();
+  //       setSectorsData(data.indices || []);
+  //     } catch (err) {
+  //       console.error("Error fetching sectors:", err);
+  //     } finally {
+  //       setSectorsLoading(false);
+  //     }
+  //   }
+  //   fetchSectors();
+  // }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -196,13 +204,13 @@ export default function ClientReportsPage({
           apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/reports`;
           break;
         case "pre-market-research-report":
-          apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/reports/pre-market-report`;
+          apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/reports?type=Pre-Market Research Report`;
           break;
         case "thematic-report":
-          apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/reports/thematic-report`;
+          apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/reports?type=Thematic Research Report`;
           break;
         case "equity-research-report":
-          apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/reports/equity-report`;
+          apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/reports?type=Equity Research Report`;
           break;
         default:
           apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/reports`;
@@ -215,7 +223,7 @@ export default function ClientReportsPage({
 
       const data: ResearchReport[] = await response.json();
       setReportsByTab((prev) => ({ ...prev, [tabId]: data }));
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.error(`Failed to fetch ${tabId} reports:`, err);
       setError(`Failed to load ${tabId} reports. Please try again later.`);
@@ -418,7 +426,8 @@ export default function ClientReportsPage({
                 <span className="text-green-400"> Read What Matters</span>
               </h1>
               <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
-                Turn every report into an opportunity - join Fiscal Forum and stay a step ahead.
+                Turn every report into an opportunity - join Fiscal Forum and
+                stay a step ahead.
               </p>
 
               <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
@@ -460,7 +469,7 @@ export default function ClientReportsPage({
               <button
                 key={tab.id}
                 onClick={() => handleTabChange(tab.id)}
-                className={`px-3 sm:px-4 py-2 relative text-sm sm:text-lg md:text-xl font-medium transition-colors duration-300 whitespace-nowrap ${
+                className={`px-3 sm:px-4 py-2 relative text-lg sm:text-lg md:text-xl font-medium transition-colors duration-300 whitespace-nowrap ${
                   activeTab === tab.id
                     ? "text-emerald-600"
                     : "text-gray-600 hover:text-emerald-500"
@@ -476,178 +485,183 @@ export default function ClientReportsPage({
         </div>
 
         {/* REPORTS TABLE */}
-        <section id="table" className="py-16">
+        <section id="table" className="py-10">
           <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-            {!loading && !error && (
-              <>
-                {currentReports.length === 0 ? (
-                  <div className="bg-white rounded-2xl shadow-lg p-12 text-center border border-emerald-200">
-                    <div className="w-24 h-24 bg-gradient-to-r from-gray-100 to-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <FaFilePdf className="text-3xl text-gray-400" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                      No Reports Found
+            {/* EMPTY STATE */}
+            {!loading && !error && currentReports.length === 0 && (
+              <div className="bg-white rounded-xl border border-emerald-200 p-10 text-center">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <FaFilePdf className="text-gray-400 text-2xl" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-800">
+                  No Reports Found
+                </h3>
+                <p className="text-sm text-gray-600 mt-1">
+                  Try adjusting your filters or search.
+                </p>
+              </div>
+            )}
+
+            {/* MOBILE CARD VIEW */}
+            {!loading && !error && currentReports.length > 0 && (
+              <div className="md:hidden grid gap-3">
+                {currentReports.map((report) => (
+                  <div
+                    key={report.id}
+                    className="bg-white border border-emerald-200 rounded-xl p-4 shadow-sm"
+                  >
+                    <h3 className="font-semibold text-emerald-900 text-sm leading-snug">
+                      {report.title ?? "Untitled"}
                     </h3>
-                    <p className="text-gray-600">
-                      Try adjusting your search or filters.
-                    </p>
-                  </div>
-                ) : (
-                  <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-emerald-200">
-                    <div className="overflow-x-auto">
-                      <table className="w-full">
-                        <thead className="bg-gradient-to-r from-emerald-50 to-teal-50 border-b border-emerald-200">
-                          <tr>
-                            <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold text-emerald-900">
-                              Report Details
-                            </th>
-                            <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold text-emerald-900">
-                              Stock / Company
-                            </th>
-                            <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold text-emerald-900">
-                              Author
-                            </th>
-                            <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold text-emerald-900">
-                              Date
-                            </th>
-                            <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold text-emerald-900">
-                              Rating & Target
-                            </th>
-                            {/* <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold text-emerald-900">
-                              Performance
-                            </th> */}
-                            <th className="px-4 py-3 sm:px-6 sm:py-4 text-center text-xs sm:text-sm font-semibold text-emerald-900">
-                              Actions
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-emerald-100">
-                          {currentReports.map((report) => (
-                            <tr
-                              key={report.id}
-                              className="hover:bg-emerald-50/50 transition-colors"
-                            >
-                              {/* Report Details */}
-                              <td className="px-4 py-3 sm:px-6 sm:py-4">
-                                <div className="space-y-2">
-                                  <h3 className="font-semibold text-emerald-900 text-sm leading-tight">
-                                    {report.title ?? "Untitled"}
-                                  </h3>
-                                  <div className="flex flex-wrap items-center gap-2">
-                                    <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-emerald-100 text-emerald-800">
-                                      {report.reportType ?? "N/A"}
-                                    </span>
-                                    <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-teal-100 text-teal-800">
-                                      {report.sector ?? "N/A"}
-                                    </span>
-                                  </div>
-                                  <div className="flex items-center gap-4 text-xs text-gray-500">
-                                    <span className="flex items-center gap-1">
-                                      <FaFilePdf className="text-red-500" />
-                                      {report.pages ?? 0} pages
-                                    </span>
-                                  </div>
-                                </div>
-                              </td>
 
-                              {/* Stock/Company */}
-                              <td className="px-4 py-3 sm:px-6 sm:py-4">
-                                <div className="space-y-1">
-                                  <div className="font-bold text-emerald-700 text-sm">
-                                    {report.stock ?? "N/A"}
-                                  </div>
-                                  <div className="text-xs text-gray-600">
-                                    {report.company ?? "N/A"}
-                                  </div>
-                                </div>
-                              </td>
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      <span className="px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800">
+                        {report.reportType?? "N/A"}
+                      </span>
+                      <span className="px-2 py-0.5 rounded text-[10px] bg-teal-100 text-teal-800">
+                        {report.sector?? "N/A"}
+                      </span>
+                    </div>
 
-                              {/* Author */}
-                              <td className="px-4 py-3 sm:px-6 sm:py-4">
-                                <div className="flex items-center gap-3">
-                                  <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full flex items-center justify-center">
-                                    <FaUser className="text-white text-xs" />
-                                  </div>
-                                  <div>
-                                    <div className="font-medium text-gray-900 text-sm">
-                                      {report.author ?? "Unknown"}
-                                    </div>
-                                    <div className="text-xs text-gray-500">
-                                      {report.authorFirm ?? ""}
-                                    </div>
-                                  </div>
-                                </div>
-                              </td>
+                    <div className="mt-2 text-xs text-gray-600">
+                      <strong className="text-emerald-700">
+                        {report.stock ?? "N/A"}
+                      </strong>{" "}
+                      · {report.company ?? "N/A"}
+                    </div>
 
-                              {/* Date */}
-                              <td className="px-4 py-3 sm:px-6 sm:py-4">
-                                <div className="flex items-center gap-2 text-sm text-gray-600">
-                                  <FaCalendarAlt className="text-emerald-400 text-xs" />
-                                  {formatDate(report?.publishDate)}
-                                </div>
-                              </td>
+                    <div className="flex items-center justify-between mt-3">
+                      <span
+                        className={`px-2 py-0.5 rounded text-xs font-bold ${getRatingColor(
+                          report.rating?? "N/A"
+                        )}`}
+                      >
+                        {report.rating ?? "N/A"}
+                      </span>
 
-                              {/* Rating & Target */}
-                              <td className="px-4 py-3 sm:px-6 sm:py-4">
-                                <div className="space-y-2">
-                                  <span
-                                    className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-bold ${getRatingColor(
-                                      report.rating
-                                    )}`}
-                                  >
-                                    {report.rating ?? "N/A"}
-                                  </span>
-                                  <div className="text-sm">
-                                    <div className="font-semibold text-gray-900">
-                                      Target: {report.targetPrice ?? "-"}
-                                    </div>
-                                    <div className="text-xs text-gray-600">
-                                      Current: {report.currentPrice ?? "-"}
-                                    </div>
-                                  </div>
-                                </div>
-                              </td>
-
-                              {/* Performance */}
-                              {/* <td className="px-4 py-3 sm:px-6 sm:py-4">
-                                <div className="flex items-center gap-2">
-                                  {parseFloat(report.upside ?? "0") > 0 ? (
-                                    <FaArrowUp className="text-emerald-500" />
-                                  ) : (
-                                    <FaArrowDown className="text-red-500" />
-                                  )}
-                                  <span
-                                    className={`font-bold text-sm ${
-                                      parseFloat(report.upside ?? "0") > 0
-                                        ? "text-emerald-600"
-                                        : "text-red-600"
-                                    }`}
-                                  >
-                                    {report.upside ?? "0"}
-                                  </span>
-                                </div>
-                                <div className="text-xs text-gray-500 mt-1">
-                                  {report.recommendation ?? ""}
-                                </div>
-                              </td> */}
-
-                              {/* Actions */}
-                              <td className="px-4 py-3 sm:px-6 sm:py-4 text-center">
-                                <Link
-                                  href={report.pdfUrl || "#"}
-                                  className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white px-3 py-2 sm:px-4 sm:py-2 rounded-lg transition-colors font-medium text-sm"
-                                >
-                                  View
-                                </Link>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
+                      <Link
+                        href={report.pdfUrl || "#"}
+                        className="text-emerald-600 text-xs font-medium"
+                      >
+                        View PDF
+                        <FaFilePdf className="inline ml-1 w-3 h-3 " />
+                      </Link>
                     </div>
                   </div>
-                )}
-              </>
+                ))}
+              </div>
+            )}
+
+            {/* DESKTOP TABLE VIEW */}
+            {!loading && !error && currentReports.length > 0 && (
+              <div className="hidden md:block bg-white rounded-xl border border-emerald-200 shadow-sm overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead className="bg-emerald-50 border-b border-emerald-200">
+                      <tr>
+                        <th className="px-3 py-2 text-left text-xs font-semibold text-emerald-900">
+                          Report
+                        </th>
+                        <th className="px-3 py-2 text-left text-xs font-semibold text-emerald-900">
+                          Stock
+                        </th>
+                        <th className="px-3 py-2 text-left text-xs font-semibold text-emerald-900">
+                          Author
+                        </th>
+                        <th className="px-3 py-2 text-left text-xs font-semibold text-emerald-900">
+                          Date
+                        </th>
+                        <th className="px-3 py-2 text-left text-xs font-semibold text-emerald-900">
+                          Rating
+                        </th>
+                        <th className="px-3 py-2 text-center text-xs font-semibold text-emerald-900">
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+
+                    <tbody className="divide-y divide-emerald-100">
+                      {currentReports.map((report) => (
+                        <tr
+                          key={report.id}
+                          className="hover:bg-emerald-50/40 transition"
+                        >
+                          {/* Report */}
+                          <td className="px-3 py-2 align-top">
+                            <div className="space-y-1">
+                              <div className="font-semibold text-emerald-900">
+                                {report.title ?? "Untitled"}
+                              </div>
+                              <div className="flex gap-1">
+                                <span className="px-2 py-0.5 text-[10px] bg-emerald-100 text-emerald-800 rounded">
+                                  {report.reportType?? "N/A"}
+                                </span>
+                                <span className="px-2 py-0.5 text-[10px] bg-teal-100 text-teal-800 rounded">
+                                  {report.sector?? "N/A"}
+                                </span>
+                              </div>
+                            </div>
+                          </td>
+
+                          {/* Stock */}
+                          <td className="px-3 py-2">
+                            <div className="font-semibold text-emerald-700">
+                              {report.stock?? "N/A"}
+                            </div>
+                            <div className="text-[11px] text-gray-600">
+                              {report.company?? "N/A"}
+                            </div>
+                          </td>
+
+                          {/* Author */}
+                          <td className="px-3 py-2">
+                            <div className="flex items-center gap-2">
+                              <div className="w-6 h-6 bg-emerald-600 rounded-full flex items-center justify-center">
+                                <FaUser className="text-white text-[10px]" />
+                              </div>
+                              <div>
+                                <div className="text-xs font-medium">
+                                  {report.author?? "Fiscal Forum"}
+                                </div>
+                                <div className="text-[11px] text-gray-500">
+                                  {report.authorFirm?? "Fiscal Forum"}
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+
+                          {/* Date */}
+                          <td className="px-3 py-2 text-xs text-gray-600">
+                            <FaCalendarAlt className="inline mr-1 text-emerald-400 text-[10px]" />
+                            {formatDate(report.publishDate)}
+                          </td>
+
+                          {/* Rating */}
+                          <td className="px-3 py-2">
+                            <span
+                              className={`px-2 py-0.5 rounded text-xs font-bold ${getRatingColor(
+                                report.rating
+                              )}`}
+                            >
+                              {report.rating ?? "N/A"}
+                            </span>
+                          </td>
+
+                          {/* Action */}
+                          <td className="px-3 py-2 text-center">
+                            <Link
+                              href={report.pdfUrl || "#"}
+                              className="inline-flex px-3 py-1.5 rounded-md text-xs font-medium text-white bg-emerald-600 hover:bg-emerald-700"
+                            >
+                              View
+                            </Link>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             )}
           </div>
         </section>
