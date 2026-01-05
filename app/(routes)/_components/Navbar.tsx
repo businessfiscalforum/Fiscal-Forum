@@ -28,7 +28,7 @@ export default function Navbar() {
     { name: "Mutual Funds", href: "/services/mutual-funds", icon: <Banknote className="w-5 h-5 text-green-600" /> },
     { name: "Insurance", href: "/services/insurance", icon: <Shield className="w-5 h-5 text-green-600" /> },
     { name: "Credit Card", href: "/services/credit-card", icon: <CreditCard className="w-5 h-5 text-green-600" /> },
-    { name: "Saving Account", href: "/services/saving-account", icon: <PiggyBank className="w-5 h-5 text-green-600" /> },
+    // { name: "Saving Account", href: "/services/saving-account", icon: <PiggyBank className="w-5 h-5 text-green-600" /> },
     { name: "Loan", href: "/services/loan", icon: <Landmark className="w-5 h-5 text-green-600" /> },
     { name: "Govt Bonds & FD", href: "/services/govt-bonds-and-fd", icon: <FileText className="w-5 h-5 text-green-600" /> },
   ];

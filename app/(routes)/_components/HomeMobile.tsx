@@ -9,9 +9,7 @@ import {
   FaLock,
   FaRocket,
   FaAward,
-  FaCheckCircle,
   FaHeadset,
-  FaRegLightbulb,
   FaLaptopCode,
   FaGlobe,
   FaHandsHelping,
@@ -21,7 +19,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BarChart3, BookOpen, Shield, TrendingUp, Wallet } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
 import HomeNewsAndResearchSectionMobile from "./HomeResearchAndNewsSection";
@@ -136,33 +134,33 @@ const slides = [
     ],
     tagline: "Spend Smart, Earn More",
   },
-  {
-    title: "Savings Accounts",
-    subtitle: "Grow Your Wealth",
-    description:
-      "Maximize your savings with our high-interest savings accounts. Enjoy zero balance requirements, easy online access, and a range of value-added services.",
-    image: "/bg.jpg",
-    cta: "Open Account",
-    features: [
-      "Interest rates up to 7%",
-      "Zero minimum balance",
-      "24/7 mobile banking",
-      "Free ATM withdrawals",
-    ],
-    path: "services/savings-account",
-    stats: [
-      { value: "5K+", label: "Happy Customers" },
-      { value: "₹5K", label: "Deposits Managed" },
-      { value: "99.9%", label: "Uptime Guarantee" },
-    ],
-    benefits: [
-      "Competitive interest rates",
-      "Digital banking solutions",
-      "Multiple account variants",
-      "24/7 customer support",
-    ],
-    tagline: "Save Today, Prosper Tomorrow",
-  },
+  // {
+  //   title: "Savings Accounts",
+  //   subtitle: "Grow Your Wealth",
+  //   description:
+  //     "Maximize your savings with our high-interest savings accounts. Enjoy zero balance requirements, easy online access, and a range of value-added services.",
+  //   image: "/bg.jpg",
+  //   cta: "Open Account",
+  //   features: [
+  //     "Interest rates up to 7%",
+  //     "Zero minimum balance",
+  //     "24/7 mobile banking",
+  //     "Free ATM withdrawals",
+  //   ],
+  //   path: "services/savings-account",
+  //   stats: [
+  //     { value: "5K+", label: "Happy Customers" },
+  //     { value: "₹5K", label: "Deposits Managed" },
+  //     { value: "99.9%", label: "Uptime Guarantee" },
+  //   ],
+  //   benefits: [
+  //     "Competitive interest rates",
+  //     "Digital banking solutions",
+  //     "Multiple account variants",
+  //     "24/7 customer support",
+  //   ],
+  //   tagline: "Save Today, Prosper Tomorrow",
+  // },
   {
     title: "Loans",
     subtitle: "Flexible Financing Solutions",
@@ -415,13 +413,13 @@ const content = {
         "Enjoy life's moments with a credit card that matches your lifestyle. From everyday essentials to special treats, spend smartly, earn rewards, and manage your money with ease — all while knowing you have support whenever you need it.",
       link: "/services/credit-card",
     },
-    {
-      title: "Savings Account",
-      icon: Wallet,
-      description:
-        "Open a savings account that does more than just hold money — let your everyday savings gently grow, giving you freedom to plan, spend wisely, and handle life's surprises with a sense of security and confidence in the future.",
-      link: "/services/saving-account",
-    },
+    // {
+    //   title: "Savings Account",
+    //   icon: Wallet,
+    //   description:
+    //     "Open a savings account that does more than just hold money — let your everyday savings gently grow, giving you freedom to plan, spend wisely, and handle life's surprises with a sense of security and confidence in the future.",
+    //   link: "/services/saving-account",
+    // },
     {
       title: "Loans",
       icon: Wallet,
@@ -478,59 +476,82 @@ export default function HomeMobile() {
   return (
     <div className="text-gray-800 font-sans min-h-screen bg-white">
       {/* 🔹 Half-Height Hero Slider */}
-      <section className="relative w-full h-[40vh] overflow-hidden">
-        <Swiper
-          spaceBetween={20}
-          slidesPerView={1}
-          loop
-          autoplay={{ delay: 5000, disableOnInteraction: false }}
-          pagination={{ clickable: true }}
-          modules={[Autoplay, Pagination]}
-          className="w-full h-full"
-        >
-          {slides.map((slide, index) => (
-            <SwiperSlide key={index} className="relative">
-              <div className="absolute inset-0">
-                <Image
-                  src={slide.image}
-                  alt={slide.title}
-                  fill
-                  className="object-cover brightness-75"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/90 via-green-800/70 to-transparent"></div>
-              </div>
-              <div className="relative z-10 h-full flex flex-col justify-center-safe p-10">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="bg-white/10 backdrop-blur-md rounded-2xl p-4 text-white"
+      <section className="relative w-full h-[40vh] sm:h-[50vh] lg:h-[40vh] overflow-hidden">
+  <Swiper
+    spaceBetween={20}
+    slidesPerView={1}
+    loop
+    autoplay={{ delay: 5000, disableOnInteraction: false }}
+    pagination={{ clickable: true }}
+    modules={[Autoplay, Pagination]}
+    className="w-full h-full"
+  >
+    {slides.map((slide, index) => (
+      <SwiperSlide key={index} className="relative">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src={slide.image}
+            alt={slide.title}
+            fill
+            priority={index === 0}
+            className="object-cover brightness-75"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/90 via-green-900/60 to-transparent" />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 flex items-end h-full px-4 sm:px-8 pb-10 sm:pb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className="
+              w-full max-w-md
+              bg-white/15 backdrop-blur-lg
+              rounded-2xl
+              p-4 sm:p-6
+              text-white
+              shadow-xl
+              border border-white/20
+            "
+          >
+            <p className="text-[11px] font-semibold text-teal-200 uppercase tracking-wider">
+              {slide.subtitle}
+            </p>
+
+            <h2 className="text-lg sm:text-xl font-bold mt-1">
+              {slide.title}
+            </h2>
+
+            <p className="text-sm opacity-90 mt-1 line-clamp-2">
+              {slide.description}
+            </p>
+
+            <div className="mt-4">
+              <Link href={slide.path}>
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
+                  className="
+                    px-4 py-2
+                    bg-gradient-to-r from-emerald-500 to-teal-500
+                    text-white text-sm font-semibold
+                    rounded-full
+                    shadow-md
+                  "
                 >
-                  <p className="text-xs font-semibold text-teal-200 uppercase tracking-wider">
-                    {slide.subtitle}
-                  </p>
-                  <h2 className="text-2xl font-bold mt-1 mb-2">
-                    {slide.title}
-                  </h2>
-                  <p className="text-sm opacity-90 line-clamp-2">
-                    {slide.description}
-                  </p>
-                  <div className="mt-3 flex gap-2">
-                    <Link href={slide.path}>
-                      <motion.button
-                        whileTap={{ scale: 0.95 }}
-                        className="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-sm font-semibold rounded-full shadow-md"
-                      >
-                        {slide.cta}
-                      </motion.button>
-                    </Link>
-                  </div>
-                </motion.div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </section>
+                  {slide.cta}
+                </motion.button>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </SwiperSlide>
+    ))}
+  </Swiper>
+</section>
+
 
       {/* 🔹 News & Research — Mobile */}
       <HomeNewsAndResearchSectionMobile />

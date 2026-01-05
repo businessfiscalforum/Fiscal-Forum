@@ -352,7 +352,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
 
   return (
     <div
-      className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100 py-30"
+      className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100 pt-30"
       style={{
         fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
       }}
@@ -509,7 +509,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             className={`px-2 sm:px-3 py-1 sm:py-1.5 mx-1 sm:mx-2 relative
-text-sm lg:text-lg font-medium transition-colors duration-300
+text-lg lg:text-lg font-medium transition-colors duration-300
 ${activeTab === tab.id ? "text-emerald-600" : "text-gray-600 hover:text-emerald-500"}`}
           >
             {tab.label}
@@ -571,7 +571,7 @@ ${activeTab === tab.id ? "text-emerald-600" : "text-gray-600 hover:text-emerald-
 
       {/* Main Content Grid (3:1) */}
       <section className="py-16">
-        <div className="max-w-7xl mx-auto px-7">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-7">
           {/* Main News Content Area */}
           <div className=" space-y-8 mb-16">
             {" "}
@@ -579,7 +579,7 @@ ${activeTab === tab.id ? "text-emerald-600" : "text-gray-600 hover:text-emerald-
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="flex items-center justify-between"
+              className="flex items-center justify-between "
             >
               {loading ? (
                 <p className="text-gray-600">Loading {activeTab} news...</p>
@@ -604,69 +604,75 @@ ${activeTab === tab.id ? "text-emerald-600" : "text-gray-600 hover:text-emerald-
             {/* Pagination - Updated Theme (Unchanged) */}
             {!loading && !error && totalPages > 1 && (
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="flex justify-center items-center gap-2"
+                transition={{ delay: 0.3 }}
+                className="flex items-center justify-center gap-2 px-2 max-w-full overflow-hidden"
               >
+                {/* Previous */}
                 <motion.button
-                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-emerald-200 hover:border-emerald-500 hover:bg-emerald-50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-emerald-800"
+                  className="flex items-center justify-center
+                 h-9 w-9
+                 rounded-lg border border-emerald-200
+                 bg-white text-emerald-800
+                 disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   <FaChevronLeft />
-                  Previous
                 </motion.button>
-                <div className="flex gap-2">
+
+                {/* Page Numbers (allowed to shrink) */}
+                <div className="flex items-center gap-2 min-w-0 overflow-hidden">
                   {[...Array(totalPages)].map((_, index) => {
                     const page = index + 1;
                     const isActive = page === currentPage;
+
                     if (
                       page === 1 ||
                       page === totalPages ||
-                      (page >= currentPage - 2 && page <= currentPage + 2)
+                      (page >= currentPage - 1 && page <= currentPage + 1)
                     ) {
                       return (
-                        <motion.button
+                        <button
                           key={page}
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
                           onClick={() => handlePageChange(page)}
-                          className={`w-10 h-10 rounded-xl font-semibold transition-all duration-300 ${
-                            isActive
-                              ? "bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg"
-                              : "bg-white border border-emerald-200 hover:border-emerald-500 hover:bg-emerald-50 text-emerald-700"
-                          }`}
+                          className={`w-8 h-8 rounded-lg text-sm font-semibold
+                ${
+                  isActive
+                    ? "bg-emerald-600 text-white"
+                    : "border border-emerald-200 text-emerald-700"
+                }`}
                         >
                           {page}
-                        </motion.button>
+                        </button>
                       );
-                    } else if (
-                      page === currentPage - 3 ||
-                      page === currentPage + 3
-                    ) {
+                    }
+
+                    if (page === currentPage - 2 || page === currentPage + 2) {
                       return (
-                        <span
-                          key={page}
-                          className="flex items-center px-2 text-emerald-400"
-                        >
-                          ...
+                        <span key={page} className="text-emerald-400 px-1">
+                          …
                         </span>
                       );
                     }
+
                     return null;
                   })}
                 </div>
+
+                {/* Next */}
                 <motion.button
-                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-emerald-200 hover:border-emerald-500 hover:bg-emerald-50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-emerald-800"
+                  className="flex items-center justify-center
+                 h-9 w-9
+                 rounded-lg border border-emerald-200
+                 bg-white text-emerald-800
+                 disabled:opacity-40 disabled:cursor-not-allowed"
                 >
-                  Next
                   <FaChevronRight />
                 </motion.button>
               </motion.div>
