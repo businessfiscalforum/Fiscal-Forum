@@ -9,15 +9,28 @@ import Footer from "./(routes)/_components/Footer";
 import { GoogleAnalytics } from "./(routes)/_components/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.fiscalforum.in"),
-  title: "Fiscal Forum",
+
+  title: {
+    default: "Fiscal Forum",
+    template: "%s",
+  },
+
   description: "Financial discussions and insights",
+
+  alternates: {
+    canonical: "/",
+  },
+
   icons: {
     icon: "/favicon.ico",
   },
-  alternates: {
-    canonical: "/",
+
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
