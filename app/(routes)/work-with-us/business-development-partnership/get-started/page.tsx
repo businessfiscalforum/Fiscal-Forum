@@ -329,7 +329,7 @@ const GetStartedPage = () => {
             <div className="bg-white p-8 rounded-3xl shadow-xl max-w-4xl mx-auto">
               <h3 className="text-2xl font-semibold text-gray-800 mb-6">Fiscal Forum Brochure</h3>
               <iframe
-                src="https://drive.google.com/file/d/1LCXHivaO6PjFgWT8molff5I1v2uQJYtY/preview"
+                src="https://drive.google.com/file/d/17ZXsQKEN-vt32cthhmY4QH4r5QUk7Oz-/preview"
                 width="100%"
                 height="600"
                 className="border border-gray-300 rounded-xl"
