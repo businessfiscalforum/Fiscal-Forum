@@ -3,8 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
-import { Menu, X, ChevronDown, LineChart, Banknote, Shield, CreditCard, PiggyBank, Landmark, FileText } from "lucide-react";
+import { Menu, X, ChevronDown, LineChart, Banknote, Shield, CreditCard, Landmark, FileText, Sparkles, Star, Zap, Gem } from "lucide-react";
 import { SignedIn, SignedOut, SignOutButton, useUser } from "@clerk/nextjs";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
   const { user } = useUser();
@@ -14,31 +15,7 @@ export default function Navbar() {
 
   const navRef = useRef<HTMLDivElement>(null);
 
-  const navItems = [
-    { label: "News & IPOs", href: "/news" },
-    { label: "About Us", href: "/about-us" },
-    { label: "Newsletters", href: "/newsletter" },
-    { label: "Work With Us", href: "/work-with-us" },
-    { label: "Reports", href: "/reports" },
-    { label: "Refer & Earn", href: "/referrals" },
-  ];
-
-  const servicesDropdown = [
-    { name: "Stock Investment", href: "/services/stock-investment", icon: <LineChart className="w-5 h-5 text-green-600" /> },
-    { name: "Mutual Funds", href: "/services/mutual-funds", icon: <Banknote className="w-5 h-5 text-green-600" /> },
-    { name: "Insurance", href: "/services/insurance", icon: <Shield className="w-5 h-5 text-green-600" /> },
-    { name: "Credit Card", href: "/services/credit-card", icon: <CreditCard className="w-5 h-5 text-green-600" /> },
-    // { name: "Saving Account", href: "/services/saving-account", icon: <PiggyBank className="w-5 h-5 text-green-600" /> },
-    { name: "Loan", href: "/services/loan", icon: <Landmark className="w-5 h-5 text-green-600" /> },
-    { name: "Govt Bonds & FD", href: "/services/govt-bonds-and-fd", icon: <FileText className="w-5 h-5 text-green-600" /> },
-  ];
-
-  const closeAll = () => {
-    setMobileMenuOpen(false);
-    setServicesOpen(false);
-  };
-
-  // Detect outside click
+  // Auto-close logic when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(event.target as Node)) {
@@ -49,154 +26,150 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Fix hydration mismatch
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const closeAll = () => {
+    setMobileMenuOpen(false);
+    setServicesOpen(false);
+  };
+
+  const servicesDropdown = [
+    { name: "Stock Investment", href: "/services/stock-investment", icon: <LineChart className="w-5 h-5 text-emerald-500" /> },
+    { name: "Mutual Funds", href: "/services/mutual-funds", icon: <Banknote className="w-5 h-5 text-emerald-500" /> },
+    { name: "Insurance", href: "/services/insurance", icon: <Shield className="w-5 h-5 text-emerald-500" /> },
+    { name: "Credit Card", href: "/services/credit-card", icon: <CreditCard className="w-5 h-5 text-emerald-500" /> },
+    // { name: "Saving Account", href: "/services/saving-account", icon: <PiggyBank className="w-5 h-5 text-green-600" /> },
+    { name: "Loan", href: "/services/loan", icon: <Landmark className="w-5 h-5 text-emerald-500" /> },
+    { name: "Govt Bonds & FD", href: "/services/govt-bonds-and-fd", icon: <FileText className="w-5 h-5 text-emerald-500" /> },
+  ];
+
+  const navItems = [
+    { label: "News & IPOs", href: "/news" },
+    { label: "About Us", href: "/about-us" },
+    { label: "Newsletters", href: "/newsletter" },
+    { label: "Reports", href: "/reports" },
+  ];
+
+  useEffect(() => { setIsClient(true); }, []);
+
+  // Multi-Element Sparkle Logic
+  const SparkleGenerator = ({ count = 5 }) => {
+    return Array.from({ length: count }).map((_, i) => {
+      const Icons = [Star, Sparkles, Zap, Gem];
+      const PickedIcon = Icons[Math.floor(Math.random() * Icons.length)];
+      return (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: [0, 1, 0], scale: [0, 1, 0], y: [0, -20] }}
+          transition={{ duration: 2 + Math.random() * 2, repeat: Infinity, delay: Math.random() * 2 }}
+          className="absolute pointer-events-none text-yellow-400"
+          style={{
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+          }}
+        >
+          <PickedIcon size={Math.random() * 12 + 6} fill={Math.random() > 0.5 ? "currentColor" : "none"} />
+        </motion.div>
+      );
+    });
+  };
 
   return (
     <nav
       ref={navRef}
-      className="fixed z-50 w-full bg-white shadow-lg 
-      px-4 sm:px-5 md:px-6 lg:px-8 xl:px-10 2xl:px-12 py-4"
+      className="fixed top-0 z-[100] w-full bg-white shadow-md px-4 py-4 md:py-5 border-b border-emerald-50"
     >
-      <div className="flex justify-between items-center relative">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
-          <div className="rounded-full flex items-center justify-center p-1 overflow-hidden">
-            <Image src="/forum1.ico" alt="Fiscal Forum" width={80} height={80} />
+      <div className="max-w-7xl mx-auto flex justify-between items-center relative">
+        
+        {/* Simple Clean Logo (No Borders/Circles) */}
+        <Link href="/" onClick={closeAll} className="relative flex items-center gap-3">
+          <Image src="/forum1.ico" alt="Fiscal Forum" width={65} height={65} className="transition-transform active:scale-95" />
+          <div className="flex flex-col">
+            <h1 className="text-xl md:text-2xl font-black text-emerald-900 tracking-tighter">
+              FISCAL <span className="text-emerald-500">FORUM</span>
+            </h1>
+            <p className="text-[9px] font-bold text-yellow-600 tracking-[0.3em] uppercase leading-none">Wealth Decoded</p>
+          </div>
+          {/* Subtle Sparkle on Logo */}
+          <div className="absolute -top-1 -left-2 opacity-70">
+            <Sparkles size={14} className="text-yellow-400 animate-pulse" />
           </div>
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center space-x-6 lg:space-x-8 text-sm font-medium text-green-900">
-          {/* Services Dropdown */}
-          <div className="relative group">
-            <button
-              onClick={() => setServicesOpen(!servicesOpen)}
-              className="flex items-center gap-1 text-green-800 hover:text-green-600 font-medium transition-colors py-2 relative"
-            >
-              Services
-              <ChevronDown
-                size={16}
-                className={`${servicesOpen ? "rotate-180" : ""} transition-transform`}
-              />
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-600 transition-all group-hover:w-full"></span>
+        {/* Desktop Navigation */}
+        <div className="hidden lg:flex items-center gap-1">
+          {/* Services with Hover Detection */}
+          <div className="relative" onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
+            <button className="flex items-center gap-1 px-4 py-2 text-sm font-bold text-emerald-900 hover:text-emerald-600 transition-colors uppercase tracking-wide">
+              Services <ChevronDown size={14} className={`transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
             </button>
 
-            {servicesOpen && (
-              <div
-                className="fixed top-[100px] left-1/2 -translate-x-1/2
-                w-[calc(100vw-2rem)] max-w-7xl
-                bg-white border border-green-100 shadow-2xl z-50 rounded-xl overflow-hidden"
-              >
-                <div className="bg-gradient-to-r from-green-50 to-emerald-50 px-4 py-3 md:px-6 md:py-4 border-b border-green-100">
-                  <h3 className="text-base md:text-lg font-bold text-green-900">
-                    Our Financial Services
-                  </h3>
-                  <p className="text-xs md:text-sm text-green-700">
-                    Comprehensive solutions for your financial growth
-                  </p>
-                </div>
-
-                <div className="p-4 md:p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-                  {servicesDropdown.map((service) => (
-                    <Link
-                      key={service.name}
-                      href={service.href}
-                      onClick={closeAll}
-                      className="group/item p-3 md:p-4 rounded-xl border border-green-100 hover:border-green-300 hover:shadow-md transition-all duration-300 bg-white"
-                    >
-                      <div className="flex items-start gap-3">
-                        <div className="flex-shrink-0 mt-1">{service.icon}</div>
-                        <div>
-                          <h4 className="font-semibold text-green-900 group-hover/item:text-green-700 transition-colors text-sm md:text-base">
-                            {service.name}
-                          </h4>
-                          <p className="text-xs text-gray-500 mt-1">
-                            Tailored {service.name.toLowerCase()} solutions
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-
-                <div className="px-4 py-3 md:px-6 md:py-4 bg-green-50 border-t border-green-100">
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-                    <p className="text-xs md:text-sm text-green-700">
-                      Need personalized financial advice?
-                    </p>
-                    <Link
-                      href="/contact"
-                      className="text-xs md:text-sm font-medium text-green-700 hover:text-green-900 underline"
-                      onClick={closeAll}
-                    >
-                      Contact Our Experts
-                    </Link>
+            <AnimatePresence>
+              {servicesOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="absolute top-full left-0 w-[550px] pt-2"
+                >
+                  <div className="bg-white border border-emerald-100 shadow-2xl rounded-sm grid grid-cols-2 p-4 relative overflow-hidden">
+                    <SparkleGenerator count={8} />
+                    {servicesDropdown.map((service) => (
+                      <Link
+                        key={service.name}
+                        href={service.href}
+                        onClick={closeAll}
+                        className="flex items-center gap-4 p-4 hover:bg-emerald-50 transition-all border-l-2 border-transparent hover:border-emerald-500"
+                      >
+                        <div className="p-2 bg-emerald-50 rounded-lg">{service.icon}</div>
+                        <span className="text-sm font-bold text-emerald-900">{service.name}</span>
+                      </Link>
+                    ))}
                   </div>
-                </div>
-              </div>
-            )}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
-          {/* Other Nav Items */}
           {navItems.map((item) => (
             <Link
               key={item.label}
               href={item.href}
-              className="hover:text-green-600 transition-colors py-2"
-              onClick={closeAll}
+              className="px-4 py-2 text-sm font-bold text-emerald-900 hover:text-emerald-600 transition-colors uppercase tracking-wide"
             >
               {item.label}
             </Link>
           ))}
+        </div>
 
-          {/* Authenticated User Menu */}
+        {/* Action Side */}
+        <div className="hidden lg:flex items-center gap-6">
+          <Link href="/referrals" className="group flex items-center gap-2 text-xs font-black text-yellow-600 uppercase tracking-widest">
+            <Gem size={14} className="group-hover:rotate-12 transition-transform" />
+            Refer & Earn
+          </Link>
+
           {isClient && (
             <>
               <SignedIn>
-                <div className="relative">
-                  <button
-                    className="flex items-center gap-2"
-                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  >
-                    <Image
-                      src={user?.imageUrl || "/user-icon.webp"}
-                      alt={user?.fullName || "User"}
-                      width={32}
-                      height={32}
-                      className="rounded-full border border-green-200"
-                    />
-                  </button>
-
-                  {mobileMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white text-green-900 border border-green-100 shadow-lg rounded-lg z-50 py-2">
-                      <Link
-                        href="/dashboard"
-                        className="block px-4 py-2.5 hover:bg-green-50 text-sm"
-                        onClick={closeAll}
-                      >
-                        Dashboard
-                      </Link>
-                      <SignOutButton>
-                        <button
-                          className="w-full text-left px-4 py-2.5 hover:bg-red-50 text-red-600 text-sm"
-                          onClick={closeAll}
-                        >
-                          Sign Out
-                        </button>
-                      </SignOutButton>
-                    </div>
-                  )}
+                <div className="flex items-center gap-4">
+                  <Link href="/dashboard" onClick={closeAll}>
+                    <Image src={user?.imageUrl || "/user-icon.webp"} alt="User" width={35} height={35} className="rounded-full ring-2 ring-emerald-100" />
+                  </Link>
+                  <SignOutButton>
+                    <button className="text-[10px] font-black text-red-500 hover:text-red-700 uppercase">Exit</button>
+                  </SignOutButton>
                 </div>
               </SignedIn>
 
               <SignedOut>
                 <Link href="/sign-up">
-                  <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors">
-                    Register
-                  </button>
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    className="relative bg-emerald-600 px-8 py-3 text-white text-xs font-black uppercase tracking-[0.2em] shadow-[5px_5px_0px_#10b98133]"
+                  >
+                    Get Started
+                    <SparkleGenerator count={3} />
+                  </motion.button>
                 </Link>
               </SignedOut>
             </>
@@ -204,90 +177,44 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Toggle */}
-        <div className="md:hidden">
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="text-green-700 p-1"
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
+        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="lg:hidden text-emerald-900">
+          {mobileMenuOpen ? <X size={30} /> : <Menu size={30} />}
+        </button>
       </div>
 
-      {/* Mobile Nav Drawer */}
-      {mobileMenuOpen && (
-        <div className="mt-4 bg-white shadow-xl md:hidden border border-green-100 rounded-lg">
-          <button
-            className="flex items-center justify-between w-full px-4 py-3 text-green-900 font-medium"
-            onClick={() => setServicesOpen(!servicesOpen)}
+      {/* Mobile Drawer */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="lg:hidden bg-white border-t border-emerald-50 overflow-hidden"
           >
-            <span>Services</span>
-            <ChevronDown
-              size={20}
-              className={`${servicesOpen ? "rotate-180" : ""} transition-transform`}
-            />
-          </button>
-
-          {servicesOpen && (
-            <div className="bg-green-50 border-t border-green-100">
-              {servicesDropdown.map((service) => (
-                <Link
-                  key={service.name}
-                  href={service.href}
-                  className="flex items-center gap-2 px-4 py-3 text-sm text-gray-700 border-b border-green-50 last:border-0 hover:bg-green-100"
-                  onClick={closeAll}
-                >
-                  {service.icon}
-                  {service.name}
+            <div className="flex flex-col p-6 gap-4">
+              <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest">Our Services</p>
+              <div className="grid grid-cols-2 gap-2">
+                {servicesDropdown.map((s) => (
+                  <Link key={s.name} href={s.href} onClick={closeAll} className="flex items-center gap-2 p-3 bg-emerald-50 rounded-md">
+                    {s.icon} <span className="text-[10px] font-bold text-emerald-900">{s.name}</span>
+                  </Link>
+                ))}
+              </div>
+              <div className="h-px bg-emerald-50 my-2" />
+              {navItems.map((item) => (
+                <Link key={item.label} href={item.href} onClick={closeAll} className="text-lg font-black text-emerald-900 uppercase">
+                  {item.label}
                 </Link>
               ))}
-            </div>
-          )}
-
-          {navItems.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className="block px-4 py-3 text-sm text-gray-700 border-b border-green-50 last:border-0 hover:bg-green-50"
-              onClick={closeAll}
-            >
-              {item.label}
-            </Link>
-          ))}
-
-          {isClient && (
-            <>
-              <SignedIn>
-                <Link
-                  href="/dashboard"
-                  className="block px-4 py-3 text-sm text-green-700 hover:bg-green-50"
-                  onClick={closeAll}
-                >
-                  Dashboard
-                </Link>
-                <div className="px-4 py-3 border-b border-green-50">
-                  <SignOutButton>
-                    <button className="w-full bg-red-50 hover:bg-red-100 text-red-600 px-4 py-2.5 rounded-lg text-sm font-medium">
-                      Sign Out
-                    </button>
-                  </SignOutButton>
-                </div>
-              </SignedIn>
-
               <SignedOut>
-                <div className="px-4 py-3">
-                  <Link href="/sign-up">
-                    <button className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-lg text-sm font-medium">
-                      Register
-                    </button>
-                  </Link>
-                </div>
+                <Link href="/sign-up" onClick={closeAll} className="w-full py-4 bg-emerald-600 text-white font-black text-center uppercase tracking-widest mt-4">
+                  Join Now
+                </Link>
               </SignedOut>
-            </>
-          )}
-        </div>
-      )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }
