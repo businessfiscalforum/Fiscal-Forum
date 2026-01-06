@@ -9,6 +9,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import FomoStack from "./(routes)/_components/FomoStack";
 import LiveUserPulse from "./(routes)/_components/LiveUserPulse"
+import PopupController from "./(routes)/_components/PopupController";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.fiscalforum.in"),
@@ -50,6 +51,7 @@ export default function RootLayout({
           <Navbar />
           <FomoStack />
           <LiveUserPulse/>
+          <PopupController />
           <Provider>{children}</Provider>
           <Footer />
         </body>

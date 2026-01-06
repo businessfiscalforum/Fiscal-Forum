@@ -128,20 +128,20 @@ export default function ClientReportsPage({
 
   const itemsPerPage = 10;
 
-  // useEffect(() => {
-  //   async function fetchSectors() {
-  //     try {
-  //       const res = await fetch("/api/yahoo-stock-data");
-  //       const data = await res.json();
-  //       setSectorsData(data.indices || []);
-  //     } catch (err) {
-  //       console.error("Error fetching sectors:", err);
-  //     } finally {
-  //       setSectorsLoading(false);
-  //     }
-  //   }
-  //   fetchSectors();
-  // }, []);
+  useEffect(() => {
+    async function fetchSectors() {
+      try {
+        const res = await fetch("/api/yahoo-stock-data");
+        const data = await res.json();
+        setSectorsData(data.indices || []);
+      } catch (err) {
+        console.error("Error fetching sectors:", err);
+      } finally {
+        setSectorsLoading(false);
+      }
+    }
+    fetchSectors();
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -798,10 +798,10 @@ export default function ClientReportsPage({
                       Stock Analysis
                     </span>
                     <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">
-                      Target Prices
+                      Fundamental Analysis
                     </span>
                     <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">
-                      BUY/HOLD/SELL
+                      BUY / HOLD / SELL 
                     </span>
                   </div>
                 </div>
