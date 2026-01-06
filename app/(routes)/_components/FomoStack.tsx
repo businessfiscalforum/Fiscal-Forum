@@ -103,7 +103,7 @@ export default function FomoStack() {
               min-h-[60px] sm:h-[70px]
               bg-white/90 backdrop-blur-sm 
               border-l-4 border-emerald-500/50 
-              border-y border-r border-emerald-100/30
+              border-y border-r 
               rounded-xl shadow-md
               flex items-center px-3 sm:px-5 gap-3 sm:gap-4
               pointer-events-auto

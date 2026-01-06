@@ -14,6 +14,7 @@ import {
   FaClock,
   FaStar,
 } from "react-icons/fa";
+import ShareNews from "../../_components/ShareNews";
 
 // Helper function to determine banner style
 const getBannerStyle = (category: string) => {
@@ -101,7 +102,7 @@ export default async function NewsDetailPage(context: {
   const bannerStyle = getBannerStyle(news.category ?? "");
   // console.log(news);
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-8 sm:py-12 px-4 sm:px-6">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-30 sm:py-30 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
         {/* Back Button */}
         <div className="mb-6">
@@ -161,6 +162,7 @@ export default async function NewsDetailPage(context: {
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
               {news.title}
             </h1>
+            <ShareNews title={news.title??""} />
           </header>
 
           {/* Featured Image */}

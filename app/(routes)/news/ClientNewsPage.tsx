@@ -13,7 +13,8 @@ import {
   FaChevronRight,
   FaArrowUp,
   FaNewspaper,
-  FaChartLine,
+  FaShareAlt,
+  FaMagic,
 } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import NewsBuzzList from "./NewsBuzzList";
@@ -73,6 +74,7 @@ interface ApiIndexData {
 interface ClientNewsPageProps {
   initialNews: NewsItem[];
 }
+
 
 const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
   const router = useRouter();
@@ -352,11 +354,58 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
 
   return (
     <div
-      className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100 pt-30"
+      className="min-h-screen bg-[#fcfdfd] relative overflow-hidden"
       style={{
         fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
       }}
     >
+      {/* Premium Sparkle Background & Gradients */}
+      <div className="absolute top-0 left-0 w-full h-[700px] bg-gradient-to-b from-emerald-50 to-transparent -z-10" />
+      <motion.div 
+        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3], rotate: [0, 45, 0] }}
+        transition={{ duration: 10, repeat: Infinity }}
+        className="absolute top-20 right-[5%] w-[40rem] h-[40rem] bg-emerald-100/40 rounded-full blur-[120px] -z-10"
+      />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-20">
+        {/* --- Header Section --- */}
+        <header className="text-center mb-16 relative">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }} 
+            animate={{ opacity: 1, scale: 1 }} 
+            className="inline-block mb-6"
+          >
+            <span className="bg-emerald-100 text-emerald-700 px-6 py-2 rounded-full text-xs font-black uppercase tracking-[0.2em] flex items-center gap-3 shadow-sm border border-emerald-200">
+              <FaMagic className="text-yellow-500 animate-pulse" /> Latest Market Updates
+            </span>
+          </motion.div>
+          <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter mb-6 leading-none">
+            Global <span className="text-emerald-600 relative">News </span>
+          </h1>
+          <p className="text-slate-500 max-w-2xl mx-auto text-lg md:text-xl font-medium leading-relaxed">
+            Real-time financial coverage and deep-dive analysis into the trends shaping the global economy.
+          </p>
+        </header>
+        </div>
+
+        {/* --- Tab Navigation --- */}
+        <div className="flex justify-center mb-14 flex-wrap gap-3">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-10 py-4 rounded-2xl text-base font-bold transition-all duration-300 relative overflow-hidden group
+                ${activeTab === tab.id 
+                  ? "bg-emerald-600 text-white shadow-2xl shadow-emerald-200" 
+                  : "bg-white text-slate-600 hover:bg-emerald-50 border border-slate-100"}`}
+            >
+              {tab.label}
+              {activeTab === tab.id && (
+                <motion.div layoutId="tabUnderline" className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400" />
+              )}
+            </button>
+          ))}
+        </div>
       {/* --- Stock Indices Section --- (Unchanged) */}
       {/* <section className="pt-24 bg-white border-b border-emerald-300">
         <div className="max-w-8xl mx-auto px-2 sm:px-4 lg:px-6">
@@ -503,23 +552,6 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
         </div>
       </section> */}
 
-      <div className="flex justify-center mb-4 h-14 sm:h-16">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`px-2 sm:px-3 py-1 sm:py-1.5 mx-1 sm:mx-2 relative
-text-lg lg:text-lg font-medium transition-colors duration-300
-${activeTab === tab.id ? "text-emerald-600" : "text-gray-600 hover:text-emerald-500"}`}
-          >
-            {tab.label}
-
-            {activeTab === tab.id && (
-              <span className="absolute left-0 bottom-0 w-full h-[1.5px] sm:h-[2px] bg-emerald-600 rounded-full"></span>
-            )}
-          </button>
-        ))}
-      </div>
 
       <section className="py-12 bg-white border-b border-emerald-200">
         <div className="max-w-7xl mx-auto px-6">

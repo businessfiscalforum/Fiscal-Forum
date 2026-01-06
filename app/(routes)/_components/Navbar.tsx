@@ -87,7 +87,7 @@ export default function Navbar() {
             <h1 className="text-xl md:text-2xl font-black text-emerald-900 tracking-tighter">
               FISCAL <span className="text-emerald-500">FORUM</span>
             </h1>
-            <p className="text-[9px] font-bold text-yellow-600 tracking-[0.3em] uppercase leading-none">Wealth Decoded</p>
+            <p className="text-[9px] font-bold text-yellow-600 tracking-[0.3em] uppercase leading-none">Finserve</p>
           </div>
           {/* Subtle Sparkle on Logo */}
           <div className="absolute -top-1 -left-2 opacity-70">
