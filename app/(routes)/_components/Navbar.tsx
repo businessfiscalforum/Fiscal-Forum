@@ -46,6 +46,7 @@ export default function Navbar() {
     { label: "About Us", href: "/about-us" },
     { label: "Newsletters", href: "/newsletter" },
     { label: "Reports", href: "/reports" },
+    { label: "Work With Us", href: "/work-with-us" },
   ];
 
   useEffect(() => { setIsClient(true); }, []);
@@ -82,17 +83,7 @@ export default function Navbar() {
         
         {/* Simple Clean Logo (No Borders/Circles) */}
         <Link href="/" onClick={closeAll} className="relative flex items-center gap-3">
-          <Image src="/forum1.ico" alt="Fiscal Forum" width={65} height={65} className="transition-transform active:scale-95" />
-          <div className="flex flex-col">
-            <h1 className="text-xl md:text-2xl font-black text-emerald-900 tracking-tighter">
-              FISCAL <span className="text-emerald-500">FORUM</span>
-            </h1>
-            <p className="text-[9px] font-bold text-yellow-600 tracking-[0.3em] uppercase leading-none">Finserve</p>
-          </div>
-          {/* Subtle Sparkle on Logo */}
-          <div className="absolute -top-1 -left-2 opacity-70">
-            <Sparkles size={14} className="text-yellow-400 animate-pulse" />
-          </div>
+          <Image src="/forum1.ico" alt="Fiscal Forum" width={85} height={65} className="transition-transform active:scale-95" />
         </Link>
 
         {/* Desktop Navigation */}

@@ -9,6 +9,7 @@ export default function ShareNews({ title }: { title: string }) {
   const [copied, setCopied] = useState(false);
 
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+  
 
   const copyToClipboard = async () => {
     try {

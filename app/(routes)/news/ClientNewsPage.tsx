@@ -15,11 +15,59 @@ import {
   FaNewspaper,
   FaShareAlt,
   FaMagic,
+  FaCheck,
 } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import NewsBuzzList from "./NewsBuzzList";
 import IpoScoopList from "./IpoScoopList";
 import CorpPulseList from "./CorpPulseList";
+
+const ShareButton = ({ id, title }: { id: string; title: string }) => {
+  const [copied, setCopied] = useState(false);
+  
+  const handleShare = async (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevents clicking the card redirect
+    const shareUrl = `${window.location.origin}/news/${id}`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: title,
+          text: `Check out this market update: ${title}`,
+          url: shareUrl,
+        });
+      } catch (err) {
+        if ((err as Error).name !== 'AbortError') console.error("Share failed:", err);
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch (err) {
+        console.error("Copy failed:", err);
+      }
+    }
+  };
+  return (
+    <button
+      onClick={handleShare}
+      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 hover:bg-emerald-100 transition-all duration-200"
+    >
+      {copied ? (
+        <>
+          <FaCheck className="w-3 h-3 text-emerald-500" />
+          <span className="text-[10px] font-bold uppercase">Copied</span>
+        </>
+      ) : (
+        <>
+          <FaShareAlt className="w-3 h-3" />
+          <span className="text-[10px] font-bold uppercase">Share</span>
+        </>
+      )}
+    </button>
+  );
+};
 
 // --- Interface Definitions (Moved to this file as they are essential for the overall structure) ---
 export interface NewsItem {
@@ -331,6 +379,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
           <NewsBuzzList
             currentNews={currentNews}
             handleNewsClick={handleNewsClick}
+            ShareButton={ShareButton}
           />
         );
       case "corp-pulse":
@@ -338,6 +387,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
           <CorpPulseList
             currentNews={currentNews}
             handleNewsClick={handleNewsClick}
+            ShareButton={ShareButton}
           />
         );
       case "ipo-scoop":
@@ -345,6 +395,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
           <IpoScoopList
             currentNews={currentNews}
             handleNewsClick={handleNewsClick}
+            ShareButton={ShareButton}
           />
         );
       default:
@@ -360,16 +411,16 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
       }}
     >
       {/* Premium Sparkle Background & Gradients */}
-      <div className="absolute top-0 left-0 w-full h-[700px] bg-gradient-to-b from-emerald-50 to-transparent -z-10" />
+      <div className="absolute top-0 left-0 w-full h-[100px] bg-gradient-to-b from-emerald-50 to-transparent -z-10" />
       <motion.div 
         animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3], rotate: [0, 45, 0] }}
         transition={{ duration: 10, repeat: Infinity }}
         className="absolute top-20 right-[5%] w-[40rem] h-[40rem] bg-emerald-100/40 rounded-full blur-[120px] -z-10"
       />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-30">
         {/* --- Header Section --- */}
-        <header className="text-center mb-16 relative">
+        <header className="text-center mb-4 relative">
           <motion.div 
             initial={{ opacity: 0, scale: 0.8 }} 
             animate={{ opacity: 1, scale: 1 }} 
@@ -389,7 +440,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
         </div>
 
         {/* --- Tab Navigation --- */}
-        <div className="flex justify-center mb-14 flex-wrap gap-3">
+        <div className="flex justify-center mb-4 flex-wrap gap-3">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -553,7 +604,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
       </section> */}
 
 
-      <section className="py-12 bg-white border-b border-emerald-200">
+      <section className="py-8 bg-white border-b border-emerald-200">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -602,7 +653,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
       </section>
 
       {/* Main Content Grid (3:1) */}
-      <section className="py-16">
+      <section className="py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-7">
           {/* Main News Content Area */}
           <div className=" space-y-8 mb-16">

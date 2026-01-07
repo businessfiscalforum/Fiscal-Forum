@@ -63,9 +63,6 @@ export default async function NewsDetailPage(context: {
   }
 
   const news = newsItems[0];
-
-  // Ensure publishDate is a Date object (this is what Drizzle ORM should provide by default)
-  // Handle potential cases where it might be a string (e.g., from serialization) gracefully
   let publishDateObj: Date;
   if (typeof news.publishDate === "string") {
     // If it's unexpectedly a string, try to parse it
@@ -82,10 +79,6 @@ export default async function NewsDetailPage(context: {
     );
     publishDateObj = new Date(); // Use current date as fallback
   }
-
-  // --- Critical Fix ---
-  // 1. Use the Date object (`publishDateObj`) to get the ISO string for `dateTime`.
-  //    toISOString() provides the required format (e.g., "2024-06-13T10:30:00.000Z").
   const isoDateString = publishDateObj.toISOString();
 
   // 2. Use the Date object (`publishDateObj`) with date-fns `format` for display.
@@ -162,7 +155,7 @@ export default async function NewsDetailPage(context: {
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
               {news.title}
             </h1>
-            <ShareNews title={news.title??""} />
+            {/* <ShareNews title={news.title??""} /> */}
           </header>
 
           {/* Featured Image */}

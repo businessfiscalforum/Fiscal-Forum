@@ -1,8 +1,8 @@
-// components/news/NewsBuzzList.tsx
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { FaGlobe, FaStar, FaBolt, FaCalendarAlt, FaTags } from "react-icons/fa";
+import { FaGlobe, FaStar, FaBolt, FaCalendarAlt, FaTags, FaUserCircle } from "react-icons/fa";
 import Image from "next/image";
+
 export interface NewsItem {
   id: string;
   title: string;
@@ -32,7 +32,6 @@ export interface NewsItem {
   listingDate?: string | null;
 }
 
-// --- HELPER FUNCTION IMPORTED FROM MAIN PAGE ---
 const formatDate = (dateString: string | undefined | null): string => {
   if (!dateString) return "N/A";
   try {
@@ -46,16 +45,16 @@ const formatDate = (dateString: string | undefined | null): string => {
   }
 };
 
-// --- Component Interface ---
 interface NewsBuzzListProps {
   currentNews: NewsItem[];
   handleNewsClick: (id: string) => void;
+  ShareButton: React.ComponentType<{ id: string; title: string }>;
 }
 
-// --- Component ---
 const NewsBuzzList: React.FC<NewsBuzzListProps> = ({
   currentNews,
   handleNewsClick,
+  ShareButton,
 }) => {
   const filteredNews = currentNews.filter(
     (item) => item.category?.toLowerCase() === "news buzz"
@@ -65,128 +64,137 @@ const NewsBuzzList: React.FC<NewsBuzzListProps> = ({
   const latestNews = filteredNews.slice(5);
 
   return (
-    <div className="space-y-8">
-      {/* Featured News Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Main Featured Article */}
+    <div className="max-w-7xl mx-auto space-y-12">
+      {/* --- Section 1: Hero & Trending --- */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        {/* Featured Card (Spans 8 columns) */}
         {featuredArticle && (
           <div
-            className="lg:col-span-2 bg-white rounded-lg shadow-md cursor-pointer group border border-emerald-100 hover:border-emerald-300 transition-all duration-300"
+            className="lg:col-span-8 group relative bg-slate-900 rounded-[2rem] overflow-hidden shadow-2xl cursor-pointer"
             onClick={() => handleNewsClick(featuredArticle.id)}
           >
-            <div className="relative aspect-[3/2] w-full overflow-hidden rounded-lg">
+            <div className="relative aspect-[16/9] lg:aspect-auto lg:h-full w-full overflow-hidden">
               {featuredArticle.image ? (
                 <Image
                   src={featuredArticle.image}
-                  width={400}
-                  height={400}
+                  fill
                   alt={featuredArticle.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-80"
                 />
               ) : (
-                <div className="bg-gradient-to-br from-emerald-100 to-teal-100 w-full h-full flex items-center justify-center">
-                  <FaGlobe className="text-6xl text-emerald-400" />
+                <div className="bg-emerald-950 w-full h-full flex items-center justify-center">
+                  <FaGlobe className="text-8xl text-emerald-900" />
                 </div>
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-              <div className="absolute top-4 left-4">
-                <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-sm font-bold">
-                  FEATURED
-                </span>
-              </div>
-              <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6">
-                <span className="bg-emerald-500 text-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-semibold mb-2 inline-block">
-                  {featuredArticle.category || "News"}
-                </span>
-                <h2 className="text-lg sm:text-2xl font-bold text-white mb-1 sm:mb-2 group-hover:text-emerald-200 transition-colors line-clamp-2">
+              
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+              
+              {/* Content Overlay */}
+              <div className="absolute bottom-0 left-0 p-6 md:p-10 w-full">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-black tracking-widest shadow-lg uppercase">
+                    Featured
+                  </span>
+                  <div className="flex items-center text-emerald-400 text-xs font-bold bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
+                    <FaCalendarAlt className="mr-2" /> {formatDate(featuredArticle.publishDate)}
+                  </div>
+                </div>
+                
+                <h2 className="text-2xl md:text-4xl font-black text-white mb-4 leading-tight group-hover:text-emerald-300 transition-colors line-clamp-2">
                   {featuredArticle.title}
                 </h2>
-                <div className="flex flex-wrap items-center gap-1 sm:gap-2 text-white/80 text-[10px] sm:text-sm">
-                  <span className="truncate max-w-[100px] sm:max-w-none">
-                    {featuredArticle.author}
-                  </span>
-                  <span className="hidden sm:inline">•</span>
-                  <span>
-                    {formatDate(featuredArticle.publishDate)}
-                  </span>
+                
+                <div className="flex items-center justify-between border-t border-white/10 pt-6">
+                  <div className="flex items-center gap-3 text-slate-300 font-medium">
+                    <FaUserCircle className="text-xl text-emerald-500" />
+                    <span>{featuredArticle.author}</span>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur-xl rounded-full p-1 border border-white/20 hover:bg-emerald-500 transition-colors">
+                    <ShareButton id={featuredArticle.id} title={featuredArticle.title} />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* Top Stories Sidebar */}
-        <div className="space-y-6">
-          <div className="flex items-center gap-2 mb-4">
-            <FaStar className="text-emerald-600" />
-            <h3 className="text-xl font-bold text-emerald-800">
-              Top Stories
+        {/* Top Stories List (Spans 4 columns) */}
+        <div className="lg:col-span-4 flex flex-col space-y-4">
+          <div className="flex items-center justify-between mb-2 px-2">
+            <h3 className="text-2xl font-black text-slate-900 flex items-center gap-2">
+              <FaStar className="text-amber-500" /> Top Stories
             </h3>
           </div>
-          {topStories.map((news) => (
-            <div
-              key={news.id}
-              className="cursor-pointer group p-4 rounded-lg hover:bg-emerald-50/50 transition-colors duration-300 border border-transparent hover:border-emerald-200 flex items-start gap-3"
-              onClick={() => handleNewsClick(news.id)}
-            >
-              <div className="bg-emerald-100 p-2 rounded-lg flex-shrink-0">
-                <FaBolt className="text-emerald-600 text-sm" />
-              </div>
-              <div>
-                <h4 className="font-bold text-emerald-900 group-hover:text-emerald-600 transition-colors line-clamp-2">
-                  {news.title}
-                </h4>
-                <div className="flex items-center text-emerald-700 text-xs mt-1">
-                  <span>{formatDate(news.publishDate)}</span>
-                  <span className="mx-2">•</span>
-                  <span className="truncate max-w-[60px] sm:max-w-none">
-                    {news.author}
-                  </span>
+          <div className="space-y-4">
+            {topStories.map((news) => (
+              <div
+                key={news.id}
+                className="bg-white p-4 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all cursor-pointer group flex gap-4"
+                onClick={() => handleNewsClick(news.id)}
+              >
+                <div className="flex-1">
+                  <span className="text-[10px] font-black text-emerald-600 uppercase tracking-tighter mb-1 block">Trending</span>
+                  <h4 className="font-bold text-slate-900 group-hover:text-emerald-600 transition-colors line-clamp-2 text-sm leading-snug">
+                    {news.title}
+                  </h4>
+                  <div className="flex items-center justify-between mt-3">
+                    <span className="text-[10px] text-slate-400 font-bold uppercase">{formatDate(news.publishDate)}</span>
+                    <ShareButton id={news.id} title={news.title} />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-          {topStories.length === 0 && <p className="text-gray-500">No top stories currently.</p>}
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Latest News Grid */}
-      <div className="space-y-6 mt-8">
-        <div className="flex items-center gap-2 mb-4">
-          <FaCalendarAlt className="text-emerald-600" />
-          <h3 className="text-xl font-bold text-emerald-800">
-            Latest News
+      {/* --- Section 2: Latest News Grid --- */}
+      <div className="space-y-6 pt-6 border-t border-slate-100">
+        <div className="flex items-center justify-between">
+          <h3 className="text-3xl font-black text-slate-900 flex items-center gap-3">
+            <FaTags className="text-emerald-600" /> Latest Feed
           </h3>
+          <div className="h-[2px] flex-1 bg-slate-100 ml-6 hidden md:block" />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {latestNews.length > 0 ? (
             latestNews.map((news) => (
               <div
                 key={news.id}
-                className="cursor-pointer group p-4 rounded-lg hover:bg-emerald-50/50 transition-colors duration-300 border border-transparent hover:border-emerald-200 flex items-start gap-3"
+                className="bg-white rounded-[2rem] p-6 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 group cursor-pointer flex flex-col justify-between"
                 onClick={() => handleNewsClick(news.id)}
               >
-                <div className="bg-emerald-100 p-2 rounded-lg flex-shrink-0">
-                  <FaTags className="text-emerald-600 text-sm" />
-                </div>
                 <div>
-                  <h4 className="font-bold text-emerald-900 group-hover:text-emerald-600 transition-colors line-clamp-2">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-8 h-8 rounded-xl bg-emerald-50 flex items-center justify-center">
+                      <FaBolt className="text-emerald-600 text-xs" />
+                    </div>
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{news.author}</span>
+                  </div>
+                  <h4 className="text-lg font-black text-slate-900 group-hover:text-emerald-600 transition-colors line-clamp-3 mb-6 leading-tight">
                     {news.title}
                   </h4>
-                  <div className="flex items-center text-emerald-700 text-xs mt-1">
-                    <span>{formatDate(news.publishDate)}</span>
-                    <span className="mx-2">•</span>
-                    <span className="truncate max-w-[60px] sm:max-w-none">
-                      {news.author}
-                    </span>
+                </div>
+                
+                <div className="flex items-center justify-between pt-6 border-t border-slate-50">
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-bold text-slate-300 uppercase">Released</span>
+                    <span className="text-xs font-black text-emerald-800 tracking-tighter">{formatDate(news.publishDate)}</span>
+                  </div>
+                  <div className="bg-slate-50 rounded-full p-1 group-hover:bg-emerald-50 transition-colors">
+                    <ShareButton id={news.id} title={news.title} />
                   </div>
                 </div>
               </div>
             ))
           ) : (
-            <p className="text-emerald-600 text-center py-4 col-span-2">
-              No more news articles at the moment.
-            </p>
+            <div className="col-span-full py-20 text-center bg-slate-50 rounded-[3rem] border-2 border-dashed border-slate-200">
+              <FaGlobe className="mx-auto text-4xl text-slate-200 mb-4" />
+              <p className="text-slate-400 font-bold uppercase tracking-widest">Awaiting New Stories...</p>
+            </div>
           )}
         </div>
       </div>

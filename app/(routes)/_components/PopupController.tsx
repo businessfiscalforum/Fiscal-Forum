@@ -104,7 +104,7 @@ export default function PopupController() {
         }
         return current;
       });
-    }, 60000);
+    }, 180000);
     return () => clearInterval(interval);
   }, []);
 
