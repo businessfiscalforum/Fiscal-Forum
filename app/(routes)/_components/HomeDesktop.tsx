@@ -1018,8 +1018,8 @@ export default function HomeDesktop() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-stretch">
               {partners.map((partner, i) => (
-                <Link
-                  href={partner.path}
+                <div
+                  // href={partner.path}
                   key={i}
                   className="group relative h-full"
                 >
@@ -1066,7 +1066,7 @@ export default function HomeDesktop() {
                       </div>
                     </div>
                   </motion.div>
-                </Link>
+                </div>
               ))}
             </div>
           </div>
