@@ -55,17 +55,6 @@ export default function FomoStack() {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    if (index < FOMO_MESSAGES.length) {
-      const interval = setInterval(() => {
-        setMessages((prev) => {
-          const newMessage = { id: Date.now(), ...FOMO_MESSAGES[index] };
-          return [...prev, newMessage].slice(-3);
-        });
-        setIndex((prev) => prev + 1);
-      }, 4000);
-      return () => clearInterval(interval);
-    } 
-    
     if (index >= FOMO_MESSAGES.length) {
       const timer = setTimeout(() => {
         setIsVisible(false);
@@ -73,9 +62,26 @@ export default function FomoStack() {
       }, 6000);
       return () => clearTimeout(timer);
     }
-  }, [index]);
+    const showMessage = () => {
+      const newMessage = { id: Date.now(), ...FOMO_MESSAGES[index] };
+      setMessages([newMessage]);
+    };
+    const hideMessage = () => {
+      setMessages([]);
+    };
+    showMessage();
+    const hideTimer = setTimeout(() => {
+      hideMessage();
+    }, 60000);
+    const nextMessageTimer = setTimeout(() => {
+      setIndex((prev) => prev + 1);
+    }, 60000); 
 
-  // Function to manually dismiss a message
+    return () => {
+      clearTimeout(hideTimer);
+      clearTimeout(nextMessageTimer);
+    };
+  }, [index]);
   const dismissMessage = (id: number) => {
     setMessages((prev) => prev.filter((msg) => msg.id !== id));
   };

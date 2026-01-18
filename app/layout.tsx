@@ -51,7 +51,7 @@ export default function RootLayout({
           <Navbar />
           <FomoStack />
           <LiveUserPulse/>
-          <PopupController />
+          {/* <PopupController /> */}
           <Provider>{children}</Provider>
           <Footer />
         </body>
