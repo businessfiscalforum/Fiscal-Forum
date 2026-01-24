@@ -110,12 +110,15 @@ const getIpoStatus = (
 interface IpoScoopListProps {
   currentNews: NewsItem[];
   handleNewsClick: (id: string) => void;
+  // Added ShareButton to interface
+  ShareButton: React.ComponentType<{ id: string; title: string }>;
 }
 
 // --- Component ---
 const IpoScoopList: React.FC<IpoScoopListProps> = ({
   currentNews,
   handleNewsClick,
+  ShareButton,
 }) => {
   // Helper Component for Data Boxes
   const IpoDataBox: React.FC<{
@@ -183,6 +186,9 @@ const IpoScoopList: React.FC<IpoScoopListProps> = ({
                   <FaThumbsUp className="mr-1 text-yellow-300" />
                   MAY APPLY
                 </div>
+                <div onClick={(e) => e.stopPropagation()}>
+                    <ShareButton id={news.id} title={news.ipoName || news.title} />
+                  </div>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">

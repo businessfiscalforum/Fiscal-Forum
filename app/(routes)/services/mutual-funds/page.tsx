@@ -586,7 +586,7 @@ export default function MutualPage() {
       id: 1,
       title: "All Mutual Funds",
       description:
-        "Invest together, diversify easily, and let professionals grow your money for any goal, big or small.",
+        "Invest together and let professionals grow your money.",
       icon: BarChart3,
       iconBgColor: "bg-blue-100",
       iconColor: "text-blue-600",
@@ -596,7 +596,7 @@ export default function MutualPage() {
       id: 2,
       title: "Loan Against Mutual Funds",
       description:
-        "Unlock quick cash by pledging funds. Cover expenses smartly without selling your long-term mutual fund investments.",
+        "Unlock quick cash by pledging funds.",
       icon: FaHandHoldingUsd,
       iconBgColor: "bg-emerald-100",
       iconColor: "text-emerald-600",
@@ -606,7 +606,7 @@ export default function MutualPage() {
       id: 3,
       title: "Sovereign Gold Bonds (SGBs)",
       description:
-        "Grow wealth safely in gold. Earn interest, skip storage worries, and keep your portfolio shining bright.",
+        "Grow wealth safely in gold.",
       icon: FaGem,
       iconBgColor: "bg-orange-100",
       iconColor: "text-orange-600",
@@ -736,7 +736,7 @@ export default function MutualPage() {
                           />
                         )}
                       </div>
-                      <h2 className="text-xl font-bold text-gray-800">
+                      <h2 className="text-sm font-bold text-gray-800">
                         {option.title}
                       </h2>
                       <p className="text-sm leading-relaxed flex-grow text-gray-600">

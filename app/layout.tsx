@@ -1,31 +1,29 @@
 import type { Metadata } from "next";
-// import { Geist, Geist_Mono } from "next/font/google";
 import './globals.css';
 import { ClerkProvider } from "@clerk/nextjs";
-// import { GlowCursor } from "./(routes)/components/GlowCursor";
 import Navbar from "./(routes)/_components/Navbar";
 import Provider from "./provider";
 import Footer from "./(routes)/_components/Footer";
 import { GoogleAnalytics } from "./(routes)/_components/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import FomoStack from "./(routes)/_components/FomoStack";
+import LiveUserPulse from "./(routes)/_components/LiveUserPulse"
+import PopupController from "./(routes)/_components/PopupController";
 
-// Metadata Configuration
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.fiscalforum.in"),
   title: {
-    default: "Fiscal Forum - Financial Discussions & Insights", 
-    template: "%s | Fiscal Forum",
+    default: "Fiscal Forum", 
+    template: "%s | Fiscal Forum", 
   },
   description: "Join Fiscal Forum for the latest financial discussions, market insights, and expert advice.",
   keywords: ["Finance", "Forum", "Fiscal Forum", "Investment", "India Finance"],
-  
   alternates: {
     canonical: "/",
   },
   icons: {
     icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png", 
   },
   robots: {
     index: true,
@@ -38,7 +36,6 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  
   openGraph: {
     title: "Fiscal Forum",
     description: "Financial discussions and insights",
@@ -46,6 +43,9 @@ export const metadata: Metadata = {
     siteName: "Fiscal Forum",
     locale: "en_IN",
     type: "website",
+  },
+  other: {
+    "site_name": "Fiscal Forum",
   },
 };
 
@@ -55,12 +55,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   
-  // Google Site Name
   const siteNameJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Fiscal Forum",
-    "alternateName": ["FiscalForum", "FF"], 
     "url": "https://www.fiscalforum.in",
   };
 
@@ -73,18 +71,17 @@ export default function RootLayout({
             dangerouslySetInnerHTML={{ __html: JSON.stringify(siteNameJsonLd) }}
           />
         </head>
-        <body className="antialiased">
-          <GoogleAnalytics />
+        <body className={""}>
+          {/* <GlowCursor /> */}
+          <GoogleAnalytics/>
           <Analytics />
           <SpeedInsights />
-
-          <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <main className="flex-grow">
-              <Provider>{children}</Provider>
-            </main>
-            <Footer />
-          </div>
+          <Navbar />
+          <FomoStack />
+          <LiveUserPulse/>
+          {/* <PopupController /> */}
+          <Provider>{children}</Provider>
+          <Footer />
         </body>
       </html>
     </ClerkProvider>

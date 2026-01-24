@@ -1018,8 +1018,8 @@ export default function HomeDesktop() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-stretch">
               {partners.map((partner, i) => (
-                <Link
-                  href={partner.path}
+                <div
+                  // href={partner.path}
                   key={i}
                   className="group relative h-full"
                 >
@@ -1057,17 +1057,16 @@ export default function HomeDesktop() {
                         </div>
 
                         {/* Button pinned at bottom */}
-                        <motion.button
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
+                        <Link
+                          href={partner.path}
                           className={`mt-8 bg-gradient-to-r ${partner.gradient} hover:${partner.hoverGradient} text-white px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-2xl transition-all duration-300 transform translate-y-4 group-hover:translate-y-0`}
                         >
                           Join Now
-                        </motion.button>
+                        </Link>
                       </div>
                     </div>
                   </motion.div>
-                </Link>
+                </div>
               ))}
             </div>
           </div>

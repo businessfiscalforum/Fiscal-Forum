@@ -31,7 +31,7 @@ const investmentOptions = [
     id: "equity-etfs",
     title: "Equity & ETFs",
     description:
-      "Own company shares or diversify smartly with ETFs. Spread risk, build wealth steadily, grow alongside markets.",
+      "Own company shares or diversify smartly with ETFs.",
     icon: BarChart3,
     link: "/services/stock-investment/equity-etfs",
     alink: "/services/stock-investment/equity-etfs/apply",
@@ -43,7 +43,7 @@ const investmentOptions = [
     id: "futures-options",
     title: "Futures & Options (F&O)",
     description:
-      "Hedge risk or speculate on price moves. Requires strategy, discipline, and knowledge to manage market uncertainty.",
+      "Hedge risk or speculate on price moves.",
     icon: TrendingUp,
     link: "/services/stock-investment/futures-options",
     alink: "/services/stock-investment/futures-options/apply",
@@ -55,7 +55,7 @@ const investmentOptions = [
     id: "ipo",
     title: "Initial Public Offering (IPO)",
     description:
-      "Invest early in growing companies. Get front-row access to expansion and potential long-term wealth creation.",
+      "Invest early in growing companies.",
     icon: Sparkles,
     link: "/services/stock-investment/ipo",
     alink: "/services/stock-investment/ipo/apply",
@@ -67,7 +67,7 @@ const investmentOptions = [
     id: "mtf",
     title: "Margin Trading Facility (MTF)",
     description:
-      "Borrow to buy more shares. Seize opportunities responsibly — leverage magnifies gains but can increase losses.",
+      "Buy stocks with borrowed broker funds for leverage.",
     icon: Zap,
     link: "/services/stock-investment/mtf",
     alink: "/services/stock-investment/mtf/apply",
@@ -79,7 +79,7 @@ const investmentOptions = [
     id: "commodities",
     title: "Commodities",
     description:
-      "Trade real assets like gold, silver, crude oil. Diversify portfolios, hedge inflation, and balance equity exposure.",
+      "Trade real assets like gold, silver, crude oil.",
     icon: Coins,
     link: "/services/stock-investment/commodities",
     alink: "/services/stock-investment/commodities/apply",
@@ -91,7 +91,7 @@ const investmentOptions = [
     id: "unlisted-shares",
     title: "Unlisted Shares",
     description:
-      "Invest early in companies before listing. Join growth journey, enjoy potential big returns upon public offering.",
+      "Invest early in companies before listing.",
     icon: Gem,
     link: "/services/stock-investment/unlisted-shares",
     alink: "/services/stock-investment/unlisted-shares/apply",
@@ -272,7 +272,7 @@ export default function StockInvestmentPage() {
                             />
                           )}
                         </div>
-                        <h2 className="text-xl font-bold text-gray-800">
+                        <h2 className="text-sm font-bold text-gray-800">
                           {option.title}
                         </h2>
                         <p className="text-sm leading-relaxed flex-grow text-gray-600">

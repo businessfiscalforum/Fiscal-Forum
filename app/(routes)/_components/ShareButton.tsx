@@ -17,7 +17,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ title, pdfUrl }) => {
     setIsSharing(true);
 
     try {
-      const fullUrl = pdfUrl.startsWith("http")
+      const fullUrl = pdfUrl.startsWith("https")
         ? pdfUrl
         : `${window.location.origin}${pdfUrl}`;
 

@@ -683,13 +683,14 @@ export default function HomeMobile() {
                   <p className="text-xs text-gray-600 mt-1 flex-grow">
                     {p.desc}
                   </p>
-                  <button
+                  <Link
+                  href={p.path}
                     className={`mt-3 w-full py-2 text-xs font-medium text-white bg-gradient-to-r ${p.gradient} rounded-full`}
-                    // Optional: prevent button from triggering link twice
-                    onClick={(e) => e.preventDefault()}
+                    // // Optional: prevent button from triggering link twice
+                    // onClick={(e) => e.preventDefault()}
                   >
                     Join Now
-                  </button>
+                  </Link>
                 </div>
               </motion.div>
             </Link>
