@@ -10,27 +10,42 @@ import { GoogleAnalytics } from "./(routes)/_components/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
+// Metadata Configuration
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.fiscalforum.in"),
-
   title: {
-    default: "Fiscal Forum",
-    template: "%s",
+    default: "Fiscal Forum - Financial Discussions & Insights", 
+    template: "%s | Fiscal Forum",
   },
-
-  description: "Financial discussions and insights",
-
+  description: "Join Fiscal Forum for the latest financial discussions, market insights, and expert advice.",
+  keywords: ["Finance", "Forum", "Fiscal Forum", "Investment", "India Finance"],
+  
   alternates: {
     canonical: "/",
   },
-
   icons: {
     icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png", 
   },
-
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  
+  openGraph: {
+    title: "Fiscal Forum",
+    description: "Financial discussions and insights",
+    url: "https://www.fiscalforum.in",
+    siteName: "Fiscal Forum",
+    locale: "en_IN",
+    type: "website",
   },
 };
 
@@ -39,17 +54,37 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
+  // Google Site Name
+  const siteNameJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Fiscal Forum",
+    "alternateName": ["FiscalForum", "FF"], 
+    "url": "https://www.fiscalforum.in",
+  };
+
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={""}>
-          {/* <GlowCursor /> */}
-          <GoogleAnalytics/>
+        <head>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(siteNameJsonLd) }}
+          />
+        </head>
+        <body className="antialiased">
+          <GoogleAnalytics />
           <Analytics />
           <SpeedInsights />
-          <Navbar />
-          <Provider>{children}</Provider>
-          <Footer />
+
+          <div className="flex flex-col min-h-screen">
+            <Navbar />
+            <main className="flex-grow">
+              <Provider>{children}</Provider>
+            </main>
+            <Footer />
+          </div>
         </body>
       </html>
     </ClerkProvider>
