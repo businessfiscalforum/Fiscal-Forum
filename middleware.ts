@@ -69,6 +69,14 @@ const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
 const isPartnerRoute = createRouteMatcher(["/crm(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
+  //Google search engine bot bypass
+  const userAgent = req.headers.get('user-agent') || '';
+  const isBot = /googlebot|bingbot|yandex|baiduspider/i.test(userAgent);
+
+  if (isBot) {
+    return NextResponse.next();
+  }
+
   // Public routes → Clerk skip
   if (isPublicRoute(req)) {
     return NextResponse.next();
@@ -78,11 +86,13 @@ export default clerkMiddleware(async (auth, req) => {
   await auth.protect();
 
   // Role-based checks
-  const user = await auth();
-  if (isAdminRoute(req) && user?.sessionClaims?.metadata?.role !== "ADMIN") {
+  const { sessionClaims } = await auth();
+  const role = sessionClaims?.metadata?.role as string | undefined;
+
+  if (isAdminRoute(req) && role !== "ADMIN") {
     return NextResponse.redirect(new URL("/", req.url), 302);
   }
-  if (isPartnerRoute(req) && user?.sessionClaims?.metadata?.role !== "PARTNER") {
+  if (isPartnerRoute(req) && role !== "PARTNER") {
     return NextResponse.redirect(new URL("/", req.url), 302);
   }
 });
