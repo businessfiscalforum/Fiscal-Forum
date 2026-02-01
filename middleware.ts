@@ -71,10 +71,10 @@ const isPartnerRoute = createRouteMatcher(["/crm(.*)"]);
 export default clerkMiddleware(async (auth, req) => {
   //Google search engine bot bypass
   const userAgent = req.headers.get('user-agent') || '';
-  // const isBot = /googlebot|bingbot|yandex|baiduspider/i.test(userAgent);
+  const isBot = /googlebot|bingbot|yandex|baiduspider/i.test(userAgent);
 
   // Public routes → Clerk skip
-  if ( isPublicRoute(req)) {
+  if (isBot || isPublicRoute(req)) {
     return NextResponse.next();
   }
 
