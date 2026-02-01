@@ -73,12 +73,8 @@ export default clerkMiddleware(async (auth, req) => {
   const userAgent = req.headers.get('user-agent') || '';
   const isBot = /googlebot|bingbot|yandex|baiduspider/i.test(userAgent);
 
-  if (isBot) {
-    return NextResponse.next();
-  }
-
   // Public routes → Clerk skip
-  if (isPublicRoute(req)) {
+  if (isBot || isPublicRoute(req)) {
     return NextResponse.next();
   }
 
@@ -86,13 +82,13 @@ export default clerkMiddleware(async (auth, req) => {
   await auth.protect();
 
   // Role-based checks
-  const { sessionClaims } = await auth();
-  const role = sessionClaims?.metadata?.role as string | undefined;
+  const user = await auth();
 
-  if (isAdminRoute(req) && role !== "ADMIN") {
+  if (isAdminRoute(req) && user?.sessionClaims?.metadata?.role !== "ADMIN") {
     return NextResponse.redirect(new URL("/", req.url), 302);
   }
-  if (isPartnerRoute(req) && role !== "PARTNER") {
+  
+  if (isPartnerRoute(req) && user?.sessionClaims?.metadata?.role !== "PARTNER") {
     return NextResponse.redirect(new URL("/", req.url), 302);
   }
 });
