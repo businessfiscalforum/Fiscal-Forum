@@ -3,7 +3,21 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
-import { Menu, X, ChevronDown, LineChart, Banknote, Shield, CreditCard, Landmark, FileText, Sparkles, Star, Zap, Gem } from "lucide-react";
+import {
+  Menu,
+  X,
+  ChevronDown,
+  LineChart,
+  Banknote,
+  Shield,
+  CreditCard,
+  Landmark,
+  FileText,
+  Sparkles,
+  Star,
+  Zap,
+  Gem,
+} from "lucide-react";
 import { SignedIn, SignedOut, SignOutButton, useUser } from "@clerk/nextjs";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -32,13 +46,37 @@ export default function Navbar() {
   };
 
   const servicesDropdown = [
-    { name: "Stock Investment", href: "/services/stock-investment", icon: <LineChart className="w-5 h-5 text-emerald-500" /> },
-    { name: "Mutual Funds", href: "/services/mutual-funds", icon: <Banknote className="w-5 h-5 text-emerald-500" /> },
-    { name: "Insurance", href: "/services/insurance", icon: <Shield className="w-5 h-5 text-emerald-500" /> },
-    { name: "Credit Card", href: "/services/credit-card", icon: <CreditCard className="w-5 h-5 text-emerald-500" /> },
+    {
+      name: "Stock Investment",
+      href: "/services/stock-investment",
+      icon: <LineChart className="w-5 h-5 text-emerald-500" />,
+    },
+    {
+      name: "Mutual Funds",
+      href: "/services/mutual-funds",
+      icon: <Banknote className="w-5 h-5 text-emerald-500" />,
+    },
+    {
+      name: "Insurance",
+      href: "/services/insurance",
+      icon: <Shield className="w-5 h-5 text-emerald-500" />,
+    },
+    {
+      name: "Credit Card",
+      href: "/services/credit-card",
+      icon: <CreditCard className="w-5 h-5 text-emerald-500" />,
+    },
     // { name: "Saving Account", href: "/services/saving-account", icon: <PiggyBank className="w-5 h-5 text-green-600" /> },
-    { name: "Loan", href: "/services/loan", icon: <Landmark className="w-5 h-5 text-emerald-500" /> },
-    { name: "Govt Bonds & FD", href: "/services/govt-bonds-and-fd", icon: <FileText className="w-5 h-5 text-emerald-500" /> },
+    {
+      name: "Loan",
+      href: "/services/loan",
+      icon: <Landmark className="w-5 h-5 text-emerald-500" />,
+    },
+    {
+      name: "Govt Bonds & FD",
+      href: "/services/govt-bonds-and-fd",
+      icon: <FileText className="w-5 h-5 text-emerald-500" />,
+    },
   ];
 
   const navItems = [
@@ -49,7 +87,9 @@ export default function Navbar() {
     { label: "Work With Us", href: "/work-with-us" },
   ];
 
-  useEffect(() => { setIsClient(true); }, []);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // Multi-Element Sparkle Logic
   const SparkleGenerator = ({ count = 5 }) => {
@@ -61,14 +101,21 @@ export default function Navbar() {
           key={i}
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: [0, 1, 0], scale: [0, 1, 0], y: [0, -20] }}
-          transition={{ duration: 2 + Math.random() * 2, repeat: Infinity, delay: Math.random() * 2 }}
+          transition={{
+            duration: 2 + Math.random() * 2,
+            repeat: Infinity,
+            delay: Math.random() * 2,
+          }}
           className="absolute pointer-events-none text-yellow-400"
           style={{
             top: `${Math.random() * 100}%`,
             left: `${Math.random() * 100}%`,
           }}
         >
-          <PickedIcon size={Math.random() * 12 + 6} fill={Math.random() > 0.5 ? "currentColor" : "none"} />
+          <PickedIcon
+            size={Math.random() * 12 + 6}
+            fill={Math.random() > 0.5 ? "currentColor" : "none"}
+          />
         </motion.div>
       );
     });
@@ -80,18 +127,35 @@ export default function Navbar() {
       className="fixed top-0 z-[100] w-full bg-white shadow-md px-4 py-4 md:py-5 border-b border-emerald-50"
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center relative">
-        
         {/* Simple Clean Logo (No Borders/Circles) */}
-        <Link href="/" onClick={closeAll} className="relative flex items-center gap-3">
-          <Image src="/forum1.ico" alt="Fiscal Forum" width={85} height={65} className="transition-transform active:scale-95" />
+        <Link
+          href="/"
+          onClick={closeAll}
+          className="relative flex items-center gap-3"
+        >
+          <Image
+            src="/forum1.ico"
+            alt="Fiscal Forum"
+            width={85}
+            height={65}
+            className="transition-transform active:scale-95"
+          />
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-1">
           {/* Services with Hover Detection */}
-          <div className="relative" onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
+          <div
+            className="relative"
+            onMouseEnter={() => setServicesOpen(true)}
+            onMouseLeave={() => setServicesOpen(false)}
+          >
             <button className="flex items-center gap-1 px-4 py-2 text-sm font-bold text-emerald-900 hover:text-emerald-600 transition-colors uppercase tracking-wide">
-              Services <ChevronDown size={14} className={`transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
+              Services{" "}
+              <ChevronDown
+                size={14}
+                className={`transition-transform ${servicesOpen ? "rotate-180" : ""}`}
+              />
             </button>
 
             <AnimatePresence>
@@ -111,8 +175,12 @@ export default function Navbar() {
                         onClick={closeAll}
                         className="flex items-center gap-4 p-4 hover:bg-emerald-50 transition-all border-l-2 border-transparent hover:border-emerald-500"
                       >
-                        <div className="p-2 bg-emerald-50 rounded-lg">{service.icon}</div>
-                        <span className="text-sm font-bold text-emerald-900">{service.name}</span>
+                        <div className="p-2 bg-emerald-50 rounded-lg">
+                          {service.icon}
+                        </div>
+                        <span className="text-sm font-bold text-emerald-900">
+                          {service.name}
+                        </span>
                       </Link>
                     ))}
                   </div>
@@ -134,8 +202,14 @@ export default function Navbar() {
 
         {/* Action Side */}
         <div className="hidden lg:flex items-center gap-6">
-          <Link href="/referrals" className="group flex items-center gap-2 text-xs font-black text-yellow-600 uppercase tracking-widest">
-            <Gem size={14} className="group-hover:rotate-12 transition-transform" />
+          <Link
+            href="/referrals"
+            className="group flex items-center gap-2 text-xs font-black text-yellow-600 uppercase tracking-widest"
+          >
+            <Gem
+              size={14}
+              className="group-hover:rotate-12 transition-transform"
+            />
             Refer & Earn
           </Link>
 
@@ -144,10 +218,18 @@ export default function Navbar() {
               <SignedIn>
                 <div className="flex items-center gap-4">
                   <Link href="/dashboard" onClick={closeAll}>
-                    <Image src={user?.imageUrl || "/user-icon.webp"} alt="User" width={35} height={35} className="rounded-full ring-2 ring-emerald-100" />
+                    <Image
+                      src={user?.imageUrl || "/user-icon.webp"}
+                      alt="User"
+                      width={35}
+                      height={35}
+                      className="rounded-full ring-2 ring-emerald-100"
+                    />
                   </Link>
                   <SignOutButton>
-                    <button className="text-[10px] font-black text-red-500 hover:text-red-700 uppercase">Exit</button>
+                    <button className="text-[10px] font-black text-red-500 hover:text-red-700 uppercase">
+                      Exit
+                    </button>
                   </SignOutButton>
                 </div>
               </SignedIn>
@@ -168,7 +250,10 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Toggle */}
-        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="lg:hidden text-emerald-900">
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="lg:hidden text-emerald-900"
+        >
           {mobileMenuOpen ? <X size={30} /> : <Menu size={30} />}
         </button>
       </div>
@@ -182,26 +267,88 @@ export default function Navbar() {
             exit={{ height: 0, opacity: 0 }}
             className="lg:hidden bg-white border-t border-emerald-50 overflow-hidden"
           >
+            <div className="space-y-4 p-6">
+                {/* Refer & Earn */}
+                <Link
+                  href="/referrals"
+                  onClick={closeAll}
+                  className="flex items-center justify-center gap-2 text-xs font-black text-yellow-600 uppercase tracking-widest"
+                >
+                  <Gem size={14} />
+                  Refer & Earn
+                </Link>
+
+                <SignedIn>
+                  <div className="flex items-center justify-between bg-emerald-50 p-3 rounded-md">
+                    {/* Profile */}
+                    <Link
+                      href="/dashboard"
+                      onClick={closeAll}
+                      className="flex items-center gap-3"
+                    >
+                      <Image
+                        src={user?.imageUrl || "/user-icon.webp"}
+                        alt="User"
+                        width={36}
+                        height={36}
+                        className="rounded-full ring-2 ring-emerald-100"
+                      />
+                      <span className="text-xs font-black text-emerald-900 uppercase">
+                        Profile
+                      </span>
+                    </Link>
+
+                    {/* Exit */}
+                    <SignOutButton>
+                      <button className="text-[10px] font-black text-red-500 uppercase cursor-pointer">
+                        Exit
+                      </button>
+                    </SignOutButton>
+                  </div>
+                </SignedIn>
+
+                <SignedOut>
+                  <Link
+                    href="/sign-up"
+                    onClick={closeAll}
+                    className="block w-full py-4 bg-emerald-600 text-white font-black text-center uppercase tracking-widest"
+                  >
+                    Get Started
+                  </Link>
+                </SignedOut>
+              </div>
             <div className="flex flex-col p-6 gap-4">
-              <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest">Our Services</p>
+              <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest">
+                Our Services
+              </p>
               <div className="grid grid-cols-2 gap-2">
                 {servicesDropdown.map((s) => (
-                  <Link key={s.name} href={s.href} onClick={closeAll} className="flex items-center gap-2 p-3 bg-emerald-50 rounded-md">
-                    {s.icon} <span className="text-[10px] font-bold text-emerald-900">{s.name}</span>
+                  <Link
+                    key={s.name}
+                    href={s.href}
+                    onClick={closeAll}
+                    className="flex items-center gap-2 p-3 bg-emerald-50 rounded-md"
+                  >
+                    {s.icon}{" "}
+                    <span className="text-[10px] font-bold text-emerald-900">
+                      {s.name}
+                    </span>
                   </Link>
                 ))}
               </div>
               <div className="h-px bg-emerald-50 my-2" />
               {navItems.map((item) => (
-                <Link key={item.label} href={item.href} onClick={closeAll} className="text-lg font-black text-emerald-900 uppercase">
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  onClick={closeAll}
+                  className="text-lg font-black text-emerald-900 uppercase"
+                >
                   {item.label}
                 </Link>
               ))}
-              <SignedOut>
-                <Link href="/sign-up" onClick={closeAll} className="w-full py-4 bg-emerald-600 text-white font-black text-center uppercase tracking-widest mt-4">
-                  Join Now
-                </Link>
-              </SignedOut>
+              {/* Mobile Auth + CTA Section */}
+              
             </div>
           </motion.div>
         )}
