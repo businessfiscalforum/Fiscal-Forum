@@ -526,7 +526,7 @@ export default function TransferDematPage() {
                     } focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition text-gray-700 shadow-sm`}
                   >
                     <option value="">Select Your Broker</option>
-                    <option value="Motilal Oswal">Motilal Oswal</option>
+                    <option value="Angel One">Angel One</option>
                   </select>
                   {transferErrors.existingBroker && (
                     <p className="mt-1 text-sm text-red-600">
