@@ -7,7 +7,7 @@ import { useState } from "react";
 import {
   FaCheck, // Added FaCheck for the modal list items
 } from "react-icons/fa";
-import { X } from "lucide-react"; 
+import { X } from "lucide-react";
 import { motion } from "framer-motion";
 import {
   Dialog,
@@ -59,49 +59,77 @@ const brokers: Broker[] = [
       "• Equity Options: ₹10 per lot",
     ],
   },
-  {
-    name: "Motilal Oswal",
-    logo: "/motilal-oswal.png",
-    link: "https://ekyc.motilaloswal.com/Partner/?diyid=8eb2b8cb-c9f3-47f5-b206-70c847d9f8b7",
-    brokerage: [
-      "• Equity Delivery: 0.20% of transaction value",
-      "• Equity Futures: 0.02% of transaction value",
-      "• Equity Options: ₹20 per executed order (lot)",
-    ],
-  },
-  {
-    name: "Upstox",
-    logo: "/upstox.png",
-    link: "https://upstox.com/open-account/?f=4ZAVSY",
-    brokerage: [
-      "• ₹0 AMC*: Account Maintenance Charges (No account maintenance charges for the first year)",
-      "• ₹20 Brokerage*: Maximum brokerage per order",
-      "• Equity Delivery: ₹20 or 2.5% (whichever is lower)",
-      "• Equity Intraday: ₹20 or 0.05% (whichever is lower)",
-    ],
-  },
+  // {
+  //   name: "Motilal Oswal",
+  //   logo: "/motilal-oswal.png",
+  //   link: "https://ekyc.motilaloswal.com/Partner/?diyid=8eb2b8cb-c9f3-47f5-b206-70c847d9f8b7",
+  //   brokerage: [
+  //     "• Equity Delivery: 0.20% of transaction value",
+  //     "• Equity Futures: 0.02% of transaction value",
+  //     "• Equity Options: ₹20 per executed order (lot)",
+  //   ],
+  // },
+  // {
+  //   name: "Upstox",
+  //   logo: "/upstox.png",
+  //   link: "https://upstox.com/open-account/?f=4ZAVSY",
+  //   brokerage: [
+  //     "• ₹0 AMC*: Account Maintenance Charges (No account maintenance charges for the first year)",
+  //     "• ₹20 Brokerage*: Maximum brokerage per order",
+  //     "• Equity Delivery: ₹20 or 2.5% (whichever is lower)",
+  //     "• Equity Intraday: ₹20 or 0.05% (whichever is lower)",
+  //   ],
+  // },
   {
     name: "Nuvama",
     logo: "/nuvama.png",
     link: "https://onboarding.nuvamawealth.com/Partner?utm_source=EMPLOYEE&utm_campaign=43065&utm_content=ELITE&utm_term=1572814v",
     brokerage: [
-      "• Equity Delivery: ₹0 (Zero)",
-      "• Equity Intraday: ₹15 per executed order or 0.025% (whichever is lower)",
-      "• Equity Futures: ₹15 per executed order or 0.025% (whichever is lower)",
-      "• Equity Options: ₹15 per executed order or 0.05% (whichever is lower)",
+      "• Equity Delivery: 0.30%",
+      "• Equity Intraday: 0.03%",
+      "• Equity Futures: 0.03%",
+      "• Equity Options: ₹75 per lot",
+      "• Currency Futures: 0.02%",
+      "• Currency Options: ₹20 per lot",
+      "• Commodity Futures: 0.015%",
+      "• Commodity Options: ₹30 per lot",
     ],
   },
   {
-    name: "Prudent",
-    logo: "/prudent.png",
-    link: "https://fundzbazar.com/Link/jRkmixvcvvw",
+    name: "Dhan",
+    logo: "/dhan.png",
+    link: "https://invite.dhan.co/?join=DITA87",
     brokerage: [
-      "• Equity Delivery: 0.30% of transaction value",
-      "• Equity Intraday: 0.03% of transaction value",
-      "• Equity Futures: 0.03% of transaction value",
-      "• Equity Options: ₹15 per lot",
+      "• Equity Delivery, ETFs, IPOs: ₹0",
+      "• Equity Intraday: ₹20 per executed order or 0.03% (whichever is lower)",
+      "• Equity Futures: ₹20 per executed order or 0.03% (whichever is lower)",
+      "• Equity Options: ₹20 per executed order",
+      "• Commodity (Intraday/F&O): ₹20 per executed order or 0.03% (whichever is lower)",
     ],
   },
+  {
+    name: "Fyers",
+    logo: "/fyers.png",
+    link: "https://signup.fyers.in/?utm-source=AP-Leads&utm-medium=AP4384",
+    brokerage: [
+      "• Equity Intraday: ₹20 or 0.03% per executed order (whichever is lower)",
+      "• Equity Delivery: ₹20 or 0.3% per executed order (whichever is lower)",
+      "• Equity & Commodity Futures: ₹20 or 0.03% per executed order (whichever is lower)",
+      "• Equity & Commodity Options: Flat ₹20 per executed order",
+      "• Mutual Funds & IPOs: ₹0 (Free)",
+    ],
+  },
+  // {
+  //   name: "Prudent",
+  //   logo: "/prudent.png",
+  //   link: "https://fundzbazar.com/Link/jRkmixvcvvw",
+  //   brokerage: [
+  //     "• Equity Delivery: 0.30% of transaction value",
+  //     "• Equity Intraday: 0.03% of transaction value",
+  //     "• Equity Futures: 0.03% of transaction value",
+  //     "• Equity Options: ₹15 per lot",
+  //   ],
+  // },
   // {
   //   name: "Unlisted Shares",
   //   logo: "/unlisted-shares.png",
@@ -186,125 +214,130 @@ const DematAccountModal = ({
   if (!broker) return null;
   return (
     <Dialog open={isOpen} onClose={closeModal} className="relative z-50">
-            <DialogBackdrop
-                transition
-                className="fixed inset-0 bg-black/50 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200"
-            />
+      <DialogBackdrop
+        transition
+        className="fixed inset-0 bg-black/50 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200"
+      />
 
-            <div className="fixed inset-0 flex items-center justify-center p-4 sm:p-6 md:p-8 z-50 overflow-y-auto">
-                <DialogPanel
-                    transition
-                    className="w-full max-w-5xl mx-auto rounded-2xl sm:rounded-3xl bg-white shadow-2xl border border-gray-200 transform transition-all data-[closed]:scale-95 data-[closed]:opacity-0"
+      <div className="fixed inset-0 flex items-center justify-center p-4 sm:p-6 md:p-8 z-50 overflow-y-auto">
+        <DialogPanel
+          transition
+          className="w-full max-w-5xl mx-auto rounded-2xl sm:rounded-3xl bg-white shadow-2xl border border-gray-200 transform transition-all data-[closed]:scale-95 data-[closed]:opacity-0"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 p-6 sm:p-8">
+            {/* Left Side: Logo & Quick Details */}
+            <div className="flex flex-col items-center justify-start space-y-6 md:border-r md:pr-6 border-gray-100">
+              <div className="text-center w-full relative">
+                {/* Close Button for mobile/convenience */}
+                <button
+                  onClick={closeModal}
+                  className="absolute top-0 right-0 md:hidden text-gray-500 hover:text-gray-900"
                 >
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 p-6 sm:p-8">
-                        {/* Left Side: Logo & Quick Details */}
-                        <div className="flex flex-col items-center justify-start space-y-6 md:border-r md:pr-6 border-gray-100">
-                            <div className="text-center w-full relative">
-                                {/* Close Button for mobile/convenience */}
-                                <button onClick={closeModal} className="absolute top-0 right-0 md:hidden text-gray-500 hover:text-gray-900">
-                                     <X size={24} />
-                                </button>
-                                
-                                <DialogTitle className="text-3xl md:text-4xl font-bold text-green-800 mb-2">
-                                    {broker.name}
-                                </DialogTitle>
-                                <p className="text-green-600 text-base md:text-lg">
-                                    Trusted Mutual Fund Partner
-                                </p>
-                            </div>
+                  <X size={24} />
+                </button>
 
-                            <div className="w-full flex items-center justify-center py-4 bg-green-50 rounded-xl border border-green-100">
-                                <Image
-                                    src={broker.logo}
-                                    alt={`${broker.name} Logo`}
-                                    width={150}
-                                    height={150}
-                                    className="object-contain max-h-[150px] max-w-[150px] p-2"
-                                />
-                            </div>
+                <DialogTitle className="text-3xl md:text-4xl font-bold text-green-800 mb-2">
+                  {broker.name}
+                </DialogTitle>
+                <p className="text-green-600 text-base md:text-lg">
+                  Trusted Mutual Fund Partner
+                </p>
+              </div>
 
-                            {/* Account Opening Link Card */}
-                            <div className="w-full bg-emerald-50 rounded-xl p-4 text-center border border-emerald-100">
-                                <p className="text-sm text-emerald-800 font-semibold">
-                                    Direct Investment Link
-                                </p>
-                                <Link
-                                    href={broker.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    onClick={closeModal}
-                                    className="text-lg font-bold text-emerald-600 block truncate hover:text-emerald-700 transition"
-                                >
-                                    Click to View Plans
-                                </Link>
-                            </div>
-                            
-                             {/* Exclusive Reward Card */}
-                             <div className="w-full bg-yellow-50 rounded-xl p-4 text-center border border-yellow-100">
-                                <p className="text-sm text-yellow-800 font-semibold">
-                                    Exclusive Fiscal Forum Bonus
-                                </p>
-                                <p className="text-lg font-bold text-yellow-600">
-                                    Personalized Investment Strategy
-                                </p>
-                            </div>
-                            
-                            <button
-                                type="button"
-                                onClick={closeModal}
-                                className="w-full px-4 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-xl text-lg font-semibold mt-4 hidden md:block"
-                            >
-                                Close Comparison
-                            </button>
-                        </div>
+              <div className="w-full flex items-center justify-center py-4 bg-green-50 rounded-xl border border-green-100">
+                <Image
+                  src={broker.logo}
+                  alt={`${broker.name} Logo`}
+                  width={150}
+                  height={150}
+                  className="object-contain max-h-[150px] max-w-[150px] p-2"
+                />
+              </div>
 
-                        {/* Right Side: Detailed Brokerage List (Benefits) */}
-                        <div className="flex flex-col justify-start space-y-6">
-                            <div className="space-y-5 overflow-y-auto max-h-[70vh] pr-2"> 
-                                <div>
-                                    <h3 className="text-2xl font-bold text-gray-900 mb-2 border-b border-gray-200 pb-1">
-                                        Key Investment Benefits
-                                    </h3>
-                                    <ul className="space-y-3">
-                                        {broker.brokerage.map((detail, i) => (
-                                            <li
-                                                key={i}
-                                                className="text-lg text-gray-700 flex items-start gap-2"
-                                            >
-                                                <span className="text-green-500 mt-1 flex-shrink-0">
-                                                    <FaCheck className="w-5 h-5" />
-                                                </span>
-                                                <span className="font-medium text-gray-800">{detail}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
+              {/* Account Opening Link Card */}
+              <div className="w-full bg-emerald-50 rounded-xl p-4 text-center border border-emerald-100">
+                <p className="text-sm text-emerald-800 font-semibold">
+                  Direct Investment Link
+                </p>
+                <Link
+                  href={broker.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={closeModal}
+                  className="text-lg font-bold text-emerald-600 block truncate hover:text-emerald-700 transition"
+                >
+                  Click to View Plans
+                </Link>
+              </div>
 
-                            {/* Direct Apply Link (Repeated for convenience) */}
-                            <div className="flex flex-col justify-end gap-3 pt-4 border-t border-gray-200">
-                                <Link
-                                    href={broker.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    onClick={closeModal}
-                                    className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white rounded-xl text-lg font-bold flex items-center justify-center gap-2 shadow-lg transition"
-                                >
-                                    Open {broker.name} Account
-                                </Link>
-                                <button
-                                    type="button"
-                                    onClick={closeModal}
-                                    className="px-4 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-xl text-lg font-semibold md:hidden" 
-                                >
-                                    Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </DialogPanel>
+              {/* Exclusive Reward Card */}
+              <div className="w-full bg-yellow-50 rounded-xl p-4 text-center border border-yellow-100">
+                <p className="text-sm text-yellow-800 font-semibold">
+                  Exclusive Fiscal Forum Bonus
+                </p>
+                <p className="text-lg font-bold text-yellow-600">
+                  Personalized Investment Strategy
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={closeModal}
+                className="w-full px-4 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-xl text-lg font-semibold mt-4 hidden md:block"
+              >
+                Close Comparison
+              </button>
             </div>
-        </Dialog>
+
+            {/* Right Side: Detailed Brokerage List (Benefits) */}
+            <div className="flex flex-col justify-start space-y-6">
+              <div className="space-y-5 overflow-y-auto max-h-[70vh] pr-2">
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2 border-b border-gray-200 pb-1">
+                    Key Investment Benefits
+                  </h3>
+                  <ul className="space-y-3">
+                    {broker.brokerage.map((detail, i) => (
+                      <li
+                        key={i}
+                        className="text-lg text-gray-700 flex items-start gap-2"
+                      >
+                        <span className="text-green-500 mt-1 flex-shrink-0">
+                          <FaCheck className="w-5 h-5" />
+                        </span>
+                        <span className="font-medium text-gray-800">
+                          {detail}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Direct Apply Link (Repeated for convenience) */}
+              <div className="flex flex-col justify-end gap-3 pt-4 border-t border-gray-200">
+                <Link
+                  href={broker.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={closeModal}
+                  className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white rounded-xl text-lg font-bold flex items-center justify-center gap-2 shadow-lg transition"
+                >
+                  Open {broker.name} Account
+                </Link>
+                <button
+                  type="button"
+                  onClick={closeModal}
+                  className="px-4 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-xl text-lg font-semibold md:hidden"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </DialogPanel>
+      </div>
+    </Dialog>
   );
 };
 

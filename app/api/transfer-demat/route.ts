@@ -54,7 +54,13 @@ export async function POST(request: NextRequest) {
     ) {
       return new NextResponse(
         JSON.stringify({ error: "All fields are required" }),
-        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders(origin) } }
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+            ...corsHeaders(origin),
+          },
+        },
       );
     }
 
@@ -63,7 +69,13 @@ export async function POST(request: NextRequest) {
     if (!panRegex.test(panNo)) {
       return new NextResponse(
         JSON.stringify({ error: "Invalid PAN number format" }),
-        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders(origin) } }
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+            ...corsHeaders(origin),
+          },
+        },
       );
     }
 
@@ -72,7 +84,13 @@ export async function POST(request: NextRequest) {
     if (!mobileRegex.test(mobileNo)) {
       return new NextResponse(
         JSON.stringify({ error: "Invalid mobile number format" }),
-        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders(origin) } }
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+            ...corsHeaders(origin),
+          },
+        },
       );
     }
 
@@ -95,13 +113,19 @@ export async function POST(request: NextRequest) {
         message: "Application submitted successfully",
         id: result[0].id,
       }),
-      { status: 201, headers: { "Content-Type": "application/json", ...corsHeaders(origin) } }
+      {
+        status: 201,
+        headers: { "Content-Type": "application/json", ...corsHeaders(origin) },
+      },
     );
   } catch (error) {
     console.error("Database error:", error);
     return new NextResponse(
       JSON.stringify({ error: "Failed to submit application" }),
-      { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders(origin) } }
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json", ...corsHeaders(origin) },
+      },
     );
   }
 }
