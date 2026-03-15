@@ -671,7 +671,7 @@ export default function HomeMobile() {
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-4 pb-4 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent flex justify-center">
           Work With Us
         </h2>
-        <div className="flex gap-4 overflow-x-auto pb-2 hide-scrollbar">
+        <div className="flex gap-4 overflow-x-auto pb-2 hide-scrollbar justify-center">
           {partners.map((p, i) => (
             <Link key={i} href={p.path} className="flex-shrink-0 w-48">
               <motion.div
