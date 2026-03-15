@@ -1185,7 +1185,7 @@ export default function HomeDesktop() {
             </h2>
           </div>
 
-          <div className="relative overflow-hidden">
+          <div className="relative">
             <div
               className="flex animate-scroll"
               style={{

@@ -489,37 +489,37 @@ export default function HomeMobile() {
     <div className="text-gray-800 font-sans min-h-screen bg-white">
       {/* 🔹 Half-Height Hero Slider */}
       <section className="relative w-full h-[40vh] sm:h-[50vh] lg:h-[40vh] overflow-hidden">
-  <Swiper
-    spaceBetween={20}
-    slidesPerView={1}
-    loop
-    autoplay={{ delay: 5000, disableOnInteraction: false }}
-    pagination={{ clickable: true }}
-    modules={[Autoplay, Pagination]}
-    className="w-full h-full"
-  >
-    {slides.map((slide, index) => (
-      <SwiperSlide key={index} className="relative">
-        {/* Background Image */}
-        <div className="absolute inset-0">
-          <Image
-            src={slide.image}
-            alt={slide.title}
-            fill
-            priority={index === 0}
-            className="object-cover brightness-75"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/90 via-green-900/60 to-transparent" />
-        </div>
+        <Swiper
+          spaceBetween={20}
+          slidesPerView={1}
+          loop
+          autoplay={{ delay: 5000, disableOnInteraction: false }}
+          pagination={{ clickable: true }}
+          modules={[Autoplay, Pagination]}
+          className="w-full h-full"
+        >
+          {slides.map((slide, index) => (
+            <SwiperSlide key={index} className="relative">
+              {/* Background Image */}
+              <div className="absolute inset-0">
+                <Image
+                  src={slide.image}
+                  alt={slide.title}
+                  fill
+                  priority={index === 0}
+                  className="object-cover brightness-75"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/90 via-green-900/60 to-transparent" />
+              </div>
 
-        {/* Content */}
-        <div className="relative z-10 flex items-end h-full px-4 sm:px-8 pb-10 sm:pb-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            viewport={{ once: true }}
-            className="
+              {/* Content */}
+              <div className="relative z-10 flex items-end h-full px-4 sm:px-8 pb-10 sm:pb-12">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  viewport={{ once: true }}
+                  className="
               w-full max-w-md
               bg-white/15 backdrop-blur-lg
               rounded-2xl
@@ -528,42 +528,41 @@ export default function HomeMobile() {
               shadow-xl
               border border-white/20
             "
-          >
-            <p className="text-[11px] font-semibold text-teal-200 uppercase tracking-wider">
-              {slide.subtitle}
-            </p>
+                >
+                  <p className="text-[11px] font-semibold text-teal-200 uppercase tracking-wider">
+                    {slide.subtitle}
+                  </p>
 
-            <h2 className="text-lg sm:text-xl font-bold mt-1">
-              {slide.title}
-            </h2>
+                  <h2 className="text-lg sm:text-xl font-bold mt-1">
+                    {slide.title}
+                  </h2>
 
-            <p className="text-sm opacity-90 mt-1 line-clamp-2">
-              {slide.description}
-            </p>
+                  <p className="text-sm opacity-90 mt-1 line-clamp-2">
+                    {slide.description}
+                  </p>
 
-            <div className="mt-4">
-              <Link href={slide.path}>
-                <motion.button
-                  whileTap={{ scale: 0.95 }}
-                  className="
+                  <div className="mt-4">
+                    <Link href={slide.path}>
+                      <motion.button
+                        whileTap={{ scale: 0.95 }}
+                        className="
                     px-4 py-2
                     bg-gradient-to-r from-emerald-500 to-teal-500
                     text-white text-sm font-semibold
                     rounded-full
                     shadow-md
                   "
-                >
-                  {slide.cta}
-                </motion.button>
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </SwiperSlide>
-    ))}
-  </Swiper>
-</section>
-
+                      >
+                        {slide.cta}
+                      </motion.button>
+                    </Link>
+                  </div>
+                </motion.div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </section>
 
       {/* 🔹 News & Research — Mobile */}
       <HomeNewsAndResearchSectionMobile />
@@ -696,7 +695,7 @@ export default function HomeMobile() {
                     {p.desc}
                   </p>
                   <Link
-                  href={p.path}
+                    href={p.path}
                     className={`mt-3 w-full py-2 text-xs font-medium text-white bg-gradient-to-r ${p.gradient} rounded-full`}
                     // // Optional: prevent button from triggering link twice
                     // onClick={(e) => e.preventDefault()}
@@ -711,98 +710,100 @@ export default function HomeMobile() {
       </section>
 
       {/* Referral section — Compact Mobile Version */}
-{user && (
-  <section className="py-8 md:py-16 bg-white relative overflow-hidden">
-    {/* Background Blobs (optional on mobile — keep only if low-cost) */}
-    <div className="absolute inset-0 pointer-events-none">
-      <div className="hidden sm:block absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-blue-200/20 to-purple-300/20 rounded-full blur-xl animate-pulse"></div>
-      <div className="hidden sm:block absolute bottom-1/4 right-1/4 w-40 h-40 bg-gradient-to-r from-indigo-200/20 to-cyan-300/20 rounded-full blur-xl animate-pulse delay-1000"></div>
-    </div>
+      {user && (
+        <section className="py-8 md:py-16 bg-white relative overflow-hidden">
+          {/* Background Blobs (optional on mobile — keep only if low-cost) */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="hidden sm:block absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-blue-200/20 to-purple-300/20 rounded-full blur-xl animate-pulse"></div>
+            <div className="hidden sm:block absolute bottom-1/4 right-1/4 w-40 h-40 bg-gradient-to-r from-indigo-200/20 to-cyan-300/20 rounded-full blur-xl animate-pulse delay-1000"></div>
+          </div>
 
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center relative z-10">
-      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mt-2 md:mt-4 pb-2 md:pb-4 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-        Referral Program
-      </h2>
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center relative z-10">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mt-2 md:mt-4 pb-2 md:pb-4 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+              Referral Program
+            </h2>
 
-      <motion.p
+            <motion.p className="text-sm sm:text-base text-gray-600 mb-6 md:mb-8 max-w-xl mx-auto">
+              Invite friends to Fiscal Forum and earn rewards. Share your code
+              and grow your network today!
+            </motion.p>
 
-        className="text-sm sm:text-base text-gray-600 mb-6 md:mb-8 max-w-xl mx-auto"
-      >
-        Invite friends to Fiscal Forum and earn rewards. Share your code and grow your network today!
-      </motion.p>
-
-      {/* Compact 1-col layout on mobile, 3-col on md+ */}
-      <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-10">
-        {[
-          {
-            title: "Earn Credits",
-            desc: "Get 10 credits per signup. Redeem for premium features & content.",
-            icon: <FaUsers className="text-white text-lg" />,
-            gradient: "from-green-500 to-emerald-600",
-          },
-          {
-            title: "Build Network",
-            desc: "Connect with finance enthusiasts and grow your professional circle.",
-            icon: <FaHandshake className="text-white text-lg" />,
-            gradient: "from-green-500 to-teal-600",
-          },
-          {
-            title: "Exclusive Rewards",
-            desc: "Unlock VIP access, early features, and special perks as you refer more.",
-            icon: <FaAward className="text-white text-lg" />,
-            gradient: "from-teal-500 to-emerald-600",
-          },
-        ].map((item, i) => (
-          <motion.div
-            key={i}
-            className="bg-white rounded-xl p-4 sm:p-5 shadow-md border border-gray-100"
-          >
-            <div className={`w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r ${item.gradient} rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4`}>
-              {item.icon}
+            {/* Compact 1-col layout on mobile, 3-col on md+ */}
+            <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-10">
+              {[
+                {
+                  title: "Earn Credits",
+                  desc: "Get 10 credits per signup. Redeem for premium features & content.",
+                  icon: <FaUsers className="text-white text-lg" />,
+                  gradient: "from-green-500 to-emerald-600",
+                },
+                {
+                  title: "Build Network",
+                  desc: "Connect with finance enthusiasts and grow your professional circle.",
+                  icon: <FaHandshake className="text-white text-lg" />,
+                  gradient: "from-green-500 to-teal-600",
+                },
+                {
+                  title: "Exclusive Rewards",
+                  desc: "Unlock VIP access, early features, and special perks as you refer more.",
+                  icon: <FaAward className="text-white text-lg" />,
+                  gradient: "from-teal-500 to-emerald-600",
+                },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  className="bg-white rounded-xl p-4 sm:p-5 shadow-md border border-gray-100"
+                >
+                  <div
+                    className={`w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r ${item.gradient} rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4`}
+                  >
+                    {item.icon}
+                  </div>
+                  <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-gray-600">
+                    {item.desc}
+                  </p>
+                </motion.div>
+              ))}
             </div>
-            <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
-            <p className="text-xs sm:text-sm text-gray-600">{item.desc}</p>
-          </motion.div>
-        ))}
-      </div>
 
-      <motion.div
-        className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 rounded-xl p-5 sm:p-6 text-white"
-      >
-        <h3 className="text-lg sm:text-xl font-bold mb-2">Ready to Start Referring?</h3>
-        <p className="text-indigo-100 text-xs sm:text-sm mb-4">
-          Join thousands earning rewards through our referral program.
-        </p>
-        <Link
-          href="/referrals"
-          className="inline-flex items-center justify-center px-5 py-2.5 sm:px-6 sm:py-3 bg-white text-emerald-600 font-semibold rounded-full text-xs sm:text-sm shadow hover:bg-gray-100 transition-colors duration-300"
-        >
-          <FaRocket className="mr-1.5 text-sm" />
-          View My Referrals
-        </Link>
-      </motion.div>
-    </div>
-  </section>
-)}
+            <motion.div className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 rounded-xl p-5 sm:p-6 text-white">
+              <h3 className="text-lg sm:text-xl font-bold mb-2">
+                Ready to Start Referring?
+              </h3>
+              <p className="text-indigo-100 text-xs sm:text-sm mb-4">
+                Join thousands earning rewards through our referral program.
+              </p>
+              <Link
+                href="/referrals"
+                className="inline-flex items-center justify-center px-5 py-2.5 sm:px-6 sm:py-3 bg-white text-emerald-600 font-semibold rounded-full text-xs sm:text-sm shadow hover:bg-gray-100 transition-colors duration-300"
+              >
+                <FaRocket className="mr-1.5 text-sm" />
+                View My Referrals
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+      )}
 
       {/* 🔹 Affiliations — Auto-scrolling Logos */}
-      <section className="py-8 bg-gray-50">
+      <section className="py-8 bg-gray-50 overflow-hidden">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-4 pb-4 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent flex justify-center">
           Our Trusted Affiliations
         </h2>
-        <div className="relative overflow-hidden">
-          <div className="flex animate-marquee whitespace-nowrap">
+
+        <div className="relative w-full overflow-hidden">
+          <div className="flex w-max animate-marquee whitespace-nowrap">
             {[...logos, ...logos].map((logo, i) => (
-              <div
-                key={i}
-                className="mx-4 flex-shrink-0 h-12 flex items-center"
-              >
+              <div key={i} className="mx-6 flex-shrink-0 flex items-center">
                 <Image
                   src={logo}
                   alt={`Partner ${i}`}
-                  width={80}
-                  height={48}
-                  className="object-contain opacity-100 hover:opacity-100 transition-opacity"
+                  width={90}
+                  height={50}
+                  className="object-contain"
                 />
               </div>
             ))}
@@ -813,10 +814,12 @@ export default function HomeMobile() {
         .hide-scrollbar::-webkit-scrollbar {
           display: none;
         }
+
         .hide-scrollbar {
           -ms-overflow-style: none;
           scrollbar-width: none;
         }
+
         @keyframes marquee {
           0% {
             transform: translateX(0);
@@ -825,8 +828,9 @@ export default function HomeMobile() {
             transform: translateX(-50%);
           }
         }
+
         .animate-marquee {
-          animation: marquee 4s linear infinite;
+          animation: marquee 50s linear infinite;
         }
       `}</style>
       <style jsx>{`

@@ -41,19 +41,19 @@ type PreferencesFormData = {
 
 // --- DATA ---
 const brokers: Broker[] = [
-  {
-    name: "Choice",
-    logo: "/choice.png",
-    link: "https://choiceindia.com/mutual-funds-investment?refercode=QzAwMTExMzI=&source=Q0hPSUNFX0NPTk5FQ1Q=",
-    brokerage:[
-      "• Smart mutual fund investing with expert recommendations",
-      "• Research-driven suggestions to grow your portfolio",
-      "• Smooth, flexible tracking of investments",
-      "• User-friendly platform for all experience levels",
-      "• Hassle-free wealth creation made simple",
-      "• 0 AMC charges — more money stays invested"
-    ]
-  },
+  // {
+  //   name: "Choice",
+  //   logo: "/choice.png",
+  //   link: "https://choiceindia.com/mutual-funds-investment?refercode=QzAwMTExMzI=&source=Q0hPSUNFX0NPTk5FQ1Q=",
+  //   brokerage:[
+  //     "• Smart mutual fund investing with expert recommendations",
+  //     "• Research-driven suggestions to grow your portfolio",
+  //     "• Smooth, flexible tracking of investments",
+  //     "• User-friendly platform for all experience levels",
+  //     "• Hassle-free wealth creation made simple",
+  //     "• 0 AMC charges — more money stays invested"
+  //   ]
+  // },
   {
     name: "Nuvama",
     logo: "/nuvama.png",
@@ -91,6 +91,19 @@ const brokers: Broker[] = [
       "• Backed by a strong track record of trust",
       "• 0 AMC charges — maximum savings for clients"
     ]
+  },
+  {
+    name: "Angel One",
+    logo: "/angel-one.png",
+    link: "https://a.aonelink.in/ANGOne/6pTAS0u",
+    brokerage: [
+      "• Equity Delivery: ₹20 or 0.1% whichever is lower per executed order (minimum brokerage of INR 2 will be levied)",
+      "• Equity Intraday: ₹20 or 0.03% (whichever is lower) per executed order",
+      "• Futures, Options, Commodity, Currency: ₹20 per executed order",
+      "Brokerage up to ₹500 will not be charged for the first 30 days time period after onboarding.",
+      "The offer will expire either on completion of 30 days from onboarding or complete consumption of ₹500 brokerage discount within the same period.",
+      " Post the offer-period, a normal brokerage fee is charged. Angel One reserves the right, in its absolute discretion, to change, alter or discontinue the offer as well as terms & conditions from time to time & shall communicate the same to the client via email."
+    ],
   },
 ];
 
