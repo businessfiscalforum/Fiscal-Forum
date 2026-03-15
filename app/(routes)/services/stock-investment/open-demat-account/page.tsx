@@ -27,6 +27,16 @@ type Broker = {
 // --- DATA ---
 const brokers: Broker[] = [
   {
+    name: "Angel One",
+    logo: "/angel-one.png",
+    link: "https://a.aonelink.in/ANGOne/6pTAS0u",
+    brokerage: [
+      "• Equity Delivery: ₹20 or 0.1% whichever is lower per executed order (minimum brokerage of INR 2 will be levied)",
+      "• Equity Intraday: ₹20 or 0.03% (whichever is lower) per executed order",
+      "• Futures, Options, Commodity, Currency: ₹20 per executed order",
+    ],
+  },
+  {
     name: "Alice Blue",
     logo: "/alice-blue.png",
     link: "https://ekyc.aliceblueonline.com/?source=WRAJ1101",
@@ -36,16 +46,6 @@ const brokers: Broker[] = [
       "• Equity Options: ₹20 per executed order",
       "• Currency Futures: ₹20 per executed order or 0.05% (whichever is lower)",
       "• Currency Options: ₹20 per executed order or 2.5% (whichever is lower)",
-    ],
-  },
-  {
-    name: "Angel One",
-    logo: "/angel-one.png",
-    link: "https://a.aonelink.in/ANGOne/6pTAS0u",
-    brokerage: [
-      "• Equity Delivery: ₹20 or 0.1% whichever is lower per executed order (minimum brokerage of INR 2 will be levied)",
-      "• Equity Intraday: ₹20 or 0.03% (whichever is lower) per executed order",
-      "• Futures, Options, Commodity, Currency: ₹20 per executed order",
     ],
   },
   {
