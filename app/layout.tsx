@@ -46,6 +46,7 @@ export const metadata: Metadata = {
   },
   other: {
     "site_name": "Fiscal Forum",
+    "apple-mobile-web-app-title": "Fiscal Forum",
   },
 };
 
@@ -59,7 +60,8 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Fiscal Forum",
-    "url": "https://www.fiscalforum.in",
+    "alternateName": ["FiscalForum"],
+    "url": "https://www.fiscalforum.in/",
   };
 
   return (
