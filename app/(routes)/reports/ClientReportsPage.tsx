@@ -319,12 +319,12 @@ export default function ClientReportsPage({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100">
+    <div className="min-h-screen bg-[#F4FBF7] pt-24 pb-20">
       {/* Sticky Custom Report Button - Mobile Only */}
       <div className="lg:hidden fixed bottom-6 right-6 z-40">
         <button
           onClick={() => setIsFormOpen(true)}
-          className="bg-gradient-to-r from-emerald-500 to-green-600 text-white p-4 rounded-full shadow-lg hover:from-emerald-600 hover:to-green-700 transition-all"
+          className="bg-[#1FA463] text-black border-2 border-black p-4 rounded-full shadow-[3px_3px_0px_#000] hover:translate-y-[-1px] transition-all active:translate-y-[0px] active:shadow-[1px_1px_0px_#000]"
           aria-label="Request Custom Report"
         >
           <FaPaperPlane className="w-6 h-6" />
@@ -333,13 +333,13 @@ export default function ClientReportsPage({
 
       {/* Sticky Custom Report Form - Mobile Only */}
       {isFormOpen && (
-        <div className="lg:hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
-          <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl p-6 max-h-[80vh] overflow-y-auto">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold text-gray-900">Custom Report</h3>
+        <div className="lg:hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-end">
+          <div className="bg-white border-t-2 border-black rounded-t-3xl p-6 w-full max-h-[85vh] overflow-y-auto space-y-4">
+            <div className="flex justify-between items-center border-b border-black/10 pb-3">
+              <h3 className="text-xl font-black uppercase text-black">Custom Report</h3>
               <button
                 onClick={() => setIsFormOpen(false)}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-gray-500 hover:text-black"
                 aria-label="Close form"
               >
                 <FaTimes className="w-6 h-6" />
@@ -348,7 +348,7 @@ export default function ClientReportsPage({
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-bold uppercase text-black mb-1">
                   Full Name
                 </label>
                 <input
@@ -357,13 +357,13 @@ export default function ClientReportsPage({
                   value={formData.name}
                   onChange={handleInputChange}
                   placeholder="Your name"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  className="w-full px-3 py-2 border-2 border-black rounded-xl text-black"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-bold uppercase text-black mb-1">
                   Mobile
                 </label>
                 <input
@@ -372,13 +372,13 @@ export default function ClientReportsPage({
                   value={formData.mobile}
                   onChange={handleInputChange}
                   placeholder="Your WhatsApp number"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  className="w-full px-3 py-2 border-2 border-black rounded-xl text-black"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-bold uppercase text-black mb-1">
                   Topic
                 </label>
                 <input
@@ -387,14 +387,16 @@ export default function ClientReportsPage({
                   value={formData.topic}
                   onChange={handleInputChange}
                   placeholder="What do you need?"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  className="w-full px-3 py-2 border-2 border-black rounded-xl text-black"
                   required
                 />
               </div>
 
               {formMessage && (
                 <div
-                  className={`p-2 rounded text-sm ${formMessage.startsWith("✅") ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}
+                  className={`p-3 rounded-xl border border-black text-sm ${
+                    formMessage.startsWith("✅") ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+                  }`}
                 >
                   {formMessage}
                 </div>
@@ -403,7 +405,7 @@ export default function ClientReportsPage({
               <button
                 type="submit"
                 disabled={formLoading}
-                className="w-full bg-gradient-to-r from-emerald-500 to-green-600 text-white py-3 rounded-lg font-medium disabled:opacity-50"
+                className="w-full bg-[#1FA463] text-white border-2 border-black py-3 rounded-xl font-bold hover:bg-[#15824D] shadow-[2px_2px_0px_#000] active:translate-y-[2px]"
               >
                 {formLoading ? "Sending..." : "Request Report"}
               </button>
@@ -412,1026 +414,715 @@ export default function ClientReportsPage({
         </div>
       )}
 
-      <div className="max-w-full pb-30">
-        <section className="relative bg-gradient-to-br from-teal-900 via-emerald-900 to-teal-800 text-white overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-0 w-64 h-64 bg-yellow-400 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 right-0 w-64 h-64 bg-green-400 rounded-full blur-3xl"></div>
-          </div>
-
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
-            <div className="text-center">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-                Before You Invest,
-                <span className="text-green-400"> Read What Matters</span>
-              </h1>
-              <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
-                Turn every report into an opportunity - join Fiscal Forum and
-                stay a step ahead.
-              </p>
-
-              <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-                <button className="bg-white text-teal-900 px-6 py-3 rounded-lg font-semibold flex items-center justify-center space-x-2 hover:bg-gray-100 transition-colors">
-                  <FaFilePdf />
-                  <Link
-                    href="#table"
-                    scroll={true}
-                    className="cursor-pointer text-blue-600 underline"
-                  >
-                    View Sample Reports
-                  </Link>
-                </button>
-                <Link href={"/reports/join"}>
-                  <button className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-teal-900 transition-colors cursor-pointer">
-                    Join Now!
-                  </button>
-                </Link>
-              </div>
-
-              <p className="text-sm text-red-300 mb-8">
-                Don&apos;t Miss Out: Send &quot;Hi&quot; to get more samples{" "}
-                <Link
-                  href="https://wa.me/+918696060387"
-                  className="text-green-400 underline"
-                >
-                  WhatsApp
-                </Link>
-                .
-              </p>
+      <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-16">
+        
+        {/* Banner Section */}
+        <section className="relative border-2 border-black bg-white rounded-3xl p-8 md:p-12 shadow-[4px_4px_0px_#000] overflow-hidden">
+          {/* Background pattern */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#1FA463]/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="relative z-10 text-center space-y-6 max-w-4xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-yellow-100 border border-black rounded-lg text-black font-bold text-xs uppercase tracking-wider">
+              <FaCalendarAlt className="w-3.5 h-3.5" />
+              Daily Market Briefs
             </div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-black uppercase tracking-tight leading-none">
+              Before You Invest, <span className="text-[#1FA463]">Read What Matters</span>
+            </h1>
+            <p className="text-lg md:text-xl text-gray-700 font-semibold max-w-2xl mx-auto">
+              Turn every report into an opportunity. Join Fiscal Forum today and stay a step ahead of the opening bell.
+            </p>
+
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
+              <Link href="#table" scroll={true} className="w-full sm:w-auto">
+                <button className="w-full bg-white text-black border-2 border-black px-6 py-3.5 rounded-xl font-bold flex items-center justify-center space-x-2 shadow-[2px_2px_0px_#000] hover:bg-yellow-50 hover:shadow-[3px_3px_0px_#000] transition-all">
+                  <FaFilePdf className="text-black" />
+                  <span>View Sample Reports</span>
+                </button>
+              </Link>
+              <Link href="/reports/join" className="w-full sm:w-auto">
+                <button className="w-full bg-[#1FA463] text-white border-2 border-black px-6 py-3.5 rounded-xl font-bold shadow-[2px_2px_0px_#000] hover:bg-[#15824D] hover:shadow-[3px_3px_0px_#000] active:translate-y-[2px] transition-all uppercase text-sm">
+                  Join Now!
+                </button>
+              </Link>
+            </div>
+
+            <p className="text-sm text-red-500 font-bold">
+              Don&apos;t Miss Out: Send &quot;Hi&quot; to get more samples on{" "}
+              <Link
+                href="https://wa.me/+918696060387"
+                className="text-[#1FA463] underline font-black hover:text-emerald-800"
+              >
+                WhatsApp
+              </Link>
+              .
+            </p>
           </div>
         </section>
 
         {/* TAB NAVIGATION */}
-        <div className="flex justify-center mb-6 h-auto overflow-x-auto sm:overflow-visible">
-          <div className="flex flex-wrap sm:flex-nowrap justify-center gap-3 sm:gap-6 px-2">
+        <div className="flex justify-center h-auto overflow-x-auto sm:overflow-visible pb-2 border-b-2 border-black/10">
+          <div className="flex flex-wrap sm:flex-nowrap justify-center gap-3 sm:gap-4 px-2">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => handleTabChange(tab.id)}
-                className={`px-3 sm:px-4 py-2 relative text-lg sm:text-lg md:text-xl font-medium transition-colors duration-300 whitespace-nowrap ${
+                className={`px-4 py-2 border-2 border-black rounded-xl text-sm font-black uppercase tracking-wider transition-all whitespace-nowrap ${
                   activeTab === tab.id
-                    ? "text-emerald-600"
-                    : "text-gray-600 hover:text-emerald-500"
+                    ? "bg-[#1FA463] text-white shadow-[2px_2px_0px_#000]"
+                    : "bg-white text-gray-700 hover:bg-gray-50 shadow-[1px_1px_0px_#000] hover:shadow-[2px_2px_0px_#000] hover:translate-y-[-1px]"
                 }`}
               >
                 {tab.label}
-                {activeTab === tab.id && (
-                  <span className="absolute left-0 bottom-0 w-full h-[2px] bg-emerald-600 rounded-full"></span>
-                )}
               </button>
             ))}
           </div>
         </div>
 
         {/* REPORTS TABLE */}
-        <section id="table" className="py-10">
-          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* EMPTY STATE */}
-            {!loading && !error && currentReports.length === 0 && (
-              <div className="bg-white rounded-xl border border-emerald-200 p-10 text-center">
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <FaFilePdf className="text-gray-400 text-2xl" />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-800">
-                  No Reports Found
-                </h3>
-                <p className="text-sm text-gray-600 mt-1">
-                  Try adjusting your filters or search.
-                </p>
+        <section id="table" className="space-y-6">
+          {/* EMPTY STATE */}
+          {!loading && !error && currentReports.length === 0 && (
+            <div className="bg-white rounded-2xl border-2 border-black p-10 text-center shadow-[4px_4px_0px_#000]">
+              <div className="w-16 h-16 bg-gray-100 rounded-full border border-black flex items-center justify-center mx-auto mb-4">
+                <FaFilePdf className="text-black text-2xl" />
               </div>
-            )}
+              <h3 className="text-lg font-black uppercase text-black">
+                No Reports Found
+              </h3>
+              <p className="text-sm text-gray-600 font-medium mt-1">
+                Try adjusting your filters or search.
+              </p>
+            </div>
+          )}
 
-            {/* MOBILE CARD VIEW */}
-            {!loading && !error && currentReports.length > 0 && (
-              <div className="md:hidden grid gap-3">
-                {currentReports.map((report) => (
-                  <div
-                    key={report.id}
-                    className="bg-white border border-emerald-200 rounded-xl p-4 shadow-sm"
-                  >
-                    <h3 className="font-semibold text-emerald-900 text-sm leading-snug">
-                      {report.title ?? "Untitled"}
-                    </h3>
+          {/* MOBILE CARD VIEW */}
+          {!loading && !error && currentReports.length > 0 && (
+            <div className="md:hidden grid gap-4">
+              {currentReports.map((report) => (
+                <div
+                  key={report.id}
+                  className="bg-white border-2 border-black rounded-2xl p-5 shadow-[3px_3px_0px_#000]"
+                >
+                  <h3 className="font-black text-black text-base leading-snug">
+                    {report.title ?? "Untitled"}
+                  </h3>
 
-                    <div className="flex flex-wrap gap-1 mt-2">
-                      <span className="px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800">
-                        {report.reportType?? "N/A"}
-                      </span>
-                      <span className="px-2 py-0.5 rounded text-[10px] bg-teal-100 text-teal-800">
-                        {report.sector?? "N/A"}
-                      </span>
-                    </div>
-
-                    <div className="mt-2 text-xs text-gray-600">
-                      <strong className="text-emerald-700">
-                        {report.stock ?? "N/A"}
-                      </strong>{" "}
-                      · {report.company ?? "N/A"}
-                    </div>
-
-                    <div className="flex items-center justify-between mt-3">
-                      <span
-                        className={`px-2 py-0.5 rounded text-xs font-bold ${getRatingColor(
-                          report.rating?? "N/A"
-                        )}`}
-                      >
-                        {report.rating ?? "N/A"}
-                      </span>
-
-                      <Link
-                        href={report.pdfUrl || "#"}
-                        className="text-emerald-600 text-xs font-medium"
-                      >
-                        View PDF
-                        <FaFilePdf className="inline ml-1 w-3 h-3 " />
-                      </Link>
-                    </div>
+                  <div className="flex flex-wrap gap-2 mt-3">
+                    <span className="px-2 py-1 border border-black rounded text-[10px] font-bold bg-emerald-50 text-black">
+                      {report.reportType ?? "N/A"}
+                    </span>
+                    <span className="px-2 py-1 border border-black rounded text-[10px] font-bold bg-teal-50 text-black">
+                      {report.sector ?? "N/A"}
+                    </span>
                   </div>
-                ))}
-              </div>
-            )}
 
-            {/* DESKTOP TABLE VIEW */}
-            {!loading && !error && currentReports.length > 0 && (
-              <div className="hidden md:block bg-white rounded-xl border border-emerald-200 shadow-sm overflow-hidden">
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
-                    <thead className="bg-emerald-50 border-b border-emerald-200">
-                      <tr>
-                        <th className="px-3 py-2 text-left text-xs font-semibold text-emerald-900">
-                          Report
-                        </th>
-                        <th className="px-3 py-2 text-left text-xs font-semibold text-emerald-900">
-                          Stock
-                        </th>
-                        <th className="px-3 py-2 text-left text-xs font-semibold text-emerald-900">
-                          Author
-                        </th>
-                        <th className="px-3 py-2 text-left text-xs font-semibold text-emerald-900">
-                          Date
-                        </th>
-                        <th className="px-3 py-2 text-left text-xs font-semibold text-emerald-900">
-                          Rating
-                        </th>
-                        <th className="px-3 py-2 text-center text-xs font-semibold text-emerald-900">
-                          Action
-                        </th>
-                      </tr>
-                    </thead>
+                  <div className="mt-3 text-xs text-gray-700 font-semibold">
+                    <strong className="text-[#1FA463]">
+                      {report.stock ?? "N/A"}
+                    </strong>{" "}
+                    · {report.company ?? "N/A"}
+                  </div>
 
-                    <tbody className="divide-y divide-emerald-100">
-                      {currentReports.map((report) => (
-                        <tr
-                          key={report.id}
-                          className="hover:bg-emerald-50/40 transition"
-                        >
-                          {/* Report */}
-                          <td className="px-3 py-2 align-top">
-                            <div className="space-y-1">
-                              <div className="font-semibold text-emerald-900">
-                                {report.title ?? "Untitled"}
-                              </div>
-                              <div className="flex gap-1">
-                                <span className="px-2 py-0.5 text-[10px] bg-emerald-100 text-emerald-800 rounded">
-                                  {report.reportType?? "N/A"}
-                                </span>
-                                <span className="px-2 py-0.5 text-[10px] bg-teal-100 text-teal-800 rounded">
-                                  {report.sector?? "N/A"}
-                                </span>
-                              </div>
-                            </div>
-                          </td>
+                  <div className="flex items-center justify-between mt-4 pt-3 border-t border-black/10">
+                    <span
+                      className={`px-2.5 py-0.5 rounded border-2 border-black text-xs font-black ${getRatingColor(
+                        report.rating
+                      )}`}
+                    >
+                      {report.rating ?? "N/A"}
+                    </span>
 
-                          {/* Stock */}
-                          <td className="px-3 py-2">
-                            <div className="font-semibold text-emerald-700">
-                              {report.stock?? "N/A"}
-                            </div>
-                            <div className="text-[11px] text-gray-600">
-                              {report.company?? "N/A"}
-                            </div>
-                          </td>
-
-                          {/* Author */}
-                          <td className="px-3 py-2">
-                            <div className="flex items-center gap-2">
-                              <div className="w-6 h-6 bg-emerald-600 rounded-full flex items-center justify-center">
-                                <FaUser className="text-white text-[10px]" />
-                              </div>
-                              <div>
-                                <div className="text-xs font-medium">
-                                  {report.author?? "Fiscal Forum"}
-                                </div>
-                                <div className="text-[11px] text-gray-500">
-                                  {report.authorFirm?? "Fiscal Forum"}
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-
-                          {/* Date */}
-                          <td className="px-3 py-2 text-xs text-gray-600">
-                            <FaCalendarAlt className="inline mr-1 text-emerald-400 text-[10px]" />
-                            {formatDate(report.publishDate)}
-                          </td>
-
-                          {/* Rating */}
-                          <td className="px-3 py-2">
-                            <span
-                              className={`px-2 py-0.5 rounded text-xs font-bold ${getRatingColor(
-                                report.rating
-                              )}`}
-                            >
-                              {report.rating ?? "N/A"}
-                            </span>
-                          </td>
-
-                          {/* Action */}
-                          <td className="px-3 py-2 text-center">
-                            <Link
-                              href={report.pdfUrl || "#"}
-                              className="inline-flex px-3 py-1.5 rounded-md text-xs font-medium text-white bg-emerald-600 hover:bg-emerald-700"
-                            >
-                              View
-                            </Link>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                    <Link
+                      href={report.pdfUrl || "#"}
+                      className="inline-flex items-center gap-1 bg-[#1FA463] text-white border-2 border-black px-3 py-1.5 rounded-xl text-xs font-black shadow-[2px_2px_0px_#000] hover:bg-[#15824D] active:translate-y-[1px]"
+                    >
+                      <span>View PDF</span>
+                      <FaFilePdf className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
                 </div>
+              ))}
+            </div>
+          )}
+
+          {/* DESKTOP TABLE VIEW */}
+          {!loading && !error && currentReports.length > 0 && (
+            <div className="hidden md:block bg-white rounded-2xl border-2 border-black shadow-[4px_4px_0px_#000] overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead className="bg-emerald-50 border-b-2 border-black">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-black uppercase text-black tracking-wider">
+                        Report Info
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-black uppercase text-black tracking-wider">
+                        Stock
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-black uppercase text-black tracking-wider">
+                        Author
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-black uppercase text-black tracking-wider">
+                        Date
+                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-black uppercase text-black tracking-wider">
+                        Rating
+                      </th>
+                      <th className="px-4 py-3 text-center text-xs font-black uppercase text-black tracking-wider">
+                        Action
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody className="divide-y divide-black/10">
+                    {currentReports.map((report) => (
+                      <tr
+                        key={report.id}
+                        className="hover:bg-emerald-50/20 transition-colors"
+                      >
+                        {/* Report */}
+                        <td className="px-4 py-4 align-middle">
+                          <div className="space-y-2">
+                            <div className="font-black text-black text-base">
+                              {report.title ?? "Untitled"}
+                            </div>
+                            <div className="flex gap-2">
+                              <span className="px-2 py-0.5 text-[10px] font-bold bg-emerald-50 border border-black rounded">
+                                {report.reportType ?? "N/A"}
+                              </span>
+                              <span className="px-2 py-0.5 text-[10px] font-bold bg-teal-50 border border-black rounded">
+                                {report.sector ?? "N/A"}
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+
+                        {/* Stock */}
+                        <td className="px-4 py-4 align-middle">
+                          <div className="font-black text-black text-base">
+                            {report.stock ?? "N/A"}
+                          </div>
+                          <div className="text-xs text-gray-600 font-semibold">
+                            {report.company ?? "N/A"}
+                          </div>
+                        </td>
+
+                        {/* Author */}
+                        <td className="px-4 py-4 align-middle">
+                          <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 bg-emerald-100 border border-black rounded-lg flex items-center justify-center">
+                              <FaUser className="text-black text-xs" />
+                            </div>
+                            <div>
+                              <div className="text-xs font-black text-black">
+                                {report.author ?? "Fiscal Forum"}
+                              </div>
+                              <div className="text-[11px] text-gray-500 font-semibold">
+                                {report.authorFirm ?? "Fiscal Forum"}
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+
+                        {/* Date */}
+                        <td className="px-4 py-4 align-middle text-xs text-gray-700 font-bold whitespace-nowrap">
+                          <FaCalendarAlt className="inline mr-1.5 text-black/60" />
+                          {formatDate(report.publishDate)}
+                        </td>
+
+                        {/* Rating */}
+                        <td className="px-4 py-4 align-middle">
+                          <span
+                            className={`px-2.5 py-0.5 rounded border-2 border-black text-xs font-black ${getRatingColor(
+                              report.rating
+                            )}`}
+                          >
+                            {report.rating ?? "N/A"}
+                          </span>
+                        </td>
+
+                        {/* Action */}
+                        <td className="px-4 py-4 align-middle text-center">
+                          <Link
+                            href={report.pdfUrl || "#"}
+                            className="inline-flex bg-[#1FA463] text-white border-2 border-black px-4 py-2 rounded-xl text-xs font-black shadow-[2px_2px_0px_#000] hover:bg-[#15824D] active:translate-y-[2px]"
+                          >
+                            View Report
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </section>
 
         {/* What's Inside Our Report Section */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-gray-900">
-                What&apos;s Inside Our Report?
-              </h2>
-              <p className="text-gray-600 mt-4">
-                Everything you need to stay ahead before the market opens.
-              </p>
-            </div> */}
+        <section className="space-y-8">
+          <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
+            <h2 className="text-3xl md:text-4xl font-black uppercase text-black leading-none">
+              What&apos;s Inside Our Report?
+            </h2>
+            <p className="text-base text-gray-600 font-medium">
+              Everything you need to stay ahead before the market opens, organized logically.
+            </p>
+          </div>
 
-            {/* Three Report Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-              {/* Pre-Market Reports Card */}
-              <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl shadow-lg border border-emerald-100 overflow-hidden hover:shadow-xl transition-shadow">
-                <div className="p-6">
-                  <div className="w-12 h-12 bg-emerald-500 rounded-lg flex items-center justify-center mb-4">
-                    <svg
-                      className="w-6 h-6 text-white"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    Pre-Market Reports
-                  </h3>
-                  <p className="text-gray-600 text-sm mb-4">
-                    Get ahead with early market insights and analysis delivered
-                    daily before trading begins.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-2 py-1 bg-emerald-100 text-emerald-800 text-xs rounded-full">
-                      Global Markets
-                    </span>
-                    <span className="px-2 py-1 bg-emerald-100 text-emerald-800 text-xs rounded-full">
-                      Sector Analysis
-                    </span>
-                    <span className="px-2 py-1 bg-emerald-100 text-emerald-800 text-xs rounded-full">
-                      Fear & Greed Index
-                    </span>
-                  </div>
+          {/* Three Report Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Pre-Market Reports Card */}
+            <div className="bg-white border-2 border-black rounded-3xl overflow-hidden shadow-[4px_4px_0px_#000] flex flex-col justify-between hover:translate-y-[-2px] transition-all">
+              <div className="p-6 space-y-4">
+                <div className="w-12 h-12 bg-emerald-100 border-2 border-black rounded-xl flex items-center justify-center shadow-[2px_2px_0px_#000]">
+                  <svg
+                    className="w-6 h-6 text-black"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
                 </div>
-                <div className="bg-emerald-500/10 px-6 py-3">
-                  <p className="text-emerald-700 text-sm font-medium">
-                    Delivered daily at 8:00 AM
-                  </p>
-                </div>
-              </div>
-
-              {/* Thematic Reports Card */}
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-lg border border-blue-100 overflow-hidden hover:shadow-xl transition-shadow">
-                <div className="p-6">
-                  <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-4">
-                    <svg
-                      className="w-6 h-6 text-white"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    Thematic Reports
-                  </h3>
-                  <p className="text-gray-600 text-sm mb-4">
-                    Deep-dive analysis on emerging trends and thematic
-                    investment opportunities.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
-                      Trend Analysis
-                    </span>
-                    <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
-                      Sector Deep Dive
-                    </span>
-                    <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
-                      Opportunity Spotting
-                    </span>
-                  </div>
-                </div>
-                <div className="bg-blue-500/10 px-6 py-3">
-                  <p className="text-blue-700 text-sm font-medium">
-                    Weekly specialized insights
-                  </p>
-                </div>
-              </div>
-
-              {/* Equity Reports Card */}
-              <div className="bg-gradient-to-br from-purple-50 to-fuchsia-50 rounded-2xl shadow-lg border border-purple-100 overflow-hidden hover:shadow-xl transition-shadow">
-                <div className="p-6">
-                  <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mb-4">
-                    <svg
-                      className="w-6 h-6 text-white"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    Equity Reports
-                  </h3>
-                  <p className="text-gray-600 text-sm mb-4">
-                    Detailed stock analysis with target prices, recommendations,
-                    and performance metrics.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">
-                      Stock Analysis
-                    </span>
-                    <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">
-                      Fundamental Analysis
-                    </span>
-                    <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">
-                      BUY / HOLD / SELL 
-                    </span>
-                  </div>
-                </div>
-                <div className="bg-purple-500/10 px-6 py-3">
-                  <p className="text-purple-700 text-sm font-medium">
-                    In-depth company analysis
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-gray-900">
-                What&apos;s Inside Our Report?
-              </h2>
-              <p className="text-gray-600 mt-4">
-                Everything you need to stay ahead before the market opens.
-              </p>
-            </div>
-
-            <div className="bg-gray-50 p-6 rounded-2xl">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Global Market Overview */}
-                <div className="bg-white p-6 rounded-xl shadow-sm">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                    Global Market Overview
-                  </h3>
-                  <div className="space-y-5">
-                    <div>
-                      <h4 className="text-sm font-medium text-gray-700 mb-2 flex items-center">
-                        <span className="w-2 h-2 bg-orange-500 rounded-full mr-2"></span>
-                        Asian Market
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {["Hang Seng", "Nikkei 225", "KOSPI", "ASX 200"].map(
-                          (market, idx) => (
-                            <div
-                              key={idx}
-                              className="flex items-center px-3 py-1.5 bg-orange-50 rounded-full text-xs font-medium text-orange-700"
-                            >
-                              <span>{market}</span>
-                            </div>
-                          )
-                        )}
-                      </div>
-                    </div>
-
-                    <div>
-                      <h4 className="text-sm font-medium text-gray-700 mb-2 flex items-center">
-                        <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
-                        Europe Market
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {["DAX", "FTSE 100", "CAC 40"].map((market, idx) => (
-                          <div
-                            key={idx}
-                            className="flex items-center px-3 py-1.5 bg-blue-50 rounded-full text-xs font-medium text-blue-700"
-                          >
-                            <span>{market}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <h4 className="text-sm font-medium text-gray-700 mb-2 flex items-center">
-                        <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                        US Market
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {["Dow Jones", "Nasdaq", "S&P"].map((market, idx) => (
-                          <div
-                            key={idx}
-                            className="flex items-center px-3 py-1.5 bg-green-50 rounded-full text-xs font-medium text-green-700"
-                          >
-                            <span>{market}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Market Snapshot */}
-                <div className="bg-white p-6 rounded-xl shadow-sm">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                    Market Snapshot
-                  </h3>
-                  <div className="space-y-3">
-                    {[
-                      {
-                        title: "Volume Shockers",
-                        color: "bg-blue-500",
-                        textColor: "text-blue-700",
-                      },
-                      {
-                        title: "52 Week High",
-                        color: "bg-purple-500",
-                        textColor: "text-purple-700",
-                      },
-                      {
-                        title: "Top Gainers",
-                        color: "bg-green-500",
-                        textColor: "text-green-700",
-                      },
-                      {
-                        title: "Top Losers",
-                        color: "bg-red-500",
-                        textColor: "text-red-700",
-                      },
-                      {
-                        title: "Long & Short Buildup",
-                        color: "bg-yellow-500",
-                        textColor: "text-yellow-700",
-                      },
-                    ].map((item, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-center px-4 py-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
-                      >
-                        <div
-                          className={`w-3 h-3 ${item.color} rounded-full mr-3`}
-                        ></div>
-                        <span className="text-sm font-medium">
-                          {item.title}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Sectoral Indices Chart */}
-                <div className="bg-white p-6 rounded-xl shadow-sm lg:col-span-2">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                    Sectoral Indices Chart
-                  </h3>
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <div className="text-xs text-gray-600 mb-3">
-                      1-day change
-                    </div>
-
-                    {sectorsLoading ? (
-                      <p className="text-sm text-gray-500">
-                        Loading sector data...
-                      </p>
-                    ) : (
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                        {sectorsData.map((sector, idx) => (
-                          <div
-                            key={idx}
-                            className="flex justify-between items-center bg-white p-3 rounded-lg shadow-xs"
-                          >
-                            <span className="text-sm font-medium">
-                              {sector.name}
-                            </span>
-                            <span
-                              className={`text-sm font-semibold ${
-                                sector.change >= 0
-                                  ? "text-green-600"
-                                  : "text-red-600"
-                              }`}
-                            >
-                              {sector.percentageChange.toFixed(2)}%
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* Report Features */}
-              <div className="mt-8">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">
-                  What You&apos;ll Get in Every Report
+                <h3 className="text-xl font-black uppercase text-black">
+                  Pre-Market Reports
                 </h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                <p className="text-gray-700 text-sm font-semibold leading-relaxed">
+                  Get ahead with early market insights and technical analysis delivered daily before trading begins.
+                </p>
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {["Global Markets", "Sector Analysis", "Fear & Greed Index"].map((tag, i) => (
+                    <span key={i} className="px-2 py-1 border border-black/20 bg-gray-50 text-black text-xs font-bold rounded-lg shadow-[1px_1px_0px_#000]">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="bg-emerald-50 border-t-2 border-black px-6 py-3">
+                <p className="text-emerald-950 text-xs font-black uppercase">
+                  Delivered daily at 8:00 AM
+                </p>
+              </div>
+            </div>
+
+            {/* Thematic Reports Card */}
+            <div className="bg-white border-2 border-black rounded-3xl overflow-hidden shadow-[4px_4px_0px_#000] flex flex-col justify-between hover:translate-y-[-2px] transition-all">
+              <div className="p-6 space-y-4">
+                <div className="w-12 h-12 bg-blue-100 border-2 border-black rounded-xl flex items-center justify-center shadow-[2px_2px_0px_#000]">
+                  <svg
+                    className="w-6 h-6 text-black"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-black uppercase text-black">
+                  Thematic Reports
+                </h3>
+                <p className="text-gray-700 text-sm font-semibold leading-relaxed">
+                  Deep-dive thematic research on emerging sectoral trends and mid/long term investment opportunities.
+                </p>
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {["Trend Analysis", "Sector Deep Dive", "Opportunity Spotting"].map((tag, i) => (
+                    <span key={i} className="px-2 py-1 border border-black/20 bg-gray-50 text-black text-xs font-bold rounded-lg shadow-[1px_1px_0px_#000]">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="bg-blue-50 border-t-2 border-black px-6 py-3">
+                <p className="text-blue-950 text-xs font-black uppercase">
+                  Weekly specialized insights
+                </p>
+              </div>
+            </div>
+
+            {/* Equity Reports Card */}
+            <div className="bg-white border-2 border-black rounded-3xl overflow-hidden shadow-[4px_4px_0px_#000] flex flex-col justify-between hover:translate-y-[-2px] transition-all">
+              <div className="p-6 space-y-4">
+                <div className="w-12 h-12 bg-purple-100 border-2 border-black rounded-xl flex items-center justify-center shadow-[2px_2px_0px_#000]">
+                  <svg
+                    className="w-6 h-6 text-black"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-black uppercase text-black">
+                  Equity Reports
+                </h3>
+                <p className="text-gray-700 text-sm font-semibold leading-relaxed">
+                  Detailed stock analysis reports featuring target prices, technical ratings, and corporate metrics.
+                </p>
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {["Stock Analysis", "Fundamental Research", "BUY / HOLD / SELL"].map((tag, i) => (
+                    <span key={i} className="px-2 py-1 border border-black/20 bg-gray-50 text-black text-xs font-bold rounded-lg shadow-[1px_1px_0px_#000]">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="bg-purple-50 border-t-2 border-black px-6 py-3">
+                <p className="text-purple-950 text-xs font-black uppercase">
+                  In-depth company analysis
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Global Markets and Snapshot Blocks */}
+          <div className="bg-gray-100/60 border-2 border-black rounded-3xl p-6 md:p-8 space-y-8 shadow-[4px_4px_0px_#000]">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              
+              {/* Global Market Overview */}
+              <div className="bg-white border-2 border-black p-6 rounded-2xl shadow-[3px_3px_0px_#000]">
+                <h3 className="text-lg font-black uppercase text-black mb-6 pb-2 border-b-2 border-black/10">
+                  Global Market Coverage
+                </h3>
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="text-xs font-black uppercase text-gray-500 mb-3 flex items-center">
+                      <span className="w-2.5 h-2.5 bg-orange-400 border border-black rounded-full mr-2"></span>
+                      Asian Index
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {["Hang Seng", "Nikkei 225", "KOSPI", "ASX 200"].map((market, idx) => (
+                        <div
+                          key={idx}
+                          className="px-3 py-1.5 border border-black rounded-xl text-xs font-bold text-black bg-[#F4FBF7] shadow-[1px_1px_0px_#000]"
+                        >
+                          {market}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="text-xs font-black uppercase text-gray-500 mb-3 flex items-center">
+                      <span className="w-2.5 h-2.5 bg-blue-400 border border-black rounded-full mr-2"></span>
+                      European Index
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {["DAX", "FTSE 100", "CAC 40"].map((market, idx) => (
+                        <div
+                          key={idx}
+                          className="px-3 py-1.5 border border-black rounded-xl text-xs font-bold text-black bg-blue-50/50 shadow-[1px_1px_0px_#000]"
+                        >
+                          {market}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="text-xs font-black uppercase text-gray-500 mb-3 flex items-center">
+                      <span className="w-2.5 h-2.5 bg-emerald-400 border border-black rounded-full mr-2"></span>
+                      US Index
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {["Dow Jones", "Nasdaq", "S&P 500"].map((market, idx) => (
+                        <div
+                          key={idx}
+                          className="px-3 py-1.5 border border-black rounded-xl text-xs font-bold text-black bg-emerald-50/50 shadow-[1px_1px_0px_#000]"
+                        >
+                          {market}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Market Snapshot */}
+              <div className="bg-white border-2 border-black p-6 rounded-2xl shadow-[3px_3px_0px_#000]">
+                <h3 className="text-lg font-black uppercase text-black mb-6 pb-2 border-b-2 border-black/10">
+                  Market Snapshot metrics
+                </h3>
+                <div className="space-y-3">
                   {[
-                    "Market Bulletin",
-                    "Technical Analysis",
-                    "Stocks in News",
-                    "FI and DII Activity",
-                    "Stock in ban list",
-                    "Current IPOs",
-                    "Expert Insights",
-                  ].map((feature, idx) => (
+                    { title: "Volume Shockers", color: "bg-blue-400" },
+                    { title: "52 Week High", color: "bg-purple-400" },
+                    { title: "Top Gainers", color: "bg-emerald-400" },
+                    { title: "Top Losers", color: "bg-red-400" },
+                    { title: "Long & Short Buildup", color: "bg-yellow-400" },
+                  ].map((item, idx) => (
                     <div
                       key={idx}
-                      className="bg-gradient-to-br from-teal-50 to-emerald-50 p-3 rounded-lg text-center border border-teal-100"
+                      className="flex items-center px-4 py-3 bg-gray-50 border border-black/10 rounded-xl hover:border-black hover:bg-white hover:shadow-[2px_2px_0px_#000] transition-all"
                     >
-                      <div className="flex items-center justify-center mb-2">
-                        <div className="w-2 h-2 bg-teal-500 rounded-full mr-2"></div>
-                        <span className="font-medium text-teal-800 text-sm">
-                          {feature}
-                        </span>
-                      </div>
+                      <div className={`w-3.5 h-3.5 ${item.color} border border-black rounded-full mr-3`} />
+                      <span className="text-sm font-bold text-black uppercase tracking-tight">
+                        {item.title}
+                      </span>
                     </div>
                   ))}
                 </div>
               </div>
+
+              {/* Sectoral Indices Chart */}
+              <div className="bg-white border-2 border-black p-6 rounded-2xl shadow-[3px_3px_0px_#000] lg:col-span-2">
+                <h3 className="text-lg font-black uppercase text-black mb-4">
+                  Sectoral Indices Live Chart
+                </h3>
+                <div className="bg-gray-50 border border-black rounded-2xl p-6">
+                  <div className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-4">
+                    1-Day Percentage Change
+                  </div>
+
+                  {sectorsLoading ? (
+                    <p className="text-sm text-gray-500 font-bold">
+                      Loading sector index data...
+                    </p>
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {sectorsData.map((sector, idx) => (
+                        <div
+                          key={idx}
+                          className="flex justify-between items-center bg-white border border-black/10 hover:border-black p-3.5 rounded-xl shadow-none hover:shadow-[2px_2px_0px_#000] transition-all"
+                        >
+                          <span className="text-sm font-bold text-black">
+                            {sector.name}
+                          </span>
+                          <span
+                            className={`text-sm font-black px-2 py-0.5 rounded border border-black ${
+                              sector.change >= 0
+                                ? "bg-emerald-100 text-emerald-800"
+                                : "bg-red-100 text-red-800"
+                            }`}
+                          >
+                            {sector.percentageChange >= 0 ? "+" : ""}
+                            {sector.percentageChange.toFixed(2)}%
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Report Features List */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-black uppercase text-black text-center">
+                What You&apos;ll Get in Every Report
+              </h3>
+              <div className="flex flex-wrap justify-center gap-3">
+                {[
+                  "Market Bulletin",
+                  "Technical Analysis",
+                  "Stocks in News",
+                  "FI and DII Activity",
+                  "Stock in ban list",
+                  "Current IPOs",
+                  "Expert Insights",
+                ].map((feature, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-white border-2 border-black px-4 py-2.5 rounded-xl shadow-[2px_2px_0px_#000] font-bold text-black text-xs uppercase tracking-wider"
+                  >
+                    🚀 {feature}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Why is Our Morning PDF a Must for You? */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Background and padding applied to this inner div */}
-            <div className="bg-gradient-to-br from-teal-900 via-emerald-900 to-teal-800 text-white rounded-2xl p-6 sm:p-8 md:p-12">
-              <div className="text-center mb-12 sm:mb-16">
-                <h2 className="text-2xl sm:text-3xl font-bold mb-2">
-                  Why is Our Morning PDF a
-                </h2>
-                <h2 className="text-2xl sm:text-3xl font-bold text-emerald-400 mb-2">
-                  Must for You?
-                </h2>
-                <p className="text-emerald-200 max-w-2xl mx-auto text-sm sm:text-base">
-                  Get ahead of the market with expert insights delivered
-                  directly to your WhatsApp every morning.
-                </p>
+        {/* Why is Our Morning PDF a Must Section */}
+        <section className="relative border-2 border-black bg-[#1FA463] rounded-3xl p-8 md:p-12 shadow-[4px_4px_0px_#000]">
+          <div className="text-center mb-12 space-y-3">
+            <h2 className="text-3xl md:text-4xl font-black uppercase text-black leading-none">
+              Why is Our Morning PDF a Must for You?
+            </h2>
+            <p className="text-black font-semibold text-base max-w-2xl mx-auto">
+              Get ahead of the market with expert analysis delivered directly to your WhatsApp every single morning.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { title: "Stay Updated", emoji: "⚡" },
+              { title: "Save Time", emoji: "⏳" },
+              { title: "Understand Better", emoji: "🧠" },
+              { title: "Be Ready", emoji: "🚀" },
+              { title: "Easy Access", emoji: "📱" },
+              { title: "Boost Confidence", emoji: "😎" },
+              { title: "Smarter Decisions", emoji: "💬" },
+              { title: "Value for Money", emoji: "💰" },
+              { title: "New Updates, FREE", emoji: "❤️" }
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                className="bg-white border-2 border-black p-5 rounded-2xl shadow-[3px_3px_0px_#000] hover:translate-y-[-2px] transition-all flex items-center justify-between"
+              >
+                <span className="text-sm font-black uppercase text-black tracking-tight">
+                  {item.title}
+                </span>
+                <span className="text-xl">{item.emoji}</span>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                {/* Stay Updated */}
-                <div className="bg-white/10 backdrop-blur-sm p-4 sm:p-5 rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1">
-                  <div className="flex items-center">
-                    <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mr-3">
-                      <svg
-                        className="w-4 h-4 text-white"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
-                    <div className="flex items-center">
-                      <span className="font-medium text-sm sm:text-base">
-                        Stay Updated
-                      </span>
-                      <span className="ml-1 text-yellow-400">⚡</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Save Time */}
-                <div className="bg-white/10 backdrop-blur-sm p-4 sm:p-5 rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1">
-                  <div className="flex items-center">
-                    <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mr-3">
-                      <svg
-                        className="w-4 h-4 text-white"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
-                    <div className="flex items-center">
-                      <span className="font-medium text-sm sm:text-base">
-                        Save Time
-                      </span>
-                      <span className="ml-1 text-gray-300">⏳</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Understand Better */}
-                <div className="bg-white/10 backdrop-blur-sm p-4 sm:p-5 rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1">
-                  <div className="flex items-center">
-                    <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mr-3">
-                      <svg
-                        className="w-4 h-4 text-white"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
-                    <div className="flex items-center">
-                      <span className="font-medium text-sm sm:text-base">
-                        Understand Better
-                      </span>
-                      <span className="ml-1 text-orange-400">🧠</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Be Ready */}
-                <div className="bg-white/10 backdrop-blur-sm p-4 sm:p-5 rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1">
-                  <div className="flex items-center">
-                    <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mr-3">
-                      <svg
-                        className="w-4 h-4 text-white"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
-                    <div className="flex items-center">
-                      <span className="font-medium text-sm sm:text-base">
-                        Be Ready
-                      </span>
-                      <span className="ml-1 text-blue-400">🚀</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Easy Access */}
-                <div className="bg-white/10 backdrop-blur-sm p-4 sm:p-5 rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1">
-                  <div className="flex items-center">
-                    <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mr-3">
-                      <svg
-                        className="w-4 h-4 text-white"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
-                    <div className="flex items-center">
-                      <span className="font-medium text-sm sm:text-base">
-                        Easy Access
-                      </span>
-                      <span className="ml-1 text-purple-400">📱</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Boost Confidence */}
-                <div className="bg-white/10 backdrop-blur-sm p-4 sm:p-5 rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1">
-                  <div className="flex items-center">
-                    <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mr-3">
-                      <svg
-                        className="w-4 h-4 text-white"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
-                    <div className="flex items-center">
-                      <span className="font-medium text-sm sm:text-base">
-                        Boost Confidence
-                      </span>
-                      <span className="ml-1 text-green-400">😎</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Smarter Decisions */}
-                <div className="bg-white/10 backdrop-blur-sm p-4 sm:p-5 rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1">
-                  <div className="flex items-center">
-                    <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mr-3">
-                      <svg
-                        className="w-4 h-4 text-white"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
-                    <div className="flex items-center">
-                      <span className="font-medium text-sm sm:text-base">
-                        Smarter Decisions
-                      </span>
-                      <span className="ml-1 text-pink-400">💬</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Value for Money */}
-                <div className="bg-white/10 backdrop-blur-sm p-4 sm:p-5 rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1">
-                  <div className="flex items-center">
-                    <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mr-3">
-                      <svg
-                        className="w-4 h-4 text-white"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
-                    <div className="flex items-center">
-                      <span className="font-medium text-sm sm:text-base">
-                        Value for Money
-                      </span>
-                      <span className="ml-1 text-yellow-400">💰</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* New Updates, FREE */}
-                <div className="bg-white/10 backdrop-blur-sm p-4 sm:p-5 rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1">
-                  <div className="flex items-center">
-                    <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mr-3">
-                      <svg
-                        className="w-4 h-4 text-white"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
-                    <div className="flex items-center">
-                      <span className="font-medium text-sm sm:text-base">
-                        New Updates, FREE
-                      </span>
-                      <span className="ml-1 text-red-400">❤️</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 
         {/* FAQ Section */}
-        <section className="py-20 bg-white">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Still Have Questions?
-              </h2>
-              <p className="text-gray-600 text-lg">
-                We&apos;ve got you covered with answers to the most common
-                inquiries.
-              </p>
-            </div>
+        <section className="space-y-8 max-w-4xl mx-auto">
+          <div className="text-center space-y-3">
+            <h2 className="text-3xl font-black uppercase text-black leading-none">
+              Still Have Questions?
+            </h2>
+            <p className="text-base text-gray-600 font-semibold">
+              We&apos;ve got you covered with direct answers to the most common queries.
+            </p>
+          </div>
 
-            <div className="space-y-4">
-              {faqData.map((item, index) => (
+          <div className="space-y-4">
+            {faqData.map((item, index) => (
+              <div
+                key={index}
+                className="bg-white border-2 border-black rounded-2xl p-6 shadow-[3px_3px_0px_#000]"
+              >
                 <div
-                  key={index}
-                  className="bg-gray-50 rounded-xl p-6 border border-gray-100 hover:bg-gray-100 transition-colors duration-300"
+                  className="flex justify-between items-center cursor-pointer"
+                  onClick={() => toggleFAQ(index)}
                 >
-                  <div
-                    className="flex justify-between items-center cursor-pointer"
-                    onClick={() => toggleFAQ(index)}
-                  >
-                    <h3 className="font-medium text-gray-900">
-                      {item.question}
-                    </h3>
-                    <button className="text-gray-400 hover:text-gray-600 transition-colors">
-                      {openIndex === index ? (
-                        <svg
-                          className="w-5 h-5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M20 12H4"
-                          />
-                        </svg>
-                      ) : (
-                        <svg
-                          className="w-5 h-5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                          />
-                        </svg>
-                      )}
-                    </button>
-                  </div>
-                  {openIndex === index && (
-                    <div className="mt-4 text-gray-700">{item.answer}</div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Desktop Custom Report Section - Visible only on large screens */}
-        <section className="hidden lg:block py-16 bg-gradient-to-r from-emerald-50 to-teal-50">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="bg-white rounded-2xl shadow-lg p-8">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                    Need Specific Insights?
+                  <h3 className="font-black text-black uppercase tracking-tight text-sm md:text-base">
+                    {item.question}
                   </h3>
-                  <p className="text-gray-600 mb-4">
-                    Request a custom report tailored to your interests
-                  </p>
-
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        placeholder="Name"
-                        className="px-4 py-2 border border-gray-300 rounded-lg"
-                        required
-                      />
-                      <input
-                        type="tel"
-                        name="mobile"
-                        value={formData.mobile}
-                        onChange={handleInputChange}
-                        placeholder="WhatsApp"
-                        className="px-4 py-2 border border-gray-300 rounded-lg"
-                        required
-                      />
-                    </div>
-
-                    <input
-                      type="text"
-                      name="topic"
-                      value={formData.topic}
-                      onChange={handleInputChange}
-                      placeholder="What do you want analyzed?"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                      required
-                    />
-
-                    <button
-                      type="submit"
-                      disabled={formLoading}
-                      className="bg-gradient-to-r from-emerald-500 to-green-600 text-white px-6 py-3 rounded-lg font-medium hover:from-emerald-600 hover:to-green-700 transition-all disabled:opacity-50"
-                    >
-                      {formLoading ? "Processing..." : "Request Custom Report"}
-                    </button>
-
-                    {formMessage && (
-                      <div
-                        className={`p-2 rounded text-sm ${formMessage.startsWith("✅") ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}
-                      >
-                        {formMessage}
-                      </div>
+                  <button className="text-black focus:outline-none">
+                    {openIndex === index ? (
+                      <svg className="w-5 h-5 border border-black rounded" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M20 12H4" />
+                      </svg>
+                    ) : (
+                      <svg className="w-5 h-5 border border-black rounded" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                      </svg>
                     )}
-                  </form>
+                  </button>
+                </div>
+                {openIndex === index && (
+                  <div className="mt-4 pt-4 border-t border-black/10 text-gray-700 font-semibold text-sm leading-relaxed">
+                    {item.answer}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Desktop Custom Report Section */}
+        <section className="hidden lg:block border-2 border-black bg-white rounded-3xl p-8 shadow-[4px_4px_0px_#000]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-2xl font-black uppercase text-black">
+                  Need Specific Insights?
+                </h3>
+                <p className="text-gray-600 font-semibold mt-1">
+                  Request a custom research report tailored to your interested sectors or equities.
+                </p>
+              </div>
+
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    placeholder="Full Name"
+                    className="px-4 py-3 border-2 border-black rounded-xl text-black"
+                    required
+                  />
+                  <input
+                    type="tel"
+                    name="mobile"
+                    value={formData.mobile}
+                    onChange={handleInputChange}
+                    placeholder="WhatsApp Mobile"
+                    className="px-4 py-3 border-2 border-black rounded-xl text-black"
+                    required
+                  />
                 </div>
 
-                <div className="bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl p-6 text-white">
-                  <h4 className="text-xl font-bold mb-4">
-                    Why Custom Reports?
-                  </h4>
-                  <ul className="space-y-3">
-                    <li className="flex items-start">
-                      <div className="bg-white/20 rounded-full p-1 mt-1 mr-3">
-                        <FaCheck className="w-3 h-3" />
-                      </div>
-                      <span>Personalized stock analysis</span>
-                    </li>
-                    <li className="flex items-start">
-                      <div className="bg-white/20 rounded-full p-1 mt-1 mr-3">
-                        <FaCheck className="w-3 h-3" />
-                      </div>
-                      <span>Direct WhatsApp delivery</span>
-                    </li>
-                    <li className="flex items-start">
-                      <div className="bg-white/20 rounded-full p-1 mt-1 mr-3">
-                        <FaCheck className="w-3 h-3" />
-                      </div>
-                      <span>Expert insights in 24 hours</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+                <input
+                  type="text"
+                  name="topic"
+                  value={formData.topic}
+                  onChange={handleInputChange}
+                  placeholder="What stock/sector do you want analyzed?"
+                  className="w-full px-4 py-3 border-2 border-black rounded-xl text-black"
+                  required
+                />
+
+                <button
+                  type="submit"
+                  disabled={formLoading}
+                  className="bg-[#1FA463] text-white border-2 border-black px-6 py-3 rounded-xl font-black hover:bg-[#15824D] shadow-[3px_3px_0px_#000] active:translate-y-[2px]"
+                >
+                  {formLoading ? "Processing..." : "Request Custom Report"}
+                </button>
+
+                {formMessage && (
+                  <div
+                    className={`p-3 rounded-xl border-2 border-black text-sm font-semibold ${
+                      formMessage.startsWith("✅") ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+                    }`}
+                  >
+                    {formMessage}
+                  </div>
+                )}
+              </form>
+            </div>
+
+            <div className="bg-[#1FA463] text-black border-2 border-black rounded-2xl p-8 shadow-[4px_4px_0px_#000] space-y-4">
+              <h4 className="text-xl font-black uppercase">
+                Why Custom Reports?
+              </h4>
+              <ul className="space-y-3 font-semibold">
+                <li className="flex items-start">
+                  <div className="bg-white border border-black rounded-full p-1 mt-1.5 mr-3">
+                    <FaCheck className="w-3 h-3 text-black" />
+                  </div>
+                  <span>Personalized equity/sector analysis</span>
+                </li>
+                <li className="flex items-start">
+                  <div className="bg-white border border-black rounded-full p-1 mt-1.5 mr-3">
+                    <FaCheck className="w-3 h-3 text-black" />
+                  </div>
+                  <span>Direct delivery straight to your WhatsApp</span>
+                </li>
+                <li className="flex items-start">
+                  <div className="bg-white border border-black rounded-full p-1 mt-1.5 mr-3">
+                    <FaCheck className="w-3 h-3 text-black" />
+                  </div>
+                  <span>Actionable insights in 24 hours</span>
+                </li>
+              </ul>
             </div>
           </div>
         </section>
+
       </div>
     </div>
   );

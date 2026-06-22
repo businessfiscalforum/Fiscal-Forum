@@ -33,6 +33,7 @@ import Head from "next/head";
 import { useUser } from "@clerk/nextjs";
 import { UsersDetail } from "../../provider";
 import HomeNewsAndResearchSection from "./HomeResearchAndNewsSection";
+import WealthSimulator from "./WealthSimulator";
 
 
 const slides = [
@@ -681,327 +682,155 @@ export default function HomeDesktop() {
             "'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
         }}
       >
-        {/* Hero Section with Enhanced Carousel */}
-        <section className="relative w-full h-auto lg:h-screen overflow-y-auto lg:overflow-hidden">
-          <Swiper
-            spaceBetween={30}
-            slidesPerView={1}
-            loop
-            autoplay={{ delay: 6000, disableOnInteraction: false }}
-            pagination={{ clickable: true }}
-            modules={[Autoplay, Pagination]}
-            className="w-full h-full"
-          >
-            {slides.map((slide, index) => (
-              <SwiperSlide key={index} className="relative">
-                <div className="absolute inset-0 z-0">
-                  <Image
-                    src={slide.image}
-                    alt={slide.title}
-                    fill
-                    sizes="100vw"
-                    className="object-cover"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/80 via-green-900/60 to-teal-900/40"></div>
-                </div>
-                <div className="relative z-10 h-full flex flex-col lg:flex-row px-6 sm:px-8 md:px-10 py-20 sm:py-20 md:py-20">
-                  <div className="w-full lg:w-1/2 flex items-center">
-                    <motion.div
-                      initial={{ opacity: 0, x: -30 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.6 }}
-                      className="text-white w-full max-w-2xl"
-                    >
-                      <p
-                        className="uppercase tracking-wider text-emerald-300 font-semibold mb-3 text-sm sm:text-base bg-emerald-800/30 px-4 py-2 rounded-full inline-block backdrop-blur-sm"
-                        style={{ textAlign: "left" }}
-                      >
-                        {slide.subtitle}
-                      </p>
-                      <h2
-                        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 bg-gradient-to-r from-white via-emerald-100 to-teal-200 bg-clip-text text-transparent"
-                        style={{ textAlign: "left" }}
-                      >
-                        {slide.title}
-                      </h2>
-                      <p
-                        className="text-sm sm:text-base md:text-lg opacity-90 mb-6 leading-relaxed max-w-xl bg-black/20 p-4 rounded-xl backdrop-blur-sm"
-                        style={{ textAlign: "left" }}
-                      >
-                        {slide.description}
-                      </p>
-                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
-                        {slide.features.map((feature, i) => (
-                          <motion.li
-                            key={i}
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ delay: i * 0.1 }}
-                            className="flex items-center gap-2 text-sm sm:text-base bg-emerald-800/30 p-3 rounded-lg backdrop-blur-sm"
-                            style={{ textAlign: "left" }}
-                          >
-                            <FaCheckCircle className="text-emerald-400 flex-shrink-0" />
-                            <span>{feature}</span>
-                          </motion.li>
-                        ))}
-                      </ul>
-                      <div className="flex flex-col sm:flex-row gap-4">
-                        <Link href={slide.path}>
-                          <motion.button
-                            whileHover={{ scale: 1.05, y: -2 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-xl font-bold shadow-2xl transition-all text-sm sm:text-base"
-                          >
-                            {slide.cta} <FaRocket className="inline ml-2" />
-                          </motion.button>
-                        </Link>
-                        <Link href="/contact">
-                          <motion.button
-                            whileHover={{ scale: 1.05, y: -2 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="px-8 py-4 border-2 border-emerald-400 text-emerald-100 rounded-xl font-bold hover:bg-emerald-400 hover:text-emerald-900 transition-all text-sm sm:text-base backdrop-blur-sm"
-                          >
-                            Talk to Expert
-                          </motion.button>
-                        </Link>
-                      </div>
-                    </motion.div>
-                  </div>
-                  <div
-                    className="w-full lg:w-1/2 flex flex-col justify-center mt-8 lg:mt-0 lg:pl-10 text-white gap-6"
-                    style={{ textAlign: "left" }}
-                  >
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 }}
-                      className="p-6 rounded-2xl border border-white/20"
-                    >
-                      <h3 className="text-lg sm:text-xl font-bold mb-4 text-emerald-200">
-                        Key Statistics
-                      </h3>
-                      <div className="grid grid-cols-3 gap-4">
-                        {slide.stats.map((stat, i) => (
-                          <div key={i} className="text-center">
-                            <div className="text-2xl sm:text-3xl font-extrabold text-emerald-300">
-                              {stat.value}
-                            </div>
-                            <div className="text-xs sm:text-sm opacity-80">
-                              {stat.label}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </motion.div>
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 }}
-                      className="p-6 rounded-2xl border border-white/20"
-                    >
-                      <h3 className="text-lg sm:text-xl font-bold mb-4 text-emerald-200">
-                        Perks of Connecting
-                      </h3>
-                      <ul className="space-y-2">
-                        {slide.benefits.map((benefit, i) => (
-                          <li
-                            key={i}
-                            className="flex items-start gap-2 text-sm sm:text-base"
-                          >
-                            <FaRegLightbulb className="text-emerald-300 mt-0.5" />
-                            <span>{benefit}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </motion.div>
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.7 }}
-                      className="text-xl sm:text-2xl md:text-3xl font-extrabold leading-tight text-right bg-gradient-to-r from-emerald-200 to-teal-300 bg-clip-text text-transparent"
-                    >
-                      {slide.tagline}
-                    </motion.div>
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          <div className="swiper-pagination absolute bottom-4 sm:bottom-6 w-full flex justify-center z-20 gap-2"></div>
+        {/* Wealth Simulator Hero Section */}
+        <section className="bg-[#F4FBF7] pt-28 pb-16 px-4 md:px-8 border-b-4 border-black">
+          <div className="max-w-7xl mx-auto">
+            <WealthSimulator />
+          </div>
         </section>
+
 
         <HomeNewsAndResearchSection />
         <ResearchReportsSection />
 
         {/* Enhanced Services Section */}
-        <section className="pt-16 sm:py-10 bg-white relative overflow-hidden">
-
-          <div className="mx-auto relative z-10">
-            <main className="px-4 md:px-8 ">
-              {/* Header */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="text-center mb-16 max-w-4xl mx-auto"
-              >
-                <div className="inline-block bg-gradient-to-r from-emerald-500 to-teal-600 p-6 rounded-3xl mb-8 shadow-2xl">
-                  <FaCoins className="text-white text-2xl sm:text-3xl md:text-4xl" />
-                </div>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-4 pb-4 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                  Our Financial Premium Services
-                </h2>
-                <p className="text-2xl font-semibold text-gray-700 bg-white/60 p-4 rounded-xl backdrop-blur-sm">
-                  Tools For Every Financial Move
-                </p>
-              </motion.div>
-
-              {/* Tabs */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="flex flex-wrap justify-center gap-4 mb-12"
-              >
-                {tabs.map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id as TabKey)}
-                    className={`relative px-8 py-4 rounded-2xl font-bold transition-all duration-500 transform hover:scale-105 ${
-                      activeTab === tab.id
-                        ? "bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-2xl"
-                        : "bg-white/80 text-emerald-700 hover:bg-white shadow-lg backdrop-blur-sm border border-emerald-200"
-                    }`}
-                  >
-                    {activeTab === tab.id && (
-                      <motion.div
-                        layoutId="activeTab"
-                        className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl"
-                        transition={{
-                          type: "spring",
-                          bounce: 0.2,
-                          duration: 0.6,
-                        }}
-                      />
-                    )}
-                    <span className="relative z-10">{tab.label}</span>
-                  </button>
-                ))}
-              </motion.div>
-
-              {/* Content Grid */}
-              <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {content[activeTab].map((item, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    whileHover={{ y: -12, scale: 1.03 }}
-                    className="group relative rounded-3xl shadow-2xl overflow-hidden transition-all duration-500 transform bg-white/80 backdrop-blur-sm border border-emerald-100 hover:border-emerald-300 flex flex-col h-full"
-                  >
-                    <Link href={item.link} passHref>
-                      <div className="p-8 space-y-6 flex flex-col h-full">
-                        {/* Icon - Centered, No Background */}
-                        <div className="flex flex-col items-center justify-center space-y-4 flex-1">
-                          <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center shadow-lg">
-                            {item.icon && (
-                              <item.icon className="w-8 h-8 text-white" />
-                            )}
-                          </div>
-
-                          {/* Title */}
-                          <h2 className="text-2xl font-bold text-gray-800 text-center leading-tight">
-                            {item.title}
-                          </h2>
-                        </div>
-
-                        {/* Description */}
-                        {!isSmallScreen ? (
-                          <p className="text-sm leading-relaxed text-gray-600 text-center flex-grow">
-                            {item.description}
-                          </p>
-                        ) : (
-                          <div></div>
-                        )}
-
-                        {/* Learn More Button */}
-                        <div className="mt-auto">
-                          <button className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-6 py-3 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 shadow-lg group-hover:shadow-2xl transform group-hover:scale-105">
-                            Learn More
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
-                            >
-                              <path d="M5 12h14M12 5l7 7-7 7" />
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
-                    </Link>
-                  </motion.div>
-                ))}
+        <section className="py-16 bg-[#F4FBF7] border-b-4 border-black">
+          <div className="max-w-7xl mx-auto px-4 md:px-8">
+            {/* Header */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12 max-w-4xl mx-auto flex flex-col items-center"
+            >
+              <div className="w-16 h-16 bg-[#1FA463]/10 border-2 border-black rounded-2xl flex items-center justify-center mb-4 shadow-[2px_2px_0px_#000]">
+                <FaCoins className="text-black text-2xl" />
               </div>
-            </main>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-black uppercase tracking-tight">
+                Our Financial Premium Services
+              </h2>
+              <p className="text-sm font-semibold text-gray-500 mt-2">
+                Tools For Every Financial Move
+              </p>
+            </motion.div>
+
+            {/* Tabs */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="flex justify-center gap-3 mb-10 border-b-2 border-black pb-4"
+            >
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as TabKey)}
+                  className={`px-6 py-3 text-xs sm:text-sm font-black uppercase tracking-wider border-2 border-black rounded-xl transition-all ${
+                    activeTab === tab.id
+                      ? "bg-yellow-100 text-black shadow-[3px_3px_0px_#000] translate-x-[-1px] translate-y-[-1px]"
+                      : "bg-white text-black hover:bg-emerald-50 shadow-[1px_1px_0px_#000]"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </motion.div>
+
+            {/* Content Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {content[activeTab].map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                  className="bg-white border-2 border-black rounded-2xl p-6 shadow-[4px_4px_0px_#000] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_#000] transition-all flex flex-col h-full justify-between"
+                >
+                  <div className="space-y-4">
+                    {/* Icon */}
+                    <div className="w-12 h-12 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
+                      {item.icon && (
+                        <item.icon className="w-6 h-6 text-[#1FA463]" />
+                      )}
+                    </div>
+
+                    {/* Title */}
+                    <h4 className="text-xl font-black text-black leading-snug">
+                      {item.title}
+                    </h4>
+
+                    {/* Description */}
+                    {!isSmallScreen && (
+                      <p className="text-xs sm:text-sm leading-relaxed text-gray-500 font-semibold">
+                        {item.description}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Learn More Button */}
+                  <div className="mt-6">
+                    <Link href={item.link} className="block w-full">
+                      <button className="w-full bg-[#1FA463] text-white border-2 border-black py-2.5 rounded-xl font-black text-xs sm:text-sm uppercase tracking-wider shadow-[2px_2px_0px_#000] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_#000] active:translate-y-0 active:shadow-0 transition-all flex items-center justify-center gap-1.5">
+                        Learn More
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          className="w-4 h-4"
+                        >
+                          <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                      </button>
+                    </Link>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </section>
 
         {/* Enhanced Why Fiscal Forum Section */}
-        <section className="py-24 bg-white to-teal-50 relative overflow-hidden">
-
-          <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
+        <section className="py-16 bg-white border-b-4 border-black">
+          <div className="max-w-7xl mx-auto px-4 md:px-8 text-center flex flex-col items-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="mb-16"
+              className="mb-12 flex flex-col items-center"
             >
-              <div className="inline-block bg-gradient-to-r from-emerald-500 to-teal-600 p-6 rounded-3xl mb-8 shadow-2xl">
-                <FaAward className="text-white text-2xl sm:text-3xl md:text-4xl" />
+              <div className="w-16 h-16 bg-[#1FA463]/10 border-2 border-black rounded-2xl flex items-center justify-center mb-4 shadow-[2px_2px_0px_#000]">
+                <FaAward className="text-black text-2xl" />
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-4 pb-4 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-black uppercase tracking-tight">
                 Why Choose Fiscal Forum?
               </h2>
-              <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed bg-white/60 p-6 rounded-2xl backdrop-blur-sm">
-                Experience the difference with our comprehensive financial
-                ecosystem designed for your success
+              <p className="text-sm font-semibold text-gray-500 mt-2 max-w-lg mx-auto">
+                Experience the difference with our comprehensive financial ecosystem designed for your success
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {features.map((feature, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ scale: 1.08, y: -8 }}
-                  className="group relative"
+                  transition={{ delay: index * 0.05 }}
+                  className="bg-white border-2 border-black rounded-2xl p-6 shadow-[4px_4px_0px_#000] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_#000] transition-all flex flex-col h-full text-left"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-teal-600/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="relative bg-white/90 backdrop-blur-md p-10 rounded-3xl shadow-2xl border border-emerald-100 hover:border-emerald-300 hover:shadow-emerald-500/25 transition-all duration-500 h-full">
-                    <div className="relative mb-8">
-                      {/* <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-3xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity"></div> */}
-                      <div className="relative w-20 h-20 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-3xl flex items-center justify-center mx-auto group-hover:from-emerald-500 group-hover:to-teal-600 transition-all duration-500 shadow-xl group-hover:scale-110 group-hover:rotate-6">
-                        <feature.icon className="text-emerald-700 group-hover:text-white text-3xl transition-colors duration-500" />
-                      </div>
-                    </div>
-                    <h4 className="text-2xl font-bold text-emerald-700 mb-6 group-hover:text-teal-600 transition-colors">
-                      {feature.title}
-                    </h4>
-                    {!isSmallScreen ? (
-                      <p className="text-sm leading-relaxed text-gray-600 text-center flex-grow">
-                        {feature.desc}
-                      </p>
-                    ) : (
-                      <div></div>
-                    )}
+                  <div className="w-12 h-12 bg-emerald-50 border border-black rounded-xl flex items-center justify-center mb-4">
+                    <feature.icon className="text-[#1FA463] text-xl" />
                   </div>
+                  <h4 className="text-lg font-black text-black mb-2">
+                    {feature.title}
+                  </h4>
+                  {!isSmallScreen && (
+                    <p className="text-xs sm:text-sm leading-relaxed text-gray-500 font-semibold">
+                      {feature.desc}
+                    </p>
+                  )}
                 </motion.div>
               ))}
             </div>
@@ -1009,165 +838,136 @@ export default function HomeDesktop() {
         </section>
 
         {/* Enhanced Work With Us Section */}
-        <section className=" bg-white relative">
-          <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
+        <section className="py-16 bg-[#F4FBF7] border-b-4 border-black">
+          <div className="max-w-7xl mx-auto px-4 md:px-8 text-center flex flex-col items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              className="mb-16"
+              className="mb-12 flex flex-col items-center"
             >
-              <div className="inline-block bg-gradient-to-r from-emerald-500 to-teal-600 p-6 rounded-3xl mb-8 shadow-2xl">
-                <FaHandshake className="text-white text-2xl sm:text-3xl md:text-4xl" />
+              <div className="w-16 h-16 bg-[#1FA463]/10 border-2 border-black rounded-2xl flex items-center justify-center mb-4 shadow-[2px_2px_0px_#000]">
+                <FaHandshake className="text-black text-2xl" />
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-4 pb-4 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-black uppercase tracking-tight">
                 Work With Us
               </h2>
-              <p className="text-xl text-gray-700 max-w-3xl mx-auto bg-white/60 p-6 rounded-2xl backdrop-blur-sm">
-                Join our growing network of partners and unlock new
-                opportunities together
+              <p className="text-sm font-semibold text-gray-500 mt-2 max-w-lg mx-auto">
+                Join our growing network of partners and unlock new opportunities together
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-stretch">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
               {partners.map((partner, i) => (
-                <div
-                  // href={partner.path}
+                <motion.div
                   key={i}
-                  className="group relative h-full"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  className="bg-white border-2 border-black rounded-2xl p-6 shadow-[4px_4px_0px_#000] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_#000] transition-all flex flex-col justify-between h-full text-left"
                 >
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.2 }}
-                    whileHover={{ scale: 1.08, y: -8 }}
-                    className="relative w-full h-full"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-teal-600/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                    <div
-                      className={`relative bg-gradient-to-br ${partner.gradient} p-1 rounded-3xl shadow-2xl h-full`}
-                    >
-                      {/* flex + full height for equal alignment */}
-                      <div className="bg-white p-10 rounded-3xl hover:bg-gradient-to-br hover:from-white hover:to-emerald-50 transition-all duration-500 h-full flex flex-col">
-                        {/* Icon */}
-                        <div className="relative mb-8">
-                          <div
-                            className={`relative w-20 h-20 bg-gradient-to-r ${partner.gradient} rounded-3xl flex items-center justify-center mx-auto group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-2xl`}
-                          >
-                            <partner.icon className="text-white text-2xl sm:text-3xl md:text-4xl" />
-                          </div>
-                        </div>
-
-                        {/* Title + Desc (flex-grow keeps button aligned at bottom) */}
-                        <div className="flex-grow">
-                          <h4 className="text-2xl font-bold mb-6 text-slate-800 group-hover:text-emerald-600 transition-colors">
-                            {partner.title}
-                          </h4>
-                          <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors text-lg">
-                            {partner.desc}
-                          </p>
-                        </div>
-
-                        {/* Button pinned at bottom */}
-                        <Link
-                          href={partner.path}
-                          className={`mt-8 bg-gradient-to-r ${partner.gradient} hover:${partner.hoverGradient} text-white px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-2xl transition-all duration-300 transform translate-y-4 group-hover:translate-y-0`}
-                        >
-                          Join Now
-                        </Link>
-                      </div>
+                  <div className="space-y-4">
+                    {/* Icon */}
+                    <div className="w-12 h-12 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
+                      <partner.icon className="text-[#1FA463] text-xl" />
                     </div>
-                  </motion.div>
-                </div>
+
+                    {/* Title */}
+                    <h4 className="text-lg font-black text-black leading-snug">
+                      {partner.title}
+                    </h4>
+                    
+                    {/* Desc */}
+                    <p className="text-xs sm:text-sm text-gray-500 font-semibold">
+                      {partner.desc}
+                    </p>
+                  </div>
+
+                  <div className="mt-6">
+                    <Link
+                      href={partner.path}
+                      className="block w-full text-center py-2.5 bg-[#1FA463] text-white border-2 border-black font-black text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-[2px_2px_0px_#000] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_#000] transition-all"
+                    >
+                      Join Now
+                    </Link>
+                  </div>
+                </motion.div>
               ))}
             </div>
           </div>
         </section>
+
         {/* Referral section */}
         {user && (
-          <section className="py-24 bg-white relative overflow-hidden">
-            <div className="absolute inset-0">
-              <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-gradient-to-r from-blue-200/20 to-purple-300/20 rounded-full blur-3xl animate-pulse"></div>
-              <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-gradient-to-r from-indigo-200/20 to-cyan-300/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-            </div>
-
-            <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-4 pb-4 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+          <section className="py-16 bg-white border-b-4 border-black">
+            <div className="max-w-7xl mx-auto px-4 md:px-8 text-center flex flex-col items-center">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-black uppercase tracking-tight">
                 Referral Program
               </h2>
-
               <motion.p
-                className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto"
+                className="text-xs sm:text-sm font-semibold text-gray-500 mt-2 max-w-lg mx-auto mb-10"
               >
-                Invite your friends to join Fiscal Forum and earn exclusive
-                rewards. Share your unique referral code and start building your
-                financial network today!
+                Invite your friends to join Fiscal Forum and earn exclusive rewards. Share your unique referral code and start building your financial network today!
               </motion.p>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
                 {/* Feature 1 */}
                 <motion.div
-                  className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
+                  className="bg-white border-2 border-black rounded-2xl p-6 shadow-[3px_3px_0px_#000] text-left space-y-3"
                 >
-                  <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <FaUsers className="text-white text-2xl" />
+                  <div className="w-10 h-10 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
+                    <FaUsers className="text-[#1FA463] text-lg" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  <h3 className="text-base font-black text-black">
                     Earn Credits
                   </h3>
-                  <p className="text-gray-600">
-                    Get 10 referral credits for each successful signup. Use
-                    credits for premium features and exclusive content.
+                  <p className="text-xs sm:text-sm text-gray-500 font-semibold">
+                    Get 10 referral credits for each signup. Use credits for premium features.
                   </p>
                 </motion.div>
 
                 {/* Feature 2 */}
                 <motion.div
-
-                  className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
+                  className="bg-white border-2 border-black rounded-2xl p-6 shadow-[3px_3px_0px_#000] text-left space-y-3"
                 >
-                  <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <FaHandshake className="text-white text-2xl" />
+                  <div className="w-10 h-10 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
+                    <FaHandshake className="text-[#1FA463] text-lg" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  <h3 className="text-base font-black text-black">
                     Build Network
                   </h3>
-                  <p className="text-gray-600">
-                    Connect with like-minded financial enthusiasts and grow your
-                    professional network in the finance industry.
+                  <p className="text-xs sm:text-sm text-gray-500 font-semibold">
+                    Connect with like-minded financial enthusiasts and grow your circle.
                   </p>
                 </motion.div>
 
                 {/* Feature 3 */}
                 <motion.div
-                  className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
+                  className="bg-white border-2 border-black rounded-2xl p-6 shadow-[3px_3px_0px_#000] text-left space-y-3"
                 >
-                  <div className="w-16 h-16 bg-gradient-to-r from-teal-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <FaAward className="text-white text-2xl" />
+                  <div className="w-10 h-10 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
+                    <FaAward className="text-[#1FA463] text-lg" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  <h3 className="text-base font-black text-black">
                     Exclusive Rewards
                   </h3>
-                  <p className="text-gray-600">
-                    Unlock special benefits, early access to new features, and
-                    VIP treatment as you earn more referral credits.
+                  <p className="text-xs sm:text-sm text-gray-500 font-semibold">
+                    Unlock special benefits, early features, and VIP treatment.
                   </p>
                 </motion.div>
               </div>
 
               <motion.div
-                className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 rounded-2xl p-8 text-white"
+                className="w-full max-w-3xl bg-yellow-50 border-2 border-black rounded-2xl p-8 shadow-[4px_4px_0px_#000] text-left space-y-4"
               >
-                <h3 className="text-2xl font-bold mb-4">
+                <h3 className="text-lg sm:text-xl font-black text-black uppercase tracking-tight">
                   Ready to Start Referring?
                 </h3>
-                <p className="text-indigo-100 mb-6">
-                  Join thousands of users who are already earning rewards
-                  through our referral program.
+                <p className="text-xs sm:text-sm font-semibold text-gray-700">
+                  Join thousands of users who are already earning rewards through our referral program.
                 </p>
                 <Link
                   href="/referrals"
-                  className="inline-flex items-center px-8 py-3 bg-white text-emerald-600 font-semibold rounded-full hover:bg-gray-100 transition-colors duration-300 shadow-lg hover:shadow-xl"
+                  className="inline-flex items-center px-6 py-3 bg-[#1FA463] text-white border-2 border-black font-black text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-[2px_2px_0px_#000] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_#000] transition-all"
                 >
                   <FaRocket className="mr-2" />
                   View My Referrals
@@ -1178,35 +978,35 @@ export default function HomeDesktop() {
         )}
 
         {/* Enhanced Affiliations Section */}
-        <section className="py-20 bg-white relative ">
-          <div className="flex justify-center text-center">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-4 pb-4 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+        <section className="py-12 bg-white">
+          <div className="max-w-7xl mx-auto px-4 text-center">
+            <h2 className="text-2xl sm:text-3xl font-black text-black uppercase tracking-tight mb-8">
               Our Trusted Affiliations
             </h2>
-          </div>
-
-          <div className="relative overflow-hidden">
-            <div
-              className="flex animate-scroll"
-              style={{
-                animation: "scroll 10s linear infinite",
-              }}
-            >
-              {[...logos, ...logos].map((logo, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ scale: 1.1, y: -5 }}
-                  className="flex-shrink-0 w-28 h-20 flex items-center justify-center mr-12"
-                >
-                  <Image
-                    src={logo}
-                    alt={`Partner ${i}`}
-                    width={110}
-                    height={80}
-                    className="object-cover opacity-100 hover:opacity-100 transition-opacity"
-                  />
-                </motion.div>
-              ))}
+            
+            <div className="relative overflow-hidden border-t-2 border-b-2 border-black py-4 bg-gray-50/50">
+              <div
+                className="flex animate-scroll"
+                style={{
+                  animation: "scroll 20s linear infinite",
+                }}
+              >
+                {[...logos, ...logos].map((logo, i) => (
+                  <motion.div
+                    key={i}
+                    whileHover={{ scale: 1.05 }}
+                    className="flex-shrink-0 w-28 h-16 flex items-center justify-center mr-12 bg-white border border-gray-100 rounded-lg p-2 shadow-sm"
+                  >
+                    <Image
+                      src={logo}
+                      alt={`Partner ${i}`}
+                      width={90}
+                      height={60}
+                      className="object-contain"
+                    />
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
         </section>

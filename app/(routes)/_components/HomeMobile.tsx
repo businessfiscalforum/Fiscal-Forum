@@ -571,8 +571,8 @@ export default function HomeMobile() {
       <ResearchReportsSectionMobile />
 
       {/* 🔹 Tabbed Services (Cards Grid) */}
-      <section className="px-4 py-6">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-4 pb-4 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent flex justify-center">
+      <section className="px-4 py-8 bg-[#F4FBF7] border-b-4 border-black">
+        <h2 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight text-center mb-6">
           Our Financial Premium Services
         </h2>
         <div className="flex justify-center gap-2 mb-6">
@@ -582,12 +582,11 @@ export default function HomeMobile() {
           ].map((tab) => (
             <button
               key={tab.id}
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               onClick={() => setActiveTab(tab.id as any)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
+              className={`px-4 py-2 border-2 border-black rounded-xl text-xs font-black uppercase tracking-wider transition-all ${
                 activeTab === tab.id
-                  ? "bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md"
-                  : "bg-gray-100 text-gray-700"
+                  ? "bg-yellow-100 text-black shadow-[2px_2px_0px_#000]"
+                  : "bg-white text-black"
               }`}
             >
               {tab.label}
@@ -595,31 +594,31 @@ export default function HomeMobile() {
           ))}
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {content[activeTab].map((item, i) => (
             <Link key={i} href={item.link} className="block">
               <motion.div
-                whileHover={{ scale: 1.03 }}
+                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden border border-emerald-100 transition-all min-h-56"
+                className="bg-white border-2 border-black rounded-2xl p-5 shadow-[3px_3px_0px_#000] flex flex-col justify-between h-full min-h-[220px]"
               >
-                <div className="p-4 text-center">
-                  <div className="mx-auto w-12 h-12 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-xl flex items-center justify-center mb-3">
+                <div className="space-y-3">
+                  <div className="w-10 h-10 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
                     {item.icon && (
-                      <item.icon className="text-emerald-700 w-6 h-6" />
+                      <item.icon className="text-[#1FA463] w-5 h-5" />
                     )}
                   </div>
-                  <h3 className="font-bold text-gray-800 text-lg">
+                  <h3 className="font-black text-black text-base">
                     {item.title}
                   </h3>
-                  <p className="text-xs text-gray-600 mt-1 line-clamp-2">
+                  <p className="text-xs text-gray-500 font-semibold line-clamp-2">
                     {item.description}
                   </p>
-                  <div className="mt-3">
-                    <span className="inline-block px-3 py-1 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-xs rounded-full font-medium">
-                      Learn More
-                    </span>
-                  </div>
+                </div>
+                <div className="mt-4">
+                  <span className="inline-block w-full text-center py-2 bg-[#1FA463] text-white border border-black text-xs font-black uppercase rounded-lg shadow-[1px_1px_0px_#000]">
+                    Learn More
+                  </span>
                 </div>
               </motion.div>
             </Link>
@@ -627,81 +626,59 @@ export default function HomeMobile() {
         </div>
       </section>
 
-      {/* 🔹 Why Choose Us — Glossy Cards */}
-      <section className="px-4 py-6">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-4 pb-4 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent flex justify-center">
+      {/* 🔹 Why Choose Us */}
+      <section className="px-4 py-8 bg-white border-b-4 border-black">
+        <h2 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight text-center mb-6">
           Why Fiscal Forum?
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {features.map((f, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              whileHover={{ y: -4 }}
-              className="bg-white rounded-2xl shadow-md border border-gray-100 relative overflow-hidden flex flex-col h-full min-h-[180px]"
+              className="bg-white border-2 border-black rounded-2xl p-5 shadow-[3px_3px_0px_#000] flex flex-col gap-3 text-left"
             >
-              {/* Glow effect (unchanged) */}
-              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-emerald-400/20 to-teal-500/20 rounded-full blur-xl -translate-y-10 translate-x-10"></div>
-
-              <div className="relative p-5 flex flex-col items-center text-center flex-grow">
-                {/* Icon — centered, above text */}
-                <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center mb-4">
-                  <f.icon className="text-white text-lg" />
-                </div>
-
-                {/* Title & Description — now centered under icon */}
-                <div className="flex flex-col items-center">
-                  <h4 className="font-semibold text-gray-800 text-base mb-2">
-                    {f.title}
-                  </h4>
-                  <p className="text-sm text-gray-600 mt-1 max-w-[90%]">
-                    {f.desc}
-                  </p>
-                </div>
+              <div className="w-10 h-10 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
+                <f.icon className="text-[#1FA463] text-lg" />
+              </div>
+              <div>
+                <h4 className="font-black text-black text-base">
+                  {f.title}
+                </h4>
+                <p className="text-xs text-gray-500 font-semibold mt-1">
+                  {f.desc}
+                </p>
               </div>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* 🔹 Partners — Horizontal Scroll Cards */}
-      <section className="px-4 py-6">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-4 pb-4 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent flex justify-center">
+      {/* 🔹 Partners */}
+      <section className="px-4 py-8 bg-[#F4FBF7] border-b-4 border-black">
+        <h2 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight text-center mb-6">
           Work With Us
         </h2>
-        <div className="flex gap-4 overflow-x-auto pb-2 hide-scrollbar justify-center">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {partners.map((p, i) => (
-            <Link key={i} href={p.path} className="flex-shrink-0 w-48">
+            <Link key={i} href={p.path} className="block">
               <motion.div
-                whileHover={{ scale: 0.98 }}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05 }}
-                className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden h-full min-h-[180px] flex flex-col"
+                className="bg-white border-2 border-black rounded-2xl p-5 shadow-[3px_3px_0px_#000] flex flex-col justify-between h-full min-h-[200px]"
               >
-                <div className={`h-1.5 bg-gradient-to-r ${p.gradient}`}></div>
-                <div className="p-4 text-center flex flex-col flex-grow">
-                  <div
-                    className={`w-12 h-12 mx-auto rounded-xl bg-gradient-to-r ${p.gradient} flex items-center justify-center mb-3 flex-shrink-0`}
-                  >
-                    <p.icon className="text-white text-lg" />
+                <div className="space-y-3">
+                  <div className="w-10 h-10 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
+                    <p.icon className="text-[#1FA463] text-lg" />
                   </div>
-                  <h5 className="font-semibold text-gray-800 text-sm mb-1">
+                  <h5 className="font-black text-black text-sm">
                     {p.title}
                   </h5>
-                  <p className="text-xs text-gray-600 mt-1 flex-grow">
+                  <p className="text-xs text-gray-500 font-semibold">
                     {p.desc}
                   </p>
-                  <Link
-                    href={p.path}
-                    className={`mt-3 w-full py-2 text-xs font-medium text-white bg-gradient-to-r ${p.gradient} rounded-full`}
-                    // // Optional: prevent button from triggering link twice
-                    // onClick={(e) => e.preventDefault()}
-                  >
+                </div>
+                <div className="mt-4">
+                  <span className="block w-full text-center py-2 bg-[#1FA463] text-white border border-black text-xs font-black uppercase rounded-lg shadow-[1.5px_1.5px_0px_#000]">
                     Join Now
-                  </Link>
+                  </span>
                 </div>
               </motion.div>
             </Link>
@@ -709,104 +686,90 @@ export default function HomeMobile() {
         </div>
       </section>
 
-      {/* Referral section — Compact Mobile Version */}
+      {/* Referral section */}
       {user && (
-        <section className="py-8 md:py-16 bg-white relative overflow-hidden">
-          {/* Background Blobs (optional on mobile — keep only if low-cost) */}
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="hidden sm:block absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-blue-200/20 to-purple-300/20 rounded-full blur-xl animate-pulse"></div>
-            <div className="hidden sm:block absolute bottom-1/4 right-1/4 w-40 h-40 bg-gradient-to-r from-indigo-200/20 to-cyan-300/20 rounded-full blur-xl animate-pulse delay-1000"></div>
-          </div>
+        <section className="px-4 py-8 bg-white border-b-4 border-black text-center flex flex-col items-center">
+          <h2 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight">
+            Referral Program
+          </h2>
+          <motion.p className="text-xs font-semibold text-gray-500 mt-2 max-w-md mx-auto mb-6">
+            Invite friends to Fiscal Forum and earn rewards. Share your code and grow your network today!
+          </motion.p>
 
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center relative z-10">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mt-2 md:mt-4 pb-2 md:pb-4 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-              Referral Program
-            </h2>
-
-            <motion.p className="text-sm sm:text-base text-gray-600 mb-6 md:mb-8 max-w-xl mx-auto">
-              Invite friends to Fiscal Forum and earn rewards. Share your code
-              and grow your network today!
-            </motion.p>
-
-            {/* Compact 1-col layout on mobile, 3-col on md+ */}
-            <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-10">
-              {[
-                {
-                  title: "Earn Credits",
-                  desc: "Get 10 credits per signup. Redeem for premium features & content.",
-                  icon: <FaUsers className="text-white text-lg" />,
-                  gradient: "from-green-500 to-emerald-600",
-                },
-                {
-                  title: "Build Network",
-                  desc: "Connect with finance enthusiasts and grow your professional circle.",
-                  icon: <FaHandshake className="text-white text-lg" />,
-                  gradient: "from-green-500 to-teal-600",
-                },
-                {
-                  title: "Exclusive Rewards",
-                  desc: "Unlock VIP access, early features, and special perks as you refer more.",
-                  icon: <FaAward className="text-white text-lg" />,
-                  gradient: "from-teal-500 to-emerald-600",
-                },
-              ].map((item, i) => (
-                <motion.div
-                  key={i}
-                  className="bg-white rounded-xl p-4 sm:p-5 shadow-md border border-gray-100"
-                >
-                  <div
-                    className={`w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r ${item.gradient} rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4`}
-                  >
-                    {item.icon}
-                  </div>
-                  <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-gray-600">
-                    {item.desc}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 rounded-xl p-5 sm:p-6 text-white">
-              <h3 className="text-lg sm:text-xl font-bold mb-2">
-                Ready to Start Referring?
-              </h3>
-              <p className="text-indigo-100 text-xs sm:text-sm mb-4">
-                Join thousands earning rewards through our referral program.
-              </p>
-              <Link
-                href="/referrals"
-                className="inline-flex items-center justify-center px-5 py-2.5 sm:px-6 sm:py-3 bg-white text-emerald-600 font-semibold rounded-full text-xs sm:text-sm shadow hover:bg-gray-100 transition-colors duration-300"
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 w-full">
+            {[
+              {
+                title: "Earn Credits",
+                desc: "Get 10 credits per signup. Redeem for premium features & content.",
+                icon: <FaUsers className="text-[#1FA463] text-lg" />,
+              },
+              {
+                title: "Build Network",
+                desc: "Connect with finance enthusiasts and grow your professional circle.",
+                icon: <FaHandshake className="text-[#1FA463] text-lg" />,
+              },
+              {
+                title: "Exclusive Rewards",
+                desc: "Unlock VIP access, early features, and special perks as you refer more.",
+                icon: <FaAward className="text-[#1FA463] text-lg" />,
+              },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                className="bg-white border-2 border-black rounded-2xl p-5 shadow-[3px_3px_0px_#000] text-left space-y-3"
               >
-                <FaRocket className="mr-1.5 text-sm" />
-                View My Referrals
-              </Link>
-            </motion.div>
+                <div className="w-10 h-10 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
+                  {item.icon}
+                </div>
+                <h3 className="text-base font-black text-black">
+                  {item.title}
+                </h3>
+                <p className="text-xs text-gray-500 font-semibold">
+                  {item.desc}
+                </p>
+              </motion.div>
+            ))}
           </div>
+
+          <motion.div className="w-full bg-yellow-50 border-2 border-black rounded-2xl p-6 shadow-[3px_3px_0px_#000] text-left space-y-3">
+            <h3 className="text-base font-black text-black uppercase tracking-tight">
+              Ready to Start Referring?
+            </h3>
+            <p className="text-xs font-semibold text-gray-700">
+              Join thousands earning rewards through our referral program.
+            </p>
+            <Link
+              href="/referrals"
+              className="inline-flex items-center justify-center px-5 py-2.5 bg-[#1FA463] text-white border-2 border-black font-black text-xs uppercase tracking-widest rounded-xl shadow-[2px_2px_0px_#000]"
+            >
+              <FaRocket className="mr-1.5 text-xs" />
+              View My Referrals
+            </Link>
+          </motion.div>
         </section>
       )}
 
       {/* 🔹 Affiliations — Auto-scrolling Logos */}
-      <section className="py-8 bg-gray-50 overflow-hidden">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-4 pb-4 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent flex justify-center">
-          Our Trusted Affiliations
-        </h2>
-
-        <div className="relative w-full overflow-hidden">
-          <div className="flex w-max animate-marquee whitespace-nowrap">
-            {[...logos, ...logos].map((logo, i) => (
-              <div key={i} className="mx-6 flex-shrink-0 flex items-center">
-                <Image
-                  src={logo}
-                  alt={`Partner ${i}`}
-                  width={90}
-                  height={50}
-                  className="object-contain"
-                />
-              </div>
-            ))}
+      <section className="py-8 bg-white">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <h2 className="text-lg font-black text-black uppercase tracking-tight mb-6">
+            Our Trusted Affiliations
+          </h2>
+          
+          <div className="relative overflow-hidden border-t-2 border-b-2 border-black py-3 bg-gray-50/50">
+            <div className="flex w-max animate-marquee whitespace-nowrap">
+              {[...logos, ...logos].map((logo, i) => (
+                <div key={i} className="mx-4 flex-shrink-0 flex items-center bg-white border border-gray-100 rounded-lg p-1.5 shadow-sm">
+                  <Image
+                    src={logo}
+                    alt={`Partner ${i}`}
+                    width={75}
+                    height={50}
+                    className="object-contain"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

@@ -70,7 +70,6 @@ export default function HomeNewsAndResearchSection() {
     }
   };
 
-  // ✅ Determine news count based on screen size
   const getNewsCount = () => {
     if (typeof window === "undefined") return 6;
     return window.innerWidth < 768 ? 2 : 6;
@@ -78,32 +77,34 @@ export default function HomeNewsAndResearchSection() {
 
   return (
     <section
-      className="pt-8 pb-8 md:pt-8 md:pb-12 bg-white"
+      className="py-12 bg-[#F4FBF7] border-b-4 border-black"
       style={{
         fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-6 md:mb-10">
+        
+        {/* Header Block */}
+        <div className="text-center mb-10 flex flex-col items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="mb-4 md:mb-6"
+            className="flex flex-col items-center"
           >
-            <div className="inline-block bg-gradient-to-r from-emerald-600 to-teal-600 p-3 sm:p-4 md:p-5 rounded-2xl md:rounded-3xl mb-3 md:mb-4 shadow-xl">
-              <GiNewspaper className="text-white text-2xl sm:text-3xl md:text-4xl" />
+            <div className="w-16 h-16 bg-[#1FA463]/10 border-2 border-black rounded-2xl flex items-center justify-center mb-4 shadow-[2px_2px_0px_#000]">
+              <GiNewspaper className="text-black text-2xl" />
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-3 md:mt-4 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-black uppercase tracking-tight">
               Financial News Hub
             </h2>
-            <p className="text-xs sm:text-sm md:text-base text-gray-600 mt-1 md:mt-2 max-w-md sm:max-w-lg mx-auto">
+            <p className="text-xs sm:text-sm text-gray-500 font-semibold mt-2 max-w-md mx-auto">
               Curated insights and breaking news from global markets
             </p>
           </motion.div>
         </div>
 
-        {/* Tabs — slightly tighter spacing on mobile */}
-        <div className="flex justify-evenly overflow-x-auto hide-scrollbar pb-1 md:pb-2 mb-4 md:mb-8 border-b border-emerald-200">
+        {/* Tab Buttons */}
+        <div className="flex justify-center gap-3 mb-8 border-b-2 border-black pb-4">
           {[
             { id: "NewsBuzz", label: "News Buzz" },
             { id: "CorpPulse", label: "Corp Pulse" },
@@ -112,10 +113,10 @@ export default function HomeNewsAndResearchSection() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as "NewsBuzz" | "CorpPulse" | "IPOScoop")}
-              className={`px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold whitespace-nowrap rounded-full ${
+              className={`px-4 py-2 text-xs sm:text-sm font-black uppercase tracking-wider border-2 border-black rounded-xl transition-all ${
                 activeTab === tab.id
-                  ? "bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-sm"
-                  : "text-emerald-600 hover:text-emerald-800 hover:bg-emerald-50"
+                  ? "bg-yellow-100 text-black shadow-[3px_3px_0px_#000] translate-x-[-1px] translate-y-[-1px]"
+                  : "bg-white text-black hover:bg-emerald-50 shadow-[1px_1px_0px_#000]"
               }`}
             >
               {tab.label}
@@ -123,32 +124,32 @@ export default function HomeNewsAndResearchSection() {
           ))}
         </div>
 
-        {/* States */}
+        {/* Loading / Error States */}
         {loading && (
-          <div className="text-center py-6 md:py-10">
-            <div className="inline-block h-6 w-6 md:h-8 md:w-8 animate-spin rounded-full border-3 md:border-4 border-emerald-500 border-t-transparent"></div>
-            <p className="mt-2 text-xs md:text-sm text-emerald-600">Loading news...</p>
+          <div className="text-center py-10">
+            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-[#1FA463] border-t-transparent"></div>
+            <p className="mt-2 text-xs font-bold text-[#1FA463]">Loading news...</p>
           </div>
         )}
 
         {error && (
-          <div className="text-center py-6 md:py-10">
-            <p className="text-xs md:text-sm text-red-500">{error}</p>
+          <div className="text-center py-10">
+            <p className="text-sm font-bold text-red-600 border-2 border-black bg-red-50 p-4 rounded-xl inline-block shadow-[2px_2px_0px_#000]">{error}</p>
           </div>
         )}
 
         {!loading && !error && filteredItems.length === 0 && (
-          <div className="text-center py-6 md:py-10">
-            <h3 className="text-sm md:text-lg font-medium text-emerald-600">
+          <div className="text-center py-10 border-2 border-dashed border-black rounded-2xl bg-white">
+            <h3 className="text-base font-bold text-gray-500">
               No news available at this time
             </h3>
           </div>
         )}
 
-        {/* ✅ Grid with dynamic count */}
+        {/* News Grid */}
         {!loading && !error && filteredItems.length > 0 && (
-          <>
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+          <div className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <AnimatePresence mode="popLayout">
                 {filteredItems.slice(0, getNewsCount()).map((item, i) => (
                   <motion.div
@@ -157,7 +158,7 @@ export default function HomeNewsAndResearchSection() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -15 }}
                     transition={{ delay: i * 0.05 }}
-                    className="bg-white border shadow-md md:shadow-2xl border-emerald-200 hover:border-emerald-500 hover:shadow-lg transition-all duration-300 rounded-lg sm:rounded-xl overflow-hidden"
+                    className="bg-white border-2 border-black rounded-2xl p-5 shadow-[4px_4px_0px_#000] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_#000] transition-all flex flex-col h-full cursor-pointer"
                   >
                     <NewsCard item={item} categoryPath={getCategoryPath(item.category)} />
                   </motion.div>
@@ -165,61 +166,54 @@ export default function HomeNewsAndResearchSection() {
               </AnimatePresence>
             </div>
 
-            <div className="flex justify-center mt-4 md:mt-8">
+            <div className="flex justify-center mt-6">
               <Link
                 href="/news"
-                className="px-4 py-2 sm:px-5 sm:py-2.5 md:px-6 md:py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold text-xs sm:text-sm uppercase tracking-wide rounded-full transition-all shadow-sm hover:shadow-md transform hover:scale-102 md:hover:scale-105"
+                className="px-8 py-3.5 bg-[#1FA463] text-white border-2 border-black font-black text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-[4px_4px_0px_#000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[5px_5px_0px_#000] active:translate-x-0 active:translate-y-0 active:shadow-[2px_2px_0px_#000] transition-all"
               >
                 View All News
               </Link>
             </div>
-          </>
+          </div>
         )}
       </div>
-
-      {/* ✅ Hide scrollbar on mobile tabs */}
-      <style jsx>{`
-        .hide-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
     </section>
   );
 }
 
 function NewsCard({ item }: { item: NewsItem; categoryPath: string }) {
   return (
-    <article className="h-full flex flex-col p-3 sm:p-4 md:p-5">
-      <div className="flex items-center justify-between mb-1.5 md:mb-2.5">
-        {item.featured && (
-          <span className="bg-emerald-100 text-emerald-800 px-1.5 py-0.5 text-[8px] sm:text-[10px] font-bold uppercase tracking-wide rounded-full shadow-sm">
-            Featured
+    <article className="h-full flex flex-col justify-between">
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <span className="text-[9px] font-black uppercase text-emerald-800 bg-emerald-100 border border-[#1FA463] px-2.5 py-0.5 rounded-full">
+            {item.category === "NewsBuzz" ? "News Buzz" : item.category === "CorpPulse" ? "Corp Pulse" : "IPO Scoop"}
           </span>
-        )}
+          {item.featured && (
+            <span className="bg-yellow-100 text-black border border-black px-2 py-0.5 text-[9px] font-black uppercase rounded-md shadow-[1px_1px_0px_#000]">
+              Featured
+            </span>
+          )}
+        </div>
+
+        <h3 className="text-base font-black text-black leading-snug line-clamp-3">
+          {item.title}
+        </h3>
       </div>
 
-      <h3 className="text-xs sm:text-sm md:text-base font-bold text-gray-900 mb-2 md:mb-3 leading-tight line-clamp-3 flex-1">
-        {item.title}
-      </h3>
-
-      <div className="flex items-center justify-between text-[8px] sm:text-[10px] md:text-xs text-emerald-700 mt-auto pt-1.5 md:pt-2 border-t border-emerald-100">
+      <div className="mt-6 pt-3 border-t-2 border-black flex items-center justify-between text-[11px] font-bold text-gray-500">
         <span>{formatDate(item.publishDate)}</span>
         <Link
           href={`/news/${item.id}`}
-          className="text-emerald-600 hover:text-teal-600 font-semibold flex items-center gap-0.5 md:gap-1 group"
+          className="px-3.5 py-1.5 bg-[#1FA463] text-white border border-black rounded-lg text-xs font-black hover:translate-y-[-1px] hover:shadow-[2px_2px_0px_#000] active:translate-y-0 active:shadow-0 transition-all flex items-center gap-1"
         >
-          Read more
+          Read
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="10"
             height="10"
             fill="currentColor"
             viewBox="0 0 16 16"
-            className="transition-transform group-hover:translate-x-0.5"
           >
             <path
               fillRule="evenodd"

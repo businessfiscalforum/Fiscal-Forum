@@ -49,33 +49,32 @@ export default function Navbar() {
     {
       name: "Stock Investment",
       href: "/services/stock-investment",
-      icon: <LineChart className="w-5 h-5 text-emerald-500" />,
+      icon: <LineChart className="w-5 h-5 text-black" />,
     },
     {
       name: "Mutual Funds",
       href: "/services/mutual-funds",
-      icon: <Banknote className="w-5 h-5 text-emerald-500" />,
+      icon: <Banknote className="w-5 h-5 text-black" />,
     },
     {
       name: "Insurance",
       href: "/services/insurance",
-      icon: <Shield className="w-5 h-5 text-emerald-500" />,
+      icon: <Shield className="w-5 h-5 text-black" />,
     },
     {
       name: "Credit Card",
       href: "/services/credit-card",
-      icon: <CreditCard className="w-5 h-5 text-emerald-500" />,
+      icon: <CreditCard className="w-5 h-5 text-black" />,
     },
-    // { name: "Saving Account", href: "/services/saving-account", icon: <PiggyBank className="w-5 h-5 text-green-600" /> },
     {
       name: "Loan",
       href: "/services/loan",
-      icon: <Landmark className="w-5 h-5 text-emerald-500" />,
+      icon: <Landmark className="w-5 h-5 text-black" />,
     },
     {
       name: "Govt Bonds & FD",
       href: "/services/govt-bonds-and-fd",
-      icon: <FileText className="w-5 h-5 text-emerald-500" />,
+      icon: <FileText className="w-5 h-5 text-black" />,
     },
   ];
 
@@ -91,43 +90,14 @@ export default function Navbar() {
     setIsClient(true);
   }, []);
 
-  // Multi-Element Sparkle Logic
-  const SparkleGenerator = ({ count = 5 }) => {
-    return Array.from({ length: count }).map((_, i) => {
-      const Icons = [Star, Sparkles, Zap, Gem];
-      const PickedIcon = Icons[Math.floor(Math.random() * Icons.length)];
-      return (
-        <motion.div
-          key={i}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: [0, 1, 0], scale: [0, 1, 0], y: [0, -20] }}
-          transition={{
-            duration: 2 + Math.random() * 2,
-            repeat: Infinity,
-            delay: Math.random() * 2,
-          }}
-          className="absolute pointer-events-none text-yellow-400"
-          style={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-          }}
-        >
-          <PickedIcon
-            size={Math.random() * 12 + 6}
-            fill={Math.random() > 0.5 ? "currentColor" : "none"}
-          />
-        </motion.div>
-      );
-    });
-  };
-
   return (
     <nav
       ref={navRef}
-      className="fixed top-0 z-[100] w-full bg-white shadow-md px-4 py-4 md:py-5 border-b border-emerald-50"
+      className="fixed top-0 z-[100] w-full bg-white border-b-4 border-black px-4 py-3 md:py-4 shadow-none"
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center relative">
-        {/* Simple Clean Logo (No Borders/Circles) */}
+        
+        {/* Logo */}
         <Link
           href="/"
           onClick={closeAll}
@@ -139,19 +109,20 @@ export default function Navbar() {
             width={85}
             height={65}
             className="transition-transform active:scale-95"
+            priority
           />
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center gap-1">
-          {/* Services with Hover Detection */}
+        <div className="hidden lg:flex items-center gap-3">
+          {/* Services dropdown toggle */}
           <div
             className="relative"
             onMouseEnter={() => setServicesOpen(true)}
             onMouseLeave={() => setServicesOpen(false)}
           >
-            <button className="flex items-center gap-1 px-4 py-2 text-sm font-bold text-emerald-900 hover:text-emerald-600 transition-colors uppercase tracking-wide">
-              Services{" "}
+            <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-black text-black hover:text-emerald-700 transition-colors uppercase tracking-wider">
+              <span>Services</span>
               <ChevronDown
                 size={14}
                 className={`transition-transform ${servicesOpen ? "rotate-180" : ""}`}
@@ -166,19 +137,18 @@ export default function Navbar() {
                   exit={{ opacity: 0, y: 10 }}
                   className="absolute top-full left-0 w-[550px] pt-2"
                 >
-                  <div className="bg-white border border-emerald-100 shadow-2xl rounded-sm grid grid-cols-2 p-4 relative overflow-hidden">
-                    <SparkleGenerator count={8} />
+                  <div className="bg-white border-2 border-black shadow-[4px_4px_0px_#000] rounded-2xl grid grid-cols-2 p-4 gap-2">
                     {servicesDropdown.map((service) => (
                       <Link
                         key={service.name}
                         href={service.href}
                         onClick={closeAll}
-                        className="flex items-center gap-4 p-4 hover:bg-emerald-50 transition-all border-l-2 border-transparent hover:border-emerald-500"
+                        className="flex items-center gap-4 p-3 hover:bg-emerald-50 border-2 border-transparent hover:border-black rounded-xl transition-all"
                       >
-                        <div className="p-2 bg-emerald-50 rounded-lg">
+                        <div className="p-2 bg-emerald-100 border border-black rounded-lg">
                           {service.icon}
                         </div>
-                        <span className="text-sm font-bold text-emerald-900">
+                        <span className="text-sm font-bold text-black uppercase tracking-wide">
                           {service.name}
                         </span>
                       </Link>
@@ -193,24 +163,24 @@ export default function Navbar() {
             <Link
               key={item.label}
               href={item.href}
-              className="px-4 py-2 text-sm font-bold text-emerald-900 hover:text-emerald-600 transition-colors uppercase tracking-wide"
+              className="px-3 py-1.5 text-xs font-black text-black hover:text-emerald-700 transition-colors uppercase tracking-wider"
             >
               {item.label}
             </Link>
           ))}
         </div>
 
-        {/* Action Side */}
+        {/* Action Buttons */}
         <div className="hidden lg:flex items-center gap-6">
           <Link
             href="/referrals"
-            className="group flex items-center gap-2 text-xs font-black text-yellow-600 uppercase tracking-widest"
+            className="group flex items-center gap-2 px-3 py-1.5 border-2 border-black rounded-xl bg-yellow-100 text-xs font-black text-black uppercase tracking-wider shadow-[2px_2px_0px_#000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_#000] active:translate-x-0 active:translate-y-0 active:shadow-[1px_1px_0px_#000] transition-all"
           >
             <Gem
               size={14}
-              className="group-hover:rotate-12 transition-transform"
+              className="group-hover:rotate-12 transition-transform text-black"
             />
-            Refer & Earn
+            <span>Refer & Earn</span>
           </Link>
 
           {isClient && (
@@ -223,11 +193,11 @@ export default function Navbar() {
                       alt="User"
                       width={35}
                       height={35}
-                      className="rounded-full ring-2 ring-emerald-100"
+                      className="rounded-full border-2 border-black hover:shadow-[2px_2px_0px_#000] transition-all"
                     />
                   </Link>
                   <SignOutButton>
-                    <button className="text-[10px] font-black text-red-500 hover:text-red-700 uppercase">
+                    <button className="text-[10px] font-black text-black border border-black px-3 py-1.5 rounded-lg bg-red-100 hover:bg-red-200 transition-all uppercase shadow-[1px_1px_0px_#000]">
                       Exit
                     </button>
                   </SignOutButton>
@@ -238,10 +208,9 @@ export default function Navbar() {
                 <Link href="/sign-up">
                   <motion.button
                     whileHover={{ scale: 1.02 }}
-                    className="relative bg-emerald-600 px-8 py-3 text-white text-xs font-black uppercase tracking-[0.2em] shadow-[5px_5px_0px_#10b98133]"
+                    className="bg-[#1FA463] border-2 border-black px-6 py-2.5 text-white text-xs font-black uppercase tracking-[0.2em] shadow-[3px_3px_0px_#000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0px_#000] active:translate-x-0 active:translate-y-0 active:shadow-[1px_1px_0px_#000] transition-all"
                   >
                     Get Started
-                    <SparkleGenerator count={3} />
                   </motion.button>
                 </Link>
               </SignedOut>
@@ -252,9 +221,9 @@ export default function Navbar() {
         {/* Mobile Toggle */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden text-emerald-900"
+          className="lg:hidden text-black focus:outline-none"
         >
-          {mobileMenuOpen ? <X size={30} /> : <Menu size={30} />}
+          {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
@@ -265,90 +234,98 @@ export default function Navbar() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="lg:hidden bg-white border-t border-emerald-50 overflow-hidden"
+            className="lg:hidden bg-white border-t-2 border-black overflow-hidden mt-3"
           >
             <div className="space-y-4 p-6">
-                {/* Refer & Earn */}
-                <Link
-                  href="/referrals"
-                  onClick={closeAll}
-                  className="flex items-center justify-center gap-2 text-xs font-black text-yellow-600 uppercase tracking-widest"
-                >
-                  <Gem size={14} />
-                  Refer & Earn
-                </Link>
+              
+              {/* Refer & Earn */}
+              <Link
+                href="/referrals"
+                onClick={closeAll}
+                className="flex items-center justify-center gap-2 p-3 border-2 border-black rounded-xl bg-yellow-100 text-xs font-black text-black uppercase tracking-wider shadow-[2px_2px_0px_#000]"
+              >
+                <Gem size={14} />
+                <span>Refer & Earn</span>
+              </Link>
 
-                <SignedIn>
-                  <div className="flex items-center justify-between bg-emerald-50 p-3 rounded-md">
-                    {/* Profile */}
+              {isClient && (
+                <>
+                  <SignedIn>
+                    <div className="flex items-center justify-between bg-emerald-50 border border-black p-3.5 rounded-xl">
+                      <Link
+                        href="/dashboard"
+                        onClick={closeAll}
+                        className="flex items-center gap-3"
+                      >
+                        <Image
+                          src={user?.imageUrl || "/user-icon.webp"}
+                          alt="User"
+                          width={36}
+                          height={36}
+                          className="rounded-full border border-black"
+                        />
+                        <span className="text-xs font-black text-black uppercase tracking-wider">
+                          Go Dashboard
+                        </span>
+                      </Link>
+
+                      <SignOutButton>
+                        <button className="text-[10px] font-black text-black border border-black px-2.5 py-1.5 bg-red-100 rounded-lg uppercase cursor-pointer">
+                          Exit
+                        </button>
+                      </SignOutButton>
+                    </div>
+                  </SignedIn>
+
+                  <SignedOut>
                     <Link
-                      href="/dashboard"
+                      href="/sign-up"
                       onClick={closeAll}
-                      className="flex items-center gap-3"
+                      className="block w-full py-3.5 bg-[#1FA463] text-white border-2 border-black font-black text-center uppercase tracking-widest rounded-xl shadow-[3px_3px_0px_#000]"
                     >
-                      <Image
-                        src={user?.imageUrl || "/user-icon.webp"}
-                        alt="User"
-                        width={36}
-                        height={36}
-                        className="rounded-full ring-2 ring-emerald-100"
-                      />
-                      <span className="text-xs font-black text-emerald-900 uppercase">
-                        Profile
-                      </span>
+                      Get Started
                     </Link>
+                  </SignedOut>
+                </>
+              )}
+            </div>
 
-                    {/* Exit */}
-                    <SignOutButton>
-                      <button className="text-[10px] font-black text-red-500 uppercase cursor-pointer">
-                        Exit
-                      </button>
-                    </SignOutButton>
-                  </div>
-                </SignedIn>
-
-                <SignedOut>
-                  <Link
-                    href="/sign-up"
-                    onClick={closeAll}
-                    className="block w-full py-4 bg-emerald-600 text-white font-black text-center uppercase tracking-widest"
-                  >
-                    Get Started
-                  </Link>
-                </SignedOut>
-              </div>
-            <div className="flex flex-col p-6 gap-4">
-              <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest">
+            <div className="flex flex-col px-6 pb-6 gap-4">
+              <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest border-b border-black/10 pb-1.5">
                 Our Services
               </p>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-3">
                 {servicesDropdown.map((s) => (
                   <Link
                     key={s.name}
                     href={s.href}
                     onClick={closeAll}
-                    className="flex items-center gap-2 p-3 bg-emerald-50 rounded-md"
+                    className="flex items-center gap-2.5 p-3 bg-gray-50 border border-black/10 hover:border-black rounded-xl hover:bg-white transition-all"
                   >
-                    {s.icon}{" "}
-                    <span className="text-[10px] font-bold text-emerald-900">
+                    <div className="w-4 h-4 text-black flex-shrink-0 flex items-center justify-center">
+                      {s.icon}
+                    </div>
+                    <span className="text-[10px] font-bold text-black uppercase tracking-wide">
                       {s.name}
                     </span>
                   </Link>
                 ))}
               </div>
-              <div className="h-px bg-emerald-50 my-2" />
-              {navItems.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  onClick={closeAll}
-                  className="text-lg font-black text-emerald-900 uppercase"
-                >
-                  {item.label}
-                </Link>
-              ))}
-              {/* Mobile Auth + CTA Section */}
               
+              <div className="h-0.5 bg-black/10 my-2" />
+              
+              <div className="flex flex-col gap-3">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    onClick={closeAll}
+                    className="text-base font-black text-black uppercase tracking-wider"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
             </div>
           </motion.div>
         )}
