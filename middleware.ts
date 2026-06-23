@@ -84,6 +84,11 @@ export default clerkMiddleware(async (auth, req) => {
   // Role-based checks
   const user = await auth();
 
+  // Bypass role metadata checks in local development to simplify testing
+  if (process.env.NODE_ENV === "development") {
+    return NextResponse.next();
+  }
+
   if (isAdminRoute(req) && user?.sessionClaims?.metadata?.role !== "ADMIN") {
     return NextResponse.redirect(new URL("/", req.url), 302);
   }

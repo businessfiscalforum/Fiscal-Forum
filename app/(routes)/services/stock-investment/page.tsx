@@ -25,6 +25,7 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 // import { BrokerInfiniteScroll } from "../../_components/Broker";
+import PortfolioSplitStudio from "./PortfolioSplitStudio";
 
 const investmentOptions = [
   {
@@ -275,6 +276,9 @@ export default function StockInvestmentPage() {
               })}
             </div>
           </div>
+
+          {/* Portfolio Split Studio */}
+          <PortfolioSplitStudio />
 
           {/* Call to Action (Kickstart & Level Up) */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

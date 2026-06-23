@@ -128,19 +128,9 @@ export default function FiscalForumCity() {
       <div className="relative mx-auto max-w-7xl px-4 md:px-8">
         {/* Heading */}
         <div className="mb-12 text-center flex flex-col items-center">
-          <p className="mb-3 text-[10px] font-black uppercase tracking-[0.3em] text-[#1FA463] bg-[#1FA463]/10 border border-[#1FA463]/25 px-3 py-1 rounded-full">
-            Fiscal Ecosystem
-          </p>
-
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-black">
-            Fiscal Forum Universe
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-black max-w-3xl leading-tight">
+            Feeling regret seeing above? Don't worry we have solutions for you...
           </h2>
-
-          <p className="mx-auto mt-4 max-w-2xl text-xs sm:text-sm font-semibold leading-relaxed text-gray-500">
-            Explore every investment segment visually — hover over
-            different parts of the city to discover how each product
-            fits the puzzle.
-          </p>
         </div>
 
         {/* Main Diagram */}
@@ -385,71 +375,7 @@ export default function FiscalForumCity() {
           )}
         </AnimatePresence>
 
-        {/* Bottom Feature Cards */}
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-            {
-              title: "Equity & SIP",
-              desc: "Long-term compounding and wealth creation.",
-              icon: "📈",
-              color: "#10B981",
-            },
-            {
-              title: "IPO Opportunities",
-              desc: "Invest early in growth-stage companies.",
-              icon: "🚀",
-              color: "#A855F7",
-            },
-            {
-              title: "Insurance",
-              desc: "Protect future liabilities and risks.",
-              icon: "🛡️",
-              color: "#EF4444",
-            },
-            {
-              title: "Mutual Funds",
-              desc: "Professionally managed diversified portfolios.",
-              icon: "📊",
-              color: "#6366F1",
-            },
-          ].map((item) => (
-            <div
-              key={item.title}
-              className="
-                group
-                rounded-2xl
-                border-2
-                border-black
-                bg-white
-                p-6
-                shadow-[3px_3px_0px_#000]
-                transition-all
-                duration-300
-                hover:translate-y-[-2px]
-                hover:shadow-[5px_5px_0px_#000]
-                relative
-                overflow-hidden
-              "
-            >
-              {/* Hover accent bar */}
-              <div
-                className="absolute top-0 left-0 right-0 h-0.5 transition-all duration-300 group-hover:h-1"
-                style={{ backgroundColor: item.color }}
-              />
 
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-base">{item.icon}</span>
-                <h3 className="text-sm font-black text-black uppercase tracking-tight transition-all duration-300 group-hover:text-[#1FA463]">
-                  {item.title}
-                </h3>
-              </div>
-
-              <p className="text-xs font-semibold text-gray-500">
-                {item.desc}
-              </p>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
