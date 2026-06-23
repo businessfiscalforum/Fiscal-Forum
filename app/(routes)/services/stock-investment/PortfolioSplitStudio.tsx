@@ -231,7 +231,7 @@ export default function PortfolioSplitStudio() {
 
               {/* The main pie chart SVG */}
               <svg
-                viewBox="0 0 100 100"
+                viewBox="-10 -10 120 120"
                 className="pie-svg"
               >
                 {/* Subtle outer ring */}
@@ -285,6 +285,75 @@ export default function PortfolioSplitStudio() {
                       onMouseEnter={() => setHoveredSegment(slice)}
                       onMouseLeave={() => setHoveredSegment(null)}
                     />
+                  );
+                })}
+
+                {/* Outside percentage labels with connector lines */}
+                {slices.map((slice) => {
+                  // Only show labels for segments with > 0%
+                  if (slice.value === 0) return null;
+
+                  const isHovered = hoveredSegment?.name === slice.name;
+                  const midRad = ((slice.midAngle - 90) * Math.PI) / 180;
+
+                  // Explode offset mirrored from slice
+                  const dx = isHovered ? EXPLODE * Math.cos(midRad) : 0;
+                  const dy = isHovered ? EXPLODE * Math.sin(midRad) : 0;
+
+                  const sliceEdgeR = isHovered ? R + 1 : R;
+                  // Line start: just outside the slice edge
+                  const lx1 = CX + dx + (sliceEdgeR + 1) * Math.cos(midRad);
+                  const ly1 = CY + dy + (sliceEdgeR + 1) * Math.sin(midRad);
+                  // Line end: further out
+                  const labelR = R + 12;
+                  const lx2 = CX + dx + (labelR - 1) * Math.cos(midRad);
+                  const ly2 = CY + dy + (labelR - 1) * Math.sin(midRad);
+                  // Label anchor: a bit further
+                  const labelAnchorR = R + 13.5;
+                  const tx = CX + dx + labelAnchorR * Math.cos(midRad);
+                  const ty = CY + dy + labelAnchorR * Math.sin(midRad);
+
+                  // Determine text-anchor based on which side of chart
+                  const textAnchor = tx > CX + 2 ? "start" : tx < CX - 2 ? "end" : "middle";
+
+                  return (
+                    <g
+                      key={`label-${slice.name}`}
+                      style={{ pointerEvents: "none" }}
+                    >
+                      {/* Connector line */}
+                      <line
+                        x1={lx1}
+                        y1={ly1}
+                        x2={lx2}
+                        y2={ly2}
+                        stroke={slice.color}
+                        strokeWidth={isHovered ? "0.7" : "0.45"}
+                        strokeOpacity={isHovered ? 1 : 0.65}
+                        style={{ transition: "stroke-opacity 0.3s ease, stroke-width 0.3s ease" }}
+                      />
+                      {/* Dot at line start */}
+                      <circle
+                        cx={lx1}
+                        cy={ly1}
+                        r="0.7"
+                        fill={slice.color}
+                        fillOpacity={isHovered ? 1 : 0.7}
+                      />
+                      {/* Percentage text */}
+                      <text
+                        x={tx}
+                        y={ty + 1.2}
+                        textAnchor={textAnchor}
+                        fontSize={isHovered ? "5" : "4"}
+                        fontWeight="900"
+                        fill={isHovered ? slice.color : "#ffffff"}
+                        fillOpacity={isHovered ? 1 : 0.75}
+                        style={{ transition: "fill 0.3s ease, font-size 0.3s ease, fill-opacity 0.3s ease" }}
+                      >
+                        {slice.value}%
+                      </text>
+                    </g>
                   );
                 })}
 
