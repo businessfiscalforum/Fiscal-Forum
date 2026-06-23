@@ -67,7 +67,7 @@ export default function WealthChart({ data, todayFinal, lateFinal, opportunityCo
           <div className="hidden sm:block absolute left-[-15px] top-1/2 -translate-y-1/2 -rotate-90 text-[10px] font-bold text-gray-400 tracking-wider">
             Projected Corpus (₹)
           </div>
-          
+
           <div className="pl-1 sm:pl-6 h-full w-full">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart
@@ -93,7 +93,7 @@ export default function WealthChart({ data, todayFinal, lateFinal, opportunityCo
                   axisLine={false}
                 />
                 <Tooltip
-                  formatter={(value: any) => [
+                  formatter={(value?: number | string | readonly (number | string)[]) => [
                     formatCurrency(Number(value || 0)),
                     "",
                   ]}
