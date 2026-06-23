@@ -93,7 +93,10 @@ export default function WealthChart({ data, todayFinal, lateFinal, opportunityCo
                   axisLine={false}
                 />
                 <Tooltip
-                  formatter={(value: any) => [formatCurrency(Number(value || 0)), ""]}
+                  formatter={(value: any) => [
+                    formatCurrency(Number(value || 0)),
+                    "",
+                  ]}
                   contentStyle={{
                     backgroundColor: "#fff",
                     border: "1px solid #e5e7eb",
