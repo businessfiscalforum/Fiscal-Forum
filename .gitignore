@@ -1,49 +1,123 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/.pnp
+# ==============================================================================
+# Dependency directories
+# ==============================================================================
+node_modules/
+jspm_packages/
+web_modules/
+.pnp
 .pnp.*
-.yarn/*
+.yarn/
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
+# ==============================================================================
+# Build outputs, caches, and tools
+# ==============================================================================
+.next/
+out/
+build/
+dist/
+.cache/
+.parcel-cache
+.turbo/
+.vercel
+*.tsbuildinfo
+next-env.d.ts
 
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
+# ==============================================================================
+# Logs and debug files
+# ==============================================================================
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
-*.env
+# ==============================================================================
+# Testing and coverage
+# ==============================================================================
+coverage/
+.nyc_output/
+junit.xml
+.playwright/
+playwright-report/
+test-results/
+
+# ==============================================================================
+# Environment variables, credentials, and secrets
+# ==============================================================================
+.env
 .env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+*.env
+*.pem
+*.key
+secrets.json
+credentials.json
 
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-
-# clerk configuration (can include secrets)
-/.clerk/
-
-migrations
+# ==============================================================================
+# Project-specific ignores
+# ==============================================================================
+# Clerk configuration (can contain secrets)
+.clerk/
+# Local database migrations / other ignores
+migrations/
 crn.tsx
+
+# ==============================================================================
+# Database / Local Storage
+# ==============================================================================
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# ==============================================================================
+# Operating System files
+# ==============================================================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.Spotlight-V100
+.Trashes
+VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.*.swp
+.*.swo
+
+# ==============================================================================
+# Editor and IDE configurations
+# ==============================================================================
+# VS Code
+.vscode/
+.history/
+
+# JetBrains (IntelliJ, WebStorm, etc.)
+.idea/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
