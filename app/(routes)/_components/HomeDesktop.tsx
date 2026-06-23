@@ -34,6 +34,7 @@ import { useUser } from "@clerk/nextjs";
 import { UsersDetail } from "../../provider";
 import HomeNewsAndResearchSection from "./HomeResearchAndNewsSection";
 import WealthSimulator from "./WealthSimulator";
+import FiscalForumCity from "./FiscalForumCity";
 
 
 const slides = [
@@ -689,6 +690,7 @@ export default function HomeDesktop() {
           </div>
         </section>
 
+        <FiscalForumCity />
 
         <HomeNewsAndResearchSection />
         <ResearchReportsSection />

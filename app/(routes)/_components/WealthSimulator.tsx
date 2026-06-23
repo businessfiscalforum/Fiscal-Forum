@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { User, Wallet, TrendingUp, Clock } from "lucide-react";
 import WealthChart from "./WealthChart";
 import ImpactComparison from "./ImpactComparison";
-import ScenarioBreakdownTable from "./ScenarioBreakdownTable";
+
 
 export default function WealthSimulator() {
   const [age, setAge] = useState<number>(27);
@@ -83,12 +83,12 @@ export default function WealthSimulator() {
   const opportunityCost = todayFinal - lateFinal;
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-8 lg:space-y-12">
       {/* 2-Column Hero layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
         
         {/* Left Side: Headline & Inputs */}
-        <div className="lg:col-span-5 space-y-6">
+        <div className="lg:col-span-5 space-y-4 lg:space-y-6">
           {/* Pill Badge */}
           <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#1FA463]/10 border border-[#1FA463]/20 rounded-full">
             <span className="w-1.5 h-1.5 rounded-full bg-[#1FA463] animate-pulse" />
@@ -98,12 +98,11 @@ export default function WealthSimulator() {
           </div>
 
           {/* Heading */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-black leading-[1.1] tracking-tight">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-black leading-[1.1] tracking-tight">
             Your Future<br />
             Rewards<br />
-            <span className="text-[#1FA463] relative inline-block">
+            <span className="text-[#1FA463]">
               Early
-              <span className="absolute left-0 bottom-1.5 w-full h-[4px] bg-[#1FA463] rounded-full" />
             </span> Moves.
           </h1>
 
@@ -219,13 +218,7 @@ export default function WealthSimulator() {
         lateInvested={lateInvested}
       />
 
-      {/* Table breakdown */}
-      <ScenarioBreakdownTable
-        todayFinal={todayFinal}
-        lateFinal={lateFinal}
-        todayInvested={todayInvested}
-        lateInvested={lateInvested}
-      />
+
     </div>
   );
 }

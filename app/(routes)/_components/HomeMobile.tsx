@@ -14,10 +14,8 @@ import {
   FaGlobe,
   FaHandsHelping,
 } from "react-icons/fa";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
+import WealthSimulator from "./WealthSimulator";
+import FiscalForumCity from "./FiscalForumCity";
 import Link from "next/link";
 import { useState } from "react";
 import { BarChart3, BookOpen, Shield, TrendingUp, Wallet } from "lucide-react";
@@ -487,82 +485,14 @@ export default function HomeMobile() {
 
   return (
     <div className="text-gray-800 font-sans min-h-screen bg-white">
-      {/* 🔹 Half-Height Hero Slider */}
-      <section className="relative w-full h-[40vh] sm:h-[50vh] lg:h-[40vh] overflow-hidden">
-        <Swiper
-          spaceBetween={20}
-          slidesPerView={1}
-          loop
-          autoplay={{ delay: 5000, disableOnInteraction: false }}
-          pagination={{ clickable: true }}
-          modules={[Autoplay, Pagination]}
-          className="w-full h-full"
-        >
-          {slides.map((slide, index) => (
-            <SwiperSlide key={index} className="relative">
-              {/* Background Image */}
-              <div className="absolute inset-0">
-                <Image
-                  src={slide.image}
-                  alt={slide.title}
-                  fill
-                  priority={index === 0}
-                  className="object-cover brightness-75"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/90 via-green-900/60 to-transparent" />
-              </div>
-
-              {/* Content */}
-              <div className="relative z-10 flex items-end h-full px-4 sm:px-8 pb-10 sm:pb-12">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                  viewport={{ once: true }}
-                  className="
-              w-full max-w-md
-              bg-white/15 backdrop-blur-lg
-              rounded-2xl
-              p-4 sm:p-6
-              text-white
-              shadow-xl
-              border border-white/20
-            "
-                >
-                  <p className="text-[11px] font-semibold text-teal-200 uppercase tracking-wider">
-                    {slide.subtitle}
-                  </p>
-
-                  <h2 className="text-lg sm:text-xl font-bold mt-1">
-                    {slide.title}
-                  </h2>
-
-                  <p className="text-sm opacity-90 mt-1 line-clamp-2">
-                    {slide.description}
-                  </p>
-
-                  <div className="mt-4">
-                    <Link href={slide.path}>
-                      <motion.button
-                        whileTap={{ scale: 0.95 }}
-                        className="
-                    px-4 py-2
-                    bg-gradient-to-r from-emerald-500 to-teal-500
-                    text-white text-sm font-semibold
-                    rounded-full
-                    shadow-md
-                  "
-                      >
-                        {slide.cta}
-                      </motion.button>
-                    </Link>
-                  </div>
-                </motion.div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+      {/* Wealth Simulator Hero Section */}
+      <section className="bg-[#F4FBF7] pt-20 pb-6 px-4 border-b-4 border-black">
+        <div className="max-w-7xl mx-auto">
+          <WealthSimulator />
+        </div>
       </section>
+
+      <FiscalForumCity />
 
       {/* 🔹 News & Research — Mobile */}
       <HomeNewsAndResearchSectionMobile />
@@ -576,13 +506,13 @@ export default function HomeMobile() {
           Our Financial Premium Services
         </h2>
         <div className="flex justify-center gap-2 mb-6">
-          {[
+          {([
             { id: "investment-products", label: "Investment" },
             { id: "banking-products", label: "Banking" },
-          ].map((tab) => (
+          ] as const).map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
+              onClick={() => setActiveTab(tab.id)}
               className={`px-4 py-2 border-2 border-black rounded-xl text-xs font-black uppercase tracking-wider transition-all ${
                 activeTab === tab.id
                   ? "bg-yellow-100 text-black shadow-[2px_2px_0px_#000]"

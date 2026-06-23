@@ -198,7 +198,7 @@ export default function Navbar() {
                   </Link>
                   <SignOutButton>
                     <button className="text-[10px] font-black text-black border border-black px-3 py-1.5 rounded-lg bg-red-100 hover:bg-red-200 transition-all uppercase shadow-[1px_1px_0px_#000]">
-                      Exit
+                      Sign Out
                     </button>
                   </SignOutButton>
                 </div>
@@ -271,7 +271,7 @@ export default function Navbar() {
 
                       <SignOutButton>
                         <button className="text-[10px] font-black text-black border border-black px-2.5 py-1.5 bg-red-100 rounded-lg uppercase cursor-pointer">
-                          Exit
+                          Sign Out
                         </button>
                       </SignOutButton>
                     </div>

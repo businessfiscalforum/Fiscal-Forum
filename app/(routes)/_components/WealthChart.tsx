@@ -64,11 +64,11 @@ export default function WealthChart({ data, todayFinal, lateFinal, opportunityCo
         {/* Recharts Canvas */}
         <div className="lg:col-span-8 w-full h-[260px] relative">
           {/* Y Axis Label (Rotated) */}
-          <div className="absolute left-[-15px] top-1/2 -translate-y-1/2 -rotate-90 text-[10px] font-bold text-gray-400 tracking-wider">
+          <div className="hidden sm:block absolute left-[-15px] top-1/2 -translate-y-1/2 -rotate-90 text-[10px] font-bold text-gray-400 tracking-wider">
             Projected Corpus (₹)
           </div>
           
-          <div className="pl-6 h-full w-full">
+          <div className="pl-1 sm:pl-6 h-full w-full">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart
                 data={data}
