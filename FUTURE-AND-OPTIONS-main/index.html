@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F&O Decoded — ResearchEdge</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+
+
+<!-- HERO -->
+<section class="hero" style="padding:0; border-bottom: 2px solid #0A0A0A;">
+  <div class="hero-left">
+    <div class="hero-tag">F&amp;O Decoded</div>
+    <h1>Futures &amp; Options,<br><em>finally explained.</em></h1>
+    <p class="hero-sub">No jargon. No complicated formulas. Just clear explanations of how India's most powerful financial instruments actually work — and how you can use them.</p>
+    <div class="hero-btns">
+      <button class="btn-primary">Start Journey →</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-grid-overlay"></div>
+    <div class="bull-bear">
+      <div class="badge-bull">▲ BULL</div>
+      <div class="badge-bear">▼ BEAR</div>
+    </div>
+    <div class="candle-stage">
+      <canvas id="hero-candle-canvas"></canvas>
+    </div>
+    <div class="hero-label">MARKET SIMULATION</div>
+  </div>
+</section>
+
+<!-- WHAT IS F&O -->
+<section>
+  <div class="section-eyebrow">The Basics</div>
+  <h2 class="section-title">What exactly are Futures &amp; Options?</h2>
+  <p class="section-sub">Think of them as financial contracts — agreements to buy or sell something at a specific price, on a specific date. Here's the key difference.</p>
+  <div class="fo-grid">
+    <div class="fo-card">
+      <div class="fo-card-accent"></div>
+      <div class="fo-card-top-row">
+        <div>
+          <div class="fo-card-icon">📅</div>
+          <h3>Futures Contract</h3>
+        </div>
+        <img src="futures-icon.png" alt="Futures growth chart" class="fo-card-img futures-img">
+      </div>
+      <p>A binding agreement to buy or sell a stock or index at a <strong>fixed price on a fixed future date</strong> — regardless of where the market goes. Both buyer and seller are obligated to honour it.</p>
+      <p style="margin-top:12px; font-size:14px; color:#333;"><strong>Example:</strong> You agree today to buy 50 shares of Reliance at ₹2,900 one month from now. Even if the price rises to ₹3,200, the seller must sell at ₹2,900.</p>
+      <span class="tag">OBLIGATION TO EXECUTE</span>
+    </div>
+    <div class="fo-card red">
+      <div class="fo-card-accent"></div>
+      <div class="fo-card-top-row">
+        <div>
+          <div class="fo-card-icon">🔑</div>
+          <h3>Options Contract</h3>
+        </div>
+        <img src="options-icon.png" alt="Options contract document" class="fo-card-img options-img">
+      </div>
+      <p>The <strong>right, but not the obligation</strong>, to buy or sell at a set price before expiry. You pay a small fee (premium) for this right — and if things go south, you can simply walk away.</p>
+      <p style="margin-top:12px; font-size:14px; color:#333;"><strong>Example:</strong> You pay ₹150 for the right to buy Infosys at ₹1,600. If it falls to ₹1,400, you simply don't exercise — losing only ₹150, not the full fall.</p>
+      <span class="tag">RIGHT WITHOUT OBLIGATION</span>
+    </div>
+  </div>
+</section>
+
+<!-- ANALOGY SECTION -->
+<section style="background: #0A0A0A; border-bottom: 2px solid #222;">
+  <div class="analogy-box" style="border: 2px solid #333;">
+    <div class="analogy-left">
+      <h2>Think of it like a <span>house booking.</span></h2>
+      <p>Derivatives aren't exotic — we use similar logic every day. Here's an analogy that makes it click.</p>
+      <div class="analogy-steps">
+        <div class="analogy-step">
+          <div class="step-num">1</div>
+          <div class="step-text">You find a flat you want at <strong>₹80 lakh</strong> but can't buy it right now.</div>
+        </div>
+        <div class="analogy-step">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Options:</strong> You pay ₹50,000 to "lock in" the price for 3 months. If prices rise, you buy. If they fall, you walk away — losing only ₹50,000.</div>
+        </div>
+        <div class="analogy-step">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Futures:</strong> You sign a binding deal to buy at ₹80L in 3 months. No backing out — price goes up or down, the deal is done.</div>
+        </div>
+        <div class="analogy-step">
+          <div class="step-num">4</div>
+          <div class="step-text">In markets, instead of a flat, you're locking in the price of <strong>stocks or indices</strong> like Nifty or Sensex.</div>
+        </div>
+      </div>
+    </div>
+    <div class="analogy-visual">
+      <div class="contract-row"><span class="contract-key">Instrument</span><span class="contract-val">NIFTY 50 Call Option</span></div>
+      <div class="contract-row"><span class="contract-key">Type</span><span class="contract-val green">CE (Call)</span></div>
+      <div class="contract-row"><span class="contract-key">Strike Price</span><span class="contract-val">₹24,500</span></div>
+      <div class="contract-row"><span class="contract-key">Expiry</span><span class="contract-val">29 Jun 2026</span></div>
+      <div class="contract-row"><span class="contract-key">Premium Paid</span><span class="contract-val">₹3,200</span></div>
+      <div class="contract-row"><span class="contract-key">Lot Size</span><span class="contract-val">75 units</span></div>
+      <div class="contract-row"><span class="contract-key">Current P&L</span><span class="contract-val green">+₹8,250</span></div>
+      <div class="contract-row"><span class="contract-key">Max Loss</span><span class="contract-val red">−₹3,200 (premium)</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- GLOSSARY -->
+<section>
+  <div class="section-eyebrow">Key Terms</div>
+  <h2 class="section-title">Words you'll hear. Explained.</h2>
+  <p class="section-sub">Hover any term for a quick breakdown. No textbook language — just plain English.</p>
+  <div class="glossary-grid">
+    <div class="glossary-card">
+      <div class="term">Strike Price</div>
+      <div class="def">The agreed price at which you can buy (Call) or sell (Put) the underlying asset. Think of it as the "deal price" locked in your contract.</div>
+      <div class="hover-hint">↑ TAP TO UNDERSTAND →</div>
+    </div>
+    <div class="glossary-card">
+      <div class="term">Premium</div>
+      <div class="def">The fee you pay to enter an options contract. It's your maximum loss if the trade goes wrong. Small cost, big leverage.</div>
+      <div class="hover-hint">↑ TAP TO UNDERSTAND →</div>
+    </div>
+    <div class="glossary-card">
+      <div class="term">Expiry Date</div>
+      <div class="def">The last day you can exercise your contract. In India, most equity options expire on the last Thursday of each month.</div>
+      <div class="hover-hint">↑ TAP TO UNDERSTAND →</div>
+    </div>
+    <div class="glossary-card">
+      <div class="term">Call Option (CE)</div>
+      <div class="def">Gives you the right to BUY an asset at the strike price. You buy a Call when you expect the price to go UP.</div>
+      <div class="hover-hint">↑ TAP TO UNDERSTAND →</div>
+    </div>
+    <div class="glossary-card">
+      <div class="term">Put Option (PE)</div>
+      <div class="def">Gives you the right to SELL an asset at the strike price. You buy a Put when you expect the price to go DOWN — it's like insurance.</div>
+      <div class="hover-hint">↑ TAP TO UNDERSTAND →</div>
+    </div>
+    <div class="glossary-card">
+      <div class="term">Lot Size</div>
+      <div class="def">F&O contracts are traded in fixed bundles. NIFTY has a lot size of 75. You can't trade just 1 unit — you trade in lots.</div>
+      <div class="hover-hint">↑ TAP TO UNDERSTAND →</div>
+    </div>
+    <div class="glossary-card">
+      <div class="term">In The Money (ITM)</div>
+      <div class="def">When your option has real value right now. A Call is ITM if the market price is above your strike price — you're already in profit.</div>
+      <div class="hover-hint">↑ TAP TO UNDERSTAND →</div>
+    </div>
+    <div class="glossary-card">
+      <div class="term">Theta (Time Decay)</div>
+      <div class="def">Options lose value as expiry approaches — this is Theta. Every day that passes without price movement costs option buyers money.</div>
+      <div class="hover-hint">↑ TAP TO UNDERSTAND →</div>
+    </div>
+    <div class="glossary-card">
+      <div class="term">Open Interest (OI)</div>
+      <div class="def">The total number of active contracts in the market. Rising OI with rising prices = strong trend. Use it to gauge market sentiment.</div>
+      <div class="hover-hint">↑ TAP TO UNDERSTAND →</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- F&O PLAYGROUND SIMULATOR -->
+<section class="playground-section">
+  <div class="section-eyebrow">Interactive Simulator</div>
+  <h2 class="section-title">Futures vs Options <em style="color:var(--green);font-style:italic;">Playground</em></h2>
+  <p class="section-sub">Instead of explaining differences — interact with them. Move the sliders, switch positions, and watch your P&L update live.</p>
+
+  <div class="playground-wrap">
+
+    <!-- TOP: Split screen controls -->
+    <div class="playground-split">
+
+      <!-- LEFT: FUTURES -->
+      <div class="playground-panel futures-panel">
+        <div class="panel-header">
+          <span class="panel-badge futures-badge">FUTURES</span>
+          <span class="panel-tag">OBLIGATION TO EXECUTE</span>
+        </div>
+        <div class="panel-stat-row">
+          <div class="pstat">
+            <div class="pstat-label">Entry Price</div>
+            <div class="pstat-val" id="fut-entry">₹100</div>
+          </div>
+          <div class="pstat">
+            <div class="pstat-label">Lot Size</div>
+            <div class="pstat-val" id="fut-lot">50</div>
+          </div>
+          <div class="pstat">
+            <div class="pstat-label">Margin Required</div>
+            <div class="pstat-val" id="fut-margin">₹5,000</div>
+          </div>
+        </div>
+        <div class="panel-pl-box" id="fut-pl-box">
+          <div class="pl-label">Buyer P&L</div>
+          <div class="pl-value" id="fut-buyer-pl">₹0</div>
+          <div class="pl-label" style="margin-top:12px">Seller P&L</div>
+          <div class="pl-value" id="fut-seller-pl">₹0</div>
+          <div class="pl-breakeven">Break-even: <span id="fut-breakeven">₹100</span></div>
+        </div>
+        <div class="panel-chart-wrap">
+          <canvas id="fut-chart" height="120"></canvas>
+        </div>
+      </div>
+
+      <!-- RIGHT: OPTIONS -->
+      <div class="playground-panel options-panel">
+        <div class="panel-header">
+          <span class="panel-badge options-badge">OPTIONS</span>
+          <span class="panel-tag">RIGHT WITHOUT OBLIGATION</span>
+        </div>
+        <div class="panel-stat-row">
+          <div class="pstat">
+            <div class="pstat-label">Strike Price</div>
+            <div class="pstat-val" id="opt-strike">₹100</div>
+          </div>
+          <div class="pstat">
+            <div class="pstat-label">Premium</div>
+            <div class="pstat-val" id="opt-premium">₹8</div>
+          </div>
+          <div class="pstat">
+            <div class="pstat-label">Max Loss</div>
+            <div class="pstat-val loss-val" id="opt-maxloss">−₹400</div>
+          </div>
+        </div>
+        <div class="panel-pl-box" id="opt-pl-box">
+          <div class="pl-label">Buyer P&L</div>
+          <div class="pl-value" id="opt-buyer-pl">₹0</div>
+          <div class="pl-label" style="margin-top:12px">Seller P&L</div>
+          <div class="pl-value" id="opt-seller-pl">₹0</div>
+          <div class="pl-breakeven">Break-even: <span id="opt-breakeven">₹108</span></div>
+        </div>
+        <div class="panel-chart-wrap">
+          <canvas id="opt-chart" height="120"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- MIDDLE: Shared sliders -->
+    <div class="playground-sliders">
+      <div class="slider-group">
+        <div class="slider-head">
+          <span class="slider-label">📈 Stock Price</span>
+          <span class="slider-val" id="price-display">₹100</span>
+        </div>
+        <input type="range" id="price-slider" min="60" max="160" value="100" class="pg-slider">
+        <div class="slider-ticks"><span>₹60</span><span>₹100</span><span>₹160</span></div>
+      </div>
+      <div class="slider-group">
+        <div class="slider-head">
+          <span class="slider-label">⏳ Days to Expiry</span>
+          <span class="slider-val" id="expiry-display">30 days</span>
+        </div>
+        <input type="range" id="expiry-slider" min="1" max="30" value="30" class="pg-slider">
+        <div class="slider-ticks"><span>Expiry</span><span>15 days</span><span>30 days</span></div>
+      </div>
+      <div class="slider-group">
+        <div class="slider-head">
+          <span class="slider-label">📦 Lot Size</span>
+          <span class="slider-val" id="lot-display">50 units</span>
+        </div>
+        <input type="range" id="lot-slider" min="25" max="150" value="50" step="25" class="pg-slider">
+        <div class="slider-ticks"><span>25</span><span>75</span><span>150</span></div>
+      </div>
+    </div>
+
+    <!-- BOTTOM: Position switcher -->
+    <div class="playground-positions">
+      <div class="pos-label">Your Position</div>
+      <div class="pos-tabs">
+        <button class="pos-btn active" data-pos="long-future">📈 Long Future</button>
+        <button class="pos-btn" data-pos="long-call">📗 Long Call</button>
+        <button class="pos-btn" data-pos="long-put">📕 Long Put</button>
+        <button class="pos-btn" data-pos="short-call">🔻 Short Call</button>
+        <button class="pos-btn" data-pos="short-put">🔺 Short Put</button>
+      </div>
+      <div class="pos-explain" id="pos-explain">
+        <strong>Long Future:</strong> You're obligated to buy at ₹100. Every ₹1 move = ₹50 gain or loss. No ceiling on profit, no floor on loss.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Research<span>Edge</span></div>
+  <p>© 2026 ResearchEdge. For educational purposes only. Not SEBI registered investment advice.</p>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

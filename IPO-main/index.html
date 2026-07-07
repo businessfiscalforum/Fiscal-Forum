@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPO Journey — From Garage to Gong</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Archivo+Black&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7f7ef;
+    --bg-soft:#f1f1e6;
+    --surface:#ffffff;
+    --line:#0a0a0a;
+    --line-strong:#0a0a0a;
+    --ink:#0a0a0a;
+    --ink-soft:#33352f;
+    --ink-dim:#6b6d63;
+    --accent:#5b9279;
+    --accent-deep:#2f5b45;
+    --accent-soft:#cfe8d4;
+    --rise:#2f5b45;
+    --fall:#c23b3b;
+    --gold:#9c6b15;
+    --gold-soft:#faf3d9;
+    --navy:#16243d;
+    --font-display:'Archivo Black', 'Archivo', sans-serif;
+    --font-body:'Archivo', 'Space Grotesk', sans-serif;
+    --font-mono:'JetBrains Mono', monospace;
+    --bw:2px;
+    --bw-lg:4px;
+    --shadow-sm:3px 3px 0 0 var(--line);
+    --shadow-md:5px 5px 0 0 var(--line);
+    --shadow-lg:8px 8px 0 0 var(--line);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    overflow-x:hidden;
+    cursor:default;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent);color:#fff;}
+  a{color:inherit;}
+  :focus-visible{outline:2px solid var(--ink); outline-offset:3px; border-radius:4px;}
+
+  ::-webkit-scrollbar{width:10px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:var(--ink);border-radius:0;}
+
+  .wrap{max-width:1180px; margin:0 auto; padding-left:6vw; padding-right:6vw;}
+  @media (max-width:760px){ .wrap{padding-left:24px; padding-right:24px;} }
+
+  /* ---------- ticker tape ---------- */
+  .ticker-wrap{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:var(--ink);
+    overflow:hidden;
+    height:32px;
+    display:flex;
+    align-items:center;
+    border-bottom:var(--bw) solid var(--ink);
+  }
+  .ticker{
+    display:flex;
+    white-space:nowrap;
+    font-family:var(--font-mono);
+    font-size:11.5px;
+    letter-spacing:.01em;
+    animation:tickerScroll 42s linear infinite;
+    will-change:transform;
+  }
+  .ticker span{padding:0 20px; display:flex; align-items:center; gap:6px; color:#cfd1c6; border-right:1px solid rgba(255,255,255,.15);}
+  .ticker span b{color:#fff; font-weight:700;}
+  .ticker span.up{color:#8fd9ad;}
+  .ticker span.down{color:#ff9b9b;}
+  @keyframes tickerScroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* ---------- top nav ---------- */
+  .topnav{
+    position:fixed; top:32px; left:0; right:0; z-index:95;
+    background:var(--bg);
+    border-bottom:var(--bw) solid var(--ink);
+    transition:box-shadow .3s;
+  }
+  .topnav.scrolled{box-shadow:0 4px 0 0 rgba(10,10,10,.06);}
+  .topnav-inner{
+    max-width:1180px; margin:0 auto; padding:0 6vw;
+    height:64px; display:flex; align-items:center; justify-content:space-between;
+  }
+  @media (max-width:760px){ .topnav-inner{padding:0 24px;} }
+  .brand{display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:400; font-size:17px; letter-spacing:-.01em; text-transform:uppercase;}
+  .brand .mark{
+    width:30px; height:30px; border-radius:8px; background:var(--accent); border:var(--bw) solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono); font-size:12px; font-weight:700; color:var(--ink);
+  }
+  .navlinks{display:flex; gap:30px; font-size:13.5px; color:var(--ink-soft); font-weight:600;}
+  .navlinks a{cursor:pointer; transition:.2s; position:relative;}
+  .navlinks a:hover{color:var(--ink);}
+  @media (max-width:840px){ .navlinks{display:none;} }
+  .nav-cta{
+    font-family:var(--font-body); font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.02em;
+    padding:9px 18px; border-radius:8px; background:var(--accent); color:var(--ink);
+    cursor:pointer; border:var(--bw) solid var(--ink); transition:.15s; box-shadow:var(--shadow-sm);
+  }
+  .nav-cta:hover{transform:translate(-2px,-2px); box-shadow:5px 5px 0 0 var(--line);}
+
+  section{
+    position:relative;
+    padding:96px 0 96px;
+  }
+  section.tight{padding-top:72px; padding-bottom:72px;}
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:11.5px;
+    color:var(--accent-deep);
+    font-weight:700;
+    display:inline-flex; align-items:center; gap:6px;
+    margin-bottom:18px;
+    background:var(--accent-soft);
+    border:var(--bw) solid var(--ink);
+    padding:5px 12px;
+    border-radius:100px;
+  }
+  .eyebrow::before{content:none;}
+
+  h1,h2,h3{font-family:var(--font-display); line-height:1.04; color:var(--ink); letter-spacing:-.01em; text-transform:uppercase; font-weight:400;}
+
+  .section-head{max-width:640px;}
+  .section-head h2{font-size:clamp(26px,3.4vw,40px);}
+  .section-head p{color:var(--ink-soft); margin-top:14px; font-size:16px; line-height:1.65; max-width:540px; text-transform:none; font-family:var(--font-body); font-weight:500;}
+
+  .divider{height:var(--bw); background:var(--ink); width:100%;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding-top:170px;
+    background:var(--bg);
+    border-bottom:var(--bw) solid var(--ink);
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center;
+  }
+  @media (max-width:980px){ .hero-grid{grid-template-columns:1fr;} }
+  .hero h1{
+    font-size:clamp(34px,5vw,58px);
+  }
+  .hero h1 em{
+    font-style:normal; color:var(--ink); background:var(--accent-soft);
+    border:var(--bw) solid var(--ink); padding:2px 10px; border-radius:10px;
+    display:inline-block; box-shadow:var(--shadow-sm); transform:rotate(-1.5deg);
+  }
+  .hero p.lede{
+    margin-top:22px; font-size:17px; color:var(--ink-soft); max-width:520px; line-height:1.65; font-weight:500;
+  }
+  .hero-cta{
+    margin-top:32px; display:flex; gap:14px; flex-wrap:wrap; align-items:center;
+  }
+  .btn{
+    font-family:var(--font-body);
+    font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:.02em;
+    padding:13px 24px; border-radius:10px; border:var(--bw) solid var(--ink);
+    background:var(--surface); color:var(--ink); cursor:pointer;
+    transition:.15s; box-shadow:var(--shadow-sm);
+  }
+  .btn.primary{background:var(--accent); color:var(--ink);}
+  .btn.primary:hover{transform:translate(-2px,-2px); box-shadow:5px 5px 0 0 var(--line);}
+  .btn:not(.primary):hover{transform:translate(-2px,-2px); box-shadow:5px 5px 0 0 var(--line); background:var(--bg-soft);}
+  .btn:active{transform:translate(0,0) !important; box-shadow:1px 1px 0 0 var(--line) !important;}
+
+  /* hero image card */
+  .hero-frame{
+    position:relative; width:100%; border-radius:18px; overflow:hidden;
+    border:var(--bw-lg) solid var(--ink); background:var(--surface); box-shadow:var(--shadow-lg);
+  }
+  .hero-imgwrap{position:relative; width:100%; aspect-ratio:4/3; background:#0c1420; overflow:hidden;}
+  .hero-imgwrap img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+
+  /* ---------- JOURNEY ---------- */
+  .journey{ background:var(--surface); border-bottom:var(--bw) solid var(--ink); }
+
+  .stepper{ margin-top:60px; }
+  .stepper-rail{
+    display:grid; grid-template-columns:repeat(6,1fr); gap:0; position:relative;
+  }
+  @media (max-width:900px){ .stepper-rail{grid-template-columns:1fr; gap:0;} }
+  .stepper-track{
+    position:absolute; top:19px; left:0; right:0; height:var(--bw); background:var(--ink); z-index:0;
+  }
+  @media (max-width:900px){ .stepper-track{display:none;} }
+  .step{
+    position:relative; z-index:1; padding:0 14px 0 0;
+    opacity:.35; transform:translateY(6px);
+    transition:opacity .55s ease, transform .55s ease;
+  }
+  .step.in{opacity:1; transform:translateY(0);}
+  @media (max-width:900px){
+    .step{padding:22px 0 22px 30px; border-left:var(--bw) solid var(--line); margin-left:9px;}
+    .step.in{border-left-color:var(--accent);}
+  }
+  .step-num{
+    width:40px; height:40px; border-radius:50%; background:var(--surface); border:var(--bw) solid var(--ink);
+    display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:14px; font-weight:700;
+    color:var(--ink); margin-bottom:18px; transition:.4s;
+  }
+  @media (max-width:900px){ .step-num{position:absolute; left:-21px; top:22px; margin-bottom:0; width:40px;} }
+  .step.in .step-num{ border-color:var(--ink); background:var(--accent); color:var(--ink); box-shadow:var(--shadow-sm); }
+  .step h3{font-size:17px; font-weight:700; margin-bottom:8px; padding-right:8px; text-transform:none; font-family:var(--font-body);}
+  .step p{color:var(--ink-dim); font-size:13.5px; line-height:1.55; max-width:230px; font-weight:500;}
+  .step .ic{font-size:20px; margin-right:6px;}
+
+  /* ---------- WHY (stage explorer) ---------- */
+  .why{ background:var(--bg); border-bottom:var(--bw) solid var(--ink); }
+  .why-grid{
+    margin-top:52px; display:grid; grid-template-columns:1.05fr .95fr; gap:48px; align-items:center;
+  }
+  @media (max-width:980px){ .why-grid{grid-template-columns:1fr;} }
+
+  .stage-frame{
+    position:relative; width:100%; border-radius:18px; overflow:hidden;
+    border:var(--bw-lg) solid var(--ink); background:var(--surface); box-shadow:var(--shadow-lg);
+  }
+  .stage-chrome{
+    display:flex; align-items:center; gap:8px; padding:11px 14px; border-bottom:var(--bw) solid var(--ink); background:var(--bg-soft);
+  }
+  .stage-chrome i{width:10px; height:10px; border-radius:50%; background:var(--surface); border:1.5px solid var(--ink); display:block;}
+  .stage-chrome .url{
+    margin-left:8px; font-family:var(--font-mono); font-size:11px; color:var(--ink-soft); font-weight:600;
+    background:var(--surface); padding:4px 10px; border-radius:6px; flex:1; border:1.5px solid var(--ink);
+  }
+  .stage-imgwrap{position:relative; height:380px; background:#0c1420;}
+  .stage-imgwrap-top{border-radius:14px 14px 0 0; overflow:hidden;}
+  .stage-imgwrap img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    opacity:0; transition:opacity .5s ease;
+  }
+  .stage-imgwrap img.active{opacity:1;}
+  .stage-caption{
+    padding:16px 18px; display:flex; align-items:center; justify-content:space-between;
+    border-top:var(--bw) solid var(--ink);
+  }
+  .stage-caption .lbl{font-family:var(--font-body); font-size:14.5px; font-weight:700;}
+  .stage-caption .step-pill{
+    font-family:var(--font-mono); font-size:10.5px; color:var(--ink); font-weight:700;
+    background:var(--accent-soft); padding:3px 10px; border-radius:100px; border:1.5px solid var(--ink);
+  }
+
+  .why-steps{display:flex; flex-direction:column; gap:8px;}
+  .why-step{
+    display:flex; align-items:center; gap:16px; padding:13px 14px; border-radius:10px;
+    border:var(--bw) solid transparent; cursor:pointer; transition:.15s;
+  }
+  .why-step:hover{background:var(--bg-soft);}
+  .why-step .n{font-family:var(--font-mono); font-size:11.5px; color:var(--ink-dim); width:20px; font-weight:700;}
+  .why-step .t{font-size:15px; color:var(--ink-soft); font-weight:600;}
+  .why-step.active{background:var(--surface); border-color:var(--ink); box-shadow:var(--shadow-sm);}
+  .why-step.active .t{color:var(--ink); font-weight:700;}
+  .why-step.active .n{color:var(--accent-deep);}
+  .why-caption{
+    margin-top:18px; padding:16px 18px; border:var(--bw) solid var(--ink); background:var(--gold-soft);
+    border-radius:12px; box-shadow:var(--shadow-sm);
+    font-size:14px; color:var(--ink); line-height:1.6; min-height:40px; font-weight:500;
+  }
+  .why-caption b{font-weight:700;}
+
+  /* ---------- PLAYERS ---------- */
+  .players{background:var(--surface); border-bottom:var(--bw) solid var(--ink);}
+  .cardgrid{
+    margin-top:48px; display:grid; grid-template-columns:repeat(3,1fr); gap:22px;
+  }
+  @media (max-width:900px){ .cardgrid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:600px){ .cardgrid{grid-template-columns:1fr;} }
+  .pcard{
+    background:var(--surface); padding:24px; border:var(--bw) solid var(--ink); border-radius:16px;
+    box-shadow:var(--shadow-md); transition:.15s; cursor:default;
+  }
+  .pcard:hover{transform:translate(-2px,-2px); box-shadow:7px 7px 0 0 var(--line);}
+  .pcard .ic{
+    width:40px; height:40px; border-radius:9px; background:var(--accent-soft); color:var(--ink);
+    display:flex; align-items:center; justify-content:center; font-size:18px; border:1.5px solid var(--ink);
+  }
+  .pcard h4{margin-top:14px; font-family:var(--font-body); font-weight:700; font-size:15.5px;}
+  .pcard p{margin-top:7px; font-size:13.5px; color:var(--ink-dim); line-height:1.55; font-weight:500;}
+
+  /* ---------- SIMULATOR ---------- */
+  .sim{ background:var(--bg); border-bottom:var(--bw) solid var(--ink); }
+  .sim-grid{
+    margin-top:48px; display:grid; grid-template-columns:.85fr 1.15fr; gap:32px; align-items:start;
+  }
+  @media (max-width:980px){ .sim-grid{grid-template-columns:1fr;} }
+  .sim-panel{
+    background:var(--surface); border:var(--bw) solid var(--ink); border-radius:18px; padding:26px;
+    box-shadow:var(--shadow-md);
+  }
+  .sim-row{margin-bottom:22px;}
+  .sim-row label{display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.05em; font-weight:700;}
+  .sim-row .val{color:var(--gold); font-family:var(--font-mono);}
+  input[type=range]{
+    width:100%; margin-top:12px; appearance:none; height:6px; background:var(--surface); border:1.5px solid var(--ink); border-radius:4px; outline:none;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    appearance:none; width:18px; height:18px; border-radius:50%; background:var(--accent); cursor:pointer; border:2px solid var(--ink); box-shadow:2px 2px 0 0 var(--ink);
+  }
+  input[type=range]::-moz-range-thumb{
+    width:18px; height:18px; border-radius:50%; background:var(--accent); cursor:pointer; border:2px solid var(--ink); box-shadow:2px 2px 0 0 var(--ink);
+  }
+  .sim-note{font-family:var(--font-mono); font-size:11.5px; color:var(--ink-dim); margin-top:8px; line-height:1.5; padding-top:18px; border-top:var(--bw) solid var(--ink); font-weight:600;}
+
+  .sim-result{
+    background:var(--navy); border:var(--bw) solid var(--ink);
+    border-radius:18px; padding:28px; min-height:360px; display:flex; flex-direction:column;
+    box-shadow:var(--shadow-lg); color:#fff;
+  }
+  .sim-result .top{display:flex; justify-content:space-between; align-items:flex-start;}
+  .sim-result .ticker-name{font-family:var(--font-mono); font-size:11px; color:#8b97aa; letter-spacing:.05em; font-weight:700;}
+  .sim-result .ticker-val{font-family:var(--font-body); font-size:19px; margin-top:6px; font-weight:700; color:#fff;}
+  .sim-result .alloc{font-family:var(--font-mono); font-size:34px; color:#fff; margin-top:20px; font-weight:700;}
+  .sim-result .alloc small{font-size:13px; color:#8b97aa; font-weight:500;}
+  .sim-listbar{height:110px; flex:none; display:flex; align-items:flex-end; gap:7px; margin-top:26px;}
+  .sim-listbar i{flex:1; border-radius:3px 3px 0 0; transition:height .4s ease, background .4s ease;}
+  .sim-verdict{margin-top:18px; font-size:13.5px; padding:13px 16px; border-radius:9px; font-family:var(--font-mono); line-height:1.5; font-weight:600; border:1.5px solid rgba(255,255,255,.25);}
+
+  /* ---------- RISK ---------- */
+  .risk{background:var(--surface); border-bottom:var(--bw) solid var(--ink);}
+  .risk-grid{margin-top:48px; display:grid; grid-template-columns:repeat(2,1fr); gap:18px;}
+  @media (max-width:760px){ .risk-grid{grid-template-columns:1fr;} }
+  .rcard{
+    padding:22px; background:var(--surface); border:var(--bw) solid var(--ink); border-radius:14px;
+    box-shadow:var(--shadow-sm); display:flex; gap:16px;
+  }
+  .rcard .dot{width:10px; height:10px; border-radius:50%; margin-top:6px; flex:none; border:1.5px solid var(--ink);}
+  .rcard h4{font-size:15.5px; font-weight:700;}
+  .rcard p{color:var(--ink-dim); font-size:13.5px; margin-top:6px; line-height:1.55; font-weight:500;}
+
+  /* ---------- GLOSSARY ---------- */
+  .glossary{background:var(--bg);}
+  .gl-grid{margin-top:44px; display:flex; flex-direction:column; gap:14px;}
+  .gl-item{border:var(--bw) solid var(--ink); border-radius:14px; cursor:pointer; background:var(--surface); box-shadow:var(--shadow-sm); overflow:hidden;}
+  .gl-q{padding:18px 18px; display:flex; justify-content:space-between; align-items:center; font-size:16px; font-weight:700; transition:.2s;}
+  .gl-q:hover{color:var(--accent-deep);}
+  .gl-q .plus{font-family:var(--font-mono); color:var(--ink); font-size:18px; transition:.3s; font-weight:700; background:var(--accent-soft); border:1.5px solid var(--ink); width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex:none;}
+  .gl-item.open .plus{transform:rotate(45deg);}
+  .gl-a{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .gl-a p{padding:0 18px 20px; color:var(--ink-dim); font-size:14px; max-width:620px; line-height:1.6; font-weight:500;}
+
+  /* ---------- FOOTER CTA ---------- */
+  footer{
+    padding:80px 0 40px; text-align:center; background:var(--navy); color:#fff; border-top:var(--bw-lg) solid var(--ink);
+  }
+  footer h2{font-size:clamp(26px,4.4vw,44px); color:#fff;}
+  footer p{color:#aab6c8; margin-top:14px; max-width:480px; margin-left:auto; margin-right:auto; font-size:15px; line-height:1.6; font-weight:500;}
+  footer .btn.primary{margin-top:28px;}
+  .fineprint{margin-top:56px; padding-top:28px; border-top:1px solid rgba(255,255,255,.15); font-family:var(--font-mono); font-size:11px; color:#8b97aa; font-weight:600;}
+
+  .reveal{opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal, .step, .stage-imgwrap img{transition:none !important;}
+    .ticker{animation:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="ticker-wrap">
+  <div class="ticker" id="tickerStrip"></div>
+</div>
+
+<nav class="topnav" id="topnav">
+  <div class="topnav-inner">
+    <div class="brand"><span class="mark">IJ</span> IPO Journey</div>
+    <div class="navlinks">
+      <a onclick="document.getElementById('s-journey').scrollIntoView({behavior:'smooth'})">The journey</a>
+      <a onclick="document.getElementById('s-why').scrollIntoView({behavior:'smooth'})">Why IPOs happen</a>
+      <a onclick="document.getElementById('s-players').scrollIntoView({behavior:'smooth'})">Who's involved</a>
+      <a onclick="document.getElementById('s-sim').scrollIntoView({behavior:'smooth'})">Simulator</a>
+      <a onclick="document.getElementById('s-glossary').scrollIntoView({behavior:'smooth'})">Glossary</a>
+    </div>
+    <button class="nav-cta" onclick="document.getElementById('s-sim').scrollIntoView({behavior:'smooth'})">Try simulator</button>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="s-hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">What is an IPO</div>
+      <h1>Future <em>wealth</em> starts here.</h1>
+      <p class="lede">An Initial Public Offering is the moment a private company sells its first shares to the public — trading founder control for founder capital, and a quiet balance sheet for a quoted one. Scroll to watch it happen.</p>
+      <div class="hero-cta">
+        <button class="btn primary" onclick="document.getElementById('s-journey').scrollIntoView({behavior:'smooth'})">Begin the journey →</button>
+        <button class="btn" onclick="document.getElementById('s-sim').scrollIntoView({behavior:'smooth'})">Try the allotment simulator</button>
+      </div>
+    </div>
+    <div class="hero-frame">
+      <div class="stage-chrome">
+        <i></i><i></i><i></i>
+        <span class="url">nseindia.com/listing-ceremony</span>
+      </div>
+      <div class="hero-imgwrap">
+        <img src="07-listing-ceremony.png" alt="NSE listing ceremony — company goes public">
+      </div>
+      <div class="stage-caption">
+        <span class="lbl">🔔 Listing day</span>
+        <span class="step-pill">Day 1 on NSE</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= JOURNEY ================= -->
+<section class="journey" id="s-journey">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">The journey · 01</div>
+      <h2>Six steps from private to public.</h2>
+      <p>Each company takes the same staircase — only the timing and the noise around it differ. Watch each step light up as you scroll.</p>
+    </div>
+    <div class="stepper reveal">
+      <div class="stepper-rail" id="flowList">
+        <div class="stepper-track"></div>
+        <div class="step" data-step="0">
+          <div class="step-num">01</div>
+          <h3><span class="ic">🏠</span>Private company</h3>
+          <p>Owned by founders, family, and early backers. Value is whatever the last private round agreed on.</p>
+        </div>
+        <div class="step" data-step="1">
+          <div class="step-num">02</div>
+          <h3><span class="ic">📈</span>Needs growth capital</h3>
+          <p>New factories, new markets, or debt that needs clearing — beyond what founders and VCs can keep funding.</p>
+        </div>
+        <div class="step" data-step="2">
+          <div class="step-num">03</div>
+          <h3><span class="ic">🏦</span>Bankers step in</h3>
+          <p>Merchant bankers value the company, write the DRHP, and build the book of institutional demand.</p>
+        </div>
+        <div class="step" data-step="3">
+          <div class="step-num">04</div>
+          <h3><span class="ic">🚀</span>IPO launches</h3>
+          <p>The issue opens. Retail, HNI, and institutional investors bid within a price band over 3–5 days.</p>
+        </div>
+        <div class="step" data-step="4">
+          <div class="step-num">05</div>
+          <h3><span class="ic">🧑‍💼</span>Shares are allotted</h3>
+          <p>Demand is tallied, the cut-off price is fixed, and shares are allotted — often on a lottery basis.</p>
+        </div>
+        <div class="step" data-step="5">
+          <div class="step-num">06</div>
+          <h3><span class="ic">🔔</span>Company gets listed</h3>
+          <p>Shares begin trading on NSE/BSE. The company now answers to shareholders and a live stock price.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHY ================= -->
+<section class="why" id="s-why">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Why companies launch IPOs · 02</div>
+      <h2>Watch the skyline explain it.</h2>
+    </div>
+    <div class="why-grid reveal">
+      <div class="stage-frame">
+        <div class="stage-imgwrap stage-imgwrap-top">
+          <img src="01-startup.png" alt="Startup" class="active" data-i="0">
+          <img src="02-growing-company.png" alt="Growing Company" data-i="1">
+          <img src="03-needs-capital.png" alt="Needs Capital" data-i="2">
+          <img src="04-ipo-opens.png" alt="IPO Opens" data-i="3">
+          <img src="05-nse-bse-listing.png" alt="NSE/BSE Listing" data-i="4">
+          <img src="06-investors-shareholders.png" alt="Investors Become Shareholders" data-i="5">
+        </div>
+        <div class="stage-caption">
+          <span class="lbl" id="stageCaption">🏠 Startup</span>
+          <span class="step-pill" id="stagePill">Step 1 of 6</span>
+        </div>
+      </div>
+      <div>
+        <div class="why-steps" id="whySteps">
+          <div class="why-step active" data-i="0"><span class="n">01</span><span class="t">🏠 Startup</span></div>
+          <div class="why-step" data-i="1"><span class="n">02</span><span class="t">🏢 Growing company</span></div>
+          <div class="why-step" data-i="2"><span class="n">03</span><span class="t">💰 Needs capital</span></div>
+          <div class="why-step" data-i="3"><span class="n">04</span><span class="t">📈 IPO opens</span></div>
+          <div class="why-step" data-i="4"><span class="n">05</span><span class="t">🏛️ NSE/BSE listing</span></div>
+          <div class="why-step" data-i="5"><span class="n">06</span><span class="t">🧑 Investors become shareholders</span></div>
+        </div>
+        <div class="why-caption" id="whyCaption"><b>Click a step</b> — or let it auto-play — and watch the skyline, capital flow, and ticker react.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PLAYERS ================= -->
+<section class="players" id="s-players">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Who's in the room · 03</div>
+      <h2>Every IPO has the same cast.</h2>
+    </div>
+    <div class="cardgrid reveal">
+      <div class="pcard"><div class="ic">🏦</div><h4>Merchant Banker (BRLM)</h4><p>Lead manager who prices the issue, drafts the DRHP, and runs the roadshow with institutional investors.</p></div>
+      <div class="pcard"><div class="ic">🏛️</div><h4>SEBI</h4><p>The regulator that vets disclosures, approves the prospectus, and protects retail investors from misleading claims.</p></div>
+      <div class="pcard"><div class="ic">🧮</div><h4>Registrar</h4><p>Processes applications, runs the allotment lottery when oversubscribed, and handles refunds.</p></div>
+      <div class="pcard"><div class="ic">🏢</div><h4>Anchor Investors</h4><p>Large institutions allotted shares a day before the issue opens, signalling confidence to the broader market.</p></div>
+      <div class="pcard"><div class="ic">📰</div><h4>Underwriters</h4><p>Commit to buying unsold shares, guaranteeing the company gets its target capital regardless of demand.</p></div>
+      <div class="pcard"><div class="ic">🧑‍💻</div><h4>Retail Investors</h4><p>You — bidding within the price band through UPI/ASBA, hoping the lottery and the listing both go your way.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIMULATOR ================= -->
+<section class="sim" id="s-sim">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Try it yourself · 04</div>
+      <h2>The allotment lottery, simulated.</h2>
+      <p>Oversubscription decides who actually gets shares. Move the sliders and see your odds change in real time — exactly how the registrar's draw behaves.</p>
+    </div>
+    <div class="sim-grid reveal">
+      <div class="sim-panel">
+        <div class="sim-row">
+          <label><span>Issue size</span><span class="val" id="lotsOut">2,40,000 lots</span></label>
+          <input type="range" id="rngLots" min="50" max="500" value="240" step="10">
+        </div>
+        <div class="sim-row">
+          <label><span>Total applications received</span><span class="val" id="demandOut">×7.2 oversubscribed</span></label>
+          <input type="range" id="rngDemand" min="10" max="600" value="72" step="2">
+        </div>
+        <div class="sim-row">
+          <label><span>Listing-day sentiment</span><span class="val" id="moodOut">Bullish</span></label>
+          <input type="range" id="rngMood" min="0" max="100" value="65" step="1">
+        </div>
+        <p class="sim-note">This is an illustrative model for learning, not financial advice or a guarantee of real allotment odds.</p>
+      </div>
+      <div class="sim-result">
+        <div class="top">
+          <div>
+            <div class="ticker-name">YOUR APPLICATION</div>
+            <div class="ticker-val">1 lot · Retail category</div>
+          </div>
+          <div style="text-align:right;">
+            <div class="ticker-name">EST. LISTING POP</div>
+            <div id="popVal" style="font-family:var(--font-mono); font-size:20px; color:#5fd99a; margin-top:6px; font-weight:600;">+18%</div>
+          </div>
+        </div>
+        <div class="alloc" id="oddsVal">14% <small>chance of allotment</small></div>
+        <div class="sim-listbar" id="simBars"></div>
+        <div class="sim-verdict" id="simVerdict">Moderately oversubscribed — a coin-flip-adjacent shot at allotment.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RISK ================= -->
+<section class="risk" id="s-risk">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Read before you bid · 05</div>
+      <h2>What an IPO doesn't promise you.</h2>
+    </div>
+    <div class="risk-grid reveal">
+      <div class="rcard"><div class="dot" style="background:var(--fall)"></div><div><h4>Listing gains aren't guaranteed</h4><p>Grey market premium is sentiment, not a contract. Plenty of "hot" IPOs have listed below issue price.</p></div></div>
+      <div class="rcard"><div class="dot" style="background:var(--gold)"></div><div><h4>Allotment is a lottery, not a queue</h4><p>Applying early doesn't help. In an oversubscribed issue, the registrar draws lots — full stop.</p></div></div>
+      <div class="rcard"><div class="dot" style="background:#6e5bb5"></div><div><h4>Read the DRHP, not just the hype</h4><p>The draft prospectus discloses use of funds, litigation, and risk factors — the parts roadshows skip.</p></div></div>
+      <div class="rcard"><div class="dot" style="background:#2a8fa6"></div><div><h4>Lock-ins create later supply</h4><p>Anchor and promoter shares unlock on schedule — often pressuring price months after listing.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GLOSSARY ================= -->
+<section class="glossary" id="s-glossary">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Speak the language · 06</div>
+      <h2>IPO terms, decoded.</h2>
+    </div>
+    <div class="gl-grid reveal" id="glList">
+      <div class="gl-item">
+        <div class="gl-q"><span>DRHP — Draft Red Herring Prospectus</span><span class="plus">+</span></div>
+        <div class="gl-a"><p>The document filed with SEBI containing the company's financials, risks, and business model before the issue opens. "Red herring" because the price isn't final yet.</p></div>
+      </div>
+      <div class="gl-item">
+        <div class="gl-q"><span>Price band</span><span class="plus">+</span></div>
+        <div class="gl-a"><p>The range within which investors bid — e.g. ₹340–₹360. The final cut-off price is set after the book-building process closes.</p></div>
+      </div>
+      <div class="gl-item">
+        <div class="gl-q"><span>Lot size</span><span class="plus">+</span></div>
+        <div class="gl-a"><p>The minimum number of shares you must apply for as one unit — set by the company so a minimum bid stays within a target rupee range.</p></div>
+      </div>
+      <div class="gl-item">
+        <div class="gl-q"><span>Grey market premium (GMP)</span><span class="plus">+</span></div>
+        <div class="gl-a"><p>An unofficial, unregulated price at which IPO shares trade before listing — a sentiment gauge, not a guarantee of listing-day gains.</p></div>
+      </div>
+      <div class="gl-item">
+        <div class="gl-q"><span>ASBA</span><span class="plus">+</span></div>
+        <div class="gl-a"><p>Application Supported by Blocked Amount — your bid amount is blocked, not debited, in your bank account until allotment is finalised.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h2>Ready to read your first DRHP?</h2>
+    <p>Knowing the steps doesn't remove the risk — it just means you're taking it with your eyes open.</p>
+    <button class="btn primary" onclick="document.getElementById('s-hero').scrollIntoView({behavior:'smooth'})">Back to the top ↑</button>
+    <div class="fineprint">Educational content only · Not investment advice · All tickers and figures above are illustrative</div>
+  </div>
+</footer>
+
+<script>
+// ===== Ticker tape =====
+const tickerData = [
+  {t:'BHARATTHREADS', p:412, d:'+18.2%', up:true},
+  {t:'NSE', p:24812, d:'+0.6%', up:true},
+  {t:'SENSEX', p:81230, d:'-0.3%', up:false},
+  {t:'GREENWAVE ENERGY', p:88, d:'-4.1%', up:false},
+  {t:'QUANTLOGIX', p:765, d:'+27.5%', up:true},
+  {t:'NIFTY BANK', p:53410, d:'+0.9%', up:true},
+  {t:'URBANCRAFT IPO', p:0, d:'OPENS TOMORROW', up:true},
+  {t:'PORTSIDE LOGISTICS', p:241, d:'+2.2%', up:true},
+];
+function buildTicker(){
+  const strip = document.getElementById('tickerStrip');
+  let html='';
+  for(let r=0;r<2;r++){
+    tickerData.forEach(item=>{
+      html += `<span class="${item.up?'up':'down'}"><b>${item.t}</b> ${item.p?('₹'+item.p):''} ${item.up?'▲':'▼'} ${item.d}</span>`;
+    });
+  }
+  strip.innerHTML = html;
+}
+buildTicker();
+
+// ===== top nav shadow on scroll =====
+const topnav = document.getElementById('topnav');
+window.addEventListener('scroll', ()=>{
+  topnav.classList.toggle('scrolled', window.scrollY > 8);
+});
+
+// ===== reveal on scroll =====
+const revealEls = document.querySelectorAll('.reveal');
+const stepNodes = document.querySelectorAll('.step');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+},{threshold:.2});
+revealEls.forEach(el=>io.observe(el));
+stepNodes.forEach(el=>io.observe(el));
+
+// stagger the stepper-rail steps a little on entry
+const stepperObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      [...document.querySelectorAll('.step')].forEach((el,i)=>{
+        setTimeout(()=>el.classList.add('in'), i*90);
+      });
+      stepperObserver.disconnect();
+    }
+  });
+},{threshold:.25});
+stepperObserver.observe(document.getElementById('flowList'));
+
+// ===== stage image swap (why section) =====
+const stageMeta = [
+  {caption:'🏠 Startup'},
+  {caption:'🏢 Growing Company'},
+  {caption:'💰 Needs Capital'},
+  {caption:'📈 IPO Opens'},
+  {caption:'🏛️ NSE/BSE Listing'},
+  {caption:'🧑 Investors Become Shareholders'}
+];
+const stageImgs = document.querySelectorAll('.stage-imgwrap img');
+const stageCaption = document.getElementById('stageCaption');
+const stagePill = document.getElementById('stagePill');
+let currentStage = 0;
+
+function setStage(i){
+  currentStage = i;
+  document.querySelectorAll('.why-step').forEach(s=>s.classList.toggle('active', +s.dataset.i===i));
+  document.getElementById('whyCaption').innerHTML = `<b>Step ${i+1}/6 —</b> ${whyCaptions[i]}`;
+  stageImgs.forEach(img=> img.classList.toggle('active', +img.dataset.i===i));
+  stageCaption.textContent = stageMeta[i].caption;
+  stagePill.textContent = `Step ${i+1} of 6`;
+}
+
+const whyCaptions = [
+  "A founder turns an idea into a registered company. No outside capital yet — just sweat equity.",
+  "Revenue is real, the team is growing, but expansion needs more cash than profits provide.",
+  "Loans only stretch so far. The company decides external equity capital is the next step.",
+  "The IPO opens — bankers, regulators, and investors all converge on one price band.",
+  "Shares list on NSE/BSE. A private balance sheet becomes a publicly quoted one, instantly.",
+  "Anyone who bid and got allotted is now a part-owner — watching the same ticker you are."
+];
+
+document.querySelectorAll('.why-step').forEach(s=>{
+  s.addEventListener('click', ()=> setStage(+s.dataset.i));
+});
+
+let autoplayActive = true;
+let autoTimer = setInterval(()=>{
+  if(!autoplayActive) return;
+  setStage((currentStage+1)%6);
+}, 2600);
+document.getElementById('whySteps').addEventListener('click', ()=>{ autoplayActive=false; });
+
+// init when in view
+const whyObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ setStage(0); } });
+},{threshold:.3});
+whyObserver.observe(document.getElementById('s-why'));
+
+// ===== glossary accordion =====
+document.querySelectorAll('.gl-item').forEach(item=>{
+  const q = item.querySelector('.gl-q');
+  const a = item.querySelector('.gl-a');
+  q.addEventListener('click', ()=>{
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.gl-item').forEach(i=>{ i.classList.remove('open'); i.querySelector('.gl-a').style.maxHeight=null; });
+    if(!isOpen){ item.classList.add('open'); a.style.maxHeight = a.scrollHeight+'px'; }
+  });
+});
+
+// ===== simulator =====
+const rngLots = document.getElementById('rngLots');
+const rngDemand = document.getElementById('rngDemand');
+const rngMood = document.getElementById('rngMood');
+const simBars = document.getElementById('simBars');
+
+let barEls = [];
+function initBars(){
+  simBars.innerHTML='';
+  for(let i=0;i<24;i++){
+    const el = document.createElement('i');
+    simBars.appendChild(el);
+    barEls.push(el);
+  }
+}
+initBars();
+
+function updateSim(){
+  const lots = +rngLots.value*1000;
+  const demandMult = +rngDemand.value/10;
+  const mood = +rngMood.value;
+
+  document.getElementById('lotsOut').textContent = lots.toLocaleString('en-IN')+' lots';
+  document.getElementById('demandOut').textContent = '×'+demandMult.toFixed(1)+' oversubscribed';
+  document.getElementById('moodOut').textContent = mood<33?'Bearish':mood<66?'Neutral':'Bullish';
+
+  const odds = Math.max(1, Math.min(100, Math.round(100/demandMult)));
+  document.getElementById('oddsVal').innerHTML = odds+'% <small>chance of allotment</small>';
+
+  const pop = Math.round((mood-40)*0.8 + (demandMult>5? 6:0));
+  const popEl = document.getElementById('popVal');
+  popEl.textContent = (pop>=0?'+':'')+pop+'%';
+  popEl.style.color = pop>=0 ? '#5fd99a' : '#ef8a8a';
+
+  const verdict = document.getElementById('simVerdict');
+  let vtext, vcolor;
+  if(demandMult>40){ vtext='Massively oversubscribed — allotment is close to a long-shot lottery.'; vcolor='rgba(239,138,138,.16)'; }
+  else if(demandMult>10){ vtext='Heavily oversubscribed — most lots get scaled down sharply.'; vcolor='rgba(212,175,90,.18)'; }
+  else if(demandMult>3){ vtext='Moderately oversubscribed — a coin-flip-adjacent shot at allotment.'; vcolor='rgba(95,217,154,.12)'; }
+  else { vtext='Under or lightly subscribed — most applicants likely get allotted in full.'; vcolor='rgba(95,217,154,.16)'; }
+  verdict.textContent = vtext;
+  verdict.style.background = vcolor;
+  verdict.style.color = '#fff';
+
+  barEls.forEach((el,i)=>{
+    const base = 20+Math.sin(i*0.7)*15+Math.random()*10;
+    const scaled = Math.max(8, base * (mood/60));
+    el.style.height = scaled+'%';
+    el.style.background = mood>55 ? '#5fd99a' : mood>30 ? '#d4af5a' : '#ef8a8a';
+  });
+}
+[rngLots, rngDemand, rngMood].forEach(r=>r.addEventListener('input', updateSim));
+updateSim();
+</script>
+</body>
+</html>
