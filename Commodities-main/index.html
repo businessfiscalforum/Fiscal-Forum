@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mandi — Commodities, Explained</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-mark">MANDI<span class="dot">●</span></div>
+  <div class="nav-links">
+    <a href="#hero">Start</a>
+    <a href="#journey">The Journey</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow">A field guide to the things that move markets</p>
+      <h1 class="hero-title">Everything around you<br>is a <span class="hero-emph">commodity.</span></h1>
+      <p class="hero-sub">Gold, oil, wheat, cotton, copper — the raw materials behind every price tag.</p>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-glow"></div>
+      <img class="hero-person" src="hero-person-rounded.png" alt="Commodities market app preview" />
+    </div>
+  </div>
+</section>
+
+<!-- INTRO STRIP -->
+<section class="intro" id="intro">
+  <div class="intro-statements">
+    <div class="intro-stmt" data-color="#D4A537" data-img="scene-gold.jpg">
+      <span class="intro-stmt-chip">Gold</span>
+      <span class="intro-stmt-text">isn't a chart. It's a <em>wedding box on your shelf.</em></span>
+      <span class="intro-stmt-img-wrap"><img src="scene-gold.jpg" alt="Gold" class="intro-stmt-img"/></span>
+    </div>
+    <div class="intro-stmt" data-color="#6B8C5A" data-img="scene-crude.jpg">
+      <span class="intro-stmt-chip">Crude</span>
+      <span class="intro-stmt-text">isn't a barrel count. It's the <em>bike outside.</em></span>
+      <span class="intro-stmt-img-wrap"><img src="scene-crude.jpg" alt="Crude Oil" class="intro-stmt-img"/></span>
+    </div>
+    <div class="intro-stmt" data-color="#C9A646" data-img="scene-wheat.jpg">
+      <span class="intro-stmt-chip">Wheat</span>
+      <span class="intro-stmt-text">isn't a futures contract. It's the <em>roti on your plate.</em></span>
+      <span class="intro-stmt-img-wrap"><img src="scene-wheat.jpg" alt="Wheat" class="intro-stmt-img"/></span>
+    </div>
+  </div>
+  <div class="intro-sub-wrap">
+    <p class="intro-sub">Before any of that, every commodity travels the same six-stop road.</p>
+    <a href="#journey" class="intro-cta">Walk the road <span class="intro-cta-arrow">→</span></a>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section class="journey" id="journey">
+  <div class="journey-head">
+    <span class="eyebrow">The Commodity Journey</span>
+    <h2>Six stops. One story, every time.</h2>
+  </div>
+
+  <div class="journey-layout">
+    <div class="journey-visual">
+      <div class="journey-scene" id="journeyScene">
+        <img id="journeySceneImg" src="" alt="">
+        <div class="journey-scene-overlay">
+          <span class="journey-scene-tag" id="journeySceneTag"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="journey-main">
+      <div class="commodity-picker" id="commodityPicker" role="tablist" aria-label="Choose a commodity"></div>
+      <div class="journey-rail" id="journeyRail"></div>
+
+      <div class="stage-detail" id="stageDetail">
+        <div class="stage-detail-empty">
+          <p>Click a stop on the road above to open it up.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FACTORS DASHBOARD -->
+<section class="factors" id="factors">
+  <div class="factors-head">
+    <span class="eyebrow">What Moves Commodity Prices?</span>
+    <h2>Eight forces. One ripple, every time.</h2>
+    <p class="factors-sub">hover a force below to watch it reach the price</p>
+  </div>
+
+  <div class="factors-board" id="factorsBoard">
+    <div class="factors-center" id="factorsCenter">
+      <img id="factorsCenterImg" src="" alt="">
+      <div class="factors-center-overlay">
+        <span class="factors-center-tag" id="factorsCenterTag"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="factors-chain" id="factorsChain"></div>
+</section>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,139 +1,42 @@
-"use client";
+/* ============================================================
+   MANDI — content data
+   ============================================================ */
 
-import React, { useState, useEffect, useRef, useMemo } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { FaArrowLeft } from "react-icons/fa";
-
-// SVG Icons matching original site
-const ICONS: Record<string, React.ReactNode> = {
-  gold: (
-    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2">
-      <rect x="10" y="18" width="28" height="20" rx="1.5" />
-      <path d="M14 18 L24 8 L34 18" />
-      <line x1="24" y1="24" x2="24" y2="32" />
-      <line x1="18" y1="24" x2="18" y2="32" />
-      <line x1="30" y1="24" x2="30" y2="32" />
-    </svg>
-  ),
-  silver: (
-    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2">
-      <circle cx="24" cy="24" r="14" />
-      <path d="M24 10 V38 M10 24 H38" strokeDasharray="2 3" />
-    </svg>
-  ),
-  crude: (
-    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M24 8 C24 8 14 22 14 30 a10 10 0 0 0 20 0 C34 22 24 8 24 8 Z" />
-    </svg>
-  ),
-  gas: (
-    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M20 6 C20 6 12 16 12 24 a12 12 0 0 0 24 0 c0-4-3-7-5-9 1 5-2 8-4 6 1-4-1-9-7-15z" />
-    </svg>
-  ),
-  wheat: (
-    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2">
-      <line x1="24" y1="6" x2="24" y2="42" />
-      <path d="M24 10 L18 14 M24 10 L30 14 M24 16 L18 20 M24 16 L30 20 M24 22 L18 26 M24 22 L30 26 M24 28 L18 32 M24 28 L30 32" />
-    </svg>
-  ),
-  cotton: (
-    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2">
-      <circle cx="18" cy="18" r="7" />
-      <circle cx="30" cy="16" r="6" />
-      <circle cx="24" cy="27" r="7.5" />
-      <line x1="24" y1="34" x2="24" y2="42" />
-    </svg>
-  ),
-  copper: (
-    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M14 10 H34 V20 H24 V38 H14 Z" />
-      <line x1="14" y1="10" x2="14" y2="38" />
-    </svg>
-  ),
-  origin: (
-    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <path d="M6 34 L18 34 L24 22 L30 34 L42 34" />
-      <line x1="6" y1="40" x2="42" y2="40" />
-    </svg>
-  ),
-  storage: (
-    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <rect x="8" y="18" width="32" height="20" />
-      <path d="M8 18 L24 6 L40 18" />
-      <line x1="24" y1="22" x2="24" y2="38" />
-    </svg>
-  ),
-  exchange: (
-    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <line x1="10" y1="38" x2="10" y2="22" />
-      <line x1="19" y1="38" x2="19" y2="14" />
-      <line x1="28" y1="38" x2="28" y2="26" />
-      <line x1="37" y1="38" x2="37" y2="10" />
-      <line x1="6" y1="38" x2="42" y2="38" />
-    </svg>
-  ),
-  trader: (
-    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <path d="M8 30 L18 18 L26 24 L40 10" />
-      <path d="M32 10 H40 V18" />
-    </svg>
-  ),
-  processor: (
-    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <circle cx="18" cy="24" r="8" />
-      <circle cx="30" cy="24" r="8" />
-      <circle cx="18" cy="24" r="2.2" fill="currentColor" stroke="none" />
-      <circle cx="30" cy="24" r="2.2" fill="currentColor" stroke="none" />
-    </svg>
-  ),
-  consumer: (
-    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <circle cx="24" cy="14" r="6" />
-      <path d="M12 40 C12 28 36 28 36 40" />
-    </svg>
-  ),
+const ICONS = {
+  gold: `<svg viewBox="0 0 48 48"><rect x="10" y="18" width="28" height="20" rx="1.5"/><path d="M14 18 L24 8 L34 18" /><line x1="24" y1="24" x2="24" y2="32"/><line x1="18" y1="24" x2="18" y2="32"/><line x1="30" y1="24" x2="30" y2="32"/></svg>`,
+  silver: `<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="14"/><path d="M24 10 V38 M10 24 H38" stroke-dasharray="2 3"/></svg>`,
+  crude: `<svg viewBox="0 0 48 48"><path d="M24 8 C24 8 14 22 14 30 a10 10 0 0 0 20 0 C34 22 24 8 24 8 Z"/></svg>`,
+  gas: `<svg viewBox="0 0 48 48"><path d="M20 6 C20 6 12 16 12 24 a12 12 0 0 0 24 0 c0-4-3-7-5-9 1 5-2 8-4 6 1-4-1-9-7-15z"/></svg>`,
+  wheat: `<svg viewBox="0 0 48 48"><line x1="24" y1="6" x2="24" y2="42"/><path d="M24 10 L18 14 M24 10 L30 14 M24 16 L18 20 M24 16 L30 20 M24 22 L18 26 M24 22 L30 26 M24 28 L18 32 M24 28 L30 32"/></svg>`,
+  cotton: `<svg viewBox="0 0 48 48"><circle cx="18" cy="18" r="7"/><circle cx="30" cy="16" r="6"/><circle cx="24" cy="27" r="7.5"/><line x1="24" y1="34" x2="24" y2="42"/></svg>`,
+  copper: `<svg viewBox="0 0 48 48"><path d="M14 10 H34 V20 H24 V38 H14 Z"/><line x1="14" y1="10" x2="14" y2="38"/></svg>`,
+  origin: `<svg viewBox="0 0 48 48"><path d="M6 34 L18 34 L24 22 L30 34 L42 34"/><line x1="6" y1="40" x2="42" y2="40"/></svg>`,
+  storage: `<svg viewBox="0 0 48 48"><rect x="8" y="18" width="32" height="20"/><path d="M8 18 L24 6 L40 18"/><line x1="24" y1="22" x2="24" y2="38"/></svg>`,
+  exchange: `<svg viewBox="0 0 48 48"><line x1="10" y1="38" x2="10" y2="22"/><line x1="19" y1="38" x2="19" y2="14"/><line x1="28" y1="38" x2="28" y2="26"/><line x1="37" y1="38" x2="37" y2="10"/><line x1="6" y1="38" x2="42" y2="38"/></svg>`,
+  trader: `<svg viewBox="0 0 48 48"><path d="M8 30 L18 18 L26 24 L40 10"/><path d="M32 10 H40 V18"/></svg>`,
+  processor: `<svg viewBox="0 0 48 48"><circle cx="18" cy="24" r="8"/><circle cx="30" cy="24" r="8" fill="none"/><circle cx="18" cy="24" r="2.2" fill="currentColor" stroke="none"/><circle cx="30" cy="24" r="2.2" fill="currentColor" stroke="none"/></svg>`,
+  consumer: `<svg viewBox="0 0 48 48"><circle cx="24" cy="14" r="6"/><path d="M12 40 C12 28 36 28 36 40"/></svg>`,
 };
+
+const HERO_MARKS = [
+  { id: "gold", label: "Gold", line: "Your jewellery starts here." },
+  { id: "silver", label: "Silver", line: "Coins, electronics, your phone's circuits." },
+  { id: "crude", label: "Crude Oil", line: "Every vehicle depends on this." },
+  { id: "gas", label: "Natural Gas", line: "The flame under your kitchen pan." },
+  { id: "wheat", label: "Wheat", line: "The food on your table." },
+  { id: "cotton", label: "Cotton", line: "The shirt on your back." },
+  { id: "copper", label: "Copper", line: "Powering India's infrastructure." },
+];
 
 const STAGE_KEYS = ["origin", "storage", "exchange", "trader", "processor", "consumer"];
 
-const STAGE_LABEL_MAP: Record<string, string> = {
-  origin: "Origin",
-  storage: "Storage",
-  exchange: "Exchange",
-  trader: "Trader",
-  processor: "Processor",
-  consumer: "Consumer",
-};
+const COMMODITIES = {
 
-interface StageDetail {
-  title: string;
-  sub: string;
-  body: string;
-  who: string;
-  priceWhy: string;
-  risks: string;
-  opportunity: string;
-}
-
-interface CommodityData {
-  label: string;
-  icon: string;
-  accent: string;
-  image: string;
-  tagline: string;
-  stages: Record<string, StageDetail>;
-}
-
-const COMMODITIES: Record<string, CommodityData> = {
   wheat: {
     label: "Wheat",
     icon: "wheat",
     accent: "#C9A646",
-    image: "/scene-wheat.jpg",
+    image: "scene-wheat.jpg",
     tagline: "From a Punjab field to your roti.",
     stages: {
       origin: {
@@ -192,11 +95,12 @@ const COMMODITIES: Record<string, CommodityData> = {
       },
     },
   },
+
   gold: {
     label: "Gold",
     icon: "gold",
     accent: "#D4A537",
-    image: "/scene-gold.jpg",
+    image: "scene-gold.jpg",
     tagline: "From a mine to a wedding box.",
     stages: {
       origin: {
@@ -255,11 +159,12 @@ const COMMODITIES: Record<string, CommodityData> = {
       },
     },
   },
+
   crude: {
     label: "Crude Oil",
     icon: "crude",
     accent: "#7A8B99",
-    image: "/scene-crude.jpg",
+    image: "scene-crude.jpg",
     tagline: "From an offshore rig to your fuel tank.",
     stages: {
       origin: {
@@ -318,11 +223,12 @@ const COMMODITIES: Record<string, CommodityData> = {
       },
     },
   },
+
   cotton: {
     label: "Cotton",
     icon: "cotton",
     accent: "#9A9684",
-    image: "/scene-cotton.jpg",
+    image: "scene-cotton.jpg",
     tagline: "From a Gujarat field to the shirt on your back.",
     stages: {
       origin: {
@@ -337,7 +243,7 @@ const COMMODITIES: Record<string, CommodityData> = {
       storage: {
         title: "Ginned and baled",
         sub: "Ginning factory",
-        body: "Raw cotton is separated from its seeds at a ginning unit, then pressed into standard bales for transport and sale.",
+        body: "Raw cotton is cleaned and separated from its seeds at a ginning unit, then pressed into standard bales for transport and sale.",
         who: "Ginning factory owners, cotton corporations (like CCI), bale traders.",
         priceWhy: "The ginning output ratio, how much usable fibre comes from raw cotton, directly affects how much a ginner can sell onward.",
         risks: "Fire is a real and recurring risk at ginning units, given how flammable raw cotton fibre is.",
@@ -381,11 +287,12 @@ const COMMODITIES: Record<string, CommodityData> = {
       },
     },
   },
+
   copper: {
     label: "Copper",
     icon: "copper",
     accent: "#B5651D",
-    image: "/scene-copper.jpg",
+    image: "scene-copper.jpg",
     tagline: "From an ore body to India's power grid.",
     stages: {
       origin: {
@@ -394,7 +301,7 @@ const COMMODITIES: Record<string, CommodityData> = {
         body: "Copper ore is blasted from open-pit or underground mines, often containing less than 1% actual copper by weight.",
         who: "Mining companies (including Hindustan Copper in India), miners, equipment operators.",
         priceWhy: "Chile alone supplies roughly a quarter of world copper, a strike or drought there, mines need huge water volumes, moves global prices.",
-        risks: "Ore grades are declining at ageing mines, meaning more rock must be processed for the same copper output.",
+        risks: "Ore grades are declining at many ageing mines, meaning more rock must be processed for the same copper output.",
         opportunity: "Copper recycling from scrap and old wiring is a growing, lower-cost source of supply.",
       },
       storage: {
@@ -444,23 +351,15 @@ const COMMODITIES: Record<string, CommodityData> = {
       },
     },
   },
+
 };
 
-interface FactorChainStep {
-  label: string;
-  dir: "up" | "down";
-}
-
-interface FactorData {
-  id: string;
-  icon: string;
-  label: string;
-  commodity: string;
-  chain: FactorChainStep[];
-  note: string;
-}
-
-const FACTORS: FactorData[] = [
+/* ============================================================
+   FACTORS — drivers behind "What Moves Commodity Prices?"
+   each factor links to one commodity already defined above,
+   so the dashboard reuses the same images/accents as the journey.
+   ============================================================ */
+const FACTORS = [
   {
     id: "rates",
     icon: "🏦",
@@ -492,7 +391,7 @@ const FACTORS: FactorData[] = [
     commodity: "crude",
     chain: [
       { label: "War / Sanctions", dir: "up" },
-      { label: "Shipping Routes", dir: "down" },
+      { label: "Shipping Routes Disrupted", dir: "down" },
       { label: "Oil Supply Risk", dir: "up" },
       { label: "Oil Price", dir: "up" },
     ],
@@ -549,440 +448,3 @@ const FACTORS: FactorData[] = [
   },
 ];
 
-export default function CommoditiesPage() {
-  const router = useRouter();
-
-  // Selected state
-  const [activeCommodity, setActiveCommodity] = useState<string>("wheat");
-  const [activeStageIndex, setActiveStageIndex] = useState<number | null>(null);
-  const [activeFactorId, setActiveFactorId] = useState<string>("rates");
-
-  // Scroll reveals
-  const introStmtRefs = [
-    useRef<HTMLDivElement>(null),
-    useRef<HTMLDivElement>(null),
-    useRef<HTMLDivElement>(null),
-  ];
-  const [visibleStmts, setVisibleStmts] = useState<boolean[]>([false, false, false]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = introStmtRefs.findIndex((ref) => ref.current === entry.target);
-            if (index !== -1) {
-              setVisibleStmts((prev) => {
-                const copy = [...prev];
-                copy[index] = true;
-                return copy;
-              });
-            }
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    introStmtRefs.forEach((ref) => {
-      if (ref.current) observer.observe(ref.current);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  // Compute active objects
-  const commodity = useMemo(() => COMMODITIES[activeCommodity], [activeCommodity]);
-  const activeStageKey = activeStageIndex !== null ? STAGE_KEYS[activeStageIndex] : null;
-  const stageData = activeStageKey ? commodity.stages[activeStageKey] : null;
-
-  const activeFactor = useMemo(() => FACTORS.find((f) => f.id === activeFactorId) || FACTORS[0], [
-    activeFactorId,
-  ]);
-  const factorCommodity = useMemo(() => COMMODITIES[activeFactor.commodity], [activeFactor]);
-
-  // Set CSS variables for colors
-  useEffect(() => {
-    document.documentElement.style.setProperty("--accent", commodity.accent);
-    document.documentElement.style.setProperty("--accent-soft", commodity.accent + "29");
-  }, [commodity]);
-
-  // Render
-  return (
-    <div className="mandiTerminal">
-      {/* TICKER */}
-      <div className="ticker-wrap" aria-hidden="true">
-        <div className="ticker-track">
-          {[
-            { name: "GOLD", v: "₹71,240/10g", dir: "up", d: "+0.4%" },
-            { name: "SILVER", v: "₹83,910/kg", dir: "down", d: "-0.2%" },
-            { name: "CRUDE (BRENT)", v: "$82.16/bbl", dir: "up", d: "+1.1%" },
-            { name: "NATURAL GAS", v: "₹248/mmBtu", dir: "down", d: "-0.6%" },
-            { name: "WHEAT", v: "₹2,425/qtl", dir: "up", d: "+0.3%" },
-            { name: "COTTON", v: "₹58,900/candy", dir: "down", d: "-0.8%" },
-            { name: "COPPER", v: "₹812/kg", dir: "up", d: "+0.9%" },
-          ]
-            .concat([
-              { name: "GOLD", v: "₹71,240/10g", dir: "up", d: "+0.4%" },
-              { name: "SILVER", v: "₹83,910/kg", dir: "down", d: "-0.2%" },
-              { name: "CRUDE (BRENT)", v: "$82.16/bbl", dir: "up", d: "+1.1%" },
-              { name: "NATURAL GAS", v: "₹248/mmBtu", dir: "down", d: "-0.6%" },
-              { name: "WHEAT", v: "₹2,425/qtl", dir: "up", d: "+0.3%" },
-              { name: "COTTON", v: "₹58,900/candy", dir: "down", d: "-0.8%" },
-              { name: "COPPER", v: "₹812/kg", dir: "up", d: "+0.9%" },
-            ])
-            .map((r, idx) => (
-              <span className="tick-item" key={idx}>
-                <span className="name">{r.name}</span>
-                <span>{r.v}</span>
-                <span className={r.dir}>
-                  {r.dir === "up" ? "▲" : "▼"} {r.d}
-                </span>
-              </span>
-            ))}
-        </div>
-      </div>
-
-      {/* NAV */}
-      <nav className="nav">
-        <button
-          onClick={() => router.back()}
-          className="flex items-center gap-2 text-white bg-transparent border-0 cursor-pointer font-mono text-[0.8rem] tracking-wider hover:text-[#5E9C7C] transition-colors"
-        >
-          <FaArrowLeft /> BACK TO SERVICES
-        </button>
-        <div className="nav-links">
-          <a href="#hero">Start</a>
-          <a href="#journey">The Journey</a>
-          <a href="#factors">Factors</a>
-        </div>
-      </nav>
-
-      {/* HERO */}
-      <section className="hero" id="hero">
-        <div className="hero-inner">
-          <div className="hero-copy">
-            <p className="eyebrow">A field guide to the things that move markets</p>
-            <h1 className="hero-title">
-              Everything around you
-              <br />
-              is a <span className="hero-emph">commodity.</span>
-            </h1>
-            <p className="hero-sub">
-              Gold, oil, wheat, cotton, copper — the raw materials behind every price tag.
-            </p>
-          </div>
-          <div className="hero-visual">
-            <div className="hero-glow"></div>
-            <div className="relative w-[300px] h-[300px] sm:w-[420px] sm:h-[420px]">
-              <Image
-                className="hero-person rounded-[2.4rem] object-cover shadow-2xl"
-                src="/hero-person-rounded.png"
-                alt="Commodities market app preview"
-                fill
-                priority
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* INTRO STRIP */}
-      <section className="intro" id="intro">
-        <div className="intro-statements">
-          <div
-            ref={introStmtRefs[0]}
-            className={`intro-stmt ${visibleStmts[0] ? "visible" : ""}`}
-            style={{ "--stmt-color": "#D4A537" } as React.CSSProperties}
-          >
-            <span className="intro-stmt-chip">Gold</span>
-            <span className="intro-stmt-text">
-              {"isn't a chart. It's a "}<em>wedding box on your shelf.</em>
-            </span>
-            <span className="intro-stmt-img-wrap">
-              <Image src="/scene-gold.jpg" alt="Gold" className="intro-stmt-img" width={200} height={100} />
-            </span>
-          </div>
-
-          <div
-            ref={introStmtRefs[1]}
-            className={`intro-stmt ${visibleStmts[1] ? "visible" : ""}`}
-            style={{ "--stmt-color": "#6B8C5A" } as React.CSSProperties}
-          >
-            <span className="intro-stmt-chip">Crude</span>
-            <span className="intro-stmt-text">
-              {"isn't a barrel count. It's the "}<em>bike outside.</em>
-            </span>
-            <span className="intro-stmt-img-wrap">
-              <Image src="/scene-crude.jpg" alt="Crude Oil" className="intro-stmt-img" width={200} height={100} />
-            </span>
-          </div>
-
-          <div
-            ref={introStmtRefs[2]}
-            className={`intro-stmt ${visibleStmts[2] ? "visible" : ""}`}
-            style={{ "--stmt-color": "#C9A646" } as React.CSSProperties}
-          >
-            <span className="intro-stmt-chip">Wheat</span>
-            <span className="intro-stmt-text">
-              {"isn't a futures contract. It's the "}<em>roti on your plate.</em>
-            </span>
-            <span className="intro-stmt-img-wrap">
-              <Image src="/scene-wheat.jpg" alt="Wheat" className="intro-stmt-img" width={200} height={100} />
-            </span>
-          </div>
-        </div>
-        <div className="intro-sub-wrap">
-          <p className="intro-sub">Before any of that, every commodity travels the same six-stop road.</p>
-          <a href="#journey" className="intro-cta">
-            Walk the road <span className="intro-cta-arrow">→</span>
-          </a>
-        </div>
-      </section>
-
-      {/* JOURNEY */}
-      <section className="journey" id="journey">
-        <div className="journey-head">
-          <span className="eyebrow">The Commodity Journey</span>
-          <h2>Six stops. One story, every time.</h2>
-        </div>
-
-        <div className="journey-layout">
-          {/* Visual card */}
-          <div className="journey-visual">
-            <div className="journey-scene">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeCommodity}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.25 }}
-                  className="w-full h-full relative"
-                >
-                  <Image
-                    src={commodity.image}
-                    alt={commodity.label}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="journey-scene-overlay">
-                    <span className="journey-scene-tag">{commodity.tagline}</span>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </div>
-
-          {/* Main timeline */}
-          <div className="journey-main">
-            {/* Commodity picker chips */}
-            <div className="commodity-picker" role="tablist">
-              {Object.keys(COMMODITIES).map((key) => {
-                const c = COMMODITIES[key];
-                return (
-                  <button
-                    key={key}
-                    className={`commodity-chip ${activeCommodity === key ? "active" : ""}`}
-                    onClick={() => {
-                      setActiveCommodity(key);
-                      setActiveStageIndex(null);
-                    }}
-                    role="tab"
-                  >
-                    {ICONS[c.icon]}
-                    <span>{c.label}</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Stage stops rail */}
-            <div className="journey-rail">
-              {STAGE_KEYS.map((key, i) => (
-                <button
-                  key={key}
-                  className={`rail-stop ${activeStageIndex === i ? "active" : ""}`}
-                  onClick={() => setActiveStageIndex(i)}
-                >
-                  <span className="rail-stop-icon">{ICONS[key]}</span>
-                  <span className="rail-stop-label">{STAGE_LABEL_MAP[key]}</span>
-                </button>
-              ))}
-            </div>
-
-            {/* Stage details warm card */}
-            <div className="stage-detail">
-              <AnimatePresence mode="wait">
-                {stageData ? (
-                  <motion.div
-                    key={`${activeCommodity}-${activeStageIndex}`}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.2 }}
-                    className="stage-content"
-                  >
-                    <div className="stage-top">
-                      <h3 className="stage-title">{stageData.title}</h3>
-                      <span className="stage-sub">{stageData.sub}</span>
-                    </div>
-                    <p className="stage-body">{stageData.body}</p>
-                    <div className="stage-meta">
-                      <div className="meta-block">
-                        <span className="meta-label">Who participates</span>
-                        <p>{stageData.who}</p>
-                      </div>
-                      <div className="meta-block">
-                        <span className="meta-label">Why prices change</span>
-                        <p>{stageData.priceWhy}</p>
-                      </div>
-                      <div className="meta-block">
-                        <span className="meta-label">Risks</span>
-                        <p>{stageData.risks}</p>
-                      </div>
-                    </div>
-                    <div className="meta-block" style={{ marginTop: "1.4rem" }}>
-                      <span className="meta-label">Opportunity</span>
-                      <p>{stageData.opportunity}</p>
-                    </div>
-
-                    <div className="stage-nav">
-                      <button
-                        className="stage-nav-btn"
-                        disabled={activeStageIndex === 0}
-                        onClick={() => setActiveStageIndex((prev) => (prev !== null ? prev - 1 : null))}
-                      >
-                        ← Previous stop
-                      </button>
-                      <button
-                        className="stage-nav-btn"
-                        disabled={activeStageIndex === STAGE_KEYS.length - 1}
-                        onClick={() => setActiveStageIndex((prev) => (prev !== null ? prev + 1 : null))}
-                      >
-                        Next stop →
-                      </button>
-                    </div>
-                  </motion.div>
-                ) : (
-                  <div className="stage-detail-empty">
-                    <p>
-                      {commodity.tagline}
-                      <br />
-                      <br />
-                      Click a stop on the road above to open it up.
-                    </p>
-                  </div>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FACTORS DASHBOARD */}
-      <section className="factors" id="factors">
-        <div className="factors-head">
-          <span className="eyebrow">What Moves Commodity Prices?</span>
-          <h2>Eight forces. One ripple, every time.</h2>
-          <p className="factors-sub">Click a force below to watch it reach the price</p>
-        </div>
-
-        <div className="factors-board" style={{ "--factor-accent": factorCommodity.accent } as React.CSSProperties}>
-          {/* Node columns */}
-          <div className="flex flex-col gap-4 justify-between h-full">
-            {FACTORS.slice(0, 4).map((f) => (
-              <button
-                key={f.id}
-                type="button"
-                className={`factor-node ${activeFactorId === f.id ? "active" : ""}`}
-                onClick={() => setActiveFactorId(f.id)}
-              >
-                <span className="factor-node-icon">{f.icon}</span>
-                <span className="factor-node-label">{f.label}</span>
-              </button>
-            ))}
-          </div>
-
-          {/* Center Graphic */}
-          <div className="factors-center">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeFactorId}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.25 }}
-                className="w-full h-full relative"
-              >
-                <Image
-                  src={factorCommodity.image}
-                  alt={factorCommodity.label}
-                  fill
-                  className="object-cover"
-                />
-                <div className="factors-center-overlay">
-                  <span className="factors-center-tag">{factorCommodity.label.toUpperCase()}</span>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Node columns */}
-          <div className="flex flex-col gap-4 justify-between h-full">
-            {FACTORS.slice(4).map((f) => (
-              <button
-                key={f.id}
-                type="button"
-                className={`factor-node ${activeFactorId === f.id ? "active" : ""}`}
-                onClick={() => setActiveFactorId(f.id)}
-              >
-                <span className="factor-node-icon">{f.icon}</span>
-                <span className="factor-node-label">{f.label}</span>
-              </button>
-            ))}
-            <div className="factor-node opacity-40 cursor-default shadow-none pointer-events-none">
-              <span className="factor-node-icon">📊</span>
-              <span className="factor-node-label">Speculation</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Dynamic Chain Panel */}
-        <div className="factors-chain">
-          <span className="chain-factor-tag">
-            {activeFactor.icon} {activeFactor.label}
-          </span>
-          <div className="chain-steps flex-wrap">
-            {activeFactor.chain.map((step, i) => (
-              <React.Fragment key={i}>
-                {i > 0 && (
-                  <motion.span
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: i * 0.15 }}
-                    className="chain-connector mx-1"
-                  >
-                    →
-                  </motion.span>
-                )}
-                <motion.span
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.15 }}
-                  className={`chain-step ${i === activeFactor.chain.length - 1 ? "chain-step-result" : ""}`}
-                >
-                  <span className="chain-step-text">{step.label}</span>
-                  <span className={`chain-arrow ${step.dir}`}>
-                    {step.dir === "up" ? "▲" : "▼"}
-                  </span>
-                </motion.span>
-              </React.Fragment>
-            ))}
-          </div>
-          <p className="chain-note">{activeFactor.note}</p>
-        </div>
-      </section>
-    </div>
-  );
-}
