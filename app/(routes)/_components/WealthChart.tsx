@@ -62,70 +62,85 @@ export default function WealthChart({ data, todayFinal, lateFinal, opportunityCo
       {/* Chart & Metrics Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
         {/* Recharts Canvas */}
-        <div className="lg:col-span-8 w-full h-[260px] relative">
-          {/* Y Axis Label (Rotated) */}
-          <div className="hidden sm:block absolute left-[-15px] top-1/2 -translate-y-1/2 -rotate-90 text-[10px] font-bold text-gray-400 tracking-wider">
-            Projected Corpus (₹)
-          </div>
+        <div className="lg:col-span-8 w-full flex flex-col gap-3">
+          <div className="w-full h-[260px] flex items-center">
+            {/* Y Axis Label (Rotated) */}
+            <div
+              className="hidden sm:block text-[10px] font-bold text-gray-400 tracking-wider select-none shrink-0"
+              style={{
+                writingMode: "vertical-rl",
+                transform: "rotate(180deg)",
+                marginRight: "16px"
+              }}
+            >
+              Projected Corpus (₹)
+            </div>
 
-          <div className="pl-1 sm:pl-6 h-full w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart
-                data={data}
-                margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" vertical={false} />
-                <XAxis
-                  dataKey="age"
-                  stroke="#9ca3af"
-                  fontSize={11}
-                  fontWeight="bold"
-                  tickLine={false}
-                  axisLine={false}
-                  tickFormatter={(val) => `Age ${val}`}
-                />
-                <YAxis
-                  stroke="#9ca3af"
-                  fontSize={10}
-                  fontWeight="bold"
-                  tickFormatter={formatYAxis}
-                  tickLine={false}
-                  axisLine={false}
-                />
-                <Tooltip
-                  formatter={(value?: number | string | readonly (number | string)[]) => [
-                    formatCurrency(Number(value || 0)),
-                    "",
-                  ]}
-                  contentStyle={{
-                    backgroundColor: "#fff",
-                    border: "1px solid #e5e7eb",
-                    borderRadius: "12px",
-                    fontWeight: "bold",
-                    color: "#000",
-                    boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
-                  }}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="todayCorpus"
-                  name="Start Early"
-                  stroke="#1FA463"
-                  strokeWidth={3}
-                  dot={false}
-                  activeDot={{ r: 6, stroke: "#fff", strokeWidth: 2 }}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="lateCorpus"
-                  name="10 Years Late"
-                  stroke="#9CA3AF"
-                  strokeWidth={2}
-                  dot={false}
-                  activeDot={{ r: 5, stroke: "#fff", strokeWidth: 2 }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
+            <div className="flex-1 h-full w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                  data={data}
+                  margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" vertical={false} />
+                  <XAxis
+                    dataKey="age"
+                    stroke="#9ca3af"
+                    fontSize={11}
+                    fontWeight="bold"
+                    tickLine={false}
+                    axisLine={false}
+                    tickFormatter={(val) => `Age ${val}`}
+                    tickMargin={8}
+                  />
+                  <YAxis
+                    stroke="#9ca3af"
+                    fontSize={10}
+                    fontWeight="bold"
+                    tickFormatter={formatYAxis}
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                  />
+                  <Tooltip
+                    formatter={(value?: number | string | readonly (number | string)[]) => [
+                      formatCurrency(Number(value || 0)),
+                      "",
+                    ]}
+                    contentStyle={{
+                      backgroundColor: "#fff",
+                      border: "1px solid #e5e7eb",
+                      borderRadius: "12px",
+                      fontWeight: "bold",
+                      color: "#000",
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+                    }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="todayCorpus"
+                    name="Start Early"
+                    stroke="#1FA463"
+                    strokeWidth={3}
+                    dot={false}
+                    activeDot={{ r: 6, stroke: "#fff", strokeWidth: 2 }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="lateCorpus"
+                    name="10 Years Late"
+                    stroke="#9CA3AF"
+                    strokeWidth={2}
+                    dot={false}
+                    activeDot={{ r: 5, stroke: "#fff", strokeWidth: 2 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+          {/* X Axis Label */}
+          <div className="text-center text-[10px] font-bold text-gray-400 tracking-wider mt-1 select-none">
+            Age (Years)
           </div>
         </div>
 
