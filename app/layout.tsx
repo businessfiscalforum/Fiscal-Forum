@@ -9,6 +9,12 @@ import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import FomoStack from "./(routes)/_components/FomoStack";
 import PopupController from "./(routes)/_components/PopupController";
+import { Inter } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.fiscalforum.in"),
@@ -72,7 +78,7 @@ export default function RootLayout({
             dangerouslySetInnerHTML={{ __html: JSON.stringify(siteNameJsonLd) }}
           />
         </head>
-        <body className={""}>
+        <body className={inter.className}>
           {/* <GlowCursor /> */}
           <GoogleAnalytics/>
           <Analytics />

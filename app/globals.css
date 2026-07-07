@@ -151,3 +151,113 @@ body {
   }
 }
 
+/* Indian Bonds Hero Styles */
+.bondHero {
+  width: 100%;
+  padding: 40px 20px;
+  background:
+    radial-gradient(circle at top left, rgba(255,255,255,0.35), transparent 30%),
+    repeating-radial-gradient(circle at center, #efe4d5 0px, #efe4d5 6px, #eadbc9 7px);
+}
+
+.bondHeroCard {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  background: #f5ebdf;
+  border-radius: 28px;
+  padding: 48px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+}
+
+.bondHeroContent h1 {
+  font-size: 72px;
+  line-height: 1;
+  color: #1f130b;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.bondHeroContent p {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #4b4037;
+  max-width: 540px;
+}
+
+.bondBadge {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #d9c2a7;
+  color: #2f2118;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.bondImageWrap {
+  display: flex;
+  justify-content: center;
+}
+
+.bondHeroImage {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  object-fit: contain;
+}
+
+.bondStats {
+  margin-top: 32px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.bondStat {
+  background: white;
+  border-radius: 18px;
+  padding: 18px 22px;
+  min-width: 140px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.bondStat strong {
+  display: block;
+  font-size: 28px;
+  color: #1f130b;
+  margin-bottom: 8px;
+}
+
+.bondStat span {
+  color: #5b5148;
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .bondHeroCard {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 32px;
+  }
+
+  .bondHeroContent h1 {
+    font-size: 52px;
+  }
+
+  .bondHeroContent p {
+    margin: 0 auto;
+  }
+
+  .bondStats {
+    justify-content: center;
+  }
+}
+
+

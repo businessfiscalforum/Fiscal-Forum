@@ -676,13 +676,7 @@ export default function HomeDesktop() {
         />
       </Head>
 
-      <div
-        className="text-gray-800 font-sans min-h-screen"
-        style={{
-          fontFamily:
-            "'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
-        }}
-      >
+      <div className="text-gray-800 font-sans min-h-screen">
         {/* Wealth Simulator Hero Section */}
         <section className="bg-[#F4FBF7] pt-28 pb-16 px-4 md:px-8 border-b-4 border-black">
           <div className="max-w-7xl mx-auto">
@@ -691,9 +685,6 @@ export default function HomeDesktop() {
         </section>
 
         <FiscalForumCity />
-
-        <HomeNewsAndResearchSection />
-        <ResearchReportsSection />
 
         {/* Enhanced Services Section */}
         <section className="py-16 bg-[#F4FBF7] border-b-4 border-black">
@@ -792,6 +783,9 @@ export default function HomeDesktop() {
             </div>
           </div>
         </section>
+
+        <HomeNewsAndResearchSection />
+        <ResearchReportsSection />
 
         {/* Enhanced Why Fiscal Forum Section */}
         <section className="py-16 bg-white border-b-4 border-black">

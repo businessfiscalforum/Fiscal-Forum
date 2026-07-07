@@ -494,12 +494,6 @@ export default function HomeMobile() {
 
       <FiscalForumCity />
 
-      {/* 🔹 News & Research — Mobile */}
-      <HomeNewsAndResearchSectionMobile />
-
-      {/* 🔹 Research Reports — Mobile */}
-      <ResearchReportsSectionMobile />
-
       {/* 🔹 Tabbed Services (Cards Grid) */}
       <section className="px-4 py-8 bg-[#F4FBF7] border-b-4 border-black">
         <h2 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight text-center mb-6">
@@ -555,6 +549,12 @@ export default function HomeMobile() {
           ))}
         </div>
       </section>
+
+      {/* 🔹 News & Research — Mobile */}
+      <HomeNewsAndResearchSectionMobile />
+
+      {/* 🔹 Research Reports — Mobile */}
+      <ResearchReportsSectionMobile />
 
       {/* 🔹 Why Choose Us */}
       <section className="px-4 py-8 bg-white border-b-4 border-black">

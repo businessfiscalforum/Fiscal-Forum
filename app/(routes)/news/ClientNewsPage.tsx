@@ -402,13 +402,9 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
         return null;
     }
   };
-
   return (
     <div
       className="min-h-screen bg-[#fcfdfd] relative overflow-hidden"
-      style={{
-        fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
-      }}
     >
       {/* Premium Sparkle Background & Gradients */}
       <div className="absolute top-0 left-0 w-full h-[100px] bg-gradient-to-b from-emerald-50 to-transparent -z-10" />

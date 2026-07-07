@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { User, Wallet, TrendingUp, Clock } from "lucide-react";
+import { User, Wallet, TrendingUp, Clock, Info } from "lucide-react";
 import WealthChart from "./WealthChart";
 import ImpactComparison from "./ImpactComparison";
 
@@ -11,6 +11,7 @@ export default function WealthSimulator() {
   const [monthlyInvestment, setMonthlyInvestment] = useState<number>(25000);
   const [expectedReturn, setExpectedReturn] = useState<number>(12);
   const [stepUp, setStepUp] = useState<number>(8);
+  const [showStepUpInfo, setShowStepUpInfo] = useState<boolean>(false);
 
   const calculateProjection = () => {
     const data: { age: number; todayCorpus: number; lateCorpus: number }[] = [];
@@ -176,12 +177,35 @@ export default function WealthSimulator() {
             </div>
 
             {/* Card 4: Step-up */}
-            <div className="bg-white border border-gray-100 rounded-2xl p-4 shadow-[0px_4px_15px_rgba(0,0,0,0.015)] flex flex-col justify-between hover:border-emerald-500/30 transition-all">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center">
-                  <Clock className="w-4 h-4 text-[#1FA463]" />
+            <div className="bg-white border border-gray-100 rounded-2xl p-4 shadow-[0px_4px_15px_rgba(0,0,0,0.015)] flex flex-col justify-between hover:border-emerald-500/30 transition-all relative">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center">
+                    <Clock className="w-4 h-4 text-[#1FA463]" />
+                  </div>
+                  <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Step-up</span>
                 </div>
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Step-up</span>
+                
+                {/* Info Tooltip */}
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setShowStepUpInfo(!showStepUpInfo)}
+                    onMouseEnter={() => setShowStepUpInfo(true)}
+                    onMouseLeave={() => setShowStepUpInfo(false)}
+                    className="w-5 h-5 rounded-full flex items-center justify-center text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 transition-all focus:outline-none"
+                    aria-label="Info about Step-up"
+                  >
+                    <Info className="w-3.5 h-3.5" />
+                  </button>
+                  
+                  {showStepUpInfo && (
+                    <div className="absolute right-0 bottom-full mb-2 w-60 p-3 bg-slate-900/95 backdrop-blur-sm text-slate-100 text-[11px] font-semibold leading-relaxed rounded-xl shadow-xl z-50 border border-slate-800">
+                      <div className="absolute right-2 bottom-[-4px] w-2 h-2 bg-slate-900 border-r border-b border-slate-800 rotate-45" />
+                      Step-Up Investing is a disciplined strategy of progressively increasing investment contributions over time.
+                    </div>
+                  )}
+                </div>
               </div>
               <div className="text-xl font-black text-black mt-2">{stepUp}% p.a.</div>
               <input

@@ -78,9 +78,6 @@ export default function HomeNewsAndResearchSection() {
   return (
     <section
       className="py-12 bg-[#F4FBF7] border-b-4 border-black"
-      style={{
-        fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
-      }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
@@ -186,26 +183,26 @@ function NewsCard({ item }: { item: NewsItem; categoryPath: string }) {
     <article className="h-full flex flex-col justify-between">
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <span className="text-[9px] font-black uppercase text-emerald-800 bg-emerald-100 border border-[#1FA463] px-2.5 py-0.5 rounded-full">
+          <span className="text-[9px] font-medium uppercase text-emerald-800 bg-emerald-100 border border-[#1FA463] px-2.5 py-0.5 rounded-full">
             {item.category === "NewsBuzz" ? "News Buzz" : item.category === "CorpPulse" ? "Corp Pulse" : "IPO Scoop"}
           </span>
           {item.featured && (
-            <span className="bg-yellow-100 text-black border border-black px-2 py-0.5 text-[9px] font-black uppercase rounded-md shadow-[1px_1px_0px_#000]">
+            <span className="bg-yellow-100 text-black border border-black px-2 py-0.5 text-[9px] font-medium uppercase rounded-md shadow-[1px_1px_0px_#000]">
               Featured
             </span>
           )}
         </div>
 
-        <h3 className="text-base font-black text-black leading-snug line-clamp-3">
+        <h3 className="text-base font-normal text-black leading-snug line-clamp-3">
           {item.title}
         </h3>
       </div>
 
-      <div className="mt-6 pt-3 border-t-2 border-black flex items-center justify-between text-[11px] font-bold text-gray-500">
+      <div className="mt-6 pt-3 border-t-2 border-black flex items-center justify-between text-[11px] font-medium text-gray-500">
         <span>{formatDate(item.publishDate)}</span>
         <Link
           href={`/news/${item.id}`}
-          className="px-3.5 py-1.5 bg-[#1FA463] text-white border border-black rounded-lg text-xs font-black hover:translate-y-[-1px] hover:shadow-[2px_2px_0px_#000] active:translate-y-0 active:shadow-0 transition-all flex items-center gap-1"
+          className="px-3.5 py-1.5 bg-[#1FA463] text-white border border-black rounded-lg text-xs font-medium hover:translate-y-[-1px] hover:shadow-[2px_2px_0px_#000] active:translate-y-0 active:shadow-0 transition-all flex items-center gap-1"
         >
           Read
           <svg
