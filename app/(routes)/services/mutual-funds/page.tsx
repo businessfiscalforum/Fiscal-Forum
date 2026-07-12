@@ -385,7 +385,7 @@ export default function MutualFundScreenerPage() {
   };
 
   // CSS class helpers
-  const getBadgeClass = (category: string) => {
+  const getBadgeClass = (category: string | undefined) => {
     if (!category) return "badge-other";
     const c = category.toLowerCase();
     if (c.includes("equity") || c.includes("elss")) return "badge-equity";
@@ -401,7 +401,7 @@ export default function MutualFundScreenerPage() {
     return "badge-other";
   };
 
-  const getCategoryLabel = (category: string) => {
+  const getCategoryLabel = (category: string | undefined) => {
     if (!category) return "Other";
     const map: Record<string, string> = {
       "Equity Scheme - Large Cap Fund": "Large Cap",
@@ -456,7 +456,7 @@ export default function MutualFundScreenerPage() {
   const formatAmount = (amount: string | number | undefined) => {
     if (!amount) return "—";
     const num = parseInt(amount.toString().replace(/[^0-9]/g, ""));
-    if (isNaN(num)) return amount.replace("Rs.", "₹").substring(0, 20);
+    if (isNaN(num)) return amount.toString().replace("Rs.", "₹").substring(0, 20);
     if (num >= 100000) return `₹${(num / 100000).toFixed(1)}L`;
     if (num >= 1000) return `₹${(num / 1000).toFixed(0)}K`;
     return `₹${num}`;
