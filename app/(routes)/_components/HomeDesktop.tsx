@@ -690,7 +690,7 @@ export default function HomeDesktop() {
         <section className="py-8 bg-white border-b-4 border-black flex justify-center items-center">
           <div className="max-w-7xl mx-auto px-4 text-center">
             <div className="text-2xl sm:text-3xl md:text-4xl font-black text-black tracking-tight whitespace-nowrap">
-              "While others are building wealth, what's stopping you? Start <Link href="/services/stock-investment" className="inline-block bg-yellow-300 hover:bg-yellow-400 px-2 py-0.5 border-2 border-black shadow-[2px_2px_0px_#000] font-black cursor-pointer transition-transform hover:-translate-y-0.5 active:translate-y-0 mx-1">here</Link>."
+              While others are building wealth, what's stopping you? Start <Link href="/services/stock-investment" className="inline-block bg-yellow-300 hover:bg-yellow-400 px-2 py-0.5 border-2 border-black shadow-[2px_2px_0px_#000] font-black cursor-pointer transition-transform hover:-translate-y-0.5 active:translate-y-0 mx-1">here</Link>.
             </div>
           </div>
         </section>
@@ -727,11 +727,10 @@ export default function HomeDesktop() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as TabKey)}
-                  className={`px-6 py-3 text-xs sm:text-sm font-black uppercase tracking-wider border-2 border-black rounded-xl transition-all ${
-                    activeTab === tab.id
+                  className={`px-6 py-3 text-xs sm:text-sm font-black uppercase tracking-wider border-2 border-black rounded-xl transition-all ${activeTab === tab.id
                       ? "bg-yellow-100 text-black shadow-[3px_3px_0px_#000] translate-x-[-1px] translate-y-[-1px]"
                       : "bg-white text-black hover:bg-emerald-50 shadow-[1px_1px_0px_#000]"
-                  }`}
+                    }`}
                 >
                   {tab.label}
                 </button>
@@ -880,7 +879,7 @@ export default function HomeDesktop() {
                     <h4 className="text-lg font-black text-black leading-snug">
                       {partner.title}
                     </h4>
-                    
+
                     {/* Desc */}
                     <p className="text-xs sm:text-sm text-gray-500 font-semibold">
                       {partner.desc}
@@ -988,7 +987,7 @@ export default function HomeDesktop() {
             <h2 className="text-2xl sm:text-3xl font-black text-black uppercase tracking-tight mb-8">
               Our Trusted Affiliations
             </h2>
-            
+
             <div className="relative overflow-hidden border-t-2 border-b-2 border-black py-4 bg-gray-50/50">
               <div
                 className="flex animate-scroll"

@@ -498,7 +498,7 @@ export default function HomeMobile() {
       <section className="py-6 bg-white border-b-4 border-black flex justify-center items-center overflow-x-auto">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <div className="text-xl sm:text-2xl font-black text-black tracking-tight whitespace-nowrap">
-            "While others are building wealth, what's stopping you? Start <Link href="/services/stock-investment" className="inline-block bg-yellow-300 hover:bg-yellow-400 px-1.5 py-0.5 border-2 border-black shadow-[1.5px_1.5px_0px_#000] font-black cursor-pointer transition-transform hover:-translate-y-0.5 active:translate-y-0 mx-1">here</Link>."
+            While others are building wealth, what's stopping you? Start <Link href="/services/stock-investment" className="inline-block bg-yellow-300 hover:bg-yellow-400 px-1.5 py-0.5 border-2 border-black shadow-[1.5px_1.5px_0px_#000] font-black cursor-pointer transition-transform hover:-translate-y-0.5 active:translate-y-0 mx-1">here</Link>.
           </div>
         </div>
       </section>
@@ -516,11 +516,10 @@ export default function HomeMobile() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2 border-2 border-black rounded-xl text-xs font-black uppercase tracking-wider transition-all ${
-                activeTab === tab.id
+              className={`px-4 py-2 border-2 border-black rounded-xl text-xs font-black uppercase tracking-wider transition-all ${activeTab === tab.id
                   ? "bg-yellow-100 text-black shadow-[2px_2px_0px_#000]"
                   : "bg-white text-black"
-              }`}
+                }`}
             >
               {tab.label}
             </button>
@@ -694,7 +693,7 @@ export default function HomeMobile() {
           <h2 className="text-lg font-black text-black uppercase tracking-tight mb-6">
             Our Trusted Affiliations
           </h2>
-          
+
           <div className="relative overflow-hidden border-t-2 border-b-2 border-black py-3 bg-gray-50/50">
             <div className="flex w-max animate-marquee whitespace-nowrap">
               {[...logos, ...logos].map((logo, i) => (
