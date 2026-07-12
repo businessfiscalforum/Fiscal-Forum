@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState, useMemo } from "react";
-import { useRouter } from "next/navigation";
 import "./Screener.css";
 
 import { FUNDS_DB, FundItem } from "./funds_data";
@@ -92,18 +91,17 @@ const keyCategories = [
 ];
 
 export default function MutualFundScreenerPage() {
-  const router = useRouter();
 
   // Categories & AMCs list sorted
-  const categories = useMemo(() => {
+  const categories = useMemo<string[]>(() => {
     return Array.from(new Set(FUNDS_DB.map((f: FundItem) => f.category)))
-      .filter(Boolean)
+      .filter((category): category is string => Boolean(category))
       .sort();
   }, []);
 
-  const amcs = useMemo(() => {
+  const amcs = useMemo<string[]>(() => {
     return Array.from(new Set(FUNDS_DB.map((f: FundItem) => f.amc)))
-      .filter(Boolean)
+      .filter((amc): amc is string => Boolean(amc))
       .sort();
   }, []);
 
@@ -144,7 +142,9 @@ export default function MutualFundScreenerPage() {
   const [riskAppetite, setRiskAppetite] = useState("");
   const [preferredAMC, setPreferredAMC] = useState("");
 
-  const [recommendations, setRecommendations] = useState<FundItem[]>([]);
+  type ScoredFund = FundItem & { score: number };
+
+  const [recommendations, setRecommendations] = useState<ScoredFund[]>([]);
   const [isMatchingLoading, setIsMatchingLoading] = useState(false);
 
   // Explore Database States
@@ -251,7 +251,7 @@ export default function MutualFundScreenerPage() {
             score += 15;
           }
         }
-        if (horizon === "long" || horizon === "verylong") {
+        if (horizon === "long" || horizon === "vlong") {
           if (
             cat.includes("Equity") ||
             cat.includes("Index") ||
@@ -453,26 +453,12 @@ export default function MutualFundScreenerPage() {
     );
   };
 
-  const formatAmount = (amount: string | number | undefined): string => {
-    if (amount === undefined || amount === null || amount === "") {
-      return "—";
-    }
-
-    const amountStr = String(amount);
-    const num = parseInt(amountStr.replace(/[^0-9]/g, ""), 10);
-
-    if (isNaN(num)) {
-      return amountStr.replace("Rs.", "₹").substring(0, 20);
-    }
-
-    if (num >= 100000) {
-      return `₹${(num / 100000).toFixed(1)}L`;
-    }
-
-    if (num >= 1000) {
-      return `₹${(num / 1000).toFixed(0)}K`;
-    }
-
+  const formatAmount = (amount: string | number | undefined) => {
+    if (!amount) return "—";
+    const num = parseInt(amount.toString().replace(/[^0-9]/g, ""));
+    if (isNaN(num)) return amount.replace("Rs.", "₹").substring(0, 20);
+    if (num >= 100000) return `₹${(num / 100000).toFixed(1)}L`;
+    if (num >= 1000) return `₹${(num / 1000).toFixed(0)}K`;
     return `₹${num}`;
   };
 
@@ -881,7 +867,7 @@ export default function MutualFundScreenerPage() {
                     onChange={(e) => setPreferredAMC(e.target.value)}
                   >
                     <option value="">Any AMC &mdash; recommend best options across all companies</option>
-                    {amcs.map((a: string) => (
+                    {amcs.map((a) => (
                       <option key={a} value={a}>
                         {a}
                       </option>
@@ -1021,7 +1007,7 @@ export default function MutualFundScreenerPage() {
               }}
             >
               <option value="">All Categories</option>
-              {categories.map((c: string) => (
+              {categories.map((c) => (
                 <option key={c} value={c}>
                   {c}
                 </option>
@@ -1037,7 +1023,7 @@ export default function MutualFundScreenerPage() {
               }}
             >
               <option value="">All AMCs</option>
-              {amcs.map((a: string) => (
+              {amcs.map((a) => (
                 <option key={a} value={a}>
                   {a}
                 </option>
