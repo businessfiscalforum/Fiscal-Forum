@@ -1,131 +1,593 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { FaGem, FaArrowLeft } from "react-icons/fa";
+import styles from "./UnlistedShares.module.css";
+
+const journeyNodes = [
+  { label: "Idea", isHero: false, isGold: false },
+  { label: "Startup", isHero: false, isGold: false },
+  { label: "Seed Funding", isHero: false, isGold: false },
+  { label: "Series A", isHero: false, isGold: false },
+  { label: "Series B", isHero: false, isGold: false },
+  { label: "Series C", isHero: false, isGold: false },
+  { label: "UNLISTED\nSHARE", isHero: true, isGold: false },
+  { label: "IPO", isHero: false, isGold: true },
+  { label: "NSE", isHero: false, isGold: false },
+  { label: "BSE", isHero: false, isGold: false },
+];
 
 export default function UnlistedSharesPage() {
   const router = useRouter();
+  const trackRef = useRef<HTMLDivElement>(null);
+  const fillRef = useRef<HTMLDivElement>(null);
+  const travelArrowRef = useRef<HTMLSpanElement>(null);
+  const travelLineRef = useRef<HTMLSpanElement>(null);
+
+  // 1. Reveal-on-scroll IntersectionObserver
+  useEffect(() => {
+    const revealEls = document.querySelectorAll(`.${styles.reveal}`);
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles["in-view"]);
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    revealEls.forEach((el) => revealObserver.observe(el));
+    return () => {
+      revealObserver.disconnect();
+    };
+  }, []);
+
+  // 2. Journey horizontal track scroll & animation behavior
+  useEffect(() => {
+    const track = trackRef.current;
+    const fill = fillRef.current;
+    const travelArrow = travelArrowRef.current;
+    const travelLine = travelLineRef.current;
+
+    if (!track) return;
+
+    // Size rail
+    const journeyRail = track.querySelector(`.${styles["journey-rail"]}`) as HTMLElement;
+    const sizeRail = () => {
+      if (journeyRail) {
+        journeyRail.style.width = Math.max(track.scrollWidth - 40, 0) + "px";
+      }
+    };
+    sizeRail();
+    window.addEventListener("resize", sizeRail);
+
+    // Update progress
+    const updateProgress = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      const pct = max > 0 ? (track.scrollLeft / max) * 100 : 0;
+      if (fill) fill.style.width = pct + "%";
+      if (travelArrow) travelArrow.style.left = pct + "%";
+      if (travelLine) travelLine.style.width = pct + "%";
+    };
+    updateProgress();
+    track.addEventListener("scroll", updateProgress, { passive: true });
+
+    // Reveal individual nodes in viewport
+    const nodes = track.querySelectorAll(`.${styles["j-node"]}`);
+    const nodeObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles["in-view"]);
+          }
+        });
+      },
+      { root: track, threshold: 0.6 }
+    );
+    nodes.forEach((n) => nodeObserver.observe(n));
+
+    // Auto-scroll loop
+    let autoScrollPaused = false;
+    let sectionInView = false;
+    const autoScrollSpeed = 2.2;
+
+    const journeyCard = track.closest(`.${styles["journey-card"]}`) || track;
+    const visibilityObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          sectionInView = entry.isIntersecting;
+        });
+      },
+      { threshold: 0.3 }
+    );
+    visibilityObserver.observe(journeyCard);
+
+    let animationFrameId: number;
+    const runAutoScroll = () => {
+      if (!autoScrollPaused && sectionInView) {
+        const max = track.scrollWidth - track.clientWidth;
+        if (max > 0) {
+          if (track.scrollLeft >= max - autoScrollSpeed) {
+            track.scrollLeft = 0;
+          } else {
+            track.scrollLeft += autoScrollSpeed;
+          }
+        }
+      }
+      animationFrameId = requestAnimationFrame(runAutoScroll);
+    };
+    animationFrameId = requestAnimationFrame(runAutoScroll);
+
+    const pauseScroll = () => {
+      autoScrollPaused = true;
+    };
+    const resumeScroll = () => {
+      setTimeout(() => {
+        autoScrollPaused = false;
+      }, 1200);
+    };
+
+    track.addEventListener("touchstart", pauseScroll, { passive: true });
+    track.addEventListener("touchend", resumeScroll, { passive: true });
+
+    // Drag scroll behavior
+    let isDown = false;
+    let startX: number;
+    let scrollLeftStart: number;
+
+    const onMouseDown = (e: MouseEvent) => {
+      isDown = true;
+      autoScrollPaused = true;
+      track.style.cursor = "grabbing";
+      startX = e.pageX - track.offsetLeft;
+      scrollLeftStart = track.scrollLeft;
+    };
+
+    const onMouseLeaveOrUp = () => {
+      if (isDown) {
+        isDown = false;
+        setTimeout(() => {
+          autoScrollPaused = false;
+        }, 800);
+      }
+      track.style.cursor = "grab";
+    };
+
+    const onMouseMove = (e: MouseEvent) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - track.offsetLeft;
+      const walk = (x - startX) * 1.2;
+      track.scrollLeft = scrollLeftStart - walk;
+    };
+
+    track.addEventListener("mousedown", onMouseDown);
+    track.addEventListener("mouseleave", onMouseLeaveOrUp);
+    track.addEventListener("mouseup", onMouseLeaveOrUp);
+    track.addEventListener("mousemove", onMouseMove);
+
+    // Mouse wheel scroll translation
+    let wheelResumeTimer: NodeJS.Timeout;
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        track.scrollLeft += e.deltaY;
+        autoScrollPaused = true;
+        clearTimeout(wheelResumeTimer);
+        wheelResumeTimer = setTimeout(() => {
+          autoScrollPaused = false;
+        }, 1200);
+        e.preventDefault();
+      }
+    };
+    track.addEventListener("wheel", onWheel, { passive: false });
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("resize", sizeRail);
+      track.removeEventListener("scroll", updateProgress);
+      nodeObserver.disconnect();
+      visibilityObserver.disconnect();
+      cancelAnimationFrame(animationFrameId);
+      track.removeEventListener("touchstart", pauseScroll);
+      track.removeEventListener("touchend", resumeScroll);
+      track.removeEventListener("mousedown", onMouseDown);
+      track.removeEventListener("mouseleave", onMouseLeaveOrUp);
+      track.removeEventListener("mouseup", onMouseLeaveOrUp);
+      track.removeEventListener("mousemove", onMouseMove);
+      track.removeEventListener("wheel", onWheel);
+    };
+  }, []);
+
+  // 3. Smooth scroll mapping for sub-navigation anchors
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const target = document.getElementById(id);
+    if (target) {
+      const navElement = document.querySelector(`.${styles.nav}`) as HTMLElement;
+      const navHeight = navElement ? navElement.offsetHeight : 0;
+      const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 12;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50 py-30 px-4 sm:px-6">
-      <div className="max-w-4xl mx-auto">
-        <motion.div
-          className="flex items-center justify-between mb-8 p-6 bg-white rounded-2xl shadow-lg border border-emerald-200"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <button
-            onClick={() => router.back()}
-            className="flex items-center text-emerald-700 hover:text-emerald-900 font-medium"
-          >
-            <FaArrowLeft className="mr-2" /> Back
-          </button>
-          <h1 className="text-2xl sm:text-3xl font-bold text-emerald-900 text-center flex-grow px-4">
-            Unlisted Shares
-          </h1>
-          <div className="w-16"></div>
-        </motion.div>
+    <div className={styles.unlistedPage}>
+      <div className="pt-24 pb-8 px-4 sm:px-6">
+        <div className="max-w-4xl mx-auto">
 
-        <motion.div
-          className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-emerald-200"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2 }}
-        >
-          <div className="flex items-center mb-6">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mr-4">
-              <FaGem className="text-green-600 text-2xl" />
+        </div>
+
+        <div className={styles["page-frame"]}>
+          {/* Sub Navigation */}
+          <nav className={styles.nav}>
+            <div className={styles["nav-inner"]}>
+              <a
+                href="#top"
+                onClick={(e) => handleAnchorClick(e, "top")}
+                className={styles.brand}
+              >
+                UN<span className={styles["brand-slash"]}>/</span>LISTED
+              </a>
+              <div className={styles["nav-links"]}>
+                <a href="#basics" onClick={(e) => handleAnchorClick(e, "basics")}>
+                  The Basics
+                </a>
+                <a href="#journey" onClick={(e) => handleAnchorClick(e, "journey")}>
+                  Company Journey
+                </a>
+                <a href="#why" onClick={(e) => handleAnchorClick(e, "why")}>
+                  Why Invest
+                </a>
+              </div>
             </div>
-            <div>
-              <h2 className="text-2xl font-bold text-gray-800">Unlisted Shares</h2>
-              <p className="text-green-600">Invest in companies before listing</p>
+          </nav>
+
+          {/* Marquee Ticker */}
+          <div className={styles.ticker}>
+            <div className={styles["ticker-track"]}>
+              <span>SEBI-ALIGNED INFORMATION ONLY</span>
+              <span>•</span>
+              <span>UNLISTED = PRE-IPO OWNERSHIP</span>
+              <span>•</span>
+              <span>NOT TRADED ON NSE / BSE</span>
+              <span>•</span>
+              <span>LOWER LIQUIDITY, HIGHER DILIGENCE</span>
+              <span>•</span>
+              <span>SEBI-ALIGNED INFORMATION ONLY</span>
+              <span>•</span>
+              <span>UNLISTED = PRE-IPO OWNERSHIP</span>
+              <span>•</span>
+              <span>NOT TRADED ON NSE / BSE</span>
+              <span>•</span>
+              <span>LOWER LIQUIDITY, HIGHER DILIGENCE</span>
+              <span>•</span>
             </div>
           </div>
 
-          <div className="prose max-w-none text-gray-700">
-            <p className="mb-6 text-lg">
-              Unlisted shares represent a unique investment opportunity that allows investors to participate in the growth journey of companies before they enter public markets. These private equity investments can offer substantial returns for those who identify promising companies in their early stages, though they come with distinct risks and challenges that require careful consideration.
-            </p>
-            
-            <h3 className="text-xl font-semibold text-green-800 mt-8 mb-4">Understanding Unlisted Equity</h3>
-            
-            <p className="italic mb-4">
-              Unlisted shares are equity shares of companies that are not listed on any stock exchange, representing ownership stakes in private businesses that operate outside the regulatory framework and transparency requirements of public markets. These companies may be preparing for an IPO or are private companies seeking investment from accredited investors, venture capital firms, or private equity groups.
-            </p>
-            
-            <p className="italic mb-6">
-              Investing in unlisted shares provides early access to potential growth stories that may not be available to public market investors until after significant value appreciation has already occurred. This first-mover advantage can be particularly valuable when investing in innovative companies with strong growth prospects that are not yet accessible through traditional stock exchanges.
-            </p>
-            
-            <h3 className="text-xl font-semibold text-green-800 mt-8 mb-4">Strategic Investment Advantages</h3>
-            
-            <p className="italic mb-4">
-              Early investment in potential IPO candidates allows investors to participate in the growth trajectory before public market recognition and valuation expansion. Companies that eventually go public often experience significant price appreciation during their transition from private to public status, creating opportunities for early investors who identified promising businesses before broader market awareness.
-            </p>
-            
-            <p className="italic mb-4">
-              Potential for significant returns upon listing can be substantial when investors successfully identify companies that achieve successful public offerings at favorable valuations. The combination of early entry pricing and post-listing market enthusiasm can create compelling return profiles that exceed traditional public market investments, particularly for companies in high-growth sectors or with disruptive business models.
-            </p>
-            
-            <p className="italic mb-4">
-              Access to exclusive investment opportunities that are not available to general public market investors, as unlisted shares are typically offered through private placements, employee stock ownership plans, or direct negotiations with company management. This exclusivity can provide access to unique business models, emerging technologies, and growth sectors before they become widely recognized by institutional investors.
-            </p>
-            
-            <p className="italic mb-4">
-              Diversification into private companies allows investors to build exposure to businesses that operate outside traditional public market structures, potentially reducing portfolio correlation with stock market movements and economic cycles that affect publicly traded companies. This alternative investment approach can enhance overall portfolio resilience and return potential across different market environments.
-            </p>
-            
-            <p className="italic mb-6">
-              Participation in company growth journey enables investors to align their financial interests with management teams focused on executing growth strategies and creating long-term value. This partnership approach can be particularly rewarding when investing in companies with strong competitive advantages, experienced leadership teams, and clear paths to profitability and market expansion.
-            </p>
-            
-            <h3 className="text-xl font-semibold text-green-800 mt-8 mb-4">Critical Risk Considerations</h3>
-            
-            <p className="italic mb-4">
-              Lack of liquidity before listing means investors may be unable to exit their positions until the company completes an IPO, is acquired, or implements a share buyback program. This illiquidity constraint requires long-term investment horizons and the ability to withstand potential delays in realizing investment returns, making unlisted share investments unsuitable for investors requiring regular access to their capital.
-            </p>
-            
-            <p className="italic mb-4">
-              No regulatory oversight like listed securities creates additional risks related to financial transparency, corporate governance, and investor protection that are standard in public markets. Private companies are not subject to the same disclosure requirements, auditing standards, and regulatory scrutiny that protect public market investors, requiring investors to conduct thorough due diligence and rely on management representations.
-            </p>
-            
-            <p className="italic mb-4">
-              Difficulty in valuation assessment presents challenges for unlisted share investors who must rely on limited financial information, management projections, and comparable company analysis rather than market-driven price discovery mechanisms. This valuation uncertainty can lead to overpayment for shares or missed opportunities due to conservative pricing, making accurate assessment crucial for investment success.
-            </p>
-            
-            <p className="italic mb-4">
-              Potential for company failure exists at higher rates in private companies compared to established public companies, as many startups and growth-stage businesses face execution challenges, competitive pressures, and market uncertainties that can lead to business failure or significant value destruction. The all-or-nothing nature of private equity investments means that unsuccessful companies can result in complete loss of invested capital.
-            </p>
-            
-            <p className="italic mb-6">
-              Illiquidity until IPO or buyback creates ongoing challenges for portfolio management and risk adjustment, as investors cannot easily rebalance positions or respond to changing market conditions and investment outlooks. This constraint requires careful portfolio construction and risk management to ensure that illiquid positions align with overall investment objectives and risk tolerance levels.
-            </p>
-            
-            <div className="bg-green-50 p-6 rounded-2xl mt-8">
-              <h4 className="font-bold text-green-800 text-lg mb-3">Successful Unlisted Share Investing</h4>
-              <p className="text-green-700">
-                Effective unlisted share investing requires extensive due diligence, industry expertise, and access to deal flow through professional networks or specialized investment platforms. Investors should carefully evaluate company fundamentals, management teams, competitive positioning, and growth prospects while understanding the risks associated with private company investing and illiquidity constraints.
+          {/* Hero Section */}
+          <section className={styles.hero} id="top">
+            <div className={styles["hero-inner"]}>
+              <div className={styles["hero-left"]}>
+                <span className={`${styles.badge} ${styles.reveal}`}>
+                  PRE-IPO INVESTING, EXPLAINED
+                </span>
+                <h1 className={styles.reveal}>
+                  Invest Before
+                  <br />
+                  the IPO Happens.
+                </h1>
+                <p className={`${styles["hero-sub"]} ${styles.reveal}`}>
+                  Own shares of companies before they become publicly listed.
+                </p>
+                <div className={`${styles["hero-buttons"]} ${styles.reveal}`}>
+                  <a
+                    href="#basics"
+                    onClick={(e) => handleAnchorClick(e, "basics")}
+                    className={`${styles.btn} ${styles["btn-outline"]}`}
+                  >
+                    How It Works <span className={styles["arrow-down"]}>↓</span>
+                  </a>
+                </div>
+              </div>
+
+              <div className={styles["hero-right"]}>
+                <div className={`${styles.card} ${styles["hero-visual"]} ${styles.reveal}`} id="ladder">
+                  <span className={`${styles.badge} ${styles["hero-visual-badge"]}`}>
+                    THE ROAD TO IPO
+                  </span>
+                  <Image
+                    className={styles["hero-visual-img"]}
+                    src="/unlisted-hero-visual.webp"
+                    alt="The Road to IPO illustration"
+                    width={440}
+                    height={440}
+                    priority
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Basics Section */}
+          <section className={styles.basics} id="basics">
+            <div className={styles["section-head"]}>
+              <span className={`${styles.badge} ${styles.reveal}`}>
+                THE FUNDAMENTALS
+              </span>
+              <h2 className={styles.reveal}>What Exactly Is an Unlisted Share?</h2>
+              <p className={`${styles["section-sub"]} ${styles.reveal}`}>
+                A real equity stake in a company that simply hasn&apos;t listed on an exchange yet.
               </p>
             </div>
-            
-            <div className="mt-8 p-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl border border-green-100">
-              <h4 className="font-bold text-green-800 text-lg mb-3">Professional Guidance Recommended</h4>
-              <p className="text-gray-700">
-                Given the complexity and risks associated with unlisted share investments, consulting with experienced investment professionals, legal advisors, and tax specialists is highly recommended before committing capital to these alternative investment opportunities. Proper structuring and ongoing monitoring are essential for navigating the unique challenges of private company investing.
+
+            <p className={`${styles["basics-intro"]} ${styles.reveal}`}>
+              When a company is <strong>unlisted</strong>, its shares still exist and still change
+              hands — just not on the NSE or BSE. Buying one gets you the same underlying ownership a
+              public shareholder has: a claim on the business, voting rights, dividend eligibility if
+              declared, and upside if the company grows. What&apos;s different is entirely in <em>how</em>{" "}
+              that ownership gets priced, found, and transferred, not what it represents.
+            </p>
+
+            <div className={styles.flow}>
+              <div className={`${styles.card} ${styles["flow-card"]} ${styles.reveal}`}>
+                <span className={`${styles.badge} ${styles["badge-sm"]}`}>STAGE 01</span>
+                <h3>Private Company</h3>
+                <div className={styles["card-divider"]}></div>
+                <p className={styles["card-meta"]}>Not traded on NSE / BSE</p>
+              </div>
+
+              <div className={`${styles["flow-arrow"]} ${styles.reveal}`}>↓</div>
+
+              <div className={`${styles.card} ${styles["flow-card"]} ${styles["holders-card"]} ${styles.reveal}`}>
+                <span className={`${styles.badge} ${styles["badge-sm"]}`}>STAGE 02</span>
+                <h3>Held Privately By</h3>
+                <div className={styles["card-divider"]}></div>
+                <div className={styles["holder-grid"]}>
+                  <span>Employees</span>
+                  <span>Early Investors</span>
+                  <span>VCs</span>
+                  <span>Promoters</span>
+                </div>
+              </div>
+
+              <div className={`${styles["flow-arrow"]} ${styles.reveal}`}>↓</div>
+
+              <div className={`${styles.card} ${styles["flow-card"]} ${styles["locked-card"]} ${styles.reveal}`}>
+                <span className={`${styles.badge} ${styles["badge-sm"]} ${styles["badge-dark"]}`}>
+                  STAGE 03
+                </span>
+                <h3>Public</h3>
+                <div className={`${styles["card-divider"]} ${styles["card-divider-dark"]}`}></div>
+                <p className={`${styles["card-meta"]} ${styles["card-meta-dark"]}`}>
+                  <span className={styles["lock-icon"]}>🔒</span> Cannot Buy Normally
+                </p>
+              </div>
+            </div>
+
+            <div className={styles["section-divider"]}></div>
+
+            <div className={styles["fact-head"]}>
+              <span className={`${styles.badge} ${styles["badge-sm"]} ${styles.reveal}`}>
+                THE FINE PRINT
+              </span>
+              <h3 className={styles.reveal}>What Actually Changes When a Share Isn&apos;t Listed</h3>
+            </div>
+
+            <div className={styles["fact-grid"]}>
+              <div className={`${styles.card} ${styles["fact-card"]} ${styles.reveal}`}>
+                <span className={styles["fact-icon"]}>🔄</span>
+                <h4>Liquidity</h4>
+                <div className={styles["card-divider"]}></div>
+                <p className={styles["card-meta"]}>
+                  No exchange order book. Trades are matched off-market, peer-to-peer, so exiting a
+                  position can take days, not seconds.
+                </p>
+              </div>
+              <div className={`${styles.card} ${styles["fact-card"]} ${styles.reveal}`}>
+                <span className={styles["fact-icon"]}>📊</span>
+                <h4>Price Discovery</h4>
+                <div className={styles["card-divider"]}></div>
+                <p className={styles["card-meta"]}>
+                  No live ticker. Price is set by recent private deals and demand, so valuations move
+                  on far fewer data points.
+                </p>
+              </div>
+              <div className={`${styles.card} ${styles["fact-card"]} ${styles.reveal}`}>
+                <span className={styles["fact-icon"]}>💰</span>
+                <h4>Minimum Investment</h4>
+                <div className={styles["card-divider"]}></div>
+                <p className={styles["card-meta"]}>
+                  Usually sold in board lots rather than single shares, with entry size set by
+                  whoever&apos;s holding the stock.
+                </p>
+              </div>
+              <div className={`${styles.card} ${styles["fact-card"]} ${styles.reveal}`}>
+                <span className={styles["fact-icon"]}>📝</span>
+                <h4>Settlement</h4>
+                <div className={styles["card-divider"]}></div>
+                <p className={styles["card-meta"]}>
+                  Ownership moves through an off-market transfer into your demat account — the same
+                  depository system used for listed stock.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Journey Section */}
+          <section className={styles.journey} id="journey">
+            <div className={styles["section-head"]}>
+              <span className={`${styles.badge} ${styles.reveal}`}>THE TIMELINE</span>
+              <h2 className={styles.reveal}>Company Life Journey</h2>
+              <p className={`${styles["section-sub"]} ${styles.reveal}`}>
+                Scroll sideways. Every stage earns its place in line.
               </p>
             </div>
-          </div>
-          <div className="mt-8 text-center">
-            <button
-              onClick={() => router.push("/services/stock-investment/open-demat-account")}
-              className="px-8 py-3 bg-gradient-to-r from-emerald-600 to-teal-700 text-white font-bold rounded-xl shadow-lg hover:from-emerald-700 hover:to-teal-800 transition-all transform hover:scale-105"
-            >
-              Explore
-            </button>
-          </div>
-        </motion.div>
+
+            <div className={`${styles.card} ${styles["journey-card"]} ${styles.reveal}`}>
+              <div className={styles["journey-progress"]}>
+                <div ref={fillRef} className={styles["journey-progress-fill"]}></div>
+              </div>
+
+              <div ref={trackRef} className={styles["journey-track"]}>
+                <div className={styles["journey-rail"]}>
+                  <span ref={travelLineRef} className={styles["j-travel-line"]}></span>
+                  <span ref={travelArrowRef} className={styles["j-travel-arrow"]}>
+                    ➤
+                  </span>
+                </div>
+
+                {journeyNodes.map((node, index) => (
+                  <div key={index} className="flex items-center gap-6">
+                    <div
+                      className={`${styles["j-node"]} ${
+                        node.isHero ? styles["j-node-hero"] : ""
+                      } ${node.isGold ? styles["j-node-gold"] : ""}`}
+                      data-i={index}
+                    >
+                      <span
+                        className={`${styles["j-dot"]} ${
+                          node.isHero ? styles["j-dot-hero"] : ""
+                        } ${node.isGold ? styles["j-dot-gold"] : ""}`}
+                      ></span>
+                      <span
+                        className={`${styles["j-label"]} ${
+                          node.isHero ? styles["j-label-hero"] : ""
+                        }`}
+                        style={{ whiteSpace: "pre-line" }}
+                      >
+                        {node.label}
+                      </span>
+                    </div>
+                    {index < journeyNodes.length - 1 && (
+                      <div className={styles["j-arrow"]}>→</div>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <p className={styles["journey-hint"]}>← drag to scroll, or use your trackpad →</p>
+            </div>
+          </section>
+
+          {/* Why Invest Section */}
+          <section className={styles.why} id="why">
+            <div className={styles["section-head"]}>
+              <span className={`${styles.badge} ${styles.reveal}`}>THE CASE FOR IT</span>
+              <h2 className={styles.reveal}>Why Investors Buy Unlisted Shares</h2>
+              <p className={`${styles["section-sub"]} ${styles.reveal}`}>
+                Four reasons. Hover over them to see the neo-brutalist interaction.
+              </p>
+            </div>
+
+            <div className={styles["why-grid"]}>
+              <div className={`${styles.card} ${styles["why-card"]} ${styles["wc-1"]} ${styles.reveal}`}>
+                <span className={`${styles.badge} ${styles["badge-sm"]}`}>REASON 01</span>
+                <div className={styles["why-card-head"]}>
+                  <div className={styles["why-visual"]}>
+                    <Image
+                      className={styles["why-img"]}
+                      src="/why-returns.png"
+                      alt="Potential High Returns illustration"
+                      width={96}
+                      height={96}
+                    />
+                  </div>
+                  <h3>Potential High Returns</h3>
+                </div>
+                <div className={styles["card-divider"]}></div>
+                <p className={styles["card-meta"]}>Invest before the IPO happens</p>
+              </div>
+
+              <div className={`${styles.card} ${styles["why-card"]} ${styles["wc-2"]} ${styles.reveal}`}>
+                <span className={`${styles.badge} ${styles["badge-sm"]}`}>REASON 02</span>
+                <div className={styles["why-card-head"]}>
+                  <div className={styles["why-visual"]}>
+                    <Image
+                      className={styles["why-img"]}
+                      src="/why-diversification.png"
+                      alt="Portfolio Diversification illustration"
+                      width={96}
+                      height={96}
+                    />
+                  </div>
+                  <h3>Portfolio Diversification</h3>
+                </div>
+                <div className={styles["card-divider"]}></div>
+                <p className={styles["card-meta"]}>Beyond listed equities and bonds</p>
+              </div>
+
+              <div className={`${styles.card} ${styles["why-card"]} ${styles["wc-3"]} ${styles.reveal}`}>
+                <span className={`${styles.badge} ${styles["badge-sm"]}`}>REASON 03</span>
+                <div className={styles["why-card-head"]}>
+                  <div className={styles["why-visual"]}>
+                    <Image
+                      className={styles["why-img"]}
+                      src="/why-future.png"
+                      alt="Access to Future Giants illustration"
+                      width={96}
+                      height={96}
+                    />
+                  </div>
+                  <h3>Access to Future Giants</h3>
+                </div>
+                <div className={styles["card-divider"]}></div>
+                <p className={styles["card-meta"]}>Companies not yet on any exchange</p>
+              </div>
+
+              <div className={`${styles.card} ${styles["why-card"]} ${styles["wc-4"]} ${styles.reveal}`}>
+                <span className={`${styles.badge} ${styles["badge-sm"]}`}>REASON 04</span>
+                <div className={styles["why-card-head"]}>
+                  <div className={styles["why-visual"]}>
+                    <Image
+                      className={styles["why-img"]}
+                      src="/why-ownership.png"
+                      alt="Early Ownership illustration"
+                      width={96}
+                      height={96}
+                    />
+                  </div>
+                  <h3>Early Ownership</h3>
+                </div>
+                <div className={styles["card-divider"]}></div>
+                <p className={styles["card-meta"]}>A seat at the table, ahead of listing day</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Dynamic Call to Action Funnel */}
+          <section className="bg-white py-12 px-6 border-t-3 border-[#111315] text-center">
+            <div className="max-w-2xl mx-auto space-y-6">
+              <h2 className="text-3xl font-extrabold text-[#111315] font-['Space_Grotesk'] uppercase">
+                Ready to Own Tomorrow&apos;s Giants, Today?
+              </h2>
+              <p className="text-[#5B6B7C] text-lg font-medium">
+                Open your Demat account with us to start navigating pre-IPO deals and unlisted share opportunities safely.
+              </p>
+              <button
+                onClick={() => router.push("/services/stock-investment/open-demat-account")}
+                className={`${styles.btn} ${styles["btn-large"]} ${styles["btn-primary"]} mt-4`}
+              >
+                Open Demat Account
+              </button>
+            </div>
+          </section>
+
+          {/* Footer Disclaimer */}
+          <footer className={styles.footer}>
+            <div className={styles["footer-inner"]}>
+              <span className={`${styles.brand} ${styles["brand-small"]}`}>
+                UN<span className={styles["brand-slash"]}>/</span>LISTED
+              </span>
+              <p className={styles["footer-disclaimer"]}>
+                Unlisted shares carry lower liquidity, wider price spreads, and limited public
+                disclosure. This page is educational and is not investment advice. Always do
+                independent diligence before buying pre-IPO shares. · A Fiscal Forum property
+              </p>
+            </div>
+          </footer>
+        </div>
       </div>
     </div>
   );
