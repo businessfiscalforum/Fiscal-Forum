@@ -14,17 +14,20 @@ function describeArc(
   const startRad = ((startAngle - 90) * Math.PI) / 180;
   const endRad = ((endAngle - 90) * Math.PI) / 180;
 
-  const x1 = cx + radius * Math.cos(startRad);
-  const y1 = cy + radius * Math.sin(startRad);
-  const x2 = cx + radius * Math.cos(endRad);
-  const y2 = cy + radius * Math.sin(endRad);
+  const x1 = (cx + radius * Math.cos(startRad)).toFixed(3);
+  const y1 = (cy + radius * Math.sin(startRad)).toFixed(3);
+  const x2 = (cx + radius * Math.cos(endRad)).toFixed(3);
+  const y2 = (cy + radius * Math.sin(endRad)).toFixed(3);
+  const rcx = cx.toFixed(3);
+  const rcy = cy.toFixed(3);
+  const rr = radius.toFixed(3);
 
   const largeArcFlag = endAngle - startAngle > 180 ? 1 : 0;
 
   return [
-    `M ${cx} ${cy}`,
+    `M ${rcx} ${rcy}`,
     `L ${x1} ${y1}`,
-    `A ${radius} ${radius} 0 ${largeArcFlag} 1 ${x2} ${y2}`,
+    `A ${rr} ${rr} 0 ${largeArcFlag} 1 ${x2} ${y2}`,
     `Z`,
   ].join(" ");
 }
@@ -302,16 +305,16 @@ export default function PortfolioSplitStudio() {
 
                   const sliceEdgeR = isHovered ? R + 1 : R;
                   // Line start: just outside the slice edge
-                  const lx1 = CX + dx + (sliceEdgeR + 1) * Math.cos(midRad);
-                  const ly1 = CY + dy + (sliceEdgeR + 1) * Math.sin(midRad);
+                  const lx1 = parseFloat((CX + dx + (sliceEdgeR + 1) * Math.cos(midRad)).toFixed(3));
+                  const ly1 = parseFloat((CY + dy + (sliceEdgeR + 1) * Math.sin(midRad)).toFixed(3));
                   // Line end: further out
                   const labelR = R + 12;
-                  const lx2 = CX + dx + (labelR - 1) * Math.cos(midRad);
-                  const ly2 = CY + dy + (labelR - 1) * Math.sin(midRad);
+                  const lx2 = parseFloat((CX + dx + (labelR - 1) * Math.cos(midRad)).toFixed(3));
+                  const ly2 = parseFloat((CY + dy + (labelR - 1) * Math.sin(midRad)).toFixed(3));
                   // Label anchor: a bit further
                   const labelAnchorR = R + 13.5;
-                  const tx = CX + dx + labelAnchorR * Math.cos(midRad);
-                  const ty = CY + dy + labelAnchorR * Math.sin(midRad);
+                  const tx = parseFloat((CX + dx + labelAnchorR * Math.cos(midRad)).toFixed(3));
+                  const ty = parseFloat((CY + dy + labelAnchorR * Math.sin(midRad)).toFixed(3));
 
                   // Determine text-anchor based on which side of chart
                   const textAnchor = tx > CX + 2 ? "start" : tx < CX - 2 ? "end" : "middle";

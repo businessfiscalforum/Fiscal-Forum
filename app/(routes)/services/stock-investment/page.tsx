@@ -103,6 +103,9 @@ const investmentOptions = [
 ];
 
 export default function StockInvestmentPage() {
+  const [hoveredOption, setHoveredOption] = useState<(typeof investmentOptions)[0] | null>(
+    investmentOptions[0]
+  );
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   useEffect(() => {
     // This runs only on the client
@@ -232,48 +235,153 @@ export default function StockInvestmentPage() {
             </div>
           </motion.div>
 
-          {/* Investment Cards Grid */}
+          {/* Investment Cards Grid / Interactive Tree */}
           <div className="space-y-6">
             <h2 className="text-2xl font-black uppercase text-black border-b-2 border-black pb-2">
               Our Investment Verticals
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {investmentOptions.map((option, index) => {
-                const IconComponent = option.icon;
-                return (
-                  <motion.div
-                    key={option.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    whileHover={{ y: -4 }}
-                    className="relative rounded-2xl border-2 border-black bg-white shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#000] transition-all overflow-hidden flex flex-col group"
-                  >
-                    <Link href={option.link} className="flex-grow flex flex-col p-6 space-y-4">
-                      {/* colored accent bar */}
-                      <div className="absolute top-0 left-0 w-full h-1 bg-[#1FA463]" />
-                      
-                      <div className="flex items-center justify-between">
-                        <div className="p-3 bg-emerald-50 border border-black rounded-xl shadow-[2px_2px_0px_#000]">
-                          {IconComponent && (
-                            <IconComponent className="w-6 h-6 text-black" />
-                          )}
+            
+            {/* Unified Responsive Grid: Stacked on Mobile/Tablet, Side-by-Side on Desktop */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+              {/* Tree Diagram Column */}
+              <div className="col-span-1 lg:col-span-7 border-2 border-black rounded-3xl bg-[#FAF8F5] p-4 md:p-6 shadow-[4px_4px_0px_#000] flex items-center justify-center overflow-hidden">
+                <div className="relative w-full max-w-[800px]">
+                  <img
+                    src="/investment-tree.jpg"
+                    alt="Investment Verticals Tree"
+                    className="w-full h-auto block select-none rounded-xl"
+                  />
+                  
+                  {/* Hotspots */}
+                  {investmentOptions.map((option) => {
+                    // Position mapping for each option ID based on tree structure
+                    let coords = { left: "0%", top: "0%", width: "0%", height: "0%" };
+                    switch (option.id) {
+                      case "equity-etfs":
+                        coords = { left: "32.13%", top: "13.19%", width: "11.91%", height: "15.02%" };
+                        break;
+                      case "futures-options":
+                        coords = { left: "55.18%", top: "12.70%", width: "12.40%", height: "15.14%" };
+                        break;
+                      case "ipo":
+                        coords = { left: "23.14%", top: "32.72%", width: "11.91%", height: "15.02%" };
+                        break;
+                      case "mtf":
+                        coords = { left: "64.26%", top: "32.60%", width: "12.01%", height: "15.02%" };
+                        break;
+                      case "commodities":
+                        coords = { left: "28.00%", top: "54.46%", width: "12.01%", height: "15.02%" };
+                        break;
+                      case "unlisted-shares":
+                        coords = { left: "59.77%", top: "54.82%", width: "12.01%", height: "14.53%" };
+                        break;
+                    }
+
+                    const isHovered = hoveredOption?.id === option.id;
+
+                    return (
+                      <Link
+                        key={option.id}
+                        href={option.link}
+                        onMouseEnter={() => setHoveredOption(option)}
+                        onClick={(e) => {
+                          if (hoveredOption?.id === option.id) {
+                            // Already selected, let standard navigation happen
+                          } else {
+                            // Select it first, prevent immediate navigation on mobile/first-tap
+                            e.preventDefault();
+                            setHoveredOption(option);
+                          }
+                        }}
+                        className="absolute block group transition-all duration-200"
+                        style={{
+                          left: coords.left,
+                          top: coords.top,
+                          width: coords.width,
+                          height: coords.height,
+                        }}
+                      >
+                        <div
+                          className={`w-full h-full rounded-xl border-2 transition-all duration-200 ${
+                            isHovered
+                              ? "border-[#1FA463] bg-[#1FA463]/10 shadow-[0_0_15px_rgba(31,164,99,0.4)] scale-105"
+                              : "border-transparent bg-transparent hover:border-[#1FA463]/50 hover:bg-[#1FA463]/5"
+                          }`}
+                        />
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Dynamic Detail Card Column */}
+              <div className="col-span-1 lg:col-span-5 flex flex-col">
+                <div className="flex-grow border-2 border-black bg-white rounded-3xl p-6 md:p-8 shadow-[4px_4px_0px_#000] flex flex-col justify-between relative overflow-hidden min-h-[320px]">
+                  {/* Accent bar */}
+                  <div className="absolute top-0 left-0 w-full h-2 bg-[#1FA463]" />
+
+                  {hoveredOption ? (
+                    <motion.div
+                      key={hoveredOption.id}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="flex-grow flex flex-col justify-between space-y-6"
+                    >
+                      <div className="space-y-4 md:space-y-6">
+                        {/* Icon and Category Label */}
+                        <div className="flex items-center gap-4">
+                          <div className="p-3 md:p-4 bg-emerald-50 border border-black rounded-2xl shadow-[3px_3px_0px_#000]">
+                            {React.createElement(hoveredOption.icon, {
+                              className: "w-6 h-6 md:w-8 md:h-8 text-black",
+                            })}
+                          </div>
+                          <div>
+                            <span className="text-[10px] md:text-xs font-bold text-[#1FA463] uppercase tracking-widest">
+                              Investment Option
+                            </span>
+                            <h3 className="text-xl md:text-2xl font-black text-black uppercase tracking-tight">
+                              {hoveredOption.title}
+                            </h3>
+                          </div>
                         </div>
-                        <span className="text-xs font-bold text-gray-400 uppercase tracking-widest group-hover:text-black transition-colors">
-                          EXPLORE &rarr;
-                        </span>
+
+                        {/* Description */}
+                        <p className="text-gray-700 font-semibold text-sm md:text-lg leading-relaxed pt-2">
+                          {hoveredOption.description}
+                        </p>
                       </div>
-                      
-                      <h3 className="text-xl font-black text-black uppercase tracking-tight">
-                        {option.title}
+
+                      {/* Action Buttons */}
+                      <div className="pt-4 md:pt-6 space-y-3">
+                        <Link href={hoveredOption.link}>
+                          <button className="w-full bg-[#1FA463] text-white border-2 border-black py-3.5 md:py-4 rounded-xl font-black hover:bg-[#15824D] hover:shadow-[3px_3px_0px_#000] active:translate-y-[2px] transition-all shadow-[2px_2px_0px_#000] uppercase text-xs md:text-sm flex items-center justify-center gap-2 cursor-pointer">
+                            <span>Explore {hoveredOption.title}</span>
+                            <span>&rarr;</span>
+                          </button>
+                        </Link>
+                        {hoveredOption.alink && (
+                          <Link href={hoveredOption.alink}>
+                            <button className="w-full bg-white text-black border-2 border-black py-2.5 md:py-3 rounded-xl font-black hover:bg-yellow-100 hover:shadow-[3px_3px_0px_#000] active:translate-y-[2px] transition-all shadow-[2px_2px_0px_#000] uppercase text-[10px] md:text-xs cursor-pointer">
+                              Apply Now
+                            </button>
+                          </Link>
+                        )}
+                      </div>
+                    </motion.div>
+                  ) : (
+                    <div className="flex-grow flex flex-col items-center justify-center text-center space-y-4">
+                      <BarChart3 className="w-16 h-16 text-gray-300 animate-pulse" />
+                      <h3 className="text-xl font-black text-black uppercase">
+                        Select a Vertical
                       </h3>
-                      <p className="text-sm text-gray-700 font-semibold leading-relaxed flex-grow">
-                        {option.description}
+                      <p className="text-sm text-gray-500 font-semibold max-w-xs">
+                        Tap or hover over the branches of the investment tree to see descriptions and options.
                       </p>
-                    </Link>
-                  </motion.div>
-                );
-              })}
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
 

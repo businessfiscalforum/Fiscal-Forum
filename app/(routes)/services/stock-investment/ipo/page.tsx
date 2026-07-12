@@ -83,39 +83,7 @@ export default function IPOPage() {
   };
 
   return (
-    <div className="ipoTerminal">
-      {/* Ticker tape */}
-      <div className="ticker-wrap">
-        <div className="ticker">
-          {Array(3)
-            .fill(tickerData)
-            .flat()
-            .map((item, i) => (
-              <span key={i} className={item.up ? "up" : "down"}>
-                <b>{item.t}</b> {item.p ? "₹" + item.p : ""} {item.up ? "▲" : "▼"} {item.d}
-              </span>
-            ))}
-        </div>
-      </div>
-
-      {/* Top Nav */}
-      <nav className="topnav" id="topnav">
-        <div className="topnav-inner">
-          <div className="brand">
-            <span className="mark">IJ</span> IPO Journey
-          </div>
-          <div className="navlinks">
-            <a onClick={() => scrollTo("s-journey")}>The journey</a>
-            <a onClick={() => scrollTo("s-why")}>Why IPOs happen</a>
-            <a onClick={() => scrollTo("s-players")}>Who&apos;s involved</a>
-            <a onClick={() => scrollTo("s-sim")}>Simulator</a>
-            <a onClick={() => scrollTo("s-glossary")}>Glossary</a>
-          </div>
-          <button className="nav-cta" onClick={() => scrollTo("s-sim")}>
-            Try simulator
-          </button>
-        </div>
-      </nav>
+    <div className="ipoTerminal pt-24 md:pt-32">
 
       {/* HERO */}
       <section className="hero" id="s-hero">
@@ -503,19 +471,6 @@ export default function IPOPage() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer>
-        <div className="wrap">
-          <h2>Ready to read your first DRHP?</h2>
-          <p>Knowing the steps doesn&apos;t remove the risk — it just means you&apos;re taking it with your eyes open.</p>
-          <button className="btn primary" onClick={() => scrollTo("s-hero")}>
-            Back to the top ↑
-          </button>
-          <div className="fineprint">
-            Educational content only · Not investment advice · All tickers and figures above are illustrative
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

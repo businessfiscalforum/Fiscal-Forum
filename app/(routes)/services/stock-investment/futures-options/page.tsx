@@ -352,7 +352,7 @@ export default function FuturesOptionsPage() {
   const getPLColorClass = (n: number) => (n > 0 ? "green" : n < 0 ? "red" : "");
 
   return (
-    <div className="foDecodedTerminal" onMouseMove={handleMouseMove}>
+    <div className="foDecodedTerminal pt-24 md:pt-32" onMouseMove={handleMouseMove}>
       {/* HERO */}
       <section className="hero">
         <div className="hero-left">
@@ -760,13 +760,6 @@ export default function FuturesOptionsPage() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer>
-        <div className="logo">
-          Research<span>Edge</span>
-        </div>
-        <p>© 2026 ResearchEdge. For educational purposes only. Not SEBI registered investment advice.</p>
-      </footer>
     </div>
   );
 }

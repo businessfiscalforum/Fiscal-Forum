@@ -244,31 +244,7 @@ export default function EquityETFsPage() {
   };
 
   return (
-    <div className="equityAllocatorTerminal">
-      {/* Ticker strip */}
-      <div className="ticker-wrap">
-        <div className="ticker">
-          {Array(3).fill(tickerData).flat().map((tick, i) => (
-            <span key={i}>
-              <b>{tick[0]}</b> {tick[1]}{" "}
-              <span className={tick[3] ? "up" : "down"}>
-                {tick[3] ? "▲" : "▼"} {tick[2]}
-              </span>
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Nav */}
-      <div className="nav">
-        <div className="brand">
-          <span className="dot"></span>EQUITY ALLOCATOR
-        </div>
-        <div className="nav-status">
-          <span>NSE / BSE</span>
-          <span className="live">● LIVE ALLOCATION ENGINE</span>
-        </div>
-      </div>
+    <div className="equityAllocatorTerminal pt-24 md:pt-32">
 
       {/* Hero Landing */}
       <div className="main-hero">
@@ -663,14 +639,6 @@ export default function EquityETFsPage() {
           </div>
         )}
 
-        <footer>
-          EQUITY ALLOCATOR TERMINAL — BUILT FOR ILLUSTRATIVE PLANNING ONLY
-          <div className="disclaimer">
-            This tool produces an indicative allocation based on stated preferences and is not investment advice.
-            Mutual fund and ETF investments are subject to market risk. Please read scheme documents and consult a
-            SEBI-registered investment adviser before investing.
-          </div>
-        </footer>
       </div>
     </div>
   );
