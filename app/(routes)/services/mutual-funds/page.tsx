@@ -4,8 +4,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import "./Screener.css";
 
-// @ts-ignore
-import { FUNDS_DB } from "./funds_data";
+import { FUNDS_DB, FundItem } from "./funds_data";
 
 const categoryScores: Record<string, Record<string, number>> = {
   low: {
@@ -97,13 +96,13 @@ export default function MutualFundScreenerPage() {
 
   // Categories & AMCs list sorted
   const categories = useMemo(() => {
-    return Array.from(new Set(FUNDS_DB.map((f: any) => f.category)))
+    return Array.from(new Set(FUNDS_DB.map((f: FundItem) => f.category)))
       .filter(Boolean)
       .sort();
   }, []);
 
   const amcs = useMemo(() => {
-    return Array.from(new Set(FUNDS_DB.map((f: any) => f.amc)))
+    return Array.from(new Set(FUNDS_DB.map((f: FundItem) => f.amc)))
       .filter(Boolean)
       .sort();
   }, []);
@@ -145,7 +144,7 @@ export default function MutualFundScreenerPage() {
   const [riskAppetite, setRiskAppetite] = useState("");
   const [preferredAMC, setPreferredAMC] = useState("");
 
-  const [recommendations, setRecommendations] = useState<any[]>([]);
+  const [recommendations, setRecommendations] = useState<FundItem[]>([]);
   const [isMatchingLoading, setIsMatchingLoading] = useState(false);
 
   // Explore Database States
@@ -158,7 +157,7 @@ export default function MutualFundScreenerPage() {
   const itemsPerPage = 24;
 
   // Selected Fund for details Modal
-  const [selectedFund, setSelectedFund] = useState<any | null>(null);
+  const [selectedFund, setSelectedFund] = useState<FundItem | null>(null);
 
   // Helper Toast
   const [toastMessage, setToastMessage] = useState("");
@@ -215,7 +214,7 @@ export default function MutualFundScreenerPage() {
     setIsMatchingLoading(true);
 
     setTimeout(() => {
-      const scored = FUNDS_DB.map((fund: any) => {
+      const scored = FUNDS_DB.map((fund: FundItem) => {
         let score = 0;
         const cat = fund.category || "";
 
@@ -314,7 +313,7 @@ export default function MutualFundScreenerPage() {
         return { ...fund, score };
       });
 
-      scored.sort((a: any, b: any) => b.score - a.score);
+      scored.sort((a: FundItem & { score?: number }, b: FundItem & { score?: number }) => (b.score || 0) - (a.score || 0));
       setRecommendations(scored.slice(0, 12));
       setIsMatchingLoading(false);
     }, 1200);
@@ -336,7 +335,7 @@ export default function MutualFundScreenerPage() {
   // Filter explore database
   const filteredFunds = useMemo(() => {
     const search = searchQuery.toLowerCase().trim();
-    return FUNDS_DB.filter((f: any) => {
+    return FUNDS_DB.filter((f: FundItem) => {
       if (filterType && f.type !== filterType) return false;
       if (filterCategory && f.category !== filterCategory) return false;
       if (filterAMC && f.amc !== filterAMC) return false;
@@ -454,7 +453,7 @@ export default function MutualFundScreenerPage() {
     );
   };
 
-  const formatAmount = (amount: any) => {
+  const formatAmount = (amount: string | number | undefined) => {
     if (!amount) return "—";
     const num = parseInt(amount.toString().replace(/[^0-9]/g, ""));
     if (isNaN(num)) return amount.replace("Rs.", "₹").substring(0, 20);
@@ -503,7 +502,7 @@ export default function MutualFundScreenerPage() {
 
           <div className="hero-eyebrow">
             <span className="eyebrow-line"></span>
-            <span className="eyebrow-text">India's Complete Fund Database</span>
+            <span className="eyebrow-text">India&apos;s Complete Fund Database</span>
           </div>
 
           <h1 className="hero-title">
@@ -1074,7 +1073,7 @@ export default function MutualFundScreenerPage() {
           </div>
         ) : (
           <div className={exploreView === "grid" ? "funds-grid" : "funds-list"}>
-            {paginatedFunds.map((fund: any, idx) => {
+            {paginatedFunds.map((fund: FundItem, idx) => {
               const badgeClass = getBadgeClass(fund.category);
               const badgeLabel = getCategoryLabel(fund.category);
 
