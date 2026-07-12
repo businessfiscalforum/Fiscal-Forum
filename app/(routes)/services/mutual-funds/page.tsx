@@ -453,12 +453,26 @@ export default function MutualFundScreenerPage() {
     );
   };
 
-  const formatAmount = (amount: string | number | undefined) => {
-    if (!amount) return "—";
-    const num = parseInt(amount.toString().replace(/[^0-9]/g, ""));
-    if (isNaN(num)) return amount.replace("Rs.", "₹").substring(0, 20);
-    if (num >= 100000) return `₹${(num / 100000).toFixed(1)}L`;
-    if (num >= 1000) return `₹${(num / 1000).toFixed(0)}K`;
+  const formatAmount = (amount: string | number | undefined): string => {
+    if (amount === undefined || amount === null || amount === "") {
+      return "—";
+    }
+
+    const amountStr = String(amount);
+    const num = parseInt(amountStr.replace(/[^0-9]/g, ""), 10);
+
+    if (isNaN(num)) {
+      return amountStr.replace("Rs.", "₹").substring(0, 20);
+    }
+
+    if (num >= 100000) {
+      return `₹${(num / 100000).toFixed(1)}L`;
+    }
+
+    if (num >= 1000) {
+      return `₹${(num / 1000).toFixed(0)}K`;
+    }
+
     return `₹${num}`;
   };
 
