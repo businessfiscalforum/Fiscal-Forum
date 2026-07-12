@@ -217,6 +217,9 @@ export default function PortfolioSplitStudio() {
 
           {/* Column 2: Pie Chart & Splitting Table */}
           <div className="chart-card">
+            <div className="hover-instruction">
+              <span>💡 Hover over slices or table rows to inspect details</span>
+            </div>
             <div
               className="chart-area"
               onMouseMove={handleChartMouseMove}
@@ -234,7 +237,7 @@ export default function PortfolioSplitStudio() {
 
               {/* The main pie chart SVG */}
               <svg
-                viewBox="-10 -10 120 120"
+                viewBox="-22 -22 144 144"
                 className="pie-svg"
               >
                 {/* Subtle outer ring */}
@@ -717,6 +720,22 @@ export default function PortfolioSplitStudio() {
           display: flex;
           flex-direction: column;
           align-items: center;
+        }
+
+        .hover-instruction {
+          color: rgba(255, 255, 255, 0.65);
+          font-size: 13px;
+          font-weight: 700;
+          margin-bottom: 20px;
+          text-align: center;
+          background: rgba(255, 255, 255, 0.04);
+          padding: 8px 16px;
+          border-radius: 100px;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          letter-spacing: 0.3px;
         }
 
         /* Chart Area - contains the SVG + ambient glow + tooltip */

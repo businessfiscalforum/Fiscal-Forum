@@ -179,11 +179,11 @@ export default function WealthChart({ data, todayFinal, lateFinal, opportunityCo
       </div>
 
       {/* Delay alert banner */}
-      <div className="bg-gray-50 border border-gray-100 rounded-2xl p-4 flex items-center gap-3">
-        <div className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
+      <div className="bg-white border-2 border-black rounded-xl p-4 md:p-5 flex items-center gap-3.5 shadow-[3px_3px_0px_#000]">
+        <div className="w-10 h-10 rounded-lg bg-emerald-50 border-2 border-black flex items-center justify-center text-xl shadow-[1.5px_1.5px_0px_#000] flex-shrink-0">
           ⏳
         </div>
-        <p className="text-xs font-bold text-gray-700">
+        <p className="text-xs sm:text-sm md:text-base font-bold text-black leading-snug">
           Delay costs you <span className="text-[#1FA463] font-black">{formatCurrency(opportunityCost)}</span> & <span className="text-[#1FA463] font-black">8 years</span> of freedom.
         </p>
       </div>

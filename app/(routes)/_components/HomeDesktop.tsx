@@ -686,6 +686,15 @@ export default function HomeDesktop() {
 
         <FiscalForumCity />
 
+        {/* Wealth Building Quote Section */}
+        <section className="py-8 bg-white border-b-4 border-black flex justify-center items-center">
+          <div className="max-w-7xl mx-auto px-4 text-center">
+            <div className="text-2xl sm:text-3xl md:text-4xl font-black text-black tracking-tight whitespace-nowrap">
+              "While others are building wealth, what's stopping you? Start <Link href="/services/stock-investment" className="inline-block bg-yellow-300 hover:bg-yellow-400 px-2 py-0.5 border-2 border-black shadow-[2px_2px_0px_#000] font-black cursor-pointer transition-transform hover:-translate-y-0.5 active:translate-y-0 mx-1">here</Link>."
+            </div>
+          </div>
+        </section>
+
         {/* Enhanced Services Section */}
         <section className="py-16 bg-[#F4FBF7] border-b-4 border-black">
           <div className="max-w-7xl mx-auto px-4 md:px-8">

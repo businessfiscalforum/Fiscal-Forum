@@ -494,6 +494,15 @@ export default function HomeMobile() {
 
       <FiscalForumCity />
 
+      {/* Wealth Building Quote Section */}
+      <section className="py-6 bg-white border-b-4 border-black flex justify-center items-center overflow-x-auto">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <div className="text-xl sm:text-2xl font-black text-black tracking-tight whitespace-nowrap">
+            "While others are building wealth, what's stopping you? Start <Link href="/services/stock-investment" className="inline-block bg-yellow-300 hover:bg-yellow-400 px-1.5 py-0.5 border-2 border-black shadow-[1.5px_1.5px_0px_#000] font-black cursor-pointer transition-transform hover:-translate-y-0.5 active:translate-y-0 mx-1">here</Link>."
+          </div>
+        </div>
+      </section>
+
       {/* 🔹 Tabbed Services (Cards Grid) */}
       <section className="px-4 py-8 bg-[#F4FBF7] border-b-4 border-black">
         <h2 className="text-xl sm:text-2xl font-black text-black uppercase tracking-tight text-center mb-6">

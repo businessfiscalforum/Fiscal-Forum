@@ -1,1459 +1,1296 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { BarChart3, FolderOpen, UserCheck, Phone } from "lucide-react";
 
-import { motion } from "framer-motion";
-import "swiper/css";
-import "swiper/css/pagination";
-import {
-  FaBalanceScale,
-  FaUsers,
-  FaRegClock,
-  FaAward,
-  FaHandHoldingUsd,
-  FaGem,
-  FaWhatsapp,
-} from "react-icons/fa";
-import Link from "next/link";
+import React, { useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-// import { BrokerInfiniteScroll } from "../../_components/Broker"; // Adjust path as needed
+import "./Screener.css";
 
-type Fund = {
-  name: string;
-  type: string;
-  rank: number;
-  minSIP: number;
-  threeYReturns: string;
-  rating: number; // Randomized >3
+// @ts-ignore
+import { FUNDS_DB } from "./funds_data";
+
+const categoryScores: Record<string, Record<string, number>> = {
+  low: {
+    "Debt Scheme - Liquid Fund": 10,
+    "Debt Scheme - Overnight Fund": 10,
+    "Debt Scheme - Ultra Short Duration Fund": 9,
+    "Debt Scheme - Short Duration Fund": 8,
+    "Debt Scheme - Gilt Fund": 8,
+    "Debt Scheme - Corporate Bond Fund": 7,
+    "Debt Scheme - Banking and PSU Fund": 7,
+    "Debt Scheme - Money Market Fund": 8,
+    "Debt Scheme - Low Duration Fund": 8,
+    "Hybrid Scheme - Conservative Hybrid Fund": 6,
+    "Other Scheme - Index Funds": 5,
+  },
+  medium: {
+    "Equity Scheme - Large Cap Fund": 10,
+    "Equity Scheme - Large & Mid Cap Fund": 9,
+    "Equity Scheme - Flexi Cap Fund": 9,
+    "Other Scheme - Index Funds": 9,
+    "Hybrid Scheme - Aggressive Hybrid Fund": 8,
+    "Hybrid Scheme - Balanced Hybrid Fund": 8,
+    "Hybrid Scheme - Dynamic Asset Allocation or Balanced Advantage": 8,
+    "Equity Scheme - Multi Cap Fund": 7,
+    "Equity Scheme - ELSS": 7,
+    "Hybrid Scheme - Multi Asset Allocation": 7,
+  },
+  high: {
+    "Equity Scheme - Small Cap Fund": 10,
+    "Equity Scheme - Mid Cap Fund": 10,
+    "Equity Scheme - Sectoral/ Thematic": 9,
+    "Equity Scheme - Multi Cap Fund": 8,
+    "Equity Scheme - Large & Mid Cap Fund": 8,
+    "Equity Scheme - Flexi Cap Fund": 7,
+    "Equity Scheme - Contra Fund": 7,
+    "Equity Scheme - Focused Fund": 7,
+    "Other Scheme - FoF Domestic": 5,
+  },
 };
 
-const tabs = [
-  "Small Cap Funds",
-  "Mid Cap Funds",
-  "Large Cap Funds",
-  "Flexi Cap Funds",
-  "Index Funds",
-  "Multi Cap Funds",
-  "Value Funds",
-  "Others",
+const goalCategoryBoost: Record<string, string[]> = {
+  tax: ["Equity Scheme - ELSS", "ELSS"],
+  emergency: [
+    "Debt Scheme - Liquid Fund",
+    "Debt Scheme - Overnight Fund",
+    "Debt Scheme - Ultra Short Duration Fund",
+  ],
+  income: [
+    "Debt Scheme - Corporate Bond Fund",
+    "Debt Scheme - Banking and PSU Fund",
+    "Hybrid Scheme - Conservative Hybrid Fund",
+  ],
+  retirement: [
+    "Solution Oriented Scheme - Retirement Fund",
+    "Equity Scheme - Flexi Cap Fund",
+    "Other Scheme - Index Funds",
+  ],
+  education: [
+    "Solution Oriented Scheme - Children s Fund",
+    "Equity Scheme - Large Cap Fund",
+    "Hybrid Scheme - Aggressive Hybrid Fund",
+  ],
+  wealth: ["Equity Scheme - Mid Cap Fund", "Equity Scheme - Small Cap Fund", "Equity Scheme - Flexi Cap Fund", "Other Scheme - Index Funds"],
+};
+
+const keyCategories = [
+  { label: "Large Cap", color: "#3b82f6" },
+  { label: "Mid Cap", color: "#38a169" },
+  { label: "Small Cap", color: "#e53e3e" },
+  { label: "ELSS", color: "#d4a84b" },
+  { label: "Liquid Fund", color: "#0bc5ea" },
+  { label: "Flexi Cap", color: "#805ad5" },
+  { label: "Index Funds", color: "#3b82f6" },
+  { label: "Gilt Fund", color: "#38a169" },
+  { label: "Hybrid", color: "#e53e3e" },
+  { label: "Sectoral", color: "#f6ad55" },
+  { label: "Overnight", color: "#0bc5ea" },
+  { label: "Debt - Short", color: "#9f7aea" },
+  { label: "Multi Cap", color: "#d4a84b" },
+  { label: "FoF", color: "#667eea" },
+  { label: "Retirement", color: "#38a169" },
+  { label: "Gold ETF", color: "#f6e05e" },
+  { label: "Corporate Bond", color: "#0bc5ea" },
+  { label: "Balanced", color: "#3b82f6" },
 ];
 
-// Real fund data extracted from your images
-const sampleFunds: Record<string, Fund[]> = {
-  "Small Cap Funds": [
-    {
-      name: "Quant Small Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 1,
-      minSIP: 1000,
-      threeYReturns: "23.24% p.a",
-      rating: 5,
-    },
-    {
-      name: "Invesco India Small Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 2,
-      minSIP: 500,
-      threeYReturns: "25.03% p.a",
-      rating: 5,
-    },
-    {
-      name: "Canara Robeco Small Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 3,
-      minSIP: 1000,
-      threeYReturns: "16.33% p.a",
-      rating: 4,
-    },
-    {
-      name: "Nippon India Small Cap Fund Plan",
-      type: "REGULAR • GROWTH",
-      rank: 4,
-      minSIP: 100,
-      threeYReturns: "22.37% p.a",
-      rating: 5,
-    },
-    {
-      name: "Franklin India Small Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 5,
-      minSIP: 500,
-      threeYReturns: "21.51% p.a",
-      rating: 4,
-    },
-    {
-      name: "Kotak Small Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 6,
-      minSIP: 100,
-      threeYReturns: "15.74% p.a",
-      rating: 4,
-    },
-    {
-      name: "HDFC Small Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 7,
-      minSIP: 100,
-      threeYReturns: "22.13% p.a",
-      rating: 5,
-    },
-  ],
-  "Mid Cap Funds": [
-    {
-      name: "Quant Mid Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 1,
-      minSIP: 1000,
-      threeYReturns: "16.19% p.a",
-      rating: 4,
-    },
-    {
-      name: "Motilal Oswal Midcap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 2,
-      minSIP: 500,
-      threeYReturns: "26.15% p.a",
-      rating: 5,
-    },
-    {
-      name: "HDFC Mid Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 3,
-      minSIP: 100,
-      threeYReturns: "25.77% p.a",
-      rating: 5,
-    },
-    {
-      name: "Nippon India Growth Fund Plan Growth",
-      type: "REGULAR • GROWTH",
-      rank: 4,
-      minSIP: 100,
-      threeYReturns: "25.21% p.a",
-      rating: 5,
-    },
-    {
-      name: "SBI Midcap Fund Regular Plan Growth",
-      type: "REGULAR • GROWTH",
-      rank: 5,
-      minSIP: 500,
-      threeYReturns: "16.31% p.a",
-      rating: 4,
-    },
-    {
-      name: "Franklin India Mid Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 6,
-      minSIP: 500,
-      threeYReturns: "22.06% p.a",
-      rating: 4,
-    },
-    {
-      name: "Mahindra Manulife Mid Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 7,
-      minSIP: 500,
-      threeYReturns: "23.79% p.a",
-      rating: 5,
-    },
-  ],
-  "Large Cap Funds": [
-    {
-      name: "Nippon India Large Cap Fund Plan Growth",
-      type: "REGULAR • GROWTH",
-      rank: 1,
-      minSIP: 100,
-      threeYReturns: "18.45% p.a",
-      rating: 4,
-    },
-    {
-      name: "ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund) Growth",
-      type: "REGULAR • GROWTH",
-      rank: 2,
-      minSIP: 100,
-      threeYReturns: "17.62% p.a",
-      rating: 4,
-    },
-    {
-      name: "Bandhan Large Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 3,
-      minSIP: 100,
-      threeYReturns: "16.27% p.a",
-      rating: 4,
-    },
-    {
-      name: "Canara Robeco Large Cap Fund Regulargrowth",
-      type: "REGULAR • GROWTH",
-      rank: 4,
-      minSIP: 100,
-      threeYReturns: "14.81% p.a",
-      rating: 3,
-    },
-    {
-      name: "Aditya Birla Sun Life Large Cap Fund Growth",
-      type: "REGULAR • GROWTH",
-      rank: 5,
-      minSIP: 100,
-      threeYReturns: "15.04% p.a",
-      rating: 4,
-    },
-    {
-      name: "DSP Large Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 6,
-      minSIP: 100,
-      threeYReturns: "17.40% p.a",
-      rating: 4,
-    },
-    {
-      name: "HSBC Large Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 7,
-      minSIP: 500,
-      threeYReturns: "13.91% p.a",
-      rating: 3,
-    },
-  ],
-  "Flexi Cap Funds": [
-    {
-      name: "Parag Parikh Flexi Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 1,
-      minSIP: 1000,
-      threeYReturns: "20.79% p.a",
-      rating: 5,
-    },
-    {
-      name: "Franklin India Flexi Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 2,
-      minSIP: 500,
-      threeYReturns: "17.73% p.a",
-      rating: 4,
-    },
-    {
-      name: "JM Flexicap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 3,
-      minSIP: 100,
-      threeYReturns: "20.68% p.a",
-      rating: 5,
-    },
-    {
-      name: "Canara Robeco Flexi Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 4,
-      minSIP: 100,
-      threeYReturns: "15.24% p.a",
-      rating: 4,
-    },
-    {
-      name: "HSBC Flexi Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 5,
-      minSIP: 500,
-      threeYReturns: "19.41% p.a",
-      rating: 4,
-    },
-    {
-      name: "HDFC Flexi Cap Fund Growth Plan",
-      type: "REGULAR • GROWTH",
-      rank: 6,
-      minSIP: 100,
-      threeYReturns: "21.33% p.a",
-      rating: 5,
-    },
-    {
-      name: "TATA Flexi Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 7,
-      minSIP: 100,
-      threeYReturns: "15.64% p.a",
-      rating: 4,
-    },
-  ],
-  "Index Funds": [
-    {
-      name: "ICICI Prudential Nifty Next 50 Index Fund",
-      type: "REGULAR • GROWTH",
-      rank: 1,
-      minSIP: 100,
-      threeYReturns: "17.19% p.a",
-      rating: 4,
-    },
-    {
-      name: "UTI Nifty 50 Index Fund",
-      type: "REGULAR • GROWTH",
-      rank: 2,
-      minSIP: 500,
-      threeYReturns: "12.76% p.a",
-      rating: 4,
-    },
-    {
-      name: "HDFC BSE Sensex Index Fund",
-      type: "REGULAR • GROWTH",
-      rank: 3,
-      minSIP: 100,
-      threeYReturns: "11.63% p.a",
-      rating: 3,
-    },
-    {
-      name: "Motilal Oswal Nifty Midcap 150 Index Fund",
-      type: "REGULAR • GROWTH",
-      rank: 4,
-      minSIP: 500,
-      threeYReturns: "22.71% p.a",
-      rating: 5,
-    },
-    {
-      name: "DSP Nifty 50 Equal Weight Index Fund Reg",
-      type: "REGULAR • GROWTH",
-      rank: 5,
-      minSIP: 100,
-      threeYReturns: "16.34% p.a",
-      rating: 4,
-    },
-    {
-      name: "ICICI Prudential BSE Sensex Index Fund",
-      type: "REGULAR • GROWTH",
-      rank: 6,
-      minSIP: 100,
-      threeYReturns: "11.71% p.a",
-      rating: 3,
-    },
-    {
-      name: "HDFC Nifty 50 Index Fund",
-      type: "REGULAR • GROWTH",
-      rank: 7,
-      minSIP: 100,
-      threeYReturns: "12.69% p.a",
-      rating: 4,
-    },
-  ],
-  "Multi Cap Funds": [
-    {
-      name: "ICICI Prudential Multicap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 1,
-      minSIP: 100,
-      threeYReturns: "19.58% p.a",
-      rating: 5,
-    },
-    {
-      name: "Nippon India Multi Cap Fund Plan Growth",
-      type: "REGULAR • GROWTH",
-      rank: 2,
-      minSIP: 100,
-      threeYReturns: "21.62% p.a",
-      rating: 5,
-    },
-    {
-      name: "Quant Multi Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 3,
-      minSIP: 1000,
-      threeYReturns: "10.93% p.a",
-      rating: 3,
-    },
-    {
-      name: "Mahindra Manulife Multi Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 4,
-      minSIP: 500,
-      threeYReturns: "19.18% p.a",
-      rating: 4,
-    },
-    {
-      name: "Baroda BNP Paribas Multi Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 5,
-      minSIP: 250,
-      threeYReturns: "18.55% p.a",
-      rating: 4,
-    },
-    {
-      name: "Invesco India Multicap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 6,
-      minSIP: 500,
-      threeYReturns: "17.70% p.a",
-      rating: 4,
-    },
-    {
-      name: "ITI Multi Cap Fund",
-      type: "REGULAR • GROWTH",
-      rank: 7,
-      minSIP: 500,
-      threeYReturns: "18.86% p.a",
-      rating: 4,
-    },
-  ],
-  "Value Funds": [
-    {
-      name: "Nippon India Value Fund",
-      type: "REGULAR • GROWTH",
-      rank: 1,
-      minSIP: 100,
-      threeYReturns: "21.72% p.a",
-      rating: 5,
-    },
-    {
-      name: "ICICI Prudential Value Fund (erstwhile Value Discovery Fund) Growth",
-      type: "REGULAR • GROWTH",
-      rank: 2,
-      minSIP: 100,
-      threeYReturns: "21.17% p.a",
-      rating: 5,
-    },
-    {
-      name: "Templeton India Value Fund",
-      type: "REGULAR • GROWTH",
-      rank: 3,
-      minSIP: 500,
-      threeYReturns: "17.16% p.a",
-      rating: 4,
-    },
-    {
-      name: "TATA Value Fund Regular Plan Growth",
-      type: "REGULAR • GROWTH",
-      rank: 4,
-      minSIP: 100,
-      threeYReturns: "19.35% p.a",
-      rating: 4,
-    },
-    {
-      name: "Bandhan Value Fund",
-      type: "REGULAR • GROWTH",
-      rank: 5,
-      minSIP: 100,
-      threeYReturns: "17.29% p.a",
-      rating: 4,
-    },
-    {
-      name: "Aditya Birla Sun Life Value Fund",
-      type: "REGULAR • GROWTH",
-      rank: 6,
-      minSIP: 100,
-      threeYReturns: "19.82% p.a",
-      rating: 5,
-    },
-  ],
-  Others: [
-    {
-      name: "Mirae Asset Hybrid Equity Fund",
-      type: "REGULAR • GROWTH",
-      rank: 1,
-      minSIP: 100,
-      threeYReturns: "18.22% p.a",
-      rating: 4,
-    },
-    {
-      name: "UTI Balanced Advantage Fund",
-      type: "REGULAR • GROWTH",
-      rank: 2,
-      minSIP: 500,
-      threeYReturns: "17.05% p.a",
-      rating: 4,
-    },
-    {
-      name: "ICICI Prudential Balanced Advantage Fund",
-      type: "REGULAR • GROWTH",
-      rank: 3,
-      minSIP: 100,
-      threeYReturns: "16.55% p.a",
-      rating: 4,
-    },
-    {
-      name: "Axis Balanced Advantage Fund",
-      type: "REGULAR • GROWTH",
-      rank: 4,
-      minSIP: 100,
-      threeYReturns: "15.92% p.a",
-      rating: 3,
-    },
-    {
-      name: "DSP Dynamic Asset Allocation Fund",
-      type: "REGULAR • GROWTH",
-      rank: 5,
-      minSIP: 500,
-      threeYReturns: "14.77% p.a",
-      rating: 3,
-    },
-  ],
-};
+export default function MutualFundScreenerPage() {
+  const router = useRouter();
 
-// Medal Icon Component
-const MedalIcon = ({ rank }: { rank: number }) => {
-  const getMedalClass = (rank: number) => {
-    switch (rank) {
-      case 1:
-        return "text-yellow-500 border-yellow-300";
-      case 2:
-        return "text-gray-400 border-gray-300";
-      case 3:
-        return "text-orange-600 border-orange-400";
-      default:
-        return "text-blue-500 border-blue-300";
-    }
-  };
-
-  const getRankSuffix = (rank: number) => {
-    if (rank === 1) return "st";
-    if (rank === 2) return "nd";
-    if (rank === 3) return "rd";
-    return "th";
-  };
-
-  return (
-    <div
-      className={`flex items-center justify-center w-8 h-8 rounded-full border ${getMedalClass(rank)} bg-white shadow-sm text-xs font-bold`}
-    >
-      {rank}
-      {getRankSuffix(rank)}
-    </div>
-  );
-};
-
-export default function MutualPage() {
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
-  useEffect(() => {
-    // This runs only on the client
-    const handleResize = () => setIsSmallScreen(window.innerWidth < 768);
-    handleResize(); // Check on first load
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+  // Categories & AMCs list sorted
+  const categories = useMemo(() => {
+    return Array.from(new Set(FUNDS_DB.map((f: any) => f.category)))
+      .filter(Boolean)
+      .sort();
   }, []);
 
-  const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState<{ text: string; type: string } | null>(
-    null
-  );
-  const [activeTab, setActiveTab] = useState("Small Cap Funds");
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) {
-      setMessage({ text: "Please enter your email address", type: "error" });
-      return;
-    }
+  const amcs = useMemo(() => {
+    return Array.from(new Set(FUNDS_DB.map((f: any) => f.amc)))
+      .filter(Boolean)
+      .sort();
+  }, []);
 
-    // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setMessage({ text: "Please enter a valid email address", type: "error" });
-      return;
-    }
+  // Stats Counters
+  const [schemesCount, setSchemesCount] = useState(0);
+  const [amcsCount, setAmcsCount] = useState(0);
+  const [catsCount, setCatsCount] = useState(0);
 
-    setIsSubmitting(true);
-    setMessage(null);
+  useEffect(() => {
+    const duration = 1200;
+    const startTime = performance.now();
 
-    try {
-      // Simulate API call
+    const animate = (time: number) => {
+      const elapsed = time - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = progress * (2 - progress);
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/subscribe`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email }),
-        }
-      );
-      const data = await response.json();
-      if (response.ok) {
-        setMessage({ text: data.message, type: "success" });
-        setEmail("");
-      } else {
-        setMessage({
-          text: data.error || "Subscription failed",
-          type: "error",
-        });
+      setSchemesCount(Math.round(ease * FUNDS_DB.length));
+      setAmcsCount(Math.round(ease * amcs.length));
+      setCatsCount(Math.round(ease * categories.length));
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
       }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      setMessage({
-        text: "Subscription failed. Please sign-in to subscribe.",
-        type: "error",
-      });
-    } finally {
-      setIsSubmitting(false);
+    };
+
+    requestAnimationFrame(animate);
+  }, [amcs.length, categories.length]);
+
+  // Advisor States
+  const [currentStep, setCurrentStep] = useState(1);
+  const [profileName, setProfileName] = useState("");
+  const [ageGroup, setAgeGroup] = useState("");
+  const [monthlyAmount, setMonthlyAmount] = useState<number | null>(null);
+  const [experience, setExperience] = useState("");
+  const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
+  const [horizon, setHorizon] = useState("");
+  const [riskAppetite, setRiskAppetite] = useState("");
+  const [preferredAMC, setPreferredAMC] = useState("");
+
+  const [recommendations, setRecommendations] = useState<any[]>([]);
+  const [isMatchingLoading, setIsMatchingLoading] = useState(false);
+
+  // Explore Database States
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterType, setFilterType] = useState("");
+  const [filterCategory, setFilterCategory] = useState("");
+  const [filterAMC, setFilterAMC] = useState("");
+  const [explorePage, setExplorePage] = useState(1);
+  const [exploreView, setExploreView] = useState<"grid" | "list">("grid");
+  const itemsPerPage = 24;
+
+  // Selected Fund for details Modal
+  const [selectedFund, setSelectedFund] = useState<any | null>(null);
+
+  // Helper Toast
+  const [toastMessage, setToastMessage] = useState("");
+  const triggerToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(""), 3000);
+  };
+
+  // Scroll Helper
+  const scrollToTarget = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
-  const cards = [
-    {
-      id: 1,
-      title: "All Mutual Funds",
-      description:
-        "Invest together and let professionals grow your money.",
-      icon: BarChart3,
-      iconBgColor: "bg-blue-100",
-      iconColor: "text-blue-600",
-      link: "/services/mutual-funds/all-mutual-funds",
-    },
-    {
-      id: 2,
-      title: "Loan Against Mutual Funds",
-      description:
-        "Unlock quick cash by pledging funds.",
-      icon: FaHandHoldingUsd,
-      iconBgColor: "bg-emerald-100",
-      iconColor: "text-emerald-600",
-      link: "/services/mutual-funds/loan-against-mutual-funds",
-    },
-    {
-      id: 3,
-      title: "Sovereign Gold Bonds (SGBs)",
-      description:
-        "Grow wealth safely in gold.",
-      icon: FaGem,
-      iconBgColor: "bg-orange-100",
-      iconColor: "text-orange-600",
-      link: "/services/mutual-funds/sovereign-gold-bonds",
-    },
-  ];
 
-  const [monthlyAmount, setMonthlyAmount] = useState<number>(5000);
-  const [duration, setDuration] = useState<number>(11);
-  const [expectedReturn, setExpectedReturn] = useState<number>(15.51);
-
-  // Calculate the future value of SIP investment
-  const calculateFutureValue = () => {
-    const amount = monthlyAmount;
-    const years = duration;
-    const rate = expectedReturn / 100;
-
-    // Future Value of SIP formula: FV = P * (((1 + r)^n - 1) / r)
-    const futureValue =
-      amount * ((Math.pow(1 + rate / 12, years * 12) - 1) / (rate / 12));
-
-    return Math.round(futureValue);
+  // Step Navigation Handlers
+  const handleNextStep = (from: number) => {
+    if (from === 1) {
+      if (!ageGroup || monthlyAmount === null || !experience) {
+        triggerToast("Please fill in all profile fields to continue.");
+        return;
+      }
+    }
+    if (from === 2) {
+      if (!horizon) {
+        triggerToast("Please select your investment horizon.");
+        return;
+      }
+    }
+    const next = from + 1;
+    setCurrentStep(next);
+    scrollToTarget("advisor");
   };
 
-  const totalInvestedAmount = monthlyAmount * 12 * duration;
-  const estimatedReturns = calculateFutureValue() - totalInvestedAmount;
+  const handlePrevStep = (from: number) => {
+    setCurrentStep(from - 1);
+    scrollToTarget("advisor");
+  };
 
-  const circumference = 2 * Math.PI * 45; // for r=45
-  const investedPortion =
-    (totalInvestedAmount / calculateFutureValue()) * circumference;
-  const returnsPortion =
-    (estimatedReturns / calculateFutureValue()) * circumference;
+  const handleGoalToggle = (goal: string) => {
+    setSelectedGoals((prev) =>
+      prev.includes(goal) ? prev.filter((g) => g !== goal) : [...prev, goal]
+    );
+  };
 
-  const formatNumber = (num: number) =>
-    new Intl.NumberFormat("en-IN").format(num);
+  // Recommendations Matching Algorithm
+  const handleGetRecommendations = () => {
+    if (!riskAppetite) {
+      triggerToast("Please select your risk appetite.");
+      return;
+    }
+    setCurrentStep(4);
+    setIsMatchingLoading(true);
+
+    setTimeout(() => {
+      const scored = FUNDS_DB.map((fund: any) => {
+        let score = 0;
+        const cat = fund.category || "";
+
+        // Base category score
+        const catMap = categoryScores[riskAppetite] || {};
+        score += (catMap[cat] || 0) * 8;
+
+        // Goal boosts
+        selectedGoals.forEach((goal) => {
+          const boostCats = goalCategoryBoost[goal] || [];
+          if (boostCats.some((c) => cat.includes(c))) score += 20;
+        });
+
+        // Horizon adjustments
+        if (horizon === "short") {
+          if (
+            cat.includes("Liquid") ||
+            cat.includes("Overnight") ||
+            cat.includes("Ultra Short") ||
+            cat.includes("Money Market")
+          ) {
+            score += 25;
+          }
+          if (cat.includes("Equity") && !cat.includes("ELSS")) {
+            score -= 15;
+          }
+        }
+        if (horizon === "medium") {
+          if (
+            cat.includes("Short Duration") ||
+            cat.includes("Low Duration") ||
+            cat.includes("Hybrid")
+          ) {
+            score += 15;
+          }
+        }
+        if (horizon === "long" || horizon === "verylong") {
+          if (
+            cat.includes("Equity") ||
+            cat.includes("Index") ||
+            cat.includes("ELSS")
+          ) {
+            score += 20;
+          }
+          if (cat.includes("Liquid") || cat.includes("Overnight")) {
+            score -= 10;
+          }
+        }
+
+        // AMC preference
+        if (preferredAMC && fund.amc === preferredAMC) {
+          score += 15;
+        }
+
+        // Prefer open ended for liquidity
+        if (fund.type === "Open Ended") {
+          score += 5;
+        }
+
+        // Prefer established AMCs
+        const topAMCs = [
+          "HDFC Asset Management",
+          "SBI Funds Management",
+          "ICICI Prudential",
+          "Axis Asset Management",
+          "Kotak Mahindra",
+          "Nippon Life",
+          "Mirae Asset",
+          "UTI Asset",
+          "Aditya Birla",
+          "Franklin Templeton",
+          "DSP Asset",
+          "PPFAS",
+        ];
+        if (topAMCs.some((t) => fund.amc && fund.amc.includes(t))) {
+          score += 8;
+        }
+
+        // Experience bonus for complex categories
+        if (
+          experience === "beginner" &&
+          (cat.includes("Sectoral") || cat.includes("Small Cap"))
+        ) {
+          score -= 10;
+        }
+        if (
+          experience === "experienced" &&
+          (cat.includes("Sectoral") || cat.includes("Contra"))
+        ) {
+          score += 5;
+        }
+
+        // Random jitter for natural ranking variation
+        score += Math.random() * 5;
+
+        return { ...fund, score };
+      });
+
+      scored.sort((a: any, b: any) => b.score - a.score);
+      setRecommendations(scored.slice(0, 12));
+      setIsMatchingLoading(false);
+    }, 1200);
+  };
+
+  const handleResetAdvisor = () => {
+    setProfileName("");
+    setAgeGroup("");
+    setMonthlyAmount(null);
+    setExperience("");
+    setSelectedGoals([]);
+    setHorizon("");
+    setRiskAppetite("");
+    setPreferredAMC("");
+    setRecommendations([]);
+    setCurrentStep(1);
+  };
+
+  // Filter explore database
+  const filteredFunds = useMemo(() => {
+    const search = searchQuery.toLowerCase().trim();
+    return FUNDS_DB.filter((f: any) => {
+      if (filterType && f.type !== filterType) return false;
+      if (filterCategory && f.category !== filterCategory) return false;
+      if (filterAMC && f.amc !== filterAMC) return false;
+      if (search) {
+        return (
+          (f.name && f.name.toLowerCase().includes(search)) ||
+          (f.amc && f.amc.toLowerCase().includes(search)) ||
+          (f.category && f.category.toLowerCase().includes(search)) ||
+          (f.isin && f.isin.toLowerCase().includes(search)) ||
+          (f.code && f.code.includes(search))
+        );
+      }
+      return true;
+    });
+  }, [searchQuery, filterType, filterCategory, filterAMC]);
+
+  // Paginated explore funds
+  const paginatedFunds = useMemo(() => {
+    const startIndex = (explorePage - 1) * itemsPerPage;
+    return filteredFunds.slice(startIndex, startIndex + itemsPerPage);
+  }, [filteredFunds, explorePage]);
+
+  const totalPages = Math.ceil(filteredFunds.length / itemsPerPage);
+
+  const exploreRange = useMemo(() => {
+    const current = explorePage;
+    const total = totalPages;
+    if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+    if (current <= 4) return [1, 2, 3, 4, 5, "...", total];
+    if (current >= total - 3) {
+      return [1, "...", total - 4, total - 3, total - 2, total - 1, total];
+    }
+    return [1, "...", current - 1, current, current + 1, "...", total];
+  }, [explorePage, totalPages]);
+
+  // Clear filters
+  const handleClearFilters = () => {
+    setFilterType("");
+    setFilterCategory("");
+    setFilterAMC("");
+    setExplorePage(1);
+  };
+
+  const handleClearSearch = () => {
+    setSearchQuery("");
+    setExplorePage(1);
+  };
+
+  // CSS class helpers
+  const getBadgeClass = (category: string) => {
+    if (!category) return "badge-other";
+    const c = category.toLowerCase();
+    if (c.includes("equity") || c.includes("elss")) return "badge-equity";
+    if (
+      c.includes("debt") ||
+      c.includes("liquid") ||
+      c.includes("gilt") ||
+      c.includes("money market")
+    ) {
+      return "badge-debt";
+    }
+    if (c.includes("hybrid")) return "badge-hybrid";
+    return "badge-other";
+  };
+
+  const getCategoryLabel = (category: string) => {
+    if (!category) return "Other";
+    const map: Record<string, string> = {
+      "Equity Scheme - Large Cap Fund": "Large Cap",
+      "Equity Scheme - Large & Mid Cap Fund": "Large & Mid Cap",
+      "Equity Scheme - Mid Cap Fund": "Mid Cap",
+      "Equity Scheme - Small Cap Fund": "Small Cap",
+      "Equity Scheme - Flexi Cap Fund": "Flexi Cap",
+      "Equity Scheme - Multi Cap Fund": "Multi Cap",
+      "Equity Scheme - ELSS": "ELSS",
+      "Equity Scheme - Sectoral/ Thematic": "Sectoral",
+      "Equity Scheme - Focused Fund": "Focused",
+      "Equity Scheme - Contra Fund": "Contra",
+      "Equity Scheme - Value Fund": "Value",
+      "Equity Scheme - Dividend Yield Fund": "Dividend Yield",
+      "Debt Scheme - Liquid Fund": "Liquid",
+      "Debt Scheme - Overnight Fund": "Overnight",
+      "Debt Scheme - Ultra Short Duration Fund": "Ultra Short",
+      "Debt Scheme - Short Duration Fund": "Short Duration",
+      "Debt Scheme - Medium Duration Fund": "Med Duration",
+      "Debt Scheme - Medium to Long Duration Fund": "Med-Long Duration",
+      "Debt Scheme - Long Duration Fund": "Long Duration",
+      "Debt Scheme - Gilt Fund": "Gilt",
+      "Debt Scheme - Corporate Bond Fund": "Corp Bond",
+      "Debt Scheme - Banking and PSU Fund": "Banking & PSU",
+      "Debt Scheme - Credit Risk Fund": "Credit Risk",
+      "Debt Scheme - Money Market Fund": "Money Market",
+      "Debt Scheme - Dynamic Bond": "Dynamic Bond",
+      "Hybrid Scheme - Aggressive Hybrid Fund": "Aggressive Hybrid",
+      "Hybrid Scheme - Conservative Hybrid Fund": "Consv. Hybrid",
+      "Hybrid Scheme - Balanced Hybrid Fund": "Balanced Hybrid",
+      "Hybrid Scheme - Dynamic Asset Allocation or Balanced Advantage": "BAF",
+      "Hybrid Scheme - Arbitrage Fund": "Arbitrage",
+      "Hybrid Scheme - Multi Asset Allocation": "Multi Asset",
+      "Hybrid Scheme - Equity Savings": "Equity Savings",
+      "Other Scheme - Index Funds": "Index Fund",
+      "Other Scheme - Gold ETF": "Gold ETF",
+      "Other Scheme - Other  ETFs": "ETF",
+      "Other Scheme - FoF Domestic": "FoF",
+      "Other Scheme - FoF Overseas": "FoF Overseas",
+      "Solution Oriented Scheme - Retirement Fund": "Retirement",
+      "Solution Oriented Scheme - Children s Fund": "Children's",
+      ELSS: "ELSS",
+    };
+    return (
+      map[category] ||
+      category
+        .replace(/^(Equity|Debt|Hybrid|Other|Solution Oriented) Scheme - /, "")
+        .substring(0, 18)
+    );
+  };
+
+  const formatAmount = (amount: any) => {
+    if (!amount) return "—";
+    const num = parseInt(amount.toString().replace(/[^0-9]/g, ""));
+    if (isNaN(num)) return amount.replace("Rs.", "₹").substring(0, 20);
+    if (num >= 100000) return `₹${(num / 100000).toFixed(1)}L`;
+    if (num >= 1000) return `₹${(num / 1000).toFixed(0)}K`;
+    return `₹${num}`;
+  };
 
   return (
-    <>
-      {/* Main Layout: Content + Broker Scroll */}
-      <div className="flex flex-col lg:flex-row min-h-screen bg-gray-50 pt-20">
-        {/* Main Content */}
-        <main className="flex-1">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="relative w-full py-10 sm:py-10 md:py-20 mb-16 px-4 overflow-hidden"
-          >
-            <div className="absolute inset-0 z-0">
-              <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-700 py-8"></div>
+    <div className="mf-screener-container pt-16 min-h-screen bg-[#faf9f7] text-[#0d1f3c]">
+      {/* Toast popup */}
+      {toastMessage && (
+        <div className="toast-message" style={{ display: "block" }}>
+          {toastMessage}
+        </div>
+      )}
+
+      {/* HERO SECTION */}
+      <section className="hero" id="hero">
+        <div className="hero-canvas">
+          <div className="orb orb-1"></div>
+          <div className="orb orb-2"></div>
+          <div className="orb orb-3"></div>
+          <div className="ticker-wrap">
+            <div className="ticker-track">
+              <span className="ticker-item ticker-up">HDFC Mid Cap Opportunities ▲ 2.1%</span>
+              <span className="ticker-item ticker-up">SBI Nifty Index ▲ 1.4%</span>
+              <span className="ticker-item ticker-up">Axis ELSS Tax Saver ▲ 3.2%</span>
+              <span className="ticker-item ticker-up">ICICI Bluechip ▲ 0.8%</span>
+              <span className="ticker-item ticker-down">Nippon Liquid ▼ 0.1%</span>
+              <span className="ticker-item ticker-up">Kotak Small Cap ▲ 4.1%</span>
+              <span className="ticker-item ticker-up">Mirae Asset Large Cap ▲ 1.9%</span>
+              <span className="ticker-item ticker-up">DSP Flexi Cap ▲ 2.5%</span>
+              <span className="ticker-item ticker-up">UTI Gilt Fund ▲ 0.6%</span>
+              <span className="ticker-item ticker-up">HDFC Mid Cap Opportunities ▲ 2.1%</span>
+              <span className="ticker-item ticker-up">SBI Nifty Index ▲ 1.4%</span>
+              <span className="ticker-item ticker-up">Axis ELSS Tax Saver ▲ 3.2%</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="hero-content">
+          <div className="creator-badge">
+            <span className="creator-tag">MFS SmartMatch v2.1</span>
+          </div>
+
+          <div className="hero-eyebrow">
+            <span className="eyebrow-line"></span>
+            <span className="eyebrow-text">India's Complete Fund Database</span>
+          </div>
+
+          <h1 className="hero-title">
+            MUTUAL FUND<br />
+            <em>SCREENER</em>
+          </h1>
+
+          <p className="hero-sub">
+            Screen, filter, and discover from {FUNDS_DB.length.toLocaleString()} live schemes across {amcs.length} AMCs &mdash; matched to your goals, risk, and investment horizon.
+          </p>
+
+          <div className="hero-counter-bar">
+            <div className="counter-item">
+              <span className="counter-val">{schemesCount.toLocaleString()}</span>
+              <span className="counter-lbl">Live Schemes</span>
+            </div>
+            <div className="counter-divider"></div>
+            <div className="counter-item">
+              <span className="counter-val">{amcsCount}</span>
+              <span className="counter-lbl">AMCs</span>
+            </div>
+            <div className="counter-divider"></div>
+            <div className="counter-item">
+              <span className="counter-val">{catsCount}</span>
+              <span className="counter-lbl">Categories</span>
+            </div>
+          </div>
+
+          <div className="hero-actions">
+            <button onClick={() => scrollToTarget("advisor")} className="btn-primary btn-lg">
+              Find My Best Funds &rarr;
+            </button>
+            <button onClick={() => scrollToTarget("explore")} className="btn-ghost btn-lg">
+              Browse All Funds
+            </button>
+          </div>
+
+          <div className="hero-quicksearch">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35" />
+            </svg>
+            <input
+              type="text"
+              placeholder="Quick search — try 'HDFC Mid Cap' or 'Index Fund'..."
+              className="hero-search-input"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") scrollToTarget("explore");
+              }}
+            />
+            <span className="hero-search-hint" onClick={() => scrollToTarget("explore")}>
+              &#9166; Go
+            </span>
+          </div>
+        </div>
+
+        <div className="hero-visual">
+          <div className="visual-container">
+            <div className="float-card float-card-1">
+              <div className="fc1-icon">&#127919;</div>
+              <div className="fc1-text">
+                <strong>Personalised Picks</strong>
+                <span>Matched to your profile</span>
+              </div>
             </div>
 
-            {/* Content */}
-            <div className="relative z-10 max-w-4xl mx-auto text-center">
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-                className="flex justify-center mb-4"
-              >
-                <div className="bg-white/20 backdrop-blur-sm p-3 rounded-full border border-white/30">
-                  <BarChart3 className="text-white w-10 h-10 sm:w-12 sm:h-12" />
+            <div className="dash-card">
+              <div className="dash-header">
+                <span className="dash-title">Top Recommendations</span>
+                <div className="dash-ai-badge">
+                  <span className="ai-dot"></span>
+                  Smart Match
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.h1
-                initial={{ y: 20, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-                className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-4 leading-tight"
-              >
-                Mutual Fund Investment
-              </motion.h1>
+              <div className="fund-row">
+                <div className="fr-rank gold-rank">1</div>
+                <div className="fr-info">
+                  <div className="fr-name">HDFC Mid Cap Opportunities</div>
+                  <div className="fr-cat">Equity &middot; Mid Cap</div>
+                </div>
+                <div className="fr-match">
+                  <span className="fr-pct">94%</span>
+                  <div className="fr-bar"><div className="fr-fill" style={{ width: "94%" }}></div></div>
+                </div>
+              </div>
 
-              <motion.p
-                initial={{ y: 20, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.4, duration: 0.5 }}
-                className="text-lg sm:text-xl text-white/90 mb-6 max-w-3xl mx-auto leading-relaxed"
-              >
-                Plan your wealth journey with mutual funds. Explore a variety of
-                fund types—from equity to debt to hybrid—designed to meet your
-                financial goals. Build a diversified portfolio, manage risk, and
-                grow your wealth over time with confidence.
-              </motion.p>
+              <div className="fund-row">
+                <div className="fr-rank silver-rank">2</div>
+                <div className="fr-info">
+                  <div className="fr-name">SBI Nifty Index Fund</div>
+                  <div className="fr-cat">Other &middot; Index Fund</div>
+                </div>
+                <div className="fr-match">
+                  <span className="fr-pct">87%</span>
+                  <div className="fr-bar"><div className="fr-fill" style={{ width: "87%" }}></div></div>
+                </div>
+              </div>
+
+              <div className="fund-row">
+                <div className="fr-rank bronze-rank">3</div>
+                <div className="fr-info">
+                  <div className="fr-name">Axis Long Term Equity</div>
+                  <div className="fr-cat">Equity &middot; ELSS</div>
+                </div>
+                <div className="fr-match">
+                  <span className="fr-pct">81%</span>
+                  <div className="fr-bar"><div className="fr-fill" style={{ width: "81%" }}></div></div>
+                </div>
+              </div>
             </div>
-          </motion.div>
-          {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12 max-w-3xl mx-auto"
-          >
-            <h1 className="text-4xl font-extrabold text-gray-800 mb-4">
-              Mutual Funds
-            </h1>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              Smart investment solutions tailored to your financial goals
-            </p>
-          </motion.div>
 
-          {/* Mutual Fund Cards Grid */}
-          <div className="max-w-7xl mx-auto px-4 mb-16">
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {cards.map((option, index) => {
-                const IconComponent = option.icon;
-                return (
-                  
-                  <motion.div
-                    key={option.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    whileHover={{ y: -8, scale: 1.02 }}
-                    className="relative rounded-2xl shadow-lg overflow-hidden transition-all duration-300 transform hover:shadow-xl bg-white"
-                  >
-                    <Link href={option.link} passHref>
-                    <div className="p-1 bg-gradient-to-r from-green-500 to-emerald-600"></div>
-                    <div className="p-6 space-y-4 h-full flex flex-col cursor-pointer">
+            <div className="float-card float-card-2">
+              <div className="fc2-label">Top AMCs in our database</div>
+              <div className="fc2-amcs">
+                <span className="fc2-amc">HDFC</span>
+                <span className="fc2-amc">SBI</span>
+                <span className="fc2-amc">ICICI</span>
+                <span className="fc2-amc">Axis</span>
+                <span className="fc2-amc">Kotak</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ADVISOR / SCREENER */}
+      <section className="advisor-section" id="advisor">
+        <div className="section-header">
+          <span className="section-tag">Smart Questionnaire</span>
+          <h2>Find Your Perfect Fund</h2>
+          <p>Our matching engine scores and filters the {FUNDS_DB.length.toLocaleString()} funds to find options aligned to your age, goal, and risk tolerance.</p>
+        </div>
+
+        <div className="advisor-inner">
+          <div className="steps-bar">
+            <div className={`step ${currentStep === 1 ? "active" : currentStep > 1 ? "done" : ""}`}>
+              <div className="step-circle">1</div>
+              <span>Profile</span>
+            </div>
+            <div className={`step-line ${currentStep > 1 ? "done" : ""}`}></div>
+            <div className={`step ${currentStep === 2 ? "active" : currentStep > 2 ? "done" : ""}`}>
+              <div className="step-circle">2</div>
+              <span>Goals</span>
+            </div>
+            <div className={`step-line ${currentStep > 2 ? "done" : ""}`}></div>
+            <div className={`step ${currentStep === 3 ? "active" : currentStep > 3 ? "done" : ""}`}>
+              <div className="step-circle">3</div>
+              <span>Risk</span>
+            </div>
+            <div className={`step-line ${currentStep > 3 ? "done" : ""}`}></div>
+            <div className={`step ${currentStep === 4 ? "active" : ""}`}>
+              <div className="step-circle">4</div>
+              <span>Results</span>
+            </div>
+          </div>
+
+          <div className="form-panels">
+            {/* STEP 1: Profile */}
+            {currentStep === 1 && (
+              <div className="form-panel active">
+                <h3>Tell us about yourself</h3>
+                <p className="panel-sub">Help us understand your investment context</p>
+
+                <div className="form-group">
+                  <label htmlFor="inp-name">Your Name</label>
+                  <input
+                    type="text"
+                    id="inp-name"
+                    placeholder="e.g., Rahul Sharma"
+                    className="form-input"
+                    value={profileName}
+                    onChange={(e) => setProfileName(e.target.value)}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label>Age Group</label>
+                  <div className="chip-group">
+                    {["18-25", "26-35", "36-45", "46-55", "55+"].map((age) => (
                       <div
-                        className={`p-3 rounded-xl ${option.iconBgColor} flex-shrink-0 w-12 h-12 flex items-center justify-center`}
+                        key={age}
+                        className={`chip ${ageGroup === age ? "selected" : ""}`}
+                        onClick={() => setAgeGroup(age)}
                       >
-                        {IconComponent && (
-                          <IconComponent
-                            className={`w-6 h-6 ${option.iconColor}`}
-                          />
-                        )}
+                        {age}
                       </div>
-                      <h2 className="text-sm font-bold text-gray-800">
-                        {option.title}
-                      </h2>
-                      <p className="text-sm leading-relaxed flex-grow text-gray-600">
-                        {option.description}
-                      </p>
-
-                      {/* <div className="pt-4">
-                        <Link
-                          href={
-                            option.title === "All Mutual Funds"
-                              ? "#all-mutual-funds"
-                              : option.link
-                          }
-                        >
-                          <div className="inline-flex items-center gap-2 font-medium text-green-600 hover:text-green-700">
-                            Learn More
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              className="w-4 h-4"
-                            >
-                              <path d="M5 12h14M12 5l7 7-7 7" />
-                            </svg>
-                          </div>
-                        </Link>
-                      </div> */}
-                    </div>
-                    </Link>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* SIP Calculator Section */}
-          <motion.section
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="py-10 sm:py-16 lg:py-20 px-3 sm:px-4 lg:px-4 max-w-6xl mx-auto"
-          >
-            <div className="bg-white/70 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
-              {/* HEADER */}
-              <div
-                className="
-      bg-gradient-to-r from-green-600 to-emerald-600
-      px-4 py-4
-      sm:px-6 sm:py-5
-      lg:px-8 lg:py-6
-    "
-              >
-                <h2
-                  className="
-        text-xl sm:text-2xl lg:text-3xl
-        font-bold text-white mb-1 sm:mb-2
-      "
-                >
-                  SIP Calculator
-                </h2>
-                <p className="text-green-100 text-xs sm:text-sm lg:text-base leading-relaxed">
-                  The SIP calculator helps estimate the potential growth of your
-                  investment over time.
-                </p>
-              </div>
-
-              {/* BODY CONTENT */}
-              <div className="p-4 sm:p-6 lg:p-8">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
-                  {/* ---------------- INPUT PANEL ---------------- */}
-                  <div className="space-y-5 sm:space-y-7 lg:space-y-8">
-                    {/* Box */}
-                    <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-blue-50 rounded-xl">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-500 rounded-xl flex items-center justify-center shadow-lg">
-                        <svg
-                          className="w-5 h-5 sm:w-6 sm:h-6 text-white"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-gray-800 text-sm sm:text-base">
-                          Returns Estimator
-                        </p>
-                        <p className="text-xs sm:text-sm text-gray-600">
-                          Based on historical performance
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Input Fields */}
-                    <div className="space-y-5 sm:space-y-6 lg:space-y-6">
-                      {/* Monthly Investment */}
-                      <div>
-                        <label className="block text-base sm:text-lg font-semibold text-gray-700 mb-2 sm:mb-3">
-                          Monthly Investment Amount
-                        </label>
-                        <div className="relative">
-                          <input
-                            type="number"
-                            value={monthlyAmount}
-                            onChange={(e) =>
-                              setMonthlyAmount(Number(e.target.value))
-                            }
-                            className="
-                    w-full pl-10 pr-4 py-3
-                    text-base sm:text-lg
-                    border-2 border-gray-200 rounded-xl
-                    focus:ring-4 focus:ring-green-500/20 focus:border-green-500
-                    bg-white shadow-sm
-                  "
-                            placeholder="₹5,000"
-                          />
-                          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-lg sm:text-xl font-medium">
-                            ₹
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Duration */}
-                      <div>
-                        <label className="block text-base sm:text-lg font-semibold text-gray-700 mb-2 sm:mb-3">
-                          Investment Duration
-                        </label>
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-xs sm:text-sm text-gray-500">
-                            1 Year
-                          </span>
-                          <div className="bg-green-100 px-3 py-1 rounded-full">
-                            <span className="text-sm sm:text-lg font-bold text-green-700">
-                              {duration} Years
-                            </span>
-                          </div>
-                          <span className="text-xs sm:text-sm text-gray-500">
-                            30 Years
-                          </span>
-                        </div>
-
-                        <input
-                          type="range"
-                          min="1"
-                          max="30"
-                          value={duration}
-                          onChange={(e) => setDuration(Number(e.target.value))}
-                          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                        />
-                      </div>
-
-                      {/* Expected Returns */}
-                      <div>
-                        <label className="block text-base sm:text-lg font-semibold text-gray-700 mb-2 sm:mb-3">
-                          Expected Annual Return
-                        </label>
-
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-xs sm:text-sm text-gray-500">
-                            8%
-                          </span>
-                          <div className="bg-blue-100 px-3 py-1 rounded-full">
-                            <span className="text-sm sm:text-lg font-bold text-blue-700">
-                              {expectedReturn}%
-                            </span>
-                          </div>
-                          <span className="text-xs sm:text-sm text-gray-500">
-                            30%
-                          </span>
-                        </div>
-
-                        <input
-                          type="range"
-                          min="8"
-                          max="30"
-                          value={expectedReturn}
-                          onChange={(e) =>
-                            setExpectedReturn(Number(e.target.value))
-                          }
-                          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                        />
-                      </div>
-                    </div>
+                    ))}
                   </div>
+                </div>
 
-                  {/* ---------------- RESULTS PANEL ---------------- */}
-                  <div className="flex flex-col justify-center items-center text-center bg-gradient-to-br from-gray-50 to-white p-5 sm:p-6 lg:p-8 rounded-2xl border border-gray-100">
-                    <p className="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-lg">
-                      Your total value after {duration} years:
-                    </p>
-
-                    <motion.div
-                      key={calculateFutureValue()}
-                      initial={{ scale: 0.9 }}
-                      animate={{ scale: 1 }}
-                      transition={{ duration: 0.3 }}
-                      className="text-3xl sm:text-5xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-6 sm:mb-8"
-                    >
-                      ₹{formatNumber(calculateFutureValue())}
-                    </motion.div>
-
-                    <div className="relative mb-6 sm:mb-8">
-                      <svg
-                        viewBox="0 0 100 100"
-                        className="w-28 h-28 sm:w-40 sm:h-40"
+                <div className="form-group">
+                  <label>Monthly Investment Amount</label>
+                  <div className="chip-group">
+                    {[500, 1000, 5000, 10000, 50000].map((amt) => (
+                      <div
+                        key={amt}
+                        className={`chip ${monthlyAmount === amt ? "selected" : ""}`}
+                        onClick={() => setMonthlyAmount(amt)}
                       >
-                        <circle
-                          cx="50"
-                          cy="50"
-                          r="45"
-                          fill="none"
-                          stroke="#E5E7EB"
-                          strokeWidth="8"
-                        />
-                        <circle
-                          cx="50"
-                          cy="50"
-                          r="45"
-                          fill="none"
-                          stroke="#F97316"
-                          strokeWidth="8"
-                          strokeDasharray={`${investedPortion} ${circumference}`}
-                          transform="rotate(-90 50 50)"
-                          strokeLinecap="round"
-                        />
-                        <circle
-                          cx="50"
-                          cy="50"
-                          r="45"
-                          fill="none"
-                          stroke="#3B82F6"
-                          strokeWidth="8"
-                          strokeDasharray={`${returnsPortion} ${circumference}`}
-                          transform="rotate(-90 50 50)"
-                          strokeLinecap="round"
-                          strokeDashoffset={-investedPortion}
-                        />
-                      </svg>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8 w-full">
-                      <div className="text-center p-3 sm:p-4 bg-orange-50 rounded-xl">
-                        <div className="flex items-center justify-center gap-2 mb-1 sm:mb-2">
-                          <div className="w-3 h-3 sm:w-4 sm:h-4 bg-orange-500 rounded-full"></div>
-                          <span className="font-semibold text-gray-700 text-xs sm:text-sm">
-                            Invested
-                          </span>
-                        </div>
-                        <div className="text-lg sm:text-xl font-bold text-orange-600">
-                          ₹{formatNumber(totalInvestedAmount)}
-                        </div>
+                        ₹{amt.toLocaleString()}
                       </div>
+                    ))}
+                  </div>
+                </div>
 
-                      <div className="text-center p-3 sm:p-4 bg-blue-50 rounded-xl">
-                        <div className="flex items-center justify-center gap-2 mb-1 sm:mb-2">
-                          <div className="w-3 h-3 sm:w-4 sm:h-4 bg-blue-500 rounded-full"></div>
-                          <span className="font-semibold text-gray-700 text-xs sm:text-sm">
-                            Returns
-                          </span>
-                        </div>
-                        <div className="text-lg sm:text-xl font-bold text-blue-600">
-                          ₹{formatNumber(estimatedReturns)}
-                        </div>
-                      </div>
-                    </div>
-
-                    <Link
-                      href="/services/mutual-funds/open-demat-account"
-                      passHref
-                    >
-                      <button
-                        className="
-              bg-gradient-to-r from-green-600 to-emerald-600
-              hover:from-green-700 hover:to-emerald-700
-              text-white px-6 sm:px-10 py-3 sm:py-4
-              rounded-full font-bold
-              text-base sm:text-lg
-              shadow-lg hover:shadow-xl
-              transform hover:scale-105 transition-all duration-300
-            "
+                <div className="form-group">
+                  <label>Investment Experience</label>
+                  <div className="chip-group">
+                    {[
+                      { val: "beginner", label: "Beginner" },
+                      { val: "intermediate", label: "Intermediate" },
+                      { val: "experienced", label: "Experienced" },
+                    ].map((exp) => (
+                      <div
+                        key={exp.val}
+                        className={`chip ${experience === exp.val ? "selected" : ""}`}
+                        onClick={() => setExperience(exp.val)}
                       >
-                        Start Investing Today
-                      </button>
-                    </Link>
+                        {exp.label}
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </div>
-            </div>
-          </motion.section>
 
-          {/* Call to Action (Kickstart & Level Up) */}
-          <motion.section
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="py-16 px-4 "
-          >
-            <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 ">
-              <div className="relative bg-gradient-to-br from-green-600 via-emerald-600 to-teal-700 rounded-3xl p-10 shadow-2xl hover:shadow-3xl transform hover:-translate-y-3 transition-all duration-500 group overflow-hidden">
-                {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-10">
-                  <div className="absolute top-4 right-4 w-24 h-24 border-2 border-white rounded-full"></div>
-                  <div className="absolute bottom-8 left-8 w-16 h-16 border border-white rounded-full"></div>
-                </div>
-
-                <div className="relative z-10 ">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl">
-                      <FolderOpen className="w-8 h-8 text-white" />
-                    </div>
-                    <h2 className="text-3xl font-bold leading-snug text-white">
-                      Begin Your Mutual Fund Journey
-                    </h2>
-                  </div>
-
-                  {!isSmallScreen && (
-                    <p className="text-green-100 text-lg leading-relaxed mb-8">
-                      Open an investment account today and start building wealth
-                      with diversified mutual fund portfolios — all from the
-                      comfort of your home, paperless and hassle-free.
-                    </p>
-                  )}
-                  <Link href={"/services/mutual-funds/open-demat-account"}>
-                    <button className="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-green-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-                      Start Growing
-                    </button>
-                  </Link>
-                </div>
-              </div>
-
-              <div className="relative bg-white rounded-3xl p-10 shadow-2xl hover:shadow-3xl border-2 border-green-100 hover:border-green-200 transform hover:-translate-y-3 transition-all duration-500 group overflow-hidden">
-                {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-5">
-                  <div className="absolute top-4 right-4 w-24 h-24 border-2 border-green-500 rounded-full"></div>
-                  <div className="absolute bottom-8 left-8 w-16 h-16 border border-green-400 rounded-full"></div>
-                </div>
-
-                <div className="relative z-10">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="p-3 bg-green-100 rounded-xl">
-                      <UserCheck className="w-8 h-8 text-green-600" />
-                    </div>
-                    <h2 className="text-3xl font-bold text-gray-800 leading-snug">
-                      Optimize Your Mutual Fund Portfolio
-                    </h2>
-                  </div>
-
-                  {!isSmallScreen && (
-                    <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                      Already have mutual fund investments? Shift to direct
-                      plans, reduce expense ratios, and maximize your long-term
-                      returns with our personalized strategies.
-                    </p>
-                  )}
-                  <Link href={"/services/mutual-funds/already-have-an-account"}>
-                    <button className="bg-green-100 border-2 border-green-500 text-green-700 px-8 py-4 rounded-full font-bold hover:bg-green-600 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-                      Continue Your Journey
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </motion.section>
-
-          <section
-            id="all-mutual-funds"
-            className="max-w-7xl mx-auto w-full px-4 md:px-6 lg:px-8"
-          >
-            <div className="bg-white rounded-2xl shadow-lg border border-emerald-200 p-5 md:p-6 mb-10">
-              <h2 className="text-2xl font-bold text-center mb-6">
-                Top Mutual Funds For You
-              </h2>
-
-              {/* Tabs */}
-              <div className="flex justify-center gap-2 mb-6 flex-wrap">
-                {tabs.map((tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition
-            ${
-              activeTab === tab
-                ? "bg-blue-600 text-white shadow"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-            }`}
-                  >
-                    {tab}
+                <div className="btn-row">
+                  <button className="btn-primary" onClick={() => handleNextStep(1)}>
+                    Continue &rarr;
                   </button>
-                ))}
-              </div>
-
-              {/* ================= MOBILE VIEW ================= */}
-              <div className="md:hidden space-y-4">
-                {sampleFunds[activeTab].map((fund, i) => (
-                  <div
-                    key={i}
-                    className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm"
-                  >
-                    {/* Header */}
-                    <div className="flex items-start gap-3">
-                      <div className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-sm font-bold text-gray-600">
-                        {fund.name.charAt(0)}
-                      </div>
-
-                      <div className="flex-1">
-                        <div className="text-[10px] text-gray-500 uppercase">
-                          {fund.type}
-                        </div>
-                        <h3 className="font-semibold text-sm leading-snug">
-                          {fund.name}
-                        </h3>
-                      </div>
-
-                      <MedalIcon rank={fund.rank} />
-                    </div>
-
-                    {/* Divider */}
-                    <div className="border-t border-gray-100 my-3" />
-
-                    {/* Stats */}
-                    <div className="grid grid-cols-3 gap-3 text-center text-xs">
-                      <div>
-                        <div className="text-gray-500">Min SIP</div>
-                        <div className="font-semibold">₹{fund.minSIP}</div>
-                      </div>
-
-                      <div>
-                        <div className="text-gray-500">3Y Return</div>
-                        <div className="font-semibold text-green-600">
-                          {fund.threeYReturns}
-                        </div>
-                      </div>
-
-                      <div>
-                        <div className="text-gray-500">Rating</div>
-                        <div className="text-yellow-500">
-                          {"⭐".repeat(fund.rating)}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* ================= DESKTOP VIEW ================= */}
-              <div className="hidden md:block space-y-3">
-                {/* Header Row */}
-                <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-4 px-4 py-3 bg-gray-50 rounded-t-lg border-b text-sm font-semibold text-gray-700">
-                  <div>Fund</div>
-                  <div className="text-center">Rank</div>
-                  <div className="text-right">Min SIP</div>
-                  <div className="text-right">3Y Returns</div>
-                  <div className="text-center">Rating</div>
                 </div>
-
-                {/* Rows */}
-                {sampleFunds[activeTab].map((fund, i) => (
-                  <div
-                    key={i}
-                    className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-4 items-center px-4 py-4 border bg-white rounded-lg hover:bg-gray-50 transition"
-                  >
-                    {/* Fund */}
-                    <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600">
-                        {fund.name.charAt(0)}
-                      </div>
-                      <div>
-                        <div className="text-xs text-gray-500 uppercase">
-                          {fund.type}
-                        </div>
-                        <h3 className="font-semibold text-sm">{fund.name}</h3>
-                      </div>
-                    </div>
-
-                    {/* Rank */}
-                    <div className="flex justify-center">
-                      <MedalIcon rank={fund.rank} />
-                    </div>
-
-                    {/* Min SIP */}
-                    <div className="text-right font-medium">₹{fund.minSIP}</div>
-
-                    {/* Returns */}
-                    <div className="text-right font-medium text-green-600">
-                      {fund.threeYReturns}
-                    </div>
-
-                    {/* Rating */}
-                    <div className="flex justify-center text-yellow-500 text-sm">
-                      {"⭐".repeat(fund.rating)}
-                    </div>
-                  </div>
-                ))}
               </div>
-            </div>
-          </section>
+            )}
 
-          {/* Account Options (Kickstart & Level Up) */}
-          {/* <section className="py-16 px-4">
-            <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-3xl p-10 flex flex-col justify-between shadow-xl min-h-[300px] hover:-translate-y-2 transition-transform duration-300 group text-white">
-                <div>
-                  <div className="flex items-center gap-4 mb-6">
-                    <FolderOpen className="w-10 h-10 text-white" />
-                    <h2 className="text-3xl font-bold leading-snug">
-                      Begin Your Mutual Fund Journey
-                    </h2>
-                  </div>
-                  {!isSmallScreen ? (
-                    <p className="text-green-100 text-lg leading-relaxed">
-                      Open an investment account today and start building wealth
-                      with diversified mutual fund portfolios — all from the
-                      comfort of your home, paperless and hassle-free.
-                    </p>
-                  ) : (
-                    <div></div>
-                  )}
-                </div>
-                <button
-                  onClick={() =>
-                    router.push("/services/mutual-funds/open-demat-account")
-                  }
-                  className="mt-6 w-fit border border-white text-white px-6 py-3 rounded-full font-medium hover:bg-white hover:text-green-700 transition-all duration-300"
-                >
-                  Start Growing
-                </button>
-              </div>
-              <div className="bg-white rounded-3xl p-10 flex flex-col justify-between border-2 border-green-200 shadow-xl min-h-[300px] hover:-translate-y-2 transition-transform duration-300 group">
-                <div>
-                  <div className="flex items-center gap-4 mb-6">
-                    <UserCheck className="w-10 h-10 text-green-600" />
-                    <h2 className="text-3xl font-bold text-gray-800 leading-snug">
-                      Optimize Your Mutual Fund Portfolio
-                    </h2>
-                  </div>
-                  {!isSmallScreen ? (
-                    <p className="text-gray-600 text-lg leading-relaxed">
-                      Already have mutual fund investments? Shift to direct
-                      plans, reduce expense ratios, and maximize your long-term
-                      returns with our personalized strategies.
-                    </p>
-                  ) : (
-                    <div></div>
-                  )}
-                </div>
-                <button
-                  onClick={() =>
-                    router.push(
-                      "/services/mutual-funds/already-have-an-account"
-                    )
-                  }
-                  className="mt-6 w-fit border border-green-600 text-green-600 px-6 py-3 rounded-full font-medium hover:bg-green-600 hover:text-white transition-all duration-300"
-                >
-                  Continue Your Journey
-                </button>
-              </div>
-            </div>
-          </section> */}
+            {/* STEP 2: Goals */}
+            {currentStep === 2 && (
+              <div className="form-panel active">
+                <h3>What are your goals?</h3>
+                <p className="panel-sub">Select multiple goals &mdash; we will match categories that support them</p>
 
-          {/* Enhanced Contact Section */}
-          <motion.section
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="py-10 px-4 mx-4 sm:mx-auto max-w-5xl"
-          >
-            <div className="bg-gradient-to-br from-teal-600 via-green-600 to-emerald-700 rounded-2xl shadow-xl relative overflow-hidden">
-              <div className="p-6 md:p-8">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                  {/* Text Content - Left Side */}
-                  <div className="flex-1 text-center md:text-left">
-                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
-                      Need Help? Talk to an Expert
-                    </h2>
-                    <p className="text-lg text-green-100 max-w-md">
-                      Get personalized guidance on your investment queries.
-                    </p>
-                  </div>
-
-                  {/* Buttons - Right Side */}
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <a
-                      href="tel:+918696060387"
-                      className="bg-white text-green-700 hover:bg-gray-100 px-5 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex items-center justify-center gap-2 text-sm whitespace-nowrap"
+                <div className="goal-cards">
+                  {[
+                    { val: "wealth", icon: "📈", title: "Wealth Creation", desc: "Long-term capital appreciation" },
+                    { val: "retirement", icon: "🌴", title: "Retirement Plan", desc: "Build a comfortable post-job corpus" },
+                    { val: "tax", icon: "📄", title: "Tax Saving", desc: "Save tax under Section 80C via ELSS" },
+                    { val: "emergency", icon: "🛡️", title: "Emergency Fund", desc: "Highly stable, accessible savings" },
+                    { val: "income", icon: "💰", title: "Regular Income", desc: "Dividend payouts or periodic SWP" },
+                    { val: "education", icon: "🎓", title: "Education", desc: "Build higher education fund for children" },
+                  ].map((goal) => (
+                    <div
+                      key={goal.val}
+                      className={`goal-card ${selectedGoals.includes(goal.val) ? "selected" : ""}`}
+                      onClick={() => handleGoalToggle(goal.val)}
                     >
-                      <Phone className="w-4 h-4" />
-                      <span>Call Now</span>
-                    </a>
+                      <span className="goal-icon">{goal.icon}</span>
+                      <strong>{goal.title}</strong>
+                      <p>{goal.desc}</p>
+                    </div>
+                  ))}
+                </div>
 
-                    <a
-                      href="https://wa.me/+918696060387"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex items-center justify-center gap-2 text-sm whitespace-nowrap"
-                    >
-                      <FaWhatsapp className="w-4 h-4" />
-                      <span>WhatsApp</span>
-                    </a>
+                <div className="form-group" style={{ marginTop: "28px" }}>
+                  <label>Investment Horizon</label>
+                  <div className="chip-group">
+                    {[
+                      { val: "short", label: "Under 1 Year" },
+                      { val: "medium", label: "1–3 Years" },
+                      { val: "long", label: "3–7 Years" },
+                      { val: "vlong", label: "7+ Years" },
+                    ].map((hz) => (
+                      <div
+                        key={hz.val}
+                        className={`chip ${horizon === hz.val ? "selected" : ""}`}
+                        onClick={() => setHorizon(hz.val)}
+                      >
+                        {hz.label}
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </div>
-            </div>
-          </motion.section>
 
-          {/* What is a Mutual Fund? */}
-          {/* <section className="py-20 px-4">
-            <div className="max-w-5xl mx-auto">
-              <h2 className="text-3xl font-bold text-gray-800 mb-6">
-                What is a Mutual Fund?
-              </h2>
-              <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                A <strong>Mutual Fund</strong> pools money from multiple
-                investors to invest in stocks, bonds, or other securities.
-                Managed by professional fund managers, it offers
-                diversification, risk management, and access to expert
-                strategies — ideal for both beginners and experienced investors.
-              </p>
-              <ul className="space-y-3 text-gray-700">
-                <li className="flex items-start">
-                  <CheckCircle className="text-green-600 w-5 h-5 mt-1 mr-3" />
-                  <span>
-                    Professional management with research-backed decisions
-                  </span>
-                </li>
-                <li className="flex items-start">
-                  <CheckCircle className="text-green-600 w-5 h-5 mt-1 mr-3" />
-                  <span>Diversification across sectors and asset classes</span>
-                </li>
-                <li className="flex items-start">
-                  <CheckCircle className="text-green-600 w-5 h-5 mt-1 mr-3" />
-                  <span>Start with as little as ₹500/month via SIP</span>
-                </li>
-                <li className="flex items-start">
-                  <CheckCircle className="text-green-600 w-5 h-5 mt-1 mr-3" />
-                  <span>
-                    Direct plans offer lower expense ratios and higher returns
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </section> */}
-
-          {/* Grow Your Wealth Section (As Requested) */}
-          <section
-            className="py-16 bg-gradient-to-r from-rose-700 to-orange-600
- text-white"
-          >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Grow Your Wealth Smartly with Fiscal Forum
-              </h2>
-              <p className="text-xl text-emerald-200 max-w-3xl mx-auto">
-                Diversified investment solutions tailored to your financial
-                goals
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
-              <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-                <div className="text-yellow-400 text-2xl mb-4">
-                  <FaBalanceScale />
+                <div className="btn-row">
+                  <button className="btn-ghost" onClick={() => handlePrevStep(2)}>
+                    &larr; Back
+                  </button>
+                  <button className="btn-primary" onClick={() => handleNextStep(2)}>
+                    Continue &rarr;
+                  </button>
                 </div>
-                <h3 className="text-lg font-bold mb-2">
-                  Get Best-Fit Funds, Always
-                </h3>
-                <p className="text-emerald-100">
-                  We guide you with the best fund options for the current market
-                  and provide complete fund details.
-                </p>
               </div>
+            )}
 
-              <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-                <div className="text-yellow-400 text-2xl mb-4">
-                  <FaUsers />
+            {/* STEP 3: Risk */}
+            {currentStep === 3 && (
+              <div className="form-panel active">
+                <h3>What is your risk tolerance?</h3>
+                <p className="panel-sub">This is the critical input that sets your core asset allocation mix</p>
+
+                <div className="risk-cards">
+                  <div
+                    className={`risk-card ${riskAppetite === "low" ? "selected" : ""}`}
+                    onClick={() => setRiskAppetite("low")}
+                  >
+                    <div className="risk-header">
+                      <span className="risk-icon">&#128994;</span>
+                      <strong>Conservative</strong>
+                    </div>
+                    <div className="risk-card-inner">
+                      <p>Prioritises capital protection. Accepts lower returns for steady stability.</p>
+                      <ul>
+                        <li>Liquid &amp; Overnight Funds</li>
+                        <li>Gilt &amp; Corporate Debt</li>
+                        <li>Short Duration Funds</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div
+                    className={`risk-card ${riskAppetite === "medium" ? "selected" : ""}`}
+                    onClick={() => setRiskAppetite("medium")}
+                  >
+                    <div className="risk-header">
+                      <span className="risk-icon">&#128993;</span>
+                      <strong>Moderate</strong>
+                    </div>
+                    <div className="risk-card-inner">
+                      <p>Wants balanced growth. Accepts moderate volatility over a medium timeline.</p>
+                      <ul>
+                        <li>Large &amp; Flexi Cap Funds</li>
+                        <li>Balanced Advantage (BAFs)</li>
+                        <li>Index Funds &amp; ETFs</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div
+                    className={`risk-card ${riskAppetite === "high" ? "selected" : ""}`}
+                    onClick={() => setRiskAppetite("high")}
+                  >
+                    <div className="risk-header">
+                      <span className="risk-icon">&#128308;</span>
+                      <strong>Aggressive</strong>
+                    </div>
+                    <div className="risk-card-inner">
+                      <p>Tolerates heavy market swings to chase high long-term growth.</p>
+                      <ul>
+                        <li>Small &amp; Mid Cap Equity</li>
+                        <li>Sectoral &amp; Thematic</li>
+                        <li>Contra &amp; Multi Cap Funds</li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold mb-2">Dedicated Support</h3>
-                <p className="text-emerald-100">
-                  Dedicated calling support for any changes or help you need.
-                </p>
-              </div>
 
-              <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-                <div className="text-yellow-400 text-2xl mb-4">
-                  <FaRegClock />
+                <div className="form-group" style={{ marginTop: "28px" }}>
+                  <label htmlFor="inp-amc">Preferred Asset Management Company (optional)</label>
+                  <select
+                    className="form-input"
+                    id="inp-amc"
+                    value={preferredAMC}
+                    onChange={(e) => setPreferredAMC(e.target.value)}
+                  >
+                    <option value="">Any AMC &mdash; recommend best options across all companies</option>
+                    {amcs.map((a: string) => (
+                      <option key={a} value={a}>
+                        {a}
+                      </option>
+                    ))}
+                  </select>
                 </div>
-                <h3 className="text-lg font-bold mb-2">
-                  Your Fiscal Forum Investment Kit
-                </h3>
-                <p className="text-emerald-100">
-                  Stay consistent and confident in your
-                </p>
-              </div>
 
-              <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-                <div className="text-yellow-400 text-2xl mb-4">
-                  <FaAward />
+                <div className="btn-row">
+                  <button className="btn-ghost" onClick={() => handlePrevStep(3)}>
+                    &larr; Back
+                  </button>
+                  <button className="btn-primary" onClick={handleGetRecommendations}>
+                    Get My Recommendations &#10022;
+                  </button>
                 </div>
-                <h3 className="text-lg font-bold mb-2">Referral Rewards</h3>
-                <p className="text-emerald-100">
-                  Earn commission on friends&apos; investment amounts
-                </p>
               </div>
-            </div>
-          </section>
-        </main>
+            )}
 
-        {/* ✅ Broker Infinite Scroll Sidebar */}
-        {/* <aside className="hidden lg:block w-40 bg-white border-l border-gray-200">
-          <div className="sticky top-0 flex items-center justify-center py-8">
-            <BrokerInfiniteScroll />
+            {/* STEP 4: Results */}
+            {currentStep === 4 && (
+              <div className="form-panel active">
+                <div className="results-header">
+                  <div className="results-intro">
+                    <h3>{profileName ? `${profileName}'s ` : ""}Top Fund Recommendations</h3>
+                    <p>Based on your profile &mdash; {riskAppetite} risk, {horizon} horizon</p>
+                  </div>
+                  <button className="btn-ghost btn-sm" onClick={handleResetAdvisor}>
+                    &#8634; Start Over
+                  </button>
+                </div>
+
+                {isMatchingLoading ? (
+                  <div className="loading-state" style={{ display: "block" }}>
+                    <div className="spinner"></div>
+                    <p>Screening {FUNDS_DB.length.toLocaleString()} active schemes for your matches...</p>
+                  </div>
+                ) : (
+                  <>
+                    <div className="results-list">
+                      {recommendations.map((fund, i) => {
+                        const maxScore = recommendations[0]?.score || 1;
+                        const matchPct = Math.round((fund.score / maxScore) * 100);
+                        const badgeClass = getBadgeClass(fund.category);
+                        const badgeLabel = getCategoryLabel(fund.category);
+
+                        return (
+                          <div
+                            key={fund.code || i}
+                            className="result-card"
+                            style={{ animationDelay: `${i * 0.06}s` }}
+                            onClick={() => setSelectedFund(fund)}
+                          >
+                            <div className={`result-rank ${i === 0 ? "gold-r" : ""}`}>{i + 1}</div>
+                            <div className="result-info">
+                              <div className="result-name">{fund.name}</div>
+                              <div className="result-meta">
+                                {fund.amc} &middot; {fund.type} &middot; Min: {formatAmount(fund.minAmount)}
+                              </div>
+                            </div>
+                            <div className="result-badges">
+                              <span className={`badge ${badgeClass}`}>{badgeLabel}</span>
+                              <span className="match-pill">{matchPct}% match</span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    <div className="results-footer" style={{ display: "block" }}>
+                      <p className="disclaimer">
+                        &#9888;&#65039; Mutual fund investments are subject to market risks. Please read all scheme-related documents carefully before investing. Past performance is not a guarantee of future returns. This tool is for educational purposes only.
+                      </p>
+                      <button className="btn-primary" onClick={() => scrollToTarget("explore")}>
+                        Explore Complete Database &rarr;
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
           </div>
-        </aside> */}
-      </div>
-    </>
+        </div>
+      </section>
+
+      {/* EXPLORE SECTION */}
+      <section className="explore-section" id="explore">
+        <div className="section-header">
+          <span className="section-tag">Full Database</span>
+          <h2>Explore All Schemes</h2>
+          <p>Query, filter, and inspect the entire AMFI-registered mutual fund master list.</p>
+        </div>
+
+        <div className="explore-controls">
+          <div className="search-box">
+            <svg className="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35" />
+            </svg>
+            <input
+              type="text"
+              placeholder="Search funds by name, AMC, category, ISIN or scheme code..."
+              className="search-input"
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setExplorePage(1);
+              }}
+            />
+            {searchQuery && (
+              <button className="search-clear" onClick={handleClearSearch} style={{ display: "flex" }}>
+                &#10005;
+              </button>
+            )}
+          </div>
+
+          <div className="filter-row">
+            <select
+              className="filter-select"
+              value={filterType}
+              onChange={(e) => {
+                setFilterType(e.target.value);
+                setExplorePage(1);
+              }}
+            >
+              <option value="">All Types</option>
+              <option value="Open Ended">Open Ended</option>
+              <option value="Close Ended">Close Ended</option>
+              <option value="Interval Fund">Interval Fund</option>
+            </select>
+
+            <select
+              className="filter-select"
+              value={filterCategory}
+              onChange={(e) => {
+                setFilterCategory(e.target.value);
+                setExplorePage(1);
+              }}
+            >
+              <option value="">All Categories</option>
+              {categories.map((c: string) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+
+            <select
+              className="filter-select"
+              value={filterAMC}
+              onChange={(e) => {
+                setFilterAMC(e.target.value);
+                setExplorePage(1);
+              }}
+            >
+              <option value="">All AMCs</option>
+              {amcs.map((a: string) => (
+                <option key={a} value={a}>
+                  {a}
+                </option>
+              ))}
+            </select>
+
+            <button className="btn-ghost btn-sm" onClick={handleClearFilters}>
+              Clear Filters
+            </button>
+          </div>
+        </div>
+
+        <div className="table-meta">
+          <span>
+            Showing {paginatedFunds.length} of {filteredFunds.length.toLocaleString()} schemes
+          </span>
+          <div className="view-toggle">
+            <button
+              className={`view-btn ${exploreView === "grid" ? "active" : ""}`}
+              onClick={() => setExploreView("grid")}
+              title="Grid view"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+              </svg>
+            </button>
+            <button
+              className={`view-btn ${exploreView === "list" ? "active" : ""}`}
+              onClick={() => setExploreView("list")}
+              title="List view"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {paginatedFunds.length === 0 ? (
+          <div style={{ textAlign: "center", padding: "60px", color: "#7d8fa8" }}>
+            No funds match your filters. Try adjusting your search query.
+          </div>
+        ) : (
+          <div className={exploreView === "grid" ? "funds-grid" : "funds-list"}>
+            {paginatedFunds.map((fund: any, idx) => {
+              const badgeClass = getBadgeClass(fund.category);
+              const badgeLabel = getCategoryLabel(fund.category);
+
+              if (exploreView === "list") {
+                return (
+                  <div key={fund.code || idx} className="fund-card" onClick={() => setSelectedFund(fund)}>
+                    <div className="fc-header">
+                      <div>
+                        <div className="fc-amc">{fund.amc}</div>
+                        <div className="fc-name">{fund.name}</div>
+                      </div>
+                    </div>
+                    <div className="fc-footer">
+                      <span className={`badge ${badgeClass}`}>{badgeLabel}</span>
+                      <span
+                        className="badge"
+                        style={{
+                          background: "rgba(125,143,168,0.1)",
+                          borderColor: "rgba(125,143,168,0.2)",
+                          color: "#7d8fa8",
+                        }}
+                      >
+                        {fund.type}
+                      </span>
+                      <span className="fc-min">Min: {formatAmount(fund.minAmount)}</span>
+                    </div>
+                  </div>
+                );
+              }
+
+              return (
+                <div key={fund.code || idx} className="fund-card" onClick={() => setSelectedFund(fund)}>
+                  <div className="fc-header">
+                    <div className="fc-amc">{fund.amc ? fund.amc.substring(0, 30) + (fund.amc.length > 30 ? "..." : "") : ""}</div>
+                    <span className={`badge ${badgeClass}`} style={{ flexShrink: 0 }}>
+                      {badgeLabel}
+                    </span>
+                  </div>
+                  <div className="fc-name">{fund.name}</div>
+                  <div className="fc-footer">
+                    <span
+                      className="badge"
+                      style={{
+                        background: "rgba(125,143,168,0.1)",
+                        borderColor: "rgba(125,143,168,0.2)",
+                        color: "#7d8fa8",
+                        fontSize: "10px",
+                      }}
+                    >
+                      {fund.type}
+                    </span>
+                    <span className="fc-min">Min: {formatAmount(fund.minAmount)}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {totalPages > 1 && (
+          <div className="pagination">
+            <button className="page-btn" disabled={explorePage === 1} onClick={() => setExplorePage((p) => Math.max(p - 1, 1))}>
+              &larr;
+            </button>
+            {exploreRange.map((p, index) => {
+              if (p === "...") {
+                return (
+                  <span
+                    key={`dots-${index}`}
+                    style={{ padding: "0 4px", color: "#4a5568", display: "flex", alignItems: "center" }}
+                  >
+                    &hellip;
+                  </span>
+                );
+              }
+              return (
+                <button
+                  key={p}
+                  className={`page-btn ${explorePage === p ? "active" : ""}`}
+                  onClick={() => {
+                    setExplorePage(Number(p));
+                    scrollToTarget("explore");
+                  }}
+                >
+                  {p}
+                </button>
+              );
+            })}
+            <button
+              className="page-btn"
+              disabled={explorePage === totalPages}
+              onClick={() => setExplorePage((p) => Math.min(p + 1, totalPages))}
+            >
+              &rarr;
+            </button>
+          </div>
+        )}
+      </section>
+
+      {/* ABOUT SECTION */}
+      <section className="about-section" id="about">
+        <div className="about-grid">
+          <div className="about-text">
+            <span className="section-tag">Unbiased Data Aggregator</span>
+            <h2>Investing, made simple for every Indian.</h2>
+            <p>Our screener consolidates information directly from the Association of Mutual Funds in India (AMFI) database to present fee-transparent, conflict-free recommendations.</p>
+
+            <div className="about-features">
+              <div className="about-feat">
+                <span className="feat-icon">&#127919;</span>
+                <div>
+                  <strong>Personalised Matching</strong>
+                  <p>Our algorithm balances your goals, timelines, and profile preferences to find your investment matches.</p>
+                </div>
+              </div>
+
+              <div className="about-feat">
+                <span className="feat-icon">&#128202;</span>
+                <div>
+                  <strong>Live Scheme Database</strong>
+                  <p>Aggregated directly from AMFI updates &mdash; featuring {FUNDS_DB.length.toLocaleString()} active schemes from 53 registered AMCs.</p>
+                </div>
+              </div>
+
+              <div className="about-feat">
+                <span className="feat-icon">&#128274;</span>
+                <div>
+                  <strong>Zero-Commission Diligence</strong>
+                  <p>No sponsored rankings or payout incentives. Unbiased metrics sorted purely by quantitative matching metrics.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="about-visual">
+            <div className="category-cloud">
+              {keyCategories.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="cat-tag"
+                  style={{
+                    borderColor: `${item.color}44`,
+                    color: item.color,
+                    background: `${item.color}11`,
+                  }}
+                >
+                  {item.label}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      {/* DETAILED MODAL POPUP */}
+      {selectedFund && (
+        <>
+          <div className="modal-overlay open" onClick={() => setSelectedFund(null)}></div>
+          <div className="fund-modal open">
+            <button className="modal-close" onClick={() => setSelectedFund(null)}>
+              &#10005;
+            </button>
+            <div id="modal-content">
+              <div className="modal-fund-name">{selectedFund.name}</div>
+              <div className="modal-amc">{selectedFund.amc}</div>
+              <div className="modal-grid">
+                <div className="modal-item">
+                  <label>Scheme Type</label>
+                  <strong>{selectedFund.type}</strong>
+                </div>
+                <div className="modal-item">
+                  <label>Category</label>
+                  <strong>
+                    <span className={`badge ${getBadgeClass(selectedFund.category)}`} style={{ display: "inline-block" }}>
+                      {getCategoryLabel(selectedFund.category)}
+                    </span>
+                  </strong>
+                </div>
+                <div className="modal-item">
+                  <label>Minimum Investment</label>
+                  <strong>{formatAmount(selectedFund.minAmount)}</strong>
+                </div>
+                <div className="modal-item">
+                  <label>Scheme Code</label>
+                  <strong style={{ fontFamily: "'JetBrains Mono', monospace" }}>{selectedFund.code}</strong>
+                </div>
+                <div className="modal-item">
+                  <label>Launch Date</label>
+                  <strong>{selectedFund.launch || "—"}</strong>
+                </div>
+                <div className="modal-item">
+                  <label>Full AMFI Category</label>
+                  <strong style={{ fontSize: "12px" }}>{selectedFund.category}</strong>
+                </div>
+              </div>
+              {selectedFund.navName && (
+                <div style={{ marginBottom: "12px" }}>
+                  <span className="modal-isin-label">NAV Plan Name</span>
+                  <div className="modal-nav-name">{selectedFund.navName}</div>
+                </div>
+              )}
+              {selectedFund.isin && (
+                <div>
+                  <span className="modal-isin-label">ISIN Identifier</span>
+                  <div className="modal-isin">{selectedFund.isin}</div>
+                </div>
+              )}
+              <p style={{ fontSize: "11px", color: "#6b7c95", lineHeight: "1.7", marginTop: "16px" }}>
+                ⚠️ This data is educational and sourced directly from AMFI master feeds. Always perform independent diligence before allocating capital. Mutual fund investing carries market risks.
+              </p>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
   );
 }
