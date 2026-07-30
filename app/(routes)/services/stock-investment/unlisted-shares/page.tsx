@@ -270,19 +270,19 @@ export default function UnlistedSharesPage() {
           {/* Hero Section */}
           <section className={styles.hero} id="top">
             <div className={styles["hero-inner"]}>
-              <div className={styles["hero-left"]}>
+              <div className={styles["hero-left"]} style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <span className={`${styles.badge} ${styles.reveal}`}>
                   PRE-IPO INVESTING, EXPLAINED
                 </span>
-                <h1 className={styles.reveal}>
+                <h1 className={styles.reveal} style={{ textAlign: "center" }}>
                   Invest Before
                   <br />
                   the IPO Happens.
                 </h1>
-                <p className={`${styles["hero-sub"]} ${styles.reveal}`}>
+                <p className={`${styles["hero-sub"]} ${styles.reveal}`} style={{ textAlign: "center", marginBottom: "20px" }}>
                   Own shares of companies before they become publicly listed.
                 </p>
-                <div className={`${styles["hero-buttons"]} ${styles.reveal}`}>
+                <div className={`${styles["hero-buttons"]} ${styles.reveal}`} style={{ justifyContent: "center", marginBottom: "8px" }}>
                   <a
                     href="#basics"
                     onClick={(e) => handleAnchorClick(e, "basics")}
@@ -291,6 +291,9 @@ export default function UnlistedSharesPage() {
                     How It Works <span className={styles["arrow-down"]}>↓</span>
                   </a>
                 </div>
+                <p className={`${styles["hero-tagline"]} ${styles.reveal}`} style={{ textAlign: "center", marginTop: "8px" }}>
+                  Access high-growth companies before they become publicly traded...
+                </p>
               </div>
 
               <div className={styles["hero-right"]}>
@@ -301,7 +304,7 @@ export default function UnlistedSharesPage() {
                   <Image
                     className={styles["hero-visual-img"]}
                     src="/unlisted-hero-visual.webp"
-                    alt="The Road to IPO illustration"
+                    alt="Illustrated winding path showing a company's journey from seed stage and startup growth, through the unlisted share stage, up to becoming listed at IPO"
                     width={440}
                     height={440}
                     priority
@@ -320,19 +323,18 @@ export default function UnlistedSharesPage() {
               <h2 className={styles.reveal}>What Exactly Is an Unlisted Share?</h2>
               <p className={`${styles["section-sub"]} ${styles.reveal}`}>
                 A real equity stake in a company that simply hasn&apos;t listed on an exchange yet.
+                <br />
+                <br />
+                When a company is <strong>unlisted</strong>, its shares still exist and still change
+                hands — just not on the NSE or BSE. Buying one gets you the same underlying ownership a
+                public shareholder has: a claim on the business, voting rights, dividend eligibility if
+                declared, and upside if the company grows. What&apos;s different is entirely in <em>how</em>{" "}
+                that ownership gets priced, found, and transferred, not what it represents.
               </p>
             </div>
 
-            <p className={`${styles["basics-intro"]} ${styles.reveal}`}>
-              When a company is <strong>unlisted</strong>, its shares still exist and still change
-              hands — just not on the NSE or BSE. Buying one gets you the same underlying ownership a
-              public shareholder has: a claim on the business, voting rights, dividend eligibility if
-              declared, and upside if the company grows. What&apos;s different is entirely in <em>how</em>{" "}
-              that ownership gets priced, found, and transferred, not what it represents.
-            </p>
-
             <div className={styles.flow}>
-              <div className={`${styles.card} ${styles["flow-card"]} ${styles.reveal}`}>
+              <div className={`${styles.card} ${styles["flow-card"]} ${styles.reveal} ${styles["from-right"]}`}>
                 <span className={`${styles.badge} ${styles["badge-sm"]}`}>STAGE 01</span>
                 <h3>Private Company</h3>
                 <div className={styles["card-divider"]}></div>
@@ -341,7 +343,7 @@ export default function UnlistedSharesPage() {
 
               <div className={`${styles["flow-arrow"]} ${styles.reveal}`}>↓</div>
 
-              <div className={`${styles.card} ${styles["flow-card"]} ${styles["holders-card"]} ${styles.reveal}`}>
+              <div className={`${styles.card} ${styles["flow-card"]} ${styles["holders-card"]} ${styles.reveal} ${styles["from-left"]}`}>
                 <span className={`${styles.badge} ${styles["badge-sm"]}`}>STAGE 02</span>
                 <h3>Held Privately By</h3>
                 <div className={styles["card-divider"]}></div>
@@ -355,7 +357,7 @@ export default function UnlistedSharesPage() {
 
               <div className={`${styles["flow-arrow"]} ${styles.reveal}`}>↓</div>
 
-              <div className={`${styles.card} ${styles["flow-card"]} ${styles["locked-card"]} ${styles.reveal}`}>
+              <div className={`${styles.card} ${styles["flow-card"]} ${styles["locked-card"]} ${styles.reveal} ${styles["from-right"]}`}>
                 <span className={`${styles.badge} ${styles["badge-sm"]} ${styles["badge-dark"]}`}>
                   STAGE 03
                 </span>
@@ -377,8 +379,8 @@ export default function UnlistedSharesPage() {
             </div>
 
             <div className={styles["fact-grid"]}>
-              <div className={`${styles.card} ${styles["fact-card"]} ${styles.reveal}`}>
-                <span className={styles["fact-icon"]}>🔄</span>
+              <div className={`${styles.card} ${styles["fact-card"]} ${styles.reveal} ${styles["from-left"]}`}>
+
                 <h4>Liquidity</h4>
                 <div className={styles["card-divider"]}></div>
                 <p className={styles["card-meta"]}>
@@ -386,8 +388,8 @@ export default function UnlistedSharesPage() {
                   position can take days, not seconds.
                 </p>
               </div>
-              <div className={`${styles.card} ${styles["fact-card"]} ${styles.reveal}`}>
-                <span className={styles["fact-icon"]}>📊</span>
+              <div className={`${styles.card} ${styles["fact-card"]} ${styles.reveal} ${styles["from-left"]}`}>
+
                 <h4>Price Discovery</h4>
                 <div className={styles["card-divider"]}></div>
                 <p className={styles["card-meta"]}>
@@ -395,8 +397,8 @@ export default function UnlistedSharesPage() {
                   on far fewer data points.
                 </p>
               </div>
-              <div className={`${styles.card} ${styles["fact-card"]} ${styles.reveal}`}>
-                <span className={styles["fact-icon"]}>💰</span>
+              <div className={`${styles.card} ${styles["fact-card"]} ${styles.reveal} ${styles["from-right"]}`}>
+
                 <h4>Minimum Investment</h4>
                 <div className={styles["card-divider"]}></div>
                 <p className={styles["card-meta"]}>
@@ -404,8 +406,8 @@ export default function UnlistedSharesPage() {
                   whoever&apos;s holding the stock.
                 </p>
               </div>
-              <div className={`${styles.card} ${styles["fact-card"]} ${styles.reveal}`}>
-                <span className={styles["fact-icon"]}>📝</span>
+              <div className={`${styles.card} ${styles["fact-card"]} ${styles.reveal} ${styles["from-right"]}`}>
+
                 <h4>Settlement</h4>
                 <div className={styles["card-divider"]}></div>
                 <p className={styles["card-meta"]}>
@@ -476,13 +478,10 @@ export default function UnlistedSharesPage() {
             <div className={styles["section-head"]}>
               <span className={`${styles.badge} ${styles.reveal}`}>THE CASE FOR IT</span>
               <h2 className={styles.reveal}>Why Investors Buy Unlisted Shares</h2>
-              <p className={`${styles["section-sub"]} ${styles.reveal}`}>
-                Four reasons. Hover over them to see the neo-brutalist interaction.
-              </p>
             </div>
 
             <div className={styles["why-grid"]}>
-              <div className={`${styles.card} ${styles["why-card"]} ${styles["wc-1"]} ${styles.reveal}`}>
+              <div className={`${styles.card} ${styles["why-card"]} ${styles["wc-1"]} ${styles.reveal} ${styles["from-left"]}`}>
                 <span className={`${styles.badge} ${styles["badge-sm"]}`}>REASON 01</span>
                 <div className={styles["why-card-head"]}>
                   <div className={styles["why-visual"]}>
@@ -500,7 +499,7 @@ export default function UnlistedSharesPage() {
                 <p className={styles["card-meta"]}>Invest before the IPO happens</p>
               </div>
 
-              <div className={`${styles.card} ${styles["why-card"]} ${styles["wc-2"]} ${styles.reveal}`}>
+              <div className={`${styles.card} ${styles["why-card"]} ${styles["wc-2"]} ${styles.reveal} ${styles["from-right"]}`}>
                 <span className={`${styles.badge} ${styles["badge-sm"]}`}>REASON 02</span>
                 <div className={styles["why-card-head"]}>
                   <div className={styles["why-visual"]}>
@@ -518,7 +517,7 @@ export default function UnlistedSharesPage() {
                 <p className={styles["card-meta"]}>Beyond listed equities and bonds</p>
               </div>
 
-              <div className={`${styles.card} ${styles["why-card"]} ${styles["wc-3"]} ${styles.reveal}`}>
+              <div className={`${styles.card} ${styles["why-card"]} ${styles["wc-3"]} ${styles.reveal} ${styles["from-left"]}`}>
                 <span className={`${styles.badge} ${styles["badge-sm"]}`}>REASON 03</span>
                 <div className={styles["why-card-head"]}>
                   <div className={styles["why-visual"]}>
@@ -536,7 +535,7 @@ export default function UnlistedSharesPage() {
                 <p className={styles["card-meta"]}>Companies not yet on any exchange</p>
               </div>
 
-              <div className={`${styles.card} ${styles["why-card"]} ${styles["wc-4"]} ${styles.reveal}`}>
+              <div className={`${styles.card} ${styles["why-card"]} ${styles["wc-4"]} ${styles.reveal} ${styles["from-right"]}`}>
                 <span className={`${styles.badge} ${styles["badge-sm"]}`}>REASON 04</span>
                 <div className={styles["why-card-head"]}>
                   <div className={styles["why-visual"]}>
@@ -557,7 +556,7 @@ export default function UnlistedSharesPage() {
           </section>
 
           {/* Dynamic Call to Action Funnel */}
-          <section className="bg-white py-12 px-6 border-t-3 border-[#111315] text-center">
+          <section className="bg-white py-12 px-6 border-t border-[#111315] text-center">
             <div className="max-w-2xl mx-auto space-y-6">
               <h2 className="text-3xl font-extrabold text-[#111315] font-['Space_Grotesk'] uppercase">
                 Ready to Own Tomorrow&apos;s Giants, Today?
