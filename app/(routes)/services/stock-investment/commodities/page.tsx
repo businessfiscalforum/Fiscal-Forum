@@ -556,6 +556,7 @@ export default function CommoditiesPage() {
   const [activeCommodity, setActiveCommodity] = useState<string>("wheat");
   const [activeStageIndex, setActiveStageIndex] = useState<number | null>(null);
   const [activeFactorId, setActiveFactorId] = useState<string>("rates");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   // Scroll reveals
   const introStmtRefs = [
@@ -674,15 +675,11 @@ export default function CommoditiesPage() {
           </div>
           <div className="hero-visual">
             <div className="hero-glow"></div>
-            <div className="relative w-[300px] h-[300px] sm:w-[420px] sm:h-[420px]">
-              <Image
-                className="hero-person rounded-[2.4rem] object-cover shadow-2xl"
-                src="/hero-person-rounded.png"
-                alt="Commodities market app preview"
-                fill
-                priority
-              />
-            </div>
+            <img
+              className="hero-person"
+              src="/hero-person-rounded.png"
+              alt="Commodities market app preview"
+            />
           </div>
         </div>
       </section>
@@ -884,104 +881,121 @@ export default function CommoditiesPage() {
       <section className="factors" id="factors">
         <div className="factors-head">
           <span className="eyebrow">What Moves Commodity Prices?</span>
-          <h2>Eight forces. One ripple, every time.</h2>
-          <p className="factors-sub">Click a force below to watch it reach the price</p>
+          <h2>Seven forces. One ripple, every time.</h2>
+          <p className="factors-sub">hover a force below to watch it reach the price</p>
         </div>
 
-        <div className="factors-board" style={{ "--factor-accent": factorCommodity.accent } as React.CSSProperties}>
-          {/* Node columns */}
-          <div className="flex flex-col gap-4 justify-between h-full">
-            {FACTORS.slice(0, 4).map((f) => (
-              <button
-                key={f.id}
-                type="button"
-                className={`factor-node ${activeFactorId === f.id ? "active" : ""}`}
-                onClick={() => setActiveFactorId(f.id)}
-              >
-                <span className="factor-node-icon">{f.icon}</span>
-                <span className="factor-node-label">{f.label}</span>
-              </button>
-            ))}
+        <div className="factors-container">
+          <div className="factors-left">
+            {/* Category Filter Pills */}
+            <div className="factor-category-picker">
+              {["all", "gold", "crude", "wheat", "cotton", "copper"].map((cat) => (
+                <button
+                  key={cat}
+                  className={`category-pill ${selectedCategory === cat ? "active" : ""}`}
+                  onClick={() => {
+                    setSelectedCategory(cat);
+                    const firstFactor = cat === "all" 
+                      ? FACTORS[0] 
+                      : FACTORS.find(f => f.commodity === cat);
+                    if (firstFactor) {
+                      setActiveFactorId(firstFactor.id);
+                    }
+                  }}
+                >
+                  {cat === "all" ? "All Forces" : COMMODITIES[cat].label}
+                </button>
+              ))}
+            </div>
+
+            <div className="factors-board" style={{ "--factor-accent": factorCommodity.accent } as React.CSSProperties}>
+              {FACTORS.map((f, idx) => {
+                const isMatch = selectedCategory === "all" || f.commodity === selectedCategory;
+                return (
+                  <button
+                    key={f.id}
+                    type="button"
+                    className={`factor-node ${activeFactorId === f.id ? "active" : ""} ${!isMatch ? "dimmed" : ""}`}
+                    style={{ gridArea: `c${idx + 1}` }}
+                    onMouseEnter={() => isMatch && setActiveFactorId(f.id)}
+                    onFocus={() => isMatch && setActiveFactorId(f.id)}
+                    onClick={() => isMatch && setActiveFactorId(f.id)}
+                  >
+                    <span className="factor-node-label">{f.label}</span>
+                  </button>
+                );
+              })}
+
+              {/* Center Graphic */}
+              <div className="factors-center">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeFactorId}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="w-full h-full relative"
+                  >
+                    <img
+                      src={factorCommodity.image}
+                      alt={factorCommodity.label}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="factors-center-overlay">
+                      <span className="factors-center-tag">{factorCommodity.label.toUpperCase()}</span>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
           </div>
 
-          {/* Center Graphic */}
-          <div className="factors-center">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeFactorId}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.25 }}
-                className="w-full h-full relative"
-              >
-                <Image
-                  src={factorCommodity.image}
-                  alt={factorCommodity.label}
-                  fill
-                  className="object-cover"
-                />
-                <div className="factors-center-overlay">
-                  <span className="factors-center-tag">{factorCommodity.label.toUpperCase()}</span>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Node columns */}
-          <div className="flex flex-col gap-4 justify-between h-full">
-            {FACTORS.slice(4).map((f) => (
-              <button
-                key={f.id}
-                type="button"
-                className={`factor-node ${activeFactorId === f.id ? "active" : ""}`}
-                onClick={() => setActiveFactorId(f.id)}
-              >
-                <span className="factor-node-icon">{f.icon}</span>
-                <span className="factor-node-label">{f.label}</span>
-              </button>
-            ))}
-            <div className="factor-node opacity-40 cursor-default shadow-none pointer-events-none">
-              <span className="factor-node-icon">📊</span>
-              <span className="factor-node-label">Speculation</span>
+          <div className="factors-right">
+            {/* Dynamic Chain Panel */}
+            <div className="factors-chain">
+              <span className="chain-factor-tag">
+                {activeFactor.label}
+              </span>
+              <div className="chain-steps flex-wrap">
+                {activeFactor.chain.map((step, i) => (
+                  <React.Fragment key={i}>
+                    {i > 0 && (
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: i * 0.15 }}
+                        className="chain-connector mx-1"
+                      >
+                        →
+                      </motion.span>
+                    )}
+                    <motion.span
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.15 }}
+                      className={`chain-step ${i === activeFactor.chain.length - 1 ? "chain-step-result" : ""}`}
+                    >
+                      <span className="chain-step-text">{step.label}</span>
+                      <span className={`chain-arrow ${step.dir}`}>
+                        {step.dir === "up" ? "▲" : "▼"}
+                      </span>
+                    </motion.span>
+                  </React.Fragment>
+                ))}
+              </div>
+              <p className="chain-note">{activeFactor.note}</p>
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Dynamic Chain Panel */}
-        <div className="factors-chain">
-          <span className="chain-factor-tag">
-            {activeFactor.icon} {activeFactor.label}
-          </span>
-          <div className="chain-steps flex-wrap">
-            {activeFactor.chain.map((step, i) => (
-              <React.Fragment key={i}>
-                {i > 0 && (
-                  <motion.span
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: i * 0.15 }}
-                    className="chain-connector mx-1"
-                  >
-                    →
-                  </motion.span>
-                )}
-                <motion.span
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.15 }}
-                  className={`chain-step ${i === activeFactor.chain.length - 1 ? "chain-step-result" : ""}`}
-                >
-                  <span className="chain-step-text">{step.label}</span>
-                  <span className={`chain-arrow ${step.dir}`}>
-                    {step.dir === "up" ? "▲" : "▼"}
-                  </span>
-                </motion.span>
-              </React.Fragment>
-            ))}
-          </div>
-          <p className="chain-note">{activeFactor.note}</p>
-        </div>
+      {/* BOTTOM CTA */}
+      <section className="cta-section">
+        <h3>Ready to start trading commodities?</h3>
+        <Link href="/services/stock-investment/commodities/apply" className="intro-cta">
+          Explore Commodities <span className="intro-cta-arrow">→</span>
+        </Link>
       </section>
     </div>
   );
