@@ -52,21 +52,22 @@ export default function MTFPage() {
 
   // Hero Scroll-linked Buying Power Counter
   const heroRef = useRef<HTMLDivElement>(null);
-  const [heroCounter, setHeroCounter] = useState(25000);
+  const [heroCounter, setHeroCounter] = useState(1000);
 
   // Side Scrollspy Nav & Back to Top states
   const [showSideNav, setShowSideNav] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
-  const [isDarkSection, setIsDarkSection] = useState(true);
+  const [isDarkSection, setIsDarkSection] = useState(false);
 
   // Comic Explainer scrollspy & active panel
   const [activePanel, setActivePanel] = useState<string | null>(null);
 
   // Simulator Calculator State
-  const [amount, setAmount] = useState(75000);
-  const [days, setDays] = useState(30);
-  const [rate, setRate] = useState(14);
+  const [simCash, setSimCash] = useState(25000);
+  const [simMargin, setSimMargin] = useState(25);
+  const [simDays, setSimDays] = useState(30);
+  const [simRate, setSimRate] = useState(14);
 
   // Stepper Timeline Auto-Advance State
   const [vtIndex, setVtIndex] = useState(-1);
@@ -89,7 +90,7 @@ export default function MTFPage() {
         const vh = window.innerHeight;
         let progress = 1 - rect.bottom / (rect.height + vh);
         progress = Math.min(Math.max(progress, 0), 1);
-        const amtVal = 25000 + (100000 - 25000) * progress;
+        const amtVal = 1000 + (100000 - 1000) * progress;
         setHeroCounter(amtVal);
       }
 
@@ -126,7 +127,7 @@ export default function MTFPage() {
     if (typeof window === "undefined" || !("IntersectionObserver" in window)) return;
 
     const targets = ["hero", "comic", "simulator", "mechanics"];
-    const darkSections = new Set(["hero", "simulator"]);
+    const darkSections = new Set<string>([]);
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -294,10 +295,10 @@ export default function MTFPage() {
     return "₹" + Math.round(n).toLocaleString("en-IN");
   };
 
-  const interest = amount * (rate / 100) * (days / 365);
-  const ownMargin = amount / 3;
-  const totalPosition = ownMargin + amount;
-  const cmpWithoutWidth = (ownMargin / totalPosition) * 100;
+  const simTotal = simCash * (100 / simMargin);
+  const simBorrowed = simTotal - simCash;
+  const simInterest = simBorrowed * (simRate / 100) * (simDays / 365);
+  const simMultiplier = simTotal / simCash;
 
   // Scroll to targeted ID smoothly
   const scrollToTarget = (id: string) => {
@@ -329,10 +330,14 @@ export default function MTFPage() {
           --shadow-off: 8px 8px 0 var(--ink);
           --shadow-off-sm: 4px 4px 0 var(--ink);
           --shadow-off-cream: 6px 6px 0 var(--cream);
-          --border: 3px solid var(--ink);
-          --border-thick: 4px solid var(--ink);
+          --border: 1.5px solid var(--ink);
+          --border-thick: 1.5px solid var(--ink);
 
-          background: var(--cream);
+          background-color: var(--cream);
+          background-image:
+            linear-gradient(to right, var(--cream-dim) 1px, transparent 1px),
+            linear-gradient(to bottom, var(--cream-dim) 1px, transparent 1px);
+          background-size: 144px 144px;
           color: var(--ink);
           font-family: var(--font-space-grotesk), sans-serif;
           overflow-x: hidden;
@@ -400,7 +405,7 @@ export default function MTFPage() {
           padding: .4rem 1rem;
           background: var(--mint-pale);
           color: var(--forest);
-          border: 2.5px solid var(--ink);
+          border: 1.5px solid var(--ink);
           border-radius: 100px;
         }
 
@@ -415,13 +420,15 @@ export default function MTFPage() {
           transform: translateY(0);
         }
 
+        /* progress rail (global) */
         .mtf-page-container .page-progress {
           position: fixed;
           top: 0;
           left: 0;
-          height: 4px;
+          height: 3px;
           background: var(--mint);
           z-index: 200;
+          width: 0%;
           transition: width .08s linear;
         }
 
@@ -429,12 +436,12 @@ export default function MTFPage() {
         .mtf-page-container .hero {
           position: relative;
           min-height: 100vh;
-          background: radial-gradient(120% 140% at 15% -10%, var(--forest-mid) 0%, var(--forest) 42%, var(--forest-deep) 100%);
-          color: var(--cream);
+          background: transparent;
+          color: var(--ink);
           display: flex;
           align-items: center;
           overflow: hidden;
-          padding: 0 2rem;
+          padding: 6rem 2rem 8rem;
         }
 
         .mtf-page-container .hero-bg-charts {
@@ -458,7 +465,6 @@ export default function MTFPage() {
           gap: 3.5rem;
           align-items: center;
           padding-top: 5rem;
-          padding-bottom: 5rem;
         }
 
         .mtf-page-container .hero h1 {
@@ -467,8 +473,8 @@ export default function MTFPage() {
         }
 
         .mtf-page-container .hero h1 .dim {
-          color: var(--cream-dim);
-          opacity: .55;
+          color: var(--ink);
+          opacity: .45;
           font-weight: 500;
         }
 
@@ -486,11 +492,11 @@ export default function MTFPage() {
           letter-spacing: .06em;
           text-transform: uppercase;
           padding: .95rem 1.7rem;
-          border: 3px solid var(--ink);
+          border: 1.5px solid var(--ink);
           border-radius: 100px;
           background: var(--cream);
           color: var(--ink);
-          box-shadow: 5px 5px 0 var(--ink);
+          box-shadow: none;
           transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
           display: inline-flex;
           align-items: center;
@@ -506,13 +512,11 @@ export default function MTFPage() {
         }
 
         .mtf-page-container .btn:hover {
-          transform: translate(2px, 2px);
-          box-shadow: 3px 3px 0 var(--ink);
+          opacity: .85;
         }
 
         .mtf-page-container .btn:active {
-          transform: translate(5px, 5px);
-          box-shadow: 0 0 0 var(--ink);
+          opacity: .7;
         }
 
         .mtf-page-container .btn.primary:hover {
@@ -528,9 +532,9 @@ export default function MTFPage() {
           padding: 1.2rem 1.8rem;
           background: var(--cream);
           color: var(--ink);
-          border: 3px solid var(--ink);
+          border: 1.5px solid var(--ink);
           border-radius: 18px;
-          box-shadow: 6px 6px 0 var(--ink);
+          box-shadow: none;
         }
 
         .mtf-page-container .hero-counter .lbl {
@@ -551,140 +555,24 @@ export default function MTFPage() {
 
         .mtf-page-container .mtf-diagram {
           background: var(--cream);
-          border: 3px solid var(--ink);
+          border: 1.5px solid var(--ink);
           border-radius: var(--radius-lg);
           padding: 2.8rem 3rem 2.6rem;
-          box-shadow: 10px 10px 0 var(--mint);
+          box-shadow: none;
           max-width: 640px;
         }
 
-        .mtf-page-container .mtf-diagram-head {
-          margin-bottom: 2.2rem;
+        .mtf-page-container .mtf-diagram-img {
+          padding: 0;
+          overflow: hidden;
+          max-width: 480px;
         }
 
-        .mtf-page-container .mtf-diagram-head .badge {
-          margin-bottom: 1.2rem;
-          font-size: .85rem;
-          padding: .5rem 1.2rem;
-        }
-
-        .mtf-page-container .mtf-diagram-head h3 {
-          font-size: 2rem;
-          color: var(--ink);
-          text-transform: none;
-          font-family: var(--font-space-grotesk), sans-serif;
-          font-weight: 700;
-          letter-spacing: 0;
-        }
-
-        .mtf-page-container .mtf-step {
-          display: flex;
-          align-items: center;
-          gap: 1.4rem;
-        }
-
-        .mtf-page-container .mtf-icon {
-          width: 72px;
-          height: 72px;
-          flex-shrink: 0;
-          border-radius: 50%;
-          border: 3px solid var(--ink);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: var(--cream);
-          box-shadow: 4px 4px 0 var(--ink);
-        }
-
-        .mtf-page-container .mtf-icon svg {
-          width: 34px;
-          height: 34px;
-        }
-
-        .mtf-page-container .mtf-icon.broker {
-          background: var(--forest);
-        }
-
-        .mtf-page-container .mtf-icon.power {
-          background: var(--mint);
-        }
-
-        .mtf-page-container .mtf-step-label {
-          font-family: var(--font-jetbrains-mono), monospace;
-          font-weight: 700;
-          font-size: 1.5rem;
-          letter-spacing: .04em;
-          text-transform: uppercase;
-          color: var(--ink);
-        }
-
-        .mtf-page-container .mtf-step-sub {
-          font-size: 1.32rem;
-          font-weight: 600;
-          color: var(--ink);
-          opacity: .75;
-          margin-top: .3rem;
-        }
-
-        .mtf-page-container .mtf-step.highlight .mtf-step-sub {
-          color: var(--forest);
-          opacity: 1;
-          font-weight: 700;
-        }
-
-        .mtf-page-container .mtf-connector {
-          display: flex;
-          align-items: center;
-          gap: .9rem;
-          padding: .75rem 0 .75rem 35px;
-          margin-left: 1px;
-          border-left: 3px dashed var(--ink);
-        }
-
-        .mtf-page-container .mtf-connector span {
-          font-family: var(--font-jetbrains-mono), monospace;
-          font-weight: 700;
-          font-size: 1.02rem;
-          letter-spacing: .06em;
-          text-transform: uppercase;
-          color: var(--ink);
-          opacity: .65;
-        }
-
-        .mtf-page-container .mtf-notes {
-          margin-top: 2.2rem;
-          padding-top: 2rem;
-          border-top: 2px dashed rgba(18,20,14,.25);
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-        }
-
-        .mtf-page-container .mtf-note {
-          display: flex;
-          align-items: center;
-          gap: .8rem;
-          font-family: var(--font-jetbrains-mono), monospace;
-          font-weight: 600;
-          font-size: 1.18rem;
-          letter-spacing: .02em;
-          color: var(--ink);
-        }
-
-        .mtf-page-container .mtf-note .dot {
-          width: 10px;
-          height: 10px;
-          border-radius: 50%;
-          flex-shrink: 0;
-          background: var(--forest);
-        }
-
-        .mtf-page-container .mtf-note.risk .dot {
-          background: var(--rust);
-        }
-
-        .mtf-page-container .mtf-note b {
-          font-weight: 800;
+        .mtf-page-container .mtf-diagram-img img {
+          display: block;
+          width: 100%;
+          height: auto;
+          border-radius: calc(var(--radius-lg) - 1.5px);
         }
 
         .mtf-page-container .scroll-cue {
@@ -692,7 +580,8 @@ export default function MTFPage() {
           bottom: 2.2rem;
           left: 2rem;
           z-index: 2;
-          color: var(--cream-dim);
+          color: var(--ink);
+          opacity: .6;
           font-family: var(--font-jetbrains-mono), monospace;
           font-size: .72rem;
           letter-spacing: .15em;
@@ -705,7 +594,8 @@ export default function MTFPage() {
         .mtf-page-container .scroll-cue .bar {
           width: 1px;
           height: 26px;
-          background: var(--cream-dim);
+          background: var(--ink);
+          opacity: .4;
           position: relative;
           overflow: hidden;
         }
@@ -727,11 +617,15 @@ export default function MTFPage() {
           100% { top: 100%; }
         }
 
-        /* Sections */
+        /* Section wrappers */
         .mtf-page-container section {
           position: relative;
           padding: 7rem 2rem;
           scroll-margin-top: 90px;
+        }
+
+        .mtf-page-container section + section {
+          border-top: 1.5px solid var(--ink);
         }
 
         .mtf-page-container .section-inner {
@@ -755,7 +649,7 @@ export default function MTFPage() {
           align-items: center;
           background: var(--mint-pale);
           color: var(--forest);
-          border: 2.5px solid var(--ink);
+          border: 1.5px solid var(--ink);
           border-radius: 100px;
           padding: .4rem 1rem;
         }
@@ -764,9 +658,9 @@ export default function MTFPage() {
           font-size: clamp(1.8rem, 3.6vw, 2.9rem);
         }
 
-        /* Comic Section */
+        /* Comic Explainer Section */
         .mtf-page-container .comic-section {
-          background: var(--cream);
+          background: transparent;
         }
 
         .mtf-page-container .comic-layout {
@@ -806,10 +700,10 @@ export default function MTFPage() {
         }
 
         .mtf-page-container .panel {
-          border: 3px solid var(--ink);
+          border: 1.5px solid var(--ink);
           border-radius: 18px;
           background: var(--cream);
-          box-shadow: var(--shadow-off);
+          box-shadow: none;
           padding: 1.6rem 1.8rem;
           display: grid;
           grid-template-columns: auto 1fr auto;
@@ -822,20 +716,20 @@ export default function MTFPage() {
         }
 
         .mtf-page-container .panel:hover {
-          box-shadow: 10px 10px 0 var(--ink);
+          box-shadow: none;
         }
 
         .mtf-page-container .panel .icon {
           width: 56px;
           height: 56px;
           flex-shrink: 0;
-          border: 3px solid var(--ink);
+          border: 1.5px solid var(--ink);
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
           background: var(--mint-pale);
-          box-shadow: 3px 3px 0 var(--ink);
+          box-shadow: none;
         }
 
         .mtf-page-container .panel .icon svg {
@@ -871,21 +765,21 @@ export default function MTFPage() {
         }
 
         .mtf-page-container .panel.broker {
-          background: var(--forest);
-          color: var(--cream);
+          background: var(--cream);
+          color: var(--ink);
         }
 
         .mtf-page-container .panel.broker .icon {
-          background: var(--forest-deep);
-          border-color: var(--cream);
+          background: var(--cream);
+          border-color: var(--ink);
         }
 
         .mtf-page-container .panel.broker .panel-text .line b {
-          color: var(--mint);
+          color: #8B5A2B;
         }
 
         .mtf-page-container .panel.broker .amount {
-          color: var(--mint);
+          color: #8B5A2B;
         }
 
         .mtf-page-container .panel.broker .panel-text .who {
@@ -902,21 +796,21 @@ export default function MTFPage() {
 
         /* Risk / Simulator Section */
         .mtf-page-container .risk-section {
-          background: var(--forest-deep);
-          color: var(--cream);
+          background: transparent;
+          color: var(--ink);
         }
 
         .mtf-page-container .risk-section .section-tag {
-          background: var(--forest);
-          color: var(--mint);
-          border-color: var(--cream);
+          background: var(--mint-pale);
+          color: var(--forest);
+          border-color: var(--ink);
         }
 
         .mtf-page-container .risk-grid {
           display: grid;
           grid-template-columns: .9fr 1.1fr;
           gap: 2.6rem;
-          align-items: center;
+          align-items: start;
         }
 
         .mtf-page-container .checklist {
@@ -933,9 +827,9 @@ export default function MTFPage() {
           font-family: var(--font-jetbrains-mono), monospace;
           font-size: 1.22rem;
           line-height: 1.6;
-          color: var(--cream);
+          color: var(--ink);
           padding-bottom: 1.2rem;
-          border-bottom: 1px solid rgba(241,236,222,.15);
+          border-bottom: 1px solid rgba(18,20,14,.15);
         }
 
         .mtf-page-container .checklist li::before {
@@ -944,118 +838,173 @@ export default function MTFPage() {
           flex-shrink: 0;
         }
 
-        .mtf-page-container .compare-card {
-          border: 3px solid var(--cream);
+        /* Simulator Card */
+        .mtf-page-container .mtf-sim-card {
+          border: 1.5px solid var(--ink);
           border-radius: 20px;
-          padding: 1.8rem 2rem 2.2rem;
-          margin-bottom: 1.6rem;
-          box-shadow: 6px 6px 0 rgba(241,236,222,.18);
+          padding: 2.2rem 2.3rem 2.4rem;
+          background: var(--cream);
         }
 
-        .mtf-page-container .compare-card h4 {
-          font-size: 1.15rem;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: .06em;
-          font-family: var(--font-jetbrains-mono), monospace;
-          color: var(--cream);
-          margin-bottom: 1.3rem;
-        }
-
-        .mtf-page-container .compare-row {
-          margin-bottom: 1.1rem;
-        }
-
-        .mtf-page-container .compare-row .crow-label {
-          display: flex;
-          justify-content: space-between;
-          font-family: var(--font-jetbrains-mono), monospace;
-          font-weight: 600;
-          font-size: 1rem;
-          margin-bottom: .5rem;
-          color: var(--cream);
-        }
-
-        .mtf-page-container .compare-row .crow-label b {
-          color: var(--cream);
-          font-size: 1.15rem;
-          font-weight: 800;
-        }
-
-        .mtf-page-container .cbar-track {
-          height: 14px;
-          border-radius: 8px;
-          background: rgba(241,236,222,.12);
-          overflow: hidden;
-        }
-
-        .mtf-page-container .cbar-fill {
-          height: 100%;
-          border-radius: 8px;
-          transition: width .35s cubic-bezier(.2,.7,.2,1);
-        }
-
-        .mtf-page-container .cbar-fill.without {
-          background: var(--cream-dim);
-        }
-
-        .mtf-page-container .cbar-fill.with {
-          background: var(--mint);
-        }
-
-        .mtf-page-container .compare-note {
-          font-family: var(--font-jetbrains-mono), monospace;
-          font-weight: 600;
-          font-size: .9rem;
-          color: var(--cream-dim);
-          opacity: .85;
-          margin-top: .6rem;
-        }
-
-        .mtf-page-container .calc-card {
-          border: 3px solid var(--mint);
-          border-radius: 20px;
-          padding: 2rem;
-          background: rgba(143,239,160,.05);
-          box-shadow: 6px 6px 0 rgba(143,239,160,.18);
-        }
-
-        .mtf-page-container .calc-card h3 {
+        .mtf-page-container .mtf-sim-card h3 {
           font-size: 1.5rem;
           font-weight: 800;
-          margin-bottom: 1.6rem;
-          color: var(--cream);
+          margin-bottom: .4rem;
+          color: var(--ink);
         }
 
-        .mtf-page-container .calc-row {
-          margin-bottom: 1.6rem;
+        .mtf-page-container .mtf-sim-sub {
+          font-family: var(--font-jetbrains-mono), monospace;
+          font-size: .85rem;
+          color: var(--ink);
+          opacity: .6;
+          margin-bottom: 1.8rem;
+          line-height: 1.5;
         }
 
-        .mtf-page-container .calc-row label {
+        .mtf-page-container .sim-row {
+          margin-bottom: 1.5rem;
+        }
+
+        .mtf-page-container .sim-row label {
           display: flex;
           justify-content: space-between;
           font-family: var(--font-jetbrains-mono), monospace;
           font-weight: 700;
-          font-size: .95rem;
+          font-size: .9rem;
           letter-spacing: .04em;
           text-transform: uppercase;
-          color: var(--cream);
+          color: var(--ink);
           margin-bottom: .6rem;
         }
 
-        .mtf-page-container .calc-row label b {
-          color: var(--mint);
-          font-size: 1.15rem;
+        .mtf-page-container .sim-row label b {
+          color: var(--forest);
+          font-size: 1.1rem;
           font-weight: 800;
           letter-spacing: 0;
           text-transform: none;
+        }
+
+        .mtf-page-container .sim-stack {
+          margin: 1.8rem 0 1.6rem;
+        }
+
+        .mtf-page-container .sim-stack-bar {
+          display: flex;
+          height: 60px;
+          border-radius: 12px;
+          overflow: hidden;
+          border: 1.5px solid var(--ink);
+        }
+
+        .mtf-page-container .sim-seg {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          transition: width .35s cubic-bezier(.2,.7,.2,1);
+          min-width: 0;
+          overflow: hidden;
+          padding: 0 .4rem;
+        }
+
+        .mtf-page-container .sim-seg span {
+          font-family: var(--font-jetbrains-mono), monospace;
+          font-size: .68rem;
+          line-height: 1.3;
+          font-weight: 700;
+          letter-spacing: .02em;
+          white-space: nowrap;
+        }
+
+        .mtf-page-container .sim-seg span b {
+          display: block;
+          font-size: .88rem;
+          margin-top: .1rem;
+        }
+
+        .mtf-page-container .sim-seg.cash {
+          background: var(--mint);
+          color: var(--ink);
+        }
+
+        .mtf-page-container .sim-seg.broker {
+          background: var(--forest);
+          color: var(--cream);
+          border-left: 1.5px dashed var(--cream);
+        }
+
+        .mtf-page-container .sim-stack-total {
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+          margin-top: .9rem;
+          font-family: var(--font-jetbrains-mono), monospace;
+          font-weight: 700;
+          font-size: .85rem;
+          text-transform: uppercase;
+          letter-spacing: .05em;
+          color: var(--ink);
+          opacity: .7;
+        }
+
+        .mtf-page-container .sim-stack-total b {
+          color: var(--ink);
+          font-size: 1.3rem;
+          letter-spacing: 0;
+          text-transform: none;
+          opacity: 1;
+        }
+
+        .mtf-page-container .sim-divider {
+          border-top: 2px dashed rgba(18,20,14,.25);
+          margin: 2rem 0 1.7rem;
+        }
+
+        .mtf-page-container .sim-result {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .mtf-page-container .sim-result-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+          flex-wrap: wrap;
+          gap: .5rem;
+        }
+
+        .mtf-page-container .sim-result-item .k {
+          font-family: var(--font-jetbrains-mono), monospace;
+          font-weight: 700;
+          font-size: .82rem;
+          text-transform: uppercase;
+          letter-spacing: .05em;
+          color: var(--ink);
+          opacity: .75;
+          max-width: 62%;
+          line-height: 1.4;
+        }
+
+        .mtf-page-container .sim-result-item .v {
+          font-family: var(--font-jetbrains-mono), monospace;
+          font-size: 1.7rem;
+          font-weight: 800;
+          color: var(--ink);
+          white-space: nowrap;
+        }
+
+        .mtf-page-container .sim-result-item .v.rust {
+          color: var(--rust);
         }
 
         .mtf-page-container input[type=range] {
           -webkit-appearance: none;
           width: 100%;
           height: 3px;
-          background: rgba(241,236,222,.25);
+          background: rgba(18,20,14,.25);
           border-radius: 3px;
         }
 
@@ -1065,51 +1014,24 @@ export default function MTFPage() {
           height: 20px;
           border-radius: 50%;
           background: var(--mint);
-          border: 3px solid var(--ink);
+          border: 1.5px solid var(--ink);
           cursor: pointer;
-          box-shadow: 2px 2px 0 var(--ink);
-        }
-
-        .mtf-page-container .calc-result {
-          margin-top: 1.8rem;
-          padding-top: 1.6rem;
-          border-top: 1px dashed rgba(241,236,222,.3);
-          display: flex;
-          justify-content: space-between;
-          align-items: baseline;
-          flex-wrap: wrap;
-          gap: .6rem;
-        }
-
-        .mtf-page-container .calc-result .label {
-          font-family: var(--font-jetbrains-mono), monospace;
-          font-weight: 700;
-          font-size: .95rem;
-          text-transform: uppercase;
-          letter-spacing: .06em;
-          color: var(--cream);
-        }
-
-        .mtf-page-container .calc-result .value {
-          font-family: var(--font-jetbrains-mono), monospace;
-          font-size: 2.1rem;
-          font-weight: 800;
-          color: var(--rust);
+          box-shadow: none;
         }
 
         .mtf-page-container .disclaimer {
           margin-top: 1.2rem;
           font-size: .85rem;
           font-weight: 500;
-          color: var(--cream-dim);
-          opacity: .8;
+          color: var(--ink);
+          opacity: .65;
           font-family: var(--font-jetbrains-mono), monospace;
           line-height: 1.55;
         }
 
         /* Timeline Section */
         .mtf-page-container .timeline-section {
-          background: var(--cream);
+          background: transparent;
           padding: 7rem 0;
         }
 
@@ -1139,7 +1061,7 @@ export default function MTFPage() {
           width: 44px;
           height: 44px;
           border-radius: 50%;
-          border: 3px solid var(--ink);
+          border: 1.5px solid var(--ink);
           background: var(--cream);
           color: var(--ink);
           display: flex;
@@ -1148,8 +1070,8 @@ export default function MTFPage() {
           font-family: var(--font-jetbrains-mono), monospace;
           font-weight: 700;
           font-size: 1rem;
-          transition: background .4s ease, color .4s ease, transform .4s ease, box-shadow .4s ease;
-          box-shadow: 3px 3px 0 var(--ink);
+          transition: background .2s ease, color .2s ease, transform .2s ease, box-shadow .2s ease;
+          box-shadow: none;
         }
 
         .mtf-page-container .vt-line {
@@ -1159,7 +1081,7 @@ export default function MTFPage() {
           background: var(--ink);
           opacity: .15;
           margin: .4rem 0;
-          transition: opacity .5s ease, background .5s ease;
+          transition: opacity .25s ease, background .25s ease;
         }
 
         .mtf-page-container .vt-step:last-child .vt-line {
@@ -1176,7 +1098,7 @@ export default function MTFPage() {
           font-size: 1.3rem;
           opacity: .32;
           transform: translateY(6px);
-          transition: opacity .45s ease, transform .45s ease, color .45s ease;
+          transition: opacity .2s ease, transform .2s ease, color .2s ease;
           margin-bottom: .2rem;
         }
 
@@ -1188,13 +1110,13 @@ export default function MTFPage() {
           font-size: 1.28rem;
           line-height: 1.65;
           color: var(--ink);
-          transition: max-height .55s ease, opacity .4s ease .05s, margin-top .4s ease;
+          transition: max-height .25s ease, opacity .18s ease, margin-top .18s ease;
         }
 
         .mtf-page-container .vt-step.active .vt-dot {
           background: var(--mint);
           transform: scale(1.08);
-          box-shadow: 4px 4px 0 var(--ink);
+          box-shadow: none;
         }
 
         .mtf-page-container .vt-step.active .vt-content h4 {
@@ -1298,7 +1220,7 @@ export default function MTFPage() {
           padding: .25rem .55rem;
           border: 1.5px solid var(--ink);
           border-radius: 6px;
-          box-shadow: 3px 3px 0 var(--ink);
+          box-shadow: none;
           white-space: nowrap;
         }
 
@@ -1356,11 +1278,11 @@ export default function MTFPage() {
           height: 48px;
           border-radius: 50%;
           background: var(--mint);
-          border: 2.5px solid var(--ink);
+          border: 1.5px solid var(--ink);
           display: flex;
           align-items: center;
           justify-content: center;
-          box-shadow: var(--shadow-off-sm);
+          box-shadow: none;
           opacity: 0;
           transform: translateY(12px) scale(.85);
           pointer-events: none;
@@ -1390,11 +1312,11 @@ export default function MTFPage() {
           letter-spacing: .06em;
           text-transform: uppercase;
           padding: .6rem 1.2rem;
-          border: 3px solid var(--ink);
+          border: 1.5px solid var(--ink);
           border-radius: 100px;
           background: var(--cream);
           color: var(--ink);
-          box-shadow: 4px 4px 0 var(--ink);
+          box-shadow: none;
           transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
           display: inline-flex;
           align-items: center;
@@ -1402,13 +1324,11 @@ export default function MTFPage() {
         }
 
         .mtf-page-container .back-btn:hover {
-          transform: translate(2px, 2px);
-          box-shadow: 2px 2px 0 var(--ink);
+          opacity: .85;
         }
 
         .mtf-page-container .back-btn:active {
-          transform: translate(4px, 4px);
-          box-shadow: 0px 0px 0 var(--ink);
+          opacity: .7;
         }
 
         /* Bottom Apply Section */
@@ -1416,8 +1336,8 @@ export default function MTFPage() {
           text-align: center;
           padding: 5rem 2rem;
           background: var(--mint-pale);
-          border-top: 5px solid var(--ink);
-          border-bottom: 5px solid var(--ink);
+          border-top: 1.5px solid var(--ink);
+          border-bottom: 1.5px solid var(--ink);
           color: var(--ink);
         }
 
@@ -1439,13 +1359,13 @@ export default function MTFPage() {
           opacity: 0.85;
         }
 
-        /* Footer mark */
+        /* Footer */
         .mtf-page-container footer {
-          background: var(--forest-deep);
-          color: var(--cream-dim);
+          background: transparent;
+          color: var(--ink);
           padding: 3rem 2rem 2.2rem;
           text-align: center;
-          border-top: 5px solid var(--mint);
+          border-top: 1.5px solid var(--ink);
         }
 
         .mtf-page-container footer .mark {
@@ -1457,7 +1377,7 @@ export default function MTFPage() {
         }
 
         .mtf-page-container footer .mark b {
-          color: var(--mint);
+          color: var(--forest);
           opacity: 1;
         }
 
@@ -1491,7 +1411,7 @@ export default function MTFPage() {
             display: none;
           }
           .mtf-page-container .mtf-diagram {
-            box-shadow: 6px 6px 0 var(--mint);
+            box-shadow: none;
             padding: 2.2rem 2rem;
           }
           .mtf-page-container .mtf-diagram-head h3 {
@@ -1513,6 +1433,12 @@ export default function MTFPage() {
           }
           .mtf-page-container .risk-grid {
             grid-template-columns: 1fr;
+          }
+          .mtf-page-container .sim-seg span {
+            font-size: .6rem;
+          }
+          .mtf-page-container .sim-seg span b {
+            font-size: .78rem;
           }
         }
         @media(max-width:600px) {
@@ -1603,66 +1529,8 @@ export default function MTFPage() {
             </div>
           </div>
 
-          <div className="mtf-diagram">
-            <div className="mtf-diagram-head">
-              <span className="badge">MTF Concept</span>
-              <h3>How the money flows</h3>
-            </div>
-
-            <div className="mtf-step">
-              <div className="mtf-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#12140E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="8" r="3.4" />
-                  <path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7" />
-                </svg>
-              </div>
-              <div>
-                <div className="mtf-step-label">Trader</div>
-                <div className="mtf-step-sub">Your funds — ₹25,000 margin</div>
-              </div>
-            </div>
-
-            <div className="mtf-connector"><span>Provides margin →</span></div>
-
-            <div className="mtf-step">
-              <div className="mtf-icon broker">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#F1ECDE" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M3 10l9-6 9 6" />
-                  <path d="M5 10v9M10 10v9M14 10v9M19 10v9" />
-                  <path d="M3 19h18" />
-                </svg>
-              </div>
-              <div>
-                <div className="mtf-step-label">Broker</div>
-                <div className="mtf-step-sub">Funds the rest — ₹75,000 loan</div>
-              </div>
-            </div>
-
-            <div className="mtf-connector"><span>Combined buying power →</span></div>
-
-            <div className="mtf-step highlight">
-              <div className="mtf-icon power">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#12140E" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 19V5" />
-                  <path d="M6 11l6-6 6 6" />
-                </svg>
-              </div>
-              <div>
-                <div className="mtf-step-label">Trading Power</div>
-                <div className="mtf-step-sub">₹1,00,000 total — buy 4× more stock</div>
-              </div>
-            </div>
-
-            <div className="mtf-notes">
-              <div className="mtf-note">
-                <span className="dot"></span>
-                <span><b>Cost</b> — interest paid to the broker</span>
-              </div>
-              <div className="mtf-note risk">
-                <span className="dot"></span>
-                <span><b>Risk</b> — losses are amplified too</span>
-              </div>
-            </div>
+          <div className="mtf-diagram mtf-diagram-img">
+            <img src="/assets/hero-illustration.png" alt="A giant hand lifting a trader up a staircase of stacked cash, illustrating margin trading facility boosting buying power" loading="eager" />
           </div>
         </div>
 
@@ -1777,44 +1645,53 @@ export default function MTFPage() {
             </ul>
 
             <div className="reveal sim-cards">
-              <div className="compare-card">
-                <h4>Buying power — drag the slider below</h4>
-                <div className="compare-row">
-                  <div className="crow-label"><span>Without MTF · your cash only</span><b>{fmtINR(ownMargin)}</b></div>
-                  <div className="cbar-track">
-                    <div className="cbar-fill without" style={{ width: `${cmpWithoutWidth}%` }} />
+              <div className="mtf-sim-card">
+                <h3>How MTF actually works — with your numbers</h3>
+                <p className="mtf-sim-sub">Move the sliders. Watch your own cash turn into a bigger position — and see exactly what carrying that borrowed portion costs.</p>
+
+                <div className="sim-row">
+                  <label>Your own cash <b className="mono">{fmtINR(simCash)}</b></label>
+                  <input type="range" min="3000" max="170000" step="1000" value={simCash} onChange={(e) => setSimCash(Number(e.target.value))} />
+                </div>
+                <div className="sim-row">
+                  <label>Margin required for this stock <b className="mono">{simMargin}%</b></label>
+                  <input type="range" min="20" max="50" step="5" value={simMargin} onChange={(e) => setSimMargin(Number(e.target.value))} />
+                </div>
+
+                <div className="sim-stack">
+                  <div className="sim-stack-bar">
+                    <div className="sim-seg cash" style={{ width: `${simMargin}%` }}>
+                      <span>Your cash<br /><b>{fmtINR(simCash)}</b></span>
+                    </div>
+                    <div className="sim-seg broker" style={{ width: `${100 - simMargin}%` }}>
+                      <span>Broker funds<br /><b>{fmtINR(simBorrowed)}</b></span>
+                    </div>
+                  </div>
+                  <div className="sim-stack-total">Total position you control <b>{fmtINR(simTotal)}</b></div>
+                </div>
+
+                <div className="sim-divider"></div>
+
+                <div className="sim-row">
+                  <label>Days you hold the position <b className="mono">{simDays}</b></label>
+                  <input type="range" min="1" max="180" step="1" value={simDays} onChange={(e) => setSimDays(Number(e.target.value))} />
+                </div>
+                <div className="sim-row">
+                  <label>Broker&apos;s annual interest rate <b className="mono">{simRate}%</b></label>
+                  <input type="range" min="8" max="24" step="0.5" value={simRate} onChange={(e) => setSimRate(Number(e.target.value))} />
+                </div>
+
+                <div className="sim-result">
+                  <div className="sim-result-item">
+                    <span className="k">Interest owed — charged only on the ₹{Math.round(simBorrowed).toLocaleString("en-IN")} borrowed</span>
+                    <span className="v rust">{fmtINR(simInterest)}</span>
+                  </div>
+                  <div className="sim-result-item">
+                    <span className="k">Your buying power, multiplied</span>
+                    <span className="v">{simMultiplier.toFixed(simMultiplier % 1 === 0 ? 0 : 1)}×</span>
                   </div>
                 </div>
-                <div className="compare-row">
-                  <div className="crow-label"><span>With MTF · total position size</span><b>{fmtINR(totalPosition)}</b></div>
-                  <div className="cbar-track">
-                    <div className="cbar-fill with" style={{ width: "100%" }} />
-                  </div>
-                </div>
-                <p className="compare-note">Assumes a typical ~25% margin requirement — your own cash funds a quarter, the broker funds the rest.</p>
-              </div>
-
-              <div className="calc-card">
-                <h3>What would the interest actually cost?</h3>
-
-                <div className="calc-row">
-                  <label>Borrowed from broker <b className="mono">{fmtINR(amount)}</b></label>
-                  <input type="range" min="10000" max="500000" step="5000" value={amount} onChange={(e) => setAmount(Number(e.target.value))} />
-                </div>
-                <div className="calc-row">
-                  <label>Days held <b className="mono">{days}</b></label>
-                  <input type="range" min="1" max="180" step="1" value={days} onChange={(e) => setDays(Number(e.target.value))} />
-                </div>
-                <div className="calc-row">
-                  <label>Broker&apos;s annual interest rate <b className="mono">{rate}%</b></label>
-                  <input type="range" min="8" max="24" step="0.5" value={rate} onChange={(e) => setRate(Number(e.target.value))} />
-                </div>
-
-                <div className="calc-result">
-                  <span className="label">Interest owed</span>
-                  <span className="value">{fmtINR(interest)}</span>
-                </div>
-                <p className="disclaimer">Illustrative only — actual broker rates, slabs, and compounding vary. This is not investment or tax advice.</p>
+                <p className="disclaimer">Illustrative only — actual broker rates, margin slabs, and compounding vary by stock and broker. Not investment or tax advice.</p>
               </div>
             </div>
           </div>
