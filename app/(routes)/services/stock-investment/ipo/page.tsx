@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 // Ticker tape data
 const tickerData = [
@@ -16,12 +17,12 @@ const tickerData = [
 ];
 
 const stageMeta = [
-  { caption: "🏠 Startup", img: "/01-startup.png" },
-  { caption: "🏢 Growing Company", img: "/02-growing-company.png" },
-  { caption: "💰 Needs Capital", img: "/03-needs-capital.png" },
-  { caption: "📈 IPO Opens", img: "/04-ipo-opens.png" },
-  { caption: "🏛️ NSE/BSE Listing", img: "/05-nse-bse-listing.png" },
-  { caption: "🧑 Investors Become Shareholders", img: "/06-investors-shareholders.png" },
+  { caption: "Startup", img: "/01-startup.png" },
+  { caption: "Growing Company", img: "/02-growing-company.png" },
+  { caption: "Needs Capital", img: "/03-needs-capital.png" },
+  { caption: "IPO Opens", img: "/04-ipo-opens.png" },
+  { caption: "NSE/BSE Listing", img: "/05-nse-bse-listing.png" },
+  { caption: "Investors Become Shareholders", img: "/06-investors-shareholders.png" },
 ];
 
 const whyCaptions = [
@@ -104,6 +105,12 @@ export default function IPOPage() {
               <button className="btn" onClick={() => scrollTo("s-sim")}>
                 Try the allotment simulator
               </button>
+              <Link href="/services/stock-investment/ipo/apply" className="btn" style={{ display: "inline-block", textDecoration: "none", textAlign: "center" }}>
+                Apply for IPO
+              </Link>
+              <Link href="/services/stock-investment/open-demat-account" className="btn" style={{ display: "inline-block", textDecoration: "none", textAlign: "center" }}>
+                Open Demat Account
+              </Link>
             </div>
           </div>
           <div className="hero-frame">
@@ -144,17 +151,16 @@ export default function IPOPage() {
             <div className="stepper-rail" id="flowList">
               <div className="stepper-track"></div>
               {[
-                { num: "01", icon: "🏠", title: "Private company", desc: "Owned by founders, family, and early backers. Value is whatever the last private round agreed on." },
-                { num: "02", icon: "📈", title: "Needs growth capital", desc: "New factories, new markets, or debt that needs clearing — beyond what founders and VCs can keep funding." },
-                { num: "03", icon: "🏦", title: "Bankers step in", desc: "Merchant bankers value the company, write the DRHP, and build the book of institutional demand." },
-                { num: "04", icon: "🚀", title: "IPO launches", desc: "The issue opens. Retail, HNI, and institutional investors bid within a price band over 3–5 days." },
-                { num: "05", icon: "🧑‍💼", title: "Shares are allotted", desc: "Demand is tallied, the cut-off price is fixed, and shares are allotted — often on a lottery basis." },
-                { num: "06", icon: "🔔", title: "Company gets listed", desc: "Shares begin trading on NSE/BSE. The company now answers to shareholders and a live stock price." },
+                { num: "01", title: "Private company", desc: "Owned by founders, family, and early backers. Value is whatever the last private round agreed on." },
+                { num: "02", title: "Needs growth capital", desc: "New factories, new markets, or debt that needs clearing — beyond what founders and VCs can keep funding." },
+                { num: "03", title: "Bankers step in", desc: "Merchant bankers value the company, write the DRHP, and build the book of institutional demand." },
+                { num: "04", title: "IPO launches", desc: "The issue opens. Retail, HNI, and institutional investors bid within a price band over 3–5 days." },
+                { num: "05", title: "Shares are allotted", desc: "Demand is tallied, the cut-off price is fixed, and shares are allotted — often on a lottery basis." },
+                { num: "06", title: "Company gets listed", desc: "Shares begin trading on NSE/BSE. The company now answers to shareholders and a live stock price." },
               ].map((step, idx) => (
                 <div key={idx} className="step in">
                   <div className="step-num">{step.num}</div>
                   <h3>
-                    <span className="ic">{step.icon}</span>
                     {step.title}
                   </h3>
                   <p>{step.desc}</p>
@@ -467,6 +473,24 @@ export default function IPOPage() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* APPLY CTA */}
+      <section className="apply-cta" style={{ textAlign: "center", borderTop: "var(--bw) solid var(--ink)", padding: "80px 6vw" }}>
+        <div className="wrap">
+          <h2 style={{ fontSize: "clamp(26px, 4.4vw, 44px)", marginBottom: "14px" }}>Ready to invest?</h2>
+          <p style={{ color: "var(--ink-soft)", marginTop: "14px", marginBottom: "28px", maxWidth: "480px", marginLeft: "auto", marginRight: "auto", fontSize: "15px", lineHeight: "1.6" }}>
+            Submit your IPO application form online and start your investment journey today.
+          </p>
+          <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
+            <Link href="/services/stock-investment/ipo/apply" className="btn primary" style={{ display: "inline-block", textDecoration: "none" }}>
+              Apply for IPO now
+            </Link>
+            <Link href="/services/stock-investment/open-demat-account" className="btn" style={{ display: "inline-block", textDecoration: "none" }}>
+              Open Demat Account
+            </Link>
           </div>
         </div>
       </section>

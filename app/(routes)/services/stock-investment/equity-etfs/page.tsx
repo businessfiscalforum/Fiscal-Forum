@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 // Ticker tape data
 const tickerData = [
@@ -129,11 +130,49 @@ export default function EquityETFsPage() {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [showResults, setShowResults] = useState(false);
   const [activeSlice, setActiveSlice] = useState<string | null>(null);
+  const [isComparedVisible, setIsComparedVisible] = useState(false);
+  const [isQuizVisible, setIsQuizVisible] = useState(false);
 
   // References for scrolling
   const quizRef = useRef<HTMLDivElement>(null);
   const compareRef = useRef<HTMLDivElement>(null);
+  const vsTableRef = useRef<HTMLDivElement>(null);
+  const quizPanelRef = useRef<HTMLDivElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
+
+  // Trigger pop-in when user reaches the comparison section
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsComparedVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    if (vsTableRef.current) {
+      observer.observe(vsTableRef.current);
+    }
+    return () => observer.disconnect();
+  }, []);
+
+  // Trigger pop-in when user reaches the quiz panel
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsQuizVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    if (quizPanelRef.current) {
+      observer.observe(quizPanelRef.current);
+    }
+    return () => observer.disconnect();
+  }, []);
 
   // Scroll Helpers
   const scrollTo = (ref: React.RefObject<HTMLDivElement | null>) => {
@@ -260,13 +299,19 @@ export default function EquityETFsPage() {
               Invest in India&apos;s leading companies or diversify instantly with ETFs.{" "}
               <b>Start with as little as ₹100</b> — then let the allocation engine below build the right mix for you.
             </p>
-            <div className="hero-cta-row">
+            <div className="hero-cta-row flex flex-wrap gap-4 mt-6">
               <button className="btn-hero-primary" onClick={() => scrollTo(quizRef)}>
                 Build My Allocation →
               </button>
               <button className="btn-hero-secondary" onClick={() => scrollTo(compareRef)}>
                 Equity vs ETF
               </button>
+              <Link href="/services/stock-investment/equity-etfs/apply" className="btn-hero-secondary" style={{ display: "inline-flex", alignItems: "center" }}>
+                Apply
+              </Link>
+              <Link href="/services/stock-investment/open-demat-account" className="btn-hero-secondary" style={{ display: "inline-flex", alignItems: "center" }}>
+                Explore
+              </Link>
             </div>
           </div>
           <div className="main-hero-visual">
@@ -288,7 +333,7 @@ export default function EquityETFsPage() {
         <div className="compare-head">
           <h2>Equity vs ETF — quick comparison</h2>
         </div>
-        <div className="vs-table">
+        <div ref={vsTableRef} className={`vs-table ${isComparedVisible ? "in-view" : ""}`}>
           <div className="vs-col equity">
             <div className="vs-col-head">
               <span className="icon">Eq</span>
@@ -363,7 +408,7 @@ export default function EquityETFsPage() {
               </div>
             </div>
 
-            <div className="quiz-panel">
+            <div ref={quizPanelRef} className={`quiz-panel ${isQuizVisible ? "in-view" : ""}`}>
               <div className="qnum mono">QUESTION {String(curQ + 1).padStart(2, "0")}</div>
               <h3 className="qtitle">{questions[curQ].title}</h3>
               <p className="qsub">{questions[curQ].sub}</p>
@@ -638,6 +683,30 @@ export default function EquityETFsPage() {
             </div>
           </div>
         )}
+
+        {/* Bottom CTA Section */}
+        <div className="mt-6 border-t border-line/10 pt-6 pb-2 text-center max-w-4xl mx-auto">
+          <h2 className="text-2xl font-extrabold text-text mb-2">
+            Ready to Invest?
+          </h2>
+          <p className="text-base text-muted mb-4 max-w-xl mx-auto">
+            Apply for our custom portfolio assistance or open a Demat account to start executing your allocation.
+          </p>
+          <div className="flex justify-center gap-4 flex-wrap">
+            <Link
+              href="/services/stock-investment/equity-etfs/apply"
+              className="btn btn-primary"
+            >
+              Apply
+            </Link>
+            <Link
+              href="/services/stock-investment/open-demat-account"
+              className="btn"
+            >
+              Explore
+            </Link>
+          </div>
+        </div>
 
       </div>
     </div>

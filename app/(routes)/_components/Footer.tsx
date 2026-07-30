@@ -56,25 +56,25 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-  {
-    name: "X",
-    icon: FaXTwitter,  
-    href: "https://x.com/FiscalForum?t=wozZYda22CGrRjCN5ciBfA&s=08",
-    color: "hover:bg-black", 
-  },
-  {
-    name: "LinkedIn",
-    icon: FaLinkedinIn,
-    href: "https://www.linkedin.com/company/fiscal-forum/posts/?feedView=all",
-    color: "hover:bg-blue-700",
-  },
-  {
-    name: "Instagram",
-    icon: FaInstagram,
-    href: "https://www.instagram.com/fiscal.forum?igsh=eXAzb3JvOXd5MGox#",
-    color: "hover:bg-pink-600",
-  },
-];
+    {
+      name: "X",
+      icon: FaXTwitter,
+      href: "https://x.com/FiscalForum?t=wozZYda22CGrRjCN5ciBfA&s=08",
+      color: "hover:bg-black",
+    },
+    {
+      name: "LinkedIn",
+      icon: FaLinkedinIn,
+      href: "https://www.linkedin.com/company/fiscal-forum/posts/?feedView=all",
+      color: "hover:bg-blue-700",
+    },
+    {
+      name: "Instagram",
+      icon: FaInstagram,
+      href: "https://www.instagram.com/fiscal.forum?igsh=eXAzb3JvOXd5MGox#",
+      color: "hover:bg-pink-600",
+    },
+  ];
 
 
   const scrollToTop = () => {
@@ -82,13 +82,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900 text-white relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-10 left-10 w-64 h-64 bg-gradient-to-r from-blue-500/10 to-purple-600/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 right-10 w-64 h-64 bg-gradient-to-r from-emerald-500/10 to-teal-600/10 rounded-full blur-3xl"></div>
-      </div>
-
+    <footer className="text-white relative overflow-hidden" style={{ backgroundColor: "#1a3f2b" }}>
       {/* Main Footer Content */}
       <div className="relative z-10">
         {/* Top Section */}
@@ -103,7 +97,7 @@ const Footer = () => {
                 className="mb-8"
               >
                 <div className="">
-                  <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
+                  <h2 className="text-3xl font-bold text-white mb-4">
                     Fiscal Forum
                   </h2>
                   <p className="text-gray-300 text-base leading-relaxed max-w-2xl mx-auto mb-6">
@@ -119,7 +113,7 @@ const Footer = () => {
                     whileHover={{ y: -5 }}
                     className="flex flex-col items-center text-center gap-3 text-gray-300 hover:text-white transition-colors group"
                   >
-                    <div className="w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <div className="w-14 h-14 bg-blue-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                       <FaPhone className="text-white text-xl" />
                     </div>
                     <div>
@@ -136,7 +130,7 @@ const Footer = () => {
                     whileHover={{ y: -5 }}
                     className="flex flex-col items-center text-center gap-3 text-gray-300 hover:text-white transition-colors group"
                   >
-                    <div className="w-14 h-14 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <div className="w-14 h-14 bg-emerald-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                       <FaEnvelope className="text-white text-xl" />
                     </div>
                     <div>
@@ -153,7 +147,7 @@ const Footer = () => {
                     whileHover={{ y: -5 }}
                     className="flex flex-col items-center text-center gap-3 text-gray-300 hover:text-white transition-colors group"
                   >
-                    <div className="w-14 h-14 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <div className="w-14 h-14 bg-indigo-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                       <FaClock className="text-white text-xl" />
                     </div>
                     <div>
@@ -202,7 +196,7 @@ const Footer = () => {
               <Link href="/terms-and-conditions" className="text-gray-400 hover:text-white text-sm transition-colors">Terms & Conditions</Link>
               <Link href="/refund" className="text-gray-400 hover:text-white text-sm transition-colors">Refund Policy</Link>
               <div className="flex gap-6">
-                <button 
+                <button
                   onClick={scrollToTop}
                   className="text-gray-400 hover:text-white text-sm transition-colors flex items-center gap-1"
                 >

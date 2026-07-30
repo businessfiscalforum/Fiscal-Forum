@@ -461,3 +461,33 @@ document.getElementById('btnRestart').addEventListener('click', ()=>{
   renderQuestion();
   quizSection.scrollIntoView({behavior:'smooth', block:'start'});
 });
+
+/* ============ INTERSECTION OBSERVER FOR SCROLL POP-UP ============ */
+const vsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const table = document.querySelector('.vs-table');
+      if (table) table.classList.add('in-view');
+      vsObserver.disconnect();
+    }
+  });
+}, { threshold: 0.3 });
+const compSec = document.querySelector('.vs-table');
+if (compSec) {
+  vsObserver.observe(compSec);
+}
+
+const quizObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const panel = document.querySelector('.quiz-panel');
+      if (panel) panel.classList.add('in-view');
+      quizObserver.disconnect();
+    }
+  });
+}, { threshold: 0.3 });
+const quizPanelEl = document.querySelector('.quiz-panel');
+if (quizPanelEl) {
+  quizObserver.observe(quizPanelEl);
+}
+
