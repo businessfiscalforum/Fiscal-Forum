@@ -124,19 +124,19 @@ export default function FiscalForumCity() {
   const [activeSpot, setActiveSpot] = useState<string | null>(null);
 
   return (
-    <section className="relative overflow-hidden bg-[#F4FBF7] py-16 border-b-4 border-black">
+    <section className="relative overflow-hidden bg-[#F4FBF7] py-16 border-b border-black">
       <div className="relative mx-auto max-w-7xl px-4 md:px-8">
         {/* Heading */}
         <div className="mb-12 text-center flex flex-col items-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-black max-w-3xl leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black max-w-3xl leading-tight">
           Feeling regret seeing above? Don&apos;t worry we have solutions for you...
           </h2>
         </div>
 
         {/* Main Diagram */}
-        <div className="relative overflow-hidden rounded-3xl border-4 border-black bg-white p-4 md:p-6 shadow-[6px_6px_0px_#000]">
+        <div className="relative overflow-hidden rounded-3xl border border-black bg-white p-4 md:p-6 shadow-lg">
           {/* Image with overlay dimming when a spot is active */}
-          <div className="relative bg-gray-50/50 rounded-2xl border border-black/5 p-2 md:p-4 overflow-hidden">
+          <div className="relative bg-gray-50/50 rounded-2xl border border-black p-2 md:p-4 overflow-hidden">
             <Image
               src="/fiscal-forum-solutions.png"
               alt="Fiscal Forum City"
@@ -233,7 +233,7 @@ export default function FiscalForumCity() {
                         border-black
                         rounded-xl
                         text-[9px]
-                        font-black
+                        font-bold
                         uppercase
                         tracking-wider
                         select-none
@@ -242,8 +242,8 @@ export default function FiscalForumCity() {
                         whitespace-nowrap
                         ${
                           isActive
-                            ? "px-3 py-2 shadow-[3px_3px_0px_#000] scale-110 -translate-y-1"
-                            : "px-2 py-1.5 shadow-[2px_2px_0px_#000]"
+                            ? "px-3 py-2 shadow-sm scale-110 -translate-y-1"
+                            : "px-2 py-1.5 shadow-sm"
                         }
                       `}
                       style={{
@@ -280,7 +280,7 @@ export default function FiscalForumCity() {
                             border-black
                             bg-white
                             p-4
-                            shadow-[4px_4px_0px_#000]
+                            shadow-md
                             ${
                               tooltipGoesLeft
                                 ? "right-full mr-4"
@@ -296,7 +296,7 @@ export default function FiscalForumCity() {
 
                           <div className="mb-2 flex items-center gap-2">
                             <span className="text-lg">{spot.icon}</span>
-                            <h4 className="text-xs font-black text-black uppercase tracking-tight">
+                            <h4 className="text-xs font-bold text-black uppercase tracking-tight">
                               {spot.title}
                             </h4>
                           </div>
@@ -309,16 +309,16 @@ export default function FiscalForumCity() {
                             href={spot.link}
                             className="
                               inline-flex items-center gap-1
-                              text-[9px] font-black uppercase tracking-wider
+                              text-[9px] font-bold uppercase tracking-wider
                               px-3 py-1.5
                               rounded-lg
-                              border-2 border-black
-                              shadow-[2px_2px_0px_#000]
+                              border border-black
+                              shadow-sm
                               transition-all duration-200
-                              hover:translate-x-[-1px] hover:translate-y-[-1px]
-                              hover:shadow-[3px_3px_0px_#000]
-                              active:translate-x-0 active:translate-y-0
-                              active:shadow-[1px_1px_0px_#000]
+                               hover:-translate-y-0.5
+                              hover:shadow-sm
+                               active:translate-y-0
+                              active:shadow-sm
                             "
                             style={{
                               backgroundColor: spot.color,
@@ -346,13 +346,13 @@ export default function FiscalForumCity() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
-              className="mt-6 flex items-center gap-4 rounded-2xl border-2 border-black bg-white p-4 shadow-[3px_3px_0px_#000]"
+              className="mt-6 flex items-center gap-4 rounded-2xl border border-black bg-white p-4 shadow-sm"
             >
               <span className="text-2xl">
                 {hotspots.find((s) => s.id === activeSpot)?.icon}
               </span>
               <div>
-                <h3 className="text-sm font-black text-black uppercase tracking-tight">
+                <h3 className="text-sm font-bold text-black uppercase tracking-tight">
                   {hotspots.find((s) => s.id === activeSpot)?.title}
                 </h3>
                 <p className="text-xs font-semibold text-gray-500 mt-0.5">
@@ -367,7 +367,7 @@ export default function FiscalForumCity() {
                   hotspots.find((s) => s.id === activeSpot)?.link ||
                   "/"
                 }
-                className="ml-auto shrink-0 text-[9px] font-black uppercase tracking-wider px-4 py-2 rounded-xl border-2 border-black shadow-[2px_2px_0px_#000] bg-[#1FA463] text-white transition-all hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_#000]"
+                className="ml-auto shrink-0 text-[9px] font-bold uppercase tracking-wider px-4 py-2 rounded-xl border border-black shadow-sm bg-[#1FA463] text-white transition-all  hover:-translate-y-0.5 hover:shadow-sm"
               >
                 Learn More →
               </Link>

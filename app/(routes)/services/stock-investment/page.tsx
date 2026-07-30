@@ -209,7 +209,7 @@ export default function StockInvestmentPage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="relative border-2 border-black bg-white rounded-3xl p-8 md:p-12 shadow-[4px_4px_0px_#000] overflow-hidden"
+            className="relative border border-black bg-white rounded-3xl p-8 md:p-12 shadow-md overflow-hidden"
           >
             {/* Background Accent */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#1FA463]/10 rounded-full blur-3xl pointer-events-none" />
@@ -220,7 +220,7 @@ export default function StockInvestmentPage() {
                   <BarChart3 className="w-3.5 h-3.5" />
                   Investments
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-black uppercase tracking-tight leading-none">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black uppercase tracking-tight leading-none">
                   Smart Stock <span className="text-[#1FA463]">Investment</span> Strategies
                 </h1>
                 <p className="text-base md:text-lg text-gray-700 font-medium leading-relaxed">
@@ -228,7 +228,7 @@ export default function StockInvestmentPage() {
                 </p>
               </div>
               <div className="flex-shrink-0">
-                <div className="w-24 h-24 bg-yellow-100 border-2 border-black rounded-2xl flex items-center justify-center shadow-[3px_3px_0px_#000] rotate-3 hover:rotate-0 transition-transform">
+                <div className="w-24 h-24 bg-yellow-100 border border-black rounded-2xl flex items-center justify-center shadow-sm rotate-3 hover:rotate-0 transition-transform">
                   <TrendingUp className="w-12 h-12 text-black" />
                 </div>
               </div>
@@ -237,14 +237,14 @@ export default function StockInvestmentPage() {
 
           {/* Investment Cards Grid / Interactive Tree */}
           <div className="space-y-6">
-            <h2 className="text-2xl font-black uppercase text-black border-b-2 border-black pb-2">
+            <h2 className="text-2xl font-bold uppercase text-black border-b border-black pb-2">
               Our Investment Verticals
             </h2>
             
             {/* Unified Responsive Grid: Stacked on Mobile/Tablet, Side-by-Side on Desktop */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
               {/* Tree Diagram Column */}
-              <div className="col-span-1 lg:col-span-7 border-2 border-black rounded-3xl bg-[#FAF8F5] p-4 md:p-6 shadow-[4px_4px_0px_#000] flex items-center justify-center overflow-hidden">
+              <div className="col-span-1 lg:col-span-7 border border-black rounded-3xl bg-[#FAF8F5] p-4 md:p-6 shadow-md flex items-center justify-center overflow-hidden">
                 <div className="relative w-full max-w-[800px]">
                   <img
                     src="/investment-tree.jpg"
@@ -316,7 +316,7 @@ export default function StockInvestmentPage() {
 
               {/* Dynamic Detail Card Column */}
               <div className="col-span-1 lg:col-span-5 flex flex-col">
-                <div className="flex-grow border-2 border-black bg-white rounded-3xl p-6 md:p-8 shadow-[4px_4px_0px_#000] flex flex-col justify-between relative overflow-hidden min-h-[320px]">
+                <div className="flex-grow border border-black bg-white rounded-3xl p-6 md:p-8 shadow-md flex flex-col justify-between relative overflow-hidden min-h-[320px]">
                   {/* Accent bar */}
                   <div className="absolute top-0 left-0 w-full h-2 bg-[#1FA463]" />
 
@@ -331,7 +331,7 @@ export default function StockInvestmentPage() {
                       <div className="space-y-4 md:space-y-6">
                         {/* Icon and Category Label */}
                         <div className="flex items-center gap-4">
-                          <div className="p-3 md:p-4 bg-emerald-50 border border-black rounded-2xl shadow-[3px_3px_0px_#000]">
+                          <div className="p-3 md:p-4 bg-emerald-50 border border-black rounded-2xl shadow-sm">
                             {React.createElement(hoveredOption.icon, {
                               className: "w-6 h-6 md:w-8 md:h-8 text-black",
                             })}
@@ -340,7 +340,7 @@ export default function StockInvestmentPage() {
                             <span className="text-[10px] md:text-xs font-bold text-[#1FA463] uppercase tracking-widest">
                               Investment Option
                             </span>
-                            <h3 className="text-xl md:text-2xl font-black text-black uppercase tracking-tight">
+                            <h3 className="text-xl md:text-2xl font-bold text-black uppercase tracking-tight">
                               {hoveredOption.title}
                             </h3>
                           </div>
@@ -355,14 +355,14 @@ export default function StockInvestmentPage() {
                       {/* Action Buttons */}
                       <div className="pt-4 md:pt-6 space-y-3">
                         <Link href={hoveredOption.link}>
-                          <button className="w-full bg-[#1FA463] text-white border-2 border-black py-3.5 md:py-4 rounded-xl font-black hover:bg-[#15824D] hover:shadow-[3px_3px_0px_#000] active:translate-y-[2px] transition-all shadow-[2px_2px_0px_#000] uppercase text-xs md:text-sm flex items-center justify-center gap-2 cursor-pointer">
+                          <button className="w-full bg-[#1FA463] text-white border border-black py-3.5 md:py-4 rounded-xl font-bold hover:bg-[#15824D] hover:shadow-sm  transition-all shadow-sm uppercase text-xs md:text-sm flex items-center justify-center gap-2 cursor-pointer">
                             <span>Explore {hoveredOption.title}</span>
                             <span>&rarr;</span>
                           </button>
                         </Link>
                         {hoveredOption.alink && (
                           <Link href={hoveredOption.alink}>
-                            <button className="w-full bg-white text-black border-2 border-black py-2.5 md:py-3 rounded-xl font-black hover:bg-yellow-100 hover:shadow-[3px_3px_0px_#000] active:translate-y-[2px] transition-all shadow-[2px_2px_0px_#000] uppercase text-[10px] md:text-xs cursor-pointer">
+                            <button className="w-full bg-white text-black border border-black py-2.5 md:py-3 rounded-xl font-bold hover:bg-yellow-100 hover:shadow-sm  transition-all shadow-sm uppercase text-[10px] md:text-xs cursor-pointer">
                               Apply Now
                             </button>
                           </Link>
@@ -372,7 +372,7 @@ export default function StockInvestmentPage() {
                   ) : (
                     <div className="flex-grow flex flex-col items-center justify-center text-center space-y-4">
                       <BarChart3 className="w-16 h-16 text-gray-300 animate-pulse" />
-                      <h3 className="text-xl font-black text-black uppercase">
+                      <h3 className="text-xl font-bold text-black uppercase">
                         Select a Vertical
                       </h3>
                       <p className="text-sm text-gray-500 font-semibold max-w-xs">
@@ -391,13 +391,13 @@ export default function StockInvestmentPage() {
           {/* Call to Action (Kickstart & Level Up) */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* CTA 1 */}
-            <div className="relative bg-[#1FA463] text-black border-2 border-black rounded-3xl p-8 md:p-10 shadow-[4px_4px_0px_#000] hover:translate-y-[-2px] transition-all flex flex-col justify-between overflow-hidden">
+            <div className="relative bg-[#1FA463] text-black border border-black rounded-3xl p-8 md:p-10 shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between overflow-hidden">
               <div className="space-y-6 z-10">
                 <div className="flex items-center gap-4">
-                  <div className="p-3 bg-white border-2 border-black rounded-xl shadow-[2px_2px_0px_#000]">
+                  <div className="p-3 bg-white border border-black rounded-xl shadow-sm">
                     <FolderOpen className="w-6 h-6 text-black" />
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-black">
+                  <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-black">
                     Start Your Wealth Journey
                   </h2>
                 </div>
@@ -407,7 +407,7 @@ export default function StockInvestmentPage() {
               </div>
               <div className="pt-8 z-10">
                 <Link href="/services/stock-investment/open-demat-account">
-                  <button className="w-full sm:w-auto bg-white text-black border-2 border-black px-6 py-3.5 rounded-xl font-black hover:bg-yellow-100 hover:shadow-[3px_3px_0px_#000] active:translate-y-[2px] transition-all shadow-[2px_2px_0px_#000] uppercase text-sm">
+                  <button className="w-full sm:w-auto bg-white text-black border border-black px-6 py-3.5 rounded-xl font-bold hover:bg-yellow-100 hover:shadow-sm  transition-all shadow-sm uppercase text-sm">
                     Start Investing Now
                   </button>
                 </Link>
@@ -415,13 +415,13 @@ export default function StockInvestmentPage() {
             </div>
 
             {/* CTA 2 */}
-            <div className="relative bg-white text-black border-2 border-black rounded-3xl p-8 md:p-10 shadow-[4px_4px_0px_#000] hover:translate-y-[-2px] transition-all flex flex-col justify-between overflow-hidden">
+            <div className="relative bg-white text-black border border-black rounded-3xl p-8 md:p-10 shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between overflow-hidden">
               <div className="space-y-6 z-10">
                 <div className="flex items-center gap-4">
-                  <div className="p-3 bg-emerald-50 border-2 border-black rounded-xl shadow-[2px_2px_0px_#000]">
+                  <div className="p-3 bg-emerald-50 border border-black rounded-xl shadow-sm">
                     <UserCheck className="w-6 h-6 text-black" />
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-black">
+                  <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-black">
                     Level Up Your Portfolio
                   </h2>
                 </div>
@@ -431,7 +431,7 @@ export default function StockInvestmentPage() {
               </div>
               <div className="pt-8 z-10">
                 <Link href="/services/stock-investment/already-have-an-account">
-                  <button className="w-full sm:w-auto bg-[#1FA463] text-white border-2 border-black px-6 py-3.5 rounded-xl font-black hover:bg-[#15824D] hover:shadow-[3px_3px_0px_#000] active:translate-y-[2px] transition-all shadow-[2px_2px_0px_#000] uppercase text-sm">
+                  <button className="w-full sm:w-auto bg-[#1FA463] text-white border border-black px-6 py-3.5 rounded-xl font-bold hover:bg-[#15824D] hover:shadow-sm  transition-all shadow-sm uppercase text-sm">
                     Continue Your Journey
                   </button>
                 </Link>
@@ -440,10 +440,10 @@ export default function StockInvestmentPage() {
           </div>
 
           {/* Expert Support Section */}
-          <div className="border-2 border-black bg-white rounded-3xl p-8 shadow-[4px_4px_0px_#000] relative overflow-hidden">
+          <div className="border border-black bg-white rounded-3xl p-8 shadow-md relative overflow-hidden">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-6 z-10 relative">
               <div className="text-center lg:text-left space-y-2">
-                <h2 className="text-2xl md:text-3xl font-black uppercase text-black">
+                <h2 className="text-2xl md:text-3xl font-bold uppercase text-black">
                   Need Help? Talk to an Expert
                 </h2>
                 <p className="text-base text-gray-700 font-semibold max-w-xl">
@@ -454,7 +454,7 @@ export default function StockInvestmentPage() {
               <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                 <a
                   href="tel:+918696060387"
-                  className="bg-white border-2 border-black text-black hover:bg-yellow-50 px-6 py-3.5 rounded-xl font-black transition-all shadow-[3px_3px_0px_#000] flex items-center justify-center gap-2 text-sm uppercase"
+                  className="bg-white border border-black text-black hover:bg-yellow-50 px-6 py-3.5 rounded-xl font-bold transition-all shadow-sm flex items-center justify-center gap-2 text-sm uppercase"
                 >
                   <Phone className="w-4 h-4" />
                   <span>Call Now</span>
@@ -464,7 +464,7 @@ export default function StockInvestmentPage() {
                   href="https://wa.me/+918696060387"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-[#25D366] border-2 border-black text-black hover:bg-[#20ba5a] px-6 py-3.5 rounded-xl font-black transition-all shadow-[3px_3px_0px_#000] flex items-center justify-center gap-2 text-sm uppercase"
+                  className="bg-[#25D366] border border-black text-black hover:bg-[#20ba5a] px-6 py-3.5 rounded-xl font-bold transition-all shadow-sm flex items-center justify-center gap-2 text-sm uppercase"
                 >
                   <FaWhatsapp className="w-4 h-4" />
                   <span>WhatsApp</span>
@@ -474,9 +474,9 @@ export default function StockInvestmentPage() {
           </div>
 
           {/* Features Section */}
-          <div className="border-2 border-black bg-white rounded-3xl p-8 md:p-10 shadow-[4px_4px_0px_#000]">
+          <div className="border border-black bg-white rounded-3xl p-8 md:p-10 shadow-md">
             <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-              <h2 className="text-3xl md:text-4xl font-black uppercase text-black leading-none">
+              <h2 className="text-3xl md:text-4xl font-bold uppercase text-black leading-none">
                 Grow Smarter, Invest Better
               </h2>
               <p className="text-base text-gray-600 font-medium">
@@ -511,12 +511,12 @@ export default function StockInvestmentPage() {
                 return (
                   <div
                     key={idx}
-                    className="bg-[#F4FBF7] border-2 border-black p-6 rounded-2xl shadow-[3px_3px_0px_#000] hover:translate-y-[-2px] transition-all flex flex-col space-y-3"
+                    className="bg-[#F4FBF7] border border-black p-6 rounded-2xl shadow-sm hover:-translate-y-0.5 transition-all flex flex-col space-y-3"
                   >
-                    <div className="p-2.5 bg-white border border-black rounded-lg w-fit shadow-[1px_1px_0px_#000]">
+                    <div className="p-2.5 bg-white border border-black rounded-lg w-fit shadow-sm">
                       <Icon className="text-black w-5 h-5" />
                     </div>
-                    <h3 className="text-lg font-black uppercase text-black leading-tight">
+                    <h3 className="text-lg font-bold uppercase text-black leading-tight">
                       {feat.title}
                     </h3>
                     <p className="text-sm text-gray-700 font-medium leading-relaxed">

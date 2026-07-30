@@ -69,26 +69,7 @@ const goalCategoryBoost: Record<string, string[]> = {
   wealth: ["Equity Scheme - Mid Cap Fund", "Equity Scheme - Small Cap Fund", "Equity Scheme - Flexi Cap Fund", "Other Scheme - Index Funds"],
 };
 
-const keyCategories = [
-  { label: "Large Cap", color: "#3b82f6" },
-  { label: "Mid Cap", color: "#38a169" },
-  { label: "Small Cap", color: "#e53e3e" },
-  { label: "ELSS", color: "#d4a84b" },
-  { label: "Liquid Fund", color: "#0bc5ea" },
-  { label: "Flexi Cap", color: "#805ad5" },
-  { label: "Index Funds", color: "#3b82f6" },
-  { label: "Gilt Fund", color: "#38a169" },
-  { label: "Hybrid", color: "#e53e3e" },
-  { label: "Sectoral", color: "#f6ad55" },
-  { label: "Overnight", color: "#0bc5ea" },
-  { label: "Debt - Short", color: "#9f7aea" },
-  { label: "Multi Cap", color: "#d4a84b" },
-  { label: "FoF", color: "#667eea" },
-  { label: "Retirement", color: "#38a169" },
-  { label: "Gold ETF", color: "#f6e05e" },
-  { label: "Corporate Bond", color: "#0bc5ea" },
-  { label: "Balanced", color: "#3b82f6" },
-];
+
 
 export default function MutualFundScreenerPage() {
 
@@ -463,7 +444,7 @@ export default function MutualFundScreenerPage() {
   };
 
   return (
-    <div className="mf-screener-container pt-16 min-h-screen bg-[#faf9f7] text-[#0d1f3c]">
+    <div className="mf-screener-container">
       {/* Toast popup */}
       {toastMessage && (
         <div className="toast-message" style={{ display: "block" }}>
@@ -563,68 +544,35 @@ export default function MutualFundScreenerPage() {
 
         <div className="hero-visual">
           <div className="visual-container">
-            <div className="float-card float-card-1">
-              <div className="fc1-icon">&#127919;</div>
-              <div className="fc1-text">
-                <strong>Personalised Picks</strong>
-                <span>Matched to your profile</span>
-              </div>
-            </div>
-
             <div className="dash-card">
-              <div className="dash-header">
-                <span className="dash-title">Top Recommendations</span>
-                <div className="dash-ai-badge">
-                  <span className="ai-dot"></span>
-                  Smart Match
+              <div className="hero-amcs-grid">
+                <div className="hero-amc-tile hero-amc-tile-1">
+                  <img src="/assets/amc-logos/sbi.png" alt="SBI Mutual Fund" loading="lazy" />
                 </div>
-              </div>
-
-              <div className="fund-row">
-                <div className="fr-rank gold-rank">1</div>
-                <div className="fr-info">
-                  <div className="fr-name">HDFC Mid Cap Opportunities</div>
-                  <div className="fr-cat">Equity &middot; Mid Cap</div>
+                <div className="hero-amc-tile hero-amc-tile-2">
+                  <img src="/assets/amc-logos/icici-prudential.png" alt="ICICI Prudential Mutual Fund" loading="lazy" />
                 </div>
-                <div className="fr-match">
-                  <span className="fr-pct">94%</span>
-                  <div className="fr-bar"><div className="fr-fill" style={{ width: "94%" }}></div></div>
+                <div className="hero-amc-tile hero-amc-tile-3">
+                  <img src="/assets/amc-logos/hdfc.png" alt="HDFC Mutual Fund" loading="lazy" />
                 </div>
-              </div>
-
-              <div className="fund-row">
-                <div className="fr-rank silver-rank">2</div>
-                <div className="fr-info">
-                  <div className="fr-name">SBI Nifty Index Fund</div>
-                  <div className="fr-cat">Other &middot; Index Fund</div>
+                <div className="hero-amc-tile hero-amc-tile-4">
+                  <img src="/assets/amc-logos/nippon-india.png" alt="Nippon India Mutual Fund" loading="lazy" />
                 </div>
-                <div className="fr-match">
-                  <span className="fr-pct">87%</span>
-                  <div className="fr-bar"><div className="fr-fill" style={{ width: "87%" }}></div></div>
+                <div className="hero-amc-tile hero-amc-tile-5">
+                  <img src="/assets/amc-logos/uti.png" alt="UTI Mutual Fund" loading="lazy" />
                 </div>
-              </div>
-
-              <div className="fund-row">
-                <div className="fr-rank bronze-rank">3</div>
-                <div className="fr-info">
-                  <div className="fr-name">Axis Long Term Equity</div>
-                  <div className="fr-cat">Equity &middot; ELSS</div>
+                <div className="hero-amc-tile hero-amc-tile-6">
+                  <img src="/assets/amc-logos/axis.png" alt="Axis Mutual Fund" loading="lazy" />
                 </div>
-                <div className="fr-match">
-                  <span className="fr-pct">81%</span>
-                  <div className="fr-bar"><div className="fr-fill" style={{ width: "81%" }}></div></div>
+                <div className="hero-amc-tile hero-amc-tile-7">
+                  <img src="/assets/amc-logos/kotak.png" alt="Kotak Mutual Fund" loading="lazy" />
                 </div>
-              </div>
-            </div>
-
-            <div className="float-card float-card-2">
-              <div className="fc2-label">Top AMCs in our database</div>
-              <div className="fc2-amcs">
-                <span className="fc2-amc">HDFC</span>
-                <span className="fc2-amc">SBI</span>
-                <span className="fc2-amc">ICICI</span>
-                <span className="fc2-amc">Axis</span>
-                <span className="fc2-amc">Kotak</span>
+                <div className="hero-amc-tile hero-amc-tile-8">
+                  <img src="/assets/amc-logos/dsp.png" alt="DSP Mutual Fund" loading="lazy" />
+                </div>
+                <div className="hero-amc-tile hero-amc-tile-9">
+                  <img src="/assets/amc-logos/quant.png" alt="Quant Mutual Fund" loading="lazy" />
+                </div>
               </div>
             </div>
           </div>
@@ -1173,62 +1121,50 @@ export default function MutualFundScreenerPage() {
         )}
       </section>
 
-      {/* ABOUT SECTION */}
-      <section className="about-section" id="about">
-        <div className="about-grid">
-          <div className="about-text">
-            <span className="section-tag">Unbiased Data Aggregator</span>
-            <h2>Investing, made simple for every Indian.</h2>
-            <p>Our screener consolidates information directly from the Association of Mutual Funds in India (AMFI) database to present fee-transparent, conflict-free recommendations.</p>
+      {/* RELATED SERVICES SECTION */}
+      <section className="services-links-section">
+        <div className="section-header">
+          <span className="section-tag">Explore More Services</span>
+          <h2>Grow & Protect Your Wealth</h2>
+          <p>Discover our complementary financial services designed to help you invest, borrow, and plan for your future.</p>
+        </div>
 
-            <div className="about-features">
-              <div className="about-feat">
-                <span className="feat-icon">&#127919;</span>
-                <div>
-                  <strong>Personalised Matching</strong>
-                  <p>Our algorithm balances your goals, timelines, and profile preferences to find your investment matches.</p>
-                </div>
-              </div>
-
-              <div className="about-feat">
-                <span className="feat-icon">&#128202;</span>
-                <div>
-                  <strong>Live Scheme Database</strong>
-                  <p>Aggregated directly from AMFI updates &mdash; featuring {FUNDS_DB.length.toLocaleString()} active schemes from 53 registered AMCs.</p>
-                </div>
-              </div>
-
-              <div className="about-feat">
-                <span className="feat-icon">&#128274;</span>
-                <div>
-                  <strong>Zero-Commission Diligence</strong>
-                  <p>No sponsored rankings or payout incentives. Unbiased metrics sorted purely by quantitative matching metrics.</p>
-                </div>
-              </div>
+        <div className="services-cards-grid">
+          {/* Card 1: Open Demat Account */}
+          <div className="service-promo-card promo-green">
+            <div className="promo-corner-circle"></div>
+            <div className="promo-icon-wrap">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              </svg>
             </div>
+            <h3 className="promo-title">Begin Your Mutual Fund Journey</h3>
+            <p className="promo-desc">Open an investment account today and start building wealth with diversified mutual fund portfolios &mdash; all from the comfort of your home, paperless and hassle-free.</p>
+            <a href="/services/mutual-funds/open-demat-account" className="promo-btn btn-green-fill">
+              Start Growing
+            </a>
           </div>
 
-          <div className="about-visual">
-            <div className="category-cloud">
-              {keyCategories.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="cat-tag"
-                  style={{
-                    borderColor: `${item.color}44`,
-                    color: item.color,
-                    background: `${item.color}11`,
-                  }}
-                >
-                  {item.label}
-                </div>
-              ))}
+          {/* Card 2: Already Have An Account */}
+          <div className="service-promo-card promo-white">
+            <div className="promo-corner-circle"></div>
+            <div className="promo-icon-wrap">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <polyline points="16 11 18 13 22 9"></polyline>
+              </svg>
             </div>
+            <h3 className="promo-title">Optimize Your Mutual Fund Portfolio</h3>
+            <p className="promo-desc">Already have mutual fund investments? Shift to direct plans, reduce expense ratios, and maximize your long-term returns with our personalized strategies.</p>
+            <a href="/services/mutual-funds/already-have-an-account" className="promo-btn btn-green-outline">
+              Continue Your Journey
+            </a>
           </div>
+
+
         </div>
       </section>
-
-
 
       {/* DETAILED MODAL POPUP */}
       {selectedFund && (

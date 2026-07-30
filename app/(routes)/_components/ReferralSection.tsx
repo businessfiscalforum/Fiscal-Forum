@@ -70,7 +70,7 @@ const ReferralSection = () => {
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative overflow-hidden bg-white rounded-[2rem] border-2 border-black shadow-[4px_4px_0px_#000] p-5 sm:p-8"
+      className="relative overflow-hidden bg-white rounded-[2rem] border border-black shadow-md p-5 sm:p-8"
     >
       {/* Decorative Background Elements */}
       <div className="absolute -top-24 -right-24 w-48 h-48 bg-emerald-50 rounded-full blur-3xl opacity-50 pointer-events-none" />
@@ -80,7 +80,7 @@ const ReferralSection = () => {
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center space-x-4">
           <div className="relative">
-            <div className="p-3 bg-emerald-100 border-2 border-black rounded-xl shadow-[3px_3px_0px_#000]">
+            <div className="p-3 bg-emerald-100 border border-black rounded-xl shadow-sm">
               <Gift className="h-6 w-6 text-black animate-bounce" />
             </div>
             <motion.div 
@@ -92,7 +92,7 @@ const ReferralSection = () => {
             </motion.div>
           </div>
           <div>
-            <h3 className="text-xl font-black text-black tracking-tight uppercase">Referral Program</h3>
+            <h3 className="text-xl font-bold text-black tracking-tight uppercase">Referral Program</h3>
             <p className="text-sm font-bold text-emerald-800/80">Share the wealth, grow together</p>
           </div>
         </div>
@@ -108,7 +108,7 @@ const ReferralSection = () => {
           <motion.div
             key={i}
             whileHover={{ y: -4 }}
-            className={`relative group ${stat.bg} border-2 border-black p-4 rounded-2xl shadow-[3px_3px_0px_#000] overflow-hidden`}
+            className={`relative group ${stat.bg} border border-black p-4 rounded-2xl shadow-sm overflow-hidden`}
           >
             <div className="relative z-10">
               <div className="flex items-center space-x-2 mb-2">
@@ -116,9 +116,9 @@ const ReferralSection = () => {
                 <span className="text-xs font-bold uppercase tracking-wider text-black/70">{stat.label}</span>
               </div>
               {stat.type === 'code' ? (
-                <code className="text-lg font-black text-emerald-800 block">{stat.value}</code>
+                <code className="text-lg font-bold text-emerald-800 block">{stat.value}</code>
               ) : (
-                <div className={`text-2xl font-black text-black`}>
+                <div className={`text-2xl font-bold text-black`}>
                   {stat.value}
                 </div>
               )}
@@ -131,9 +131,9 @@ const ReferralSection = () => {
       </div>
 
       {/* Referrals List */}
-      <div className="mb-8 bg-gray-50 rounded-2xl p-5 border-2 border-black shadow-[2px_2px_0px_#000]">
+      <div className="mb-8 bg-gray-50 rounded-2xl p-5 border border-black shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <p className="font-black uppercase text-black flex items-center gap-2 text-sm">
+          <p className="font-bold uppercase text-black flex items-center gap-2 text-sm">
             Your Network <span className="bg-black text-white text-xs px-2 py-0.5 rounded-full font-bold">{referred.length}</span>
           </p>
         </div>
@@ -144,7 +144,7 @@ const ReferralSection = () => {
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 key={index} 
-                className="flex items-center space-x-3 p-2 bg-white rounded-xl border border-black hover:shadow-[2px_2px_0px_#000] transition-all"
+                className="flex items-center space-x-3 p-2 bg-white rounded-xl border border-black hover:shadow-sm transition-all"
               >
                 <div className="w-8 h-8 rounded-lg bg-emerald-100 border border-black flex items-center justify-center text-black font-bold text-xs">
                   {refUser.name?.charAt(0)}
@@ -161,20 +161,20 @@ const ReferralSection = () => {
       </div>
 
       {/* Share Section */}
-      <div className="relative group bg-[#1FA463] border-2 border-black rounded-2xl p-6 text-black overflow-hidden shadow-[4px_4px_0px_#000]">
-        <h4 className="font-black text-black mb-4 flex items-center gap-2 uppercase tracking-wide">
+      <div className="relative group bg-[#1FA463] border border-black rounded-2xl p-6 text-black overflow-hidden shadow-md">
+        <h4 className="font-bold text-black mb-4 flex items-center gap-2 uppercase tracking-wide">
           <Sparkles className="h-4 w-4 text-yellow-300 fill-yellow-300" /> Your Referral Link
         </h4>
         
         <div className="flex flex-col gap-4">
-          <div className="bg-white border-2 border-black rounded-xl px-4 py-3 text-sm font-mono truncate text-black shadow-[2px_2px_0px_#000]">
+          <div className="bg-white border border-black rounded-xl px-4 py-3 text-sm font-mono truncate text-black shadow-sm">
             {referralUrl}
           </div>
           <div className="flex gap-2">
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={copyToClipboard}
-              className="flex-1 bg-white text-black border-2 border-black px-6 py-3 rounded-xl font-black flex items-center justify-center gap-2 hover:bg-yellow-100 hover:shadow-[2px_2px_0px_#000] active:translate-y-[2px] transition-all"
+              className="flex-1 bg-white text-black border border-black px-6 py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-yellow-100 hover:shadow-sm  transition-all"
             >
               <Copy size={18} />
               {copied ? 'Success!' : 'Copy Link'}
@@ -182,7 +182,7 @@ const ReferralSection = () => {
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={shareReferral}
-              className="bg-white text-black border-2 border-black p-3 rounded-xl hover:bg-yellow-100 hover:shadow-[2px_2px_0px_#000] transition-all"
+              className="bg-white text-black border border-black p-3 rounded-xl hover:bg-yellow-100 hover:shadow-sm transition-all"
             >
               <Share2 size={20} />
             </motion.button>
@@ -191,8 +191,8 @@ const ReferralSection = () => {
       </div>
 
       {/* How it works */}
-      <div className="mt-8 pt-8 border-t-2 border-black/10">
-        <h4 className="font-black text-black mb-6 text-center uppercase tracking-widest text-xs">The Growth Loop</h4>
+      <div className="mt-8 pt-8 border-t border-black">
+        <h4 className="font-bold text-black mb-6 text-center uppercase tracking-widest text-xs">The Growth Loop</h4>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {[
             { step: '01', title: 'Invite', desc: 'Send your link' },
@@ -200,8 +200,8 @@ const ReferralSection = () => {
             { step: '03', title: 'Earn', desc: 'Get VIP credits' }
           ].map((item, idx) => (
             <div key={idx} className="flex flex-col items-center text-center group">
-              <div className="w-10 h-10 rounded-xl bg-yellow-100 border-2 border-black flex items-center justify-center mb-3 group-hover:bg-[#1FA463] group-hover:text-black transition-all duration-300 shadow-[2px_2px_0px_#000]">
-                <span className="text-xs font-black text-black">{item.step}</span>
+              <div className="w-10 h-10 rounded-xl bg-yellow-100 border border-black flex items-center justify-center mb-3 group-hover:bg-[#1FA463] group-hover:text-black transition-all duration-300 shadow-sm">
+                <span className="text-xs font-bold text-black">{item.step}</span>
               </div>
               <p className="font-bold text-black text-sm">{item.title}</p>
               <p className="text-xs text-gray-600 font-medium">{item.desc}</p>

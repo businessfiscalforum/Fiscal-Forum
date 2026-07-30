@@ -77,7 +77,7 @@ export default function HomeNewsAndResearchSection() {
 
   return (
     <section
-      className="py-12 bg-[#F4FBF7] border-b-4 border-black"
+      className="py-12 bg-[#F4FBF7] border-b border-black"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
@@ -88,10 +88,10 @@ export default function HomeNewsAndResearchSection() {
             whileInView={{ opacity: 1, y: 0 }}
             className="flex flex-col items-center"
           >
-            <div className="w-16 h-16 bg-[#1FA463]/10 border-2 border-black rounded-2xl flex items-center justify-center mb-4 shadow-[2px_2px_0px_#000]">
+            <div className="w-16 h-16 bg-[#1FA463]/10 border border-black rounded-2xl flex items-center justify-center mb-4 shadow-sm">
               <GiNewspaper className="text-black text-2xl" />
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-black uppercase tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black uppercase tracking-tight">
               Financial News Hub
             </h2>
             <p className="text-xs sm:text-sm text-gray-500 font-semibold mt-2 max-w-md mx-auto">
@@ -101,7 +101,7 @@ export default function HomeNewsAndResearchSection() {
         </div>
 
         {/* Tab Buttons */}
-        <div className="flex justify-center gap-3 mb-8 border-b-2 border-black pb-4">
+        <div className="flex justify-center gap-3 mb-8 border-b border-black pb-4">
           {[
             { id: "NewsBuzz", label: "News Buzz" },
             { id: "CorpPulse", label: "Corp Pulse" },
@@ -110,10 +110,10 @@ export default function HomeNewsAndResearchSection() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as "NewsBuzz" | "CorpPulse" | "IPOScoop")}
-              className={`px-4 py-2 text-xs sm:text-sm font-black uppercase tracking-wider border-2 border-black rounded-xl transition-all ${
+              className={`px-4 py-2 text-xs sm:text-sm font-bold uppercase tracking-wider border border-black rounded-xl transition-all ${
                 activeTab === tab.id
-                  ? "bg-yellow-100 text-black shadow-[3px_3px_0px_#000] translate-x-[-1px] translate-y-[-1px]"
-                  : "bg-white text-black hover:bg-emerald-50 shadow-[1px_1px_0px_#000]"
+                  ? "bg-yellow-100 text-black shadow-sm translate-x-[-1px] translate-y-[-1px]"
+                  : "bg-white text-black hover:bg-emerald-50 shadow-sm"
               }`}
             >
               {tab.label}
@@ -131,7 +131,7 @@ export default function HomeNewsAndResearchSection() {
 
         {error && (
           <div className="text-center py-10">
-            <p className="text-sm font-bold text-red-600 border-2 border-black bg-red-50 p-4 rounded-xl inline-block shadow-[2px_2px_0px_#000]">{error}</p>
+            <p className="text-sm font-bold text-red-600 border border-black bg-red-50 p-4 rounded-xl inline-block shadow-sm">{error}</p>
           </div>
         )}
 
@@ -155,7 +155,7 @@ export default function HomeNewsAndResearchSection() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -15 }}
                     transition={{ delay: i * 0.05 }}
-                    className="bg-white border-2 border-black rounded-2xl p-5 shadow-[4px_4px_0px_#000] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_#000] transition-all flex flex-col h-full cursor-pointer"
+                    className="bg-white border border-black rounded-2xl p-5 shadow-md  hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full cursor-pointer"
                   >
                     <NewsCard item={item} categoryPath={getCategoryPath(item.category)} />
                   </motion.div>
@@ -166,7 +166,7 @@ export default function HomeNewsAndResearchSection() {
             <div className="flex justify-center mt-6">
               <Link
                 href="/news"
-                className="px-8 py-3.5 bg-[#1FA463] text-white border-2 border-black font-black text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-[4px_4px_0px_#000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[5px_5px_0px_#000] active:translate-x-0 active:translate-y-0 active:shadow-[2px_2px_0px_#000] transition-all"
+                className="px-8 py-3.5 bg-[#1FA463] text-white border border-black font-bold text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-md  hover:-translate-y-0.5 hover:shadow-md  active:translate-y-0 active:shadow-sm transition-all"
               >
                 View All News
               </Link>
@@ -187,7 +187,7 @@ function NewsCard({ item }: { item: NewsItem; categoryPath: string }) {
             {item.category === "NewsBuzz" ? "News Buzz" : item.category === "CorpPulse" ? "Corp Pulse" : "IPO Scoop"}
           </span>
           {item.featured && (
-            <span className="bg-yellow-100 text-black border border-black px-2 py-0.5 text-[9px] font-medium uppercase rounded-md shadow-[1px_1px_0px_#000]">
+            <span className="bg-yellow-100 text-black border border-black px-2 py-0.5 text-[9px] font-medium uppercase rounded-md shadow-sm">
               Featured
             </span>
           )}
@@ -198,11 +198,11 @@ function NewsCard({ item }: { item: NewsItem; categoryPath: string }) {
         </h3>
       </div>
 
-      <div className="mt-6 pt-3 border-t-2 border-black flex items-center justify-between text-[11px] font-medium text-gray-500">
+      <div className="mt-6 pt-3 border-t border-black flex items-center justify-between text-[11px] font-medium text-gray-500">
         <span>{formatDate(item.publishDate)}</span>
         <Link
           href={`/news/${item.id}`}
-          className="px-3.5 py-1.5 bg-[#1FA463] text-white border border-black rounded-lg text-xs font-medium hover:translate-y-[-1px] hover:shadow-[2px_2px_0px_#000] active:translate-y-0 active:shadow-0 transition-all flex items-center gap-1"
+          className="px-3.5 py-1.5 bg-[#1FA463] text-white border border-black rounded-lg text-xs font-medium hover:-translate-y-0.5 hover:shadow-sm active:translate-y-0  transition-all flex items-center gap-1"
         >
           Read
           <svg

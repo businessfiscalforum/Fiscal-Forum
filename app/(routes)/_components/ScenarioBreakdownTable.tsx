@@ -28,22 +28,22 @@ export default function ScenarioBreakdownTable({
   const opportunityCost = todayFinal - lateFinal;
 
   return (
-    <div className="bg-white border-2 border-black rounded-3xl p-6 md:p-10 shadow-[4px_4px_0px_#000] space-y-6">
-      <h3 className="text-2xl font-black uppercase text-black tracking-tight">
+    <div className="bg-white border border-black rounded-3xl p-6 md:p-10 shadow-md space-y-6">
+      <h3 className="text-2xl font-bold uppercase text-black tracking-tight">
         Scenario Breakdown
       </h3>
 
       <div className="overflow-x-auto">
         <table className="w-full text-sm border-collapse">
           <thead>
-            <tr className="border-b-2 border-black">
-              <th className="py-4 text-left font-black text-black uppercase tracking-wider">
+            <tr className="border-b border-black">
+              <th className="py-4 text-left font-bold text-black uppercase tracking-wider">
                 Investment Metric
               </th>
-              <th className="py-4 text-center font-black text-[#1FA463] uppercase tracking-wider">
+              <th className="py-4 text-center font-bold text-[#1FA463] uppercase tracking-wider">
                 Start Today
               </th>
-              <th className="py-4 text-center font-black text-gray-500 uppercase tracking-wider">
+              <th className="py-4 text-center font-bold text-gray-500 uppercase tracking-wider">
                 Start 10 Years Late
               </th>
             </tr>
@@ -54,10 +54,10 @@ export default function ScenarioBreakdownTable({
               <td className="py-4 font-bold text-black uppercase text-xs">
                 Portfolio at Age 60
               </td>
-              <td className="py-4 text-center text-emerald-800 bg-emerald-50/20 font-black text-base">
+              <td className="py-4 text-center text-emerald-800 bg-emerald-50/20 font-bold text-base">
                 {formatCurrency(todayFinal)}
               </td>
-              <td className="py-4 text-center text-gray-500 bg-gray-50/20 font-black text-base">
+              <td className="py-4 text-center text-gray-500 bg-gray-50/20 font-bold text-base">
                 {formatCurrency(lateFinal)}
               </td>
             </tr>
@@ -80,10 +80,10 @@ export default function ScenarioBreakdownTable({
               <td className="py-4 font-bold text-black uppercase text-xs">
                 Wealth Multiplier
               </td>
-              <td className="py-4 text-center font-black text-emerald-700">
+              <td className="py-4 text-center font-bold text-emerald-700">
                 {todayMultiplier}
               </td>
-              <td className="py-4 text-center font-black text-gray-600">
+              <td className="py-4 text-center font-bold text-gray-600">
                 {lateMultiplier}
               </td>
             </tr>
@@ -96,7 +96,7 @@ export default function ScenarioBreakdownTable({
               <td className="py-4 text-center text-emerald-600 font-bold">
                 ₹0 (None)
               </td>
-              <td className="py-4 text-center text-red-600 font-black">
+              <td className="py-4 text-center text-red-600 font-bold">
                 {formatCurrency(opportunityCost)}
               </td>
             </tr>
@@ -120,13 +120,13 @@ export default function ScenarioBreakdownTable({
                 Dream Lifestyle Status
               </td>
               <td className="py-4 text-center">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-100 border border-[#1FA463] text-[#1FA463] rounded-full text-xs font-black uppercase">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-100 border border-[#1FA463] text-[#1FA463] rounded-full text-xs font-bold uppercase">
                   <Check className="w-3.5 h-3.5" />
                   Achievable
                 </span>
               </td>
               <td className="py-4 text-center">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-red-100 border border-red-300 text-red-600 rounded-full text-xs font-black uppercase">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-red-100 border border-red-300 text-red-600 rounded-full text-xs font-bold uppercase">
                   <X className="w-3.5 h-3.5" />
                   Delayed
                 </span>

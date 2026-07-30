@@ -678,7 +678,7 @@ export default function HomeDesktop() {
 
       <div className="text-gray-800 font-sans min-h-screen">
         {/* Wealth Simulator Hero Section */}
-        <section className="bg-[#F4FBF7] pt-28 pb-16 px-4 md:px-8 border-b-4 border-black">
+        <section className="bg-[#F4FBF7] pt-28 pb-16 px-4 md:px-8 border-b border-black">
           <div className="max-w-7xl mx-auto">
             <WealthSimulator />
           </div>
@@ -687,16 +687,16 @@ export default function HomeDesktop() {
         <FiscalForumCity />
 
         {/* Wealth Building Quote Section */}
-        <section className="py-8 bg-white border-b-4 border-black flex justify-center items-center">
+        <section className="py-8 bg-white border-b border-black flex justify-center items-center">
           <div className="max-w-7xl mx-auto px-4 text-center">
-            <div className="text-2xl sm:text-3xl md:text-4xl font-black text-black tracking-tight whitespace-nowrap">
-              While others are building wealth, what&apos;s stopping you? Start <Link href="/services/stock-investment" className="inline-block bg-yellow-300 hover:bg-yellow-400 px-2 py-0.5 border-2 border-black shadow-[2px_2px_0px_#000] font-black cursor-pointer transition-transform hover:-translate-y-0.5 active:translate-y-0 mx-1">here</Link>.
+            <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-black tracking-tight whitespace-nowrap">
+              While others are building wealth, what&apos;s stopping you? Start <Link href="/services/stock-investment" className="inline-block bg-yellow-300 hover:bg-yellow-400 px-2 py-0.5 border border-black shadow-sm font-bold cursor-pointer transition-transform hover:-translate-y-0.5 active:translate-y-0 mx-1">here</Link>.
             </div>
           </div>
         </section>
 
         {/* Enhanced Services Section */}
-        <section className="py-16 bg-[#F4FBF7] border-b-4 border-black">
+        <section className="py-16 bg-[#F4FBF7] border-b border-black">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             {/* Header */}
             <motion.div
@@ -705,10 +705,10 @@ export default function HomeDesktop() {
               transition={{ duration: 0.6 }}
               className="text-center mb-12 max-w-4xl mx-auto flex flex-col items-center"
             >
-              <div className="w-16 h-16 bg-[#1FA463]/10 border-2 border-black rounded-2xl flex items-center justify-center mb-4 shadow-[2px_2px_0px_#000]">
+              <div className="w-16 h-16 bg-[#1FA463]/10 border border-black rounded-2xl flex items-center justify-center mb-4 shadow-sm">
                 <FaCoins className="text-black text-2xl" />
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-black uppercase tracking-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black uppercase tracking-tight">
                 Our Financial Premium Services
               </h2>
               <p className="text-sm font-semibold text-gray-500 mt-2">
@@ -721,15 +721,15 @@ export default function HomeDesktop() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="flex justify-center gap-3 mb-10 border-b-2 border-black pb-4"
+              className="flex justify-center gap-3 mb-10 border-b border-black pb-4"
             >
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as TabKey)}
-                  className={`px-6 py-3 text-xs sm:text-sm font-black uppercase tracking-wider border-2 border-black rounded-xl transition-all ${activeTab === tab.id
-                    ? "bg-yellow-100 text-black shadow-[3px_3px_0px_#000] translate-x-[-1px] translate-y-[-1px]"
-                    : "bg-white text-black hover:bg-emerald-50 shadow-[1px_1px_0px_#000]"
+                  className={`px-6 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider border border-black rounded-xl transition-all ${activeTab === tab.id
+                    ? "bg-yellow-100 text-black shadow-sm translate-x-[-1px] translate-y-[-1px]"
+                    : "bg-white text-black hover:bg-emerald-50 shadow-sm"
                     }`}
                 >
                   {tab.label}
@@ -745,7 +745,7 @@ export default function HomeDesktop() {
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className="bg-white border-2 border-black rounded-2xl p-6 shadow-[4px_4px_0px_#000] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_#000] transition-all flex flex-col h-full justify-between"
+                  className="bg-white border border-black rounded-2xl p-6 shadow-md  hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full justify-between"
                 >
                   <div className="space-y-4">
                     {/* Icon */}
@@ -756,7 +756,7 @@ export default function HomeDesktop() {
                     </div>
 
                     {/* Title */}
-                    <h4 className="text-xl font-black text-black leading-snug">
+                    <h4 className="text-xl font-bold text-black leading-snug">
                       {item.title}
                     </h4>
 
@@ -771,7 +771,7 @@ export default function HomeDesktop() {
                   {/* Learn More Button */}
                   <div className="mt-6">
                     <Link href={item.link} className="block w-full">
-                      <button className="w-full bg-[#1FA463] text-white border-2 border-black py-2.5 rounded-xl font-black text-xs sm:text-sm uppercase tracking-wider shadow-[2px_2px_0px_#000] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_#000] active:translate-y-0 active:shadow-0 transition-all flex items-center justify-center gap-1.5">
+                      <button className="w-full bg-[#1FA463] text-white border border-black py-2.5 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider shadow-sm hover:-translate-y-0.5 hover:shadow-sm active:translate-y-0  transition-all flex items-center justify-center gap-1.5">
                         Learn More
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -796,7 +796,7 @@ export default function HomeDesktop() {
         <ResearchReportsSection />
 
         {/* Enhanced Why Fiscal Forum Section */}
-        <section className="py-16 bg-white border-b-4 border-black">
+        <section className="py-16 bg-white border-b border-black">
           <div className="max-w-7xl mx-auto px-4 md:px-8 text-center flex flex-col items-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -804,10 +804,10 @@ export default function HomeDesktop() {
               transition={{ duration: 0.6 }}
               className="mb-12 flex flex-col items-center"
             >
-              <div className="w-16 h-16 bg-[#1FA463]/10 border-2 border-black rounded-2xl flex items-center justify-center mb-4 shadow-[2px_2px_0px_#000]">
+              <div className="w-16 h-16 bg-[#1FA463]/10 border border-black rounded-2xl flex items-center justify-center mb-4 shadow-sm">
                 <FaAward className="text-black text-2xl" />
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-black uppercase tracking-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black uppercase tracking-tight">
                 Why Choose Fiscal Forum?
               </h2>
               <p className="text-sm font-semibold text-gray-500 mt-2 max-w-lg mx-auto">
@@ -822,12 +822,12 @@ export default function HomeDesktop() {
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className="bg-white border-2 border-black rounded-2xl p-6 shadow-[4px_4px_0px_#000] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_#000] transition-all flex flex-col h-full text-left"
+                  className="bg-white border border-black rounded-2xl p-6 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full text-left"
                 >
                   <div className="w-12 h-12 bg-emerald-50 border border-black rounded-xl flex items-center justify-center mb-4">
                     <feature.icon className="text-[#1FA463] text-xl" />
                   </div>
-                  <h4 className="text-lg font-black text-black mb-2">
+                  <h4 className="text-lg font-bold text-black mb-2">
                     {feature.title}
                   </h4>
                   {!isSmallScreen && (
@@ -842,17 +842,17 @@ export default function HomeDesktop() {
         </section>
 
         {/* Enhanced Work With Us Section */}
-        <section className="py-16 bg-[#F4FBF7] border-b-4 border-black">
+        <section className="py-16 bg-[#F4FBF7] border-b border-black">
           <div className="max-w-7xl mx-auto px-4 md:px-8 text-center flex flex-col items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               className="mb-12 flex flex-col items-center"
             >
-              <div className="w-16 h-16 bg-[#1FA463]/10 border-2 border-black rounded-2xl flex items-center justify-center mb-4 shadow-[2px_2px_0px_#000]">
+              <div className="w-16 h-16 bg-[#1FA463]/10 border border-black rounded-2xl flex items-center justify-center mb-4 shadow-sm">
                 <FaHandshake className="text-black text-2xl" />
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-black uppercase tracking-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black uppercase tracking-tight">
                 Work With Us
               </h2>
               <p className="text-sm font-semibold text-gray-500 mt-2 max-w-lg mx-auto">
@@ -867,7 +867,7 @@ export default function HomeDesktop() {
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
-                  className="bg-white border-2 border-black rounded-2xl p-6 shadow-[4px_4px_0px_#000] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_#000] transition-all flex flex-col justify-between h-full text-left"
+                  className="bg-white border border-black rounded-2xl p-6 shadow-md  hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col justify-between h-full text-left"
                 >
                   <div className="space-y-4">
                     {/* Icon */}
@@ -876,7 +876,7 @@ export default function HomeDesktop() {
                     </div>
 
                     {/* Title */}
-                    <h4 className="text-lg font-black text-black leading-snug">
+                    <h4 className="text-lg font-bold text-black leading-snug">
                       {partner.title}
                     </h4>
 
@@ -889,7 +889,7 @@ export default function HomeDesktop() {
                   <div className="mt-6">
                     <Link
                       href={partner.path}
-                      className="block w-full text-center py-2.5 bg-[#1FA463] text-white border-2 border-black font-black text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-[2px_2px_0px_#000] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_#000] transition-all"
+                      className="block w-full text-center py-2.5 bg-[#1FA463] text-white border border-black font-bold text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-sm hover:-translate-y-0.5 hover:shadow-sm transition-all"
                     >
                       Join Now
                     </Link>
@@ -902,9 +902,9 @@ export default function HomeDesktop() {
 
         {/* Referral section */}
         {user && (
-          <section className="py-16 bg-white border-b-4 border-black">
+          <section className="py-16 bg-white border-b border-black">
             <div className="max-w-7xl mx-auto px-4 md:px-8 text-center flex flex-col items-center">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-black uppercase tracking-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black uppercase tracking-tight">
                 Referral Program
               </h2>
               <motion.p
@@ -916,12 +916,12 @@ export default function HomeDesktop() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
                 {/* Feature 1 */}
                 <motion.div
-                  className="bg-white border-2 border-black rounded-2xl p-6 shadow-[3px_3px_0px_#000] text-left space-y-3"
+                  className="bg-white border border-black rounded-2xl p-6 shadow-sm text-left space-y-3"
                 >
                   <div className="w-10 h-10 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
                     <FaUsers className="text-[#1FA463] text-lg" />
                   </div>
-                  <h3 className="text-base font-black text-black">
+                  <h3 className="text-base font-bold text-black">
                     Earn Credits
                   </h3>
                   <p className="text-xs sm:text-sm text-gray-500 font-semibold">
@@ -931,12 +931,12 @@ export default function HomeDesktop() {
 
                 {/* Feature 2 */}
                 <motion.div
-                  className="bg-white border-2 border-black rounded-2xl p-6 shadow-[3px_3px_0px_#000] text-left space-y-3"
+                  className="bg-white border border-black rounded-2xl p-6 shadow-sm text-left space-y-3"
                 >
                   <div className="w-10 h-10 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
                     <FaHandshake className="text-[#1FA463] text-lg" />
                   </div>
-                  <h3 className="text-base font-black text-black">
+                  <h3 className="text-base font-bold text-black">
                     Build Network
                   </h3>
                   <p className="text-xs sm:text-sm text-gray-500 font-semibold">
@@ -946,12 +946,12 @@ export default function HomeDesktop() {
 
                 {/* Feature 3 */}
                 <motion.div
-                  className="bg-white border-2 border-black rounded-2xl p-6 shadow-[3px_3px_0px_#000] text-left space-y-3"
+                  className="bg-white border border-black rounded-2xl p-6 shadow-sm text-left space-y-3"
                 >
                   <div className="w-10 h-10 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
                     <FaAward className="text-[#1FA463] text-lg" />
                   </div>
-                  <h3 className="text-base font-black text-black">
+                  <h3 className="text-base font-bold text-black">
                     Exclusive Rewards
                   </h3>
                   <p className="text-xs sm:text-sm text-gray-500 font-semibold">
@@ -961,9 +961,9 @@ export default function HomeDesktop() {
               </div>
 
               <motion.div
-                className="w-full max-w-3xl bg-yellow-50 border-2 border-black rounded-2xl p-8 shadow-[4px_4px_0px_#000] text-left space-y-4"
+                className="w-full max-w-3xl bg-yellow-50 border border-black rounded-2xl p-8 shadow-md text-left space-y-4"
               >
-                <h3 className="text-lg sm:text-xl font-black text-black uppercase tracking-tight">
+                <h3 className="text-lg sm:text-xl font-bold text-black uppercase tracking-tight">
                   Ready to Start Referring?
                 </h3>
                 <p className="text-xs sm:text-sm font-semibold text-gray-700">
@@ -971,7 +971,7 @@ export default function HomeDesktop() {
                 </p>
                 <Link
                   href="/referrals"
-                  className="inline-flex items-center px-6 py-3 bg-[#1FA463] text-white border-2 border-black font-black text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-[2px_2px_0px_#000] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_#000] transition-all"
+                  className="inline-flex items-center px-6 py-3 bg-[#1FA463] text-white border border-black font-bold text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-sm hover:-translate-y-0.5 hover:shadow-sm transition-all"
                 >
                   <FaRocket className="mr-2" />
                   View My Referrals
@@ -984,11 +984,11 @@ export default function HomeDesktop() {
         {/* Enhanced Affiliations Section */}
         <section className="py-12 bg-white">
           <div className="max-w-7xl mx-auto px-4 text-center">
-            <h2 className="text-2xl sm:text-3xl font-black text-black uppercase tracking-tight mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-black uppercase tracking-tight mb-8">
               Our Trusted Affiliations
             </h2>
 
-            <div className="relative overflow-hidden border-t-2 border-b-2 border-black py-4 bg-gray-50/50">
+            <div className="relative overflow-hidden border-t-2 border-b border-black py-4 bg-gray-50/50">
               <div
                 className="flex animate-scroll"
                 style={{

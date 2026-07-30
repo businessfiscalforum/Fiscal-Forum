@@ -1,160 +1,183 @@
-# Fiscal Forum Inspired Design System
+# IPO Journey — Design System
 
-Version: 1.0
-Style: Modern Fintech / Wealth-Tech / Soft Minimalism
+Version: 2.0 (supersedes the Fiscal Forum doc — rebuilt from the `IPO-main` build)
+Style: Editorial Fintech / Calm Explainer — **neo-brutalism removed**
+
+---
+
+# 0. What Changed From the Source File
+
+The uploaded build (`IPO-main/index.html`) is a scroll-based IPO explainer (ticker tape → hero → 6-step journey stepper → "why IPOs happen" stage explorer → players grid → allotment simulator → risk cards → glossary accordion → footer CTA). As shipped, it leans **neo-brutalist**:
+
+* 2–4px solid black borders on almost every element (cards, inputs, pills, nav, dividers)
+* Hard, non-blurred offset shadows (`3px 3px 0`, `5px 5px 0`, `8px 8px 0`, zero blur, solid black)
+* A visible graph-paper grid painted across the page background
+* All-caps `Archivo Black` headings with heavy, poster-like weight
+* Chunky circular slider thumbs with their own hard shadow
+
+This document keeps the actual content structure, palette, and layout of that build, but **strips the brutalist treatment** and replaces it with soft, blurred shadows, thin hairline borders, a quieter background, and calmer type — in line with a trustworthy, editorial fintech feel rather than a poster/zine feel.
 
 ---
 
 # 1. Core Design Philosophy
 
-This theme combines:
-
-* Clean fintech minimalism
-* Soft gradients
-* Rounded cards
-* Calm green investment psychology
-* Strong typography hierarchy
-* Spacious layouts
-* Data-driven storytelling
-* Trust-oriented UX
+* Calm, editorial fintech explainer
+* Warm paper-toned background, not stark white
+* Soft depth (blurred shadows), never hard offset shadows
+* Thin hairline borders, not heavy black rules
+* Financial-grade seriousness with approachable, human copy
+* Data-driven storytelling (ticker, stepper, simulator) presented quietly, not loudly
+* Generous whitespace, one idea per section
 
 The interface should feel:
 
-* Premium
-* Calm
-* Intelligent
-* Financially trustworthy
-* Interactive but not noisy
+* Trustworthy and grown-up
+* Warm rather than clinical
+* Precise (mono numerals for data) without feeling like a terminal
+* Interactive but understated
 
 ### Visual References
 
-* CRED
-* Zerodha
-* Groww
 * Stripe Dashboard
-* Apple Finance-style spacing
-* Linear.app cleanliness
+* Zerodha Varsity
+* Notion (warm paper background)
+* Linear.app (quiet hairline structure)
 
 ---
 
 # 2. Color Palette
 
-## Primary Brand Colors
+## Background
 
-### Emerald Primary
-
-```txt
-#1FA463
-```
-
-Used for:
-
-* CTAs
-* Growth graphs
-* Positive metrics
-* Hover accents
-* Active states
-
----
-
-### Dark Emerald
+### Paper Background
 
 ```txt
-#15824D
+#F4F1E8
 ```
 
-Used for:
+Warm off-white page background. **Remove the visible graph-paper grid overlay** from the brutalist build — keep the background flat, or at most an extremely faint (2–3% opacity) dot grid with no visible lines.
 
-* CTA hover
-* Gradient depth
-* Important financial indicators
-
----
-
-### Soft Mint Background
-
-```txt
-#F4FBF7
-```
-
-Used for:
-
-* Hero glow
-* Section highlights
-* Card tinting
-
----
-
-### Neutral Background
+### Surface White
 
 ```txt
 #FFFFFF
 ```
 
-Main page background.
+Cards, panels, the nav bar, the simulator panel.
+
+### Soft Background
+
+```txt
+#F1F1E6
+```
+
+Alternating section tint, used sparingly instead of hard-bordered section dividers.
 
 ---
 
-### Surface Gray
+## Ink / Text
+
+### Ink Primary
 
 ```txt
-#F8F9FA
+#0A0A0A
 ```
 
-Used for:
+Reserve near-black for text only, not for 2–4px structural borders. Headings and body copy.
 
-* Cards
-* Secondary sections
-* Inputs
-* Hover surfaces
+### Ink Soft
+
+```txt
+#33352F
+```
+
+Secondary text, lede paragraphs.
+
+### Ink Dim
+
+```txt
+#6B6D63
+```
+
+Card descriptions, captions, fine print.
 
 ---
 
-### Text Primary
+## Brand / Accent
+
+### Accent Green
 
 ```txt
-#111111
+#5B9279
 ```
 
-Main headings.
+Primary interactive color — CTA fills, active states, chart bars trending positive.
+
+### Accent Deep
+
+```txt
+#2F5B45
+```
+
+Hover state for the primary button, active text emphasis.
+
+### Accent Soft
+
+```txt
+#CFE8D4
+```
+
+Pill backgrounds (eyebrow labels, active step pill) — used as a tint fill, not paired with a hard black outline.
 
 ---
 
-### Text Secondary
+## Signal Colors
+
+### Rise (positive)
 
 ```txt
-#5F6368
+#2F5B45
 ```
 
-Descriptions and muted labels.
+### Fall (negative)
+
+```txt
+#C23B3B
+```
+
+### Gold (caution / neutral highlight)
+
+```txt
+#9C6B15
+```
+
+### Gold Soft
+
+```txt
+#FAF3D9
+```
+
+Used for the "why" caption panel background.
+
+### Navy (dark panel)
+
+```txt
+#16243D
+```
+
+Used for the simulator result panel and footer — the one deliberately dark surface on the page.
 
 ---
 
-### Border Color
+## Borders
+
+### Hairline Border
 
 ```txt
-#E8ECEF
+rgba(10,10,10,0.12)
 ```
 
-Used for:
-
-* Card borders
-* Dividers
-* Input outlines
-
----
-
-### Danger Accent
-
-```txt
-#FF5A5A
-```
-
-Used for:
-
-* Delayed investing scenario
-* Negative outcomes
-* Warnings
+Replaces the former solid 2–4px black border everywhere: cards, nav, inputs, pills, dividers. One consistent 1px hairline.
 
 ---
 
@@ -162,18 +185,29 @@ Used for:
 
 ## Font Recommendations
 
-### Primary Font
-
-Preferred:
+### Display / Headings
 
 ```css
-font-family: 'Inter', sans-serif;
+font-family: 'Archivo', sans-serif; /* weight 700, not Archivo Black */
 ```
 
-Alternatives:
+Drop `Archivo Black` and forced `text-transform: uppercase` on `h1/h2/h3` — those two choices are most of what reads as "poster/brutalist." Use `Archivo` at weight 700, sentence case, normal letter-spacing (or very slightly tightened, `-0.01em`).
 
-* SF Pro Display
-* Manrope
+### Body
+
+```css
+font-family: 'Archivo', 'Space Grotesk', sans-serif;
+```
+
+Weights 400–600.
+
+### Mono (data only)
+
+```css
+font-family: 'JetBrains Mono', monospace;
+```
+
+Keep mono, but scope it strictly to numerals and data labels — ticker values, simulator readouts, eyebrow labels, step pill text. Don't let mono bleed into headings or body copy.
 
 ---
 
@@ -181,40 +215,31 @@ Alternatives:
 
 ### Hero Heading
 
-* 72px desktop
-* 48px tablet
-* 36px mobile
-* Weight: 800
-* Tight line-height
-
----
+* 58px desktop / 34px mobile (`clamp(34px, 5vw, 58px)`)
+* Weight: 700
+* Sentence case (e.g. "Future wealth starts here.")
+* Emphasis word gets a soft accent-tint background pill (`accent-soft` fill, no border) instead of a bordered badge
 
 ### Section Heading
 
-* 32px
+* 26–40px (`clamp(26px, 3.4vw, 40px)`)
+* Weight: 700, sentence case
+
+### Card / Step Heading
+
+* 15.5–17px
 * Weight: 700
-
----
-
-### Card Metric
-
-* 28px
-* Weight: 700
-
----
 
 ### Body Text
 
-* 16px
-* Weight: 400–500
+* 13.5–17px depending on context
+* Weight: 400–600
 
----
+### Eyebrow / Labels
 
-### Labels
-
-* 12–14px
-* Uppercase optional
-* Letter spacing: 0.5px
+* 11–11.5px
+* Mono, uppercase, letter-spacing 0.12–0.14em
+* Soft pill background, no border
 
 ---
 
@@ -222,30 +247,13 @@ Alternatives:
 
 ## Grid
 
-Use:
+* Content max-width: 1180px
+* Side padding: 6vw desktop, 24px mobile
+* Section vertical padding: 96px (72px for "tight" sections)
 
-* 12-column grid
-* Max width: 1440px
-* Content width: 1280px
-* Side padding: 32px desktop
+## Section Rhythm
 
----
-
-## Spacing Scale
-
-```txt
-4px
-8px
-12px
-16px
-24px
-32px
-48px
-64px
-96px
-```
-
-Prefer generous whitespace.
+Alternate `paper` and `surface white` backgrounds between sections instead of separating them with a heavy black rule. A 1px hairline (`rgba(10,10,10,0.08)`) is enough of a seam.
 
 ---
 
@@ -254,28 +262,25 @@ Prefer generous whitespace.
 ## Card Style
 
 ```css
-background: white;
-border: 1px solid #E8ECEF;
-border-radius: 24px;
-box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+background: #FFFFFF;
+border: 1px solid rgba(10,10,10,0.12);
+border-radius: 16px;
+box-shadow: 0 8px 24px rgba(0,0,0,0.05);
 ```
 
----
+No offset hard shadow, no thick border. This applies to: player cards, risk cards, glossary items, the simulator panel, the stage-explorer frame.
 
 ## Card Behavior
 
 Hover:
 
 ```css
-transform: translateY(-4px);
+transform: translateY(-2px);
+box-shadow: 0 12px 32px rgba(0,0,0,0.08);
 transition: all 0.2s ease;
 ```
 
-Effects:
-
-* Slight lift
-* Softer shadow expansion
-* Smooth interaction feel
+Replaces the brutalist "border turns solid + hard shadow pops in" hover with a gentle lift, consistent with soft-minimalism motion.
 
 ---
 
@@ -284,29 +289,33 @@ Effects:
 ## Primary CTA
 
 ```css
-background: linear-gradient(135deg, #1FA463, #15824D);
-color: white;
-border-radius: 14px;
-padding: 14px 28px;
-font-weight: 600;
+background: #5B9279;
+color: #0A0A0A;
+border-radius: 12px;
+padding: 13px 24px;
+font-weight: 700;
+border: none;
+box-shadow: 0 6px 16px rgba(91,146,121,0.28);
 ```
 
 ### Hover
 
 ```css
-transform: scale(1.02);
-filter: brightness(0.95);
+background: #2F5B45;
+color: #FFFFFF;
+transform: translateY(-1px);
 ```
-
----
 
 ## Secondary Button
 
 ```css
-background: white;
-border: 1px solid #E8ECEF;
-color: #111111;
+background: #FFFFFF;
+border: 1px solid rgba(10,10,10,0.16);
+color: #0A0A0A;
+border-radius: 12px;
 ```
+
+Drop the `box-shadow: 3px 3px 0 var(--line)` treatment entirely — no button on the page should carry a hard offset shadow, including the nav CTA.
 
 ---
 
@@ -316,58 +325,51 @@ color: #111111;
 
 ### Left Side
 
-* Emotional messaging
-* Strong typography
-* Quick metrics
+* Sentence-case heading with one soft-tinted emphasis word
+* Lede paragraph
+* Primary + secondary CTA, side by side
 
 ### Right Side
 
-* Interactive graph
-* Investment simulation
-* Financial projections
-
----
+* "Browser chrome" style frame around the listing-ceremony image (three status dots + URL bar) — keep this motif, it reads as a screenshot/product-real detail rather than brutalist decoration, but round its corners generously (18px) and drop its border down to the hairline weight
 
 ## Hero Copy Style
 
 Tone:
 
-* Motivational
-* Data-backed
-* Future-oriented
-
-### Example
-
-> “Your Future Rewards Early Moves.”
+* Explanatory, not hyped
+* Plain language over jargon, with jargon defined inline or in the glossary
 
 ---
 
-# 8. Graph & Data Visualization
+# 8. Data Visualization
 
-## Chart Style
+## Ticker Tape
 
-* Smooth bezier curves
-* Soft shadows
-* Gradient fills
-* Minimal axis clutter
-* Thin gridlines
-
----
-
-## Positive Graph
+Keep the scrolling market ticker at the top, but soften it:
 
 ```css
-stroke: #1FA463;
-fill: rgba(31,164,99,0.12);
+background: #16243D; /* navy, not pure black */
+color: #CFD1C6;
 ```
 
----
+Up values in a soft green (`#8FD9AD`), down values in a soft red (`#FF9B9B`) — unchanged, these already read calmly.
 
-## Delayed Graph
+## Simulator Bars & Chart Fills
 
 ```css
-stroke: #9A9A9A;
+stroke: #5B9279;
+fill: rgba(91,146,121,0.12);
 ```
+
+Bars use rounded tops (`border-radius: 3px 3px 0 0`), soft color transitions on input — no change needed here, this part of the source file was already calm.
+
+## Stepper Rail
+
+Keep the horizontal connecting line and numbered circles, but:
+
+* Circle border: hairline, not 2px solid black
+* Active state: soft `box-shadow: 0 4px 12px rgba(91,146,121,0.25)` instead of the hard `3px 3px 0` shadow
 
 ---
 
@@ -377,39 +379,14 @@ stroke: #9A9A9A;
 
 * Lucide Icons
 * Phosphor Icons
-* Heroicons
+
+Replace the emoji icons used in the players grid (🏦 🏛️ 🧮 etc.) with a consistent line-icon set at 1.75px stroke weight for a more premium, less playful-poster feel — emoji icons read casual/meme-adjacent, which works against the "trustworthy" goal.
 
 ---
 
-## Style Rules
+# 10. Illustration / Photography Style
 
-* Rounded
-* Minimal
-* Thin stroke
-
-Preferred stroke width:
-
-```txt
-1.75px
-```
-
----
-
-# 10. Illustration Style
-
-Illustrations should be:
-
-* Semi-flat
-* Friendly
-* Modern
-* Slightly cartoonish
-* Soft shadows
-* Warm emotion
-
-Avoid:
-
-* Hyper realism
-* Corporate stock vectors
+The six stage images (startup → growing company → needs capital → IPO opens → listing → shareholders) and the listing-ceremony hero photo should stay photographic/semi-real. Frame them in a rounded card (18px radius, hairline border, soft shadow) rather than the thick 4px bordered "browser chrome" box.
 
 ---
 
@@ -421,133 +398,110 @@ Avoid:
 transition: all 0.25s ease;
 ```
 
----
-
 ## Recommended Animations
 
-### Cards
-
-* Lift on hover
-
-### Graphs
-
-* Progressive line draw
-
-### Numbers
-
-* Count-up animation
-
-### Buttons
-
-* Subtle glow pulse
+* Cards: gentle lift on hover (2px, not a shadow "pop")
+* Reveal-on-scroll: fade + 20px translateY, unchanged from source
+* Stepper: sequential fade-in stagger, unchanged
+* Stage explorer: crossfade between images, unchanged
+* Ticker: continuous linear scroll, unchanged
+* Sliders (simulator): soft accent-colored thumb, subtle shadow, no hard offset
 
 ---
 
 # 12. Input Components
 
-## Sliders
-
-Large rounded slider handles.
-
-### Active Track
+## Range Sliders
 
 ```css
-background: #1FA463;
+height: 6px;
+background: #FFFFFF;
+border: 1px solid rgba(10,10,10,0.16);
+border-radius: 4px;
 ```
 
----
-
-## Form Inputs
+### Thumb
 
 ```css
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: #5B9279;
+border: 2px solid #FFFFFF;
+box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+```
+
+Drop the `2px solid var(--ink)` outline + hard `2px 2px 0` shadow on the thumb — a soft blurred shadow with a white ring reads premium instead of sticker-like.
+
+## Accordion (Glossary)
+
+```css
+border: 1px solid rgba(10,10,10,0.12);
 border-radius: 14px;
-height: 52px;
-padding: 0 16px;
-border: 1px solid #E8ECEF;
+background: #FFFFFF;
 ```
 
-### Focus State
-
-```css
-border-color: #1FA463;
-box-shadow: 0 0 0 4px rgba(31,164,99,0.12);
-```
+Plus icon: circular soft-tint fill (`accent-soft`), no border ring.
 
 ---
 
-# 13. Dashboard Design Rules
+# 13. Dashboard / Panel Design Rules (Simulator Result Panel)
 
-Dashboard should emphasize:
+The one intentionally dark panel (`--navy` background) stays — it's a nice contrast beat, not a brutalist device. Keep it, but:
 
-* Financial growth
-* Positive reinforcement
-* Simplicity
-* Low cognitive load
-
-Use:
-
-* Metric cards
-* Progress indicators
-* Visual comparisons
-* Wealth projections
-
-Avoid:
-
-* Dense tables
-* Too many colors
-* Heavy borders
+* Round its corners to 18px
+* Drop its `4px` black border to a hairline `1px solid rgba(255,255,255,0.12)`
+* Keep the soft internal shadow-free bar chart
 
 ---
 
 # 14. Mobile Responsiveness
 
-## Mobile Rules
-
 * Stack hero vertically
+* Stepper collapses to a vertical rail with a thin left border in accent color for the active step (already the source behavior — keep it, just switch the border from thick black to a 2px accent-colored hairline)
 * Full-width cards
-* Reduce chart complexity
-* Keep CTA visible
-* 16px minimum padding
+* 24px minimum side padding
 
 ---
 
 # 15. Tailwind Mapping
 
-## Suggested Tailwind Tokens
-
-### Colors
-
 ```js
 colors: {
-  primary: "#1FA463",
-  primaryDark: "#15824D",
-  surface: "#F8F9FA",
-  border: "#E8ECEF",
-  danger: "#FF5A5A"
+  paper: "#F4F1E8",
+  surface: "#FFFFFF",
+  ink: "#0A0A0A",
+  inkSoft: "#33352F",
+  inkDim: "#6B6D63",
+  accent: "#5B9279",
+  accentDeep: "#2F5B45",
+  accentSoft: "#CFE8D4",
+  rise: "#2F5B45",
+  fall: "#C23B3B",
+  gold: "#9C6B15",
+  goldSoft: "#FAF3D9",
+  navy: "#16243D",
+  hairline: "rgba(10,10,10,0.12)"
 }
 ```
-
----
-
-### Border Radius
 
 ```js
 borderRadius: {
-  xl: "1rem",
-  "2xl": "1.5rem",
-  "3xl": "2rem"
+  lg: "12px",
+  xl: "16px",
+  "2xl": "18px"
 }
 ```
-
----
-
-### Shadows
 
 ```js
 boxShadow: {
-  soft: "0 8px 30px rgba(0,0,0,0.04)"
+  soft: "0 8px 24px rgba(0,0,0,0.05)",
+  softHover: "0 12px 32px rgba(0,0,0,0.08)",
+  cta: "0 6px 16px rgba(91,146,121,0.28)"
 }
 ```
+
+No `shadow-sm / shadow-md / shadow-lg` hard-offset tokens (`3px 3px 0`, `5px 5px 0`, `8px 8px 0`) — these are removed entirely.
 
 ---
 
@@ -555,94 +509,52 @@ boxShadow: {
 
 ## Frontend
 
-* Next.js
-* React
-* TailwindCSS
-* Framer Motion
+* Vanilla HTML/CSS/JS (matches current build) or Next.js + React if componentized later
+* Framer Motion, if migrated to React, for the reveal/stagger animations already scripted by hand
 
----
+## Charts / Data
 
-## Charts
-
-* Recharts
-* Tremor
-* Visx
-
----
+* Native SVG/canvas bars (current approach) or Recharts if migrated
 
 ## Icons
 
-* Lucide React
+* Lucide
 
 ---
 
-# 17. MCP Stitch Optimization Notes
+# 17. Component Inventory (from the actual build)
 
-To make this design system work effectively with MCP Stitch:
+For reference, the real page is built from these sections — keep this structure, only restyle per the rules above:
 
-## Recommended Additions
-
-### Add These MCPs
-
-* Tailwind MCP
-* Framer Motion MCP
-* Shadcn/UI MCP
-* Recharts MCP
-* Lucide MCP
-
----
-
-## Recommended Component Categories
-
-Generate reusable:
-
-* Dashboard cards
-* KPI widgets
-* Wealth projection modules
-* Investment sliders
-* Financial comparison charts
-* CTA sections
-* Hero layouts
-* Testimonial cards
-* Pricing blocks
-
----
-
-## Suggested Design Tokens Structure
-
-```txt
-tokens/
- ├── colors.ts
- ├── spacing.ts
- ├── typography.ts
- ├── shadows.ts
- ├── radius.ts
-```
+1. **Ticker tape** — fixed top, scrolling market strip
+2. **Top nav** — logo mark, in-page links, "Try simulator" CTA
+3. **Hero** — heading + lede + dual CTA, browser-chrome-framed listing photo
+4. **Journey stepper** — 6-step horizontal rail (private company → bankers → roadshow → IPO launches → allotment → listing)
+5. **Why explorer** — 6-stage clickable/autoplaying image sequence with captions ("startup" through "investors become shareholders")
+6. **Players grid** — 6 cards (Merchant Banker, SEBI, Registrar, Anchor Investors, Underwriters, Retail Investors)
+7. **Allotment simulator** — 3 sliders (issue size, demand, sentiment) driving a live odds/pop estimate and bar chart, dark navy result panel
+8. **Risk cards** — 4-card grid on what an IPO doesn't promise
+9. **Glossary accordion** — DRHP, price band, lot size, GMP, ASBA
+10. **Footer CTA** — dark navy closing panel with primary button and fine print
 
 ---
 
 # 18. UX Principles
 
-Always prioritize:
-
 * Clarity over decoration
-* Financial trust signals
-* Emotional reassurance
-* Minimal friction
-* Fast readability
-* Strong hierarchy
+* Every data point (ticker, simulator output, ratios) gets a mono numeral treatment for scannability, but never for whole sentences
+* Plain-language definitions for jargon (DRHP, GMP, ASBA) live in-page in the glossary
+* Minimal friction between "curious" and "try the simulator"
+* Strong section-to-section hierarchy via the eyebrow + heading pattern, not via heavy dividers
 
 ---
 
 # 19. Accessibility
 
-Ensure:
-
-* WCAG-compliant contrast
-* Visible focus states
-* Keyboard navigability
-* Proper semantic structure
-* Reduced motion support
+* WCAG-compliant contrast (near-black ink on paper background comfortably clears AA)
+* Visible focus states: `outline: 2px solid #0A0A0A; outline-offset: 3px;` — keep this, it's a genuinely useful hairline-consistent focus ring, not a brutalist artifact
+* Keyboard navigability for the accordion, stepper, and stage explorer
+* `prefers-reduced-motion` support — disable the ticker scroll and all reveal/stagger transitions, matching the source build's existing media query
 
 ---
 
@@ -650,4 +562,4 @@ Ensure:
 
 The final UI should feel like:
 
-> “A premium AI-powered wealth platform designed for intelligent long-term investors.”
+> "A calm, editorial explainer that makes the IPO process legible — precise where it shows numbers, warm and unhurried everywhere else, with no hard edges or poster-shadow gimmicks left in."

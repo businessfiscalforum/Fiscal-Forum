@@ -324,7 +324,7 @@ export default function ClientReportsPage({
       <div className="lg:hidden fixed bottom-6 right-6 z-40">
         <button
           onClick={() => setIsFormOpen(true)}
-          className="bg-[#1FA463] text-black border-2 border-black p-4 rounded-full shadow-[3px_3px_0px_#000] hover:translate-y-[-1px] transition-all active:translate-y-[0px] active:shadow-[1px_1px_0px_#000]"
+          className="bg-[#1FA463] text-black border border-black p-4 rounded-full shadow-sm hover:-translate-y-0.5 transition-all  active:shadow-sm"
           aria-label="Request Custom Report"
         >
           <FaPaperPlane className="w-6 h-6" />
@@ -334,9 +334,9 @@ export default function ClientReportsPage({
       {/* Sticky Custom Report Form - Mobile Only */}
       {isFormOpen && (
         <div className="lg:hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-end">
-          <div className="bg-white border-t-2 border-black rounded-t-3xl p-6 w-full max-h-[85vh] overflow-y-auto space-y-4">
-            <div className="flex justify-between items-center border-b border-black/10 pb-3">
-              <h3 className="text-xl font-black uppercase text-black">Custom Report</h3>
+          <div className="bg-white border-t border-black rounded-t-3xl p-6 w-full max-h-[85vh] overflow-y-auto space-y-4">
+            <div className="flex justify-between items-center border-b border-black pb-3">
+              <h3 className="text-xl font-bold uppercase text-black">Custom Report</h3>
               <button
                 onClick={() => setIsFormOpen(false)}
                 className="text-gray-500 hover:text-black"
@@ -357,7 +357,7 @@ export default function ClientReportsPage({
                   value={formData.name}
                   onChange={handleInputChange}
                   placeholder="Your name"
-                  className="w-full px-3 py-2 border-2 border-black rounded-xl text-black"
+                  className="w-full px-3 py-2 border border-black rounded-xl text-black"
                   required
                 />
               </div>
@@ -372,7 +372,7 @@ export default function ClientReportsPage({
                   value={formData.mobile}
                   onChange={handleInputChange}
                   placeholder="Your WhatsApp number"
-                  className="w-full px-3 py-2 border-2 border-black rounded-xl text-black"
+                  className="w-full px-3 py-2 border border-black rounded-xl text-black"
                   required
                 />
               </div>
@@ -387,7 +387,7 @@ export default function ClientReportsPage({
                   value={formData.topic}
                   onChange={handleInputChange}
                   placeholder="What do you need?"
-                  className="w-full px-3 py-2 border-2 border-black rounded-xl text-black"
+                  className="w-full px-3 py-2 border border-black rounded-xl text-black"
                   required
                 />
               </div>
@@ -405,7 +405,7 @@ export default function ClientReportsPage({
               <button
                 type="submit"
                 disabled={formLoading}
-                className="w-full bg-[#1FA463] text-white border-2 border-black py-3 rounded-xl font-bold hover:bg-[#15824D] shadow-[2px_2px_0px_#000] active:translate-y-[2px]"
+                className="w-full bg-[#1FA463] text-white border border-black py-3 rounded-xl font-bold hover:bg-[#15824D] shadow-sm "
               >
                 {formLoading ? "Sending..." : "Request Report"}
               </button>
@@ -417,7 +417,7 @@ export default function ClientReportsPage({
       <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-16">
         
         {/* Banner Section */}
-        <section className="relative border-2 border-black bg-white rounded-3xl p-8 md:p-12 shadow-[4px_4px_0px_#000] overflow-hidden">
+        <section className="relative border border-black bg-white rounded-3xl p-8 md:p-12 shadow-md overflow-hidden">
           {/* Background pattern */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-[#1FA463]/10 rounded-full blur-3xl pointer-events-none" />
           
@@ -426,7 +426,7 @@ export default function ClientReportsPage({
               <FaCalendarAlt className="w-3.5 h-3.5" />
               Daily Market Briefs
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-black uppercase tracking-tight leading-none">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black uppercase tracking-tight leading-none">
               Before You Invest, <span className="text-[#1FA463]">Read What Matters</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-700 font-semibold max-w-2xl mx-auto">
@@ -435,13 +435,13 @@ export default function ClientReportsPage({
 
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
               <Link href="#table" scroll={true} className="w-full sm:w-auto">
-                <button className="w-full bg-white text-black border-2 border-black px-6 py-3.5 rounded-xl font-bold flex items-center justify-center space-x-2 shadow-[2px_2px_0px_#000] hover:bg-yellow-50 hover:shadow-[3px_3px_0px_#000] transition-all">
+                <button className="w-full bg-white text-black border border-black px-6 py-3.5 rounded-xl font-bold flex items-center justify-center space-x-2 shadow-sm hover:bg-yellow-50 hover:shadow-sm transition-all">
                   <FaFilePdf className="text-black" />
                   <span>View Sample Reports</span>
                 </button>
               </Link>
               <Link href="/reports/join" className="w-full sm:w-auto">
-                <button className="w-full bg-[#1FA463] text-white border-2 border-black px-6 py-3.5 rounded-xl font-bold shadow-[2px_2px_0px_#000] hover:bg-[#15824D] hover:shadow-[3px_3px_0px_#000] active:translate-y-[2px] transition-all uppercase text-sm">
+                <button className="w-full bg-[#1FA463] text-white border border-black px-6 py-3.5 rounded-xl font-bold shadow-sm hover:bg-[#15824D] hover:shadow-sm  transition-all uppercase text-sm">
                   Join Now!
                 </button>
               </Link>
@@ -451,7 +451,7 @@ export default function ClientReportsPage({
               Don&apos;t Miss Out: Send &quot;Hi&quot; to get more samples on{" "}
               <Link
                 href="https://wa.me/+918696060387"
-                className="text-[#1FA463] underline font-black hover:text-emerald-800"
+                className="text-[#1FA463] underline font-bold hover:text-emerald-800"
               >
                 WhatsApp
               </Link>
@@ -461,16 +461,16 @@ export default function ClientReportsPage({
         </section>
 
         {/* TAB NAVIGATION */}
-        <div className="flex justify-center h-auto overflow-x-auto sm:overflow-visible pb-2 border-b-2 border-black/10">
+        <div className="flex justify-center h-auto overflow-x-auto sm:overflow-visible pb-2 border-b border-black">
           <div className="flex flex-wrap sm:flex-nowrap justify-center gap-3 sm:gap-4 px-2">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => handleTabChange(tab.id)}
-                className={`px-4 py-2 border-2 border-black rounded-xl text-sm font-black uppercase tracking-wider transition-all whitespace-nowrap ${
+                className={`px-4 py-2 border border-black rounded-xl text-sm font-bold uppercase tracking-wider transition-all whitespace-nowrap ${
                   activeTab === tab.id
-                    ? "bg-[#1FA463] text-white shadow-[2px_2px_0px_#000]"
-                    : "bg-white text-gray-700 hover:bg-gray-50 shadow-[1px_1px_0px_#000] hover:shadow-[2px_2px_0px_#000] hover:translate-y-[-1px]"
+                    ? "bg-[#1FA463] text-white shadow-sm"
+                    : "bg-white text-gray-700 hover:bg-gray-50 shadow-sm hover:shadow-sm hover:-translate-y-0.5"
                 }`}
               >
                 {tab.label}
@@ -483,11 +483,11 @@ export default function ClientReportsPage({
         <section id="table" className="space-y-6">
           {/* EMPTY STATE */}
           {!loading && !error && currentReports.length === 0 && (
-            <div className="bg-white rounded-2xl border-2 border-black p-10 text-center shadow-[4px_4px_0px_#000]">
+            <div className="bg-white rounded-2xl border border-black p-10 text-center shadow-md">
               <div className="w-16 h-16 bg-gray-100 rounded-full border border-black flex items-center justify-center mx-auto mb-4">
                 <FaFilePdf className="text-black text-2xl" />
               </div>
-              <h3 className="text-lg font-black uppercase text-black">
+              <h3 className="text-lg font-bold uppercase text-black">
                 No Reports Found
               </h3>
               <p className="text-sm text-gray-600 font-medium mt-1">
@@ -502,9 +502,9 @@ export default function ClientReportsPage({
               {currentReports.map((report) => (
                 <div
                   key={report.id}
-                  className="bg-white border-2 border-black rounded-2xl p-5 shadow-[3px_3px_0px_#000]"
+                  className="bg-white border border-black rounded-2xl p-5 shadow-sm"
                 >
-                  <h3 className="font-black text-black text-base leading-snug">
+                  <h3 className="font-bold text-black text-base leading-snug">
                     {report.title ?? "Untitled"}
                   </h3>
 
@@ -524,9 +524,9 @@ export default function ClientReportsPage({
                     · {report.company ?? "N/A"}
                   </div>
 
-                  <div className="flex items-center justify-between mt-4 pt-3 border-t border-black/10">
+                  <div className="flex items-center justify-between mt-4 pt-3 border-t border-black">
                     <span
-                      className={`px-2.5 py-0.5 rounded border-2 border-black text-xs font-black ${getRatingColor(
+                      className={`px-2.5 py-0.5 rounded border border-black text-xs font-bold ${getRatingColor(
                         report.rating
                       )}`}
                     >
@@ -535,7 +535,7 @@ export default function ClientReportsPage({
 
                     <Link
                       href={report.pdfUrl || "#"}
-                      className="inline-flex items-center gap-1 bg-[#1FA463] text-white border-2 border-black px-3 py-1.5 rounded-xl text-xs font-black shadow-[2px_2px_0px_#000] hover:bg-[#15824D] active:translate-y-[1px]"
+                      className="inline-flex items-center gap-1 bg-[#1FA463] text-white border border-black px-3 py-1.5 rounded-xl text-xs font-bold shadow-sm hover:bg-[#15824D] "
                     >
                       <span>View PDF</span>
                       <FaFilePdf className="w-3.5 h-3.5" />
@@ -548,27 +548,27 @@ export default function ClientReportsPage({
 
           {/* DESKTOP TABLE VIEW */}
           {!loading && !error && currentReports.length > 0 && (
-            <div className="hidden md:block bg-white rounded-2xl border-2 border-black shadow-[4px_4px_0px_#000] overflow-hidden">
+            <div className="hidden md:block bg-white rounded-2xl border border-black shadow-md overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
-                  <thead className="bg-emerald-50 border-b-2 border-black">
+                  <thead className="bg-emerald-50 border-b border-black">
                     <tr>
-                      <th className="px-4 py-3 text-left text-xs font-black uppercase text-black tracking-wider">
+                      <th className="px-4 py-3 text-left text-xs font-bold uppercase text-black tracking-wider">
                         Report Info
                       </th>
-                      <th className="px-4 py-3 text-left text-xs font-black uppercase text-black tracking-wider">
+                      <th className="px-4 py-3 text-left text-xs font-bold uppercase text-black tracking-wider">
                         Stock
                       </th>
-                      <th className="px-4 py-3 text-left text-xs font-black uppercase text-black tracking-wider">
+                      <th className="px-4 py-3 text-left text-xs font-bold uppercase text-black tracking-wider">
                         Author
                       </th>
-                      <th className="px-4 py-3 text-left text-xs font-black uppercase text-black tracking-wider">
+                      <th className="px-4 py-3 text-left text-xs font-bold uppercase text-black tracking-wider">
                         Date
                       </th>
-                      <th className="px-4 py-3 text-left text-xs font-black uppercase text-black tracking-wider">
+                      <th className="px-4 py-3 text-left text-xs font-bold uppercase text-black tracking-wider">
                         Rating
                       </th>
-                      <th className="px-4 py-3 text-center text-xs font-black uppercase text-black tracking-wider">
+                      <th className="px-4 py-3 text-center text-xs font-bold uppercase text-black tracking-wider">
                         Action
                       </th>
                     </tr>
@@ -583,7 +583,7 @@ export default function ClientReportsPage({
                         {/* Report */}
                         <td className="px-4 py-4 align-middle">
                           <div className="space-y-2">
-                            <div className="font-black text-black text-base">
+                            <div className="font-bold text-black text-base">
                               {report.title ?? "Untitled"}
                             </div>
                             <div className="flex gap-2">
@@ -599,7 +599,7 @@ export default function ClientReportsPage({
 
                         {/* Stock */}
                         <td className="px-4 py-4 align-middle">
-                          <div className="font-black text-black text-base">
+                          <div className="font-bold text-black text-base">
                             {report.stock ?? "N/A"}
                           </div>
                           <div className="text-xs text-gray-600 font-semibold">
@@ -614,7 +614,7 @@ export default function ClientReportsPage({
                               <FaUser className="text-black text-xs" />
                             </div>
                             <div>
-                              <div className="text-xs font-black text-black">
+                              <div className="text-xs font-bold text-black">
                                 {report.author ?? "Fiscal Forum"}
                               </div>
                               <div className="text-[11px] text-gray-500 font-semibold">
@@ -633,7 +633,7 @@ export default function ClientReportsPage({
                         {/* Rating */}
                         <td className="px-4 py-4 align-middle">
                           <span
-                            className={`px-2.5 py-0.5 rounded border-2 border-black text-xs font-black ${getRatingColor(
+                            className={`px-2.5 py-0.5 rounded border border-black text-xs font-bold ${getRatingColor(
                               report.rating
                             )}`}
                           >
@@ -645,7 +645,7 @@ export default function ClientReportsPage({
                         <td className="px-4 py-4 align-middle text-center">
                           <Link
                             href={report.pdfUrl || "#"}
-                            className="inline-flex bg-[#1FA463] text-white border-2 border-black px-4 py-2 rounded-xl text-xs font-black shadow-[2px_2px_0px_#000] hover:bg-[#15824D] active:translate-y-[2px]"
+                            className="inline-flex bg-[#1FA463] text-white border border-black px-4 py-2 rounded-xl text-xs font-bold shadow-sm hover:bg-[#15824D] "
                           >
                             View Report
                           </Link>
@@ -662,7 +662,7 @@ export default function ClientReportsPage({
         {/* What's Inside Our Report Section */}
         <section className="space-y-8">
           <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
-            <h2 className="text-3xl md:text-4xl font-black uppercase text-black leading-none">
+            <h2 className="text-3xl md:text-4xl font-bold uppercase text-black leading-none">
               What&apos;s Inside Our Report?
             </h2>
             <p className="text-base text-gray-600 font-medium">
@@ -673,9 +673,9 @@ export default function ClientReportsPage({
           {/* Three Report Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Pre-Market Reports Card */}
-            <div className="bg-white border-2 border-black rounded-3xl overflow-hidden shadow-[4px_4px_0px_#000] flex flex-col justify-between hover:translate-y-[-2px] transition-all">
+            <div className="bg-white border border-black rounded-3xl overflow-hidden shadow-md flex flex-col justify-between hover:-translate-y-0.5 transition-all">
               <div className="p-6 space-y-4">
-                <div className="w-12 h-12 bg-emerald-100 border-2 border-black rounded-xl flex items-center justify-center shadow-[2px_2px_0px_#000]">
+                <div className="w-12 h-12 bg-emerald-100 border border-black rounded-xl flex items-center justify-center shadow-sm">
                   <svg
                     className="w-6 h-6 text-black"
                     fill="none"
@@ -690,7 +690,7 @@ export default function ClientReportsPage({
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl font-black uppercase text-black">
+                <h3 className="text-xl font-bold uppercase text-black">
                   Pre-Market Reports
                 </h3>
                 <p className="text-gray-700 text-sm font-semibold leading-relaxed">
@@ -698,23 +698,23 @@ export default function ClientReportsPage({
                 </p>
                 <div className="flex flex-wrap gap-2 pt-2">
                   {["Global Markets", "Sector Analysis", "Fear & Greed Index"].map((tag, i) => (
-                    <span key={i} className="px-2 py-1 border border-black/20 bg-gray-50 text-black text-xs font-bold rounded-lg shadow-[1px_1px_0px_#000]">
+                    <span key={i} className="px-2 py-1 border border-black bg-gray-50 text-black text-xs font-bold rounded-lg shadow-sm">
                       {tag}
                     </span>
                   ))}
                 </div>
               </div>
-              <div className="bg-emerald-50 border-t-2 border-black px-6 py-3">
-                <p className="text-emerald-950 text-xs font-black uppercase">
+              <div className="bg-emerald-50 border-t border-black px-6 py-3">
+                <p className="text-emerald-950 text-xs font-bold uppercase">
                   Delivered daily at 8:00 AM
                 </p>
               </div>
             </div>
 
             {/* Thematic Reports Card */}
-            <div className="bg-white border-2 border-black rounded-3xl overflow-hidden shadow-[4px_4px_0px_#000] flex flex-col justify-between hover:translate-y-[-2px] transition-all">
+            <div className="bg-white border border-black rounded-3xl overflow-hidden shadow-md flex flex-col justify-between hover:-translate-y-0.5 transition-all">
               <div className="p-6 space-y-4">
-                <div className="w-12 h-12 bg-blue-100 border-2 border-black rounded-xl flex items-center justify-center shadow-[2px_2px_0px_#000]">
+                <div className="w-12 h-12 bg-blue-100 border border-black rounded-xl flex items-center justify-center shadow-sm">
                   <svg
                     className="w-6 h-6 text-black"
                     fill="none"
@@ -729,7 +729,7 @@ export default function ClientReportsPage({
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl font-black uppercase text-black">
+                <h3 className="text-xl font-bold uppercase text-black">
                   Thematic Reports
                 </h3>
                 <p className="text-gray-700 text-sm font-semibold leading-relaxed">
@@ -737,23 +737,23 @@ export default function ClientReportsPage({
                 </p>
                 <div className="flex flex-wrap gap-2 pt-2">
                   {["Trend Analysis", "Sector Deep Dive", "Opportunity Spotting"].map((tag, i) => (
-                    <span key={i} className="px-2 py-1 border border-black/20 bg-gray-50 text-black text-xs font-bold rounded-lg shadow-[1px_1px_0px_#000]">
+                    <span key={i} className="px-2 py-1 border border-black bg-gray-50 text-black text-xs font-bold rounded-lg shadow-sm">
                       {tag}
                     </span>
                   ))}
                 </div>
               </div>
-              <div className="bg-blue-50 border-t-2 border-black px-6 py-3">
-                <p className="text-blue-950 text-xs font-black uppercase">
+              <div className="bg-blue-50 border-t border-black px-6 py-3">
+                <p className="text-blue-950 text-xs font-bold uppercase">
                   Weekly specialized insights
                 </p>
               </div>
             </div>
 
             {/* Equity Reports Card */}
-            <div className="bg-white border-2 border-black rounded-3xl overflow-hidden shadow-[4px_4px_0px_#000] flex flex-col justify-between hover:translate-y-[-2px] transition-all">
+            <div className="bg-white border border-black rounded-3xl overflow-hidden shadow-md flex flex-col justify-between hover:-translate-y-0.5 transition-all">
               <div className="p-6 space-y-4">
-                <div className="w-12 h-12 bg-purple-100 border-2 border-black rounded-xl flex items-center justify-center shadow-[2px_2px_0px_#000]">
+                <div className="w-12 h-12 bg-purple-100 border border-black rounded-xl flex items-center justify-center shadow-sm">
                   <svg
                     className="w-6 h-6 text-black"
                     fill="none"
@@ -768,7 +768,7 @@ export default function ClientReportsPage({
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl font-black uppercase text-black">
+                <h3 className="text-xl font-bold uppercase text-black">
                   Equity Reports
                 </h3>
                 <p className="text-gray-700 text-sm font-semibold leading-relaxed">
@@ -776,14 +776,14 @@ export default function ClientReportsPage({
                 </p>
                 <div className="flex flex-wrap gap-2 pt-2">
                   {["Stock Analysis", "Fundamental Research", "BUY / HOLD / SELL"].map((tag, i) => (
-                    <span key={i} className="px-2 py-1 border border-black/20 bg-gray-50 text-black text-xs font-bold rounded-lg shadow-[1px_1px_0px_#000]">
+                    <span key={i} className="px-2 py-1 border border-black bg-gray-50 text-black text-xs font-bold rounded-lg shadow-sm">
                       {tag}
                     </span>
                   ))}
                 </div>
               </div>
-              <div className="bg-purple-50 border-t-2 border-black px-6 py-3">
-                <p className="text-purple-950 text-xs font-black uppercase">
+              <div className="bg-purple-50 border-t border-black px-6 py-3">
+                <p className="text-purple-950 text-xs font-bold uppercase">
                   In-depth company analysis
                 </p>
               </div>
@@ -791,17 +791,17 @@ export default function ClientReportsPage({
           </div>
 
           {/* Global Markets and Snapshot Blocks */}
-          <div className="bg-gray-100/60 border-2 border-black rounded-3xl p-6 md:p-8 space-y-8 shadow-[4px_4px_0px_#000]">
+          <div className="bg-gray-100/60 border border-black rounded-3xl p-6 md:p-8 space-y-8 shadow-md">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               
               {/* Global Market Overview */}
-              <div className="bg-white border-2 border-black p-6 rounded-2xl shadow-[3px_3px_0px_#000]">
-                <h3 className="text-lg font-black uppercase text-black mb-6 pb-2 border-b-2 border-black/10">
+              <div className="bg-white border border-black p-6 rounded-2xl shadow-sm">
+                <h3 className="text-lg font-bold uppercase text-black mb-6 pb-2 border-b border-black">
                   Global Market Coverage
                 </h3>
                 <div className="space-y-6">
                   <div>
-                    <h4 className="text-xs font-black uppercase text-gray-500 mb-3 flex items-center">
+                    <h4 className="text-xs font-bold uppercase text-gray-500 mb-3 flex items-center">
                       <span className="w-2.5 h-2.5 bg-orange-400 border border-black rounded-full mr-2"></span>
                       Asian Index
                     </h4>
@@ -809,7 +809,7 @@ export default function ClientReportsPage({
                       {["Hang Seng", "Nikkei 225", "KOSPI", "ASX 200"].map((market, idx) => (
                         <div
                           key={idx}
-                          className="px-3 py-1.5 border border-black rounded-xl text-xs font-bold text-black bg-[#F4FBF7] shadow-[1px_1px_0px_#000]"
+                          className="px-3 py-1.5 border border-black rounded-xl text-xs font-bold text-black bg-[#F4FBF7] shadow-sm"
                         >
                           {market}
                         </div>
@@ -818,7 +818,7 @@ export default function ClientReportsPage({
                   </div>
 
                   <div>
-                    <h4 className="text-xs font-black uppercase text-gray-500 mb-3 flex items-center">
+                    <h4 className="text-xs font-bold uppercase text-gray-500 mb-3 flex items-center">
                       <span className="w-2.5 h-2.5 bg-blue-400 border border-black rounded-full mr-2"></span>
                       European Index
                     </h4>
@@ -826,7 +826,7 @@ export default function ClientReportsPage({
                       {["DAX", "FTSE 100", "CAC 40"].map((market, idx) => (
                         <div
                           key={idx}
-                          className="px-3 py-1.5 border border-black rounded-xl text-xs font-bold text-black bg-blue-50/50 shadow-[1px_1px_0px_#000]"
+                          className="px-3 py-1.5 border border-black rounded-xl text-xs font-bold text-black bg-blue-50/50 shadow-sm"
                         >
                           {market}
                         </div>
@@ -835,7 +835,7 @@ export default function ClientReportsPage({
                   </div>
 
                   <div>
-                    <h4 className="text-xs font-black uppercase text-gray-500 mb-3 flex items-center">
+                    <h4 className="text-xs font-bold uppercase text-gray-500 mb-3 flex items-center">
                       <span className="w-2.5 h-2.5 bg-emerald-400 border border-black rounded-full mr-2"></span>
                       US Index
                     </h4>
@@ -843,7 +843,7 @@ export default function ClientReportsPage({
                       {["Dow Jones", "Nasdaq", "S&P 500"].map((market, idx) => (
                         <div
                           key={idx}
-                          className="px-3 py-1.5 border border-black rounded-xl text-xs font-bold text-black bg-emerald-50/50 shadow-[1px_1px_0px_#000]"
+                          className="px-3 py-1.5 border border-black rounded-xl text-xs font-bold text-black bg-emerald-50/50 shadow-sm"
                         >
                           {market}
                         </div>
@@ -854,8 +854,8 @@ export default function ClientReportsPage({
               </div>
 
               {/* Market Snapshot */}
-              <div className="bg-white border-2 border-black p-6 rounded-2xl shadow-[3px_3px_0px_#000]">
-                <h3 className="text-lg font-black uppercase text-black mb-6 pb-2 border-b-2 border-black/10">
+              <div className="bg-white border border-black p-6 rounded-2xl shadow-sm">
+                <h3 className="text-lg font-bold uppercase text-black mb-6 pb-2 border-b border-black">
                   Market Snapshot metrics
                 </h3>
                 <div className="space-y-3">
@@ -868,7 +868,7 @@ export default function ClientReportsPage({
                   ].map((item, idx) => (
                     <div
                       key={idx}
-                      className="flex items-center px-4 py-3 bg-gray-50 border border-black/10 rounded-xl hover:border-black hover:bg-white hover:shadow-[2px_2px_0px_#000] transition-all"
+                      className="flex items-center px-4 py-3 bg-gray-50 border border-black rounded-xl hover:border-black hover:bg-white hover:shadow-sm transition-all"
                     >
                       <div className={`w-3.5 h-3.5 ${item.color} border border-black rounded-full mr-3`} />
                       <span className="text-sm font-bold text-black uppercase tracking-tight">
@@ -880,8 +880,8 @@ export default function ClientReportsPage({
               </div>
 
               {/* Sectoral Indices Chart */}
-              <div className="bg-white border-2 border-black p-6 rounded-2xl shadow-[3px_3px_0px_#000] lg:col-span-2">
-                <h3 className="text-lg font-black uppercase text-black mb-4">
+              <div className="bg-white border border-black p-6 rounded-2xl shadow-sm lg:col-span-2">
+                <h3 className="text-lg font-bold uppercase text-black mb-4">
                   Sectoral Indices Live Chart
                 </h3>
                 <div className="bg-gray-50 border border-black rounded-2xl p-6">
@@ -898,13 +898,13 @@ export default function ClientReportsPage({
                       {sectorsData.map((sector, idx) => (
                         <div
                           key={idx}
-                          className="flex justify-between items-center bg-white border border-black/10 hover:border-black p-3.5 rounded-xl shadow-none hover:shadow-[2px_2px_0px_#000] transition-all"
+                          className="flex justify-between items-center bg-white border border-black hover:border-black p-3.5 rounded-xl shadow-none hover:shadow-sm transition-all"
                         >
                           <span className="text-sm font-bold text-black">
                             {sector.name}
                           </span>
                           <span
-                            className={`text-sm font-black px-2 py-0.5 rounded border border-black ${
+                            className={`text-sm font-bold px-2 py-0.5 rounded border border-black ${
                               sector.change >= 0
                                 ? "bg-emerald-100 text-emerald-800"
                                 : "bg-red-100 text-red-800"
@@ -923,7 +923,7 @@ export default function ClientReportsPage({
 
             {/* Report Features List */}
             <div className="space-y-4">
-              <h3 className="text-lg font-black uppercase text-black text-center">
+              <h3 className="text-lg font-bold uppercase text-black text-center">
                 What You&apos;ll Get in Every Report
               </h3>
               <div className="flex flex-wrap justify-center gap-3">
@@ -938,7 +938,7 @@ export default function ClientReportsPage({
                 ].map((feature, idx) => (
                   <div
                     key={idx}
-                    className="bg-white border-2 border-black px-4 py-2.5 rounded-xl shadow-[2px_2px_0px_#000] font-bold text-black text-xs uppercase tracking-wider"
+                    className="bg-white border border-black px-4 py-2.5 rounded-xl shadow-sm font-bold text-black text-xs uppercase tracking-wider"
                   >
                     🚀 {feature}
                   </div>
@@ -949,9 +949,9 @@ export default function ClientReportsPage({
         </section>
 
         {/* Why is Our Morning PDF a Must Section */}
-        <section className="relative border-2 border-black bg-[#1FA463] rounded-3xl p-8 md:p-12 shadow-[4px_4px_0px_#000]">
+        <section className="relative border border-black bg-[#1FA463] rounded-3xl p-8 md:p-12 shadow-md">
           <div className="text-center mb-12 space-y-3">
-            <h2 className="text-3xl md:text-4xl font-black uppercase text-black leading-none">
+            <h2 className="text-3xl md:text-4xl font-bold uppercase text-black leading-none">
               Why is Our Morning PDF a Must for You?
             </h2>
             <p className="text-black font-semibold text-base max-w-2xl mx-auto">
@@ -973,9 +973,9 @@ export default function ClientReportsPage({
             ].map((item, idx) => (
               <div
                 key={idx}
-                className="bg-white border-2 border-black p-5 rounded-2xl shadow-[3px_3px_0px_#000] hover:translate-y-[-2px] transition-all flex items-center justify-between"
+                className="bg-white border border-black p-5 rounded-2xl shadow-sm hover:-translate-y-0.5 transition-all flex items-center justify-between"
               >
-                <span className="text-sm font-black uppercase text-black tracking-tight">
+                <span className="text-sm font-bold uppercase text-black tracking-tight">
                   {item.title}
                 </span>
                 <span className="text-xl">{item.emoji}</span>
@@ -987,7 +987,7 @@ export default function ClientReportsPage({
         {/* FAQ Section */}
         <section className="space-y-8 max-w-4xl mx-auto">
           <div className="text-center space-y-3">
-            <h2 className="text-3xl font-black uppercase text-black leading-none">
+            <h2 className="text-3xl font-bold uppercase text-black leading-none">
               Still Have Questions?
             </h2>
             <p className="text-base text-gray-600 font-semibold">
@@ -999,13 +999,13 @@ export default function ClientReportsPage({
             {faqData.map((item, index) => (
               <div
                 key={index}
-                className="bg-white border-2 border-black rounded-2xl p-6 shadow-[3px_3px_0px_#000]"
+                className="bg-white border border-black rounded-2xl p-6 shadow-sm"
               >
                 <div
                   className="flex justify-between items-center cursor-pointer"
                   onClick={() => toggleFAQ(index)}
                 >
-                  <h3 className="font-black text-black uppercase tracking-tight text-sm md:text-base">
+                  <h3 className="font-bold text-black uppercase tracking-tight text-sm md:text-base">
                     {item.question}
                   </h3>
                   <button className="text-black focus:outline-none">
@@ -1021,7 +1021,7 @@ export default function ClientReportsPage({
                   </button>
                 </div>
                 {openIndex === index && (
-                  <div className="mt-4 pt-4 border-t border-black/10 text-gray-700 font-semibold text-sm leading-relaxed">
+                  <div className="mt-4 pt-4 border-t border-black text-gray-700 font-semibold text-sm leading-relaxed">
                     {item.answer}
                   </div>
                 )}
@@ -1031,11 +1031,11 @@ export default function ClientReportsPage({
         </section>
 
         {/* Desktop Custom Report Section */}
-        <section className="hidden lg:block border-2 border-black bg-white rounded-3xl p-8 shadow-[4px_4px_0px_#000]">
+        <section className="hidden lg:block border border-black bg-white rounded-3xl p-8 shadow-md">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div className="space-y-6">
               <div>
-                <h3 className="text-2xl font-black uppercase text-black">
+                <h3 className="text-2xl font-bold uppercase text-black">
                   Need Specific Insights?
                 </h3>
                 <p className="text-gray-600 font-semibold mt-1">
@@ -1051,7 +1051,7 @@ export default function ClientReportsPage({
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Full Name"
-                    className="px-4 py-3 border-2 border-black rounded-xl text-black"
+                    className="px-4 py-3 border border-black rounded-xl text-black"
                     required
                   />
                   <input
@@ -1060,7 +1060,7 @@ export default function ClientReportsPage({
                     value={formData.mobile}
                     onChange={handleInputChange}
                     placeholder="WhatsApp Mobile"
-                    className="px-4 py-3 border-2 border-black rounded-xl text-black"
+                    className="px-4 py-3 border border-black rounded-xl text-black"
                     required
                   />
                 </div>
@@ -1071,21 +1071,21 @@ export default function ClientReportsPage({
                   value={formData.topic}
                   onChange={handleInputChange}
                   placeholder="What stock/sector do you want analyzed?"
-                  className="w-full px-4 py-3 border-2 border-black rounded-xl text-black"
+                  className="w-full px-4 py-3 border border-black rounded-xl text-black"
                   required
                 />
 
                 <button
                   type="submit"
                   disabled={formLoading}
-                  className="bg-[#1FA463] text-white border-2 border-black px-6 py-3 rounded-xl font-black hover:bg-[#15824D] shadow-[3px_3px_0px_#000] active:translate-y-[2px]"
+                  className="bg-[#1FA463] text-white border border-black px-6 py-3 rounded-xl font-bold hover:bg-[#15824D] shadow-sm "
                 >
                   {formLoading ? "Processing..." : "Request Custom Report"}
                 </button>
 
                 {formMessage && (
                   <div
-                    className={`p-3 rounded-xl border-2 border-black text-sm font-semibold ${
+                    className={`p-3 rounded-xl border border-black text-sm font-semibold ${
                       formMessage.startsWith("✅") ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
                     }`}
                   >
@@ -1095,8 +1095,8 @@ export default function ClientReportsPage({
               </form>
             </div>
 
-            <div className="bg-[#1FA463] text-black border-2 border-black rounded-2xl p-8 shadow-[4px_4px_0px_#000] space-y-4">
-              <h4 className="text-xl font-black uppercase">
+            <div className="bg-[#1FA463] text-black border border-black rounded-2xl p-8 shadow-md space-y-4">
+              <h4 className="text-xl font-bold uppercase">
                 Why Custom Reports?
               </h4>
               <ul className="space-y-3 font-semibold">

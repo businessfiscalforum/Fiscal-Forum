@@ -93,7 +93,7 @@ export default function Navbar() {
   return (
     <nav
       ref={navRef}
-      className="fixed top-0 z-[100] w-full bg-white border-b-4 border-black px-4 py-3 md:py-4 shadow-none"
+      className="fixed top-0 z-[100] w-full bg-white border-b border-black px-4 py-3 md:py-4 shadow-none"
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center relative">
         
@@ -121,7 +121,7 @@ export default function Navbar() {
             onMouseEnter={() => setServicesOpen(true)}
             onMouseLeave={() => setServicesOpen(false)}
           >
-            <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-black text-black hover:text-emerald-700 transition-colors uppercase tracking-wider">
+            <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-black hover:text-emerald-700 transition-colors uppercase tracking-wider">
               <span>Services</span>
               <ChevronDown
                 size={14}
@@ -137,7 +137,7 @@ export default function Navbar() {
                   exit={{ opacity: 0, y: 10 }}
                   className="absolute top-full left-0 w-[550px] pt-2"
                 >
-                  <div className="bg-white border-2 border-black shadow-[4px_4px_0px_#000] rounded-2xl grid grid-cols-2 p-4 gap-2">
+                  <div className="bg-white border border-black shadow-md rounded-2xl grid grid-cols-2 p-4 gap-2">
                     {servicesDropdown.map((service) => (
                       <Link
                         key={service.name}
@@ -163,7 +163,7 @@ export default function Navbar() {
             <Link
               key={item.label}
               href={item.href}
-              className="px-3 py-1.5 text-xs font-black text-black hover:text-emerald-700 transition-colors uppercase tracking-wider"
+              className="px-3 py-1.5 text-xs font-bold text-black hover:text-emerald-700 transition-colors uppercase tracking-wider"
             >
               {item.label}
             </Link>
@@ -174,7 +174,7 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center gap-6">
           <Link
             href="/referrals"
-            className="group flex items-center gap-2 px-3 py-1.5 border-2 border-black rounded-xl bg-yellow-100 text-xs font-black text-black uppercase tracking-wider shadow-[2px_2px_0px_#000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_#000] active:translate-x-0 active:translate-y-0 active:shadow-[1px_1px_0px_#000] transition-all"
+            className="group flex items-center gap-2 px-3 py-1.5 border border-black rounded-xl bg-yellow-100 text-xs font-bold text-black uppercase tracking-wider shadow-sm  hover:-translate-y-0.5 hover:shadow-sm  active:translate-y-0 active:shadow-sm transition-all"
           >
             <Gem
               size={14}
@@ -193,11 +193,11 @@ export default function Navbar() {
                       alt="User"
                       width={35}
                       height={35}
-                      className="rounded-full border-2 border-black hover:shadow-[2px_2px_0px_#000] transition-all"
+                      className="rounded-full border border-black hover:shadow-sm transition-all"
                     />
                   </Link>
                   <SignOutButton>
-                    <button className="text-[10px] font-black text-black border border-black px-3 py-1.5 rounded-lg bg-red-100 hover:bg-red-200 transition-all uppercase shadow-[1px_1px_0px_#000]">
+                    <button className="text-[10px] font-bold text-black border border-black px-3 py-1.5 rounded-lg bg-red-100 hover:bg-red-200 transition-all uppercase shadow-sm">
                       Sign Out
                     </button>
                   </SignOutButton>
@@ -208,7 +208,7 @@ export default function Navbar() {
                 <Link href="/sign-up">
                   <motion.button
                     whileHover={{ scale: 1.02 }}
-                    className="bg-[#1FA463] border-2 border-black px-6 py-2.5 text-white text-xs font-black uppercase tracking-[0.2em] shadow-[3px_3px_0px_#000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0px_#000] active:translate-x-0 active:translate-y-0 active:shadow-[1px_1px_0px_#000] transition-all"
+                    className="bg-[#1FA463] border border-black px-6 py-2.5 text-white text-xs font-bold uppercase tracking-[0.2em] shadow-sm  hover:-translate-y-0.5 hover:shadow-md  active:translate-y-0 active:shadow-sm transition-all"
                   >
                     Get Started
                   </motion.button>
@@ -234,7 +234,7 @@ export default function Navbar() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="lg:hidden bg-white border-t-2 border-black overflow-hidden mt-3"
+            className="lg:hidden bg-white border-t border-black overflow-hidden mt-3"
           >
             <div className="space-y-4 p-6">
               
@@ -242,7 +242,7 @@ export default function Navbar() {
               <Link
                 href="/referrals"
                 onClick={closeAll}
-                className="flex items-center justify-center gap-2 p-3 border-2 border-black rounded-xl bg-yellow-100 text-xs font-black text-black uppercase tracking-wider shadow-[2px_2px_0px_#000]"
+                className="flex items-center justify-center gap-2 p-3 border border-black rounded-xl bg-yellow-100 text-xs font-bold text-black uppercase tracking-wider shadow-sm"
               >
                 <Gem size={14} />
                 <span>Refer & Earn</span>
@@ -264,13 +264,13 @@ export default function Navbar() {
                           height={36}
                           className="rounded-full border border-black"
                         />
-                        <span className="text-xs font-black text-black uppercase tracking-wider">
+                        <span className="text-xs font-bold text-black uppercase tracking-wider">
                           Go Dashboard
                         </span>
                       </Link>
 
                       <SignOutButton>
-                        <button className="text-[10px] font-black text-black border border-black px-2.5 py-1.5 bg-red-100 rounded-lg uppercase cursor-pointer">
+                        <button className="text-[10px] font-bold text-black border border-black px-2.5 py-1.5 bg-red-100 rounded-lg uppercase cursor-pointer">
                           Sign Out
                         </button>
                       </SignOutButton>
@@ -281,7 +281,7 @@ export default function Navbar() {
                     <Link
                       href="/sign-up"
                       onClick={closeAll}
-                      className="block w-full py-3.5 bg-[#1FA463] text-white border-2 border-black font-black text-center uppercase tracking-widest rounded-xl shadow-[3px_3px_0px_#000]"
+                      className="block w-full py-3.5 bg-[#1FA463] text-white border border-black font-bold text-center uppercase tracking-widest rounded-xl shadow-sm"
                     >
                       Get Started
                     </Link>
@@ -291,7 +291,7 @@ export default function Navbar() {
             </div>
 
             <div className="flex flex-col px-6 pb-6 gap-4">
-              <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest border-b border-black/10 pb-1.5">
+              <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest border-b border-black pb-1.5">
                 Our Services
               </p>
               <div className="grid grid-cols-2 gap-3">
@@ -300,7 +300,7 @@ export default function Navbar() {
                     key={s.name}
                     href={s.href}
                     onClick={closeAll}
-                    className="flex items-center gap-2.5 p-3 bg-gray-50 border border-black/10 hover:border-black rounded-xl hover:bg-white transition-all"
+                    className="flex items-center gap-2.5 p-3 bg-gray-50 border border-black hover:border-black rounded-xl hover:bg-white transition-all"
                   >
                     <div className="w-4 h-4 text-black flex-shrink-0 flex items-center justify-center">
                       {s.icon}
@@ -320,7 +320,7 @@ export default function Navbar() {
                     key={item.label}
                     href={item.href}
                     onClick={closeAll}
-                    className="text-base font-black text-black uppercase tracking-wider"
+                    className="text-base font-bold text-black uppercase tracking-wider"
                   >
                     {item.label}
                   </Link>

@@ -95,14 +95,14 @@ const ResearchReportsSection = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       key={report.id}
-      className="border-2 border-black p-5 bg-white rounded-2xl shadow-[4px_4px_0px_#000] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_#000] transition-all flex flex-col h-full cursor-pointer"
+      className="border border-black p-5 bg-white rounded-2xl shadow-md  hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full cursor-pointer"
       onClick={() => router.push(`/reports/${report.id}`)}
     >
       <div className="flex-grow space-y-3">
-        <span className="text-[9px] font-black uppercase text-emerald-800 bg-emerald-100 border border-[#1FA463] px-2.5 py-0.5 rounded-full inline-block">
+        <span className="text-[9px] font-bold uppercase text-emerald-800 bg-emerald-100 border border-[#1FA463] px-2.5 py-0.5 rounded-full inline-block">
           {report.category || "Research"}
         </span>
-        <h3 className="text-base font-black text-black leading-snug">
+        <h3 className="text-base font-bold text-black leading-snug">
           {report.title}
         </h3>
         <p className="text-xs sm:text-sm text-gray-500 font-semibold line-clamp-3">
@@ -110,14 +110,14 @@ const ResearchReportsSection = () => {
         </p>
       </div>
       
-      <div className="mt-6 pt-3 border-t-2 border-black flex items-center justify-between text-[11px] font-bold text-gray-500">
+      <div className="mt-6 pt-3 border-t border-black flex items-center justify-between text-[11px] font-bold text-gray-500">
         <div>
           Published: {formatDate(report.date)}
         </div>
         <Link
           href={`/reports/${report.id}`}
           onClick={(e) => e.stopPropagation()}
-          className="px-3.5 py-1.5 bg-[#1FA463] text-white border border-black rounded-lg text-xs font-black hover:translate-y-[-1px] hover:shadow-[2px_2px_0px_#000] active:translate-y-0 active:shadow-0 transition-all flex items-center gap-1"
+          className="px-3.5 py-1.5 bg-[#1FA463] text-white border border-black rounded-lg text-xs font-bold hover:-translate-y-0.5 hover:shadow-sm active:translate-y-0  transition-all flex items-center gap-1"
         >
           Read
           <svg
@@ -138,7 +138,7 @@ const ResearchReportsSection = () => {
   );
 
   return (
-    <section className="py-12 bg-[#F4FBF7] border-b-4 border-black">
+    <section className="py-12 bg-[#F4FBF7] border-b border-black">
       <div className="max-w-7xl mx-auto text-center relative z-10 flex flex-col items-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -146,10 +146,10 @@ const ResearchReportsSection = () => {
           viewport={{ once: true, amount: 0.2 }}
           className="flex flex-col items-center"
         >
-          <div className="w-16 h-16 bg-[#1FA463]/10 border-2 border-black rounded-2xl flex items-center justify-center mb-4 shadow-[2px_2px_0px_#000]">
+          <div className="w-16 h-16 bg-[#1FA463]/10 border border-black rounded-2xl flex items-center justify-center mb-4 shadow-sm">
             <TbReportSearch className="text-black text-2xl" />
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-black uppercase tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black uppercase tracking-tight">
             Exclusive Research Reports
           </h2>
           <p className="text-xs sm:text-sm text-gray-500 font-semibold mt-2 max-w-md mx-auto">
@@ -159,9 +159,9 @@ const ResearchReportsSection = () => {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 mt-10">
-        <div className="bg-white border-2 border-black p-6 md:p-8 rounded-3xl shadow-[6px_6px_0px_#000] space-y-8">
+        <div className="bg-white border border-black p-6 md:p-8 rounded-3xl shadow-lg space-y-8">
           
-          <h3 className="text-xl md:text-2xl font-black text-black uppercase tracking-tight text-left">
+          <h3 className="text-xl md:text-2xl font-bold text-black uppercase tracking-tight text-left">
             Latest Publications
           </h3>
 
@@ -182,18 +182,18 @@ const ResearchReportsSection = () => {
             </div>
           )}
 
-          <div className="text-center pt-6 border-t-2 border-black flex justify-center">
+          <div className="text-center pt-6 border-t border-black flex justify-center">
             <Link
               href="/reports"
-              className="inline-block px-8 py-3.5 bg-[#1FA463] text-white border-2 border-black font-black text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-[4px_4px_0px_#000] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[5px_5px_0px_#000] active:translate-x-0 active:translate-y-0 active:shadow-[2px_2px_0px_#000] transition-all"
+              className="inline-block px-8 py-3.5 bg-[#1FA463] text-white border border-black font-bold text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-md  hover:-translate-y-0.5 hover:shadow-md  active:translate-y-0 active:shadow-sm transition-all"
             >
               View All Reports
             </Link>
           </div>
 
           {/* Subscription Form */}
-          <div className="mt-12 p-6 sm:p-8 bg-yellow-50 border-2 border-black rounded-2xl shadow-[4px_4px_0px_#000] text-left space-y-4">
-            <h3 className="text-lg sm:text-xl font-black text-black uppercase tracking-tight">
+          <div className="mt-12 p-6 sm:p-8 bg-yellow-50 border border-black rounded-2xl shadow-md text-left space-y-4">
+            <h3 className="text-lg sm:text-xl font-bold text-black uppercase tracking-tight">
               Get Free Insights Directly to Your Inbox
             </h3>
             <p className="text-xs sm:text-sm font-semibold text-gray-700">
@@ -206,13 +206,13 @@ const ResearchReportsSection = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@email.com"
-                className="flex-1 px-4 py-3 border-2 border-black rounded-xl bg-white text-sm font-bold focus:outline-none focus:ring-2 focus:ring-[#1FA463] placeholder-gray-400"
+                className="flex-1 px-4 py-3 border border-black rounded-xl bg-white text-sm font-bold focus:outline-none focus:ring-2 focus:ring-[#1FA463] placeholder-gray-400"
                 disabled={isSubmitting}
               />
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-6 py-3 bg-[#1FA463] text-white border-2 border-black rounded-xl text-xs sm:text-sm font-black uppercase tracking-widest shadow-[2px_2px_0px_#000] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_#000] transition-all disabled:opacity-70"
+                className="px-6 py-3 bg-[#1FA463] text-white border border-black rounded-xl text-xs sm:text-sm font-bold uppercase tracking-widest shadow-sm hover:-translate-y-0.5 hover:shadow-sm transition-all disabled:opacity-70"
               >
                 {isSubmitting ? (
                   <>
@@ -229,7 +229,7 @@ const ResearchReportsSection = () => {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={`mt-4 text-xs font-bold px-4 py-2 border-2 border-black rounded-xl ${
+                className={`mt-4 text-xs font-bold px-4 py-2 border border-black rounded-xl ${
                   message.type === "success"
                     ? "bg-emerald-100 text-emerald-800"
                     : "bg-red-100 text-red-800"

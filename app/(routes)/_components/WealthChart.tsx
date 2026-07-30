@@ -44,7 +44,7 @@ export default function WealthChart({ data, todayFinal, lateFinal, opportunityCo
     <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-[0px_10px_30px_rgba(0,0,0,0.03)] flex flex-col gap-6 w-full">
       {/* Header with Legends */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-        <h3 className="text-lg font-black text-black tracking-tight">
+        <h3 className="text-lg font-bold text-black tracking-tight">
           Wealth at Age 60
         </h3>
         <div className="flex items-center gap-4 text-xs font-bold">
@@ -148,7 +148,7 @@ export default function WealthChart({ data, todayFinal, lateFinal, opportunityCo
         <div className="lg:col-span-4 flex flex-col gap-4">
           {/* Start Early Card */}
           <div className="bg-[#F4FBF7] border border-emerald-100 rounded-2xl p-4 flex flex-col items-start w-full shadow-[0px_4px_15px_rgba(0,0,0,0.01)]">
-            <span className="text-[26px] font-black text-[#1FA463] leading-none">
+            <span className="text-[26px] font-bold text-[#1FA463] leading-none">
               {formatCurrency(todayFinal)}
             </span>
             <div className="flex items-center gap-1 mt-2">
@@ -163,7 +163,7 @@ export default function WealthChart({ data, todayFinal, lateFinal, opportunityCo
 
           {/* Start Late Card */}
           <div className="bg-gray-50 border border-gray-100 rounded-2xl p-4 flex flex-col items-start w-full shadow-[0px_4px_15px_rgba(0,0,0,0.01)]">
-            <span className="text-[26px] font-black text-gray-500 leading-none">
+            <span className="text-[26px] font-bold text-gray-500 leading-none">
               {formatCurrency(lateFinal)}
             </span>
             <div className="flex items-center gap-1 mt-2">
@@ -179,12 +179,12 @@ export default function WealthChart({ data, todayFinal, lateFinal, opportunityCo
       </div>
 
       {/* Delay alert banner */}
-      <div className="bg-white border-2 border-black rounded-xl p-4 md:p-5 flex items-center gap-3.5 shadow-[3px_3px_0px_#000]">
-        <div className="w-10 h-10 rounded-lg bg-emerald-50 border-2 border-black flex items-center justify-center text-xl shadow-[1.5px_1.5px_0px_#000] flex-shrink-0">
+      <div className="bg-white border border-black rounded-xl p-4 md:p-5 flex items-center gap-3.5 shadow-sm">
+        <div className="w-10 h-10 rounded-lg bg-emerald-50 border border-black flex items-center justify-center text-xl shadow-sm flex-shrink-0">
           ⏳
         </div>
         <p className="text-xs sm:text-sm md:text-base font-bold text-black leading-snug">
-          Delay costs you <span className="text-[#1FA463] font-black">{formatCurrency(opportunityCost)}</span> & <span className="text-[#1FA463] font-black">8 years</span> of freedom.
+          Delay costs you <span className="text-[#1FA463] font-bold">{formatCurrency(opportunityCost)}</span> & <span className="text-[#1FA463] font-bold">8 years</span> of freedom.
         </p>
       </div>
     </div>
