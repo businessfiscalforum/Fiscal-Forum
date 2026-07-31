@@ -1,329 +1,240 @@
 "use client";
-import { motion } from "framer-motion";
+
+import Image from "next/image";
 import Link from "next/link";
 
-
-
 export default function AboutUs() {
-  const services = [
-    {
-      title: "Stock Investment",
-      desc: "Comprehensive Demat and portfolio solutions with real-time tracking, insights, and guidance for investors at every level.",
-    },
-    {
-      title: "Mutual Funds",
-      desc: "Personalized mutual fund plans with SIP tracking, expert fund selection, and regular performance updates for consistent growth.",
-    },
-    {
-      title: "Insurance",
-      desc: "All types of insurance — motor, health, and life — compared across providers to ensure you get the best coverage at the best rate.",
-    },
-    {
-      title: "Credit Cards",
-      desc: "Choose from a wide range of lifestyle-matched credit cards with cashback offers, reward points, and expert recommendations.",
-    },
-    {
-      title: "Saving Accounts",
-      desc: "Open instant online savings accounts with top banks like Axis, IndusInd, and Airtel Payments Bank, and enjoy exclusive benefits.",
-    },
-    {
-      title: "Loans",
-      desc: "Get guidance and assistance in securing the best loan offers tailored to your financial profile with trusted lending partners.",
-    },
-    {
-      title: "Govt Bonds & Funds",
-      desc: "Explore secure, high-trust government-backed investment options such as SGBs, Bonds, and National Pension Schemes.",
-    },
-  ];
-
-  const reportTypes = [
-    {
-      name: "Pre-Market Research Report",
-      desc: "Start your trading day informed with expert analysis and daily pre-market insights.",
-    },
-    {
-      name: "Thematic Report",
-      desc: "Deep dives into trending sectors and investment themes to help you plan long-term strategies.",
-    },
-    {
-      name: "Equity Report",
-      desc: "Comprehensive analysis on stocks and sectors, helping you make data-driven investment decisions.",
-    },
-  ];
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-teal-100 relative overflow-hidden text-gray-800">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-[url('https://www.toptal.com/designers/subtlepatterns/patterns/white-diamond.png')] opacity-40" />
+    <>
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
-      {/* Hero Section */}
-      <section className="relative z-10 py-30 px-6 md:px-16 text-center">
-        <motion.h1
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold text-emerald-700 mb-4"
-        >
-          About Fiscal Forum
-        </motion.h1>
-        <p className="text-gray-700 max-w-3xl mx-auto text-lg leading-relaxed">
-          At{" "}
-          <span className="font-semibold text-emerald-600">Fiscal Forum</span>,
-          we’re redefining financial guidance. From investments to insurance,
-          our mission is to make{" "}
-          <span className="text-emerald-700 font-medium">
-            smart financial decisions accessible
-          </span>{" "}
-          — completely free.
-        </p>
-      </section>
+        .about-page-container {
+          --ink: #0E251E;
+          --ink-2: #153229;
+          --panel: #F4EFE2;
+          --panel-dim: #E9E1CE;
+          --gold: #C9A227;
+          --gold-bright: #E7C25E;
+          --rust: #B5563C;
+          --text-light: #F2EEE2;
+          --text-muted: #9FB6AA;
+          --text-dark: #1B241F;
+          --text-dark-muted: #5B665D;
+          --line: rgba(242,238,226,0.14);
 
-      {/* Services Section */}
-      <section className="relative py-16 px-4 md:px-10 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-3xl mx-4 md:mx-10 shadow-xl z-10">
-    <div className="max-w-5xl mx-auto"> 
-        <h2 className="text-3xl font-semibold text-emerald-800 text-center mb-10">
-          Services We Offer
-        </h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, idx) => (
-            <motion.div
-              key={idx}
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-              className="bg-white/90 rounded-2xl p-6 border border-emerald-200 shadow-md hover:shadow-lg"
-            >
-              <h3 className="text-lg font-semibold text-emerald-700 mb-2">
-                {service.title}
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                {service.desc}
+          background-color: var(--panel);
+          background-image:
+            linear-gradient(rgba(14,37,30,0.09) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(14,37,30,0.09) 1px, transparent 1px);
+          background-size: 42px 42px;
+          color: var(--text-dark);
+          font-family: 'Manrope', sans-serif;
+          min-height: 100vh;
+          width: 100%;
+          overflow-x: hidden;
+        }
+
+        .about-page-container .wrap {
+          max-width: 1180px;
+          margin: 0 auto;
+          padding: 88px 32px 100px;
+          position: relative;
+        }
+
+        .about-page-container h1.headline {
+          font-family: 'Fraunces', serif;
+          font-optical-sizing: auto;
+          font-weight: 500;
+          font-size: clamp(34px, 5.2vw, 64px);
+          line-height: 1.08;
+          letter-spacing: -0.01em;
+          max-width: 880px;
+          margin: 0 0 22px;
+          color: var(--text-dark);
+          opacity: 0;
+          animation: aboutRise 0.9s ease 0.1s forwards;
+        }
+        .about-page-container h1.headline em {
+          font-style: italic;
+          color: var(--gold);
+          font-weight: 400;
+        }
+
+        .about-page-container p.sub {
+          font-size: 17px;
+          line-height: 1.65;
+          max-width: 620px;
+          color: var(--text-dark-muted);
+          margin: 0;
+          opacity: 0;
+          animation: aboutRise 0.9s ease 0.22s forwards;
+        }
+
+        .about-page-container .founders {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 40px;
+          align-items: stretch;
+          margin-top: 120px;
+        }
+
+        .about-page-container .card {
+          background: #FBF7EC;
+          border: 1px solid rgba(14,37,30,0.1);
+          border-radius: 18px;
+          padding: 38px 34px 34px;
+          color: var(--text-dark);
+          position: relative;
+          opacity: 0;
+          transform: translateY(24px);
+          animation: aboutRise 0.8s ease forwards;
+          transition: transform 0.35s ease, box-shadow 0.35s ease;
+          box-shadow: 0 10px 28px rgba(14,37,30,0.08);
+        }
+        .about-page-container .card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 24px 48px rgba(14,37,30,0.18);
+        }
+        .about-page-container .card.left { animation-delay: 0.7s; }
+        .about-page-container .card.right { animation-delay: 0.85s; }
+
+        .about-page-container .photo-frame {
+          width: 112px;
+          height: 112px;
+          border-radius: 50%;
+          margin: -78px 0 20px;
+          padding: 5px;
+          background: var(--panel);
+          border: 1px solid rgba(201,162,39,0.5);
+          position: relative;
+          z-index: 2;
+        }
+        .about-page-container .photo-frame img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          object-fit: cover;
+          display: block;
+          background: var(--ink-2);
+        }
+
+        .about-page-container .role-label {
+          font-family: 'IBM Plex Mono', monospace;
+          font-size: 11px;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: var(--rust);
+          margin-bottom: 8px;
+          display: block;
+        }
+        .about-page-container h3.name {
+          font-family: 'Fraunces', serif;
+          font-weight: 600;
+          font-size: 27px;
+          letter-spacing: 0.01em;
+          margin: 0 0 4px;
+          color: var(--text-dark);
+        }
+        .about-page-container p.title-line {
+          font-size: 13.5px;
+          color: var(--text-dark-muted);
+          margin: 0 0 18px;
+          font-weight: 600;
+        }
+        .about-page-container p.bio {
+          font-size: 15px;
+          line-height: 1.65;
+          color: var(--text-dark-muted);
+          margin: 0 0 22px;
+        }
+        .about-page-container .chips {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+        .about-page-container .chip {
+          font-family: 'IBM Plex Mono', monospace;
+          font-size: 11px;
+          letter-spacing: 0.02em;
+          padding: 6px 12px;
+          border-radius: 20px;
+          background: #000000;
+          color: #FFFFFF;
+          border: 1px solid rgba(27,36,31,0.08);
+        }
+
+        @keyframes aboutRise {
+          from { opacity: 0; transform: translateY(18px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 760px) {
+          .about-page-container .wrap { padding: 56px 20px 70px; }
+          .about-page-container .founders { grid-template-columns: 1fr; gap: 96px; margin-top: 120px; }
+        }
+      `}</style>
+
+      <div className="about-page-container">
+        <div className="wrap">
+          <h1 className="headline">
+            Finance, made simple. Investing, made <em>easy</em>.
+          </h1>
+          <p className="sub">
+            Fiscal Forum is a new-age fintech built on a simple bet: that India&apos;s next generation of investors doesn&apos;t need more noise — it needs a teacher. We break down finance in the simplest way possible and back every investment decision with in-depth research reports from SEBI-certified research analysts. Here&apos;s who&apos;s behind it.
+          </p>
+
+          <div className="founders">
+            {/* Harsh Card */}
+            <div className="card left">
+              <div className="photo-frame">
+                <Image
+                  src="/founder-harsh.png"
+                  alt="Harsh Mahto"
+                  width={102}
+                  height={102}
+                  priority
+                />
+              </div>
+              <span className="role-label">Co-Founder</span>
+              <h3 className="name">HARSH MAHTO</h3>
+              <p className="title-line">Finance, Research &amp; Technology</p>
+              <p className="bio">
+                Harsh is the one making sure Fiscal Forum&apos;s advice is actually right before it&apos;s ever made simple. He pairs deep market research with hands-on engineering, building the analytical engine and the product behind every lesson — so what users learn is grounded in real data, not shortcuts.
               </p>
-            </motion.div>
-          ))}
-        </div>
-    </div>
-</section>
+              <div className="chips">
+                <span className="chip">Equity Research</span>
+                <span className="chip">Product Engineering</span>
+                <span className="chip">Data &amp; Models</span>
+              </div>
+            </div>
 
-      {/* Research Reports Section */}
-      {/* <section className="py-20 px-6 md:px-20 text-center relative z-10">
-        <h2 className="text-3xl font-semibold text-emerald-800 mb-8">
-          Research Reports
-        </h2>
-        <p className="text-gray-700 max-w-2xl mx-auto mb-12">
-          Stay ahead in the market with our well-researched reports curated by
-          experts. We deliver actionable insights and market trends so you can
-          invest confidently.
-        </p>
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {reportTypes.map((report, idx) => (
-            <motion.div
-              key={idx}
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-              className="bg-white/90 rounded-2xl p-6 border border-emerald-200 shadow-md hover:shadow-lg"
-            >
-              <h3 className="text-lg font-semibold text-emerald-700 mb-2">
-                {report.name}
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                {report.desc}
+            {/* Arihant Card */}
+            <div className="card right">
+              <div className="photo-frame">
+                <Image
+                  src="/founder-arihant.png"
+                  alt="Arihant Mehta"
+                  width={102}
+                  height={102}
+                  priority
+                />
+              </div>
+              <span className="role-label">Co-Founder</span>
+              <h3 className="name">ARIHANT MEHTA</h3>
+              <p className="title-line">Client Relations, Sales &amp; People Management</p>
+              <p className="bio">
+                Arihant is the reason Fiscal Forum feels human. He runs the relationships, the sales motion and the culture that turn a product into a community — sitting closest to users, translating what they actually need back into how Fiscal Forum teaches and grows.
               </p>
-            </motion.div>
-          ))}
-        </div>
-        <div className="mt-10">
-          <Link
-            href="/reports"
-            className="inline-block bg-emerald-600 hover:bg-teal-600 text-white font-medium px-6 py-3 rounded-xl transition-all shadow-md"
-          >
-            Explore All Reports
-          </Link>
-        </div>
-      </section> */}
-
-      {/* Why Choose Us */}
-      {/* <section className="py-20 px-6 md:px-16 text-center relative z-10">
-        <h2 className="text-3xl font-semibold text-emerald-800 mb-8">Why Choose Fiscal Forum?</h2>
-        <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
-          {[
-            "Free and transparent financial services",
-            "Personalized investment guidance",
-            "Exclusive rewards for referrals",
-            "Strong partnerships with top institutions",
-            "Customer-first approach and trust",
-          ].map((point, i) => (
-            <div
-              key={i}
-              className="flex items-center gap-2 bg-white/80 border border-emerald-100 rounded-full px-4 py-2 text-emerald-700 text-sm shadow-sm"
-            >
-              <span className="text-teal-600 text-lg">✓</span> {point}
-            </div>
-          ))}
-        </div>
-      </section> */}
-
-      {/* Comprehensive Commission Section */}
-      {/* <section className="py-20 px-6 md:px-20 bg-emerald-50 rounded-3xl mx-4 md:mx-16 shadow-md relative z-10">
-        <h2 className="text-3xl font-semibold text-emerald-800 text-center mb-8">
-          Commissions & Rewards
-        </h2>
-        <p className="text-gray-700 text-center max-w-3xl mx-auto mb-12">
-          Fiscal Forum offers one of the most transparent and rewarding earning
-          structures in the industry. Here’s a complete overview of how you earn
-          across our products, partnerships, and referrals.
-        </p>
-
-        <div className="space-y-10">
-          <div>
-            <h3 className="text-2xl font-semibold text-emerald-700 mb-3">
-              1. Referral & Brokerage Sharing
-            </h3>
-            <ul className="text-gray-700 space-y-2 text-sm leading-relaxed list-disc list-inside">
-              <li>
-                Refer a trading lead who joins Fiscal Forum’s partner brokers
-                (Motilal Oswal, Choice Broking, Angel One, Paytm Money).
-              </li>
-              <li>
-                You and your lead share{" "}
-                <span className="font-semibold text-emerald-700">
-                  18% brokerage equally
-                </span>{" "}
-                (9% each) on transferred accounts.
-              </li>
-              <li>
-                Additional model:{" "}
-                <span className="font-semibold text-emerald-700">
-                  10% brokerage sharing per month
-                </span>{" "}
-                for 2 years + cash bonus up to ₹2,000 (based on brokerage
-                volume).
-              </li>
-              <li>
-                Minimum monthly brokerage target: ₹5,000 to stay eligible for
-                rewards.
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-2xl font-semibold text-emerald-700 mb-3">
-              2. Partner-Specific Bonuses
-            </h3>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-white rounded-xl p-5 border border-emerald-200 shadow-sm">
-                <h4 className="font-semibold text-emerald-700 mb-2">
-                  Angel One
-                </h4>
-                <p className="text-sm text-gray-700 leading-relaxed">
-                  • Login within 15 days to earn ₹200 bonus.
-                  <br />• 10% brokerage sharing for 1 year — extendable to 3
-                  years if consistent activity is maintained.
-                </p>
-              </div>
-              <div className="bg-white rounded-xl p-5 border border-emerald-200 shadow-sm">
-                <h4 className="font-semibold text-emerald-700 mb-2">
-                  Choice & Motilal Oswal
-                </h4>
-                <p className="text-sm text-gray-700 leading-relaxed">
-                  • Contest-based incentives.
-                  <br />• Up to{" "}
-                  <span className="font-semibold text-emerald-700">
-                    20% brokerage sharing
-                  </span>{" "}
-                  depending on contest results.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div>
-            <h3 className="text-2xl font-semibold text-emerald-700 mb-3">
-              3. Investment Product Commissions
-            </h3>
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="bg-white rounded-xl p-5 border border-emerald-200 shadow-sm">
-                <h4 className="font-semibold text-emerald-700 mb-2">
-                  Mutual Funds
-                </h4>
-                <p className="text-sm text-gray-700">
-                  Commission depends on the selected fund. Average sharing:{" "}
-                  <span className="font-semibold text-emerald-700">~10%</span>{" "}
-                  for 1 year, extendable to 3 years based on consistent
-                  performance.
-                </p>
-              </div>
-              <div className="bg-white rounded-xl p-5 border border-emerald-200 shadow-sm">
-                <h4 className="font-semibold text-emerald-700 mb-2">
-                  Insurance
-                </h4>
-                <p className="text-sm text-gray-700">
-                  Health: <b>11%</b>, Life: <b>18%</b>, Motor: <b>3%</b>.<br />
-                  Commission varies with premium amount and insurer; can exceed
-                  these figures for high-value policies.
-                </p>
-              </div>
-              <div className="bg-white rounded-xl p-5 border border-emerald-200 shadow-sm">
-                <h4 className="font-semibold text-emerald-700 mb-2">
-                  Credit Cards
-                </h4>
-                <p className="text-sm text-gray-700">
-                  Earn ₹400–₹1000 per approved card issuance depending on card
-                  type and bank, plus cashback incentives.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div>
-            <h3 className="text-2xl font-semibold text-emerald-700 mb-3">
-              4. Savings Account Onboarding
-            </h3>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-              <div className="bg-white rounded-xl p-5 border border-emerald-200 shadow-sm text-sm">
-                <b>Axis Bank</b> — ₹550 per account
-                <br />
-                Minimum ₹5,000 balance.
-              </div>
-              <div className="bg-white rounded-xl p-5 border border-emerald-200 shadow-sm text-sm">
-                <b>IndusInd Bank</b> — ₹250 per account
-                <br />
-                Instant video KYC activation.
-              </div>
-              <div className="bg-white rounded-xl p-5 border border-emerald-200 shadow-sm text-sm">
-                <b>FI Money</b> — ₹90 per account
-                <br />0 balance account option.
+              <div className="chips">
+                <span className="chip">Client Relations</span>
+                <span className="chip">Sales Strategy</span>
+                <span className="chip">Team &amp; Culture</span>
               </div>
             </div>
           </div>
         </div>
-      </section> */}
-
-      {/* Contact Section */}
-      <section className="py-20 text-center relative z-10">
-        <h2 className="text-3xl font-semibold text-emerald-800 mb-4">
-          Get in Touch
-        </h2>
-        <p className="text-gray-700 mb-6">
-          Have questions or want to partner with us? Reach out anytime.
-        </p>
-        <a
-          href="mailto:support@fiscalforum.in"
-          className="bg-emerald-600 hover:bg-teal-600 text-white font-medium px-6 py-3 rounded-xl transition-all shadow-md"
-        >
-          support@fiscalforum.in
-        </a>
-      </section>
-
-      {/* Decorative Wave Footer */}
-      <div className="relative w-full overflow-hidden">
-        <svg
-          className="absolute bottom-0 w-full"
-          viewBox="0 0 1440 320"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fill="#10B981"
-            fillOpacity="0.3"
-            d="M0,96L48,112C96,128,192,160,288,154.7C384,149,480,107,576,122.7C672,139,768,213,864,213.3C960,213,1056,139,1152,128C1248,117,1344,171,1392,197.3L1440,224L1440,320L0,320Z"
-          ></path>
-        </svg>
       </div>
-    </div>
+    </>
   );
 }

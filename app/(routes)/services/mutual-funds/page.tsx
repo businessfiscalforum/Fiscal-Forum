@@ -477,9 +477,7 @@ export default function MutualFundScreenerPage() {
         </div>
 
         <div className="hero-content">
-          <div className="creator-badge">
-            <span className="creator-tag">MFS SmartMatch v2.1</span>
-          </div>
+
 
           <div className="hero-eyebrow">
             <span className="eyebrow-line"></span>
@@ -1170,7 +1168,7 @@ export default function MutualFundScreenerPage() {
       {selectedFund && (
         <>
           <div className="modal-overlay open" onClick={() => setSelectedFund(null)}></div>
-          <div className="fund-modal open">
+          <div className="modal open">
             <button className="modal-close" onClick={() => setSelectedFund(null)}>
               &#10005;
             </button>
