@@ -142,6 +142,10 @@ export default function EquityETFsPage() {
 
   // Trigger pop-in when user reaches the comparison section
   useEffect(() => {
+    if (typeof window === "undefined" || !("IntersectionObserver" in window)) {
+      setIsComparedVisible(true);
+      return;
+    }
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -159,6 +163,10 @@ export default function EquityETFsPage() {
 
   // Trigger pop-in when user reaches the quiz panel
   useEffect(() => {
+    if (typeof window === "undefined" || !("IntersectionObserver" in window)) {
+      setIsQuizVisible(true);
+      return;
+    }
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
