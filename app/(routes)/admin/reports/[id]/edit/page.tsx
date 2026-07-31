@@ -13,6 +13,7 @@ const reportTypeOptions = [
   "Thematic Research Report",
   "Company Analysis",
   "Equity Research Report",
+  "Weekly Research Report",
 ] as const;
 
 const ratingOptions = ["BUY", "HOLD", "SELL"] as const;

@@ -11,6 +11,7 @@ const REPORT_TYPES = [
   "Thematic Research Report",
   "Company Analysis",
   "Equity Research Report",
+  "Weekly Research Report",
 ] as const;
 
 type ReportType = (typeof REPORT_TYPES)[number];

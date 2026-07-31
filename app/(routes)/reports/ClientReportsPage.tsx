@@ -45,6 +45,7 @@ const tabs = [
   { id: "pre-market-research-report", label: "Pre-Market Research Report" },
   { id: "thematic-research-report", label: "Thematic Report" },
   { id: "equity-research-report", label: "Equity Research Report" },
+  { id: "weekly-research-report", label: "Weekly Report" },
 ];
 
 const faqData = [

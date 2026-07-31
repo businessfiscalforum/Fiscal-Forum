@@ -11,7 +11,8 @@ const reportTypeOptions = [
   'Industry Analysis',
   'Thematic Research Report',
   'Company Analysis',
-  'Equity Research Report'
+  'Equity Research Report',
+  'Weekly Research Report'
 ] as const;
 
 const ratingOptions = ["BUY", "HOLD", "SELL"] as const;
@@ -141,12 +142,11 @@ export default async function CreateReportPage() {
             name="reportType"
             className="w-full border border-gray-300 rounded-lg p-2"
           >
-            <option value="Pre-Market Research Report">Pre-Market Report</option>
-            <option value="Industry Report">Industry Report</option>
-            <option value="Thematic Research Report">Thematic Research Report</option>
-            <option value="Company Analysis">Company Analysis</option>
-            <option value="Equity Research Report">Equity Reearch Report</option>
-            <option value="Quarterly Results">Quarterly Results</option>
+            {reportTypeOptions.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
           </select>
         </div>
         <div>

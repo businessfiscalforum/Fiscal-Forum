@@ -153,7 +153,8 @@ export const reportTypeEnum = pgEnum('report_type', [
   'Industry Analysis',
   'Thematic Research Report',
   'Company Analysis',
-  'Equity Research Report'
+  'Equity Research Report',
+  'Weekly Research Report'
 ]);
 
 export const RequestStatusEnum = pgEnum('request_status', [

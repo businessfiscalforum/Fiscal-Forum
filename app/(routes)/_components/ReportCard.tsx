@@ -11,6 +11,7 @@ export const reportTypeOptions = [
   "Thematic Research Report",
   "Company Analysis",
   "Equity Research Report",
+  "Weekly Research Report",
 ] as const;
 
 export const ratingOptions = ["BUY", "HOLD", "SELL"] as const;
