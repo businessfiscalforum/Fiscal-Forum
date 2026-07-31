@@ -1094,9 +1094,15 @@ export const customReportsTable = pgTable('custom_reports', {
   name: varchar('name', { length: 255 }).notNull(),
   email: varchar('email', { length: 255 }).notNull(),
   mobile: varchar('mobile', { length: 15 }).notNull(),
+  age: varchar('age', { length: 10 }),
   category: varchar('category', { length: 100 }).notNull(),
   capitalInvestBorrow: varchar('capital', { length: 100 }),
-  AddDetails: text('details'),
+  returnExpected: varchar('return_expected', { length: 100 }),
+  investmentGoal: text('investment_goal'),
+  riskTolerance: varchar('risk_tolerance', { length: 50 }),
+  investmentStyle: text('investment_style'),
+  monthlySavings: varchar('monthly_savings', { length: 100 }),
+  addDetails: text('details'),
   submittedAt: timestamp('submitted_at').defaultNow().notNull(),
 });
 
