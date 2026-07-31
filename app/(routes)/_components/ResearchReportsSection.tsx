@@ -8,11 +8,11 @@ import Link from "next/link";
 import { FaSpinner } from "react-icons/fa";
 
 type Report = {
-  id: number;
+  id: string;
   title: string;
-  description: string;
-  date: string;
-  category: string;
+  summary: string | null;
+  publishDate: string | null;
+  reportType: string | null;
 };
 
 function formatDate(dateString: string) {
@@ -50,7 +50,7 @@ const ResearchReportsSection = () => {
     setMessage(null);
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/subscribe`,
+        "/api/subscribe",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -76,7 +76,7 @@ const ResearchReportsSection = () => {
     const fetchReports = async () => {
       setIsLoadingReports(true);
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/reports?limit=3`);
+        const res = await fetch("/api/reports?limit=3");
         if (!res.ok) throw new Error();
         const data = await res.json();
         setReports(data);
@@ -100,19 +100,19 @@ const ResearchReportsSection = () => {
     >
       <div className="flex-grow space-y-3">
         <span className="text-[9px] font-bold uppercase text-emerald-800 bg-emerald-100 border border-[#1FA463] px-2.5 py-0.5 rounded-full inline-block">
-          {report.category || "Research"}
+          {report.reportType || "Research"}
         </span>
         <h3 className="text-base font-bold text-black leading-snug">
           {report.title}
         </h3>
         <p className="text-xs sm:text-sm text-gray-500 font-semibold line-clamp-3">
-          {report.description}
+          {report.summary || "No description available."}
         </p>
       </div>
       
       <div className="mt-6 pt-3 border-t border-black flex items-center justify-between text-[11px] font-bold text-gray-500">
         <div>
-          Published: {formatDate(report.date)}
+          {report.publishDate ? `Published: ${formatDate(report.publishDate)}` : ""}
         </div>
         <Link
           href={`/reports/${report.id}`}

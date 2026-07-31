@@ -34,6 +34,7 @@ import { useUser } from "@clerk/nextjs";
 import { UsersDetail } from "../../provider";
 import HomeNewsAndResearchSection from "./HomeResearchAndNewsSection";
 import FathomSlider from "./FathomSlider";
+import FiscalForumCity from "./FiscalForumCity";
 
 
 const slides = [
@@ -677,6 +678,7 @@ export default function HomeDesktop() {
 
       <div className="text-gray-800 font-sans min-h-screen overflow-x-hidden w-full">
         <FathomSlider />
+        <FiscalForumCity />
 
         {/* Enhanced Services Section */}
         <section className="py-16 bg-[#F4FBF7] border-b border-black">
