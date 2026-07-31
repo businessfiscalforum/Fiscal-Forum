@@ -166,7 +166,7 @@ export const ratingEnum = pgEnum("rating", ["BUY", "HOLD", "SELL"]);
 
 // Users Table
 export const usersTable = pgTable('users', {
-  id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
+  id: uuid('id').defaultRandom().notNull().primaryKey(),
   name: varchar('name', { length: 255 }).notNull(),
   age: integer('age').notNull(),
   email: text('email').notNull().unique(),
@@ -752,7 +752,7 @@ export const researchReportsTable = pgTable("research_reports", {
 });
 
 export const subscribers = pgTable('subscribers', {
-  id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
+  id: uuid('id').defaultRandom().notNull().primaryKey(),
   email: varchar('email', { length: 255 }).notNull().unique(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
@@ -760,7 +760,7 @@ export const subscribers = pgTable('subscribers', {
 
 
 export const dematApplications = pgTable("demat_applications", {
-  id: uuid("id").defaultRandom().notNull().primaryKey().unique(),
+  id: uuid("id").defaultRandom().notNull().primaryKey(),
   fullName: varchar("full_name", { length: 100 }).notNull(),
   email: varchar("email", { length: 150 }).notNull(),
   phone: varchar("phone", { length: 15 }).notNull(),
@@ -799,7 +799,7 @@ export const unlistedShares = pgTable('unlisted_shares', {
 });
 
 export const savingsApplications = pgTable("savings_applications", {
-  id: uuid("id").defaultRandom().notNull().primaryKey().unique(),
+  id: uuid("id").defaultRandom().notNull().primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
   email: varchar("email", { length: 255 }).notNull(),
   mobileNo: varchar("mobile_no", { length: 15 }).notNull(),
@@ -816,7 +816,7 @@ export const savingsApplications = pgTable("savings_applications", {
 });
 // Car Insurance Requests
 export const carInsuranceRequests = pgTable('car_insurance_requests', {
-  id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
+  id: uuid('id').defaultRandom().notNull().primaryKey(),
   userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
   name: varchar('name', { length: 255 }).notNull(),
   email: varchar('email', { length: 255 }),
@@ -834,7 +834,7 @@ export const carInsuranceRequests = pgTable('car_insurance_requests', {
 
 // Health Insurance Requests
 export const healthInsuranceRequests = pgTable('health_insurance_requests', {
-  id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
+  id: uuid('id').defaultRandom().notNull().primaryKey(),
   userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
   name: varchar('name', { length: 255 }).notNull(),
   email: varchar('email', { length: 255 }),
@@ -853,7 +853,7 @@ export const healthInsuranceRequests = pgTable('health_insurance_requests', {
 
 // Life Insurance Requests
 export const lifeInsuranceRequests = pgTable('life_insurance_requests', {
-  id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
+  id: uuid('id').defaultRandom().notNull().primaryKey(),
   userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
   name: varchar('name', { length: 255 }).notNull(),
   email: varchar('email', { length: 255 }),
@@ -875,7 +875,7 @@ export const lifeInsuranceRequests = pgTable('life_insurance_requests', {
 
 // Two Wheeler Insurance Requests
 export const twoWheelerInsuranceRequests = pgTable('two_wheeler_insurance_requests', {
-  id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
+  id: uuid('id').defaultRandom().notNull().primaryKey(),
   userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
   name: varchar('name', { length: 255 }).notNull(),
   email: varchar('email', { length: 255 }),
@@ -892,7 +892,7 @@ export const twoWheelerInsuranceRequests = pgTable('two_wheeler_insurance_reques
 });
 
 export const commercialVehicleInsuranceRequests = pgTable('commercial_vehicle_insurance_requests', {
-  id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
+  id: uuid('id').defaultRandom().notNull().primaryKey(),
   userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
   // Personal Information
   name: varchar('name', { length: 255 }).notNull(),
@@ -940,7 +940,7 @@ export const commercialVehicleInsuranceRequests = pgTable('commercial_vehicle_in
 });
 
 export const personalAccidentInsuranceRequests = pgTable('personal_accident_insurance_requests', {
-  id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
+  id: uuid('id').defaultRandom().notNull().primaryKey(),
   userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'set null' }), // Added userId column
   // Personal Details
   name: varchar('name', { length: 255 }).notNull(),
@@ -964,7 +964,7 @@ export const personalAccidentInsuranceRequests = pgTable('personal_accident_insu
 });
 
 export const propertyInsuranceRequests = pgTable('property_insurance_requests', {
-  id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
+  id: uuid('id').defaultRandom().notNull().primaryKey(),
   userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
   // Personal Details
   name: varchar('name', { length: 255 }).notNull(),
@@ -992,7 +992,7 @@ export const propertyInsuranceRequests = pgTable('property_insurance_requests', 
 });
 
 export const travelInsuranceRequests = pgTable('travel_insurance_requests', {
-  id: uuid('id').defaultRandom().notNull().primaryKey().unique(),
+  id: uuid('id').defaultRandom().notNull().primaryKey(),
   userId: uuid('user_id').references(() => usersTable.id, { onDelete: 'set null' }),
   // Personal Details
   name: varchar('name', { length: 255 }).notNull(),
