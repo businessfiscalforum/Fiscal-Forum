@@ -12,6 +12,8 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 
+
+
 interface ResearchReport {
   id: string;
   title: string | null;
@@ -297,12 +299,14 @@ export default function ClientReportsPage({
   const [reportsFilter, setReportsFilter] = useState("all");
 
   /* ============ PREVIEW MODAL STATE ============ */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [previewReport, setPreviewReport] = useState<any>(null);
   const [previewPageIdx, setPreviewPageIdx] = useState(0);
 
   /* ============ WIZARD STATE ============ */
   const [wizardStep, setWizardStep] = useState<number | "done">(1);
   const [wizardCategory, setWizardCategory] = useState<string>("");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [wizardAnswers, setWizardAnswers] = useState<Record<string, any>>({
     capital: "",
     details: "",
@@ -357,6 +361,7 @@ export default function ClientReportsPage({
 
   /* ============ SCREENER STATE ============ */
   const [screenerTab, setScreenerTab] = useState<"screener" | "watchlist" | "about">("screener");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [stocksData, setStocksData] = useState<any[]>([]);
   const [screenerSearch, setScreenerSearch] = useState("");
   const [screenerSort, setScreenerSort] = useState("name-asc");
@@ -375,6 +380,7 @@ export default function ClientReportsPage({
   const [onlyWithData, setOnlyWithData] = useState(false);
 
   const [watchlist, setWatchlist] = useState<Set<string>>(new Set());
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [screenerSelectedStock, setScreenerSelectedStock] = useState<any>(null);
   const [showScreenerIndexWarn, setShowScreenerIndexWarn] = useState(false);
 
@@ -421,7 +427,7 @@ export default function ClientReportsPage({
   useEffect(() => {
     if (!bubbleRef.current) return;
     const observer = new ResizeObserver((entries) => {
-      for (let entry of entries) {
+      for (const entry of entries) {
         const { width, height } = entry.contentRect;
         setBubbleDimensions({
           width: width || 800,
@@ -534,6 +540,7 @@ export default function ClientReportsPage({
   }, [previewReport]);
 
   /* ============ HANDLE PREVIEW MODAL ============ */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const openPreview = (report: any) => {
     setPreviewReport(report);
     setPreviewPageIdx(0);
