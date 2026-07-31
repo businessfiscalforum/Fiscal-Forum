@@ -33,8 +33,7 @@ import Head from "next/head";
 import { useUser } from "@clerk/nextjs";
 import { UsersDetail } from "../../provider";
 import HomeNewsAndResearchSection from "./HomeResearchAndNewsSection";
-import WealthSimulator from "./WealthSimulator";
-import FiscalForumCity from "./FiscalForumCity";
+import FathomSlider from "./FathomSlider";
 
 
 const slides = [
@@ -676,24 +675,8 @@ export default function HomeDesktop() {
         />
       </Head>
 
-      <div className="text-gray-800 font-sans min-h-screen">
-        {/* Wealth Simulator Hero Section */}
-        <section className="bg-[#F4FBF7] pt-28 pb-16 px-4 md:px-8 border-b border-black">
-          <div className="max-w-7xl mx-auto">
-            <WealthSimulator />
-          </div>
-        </section>
-
-        <FiscalForumCity />
-
-        {/* Wealth Building Quote Section */}
-        <section className="py-8 bg-white border-b border-black flex justify-center items-center">
-          <div className="max-w-7xl mx-auto px-4 text-center">
-            <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-black tracking-tight whitespace-nowrap">
-              While others are building wealth, what&apos;s stopping you? Start <Link href="/services/stock-investment" className="inline-block bg-yellow-300 hover:bg-yellow-400 px-2 py-0.5 border border-black shadow-sm font-bold cursor-pointer transition-transform hover:-translate-y-0.5 active:translate-y-0 mx-1">here</Link>.
-            </div>
-          </div>
-        </section>
+      <div className="text-gray-800 font-sans min-h-screen overflow-x-hidden w-full">
+        <FathomSlider />
 
         {/* Enhanced Services Section */}
         <section className="py-16 bg-[#F4FBF7] border-b border-black">

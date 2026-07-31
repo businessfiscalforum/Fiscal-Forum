@@ -445,18 +445,22 @@ main, header, footer{ position: relative; z-index: 1; }
   .slide__inner--report .slide__side{ text-align: left; }
 }
 
-/* Small: fully stacked, centered */
+/* Small: stacked, enlarged starting report visual */
 @media (max-width: 620px){
   .slide__inner--report{
     grid-template-columns: 1fr;
     grid-template-areas:
       "report"
-      "person"
       "text";
+    gap: 16px;
+    text-align: center;
   }
-  .advisor-figure{ max-height: 300px; }
-  .advisor-figure__img{ max-height: 300px; }
+  .advisor-figure{ display: none !important; }
+  .report-image-wrap{ max-width: 290px !important; margin: 0 auto !important; }
   .callout-words{ justify-content: center; margin-left: auto; margin-right: auto; }
+  .callout-lines { display: none !important; }
+  .report-cta__prompt { font-size: 1rem !important; text-align: center; margin: 12px 0 0 !important; }
+  .report-cta__btn { font-size: 1rem !important; padding: 12px 24px !important; max-width: 280px; margin: 10px auto 0 !important; width: 100% !important; }
 }
 
 .callout-words{
@@ -1240,7 +1244,7 @@ main, header, footer{ position: relative; z-index: 1; }
 
 /* Responsive slide layout (product slides) */
 @media (max-width: 900px){
-  .slide{ min-height: 0; padding: 40px 24px 48px; }
+  .slide, .slide--report{ min-height: 0; padding: 40px 24px 48px; }
   .slide__inner:not(.slide__inner--report){
     grid-template-columns: 1fr;
     gap: 32px;
@@ -1257,12 +1261,51 @@ main, header, footer{ position: relative; z-index: 1; }
    without side-scrolling or cramped tap zones.
 ============================================ */
 @media (max-width: 600px){
-  .slide{ padding: 32px 18px 40px; }
-  .slide__title{ font-size: clamp(1.5rem, 7vw, 1.9rem); margin-bottom: 12px; }
-  .slide__desc{ font-size: 0.95rem; margin-bottom: 20px; }
+  .slide, .slide--report{ padding: 20px 16px 36px; min-height: 0; }
+  .slide__title{ font-size: clamp(1.4rem, 6.2vw, 1.75rem); margin-bottom: 8px; }
+  .slide__desc{ font-size: 0.88rem; margin-bottom: 14px; }
+
+  /* Compact Slide Elements for Mobile */
+  .report-image-wrap { max-width: 200px !important; }
+  .advisor-figure { max-height: 130px !important; }
+  .advisor-figure__img { max-height: 130px !important; }
+  .callout-words { max-width: 280px !important; margin: 0 0 10px !important; gap: 4px 6px !important; }
+  .word-pop { font-size: 0.95rem !important; padding: 4px 8px !important; }
+  .callout-lines { gap: 4px !important; margin: 0 0 10px !important; }
+  .line-pop { font-size: 0.82rem !important; padding: 5px 8px !important; }
+  .report-cta__prompt { font-size: 0.92rem !important; margin: 8px 0 0 !important; }
+  .report-cta__btn { margin-top: 6px !important; padding: 8px 14px !important; font-size: 0.85rem !important; }
+  .slide__hint { margin-top: 6px !important; font-size: 0.72rem !important; }
+
+  .fund-amc__card { max-width: 220px !important; }
+  .fund-recommend__card { max-width: 200px !important; }
+  .fund-recommend__prompt { font-size: 0.92rem !important; }
+  .slide__inner--fund { gap: 12px !important; }
+  .fund-col--left { gap: 10px !important; }
+  .fund-amc { gap: 6px !important; }
+
+  .slide__visual--photo { max-width: 180px !important; }
+  .stock-recommend__card { max-width: 240px !important; }
+  .stock-recommend__prompt { font-size: 0.92rem !important; }
+  .slide__inner--stocks { gap: 12px !important; }
+  .stock-col--left { gap: 10px !important; }
+  .stock-recommend { gap: 10px !important; }
+
+  .product-image-card--tall { max-width: 100px !important; }
+  .card-recommend__card { max-width: 240px !important; }
+  .card-recommend__prompt { font-size: 0.92rem !important; }
+  .slide__inner--cards { gap: 12px !important; }
+  .card-col--left { gap: 10px !important; }
+  .card-recommend { gap: 10px !important; }
+
+  .insurance-recommend__card { max-width: 240px !important; }
+  .insurance-recommend__prompt { font-size: 0.92rem !important; }
+  .slide__inner--insurance { gap: 12px !important; }
+  .insurance-col--left { gap: 10px !important; }
+  .insurance-recommend { gap: 10px !important; }
 
   /* Full-width, easy-to-tap CTAs */
-  .btn{ padding: 14px 20px; font-size: 0.95rem; }
+  .btn{ padding: 12px 18px; font-size: 0.88rem; }
   .card-recommend .btn,
   .insurance-recommend .btn,
   .fund-recommend .btn,
@@ -1315,10 +1358,11 @@ main, header, footer{ position: relative; z-index: 1; }
 }
 
 @media (max-width: 380px){
-  .slide{ padding: 28px 14px 36px; }
-  .advisor-figure{ max-height: 180px; }
-  .advisor-figure__img{ max-height: 180px; }
-  .callout-words{ max-width: 280px; }
+  .slide, .slide--report{ padding: 16px 12px 28px; }
+  .advisor-figure{ max-height: 110px !important; }
+  .advisor-figure__img{ max-height: 110px !important; }
+  .report-image-wrap { max-width: 170px !important; }
+  .callout-words{ max-width: 240px !important; }
 }
 
 /* ============================================
@@ -1326,11 +1370,13 @@ main, header, footer{ position: relative; z-index: 1; }
 ============================================ */
 .closing{
   padding: 110px 32px;
-  max-width: var(--container);
-  margin: 0 auto;
+  background: #F4FBF7;
   overflow: hidden;
+  border-bottom: 1px solid #000000;
 }
 .closing__inner{
+  max-width: var(--container);
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 0.85fr 1fr;
   gap: 56px;

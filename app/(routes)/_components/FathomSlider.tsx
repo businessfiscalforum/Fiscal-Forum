@@ -50,147 +50,133 @@ export default function FathomSlider() {
     }
   }, [currentIndex, introDone, reduceMotion]);
 
-  // 3. Autoplay engine
+  // Autoplay Effect (Autoplay transitions to next slide every 3s)
   useEffect(() => {
     if (!autoplayActive) return;
-    const delay = currentIndex === 0 && !reduceMotion ? 5200 : 3000;
-    const timer = setTimeout(() => {
-      const nextIndex = (currentIndex + 1) % SLIDES_DATA.length;
-      goTo(nextIndex);
-    }, delay);
-    return () => clearTimeout(timer);
-  }, [currentIndex, autoplayActive, reduceMotion]);
-
-  // 4. Keyboard Esc key listener for Lightbox
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        closeLightbox();
+    const intervalTime = currentIndex === 0 ? 5200 : 3000;
+    const timer = setInterval(() => {
+      if (currentIndex < SLIDES_DATA.length - 1) {
+        goTo(currentIndex + 1);
+      } else {
+        goTo(0);
       }
+    }, intervalTime);
+    return () => clearInterval(timer);
+  }, [currentIndex, autoplayActive]);
+
+  // Visibility & Window Focus Listeners
+  useEffect(() => {
+    const handleVisibility = () => {
+      setAutoplayActive(document.visibilityState === "visible");
     };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    const handleFocus = () => setAutoplayActive(true);
+    const handleBlur = () => setAutoplayActive(false);
+
+    document.addEventListener("visibilitychange", handleVisibility);
+    window.addEventListener("focus", handleFocus);
+    window.addEventListener("blur", handleBlur);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibility);
+      window.removeEventListener("focus", handleFocus);
+      window.removeEventListener("blur", handleBlur);
+    };
   }, []);
 
-  // 5. Scroll tracking to sync dots & arrows
+  // Sync scroll tracker (dots highlight) with swiping behavior
   const handleScroll = () => {
     if (scrollTimeoutRef.current) {
       clearTimeout(scrollTimeoutRef.current);
     }
     scrollTimeoutRef.current = setTimeout(() => {
-      const viewport = viewportRef.current;
-      if (!viewport) return;
-      const slideWidth = viewport.clientWidth;
-      if (slideWidth === 0) return;
-      const index = Math.round(viewport.scrollLeft / slideWidth);
-      if (index !== currentIndex && index >= 0 && index < SLIDES_DATA.length) {
-        setCurrentIndex(index);
+      if (viewportRef.current) {
+        const width = viewportRef.current.offsetWidth;
+        const scrollLeft = viewportRef.current.scrollLeft;
+        const newIndex = Math.round(scrollLeft / width);
+        if (newIndex >= 0 && newIndex < SLIDES_DATA.length) {
+          setCurrentIndex(newIndex);
+        }
       }
-    }, 80);
+    }, 100);
   };
 
-  // 6. Keyboard navigation (ArrowLeft & ArrowRight) inside viewport
+  const goTo = (index: number) => {
+    if (viewportRef.current) {
+      const width = viewportRef.current.offsetWidth;
+      viewportRef.current.scrollTo({
+        left: index * width,
+        behavior: reduceMotion ? "auto" : "smooth",
+      });
+      setCurrentIndex(index);
+    }
+  };
+
+  const restartAutoplay = () => {
+    setAutoplayActive(true);
+  };
+
+  const openLightbox = () => {
+    setIsLightboxOpen(true);
+  };
+
+  const closeLightbox = () => {
+    setIsLightboxOpen(false);
+  };
+
   const handleViewportKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "ArrowRight") {
-      e.preventDefault();
-      goTo(currentIndex + 1);
-      restartAutoplay();
-    } else if (e.key === "ArrowLeft") {
-      e.preventDefault();
+    if (e.key === "ArrowLeft" && currentIndex > 0) {
       goTo(currentIndex - 1);
       restartAutoplay();
+    } else if (e.key === "ArrowRight" && currentIndex < SLIDES_DATA.length - 1) {
+      goTo(currentIndex + 1);
+      restartAutoplay();
     }
   };
 
-  // 7. Sync slider position on resize
+  // Keyboard accessibility for lightbox close on Escape key
   useEffect(() => {
-    const handleResize = () => {
-      goTo(currentIndex);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeLightbox();
     };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [currentIndex]);
-
-  // 8. Intersection Observer for closing section CTA reveal
-  useEffect(() => {
-    if (reduceMotion) {
-      setClosingVisible(true);
-      return;
+    if (isLightboxOpen) {
+      window.addEventListener("keydown", handleKeyDown);
     }
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isLightboxOpen]);
+
+  // Dynamic Scroll Tracker for Footer / Closing CTA Section
+  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setClosingVisible(true);
-            observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.15 }
     );
-    const element = closingRef.current;
-    if (element) {
-      observer.observe(element);
+    if (closingRef.current) {
+      observer.observe(closingRef.current);
     }
-    return () => {
-      if (element) observer.unobserve(element);
-    };
-  }, [reduceMotion]);
-
-  // 9. Visibility change listener to pause autoplay when tab hidden
-  useEffect(() => {
-    const handleVisibility = () => {
-      if (document.hidden) {
-        setAutoplayActive(false);
-      } else {
-        setAutoplayActive(true);
-      }
-    };
-    document.addEventListener("visibilitychange", handleVisibility);
-    return () => document.removeEventListener("visibilitychange", handleVisibility);
+    return () => observer.disconnect();
   }, []);
-
-  const goTo = (index: number) => {
-    const nextIdx = Math.max(0, Math.min(SLIDES_DATA.length - 1, index));
-    const viewport = viewportRef.current;
-    if (!viewport) return;
-    const slideWidth = viewport.clientWidth;
-    viewport.scrollTo({
-      left: nextIdx * slideWidth,
-      behavior: reduceMotion ? "auto" : "smooth",
-    });
-    setCurrentIndex(nextIdx);
-  };
-
-  const restartAutoplay = () => {
-    setAutoplayActive(false);
-    // Use short timeout to trigger autoplay state back on next tick
-    setTimeout(() => {
-      setAutoplayActive(true);
-    }, 50);
-  };
-
-  // Lightbox functions
-  const openLightbox = () => {
-    setIsLightboxOpen(true);
-    document.body.style.overflow = "hidden";
-  };
-
-  const closeLightbox = () => {
-    setIsLightboxOpen(false);
-    document.body.style.overflow = "";
-  };
 
   // Report Image Mouse Interaction (Tilt)
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (reduceMotion) return;
     const rect = e.currentTarget.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width - 0.5;
-    const py = (e.clientY - rect.top) / rect.height - 0.5;
-    const rotY = px * 14;
-    const rotX = py * -14;
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const xc = rect.width / 2;
+    const yc = rect.height / 2;
+    const dx = x - xc;
+    const dy = y - yc;
+    const rx = -(dy / yc) * 4.5;
+    const ry = (dx / xc) * 4.5;
     setTiltStyle({
-      transform: `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`,
+      transform: `perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.01)`,
+      transition: "none",
     });
   };
 
@@ -198,6 +184,7 @@ export default function FathomSlider() {
     if (reduceMotion) return;
     setTiltStyle({
       transform: "rotate(-1.2deg)",
+      transition: "transform 0.4s ease, box-shadow 0.4s ease",
     });
   };
 

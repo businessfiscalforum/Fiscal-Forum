@@ -14,8 +14,7 @@ import {
   FaGlobe,
   FaHandsHelping,
 } from "react-icons/fa";
-import WealthSimulator from "./WealthSimulator";
-import FiscalForumCity from "./FiscalForumCity";
+import FathomSlider from "./FathomSlider";
 import Link from "next/link";
 import { useState } from "react";
 import { BarChart3, BookOpen, Shield, TrendingUp, Wallet } from "lucide-react";
@@ -484,24 +483,8 @@ export default function HomeMobile() {
   };
 
   return (
-    <div className="text-gray-800 font-sans min-h-screen bg-white">
-      {/* Wealth Simulator Hero Section */}
-      <section className="bg-[#F4FBF7] pt-20 pb-6 px-4 border-b border-black">
-        <div className="max-w-7xl mx-auto">
-          <WealthSimulator />
-        </div>
-      </section>
-
-      <FiscalForumCity />
-
-      {/* Wealth Building Quote Section */}
-      <section className="py-6 bg-white border-b border-black flex justify-center items-center overflow-x-auto">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <div className="text-xl sm:text-2xl font-bold text-black tracking-tight whitespace-nowrap">
-            While others are building wealth, what&apos;s stopping you? Start <Link href="/services/stock-investment" className="inline-block bg-yellow-300 hover:bg-yellow-400 px-1.5 py-0.5 border border-black shadow-sm font-bold cursor-pointer transition-transform hover:-translate-y-0.5 active:translate-y-0 mx-1">here</Link>.
-          </div>
-        </div>
-      </section>
+    <div className="text-gray-800 font-sans min-h-screen bg-white overflow-x-hidden w-full">
+      <FathomSlider />
 
       {/* 🔹 Tabbed Services (Cards Grid) */}
       <section className="px-4 py-8 bg-[#F4FBF7] border-b border-black">

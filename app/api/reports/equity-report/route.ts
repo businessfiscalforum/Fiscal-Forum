@@ -8,6 +8,7 @@ const allowedOrigins = [
   "https://www.fiscalforum.in",
   "https://fiscalforum.in",
   "http://localhost:3000"
+  
 ];
 
 function corsHeaders(origin: string | null): HeadersInit {

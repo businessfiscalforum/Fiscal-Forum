@@ -1,8 +1,8 @@
-@import "tailwindcss";
-@import "tw-animate-css";
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
 
 
 @custom-variant dark (&:is(.dark *));
@@ -2442,11 +2442,11 @@ body {
     margin: 0;
   }
 
-  @keyframes ticker-scroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
+}
 
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 /* Scoped Equity & ETF Allocator Terminal Styles */
@@ -3154,9 +3154,9 @@ body {
     text-transform: none;
     line-height: 1.5;
   }
-  
-  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 }
+
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
 /* Scoped F&O Decoded Styles */
 .foDecodedTerminal {
