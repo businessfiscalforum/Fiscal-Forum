@@ -298,10 +298,7 @@ export default function ClientReportsPage({
   const [reportsSearch, setReportsSearch] = useState("");
   const [reportsFilter, setReportsFilter] = useState("all");
 
-  /* ============ PREVIEW MODAL STATE ============ */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [previewReport, setPreviewReport] = useState<any>(null);
-  const [previewPageIdx, setPreviewPageIdx] = useState(0);
+
 
   /* ============ WIZARD STATE ============ */
   const [wizardStep, setWizardStep] = useState<number | "done">(1);
@@ -446,111 +443,7 @@ export default function ClientReportsPage({
     };
   }, []);
 
-  /* ============ PREVIEW MODAL PAGES GENERATOR ============ */
-  const previewPages = useMemo(() => {
-    if (!previewReport) return [];
-    
-    const ratingLabel = previewReport.rating || "BUY";
-    const sectorLabel = previewReport.sector || "General";
-    const dateLabel = previewReport.publishDate ? new Date(previewReport.publishDate).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : "May 2026";
-    const pagesCount = previewReport.pages || 44;
-    const readTime = Math.ceil(pagesCount * 0.3);
 
-    return [
-      {
-        label: "Cover",
-        locked: false,
-        render: () => (
-          <div>
-            <div className="page-kicker">{sectorLabel} · {dateLabel}</div>
-            <h2>{previewReport.title}</h2>
-            <p style={{ opacity: 0.7, marginTop: "10px" }}>
-              {pagesCount} pages · {readTime} min read · Intermediate
-            </p>
-            <div className="chart-page-area" style={{ background: coverGradients[previewReport.sector || "BFSI"] || "linear-gradient(135deg,#0e1c2b,#1f4a6b)" }}></div>
-          </div>
-        )
-      },
-      {
-        label: "Contents",
-        locked: false,
-        render: () => (
-          <div>
-            <div className="page-kicker">Table of Contents</div>
-            <h2>What&apos;s inside</h2>
-            <ul className="toc-list">
-              <li>Executive Summary <span className="pg mono">03</span></li>
-              <li>Industry Landscape <span className="pg mono">08</span></li>
-              <li>Competitive Positioning <span className="pg mono">17</span></li>
-              <li>Financial Model & DCF Valuation <span className="pg mono">29</span></li>
-              <li>Risk Analysis <span className="pg mono">44</span></li>
-              <li>Investment Thesis & Rating <span className="pg mono">{pagesCount - 6}</span></li>
-            </ul>
-          </div>
-        )
-      },
-      {
-        label: "Exec Summary",
-        locked: false,
-        render: () => (
-          <div>
-            <div className="page-kicker">Executive Summary</div>
-            <h2>The thesis, in brief</h2>
-            <div className="exec-summary">
-              <p className="mb-4">{previewReport.title} covers the {previewReport.sector || "target"} sector with a deep dive on company fundamentals, technical outlook, and detailed valuations.</p>
-              <p>{previewReport.summary || "This report maps the competitive landscape, evaluates key triggers, and compiles an extensive DCF sensitivity analysis before reaching a recommendation."}</p>
-            </div>
-          </div>
-        )
-      },
-      {
-        label: "Charts & Data",
-        locked: true,
-        render: () => (
-          <div>
-            <div className="page-kicker">Charts & Valuation</div>
-            <h2>DCF sensitivity & peer comps</h2>
-            <div className="chart-page-area"></div>
-          </div>
-        )
-      },
-      {
-        label: "Risk Analysis",
-        locked: true,
-        render: () => (
-          <div>
-            <div className="page-kicker">Risk Analysis</div>
-            <h2>What could break the thesis</h2>
-            <p>Regulatory shifts, input cost volatility and execution risk on capacity expansion are the three swing factors we track most closely for this call.</p>
-          </div>
-        )
-      },
-      {
-        label: "Full Model",
-        locked: true,
-        render: () => (
-          <div>
-            <div className="page-kicker">Investment Thesis</div>
-            <h2>Rating & target</h2>
-            <p>Our full model, rating rationale and 12-month target are unlocked with purchase.</p>
-          </div>
-        )
-      }
-    ];
-  }, [previewReport]);
-
-  /* ============ HANDLE PREVIEW MODAL ============ */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const openPreview = (report: any) => {
-    setPreviewReport(report);
-    setPreviewPageIdx(0);
-    document.body.style.overflow = 'hidden';
-  };
-
-  const closePreview = () => {
-    setPreviewReport(null);
-    document.body.style.overflow = '';
-  };
 
   /* ============ BUBBLE PACKING DATA ============ */
   const packedBubbles = useMemo(() => {
@@ -977,7 +870,7 @@ export default function ClientReportsPage({
                 <span className="phone-btn phone-btn-vol1"></span>
                 <span className="phone-btn phone-btn-vol2"></span>
                 <div className="phone-screen">
-                  <div className="report-mock in-phone" onClick={() => openPreview({ title: "Fiscal Forum Research Report", sector: "BFSI", pages: 44, publishDate: new Date().toISOString(), summary: "This is a mockup research report preview cover showing our clean, institutional-grade layout." })}>
+                  <div className="report-mock in-phone" style={{ cursor: "default" }}>
                     <div className="report-cover-img has-photo">
                       <img className="cover-photo" src="research-report-cover.png" alt="Fiscal Forum Research Report cover" />
                     </div>
@@ -2307,12 +2200,12 @@ export default function ClientReportsPage({
             </div>
           </div>
           <div className="metrics-grid">
-            <div className="metrics-item" onClick={() => window.open('/most-active-equities-volume.png', '_blank')}><img src="/most-active-equities-volume.png" alt="Most Active Equities by Volume" /></div>
-            <div className="metrics-item" onClick={() => window.open('/price-band-hitters.png', '_blank')}><img src="/price-band-hitters.png" alt="Price Band Hitters — upper and lower circuit stocks" /></div>
-            <div className="metrics-item" onClick={() => window.open('/top-25-volume-gainers.png', '_blank')}><img src="/top-25-volume-gainers.png" alt="Top 25 Volume Gainers" /></div>
-            <div className="metrics-item" onClick={() => window.open('/top-20-gainers-losers.png', '_blank')}><img src="/top-20-gainers-losers.png" alt="Top 20 Gainers and Losers" /></div>
-            <div className="metrics-item" onClick={() => window.open('/nifty-index-performance.png', '_blank')}><img src="/nifty-index-performance.png" alt="Nifty Index Performance" /></div>
-            <div className="metrics-item" onClick={() => window.open('/nifty-sector-performance.png', '_blank')}><img src="/nifty-sector-performance.png" alt="Nifty Sector Performance" /></div>
+            <div className="metrics-item"><img src="/most-active-equities-volume.png" alt="Most Active Equities by Volume" /></div>
+            <div className="metrics-item"><img src="/price-band-hitters.png" alt="Price Band Hitters — upper and lower circuit stocks" /></div>
+            <div className="metrics-item"><img src="/top-25-volume-gainers.png" alt="Top 25 Volume Gainers" /></div>
+            <div className="metrics-item"><img src="/top-20-gainers-losers.png" alt="Top 20 Gainers and Losers" /></div>
+            <div className="metrics-item"><img src="/nifty-index-performance.png" alt="Nifty Index Performance" /></div>
+            <div className="metrics-item"><img src="/nifty-sector-performance.png" alt="Nifty Sector Performance" /></div>
           </div>
         </div>
       </section>
@@ -2482,61 +2375,7 @@ export default function ClientReportsPage({
 
 
 
-      {/* ================= PREVIEW MODAL OVERLAY ================= */}
-      {previewReport && (
-        <div className="modal-overlay open" onClick={closePreview}>
-          <div className="book-modal" onClick={(e) => e.stopPropagation()} style={{ border: '1px solid #111411' }}>
-            <div className="book-topbar">
-              <h4>{previewReport.title}</h4>
-              <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-                <span className="reading-time mono">~{Math.max(4, Math.ceil((previewReport.pages || 44) * 0.3))} min preview</span>
-                <button className="close-x" onClick={closePreview}>✕</button>
-              </div>
-            </div>
-            <div className="book-body">
-              <div className="page-rail">
-                {previewPages.map((p, idx) => (
-                  <div
-                    key={idx}
-                    className={`page-thumb ${idx === previewPageIdx ? "active" : ""} ${p.locked ? "locked" : ""}`}
-                    onClick={() => setPreviewPageIdx(idx)}
-                  >
-                    <span className="mono">{String(idx + 1).padStart(2, "0")}</span> {p.label}
-                    {p.locked && <span className="lock-ic" style={{ marginLeft: 'auto' }}>🔒</span>}
-                  </div>
-                ))}
-              </div>
-              
-              <div className="page-stage">
-                {previewPages[previewPageIdx]?.locked ? (
-                  <div>
-                    <div className="locked-page">{previewPages[previewPageIdx].render()}</div>
-                    <div className="unlock-overlay">
-                      <div className="lock-icon" style={{ borderRadius: '50%' }}>🔒</div>
-                      <h3>Unlock the full report</h3>
-                      <p>Pages 4 onward — including complete financial valuations, targets, and models — unlock after subscription.</p>
-                      <button
-                        className="btn btn-primary"
-                        onClick={() => {
-                          if (previewReport.pdfUrl) {
-                            window.open(previewReport.pdfUrl, "_blank", "noopener,noreferrer");
-                          } else {
-                            window.open("https://wa.me/+918696060387", "_blank", "noopener,noreferrer");
-                          }
-                        }}
-                      >
-                        Unlock Full Report
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  previewPages[previewPageIdx]?.render()
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+
 
 
     </div>

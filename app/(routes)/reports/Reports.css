@@ -101,10 +101,9 @@
 .metrics-item{
   display:block;background:var(--paper);border:1px solid var(--border-light);
   box-shadow:0 4px 0 rgba(17,20,17,0.9);
-  overflow:hidden;border-radius:20px;cursor:pointer;padding:8px;
+  overflow:hidden;border-radius:20px;padding:8px;
   transition:transform .2s ease, box-shadow .2s ease;
 }
-.metrics-item:hover{transform:translate(-3px,-5px);box-shadow:0 14px 26px rgba(17,20,17,0.2);}
 .metrics-item img{
   display:block;width:100%;aspect-ratio:3/2;object-fit:cover;object-position:center top;
   border-radius:14px;
