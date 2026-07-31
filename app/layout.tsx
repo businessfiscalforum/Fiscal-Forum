@@ -7,7 +7,6 @@ import Footer from "./(routes)/_components/Footer";
 import { GoogleAnalytics } from "./(routes)/_components/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import FomoStack from "./(routes)/_components/FomoStack";
 import PopupController from "./(routes)/_components/PopupController";
 import { Inter } from "next/font/google";
 
@@ -84,7 +83,6 @@ export default function RootLayout({
           <Analytics />
           <SpeedInsights />
           <Navbar />
-          <FomoStack />
           {/* <PopupController /> */}
           <Provider>{children}</Provider>
           <Footer />

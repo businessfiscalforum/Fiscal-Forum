@@ -1,15 +1,14 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import {
   FaFilePdf,
   FaCalendarAlt,
-  FaArrowUp,
-  FaArrowDown,
   FaUser,
   FaTimes,
   FaPaperPlane,
   FaCheck,
+  FaChevronDown,
 } from "react-icons/fa";
 import Link from "next/link";
 
@@ -38,17 +37,10 @@ interface ClientReportsPageProps {
   initialReports: ResearchReport[];
 }
 
-interface SectorData {
-  name: string;
-  value: number;
-  change: number;
-  percentageChange: number;
-}
-
 const tabs = [
   { id: "all", label: "All" },
   { id: "pre-market-research-report", label: "Pre-Market Research Report" },
-  { id: "thematic-report", label: "Thematic Report" },
+  { id: "thematic-research-report", label: "Thematic Report" },
   { id: "equity-research-report", label: "Equity Research Report" },
 ];
 
@@ -95,63 +87,803 @@ const faqData = [
   },
 ];
 
+/* ============ STATIC DATA FOR CHARTS & LISTS ============ */
+
+const candleData = [
+  { isGreen: false, height: 14.6, bodyHeight: 3.0 },
+  { isGreen: false, height: 26.2, bodyHeight: 8.3 },
+  { isGreen: true,  height: 21.7, bodyHeight: 9.0 },
+  { isGreen: false, height: 28.2, bodyHeight: 11.1 },
+  { isGreen: true,  height: 19.2, bodyHeight: 5.0 },
+  { isGreen: false, height: 15.7, bodyHeight: 3.0 },
+  { isGreen: false, height: 27.0, bodyHeight: 11.6 },
+  { isGreen: true,  height: 15.4, bodyHeight: 4.0 },
+  { isGreen: false, height: 24.1, bodyHeight: 12.3 },
+  { isGreen: true,  height: 18.1, bodyHeight: 3.0 },
+  { isGreen: false, height: 26.7, bodyHeight: 11.2 },
+  { isGreen: false, height: 26.7, bodyHeight: 10.4 },
+  { isGreen: true,  height: 15.5, bodyHeight: 3.0 },
+  { isGreen: true,  height: 35.1, bodyHeight: 15.1 },
+  { isGreen: false, height: 24.4, bodyHeight: 9.3 },
+  { isGreen: false, height: 18.1, bodyHeight: 5.8 },
+  { isGreen: true,  height: 27.1, bodyHeight: 8.2 },
+  { isGreen: true,  height: 34.2, bodyHeight: 19.3 },
+  { isGreen: true,  height: 20.9, bodyHeight: 6.4 },
+  { isGreen: true,  height: 10.4, bodyHeight: 3.0 },
+  { isGreen: true,  height: 29.0, bodyHeight: 20.3 },
+  { isGreen: false, height: 24.7, bodyHeight: 12.0 },
+  { isGreen: true,  height: 25.6, bodyHeight: 16.2 },
+  { isGreen: false, height: 19.6, bodyHeight: 3.5 },
+  { isGreen: false, height: 19.1, bodyHeight: 8.6 },
+  { isGreen: false, height: 26.9, bodyHeight: 9.5 },
+  { isGreen: false, height: 22.2, bodyHeight: 3.0 },
+  { isGreen: true,  height: 26.5, bodyHeight: 14.7 },
+  { isGreen: false, height: 23.2, bodyHeight: 7.3 },
+  { isGreen: true,  height: 21.5, bodyHeight: 6.6 },
+  { isGreen: true,  height: 18.2, bodyHeight: 8.6 },
+  { isGreen: false, height: 12.6, bodyHeight: 3.0 },
+  { isGreen: true,  height: 18.4, bodyHeight: 5.4 },
+  { isGreen: false, height: 21.1, bodyHeight: 11.4 },
+  { isGreen: false, height: 25.1, bodyHeight: 11.5 },
+  { isGreen: false, height: 25.4, bodyHeight: 6.4 },
+  { isGreen: true,  height: 25.1, bodyHeight: 10.0 },
+  { isGreen: true,  height: 13.3, bodyHeight: 3.0 },
+  { isGreen: false, height: 21.9, bodyHeight: 3.0 },
+  { isGreen: true,  height: 25.9, bodyHeight: 6.7 }
+];
+
+const themeSectorBars = [
+  { name: 'Nifty India Defence',              icon: 'sector-icon-defence.png',       pdf: 'nifty-india-defence-report.pdf', ytd: 21.06 },
+  { name: 'Nifty IPO',                        icon: 'sector-icon-ipo.png',            pdf: 'nifty-ipo-report.pdf',           ytd: 11.93 },
+  { name: 'Nifty Sugar & Ethanol',             icon: 'sector-icon-sugar.png',          pdf: 'nifty-sugar-report.pdf',         ytd: 4.25 },
+  { name: 'Nifty Commodities',                 icon: 'sector-icon-commodities.png',    pdf: 'nifty-commodities-report.pdf',   ytd: 1.88 },
+  { name: 'Nifty EV & New Age Automotive',     icon: 'sector-icon-ev-automotive.png',  pdf: 'nifty-ev-automotive-report.pdf', ytd: -0.39 },
+  { name: 'Nifty India New Age Consumption',   icon: 'sector-icon-consumption.png',    pdf: 'nifty-consumption-report.pdf',   ytd: -2.81 },
+  { name: 'Nifty100 ESG',                      icon: 'sector-icon-esg.png',            pdf: 'nifty-esg-report.pdf',           ytd: -5.53 },
+  { name: 'Nifty500 Ahimsa',                   icon: 'sector-icon-ahimsa.png',         pdf: 'nifty-ahimsa-report.pdf',        ytd: -7.48 },
+  { name: 'Nifty India Tourism',               icon: 'sector-icon-tourism.png',        pdf: 'nifty-tourism-report.pdf',       ytd: -10.09 },
+  { name: 'Nifty50 Shariah',                   icon: 'sector-icon-shariah.png',        pdf: 'nifty-shariah-report.pdf',       ytd: -12.71 },
+  { name: 'Nifty India Digital',               icon: 'sector-icon-digital.png',        pdf: 'nifty-digital-report.pdf',       ytd: -14.73 },
+];
+
+const sectorUniverse = [
+  {name:"NIFTY POWER",              ytd:13.47, pdf:"nifty-power-report.pdf"},
+  {name:"NIFTY PHARMA",             ytd:12.88, pdf:"nifty-pharma-report.pdf"},
+  {name:"NIFTY CAPITAL GOODS",      ytd:11.42, pdf:"nifty-capital-goods-report.pdf"},
+  {name:"NIFTY HEALTHCARE",         ytd:11.12, pdf:"nifty-healthcare-report.pdf"},
+  {name:"NIFTY METAL",              ytd:10.18, pdf:"nifty-metal-report.pdf"},
+  {name:"NIFTY CHEMICALS",          ytd:3.82,  pdf:"nifty-chemicals-report.pdf"},
+  {name:"NIFTY REALTY",             ytd:-0.40, pdf:"nifty-realty-report.pdf"},
+  {name:"NIFTY AUTO",               ytd:-4.43, pdf:"nifty-auto-report.pdf"},
+  {name:"NIFTY NBFC",               ytd:-4.72, pdf:"nifty-nbfc-report.pdf"},
+  {name:"NIFTY BANK",               ytd:-5.05, pdf:"nifty-bank-report.pdf"},
+  {name:"NIFTY RETAIL",             ytd:-5.85, pdf:"nifty-retail-report.pdf"},
+  {name:"NIFTY FINANCIAL SERVICES", ytd:-6.35, pdf:"nifty-financial-services-report.pdf"},
+  {name:"NIFTY FMCG",               ytd:-8.68, pdf:"nifty-fmcg-report.pdf"},
+  {name:"NIFTY OIL & GAS",          ytd:-9.45, pdf:"nifty-oil-gas-report.pdf"},
+  {name:"NIFTY IT",                 ytd:-24.64,pdf:"nifty-it-report.pdf"},
+];
+
+const coverGradients: Record<string, string> = {
+  "Automotive":"linear-gradient(135deg,#0e2419,#1B4332)",
+  "Energy":"linear-gradient(135deg,#1a2e0e,#3d6b1f)",
+  "Retail":"linear-gradient(135deg,#2b1a0e,#8a4a1f)",
+  "Diversified":"linear-gradient(135deg,#1a1a2e,#2f2f5c)",
+  "BFSI":"linear-gradient(135deg,#0e1c2b,#1f4a6b)",
+  "Electronics":"linear-gradient(135deg,#22102b,#5c2f7a)",
+  "Textiles":"linear-gradient(135deg,#2b1010,#6b1f2f)",
+  "Travel & Tourism":"linear-gradient(135deg,#0e2b26,#1f6b5a)",
+  "Mining":"linear-gradient(135deg,#2b230e,#6b551f)",
+};
+
+const insuranceCoverMap: Record<string, { id: string; label: string; placeholder: string }> = {
+  'Employer health insurance': {id:'insCoverEmployerHealth', label:'Employer Health Cover (₹)', placeholder:'e.g. 300000'},
+  'Personal health insurance': {id:'insCoverPersonalHealth', label:'Health Insurance Cover (₹)', placeholder:'e.g. 500000'},
+  'Family floater': {id:'insCoverFamilyFloater', label:'Family Floater Cover (₹)', placeholder:'e.g. 1000000'},
+  'Term life insurance': {id:'insCoverTermLife', label:'Term Insurance Cover (₹)', placeholder:'e.g. 5000000'},
+  'Personal accident insurance': {id:'insCoverPersonalAccident', label:'Personal Accident Cover (₹)', placeholder:'e.g. 1000000'},
+  'Critical illness cover': {id:'insCoverCriticalIllness', label:'Critical Illness Cover (₹)', placeholder:'e.g. 1000000'},
+  'Motor insurance': {id:'insCoverMotor', label:'Motor Insurance IDV (₹)', placeholder:'e.g. 500000'}
+};
+
+/* ---- heatmap colour scale: bold cartoon bands, each step clearly distinct ---- */
+const HEAT_POSITIVE = ['#C6FFDD', '#6EEBA0', '#2ED47A', '#00B86B', '#007A45'];
+const HEAT_NEGATIVE = ['#FFE79A', '#FFB347', '#FF7A3C', '#FF3B30', '#B0140A'];
+
+function hexToRgb(hex: string) {
+  const h = hex.replace('#','');
+  return {
+    r: parseInt(h.substring(0,2),16),
+    g: parseInt(h.substring(2,4),16),
+    b: parseInt(h.substring(4,6),16)
+  };
+}
+
+function bandColor(stops: string[], t: number) {
+  const idx = Math.min(stops.length - 1, Math.floor(t * stops.length));
+  return hexToRgb(stops[idx]);
+}
+
+function rgbToCss({r,g,b}: {r:number; g:number; b:number}) {
+  return `rgb(${r},${g},${b})`;
+}
+
+function lighten({r,g,b}: {r:number; g:number; b:number}, amt: number) {
+  return {
+    r: Math.round(r + (255 - r) * amt),
+    g: Math.round(g + (255 - g) * amt),
+    b: Math.round(b + (255 - b) * amt)
+  };
+}
+
+function darken({r,g,b}: {r:number; g:number; b:number}, amt: number) {
+  return {
+    r: Math.round(r * (1 - amt)),
+    g: Math.round(g * (1 - amt)),
+    b: Math.round(b * (1 - amt))
+  };
+}
+
+function relativeLuminance({r,g,b}: {r:number; g:number; b:number}) {
+  const lin = (v: number) => { v/=255; return v <= 0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4); };
+  return 0.2126*lin(r) + 0.7152*lin(g) + 0.0722*lin(b);
+}
+
+function heatColor(ytd: number, maxAbs: number) {
+  const t = maxAbs > 0 ? Math.min(1, Math.abs(ytd) / maxAbs) : 0;
+  const stops = ytd >= 0 ? HEAT_POSITIVE : HEAT_NEGATIVE;
+  const rgb = bandColor(stops, t);
+  const hi = lighten(rgb, 0.45);
+  const lo = darken(rgb, 0.28);
+  const gradient = `radial-gradient(circle at 32% 26%, ${rgbToCss(hi)} 0%, ${rgbToCss(rgb)} 55%, ${rgbToCss(lo)} 100%)`;
+  const glow = `rgba(${rgb.r},${rgb.g},${rgb.b},0.55)`;
+  const textColor = relativeLuminance(rgb) > 0.42 ? '#111411' : '#ffffff';
+  return { bg: gradient, flat: rgbToCss(rgb), glow, text: textColor };
+}
+
+interface PlacedBubble {
+  name: string;
+  ytd: number;
+  pdf: string;
+  r: number;
+  x: number;
+  y: number;
+}
+
+function packSectorBubbles(items: { name: string; ytd: number; pdf: string; r: number }[], width: number, height: number): PlacedBubble[] {
+  const placed: PlacedBubble[] = [];
+  const sorted = [...items].sort((a,b) => b.r - a.r);
+  
+  sorted.forEach(item => {
+    let angle = Math.random() * Math.PI * 2;
+    let radius = 0;
+    let x = width / 2;
+    let y = height / 2;
+    let attempts = 0;
+    
+    while (attempts < 4000) {
+      const withinBounds = (x - item.r) >= 6 && (x + item.r) <= width - 6 &&
+                            (y - item.r) >= 6 && (y + item.r) <= height - 6;
+      let collide = false;
+      for (const p of placed) {
+        const dx = x - p.x;
+        const dy = y - p.y;
+        const minDist = p.r + item.r + 8;
+        if (dx * dx + dy * dy < minDist * minDist) { collide = true; break; }
+      }
+      if (withinBounds && !collide) break;
+      angle += 0.36;
+      radius += 2.4;
+      x = width / 2 + radius * Math.cos(angle);
+      y = height / 2 + radius * Math.sin(angle);
+      attempts++;
+    }
+    
+    placed.push({ ...item, x, y });
+  });
+  return placed;
+}
+
 export default function ClientReportsPage({
   initialReports,
 }: ClientReportsPageProps) {
+  /* ============ PAGE TABS ============ */
   const [activeTab, setActiveTab] = useState(tabs[0].id);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedSector, setSelectedSector] = useState<string>("all");
-  const [sortBy, setSortBy] = useState<string>("date");
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [sectorsData, setSectorsData] = useState<SectorData[]>([]);
-  const [sectorsLoading, setSectorsLoading] = useState(true);
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [formData, setFormData] = useState({
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  /* ============ SEARCH / FILTER REPORTS (DB DATA) ============ */
+  const [dbReports, setDbReports] = useState<ResearchReport[]>(initialReports);
+  const [reportsSearch, setReportsSearch] = useState("");
+  const [reportsFilter, setReportsFilter] = useState("all");
+
+  /* ============ PREVIEW MODAL STATE ============ */
+  const [previewReport, setPreviewReport] = useState<any>(null);
+  const [previewPageIdx, setPreviewPageIdx] = useState(0);
+
+  /* ============ WIZARD STATE ============ */
+  const [wizardStep, setWizardStep] = useState<number | "done">(1);
+  const [wizardCategory, setWizardCategory] = useState<string>("");
+  const [wizardAnswers, setWizardAnswers] = useState<Record<string, any>>({
+    capital: "",
+    details: "",
     name: "",
+    email: "",
     mobile: "",
-    topic: "",
+    // Category Specifics
+    age: "30",
+    occupation: "",
+    monthlySavings: "",
+    goal: "",
+    risk: "Medium",
+    preference: "SIP",
+    returnsExpectation: "",
+    investmentStyle: "",
+    annualIncome: "",
+    dependents: "",
+    maritalStatus: "Single",
+    existingInsurance: [] as string[],
+    insuranceCovers: {} as Record<string, string>,
+    loansLiabilities: "",
+    monthlySpending: "",
+    spendingCategories: [] as string[],
+    cardPreferences: [] as string[],
+    flyFrequency: "Never",
+    travelType: "Domestic",
+    loungeImportance: "3",
+    hotelFrequency: "Rarely",
+    abroadSpend: "Never",
+    feeComfort: "₹0 — Lifetime-free preferred",
+    payHigherFee: "No",
+    usageGoals: [] as string[],
+    loanPurpose: "Home Purchase",
+    loanEmployment: "Salaried",
+    loanMonthlyIncome: "",
+    loanIncomeStability: "Stable",
+    loanEarningYears: "1–3 years",
+    loanAmount: "500000",
+    loanOwnContribution: "",
+    loanHasCollateral: "No",
+    loanCollateralType: "Property",
+    loanHasCoApplicant: "No",
+    loanCoApplicantRelation: "Spouse",
+    loanKnowsScore: "No",
+    loanScoreRange: "700–749",
+    loanMissedEmi: "No",
+    loanTenure: "Balanced EMI + tenure"
   });
-  const [formLoading, setFormLoading] = useState(false);
-  const [formMessage, setFormMessage] = useState<string | null>(null);
 
-  const [reportsByTab, setReportsByTab] = useState<
-    Record<string, ResearchReport[]>
-  >({
-    "pre-market-research-report": [],
-    "thematic-report": [],
-    "equity-research-report": [],
-  });
+  const [wizardLoading, setWizardLoading] = useState(false);
+  const [wizardMessage, setWizardMessage] = useState<string | null>(null);
 
-  const itemsPerPage = 10;
+  /* ============ SCREENER STATE ============ */
+  const [screenerTab, setScreenerTab] = useState<"screener" | "watchlist" | "about">("screener");
+  const [stocksData, setStocksData] = useState<any[]>([]);
+  const [screenerSearch, setScreenerSearch] = useState("");
+  const [screenerSort, setScreenerSort] = useState("name-asc");
+  const [screenerPage, setScreenerPage] = useState(1);
+  const [screenerTierFilter, setScreenerTierFilter] = useState<Set<string>>(new Set());
+  const [screenerIndexFilter, setScreenerIndexFilter] = useState<Set<string>>(new Set());
+  const [screenerMcapFilter, setScreenerMcapFilter] = useState<Set<string>>(new Set());
+  const [screenerOpmFilter, setScreenerOpmFilter] = useState<Set<string>>(new Set());
+  
+  const [peMin, setPeMin] = useState("");
+  const [peMax, setPeMax] = useState("");
+  const [roeMin, setRoeMin] = useState("");
+  const [roeMax, setRoeMax] = useState("");
+  const [roceMin, setRoceMin] = useState("");
+  const [roceMax, setRoceMax] = useState("");
+  const [onlyWithData, setOnlyWithData] = useState(false);
 
+  const [watchlist, setWatchlist] = useState<Set<string>>(new Set());
+  const [screenerSelectedStock, setScreenerSelectedStock] = useState<any>(null);
+  const [showScreenerIndexWarn, setShowScreenerIndexWarn] = useState(false);
+
+  const SCREENER_PAGE_SIZE = 15;
+
+  /* ============ BUBBLE CHART REFS & MEASUREMENT ============ */
+  const bubbleRef = useRef<HTMLDivElement>(null);
+  const [bubbleDimensions, setBubbleDimensions] = useState({ width: 800, height: 620 });
+  const [bubbleRevealed, setBubbleRevealed] = useState(false);
+
+  /* ============ LOAD SCREENER DATA DYNAMICALLY ============ */
   useEffect(() => {
-    async function fetchSectors() {
-      try {
-        const res = await fetch("/api/yahoo-stock-data");
-        const data = await res.json();
-        setSectorsData(data.indices || []);
-      } catch (err) {
-        console.error("Error fetching sectors:", err);
-      } finally {
-        setSectorsLoading(false);
+    // Load stocks data only when component mounts on client side to prevent bundle bloating
+    import("./screener-data.js")
+      .then((mod) => {
+        setStocksData(mod.STOCKS_DATA || []);
+      })
+      .catch((err) => console.error("Failed to load screener data", err));
+
+    // Load watchlist from localStorage
+    try {
+      const stored = localStorage.getItem("ff_nse_screener_watchlist_v1");
+      if (stored) {
+        setWatchlist(new Set(JSON.parse(stored)));
       }
+    } catch (e) {
+      console.error(e);
     }
-    fetchSectors();
   }, []);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  /* ============ UPDATE WATCHLIST ============ */
+  const toggleStar = (sym: string) => {
+    const next = new Set(watchlist);
+    if (next.has(sym)) {
+      next.delete(sym);
+    } else {
+      next.add(sym);
+    }
+    setWatchlist(next);
+    localStorage.setItem("ff_nse_screener_watchlist_v1", JSON.stringify([...next]));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormLoading(true);
-    setFormMessage(null);
+  /* ============ MEASURE BUBBLE CONTAINER ============ */
+  useEffect(() => {
+    if (!bubbleRef.current) return;
+    const observer = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const { width, height } = entry.contentRect;
+        setBubbleDimensions({
+          width: width || 800,
+          height: height || 620
+        });
+      }
+    });
+    observer.observe(bubbleRef.current);
+    
+    // Trigger bubble reveal animation after a short delay
+    const timer = setTimeout(() => setBubbleRevealed(true), 300);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(timer);
+    };
+  }, []);
+
+  /* ============ PREVIEW MODAL PAGES GENERATOR ============ */
+  const previewPages = useMemo(() => {
+    if (!previewReport) return [];
+    
+    const ratingLabel = previewReport.rating || "BUY";
+    const sectorLabel = previewReport.sector || "General";
+    const dateLabel = previewReport.publishDate ? new Date(previewReport.publishDate).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : "May 2026";
+    const pagesCount = previewReport.pages || 44;
+    const readTime = Math.ceil(pagesCount * 0.3);
+
+    return [
+      {
+        label: "Cover",
+        locked: false,
+        render: () => (
+          <div>
+            <div className="page-kicker">{sectorLabel} · {dateLabel}</div>
+            <h2>{previewReport.title}</h2>
+            <p style={{ opacity: 0.7, marginTop: "10px" }}>
+              {pagesCount} pages · {readTime} min read · Intermediate
+            </p>
+            <div className="chart-page-area" style={{ background: coverGradients[previewReport.sector || "BFSI"] || "linear-gradient(135deg,#0e1c2b,#1f4a6b)" }}></div>
+          </div>
+        )
+      },
+      {
+        label: "Contents",
+        locked: false,
+        render: () => (
+          <div>
+            <div className="page-kicker">Table of Contents</div>
+            <h2>What&apos;s inside</h2>
+            <ul className="toc-list">
+              <li>Executive Summary <span className="pg mono">03</span></li>
+              <li>Industry Landscape <span className="pg mono">08</span></li>
+              <li>Competitive Positioning <span className="pg mono">17</span></li>
+              <li>Financial Model & DCF Valuation <span className="pg mono">29</span></li>
+              <li>Risk Analysis <span className="pg mono">44</span></li>
+              <li>Investment Thesis & Rating <span className="pg mono">{pagesCount - 6}</span></li>
+            </ul>
+          </div>
+        )
+      },
+      {
+        label: "Exec Summary",
+        locked: false,
+        render: () => (
+          <div>
+            <div className="page-kicker">Executive Summary</div>
+            <h2>The thesis, in brief</h2>
+            <div className="exec-summary">
+              <p className="mb-4">{previewReport.title} covers the {previewReport.sector || "target"} sector with a deep dive on company fundamentals, technical outlook, and detailed valuations.</p>
+              <p>{previewReport.summary || "This report maps the competitive landscape, evaluates key triggers, and compiles an extensive DCF sensitivity analysis before reaching a recommendation."}</p>
+            </div>
+          </div>
+        )
+      },
+      {
+        label: "Charts & Data",
+        locked: true,
+        render: () => (
+          <div>
+            <div className="page-kicker">Charts & Valuation</div>
+            <h2>DCF sensitivity & peer comps</h2>
+            <div className="chart-page-area"></div>
+          </div>
+        )
+      },
+      {
+        label: "Risk Analysis",
+        locked: true,
+        render: () => (
+          <div>
+            <div className="page-kicker">Risk Analysis</div>
+            <h2>What could break the thesis</h2>
+            <p>Regulatory shifts, input cost volatility and execution risk on capacity expansion are the three swing factors we track most closely for this call.</p>
+          </div>
+        )
+      },
+      {
+        label: "Full Model",
+        locked: true,
+        render: () => (
+          <div>
+            <div className="page-kicker">Investment Thesis</div>
+            <h2>Rating & target</h2>
+            <p>Our full model, rating rationale and 12-month target are unlocked with purchase.</p>
+          </div>
+        )
+      }
+    ];
+  }, [previewReport]);
+
+  /* ============ HANDLE PREVIEW MODAL ============ */
+  const openPreview = (report: any) => {
+    setPreviewReport(report);
+    setPreviewPageIdx(0);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closePreview = () => {
+    setPreviewReport(null);
+    document.body.style.overflow = '';
+  };
+
+  /* ============ BUBBLE PACKING DATA ============ */
+  const packedBubbles = useMemo(() => {
+    const absVals = sectorUniverse.map(s => Math.abs(s.ytd));
+    const minAbs = Math.min(...absVals), maxAbs = Math.max(...absVals);
+    const minR = Math.max(40, bubbleDimensions.width * 0.05);
+    const maxR = Math.max(minR + 30, bubbleDimensions.width * 0.105);
+
+    const items = sectorUniverse.map(s => ({
+      ...s,
+      r: minR + ((Math.abs(s.ytd) - minAbs) / ((maxAbs - minAbs) || 1)) * (maxR - minR)
+    }));
+
+    return packSectorBubbles(items, bubbleDimensions.width, bubbleDimensions.height);
+  }, [bubbleDimensions]);
+
+  const maxAbsYtdGlobal = useMemo(() => {
+    return Math.max(...sectorUniverse.map(s => Math.abs(s.ytd)));
+  }, []);
+
+  /* ============ FILTER & SORT RESEARCH REPORTS (DATABASE DATA) ============ */
+  const filteredDbReports = useMemo(() => {
+    return dbReports.filter(r => {
+      const titleMatches = (r.title || "").toLowerCase().includes(reportsSearch.toLowerCase()) ||
+                            (r.company || "").toLowerCase().includes(reportsSearch.toLowerCase()) ||
+                            (r.stock || "").toLowerCase().includes(reportsSearch.toLowerCase());
+      
+      let typeMatches = true;
+      if (reportsFilter !== "all") {
+        typeMatches = (r.reportType || "").toLowerCase().replace(/ /g, "-") === reportsFilter;
+      }
+      return titleMatches && typeMatches;
+    });
+  }, [dbReports, reportsSearch, reportsFilter]);
+
+  /* ============ SCREENER FILTER LOGIC ============ */
+  const filteredStocks = useMemo(() => {
+    return stocksData.filter(s => {
+      // 1. Search Query
+      if (screenerSearch) {
+        const q = screenerSearch.toLowerCase();
+        const matchesQuery = s.sym.toLowerCase().includes(q) || s.name.toLowerCase().includes(q) || s.isin.toLowerCase().includes(q);
+        if (!matchesQuery) return false;
+      }
+      // 2. Cap Tier
+      if (screenerTierFilter.size && !screenerTierFilter.has(s.tier)) return false;
+      // 3. Mcap Slots
+      if (screenerMcapFilter.size) {
+        if (s.mcap === null || s.mcap === undefined) return false;
+        const matched = Array.from(screenerMcapFilter).some(slot => {
+          const parts = slot.split('-');
+          const min = parseFloat(parts[0]);
+          const max = parts[1] === 'inf' ? Infinity : parseFloat(parts[1]);
+          return s.mcap >= min && s.mcap < max;
+        });
+        if (!matched) return false;
+      }
+      // 4. OPM Slots
+      if (screenerOpmFilter.size) {
+        if (s.opm === null || s.opm === undefined) return false;
+        const matched = Array.from(screenerOpmFilter).some(slot => {
+          const parts = slot.split('-');
+          const min = parts[0] === '-inf' ? -Infinity : parseFloat(parts[0]);
+          const max = parts[1] === 'inf' ? Infinity : parseFloat(parts[1]);
+          return s.opm >= min && s.opm < max;
+        });
+        if (!matched) return false;
+      }
+      // 5. Index Filters
+      if (screenerIndexFilter.size) {
+        const hit = s.indices.some((ix: string) => screenerIndexFilter.has(ix));
+        if (!hit) return false;
+      }
+      // 6. Only With Data
+      if (onlyWithData) {
+        if (s.pe === null && s.roe === null && s.roce === null) return false;
+      }
+      // 7. P/E Range
+      if (peMin !== '') {
+        const minVal = parseFloat(peMin);
+        if (isNaN(minVal) || s.pe === null || s.pe < minVal) return false;
+      }
+      if (peMax !== '') {
+        const maxVal = parseFloat(peMax);
+        if (isNaN(maxVal) || s.pe === null || s.pe > maxVal) return false;
+      }
+      // 8. ROE Range
+      if (roeMin !== '') {
+        const minVal = parseFloat(roeMin);
+        if (isNaN(minVal) || s.roe === null || s.roe < minVal) return false;
+      }
+      if (roeMax !== '') {
+        const maxVal = parseFloat(roeMax);
+        if (isNaN(maxVal) || s.roe === null || s.roe > maxVal) return false;
+      }
+      // 9. ROCE Range
+      if (roceMin !== '') {
+        const minVal = parseFloat(roceMin);
+        if (isNaN(minVal) || s.roce === null || s.roce < minVal) return false;
+      }
+      if (roceMax !== '') {
+        const maxVal = parseFloat(roceMax);
+        if (isNaN(maxVal) || s.roce === null || s.roce > maxVal) return false;
+      }
+
+      return true;
+    }).sort((a, b) => {
+      switch(screenerSort){
+        case 'name-asc': return a.name.localeCompare(b.name);
+        case 'name-desc': return b.name.localeCompare(a.name);
+        case 'sym-asc': return a.sym.localeCompare(b.sym);
+        case 'listyear-desc': return (b.listyear||0)-(a.listyear||0);
+        case 'listyear-asc': return (a.listyear||9999)-(b.listyear||9999);
+        case 'pe-asc':
+          if (a.pe === null) return 1;
+          if (b.pe === null) return -1;
+          return a.pe - b.pe;
+        case 'pe-desc':
+          if (a.pe === null) return 1;
+          if (b.pe === null) return -1;
+          return b.pe - a.pe;
+        case 'roe-desc':
+          if (a.roe === null) return 1;
+          if (b.roe === null) return -1;
+          return b.roe - a.roe;
+        case 'roe-asc':
+          if (a.roe === null) return 1;
+          if (b.roe === null) return -1;
+          return a.roe - b.roe;
+        case 'roce-desc':
+          if (a.roce === null) return 1;
+          if (b.roce === null) return -1;
+          return b.roce - a.roce;
+        case 'roce-asc':
+          if (a.roce === null) return 1;
+          if (b.roce === null) return -1;
+          return a.roce - b.roce;
+        case 'mcap-desc':
+          if (a.mcap === null || a.mcap === undefined) return 1;
+          if (b.mcap === null || b.mcap === undefined) return -1;
+          return b.mcap - a.mcap;
+        case 'mcap-asc':
+          if (a.mcap === null || a.mcap === undefined) return 1;
+          if (b.mcap === null || b.mcap === undefined) return -1;
+          return a.mcap - b.mcap;
+        case 'opm-desc':
+          if (a.opm === null || a.opm === undefined) return 1;
+          if (b.opm === null || b.opm === undefined) return -1;
+          return b.opm - a.opm;
+        case 'opm-asc':
+          if (a.opm === null || a.opm === undefined) return 1;
+          if (b.opm === null || b.opm === undefined) return -1;
+          return a.opm - b.opm;
+        default: return 0;
+      }
+    });
+  }, [stocksData, screenerSearch, screenerSort, screenerTierFilter, screenerIndexFilter, screenerMcapFilter, screenerOpmFilter, onlyWithData, peMin, peMax, roeMin, roeMax, roceMin, roceMax]);
+
+  const screenerPageCount = Math.max(1, Math.ceil(filteredStocks.length / SCREENER_PAGE_SIZE));
+
+  const pageItems = useMemo(() => {
+    const start = (screenerPage - 1) * SCREENER_PAGE_SIZE;
+    return filteredStocks.slice(start, start + SCREENER_PAGE_SIZE);
+  }, [filteredStocks, screenerPage]);
+
+  const watchlistStocks = useMemo(() => {
+    return stocksData.filter(s => watchlist.has(s.sym)).sort((a, b) => a.name.localeCompare(b.name));
+  }, [stocksData, watchlist]);
+
+  /* ============ HANDLE SCREENER CHIPS ============ */
+  const toggleScreenerChip = (filterName: string, value: string) => {
+    let set: Set<string>;
+    let setter: (s: Set<string>) => void;
+    
+    if (filterName === 'tier') { set = screenerTierFilter; setter = setScreenerTierFilter; }
+    else if (filterName === 'index') { set = screenerIndexFilter; setter = setScreenerIndexFilter; }
+    else if (filterName === 'mcapSlot') { set = screenerMcapFilter; setter = setScreenerMcapFilter; }
+    else { set = screenerOpmFilter; setter = setScreenerOpmFilter; }
+
+    const next = new Set(set);
+    
+    if (filterName === 'index') {
+      const isSensex = value === 'SENSEX30';
+      const hasSensex = next.has('SENSEX30');
+      const hasOtherIndex = [...next].some(v => v !== 'SENSEX30');
+
+      if (isSensex && hasOtherIndex) {
+        triggerIndexWarning();
+        return;
+      }
+      if (!isSensex && hasSensex) {
+        triggerIndexWarning();
+        return;
+      }
+    }
+
+    if (next.has(value)) {
+      next.delete(value);
+    } else {
+      next.add(value);
+    }
+
+    setter(next);
+    setScreenerPage(1);
+  };
+
+  const triggerIndexWarning = () => {
+    setShowScreenerIndexWarn(true);
+    setTimeout(() => {
+      setShowScreenerIndexWarn(false);
+    }, 3500);
+  };
+
+  const clearAllScreenerFilters = () => {
+    setScreenerSearch("");
+    screenerTierFilter.clear();
+    screenerIndexFilter.clear();
+    screenerMcapFilter.clear();
+    screenerOpmFilter.clear();
+    setPeMin("");
+    setPeMax("");
+    setRoeMin("");
+    setRoeMax("");
+    setRoceMin("");
+    setRoceMax("");
+    setOnlyWithData(false);
+    setScreenerPage(1);
+    setScreenerTierFilter(new Set());
+    setScreenerIndexFilter(new Set());
+    setScreenerMcapFilter(new Set());
+    setScreenerOpmFilter(new Set());
+  };
+
+  /* ============ WIZARD HANDLERS ============ */
+  const handleWizardOptionToggle = (key: string, value: string, isMulti = false, maxSelect = 99) => {
+    if (isMulti) {
+      const prev = (wizardAnswers[key] || []) as string[];
+      if (prev.includes(value)) {
+        setWizardAnswers({ ...wizardAnswers, [key]: prev.filter(v => v !== value) });
+      } else {
+        if (prev.length < maxSelect) {
+          setWizardAnswers({ ...wizardAnswers, [key]: [...prev, value] });
+        }
+      }
+    } else {
+      setWizardAnswers({ ...wizardAnswers, [key]: value });
+    }
+  };
+
+  const handleInsuranceCoverInput = (coverName: string, amount: string) => {
+    const prev = { ...(wizardAnswers.insuranceCovers || {}) };
+    prev[coverName] = amount;
+    setWizardAnswers({ ...wizardAnswers, insuranceCovers: prev });
+  };
+
+  const handleWizardSubmit = async () => {
+    setWizardLoading(true);
+    setWizardMessage(null);
+
+    // Format wizard answers into details block
+    const isCc = wizardCategory === 'Credit Card';
+    const isLoan = wizardCategory === 'Loan';
+    const isMf = wizardCategory === 'Mutual Fund';
+    const isStocks = wizardCategory === 'Stocks';
+    const isIns = wizardCategory === 'Insurance';
+
+    let customDetails = `Category: ${wizardCategory}\n`;
+    customDetails += `Capital/Limit/Requirement: ₹${wizardAnswers.capital || "N/A"}\n`;
+    customDetails += `Requirements Details: ${wizardAnswers.details || "None"}\n`;
+    customDetails += `Email: ${wizardAnswers.email || "N/A"}\n\n`;
+    customDetails += `--- Personal Profile ---\n`;
+
+    if (isMf || isStocks || isCc || isLoan) {
+      customDetails += `Age: ${isLoan ? wizardAnswers.loanAge : (isCc ? wizardAnswers.ccAge : (isMf ? wizardAnswers.mfAge : wizardAnswers.stAge))}\n`;
+    }
+    if (isMf || isCc) {
+      customDetails += `Occupation: ${isCc ? wizardAnswers.ccOccupation : wizardAnswers.mfOccupation}\n`;
+    }
+    if (isMf || isStocks || isIns) {
+      customDetails += `Monthly Savings: ₹${isIns ? wizardAnswers.insMonthlySavings : (isMf ? wizardAnswers.mfMonthlySavings : wizardAnswers.stMonthlySavings)}\n`;
+    }
+    if (isMf || isStocks) {
+      customDetails += `Goal: ${isMf ? wizardAnswers.mfGoal : wizardAnswers.stGoal}\n`;
+      customDetails += `Risk Tolerance: ${isMf ? wizardAnswers.mfRisk : wizardAnswers.stRisk}\n`;
+    }
+
+    if (isMf) customDetails += `MF Preference: ${wizardAnswers.mfPreference}\n`;
+    if (isStocks) {
+      customDetails += `Expectations: ${wizardAnswers.stReturns}\n`;
+      customDetails += `Investment Style: ${wizardAnswers.stStyle}\n`;
+    }
+
+    if (isIns) {
+      customDetails += `Annual Income: ₹${wizardAnswers.insAnnualIncome}\n`;
+      customDetails += `Dependents: ${wizardAnswers.insDependents}\n`;
+      customDetails += `Marital Status: ${wizardAnswers.insMarital}\n`;
+      customDetails += `Existing Insurance: ${(wizardAnswers.insExisting || []).join(", ") || "None"}\n`;
+      customDetails += `Cover Amounts Details:\n`;
+      Object.keys(wizardAnswers.insuranceCovers || {}).forEach(k => {
+        customDetails += `- ${k}: ₹${wizardAnswers.insuranceCovers[k]}\n`;
+      });
+      customDetails += `Liabilities: ${wizardAnswers.insLoansLiabilities || "None"}\n`;
+    }
+
+    if (isCc) {
+      customDetails += `Monthly Spend: ₹${wizardAnswers.ccMonthlySpending}\n`;
+      customDetails += `Major Categories: ${(wizardAnswers.ccSpending || []).join(", ") || "None"}\n`;
+      customDetails += `Card Preferences: ${(wizardAnswers.ccPreference || []).join(", ") || "None"}\n`;
+      if ((wizardAnswers.ccSpending || []).includes("Travel") || (wizardAnswers.ccPreference || []).includes("Airport Lounge Access") || (wizardAnswers.ccPreference || []).includes("Air Miles")) {
+        customDetails += `- Fly Frequency: ${wizardAnswers.ccFlyFrequency}\n`;
+        customDetails += `- Travel Type: ${wizardAnswers.ccTravelType}\n`;
+        customDetails += `- Lounge Importance: ${wizardAnswers.ccLoungeImportance}/5\n`;
+        customDetails += `- Hotel Frequency: ${wizardAnswers.ccHotelFrequency}\n`;
+        customDetails += `- Spend Abroad: ${wizardAnswers.ccAbroadSpend}\n`;
+      }
+      customDetails += `Comfort Fee: ${wizardAnswers.ccFee}\n`;
+      customDetails += `Pay Higher: ${wizardAnswers.ccHigherFee}\n`;
+      customDetails += `Usage Goals: ${(wizardAnswers.ccUsageGoal || []).join(", ") || "None"}\n`;
+    }
+
+    if (isLoan) {
+      customDetails += `Loan Purpose: ${wizardAnswers.loanPurpose}\n`;
+      customDetails += `Employment: ${wizardAnswers.loanEmployment}\n`;
+      customDetails += `Monthly Takehome: ₹${wizardAnswers.loanMonthlyIncome}\n`;
+      customDetails += `Income Stability: ${wizardAnswers.loanIncomeStability}\n`;
+      customDetails += `Earning Experience: ${wizardAnswers.loanEarningYears}\n`;
+      customDetails += `Required Loan Amt: ₹${wizardAnswers.loanAmount}\n`;
+      customDetails += `Own Contribution: ₹${wizardAnswers.loanOwnContribution}\n`;
+      customDetails += `Collateral Offered: ${wizardAnswers.loanHasCollateral === "Yes" ? wizardAnswers.loanCollateralType : "No"}\n`;
+      customDetails += `Co-Applicant Relationship: ${wizardAnswers.loanHasCoApplicant === "Yes" ? wizardAnswers.loanCoApplicantRelation : "No"}\n`;
+      customDetails += `Credit Score Range: ${wizardAnswers.loanKnowsScore === "Yes" ? wizardAnswers.loanScoreRange : "Doesn\t know"}\n`;
+      customDetails += `Missed EMIs: ${wizardAnswers.loanMissedEmi}\n`;
+      customDetails += `Tenure Preference: ${wizardAnswers.loanTenure}\n`;
+    }
+
+    const payload = {
+      name: wizardAnswers.name,
+      mobile: wizardAnswers.mobile,
+      topic: customDetails
+    };
 
     try {
       const response = await fetch(
@@ -161,7 +893,7 @@ export default function ClientReportsPage({
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(payload),
         }
       );
 
@@ -169,143 +901,22 @@ export default function ClientReportsPage({
         throw new Error(`Error: ${response.status}`);
       }
 
-      setFormMessage(
-        "✅ Request submitted successfully! We will send your custom report on your whatsapp."
-      );
-      setFormData({ name: "", mobile: "", topic: "" });
+      setWizardStep("done");
     } catch (err) {
       console.error("Failed to submit form:", err);
-      setFormMessage("❌ Failed to submit. Please try again.");
+      setWizardMessage("❌ Failed to submit. Please try again.");
     } finally {
-      setFormLoading(false);
+      setWizardLoading(false);
     }
   };
 
-  const allReports = Object.values(reportsByTab).flat();
-  const sectors = ["all", ...new Set(allReports.map((r) => r.sector ?? "N/A"))];
-  const authors = ["all", ...new Set(allReports.map((r) => r.author ?? "N/A"))];
-  const reportTypes = [
-    "all",
-    ...new Set(allReports.map((r) => r.reportType ?? "N/A")),
-  ];
-
-  const fetchReportsForTab = async (tabId: string) => {
-    if (reportsByTab[tabId] && reportsByTab[tabId].length > 0) {
-      return;
-    }
-    setLoading(true);
-    setError(null);
-
-    try {
-      let apiUrl = "";
-
-      switch (tabId) {
-        case "all":
-          apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/reports`;
-          break;
-        case "pre-market-research-report":
-          apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/reports?type=Pre-Market Research Report`;
-          break;
-        case "thematic-report":
-          apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/reports?type=Thematic Research Report`;
-          break;
-        case "equity-research-report":
-          apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/reports?type=Equity Research Report`;
-          break;
-        default:
-          apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/reports`;
-      }
-
-      const response = await fetch(apiUrl);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data: ResearchReport[] = await response.json();
-      setReportsByTab((prev) => ({ ...prev, [tabId]: data }));
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      console.error(`Failed to fetch ${tabId} reports:`, err);
-      setError(`Failed to load ${tabId} reports. Please try again later.`);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchReportsForTab(activeTab);
-  }, [activeTab]);
-
-  const handleTabChange = (tabId: string) => {
-    setActiveTab(tabId);
-    setCurrentPage(1);
-    setSearchTerm("");
-    setSelectedSector("all");
-  };
-
-  const toggleFAQ = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
-  const filteredAndSortedReports = useMemo(() => {
-    const currentReports = reportsByTab[activeTab] || [];
-
-    const filtered = currentReports.filter((report) => {
-      const matchesSearch =
-        (report.title ?? "").toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (report.company ?? "")
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase()) ||
-        (report.stock ?? "").toLowerCase().includes(searchTerm.toLowerCase());
-
-      const matchesSector =
-        selectedSector === "all" || report.sector === selectedSector;
-
-      return matchesSearch && matchesSector;
-    });
-
-    return filtered.sort((a, b) => {
-      let comparison = 0;
-      switch (sortBy) {
-        case "date":
-          comparison =
-            new Date(b.publishDate ?? "").getTime() -
-            new Date(a.publishDate ?? "").getTime();
-          break;
-        case "title":
-          comparison = (a.title ?? "").localeCompare(b.title ?? "");
-          break;
-        case "author":
-          comparison = (a.author ?? "").localeCompare(b.author ?? "");
-          break;
-        case "upside":
-          comparison =
-            parseFloat(b.upside ?? "0") - parseFloat(a.upside ?? "0");
-          break;
-        default:
-          comparison = 0;
-      }
-      return sortOrder === "desc" ? comparison : -comparison;
-    });
-  }, [reportsByTab, activeTab, selectedSector, searchTerm, sortBy, sortOrder]);
-
-  const totalPages = Math.ceil(filteredAndSortedReports.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentReports = filteredAndSortedReports.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-
-  const getRatingColor = (rating: string | null) => {
+  /* ============ CORE UTILITY RATING COLORS ============ */
+  const getRatingClass = (rating: string | null) => {
     switch (rating) {
-      case "BUY":
-        return "bg-green-100 text-green-800";
-      case "HOLD":
-        return "bg-yellow-100 text-yellow-800";
-      case "SELL":
-        return "bg-red-100 text-red-800";
-      default:
-        return "bg-gray-100 text-gray-800";
+      case "BUY": return "buy";
+      case "HOLD": return "hold";
+      case "SELL": return "sell";
+      default: return "";
     }
   };
 
@@ -319,811 +930,1607 @@ export default function ClientReportsPage({
   };
 
   return (
-    <div className="min-h-screen bg-[#F4FBF7] pt-24 pb-20">
-      {/* Sticky Custom Report Button - Mobile Only */}
-      <div className="lg:hidden fixed bottom-6 right-6 z-40">
-        <button
-          onClick={() => setIsFormOpen(true)}
-          className="bg-[#1FA463] text-black border border-black p-4 rounded-full shadow-sm hover:-translate-y-0.5 transition-all  active:shadow-sm"
-          aria-label="Request Custom Report"
-        >
-          <FaPaperPlane className="w-6 h-6" />
-        </button>
-      </div>
+    <div className="min-h-screen bg-[#F5F1E6] pt-24 pb-20">
+      
+      {/* ================= SECTION 1: HERO ================= */}
+      <section className="hero">
+        <div className="wrap">
+          <div className="hero-grid">
+            <div className="hero-copy">
+              <span className="eyebrow">
+                <span className="dot"></span>
+                Research Reports Portal
+              </span>
+              <h1>Institutional-grade<br />research,<br /><em>made readable.</em></h1>
+              <p className="sub">
+                <span className="hero-line-mask">
+                  <span className="hero-line hero-line-ltr" style={{ animationDelay: "0ms" }}>
+                    Understand the market
+                  </span>
+                </span>
+                <span className="hero-line-mask">
+                  <span className="hero-line hero-line-rtl" style={{ animationDelay: "280ms" }}>
+                    before you invest your
+                  </span>
+                </span>
+                <span className="hero-line-mask">
+                  <span className="hero-line hero-line-ltr" style={{ animationDelay: "460ms" }}>
+                    money.
+                  </span>
+                </span>
+              </p>
+              
 
-      {/* Sticky Custom Report Form - Mobile Only */}
-      {isFormOpen && (
-        <div className="lg:hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-end">
-          <div className="bg-white border-t border-black rounded-t-3xl p-6 w-full max-h-[85vh] overflow-y-auto space-y-4">
-            <div className="flex justify-between items-center border-b border-black pb-3">
-              <h3 className="text-xl font-bold uppercase text-black">Custom Report</h3>
-              <button
-                onClick={() => setIsFormOpen(false)}
-                className="text-gray-500 hover:text-black"
-                aria-label="Close form"
-              >
-                <FaTimes className="w-6 h-6" />
-              </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-xs font-bold uppercase text-black mb-1">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  placeholder="Your name"
-                  className="w-full px-3 py-2 border border-black rounded-xl text-black"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold uppercase text-black mb-1">
-                  Mobile
-                </label>
-                <input
-                  type="tel"
-                  name="mobile"
-                  value={formData.mobile}
-                  onChange={handleInputChange}
-                  placeholder="Your WhatsApp number"
-                  className="w-full px-3 py-2 border border-black rounded-xl text-black"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold uppercase text-black mb-1">
-                  Topic
-                </label>
-                <input
-                  type="text"
-                  name="topic"
-                  value={formData.topic}
-                  onChange={handleInputChange}
-                  placeholder="What do you need?"
-                  className="w-full px-3 py-2 border border-black rounded-xl text-black"
-                  required
-                />
-              </div>
-
-              {formMessage && (
-                <div
-                  className={`p-3 rounded-xl border border-black text-sm ${
-                    formMessage.startsWith("✅") ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-                  }`}
-                >
-                  {formMessage}
+            <div className="report-mock-stage">
+              <div className="phone-frame">
+                <div className="phone-notch"></div>
+                <span className="phone-btn phone-btn-power"></span>
+                <span className="phone-btn phone-btn-vol1"></span>
+                <span className="phone-btn phone-btn-vol2"></span>
+                <div className="phone-screen">
+                  <div className="report-mock in-phone" onClick={() => openPreview({ title: "Fiscal Forum Research Report", sector: "BFSI", pages: 44, publishDate: new Date().toISOString(), summary: "This is a mockup research report preview cover showing our clean, institutional-grade layout." })}>
+                    <div className="report-cover-img has-photo">
+                      <img className="cover-photo" src="research-report-cover.png" alt="Fiscal Forum Research Report cover" />
+                    </div>
+                    <div className="report-mock-footer">
+                      <div className="mock-meta"><span>44 Pages</span><span>12 min read</span><span>May 2026</span></div>
+                      <div className="mock-tags">
+                        <span className="tag" style={{ background: "#DCF3E7" }}>Business Overview</span>
+                        <span className="tag" style={{ background: "#DCF3E7" }}>Financial Highlights</span>
+                        <span className="tag" style={{ background: "#DCF3E7" }}>Valuation</span>
+                      </div>
+                      <div className="mock-rating" style={{ color: "#E8A33D", fontWeight: "bold" }}>★★★★★ 4.9</div>
+                    </div>
+                  </div>
+                  <div className="phone-glare"></div>
                 </div>
-              )}
-
-              <button
-                type="submit"
-                disabled={formLoading}
-                className="w-full bg-[#1FA463] text-white border border-black py-3 rounded-xl font-bold hover:bg-[#15824D] shadow-sm "
-              >
-                {formLoading ? "Sending..." : "Request Report"}
-              </button>
-            </form>
+              </div>
+            </div>
           </div>
         </div>
-      )}
+      </section>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-16">
-        
-        {/* Banner Section */}
-        <section className="relative border border-black bg-white rounded-3xl p-8 md:p-12 shadow-md overflow-hidden">
-          {/* Background pattern */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-[#1FA463]/10 rounded-full blur-3xl pointer-events-none" />
-          
-          <div className="relative z-10 text-center space-y-6 max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-yellow-100 border border-black rounded-lg text-black font-bold text-xs uppercase tracking-wider">
-              <FaCalendarAlt className="w-3.5 h-3.5" />
-              Daily Market Briefs
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black uppercase tracking-tight leading-none">
-              Before You Invest, <span className="text-[#1FA463]">Read What Matters</span>
-            </h1>
-            <p className="text-lg md:text-xl text-gray-700 font-semibold max-w-2xl mx-auto">
-              Turn every report into an opportunity. Join Fiscal Forum today and stay a step ahead of the opening bell.
-            </p>
-
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
-              <Link href="#table" scroll={true} className="w-full sm:w-auto">
-                <button className="w-full bg-white text-black border border-black px-6 py-3.5 rounded-xl font-bold flex items-center justify-center space-x-2 shadow-sm hover:bg-yellow-50 hover:shadow-sm transition-all">
-                  <FaFilePdf className="text-black" />
-                  <span>View Sample Reports</span>
-                </button>
-              </Link>
-              <Link href="/reports/join" className="w-full sm:w-auto">
-                <button className="w-full bg-[#1FA463] text-white border border-black px-6 py-3.5 rounded-xl font-bold shadow-sm hover:bg-[#15824D] hover:shadow-sm  transition-all uppercase text-sm">
-                  Join Now!
-                </button>
-              </Link>
-            </div>
-
-            <p className="text-sm text-red-500 font-bold">
-              Don&apos;t Miss Out: Send &quot;Hi&quot; to get more samples on{" "}
-              <Link
-                href="https://wa.me/+918696060387"
-                className="text-[#1FA463] underline font-bold hover:text-emerald-800"
-              >
-                WhatsApp
-              </Link>
-              .
-            </p>
+      {/* ================= CANDLESTICK TICKER STRIP ================= */}
+      <div className="candle-strip">
+        <div className="candle-track">
+          <div className="candle-group">
+            {candleData.map((c, i) => (
+              <div key={i} className={`candle ${c.isGreen ? "green" : "red"}`}>
+                <span className="wick" style={{ height: `${c.height}px` }}></span>
+                <span className="body" style={{ height: `${c.bodyHeight}px` }}></span>
+              </div>
+            ))}
           </div>
-        </section>
+          <div className="candle-group">
+            {candleData.map((c, i) => (
+              <div key={`dup-${i}`} className={`candle ${c.isGreen ? "green" : "red"}`}>
+                <span className="wick" style={{ height: `${c.height}px` }}></span>
+                <span className="body" style={{ height: `${c.bodyHeight}px` }}></span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
-        {/* TAB NAVIGATION */}
-        <div className="flex justify-center h-auto overflow-x-auto sm:overflow-visible pb-2 border-b border-black">
-          <div className="flex flex-wrap sm:flex-nowrap justify-center gap-3 sm:gap-4 px-2">
+      {/* ================= SECTION 3: PRE-MARKET & WEEKLY REPORT SHOWCASE ================= */}
+      <section className="section report-showcase-section">
+        <div className="wrap">
+          <div className="section-head">
+            <div>
+              <h2 className="showcase-heading">Only research you need before investing</h2>
+            </div>
+          </div>
+          <div className="showcase-grid">
+            
+            {/* Pre-Market Showcase */}
+            <div className="showcase-col" style={{ border: '1px solid #111411' }}>
+              <div className="showcase-top">
+                <div className="showcase-copy">
+                  <span className="section-num">Daily · Before the bell</span>
+                  <h2>Pre-Market Report</h2>
+                  <p>Your early edge in the market. Global cues, key indicators and stocks in focus — delivered before the opening bell so you&apos;re never reacting, always ready.</p>
+                </div>
+                <div className="showcase-img-stage">
+                  <img className="showcase-img" src="pre-market-report-cover.png" alt="Pre-Market Cover" />
+                </div>
+              </div>
+
+              <div className="whats-inside">
+                <h3>What&apos;s inside our pre-market report?</h3>
+                <ul className="inside-list">
+                  <li><img src="stocks.png" alt="Watch icon" /><span>Stocks to Watch</span></li>
+                  <li><img src="market-summary.png" alt="Summary icon" /><span>Market Summary</span></li>
+                  <li><img src="current-ipo.png" alt="IPO icon" /><span>Current IPO</span></li>
+                  <li><img src="indian-market-snapshot.png" alt="Snapshot icon" /><span>Indian Market Snapshot</span></li>
+                  <li><img src="sectoral-overview.png" alt="Sectoral icon" /><span>Sectoral Overview</span></li>
+                  <li><img src="global-market-sentiment.png" alt="Sentiment icon" /><span>Global Market Sentiment</span></li>
+                </ul>
+                <div className="showcase-cta">
+                  <p className="showcase-cta-label">To Get Latest Report</p>
+                  <Link href="#table" className="btn btn-primary" style={{ display: 'block', textDecoration: 'none', color: '#FFFFFF' }}>CLICK HERE</Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Weekly Showcase */}
+            <div className="showcase-col" style={{ border: '1px solid #111411' }}>
+              <div className="showcase-top">
+                <div className="showcase-copy">
+                  <span className="section-num">Weekly · Every Monday</span>
+                  <h2>Weekly Report</h2>
+                  <p>Your weekly compass for smarter decisions. Market summary, top movers, sector insights and the week&apos;s economic calendar, all in one read.</p>
+                </div>
+                <div className="showcase-img-stage">
+                  <img className="showcase-img" src="weekly-report-cover.png" alt="Weekly Cover" />
+                </div>
+              </div>
+
+              <div className="whats-inside">
+                <h3>What&apos;s inside our Weekly report?</h3>
+                <ul className="inside-list">
+                  <li><img src="weekly-market-snapshot.png" alt="Snapshot icon" /><span>Weekly Market Snapshot</span></li>
+                  <li><img src="global-market-performance.png" alt="Global icon" /><span>Global Performance</span></li>
+                  <li><img src="commodities.png" alt="Commodities icon" /><span>Commodities</span></li>
+                  <li><img src="top-news-of-week.png" alt="News icon" /><span>Top News of the Week</span></li>
+                  <li><img src="fii-dii-activity.png" alt="FII icon" /><span>FIIs & DIIs Activity</span></li>
+                  <li><img src="upcoming-events.png" alt="Events icon" /><span>Upcoming Events</span></li>
+                  <li><img src="stocks-in-focus.png" alt="Focus icon" /><span>Stocks in Focus</span></li>
+                </ul>
+                <div className="showcase-cta">
+                  <p className="showcase-cta-label">To Get Latest Report</p>
+                  <Link href="#table" className="btn btn-primary" style={{ display: 'block', textDecoration: 'none', color: '#FFFFFF' }}>CLICK HERE</Link>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ================= SECTION 3B: CUSTOM REPORT REQUEST WIZARD ================= */}
+      <section className="section custom-report-section" id="customReport">
+        <div className="wrap">
+          <div className="section-head text-center mx-auto max-w-xl">
+            <h2 className="text-3xl font-bold uppercase text-black text-center" style={{ margin: '0 auto 10px' }}>Want a customized report?</h2>
+            <p className="text-center" style={{ margin: '0 auto' }}>Answer a few quick questions and we&apos;ll tailor a report to exactly what you need.</p>
+          </div>
+
+          <div className="wizard-card">
+            
+            {/* PROGRESS DOTS */}
+            <div className="wizard-progress">
+              <span className={`wizard-step-dot ${wizardStep === 1 ? "active" : (((typeof wizardStep === "number" && wizardStep > 1) || wizardStep === "done") ? "done" : "")}`} data-dot="1">1</span>
+              <span className={`wizard-step-line ${((typeof wizardStep === "number" && wizardStep > 1) || wizardStep === "done") ? "filled" : ""}`}></span>
+              <span className={`wizard-step-dot ${wizardStep === 2 ? "active" : (((typeof wizardStep === "number" && wizardStep > 2) || wizardStep === "done") ? "done" : "")}`} data-dot="2">2</span>
+              <span className={`wizard-step-line ${((typeof wizardStep === "number" && wizardStep > 2) || wizardStep === "done") ? "filled" : ""}`}></span>
+              <span className={`wizard-step-dot ${wizardStep === 3 ? "active" : (((typeof wizardStep === "number" && wizardStep > 3) || wizardStep === "done") ? "done" : "")}`} data-dot="3">3</span>
+              <span className={`wizard-step-line ${((typeof wizardStep === "number" && wizardStep > 3) || wizardStep === "done") ? "filled" : ""}`}></span>
+              <span className={`wizard-step-dot ${wizardStep === 4 ? "active" : (wizardStep === "done" ? "done" : "")}`} data-dot="4">4</span>
+            </div>
+
+            {/* STEP 1: CATEGORY SELECTION & SCOPED FIELDS */}
+            {wizardStep === 1 && (
+              <div className="wizard-step active" data-step="1">
+                <h3>Select a category for your custom report:</h3>
+                <div className="wizard-options mb-8">
+                  {["Stocks", "Mutual Fund", "Insurance", "Credit Card", "Loan"].map(cat => (
+                    <button
+                      key={cat}
+                      type="button"
+                      className={`wizard-option ${wizardCategory === cat ? "selected" : ""}`}
+                      onClick={() => setWizardCategory(cat)}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="wizard-category-details">
+                  
+                  {/* Stocks Scoped Fields */}
+                  {wizardCategory === "Stocks" && (
+                    <div className="wizard-category-fields">
+                      <div className="wizard-field-grid">
+                        <div className="wizard-field">
+                          <label>Age</label>
+                          <input type="number" className="wizard-input-plain" placeholder="e.g. 28" value={wizardAnswers.stAge || ""} onChange={(e) => handleWizardOptionToggle("stAge", e.target.value)} />
+                        </div>
+                        <div className="wizard-field">
+                          <label>Monthly Savings (₹)</label>
+                          <input type="number" className="wizard-input-plain" placeholder="e.g. 20000" value={wizardAnswers.stMonthlySavings || ""} onChange={(e) => handleWizardOptionToggle("stMonthlySavings", e.target.value)} />
+                        </div>
+                        <div className="wizard-field">
+                          <label>Returns Expectation</label>
+                          <input type="text" className="wizard-input-plain" placeholder="e.g. 15% annually" value={wizardAnswers.stReturns || ""} onChange={(e) => handleWizardOptionToggle("stReturns", e.target.value)} />
+                        </div>
+                        <div className="wizard-field">
+                          <label>Investment Goal</label>
+                          <input type="text" className="wizard-input-plain" placeholder="e.g. Wealth creation" value={wizardAnswers.stGoal || ""} onChange={(e) => handleWizardOptionToggle("stGoal", e.target.value)} />
+                        </div>
+                      </div>
+                      <div className="wizard-field">
+                        <label>Risk Tolerance</label>
+                        <div className="wizard-options wizard-options-sm">
+                          {["Low", "Medium", "High"].map(risk => (
+                            <button
+                              key={risk}
+                              type="button"
+                              className={`wizard-option ${wizardAnswers.stRisk === risk ? "selected" : ""}`}
+                              onClick={() => handleWizardOptionToggle("stRisk", risk)}
+                            >
+                              {risk}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="wizard-field mt-4">
+                        <label>Investment Style</label>
+                        <input type="text" className="wizard-input-plain" placeholder="e.g. Swing trading, Value investing" value={wizardAnswers.stStyle || ""} onChange={(e) => handleWizardOptionToggle("stStyle", e.target.value)} />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Mutual Fund Scoped Fields */}
+                  {wizardCategory === "Mutual Fund" && (
+                    <div className="wizard-category-fields">
+                      <div className="wizard-field-grid">
+                        <div className="wizard-field">
+                          <label>Age</label>
+                          <input type="number" className="wizard-input-plain" placeholder="e.g. 32" value={wizardAnswers.mfAge || ""} onChange={(e) => handleWizardOptionToggle("mfAge", e.target.value)} />
+                        </div>
+                        <div className="wizard-field">
+                          <label>Occupation</label>
+                          <input type="text" className="wizard-input-plain" placeholder="e.g. IT Professional" value={wizardAnswers.mfOccupation || ""} onChange={(e) => handleWizardOptionToggle("mfOccupation", e.target.value)} />
+                        </div>
+                        <div className="wizard-field">
+                          <label>Monthly Savings (₹)</label>
+                          <input type="number" className="wizard-input-plain" placeholder="e.g. 15000" value={wizardAnswers.mfMonthlySavings || ""} onChange={(e) => handleWizardOptionToggle("mfMonthlySavings", e.target.value)} />
+                        </div>
+                        <div className="wizard-field">
+                          <label>Goal</label>
+                          <input type="text" className="wizard-input-plain" placeholder="e.g. Child education" value={wizardAnswers.mfGoal || ""} onChange={(e) => handleWizardOptionToggle("mfGoal", e.target.value)} />
+                        </div>
+                      </div>
+                      <div className="wizard-field">
+                        <label>Risk</label>
+                        <div className="wizard-options wizard-options-sm">
+                          {["Low", "Medium", "High"].map(risk => (
+                            <button
+                              key={risk}
+                              type="button"
+                              className={`wizard-option ${wizardAnswers.mfRisk === risk ? "selected" : ""}`}
+                              onClick={() => handleWizardOptionToggle("mfRisk", risk)}
+                            >
+                              {risk}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="wizard-field mt-4">
+                        <label>Investment Preference</label>
+                        <div className="wizard-options wizard-options-sm">
+                          {["Lump Sum", "SIP", "Lump Sum + SIP"].map(pref => (
+                            <button
+                              key={pref}
+                              type="button"
+                              className={`wizard-option ${wizardAnswers.mfPreference === pref ? "selected" : ""}`}
+                              onClick={() => handleWizardOptionToggle("mfPreference", pref)}
+                            >
+                              {pref}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Insurance Scoped Fields */}
+                  {wizardCategory === "Insurance" && (
+                    <div className="wizard-category-fields">
+                      <div className="wizard-field-grid">
+                        <div className="wizard-field">
+                          <label>Annual Income (₹)</label>
+                          <input type="number" className="wizard-input-plain" placeholder="e.g. 900000" value={wizardAnswers.insAnnualIncome || ""} onChange={(e) => handleWizardOptionToggle("insAnnualIncome", e.target.value)} />
+                        </div>
+                        <div className="wizard-field">
+                          <label>Monthly Savings (₹)</label>
+                          <input type="number" className="wizard-input-plain" placeholder="e.g. 15000" value={wizardAnswers.insMonthlySavings || ""} onChange={(e) => handleWizardOptionToggle("insMonthlySavings", e.target.value)} />
+                        </div>
+                        <div className="wizard-field">
+                          <label>Dependents</label>
+                          <input type="number" className="wizard-input-plain" placeholder="e.g. 3" value={wizardAnswers.insDependents || ""} onChange={(e) => handleWizardOptionToggle("insDependents", e.target.value)} />
+                        </div>
+                      </div>
+                      <div className="wizard-field">
+                        <label>Marital Status</label>
+                        <div className="wizard-options wizard-options-sm">
+                          {["Single", "Married"].map(status => (
+                            <button
+                              key={status}
+                              type="button"
+                              className={`wizard-option ${wizardAnswers.insMarital === status ? "selected" : ""}`}
+                              onClick={() => handleWizardOptionToggle("insMarital", status)}
+                            >
+                              {status}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="wizard-field mt-4">
+                        <label>Do you currently have insurance? (Select multiple)</label>
+                        <div className="wizard-options wizard-options-sm">
+                          {Object.keys(insuranceCoverMap).map(cover => (
+                            <button
+                              key={cover}
+                              type="button"
+                              className={`wizard-option ${wizardAnswers.insExisting?.includes(cover) ? "selected" : ""}`}
+                              onClick={() => handleWizardOptionToggle("insExisting", cover, true)}
+                            >
+                              {cover}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Cover Details dynamically generated */}
+                      {wizardAnswers.insExisting?.length > 0 && (
+                        <div className="wizard-subsection">
+                          <h4 className="wizard-subheading">Active Cover Details</h4>
+                          <div className="wizard-field-grid">
+                            {wizardAnswers.insExisting.map((c: string) => {
+                              const details = insuranceCoverMap[c];
+                              if (!details) return null;
+                              return (
+                                <div className="wizard-field" key={c}>
+                                  <label>{details.label}</label>
+                                  <input
+                                    type="number"
+                                    className="wizard-input-plain"
+                                    placeholder={details.placeholder}
+                                    value={wizardAnswers.insuranceCovers?.[c] || ""}
+                                    onChange={(e) => handleInsuranceCoverInput(c, e.target.value)}
+                                  />
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="wizard-field mt-4">
+                        <label>Loans and Liabilities</label>
+                        <textarea className="wizard-textarea" rows={3} placeholder="e.g. Home loan ₹15L, Credit card outstanding ₹30k" value={wizardAnswers.insLoansLiabilities || ""} onChange={(e) => handleWizardOptionToggle("insLoansLiabilities", e.target.value)} />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Credit Card Scoped Fields */}
+                  {wizardCategory === "Credit Card" && (
+                    <div className="wizard-category-fields">
+                      <div className="wizard-field-grid">
+                        <div className="wizard-field">
+                          <label>Age</label>
+                          <input type="number" className="wizard-input-plain" placeholder="e.g. 27" value={wizardAnswers.ccAge || ""} onChange={(e) => handleWizardOptionToggle("ccAge", e.target.value)} />
+                        </div>
+                        <div className="wizard-field">
+                          <label>Monthly Spending (₹)</label>
+                          <input type="number" className="wizard-input-plain" placeholder="e.g. 35000" value={wizardAnswers.ccMonthlySpending || ""} onChange={(e) => handleWizardOptionToggle("ccMonthlySpending", e.target.value)} />
+                        </div>
+                        <div className="wizard-field">
+                          <label>Occupation</label>
+                          <input type="text" className="wizard-input-plain" placeholder="e.g. Salaried" value={wizardAnswers.ccOccupation || ""} onChange={(e) => handleWizardOptionToggle("ccOccupation", e.target.value)} />
+                        </div>
+                      </div>
+                      <div className="wizard-field">
+                        <label>Where does your major spending go?</label>
+                        <div className="wizard-options wizard-options-sm">
+                          {["Groceries", "Dining / Food Delivery", "Online Shopping", "Fuel", "Travel", "Hotels", "Entertainment", "Utilities / Bills"].map(cat => (
+                            <button
+                              key={cat}
+                              type="button"
+                              className={`wizard-option ${wizardAnswers.ccSpending?.includes(cat) ? "selected" : ""}`}
+                              onClick={() => handleWizardOptionToggle("ccSpending", cat, true)}
+                            >
+                              {cat}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Travel Behaviour Sub-section (Dynamic) */}
+                      {(wizardAnswers.ccSpending?.includes("Travel") || wizardAnswers.ccSpending?.includes("Hotels")) && (
+                        <div className="wizard-subsection">
+                          <h4 className="wizard-subheading">Travel Behaviour</h4>
+                          <div className="wizard-field">
+                            <label>How often do you fly?</label>
+                            <div className="wizard-options wizard-options-sm">
+                              {["Never", "1–2/year", "3–5/year", "6–10/year", "10+/year"].map(fly => (
+                                <button
+                                  key={fly}
+                                  type="button"
+                                  className={`wizard-option ${wizardAnswers.ccFlyFrequency === fly ? "selected" : ""}`}
+                                  onClick={() => handleWizardOptionToggle("ccFlyFrequency", fly)}
+                                >
+                                  {fly}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                          <div className="wizard-field mt-4">
+                            <label>Where do you usually travel?</label>
+                            <div className="wizard-options wizard-options-sm">
+                              {["Domestic", "International", "Both"].map(type => (
+                                <button
+                                  key={type}
+                                  type="button"
+                                  className={`wizard-option ${wizardAnswers.ccTravelType === type ? "selected" : ""}`}
+                                  onClick={() => handleWizardOptionToggle("ccTravelType", type)}
+                                >
+                                  {type}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                          <div className="wizard-field mt-4">
+                            <label>How important is airport lounge access? (1=None, 5=Essential)</label>
+                            <div className="wizard-slider-row">
+                              <span className="wizard-slider-label">Not Important</span>
+                              <input type="range" className="wizard-slider" min="1" max="5" step="1" value={wizardAnswers.ccLoungeImportance} onChange={(e) => handleWizardOptionToggle("ccLoungeImportance", e.target.value)} />
+                              <span className="wizard-slider-label">Essential</span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="wizard-field mt-4">
+                        <label>How much annual fee are you comfortable paying?</label>
+                        <div className="wizard-options-stack">
+                          {["₹0 — Lifetime-free preferred", "Up to ₹500 — Basic benefits", "₹500–₹2,000 — Better rewards", "₹2,000–₹5,000 — Premium benefits"].map(fee => (
+                            <button
+                              key={fee}
+                              type="button"
+                              className={`wizard-option wizard-option-stack ${wizardAnswers.ccFee === fee ? "selected" : ""}`}
+                              onClick={() => handleWizardOptionToggle("ccFee", fee)}
+                            >
+                              <span className="wizard-option-title">{fee.split(" — ")[0]}</span>
+                              <span className="wizard-option-sub">{fee.split(" — ")[1]}</span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Loan Scoped Fields */}
+                  {wizardCategory === "Loan" && (
+                    <div className="wizard-category-fields">
+                      <h4 className="wizard-subheading" style={{ marginTop: 0 }}>What do you need the loan for?</h4>
+                      <div className="wizard-visual-cards">
+                        {["Home Purchase", "Car / Vehicle", "Education", "Business", "Personal Expenses", "Medical Emergency", "Home Renovation"].map(purpose => (
+                          <button
+                            key={purpose}
+                            type="button"
+                            className={`wizard-option ${wizardAnswers.loanPurpose === purpose ? "selected" : ""}`}
+                            onClick={() => handleWizardOptionToggle("loanPurpose", purpose)}
+                          >
+                            {purpose}
+                          </button>
+                        ))}
+                      </div>
+
+                      <div className="wizard-subsection">
+                        <h4 className="wizard-subheading">Financial Profile & Requirements</h4>
+                        <div className="wizard-field">
+                          <label>What&apos;s your age? ({wizardAnswers.loanAge})</label>
+                          <div className="wizard-slider-row">
+                            <span className="wizard-slider-label">18</span>
+                            <input type="range" className="wizard-slider" min="18" max="70" step="1" value={wizardAnswers.loanAge} onChange={(e) => handleWizardOptionToggle("loanAge", e.target.value)} />
+                            <span className="wizard-slider-label">70+</span>
+                          </div>
+                        </div>
+
+                        <div className="wizard-field mt-4">
+                          <label>Employment Type</label>
+                          <div className="wizard-options wizard-options-sm">
+                            {["Salaried", "Self-employed", "Business", "Professional"].map(emp => (
+                              <button
+                                key={emp}
+                                type="button"
+                                className={`wizard-option ${wizardAnswers.loanEmployment === emp ? "selected" : ""}`}
+                                onClick={() => handleWizardOptionToggle("loanEmployment", emp)}
+                              >
+                                {emp}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="wizard-field mt-4">
+                          <label>Monthly Take-home Income (₹)</label>
+                          <input type="number" className="wizard-input-plain" placeholder="e.g. 60000" value={wizardAnswers.loanMonthlyIncome || ""} onChange={(e) => handleWizardOptionToggle("loanMonthlyIncome", e.target.value)} />
+                        </div>
+
+                        <div className="wizard-field mt-4">
+                          <label>Stability of Income</label>
+                          <div className="wizard-options wizard-options-sm">
+                            {["Stable", "Somewhat variable", "Highly variable"].map(stab => (
+                              <button
+                                key={stab}
+                                type="button"
+                                className={`wizard-option ${wizardAnswers.loanIncomeStability === stab ? "selected" : ""}`}
+                                onClick={() => handleWizardOptionToggle("loanIncomeStability", stab)}
+                              >
+                                {stab}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="wizard-field mt-4">
+                          <label>How much do you want to borrow? (₹{Number(wizardAnswers.loanAmount).toLocaleString()})</label>
+                          <div className="wizard-slider-row">
+                            <span className="wizard-slider-label">₹50K</span>
+                            <input type="range" className="wizard-slider" min="50000" max="10000000" step="50000" value={wizardAnswers.loanAmount} onChange={(e) => handleWizardOptionToggle("loanAmount", e.target.value)} />
+                            <span className="wizard-slider-label">₹1Cr+</span>
+                          </div>
+                        </div>
+
+                        <div className="wizard-field mt-4">
+                          <label>Do you have collateral to offer?</label>
+                          <div className="wizard-options wizard-options-sm">
+                            {["Yes", "No"].map(col => (
+                              <button
+                                key={col}
+                                type="button"
+                                className={`wizard-option ${wizardAnswers.loanHasCollateral === col ? "selected" : ""}`}
+                                onClick={() => handleWizardOptionToggle("loanHasCollateral", col)}
+                              >
+                                {col}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        {wizardAnswers.loanHasCollateral === "Yes" && (
+                          <div className="wizard-field mt-4">
+                            <label>Collateral Type</label>
+                            <div className="wizard-options wizard-options-sm">
+                              {["Property", "Vehicle", "Fixed Deposit", "Gold"].map(type => (
+                                <button
+                                  key={type}
+                                  type="button"
+                                  className={`wizard-option ${wizardAnswers.loanCollateralType === type ? "selected" : ""}`}
+                                  onClick={() => handleWizardOptionToggle("loanCollateralType", type)}
+                                >
+                                  {type}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                </div>
+
+                <div className="wizard-nav flex justify-end">
+                  <button
+                    type="button"
+                    className="wizard-btn primary"
+                    disabled={!wizardCategory}
+                    onClick={() => setWizardStep(2)}
+                  >
+                    Next →
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* STEP 2: CAPITAL AMOUNT */}
+            {wizardStep === 2 && (
+              <div className="wizard-step active" data-step="2">
+                <h3>What amount of capital do you intend to invest/borrow?</h3>
+                <div className="wizard-input-row" style={{ border: '1px solid #111411' }}>
+                  <span className="wizard-input-prefix">₹</span>
+                  <input
+                    type="number"
+                    className="wizard-input"
+                    placeholder="e.g. 50000"
+                    value={wizardAnswers.capital || ""}
+                    onChange={(e) => handleWizardOptionToggle("capital", e.target.value)}
+                  />
+                </div>
+                <div className="wizard-nav">
+                  <button type="button" className="wizard-btn" onClick={() => setWizardStep(1)}>← Back</button>
+                  <button type="button" className="wizard-btn primary" onClick={() => setWizardStep(3)}>Next →</button>
+                </div>
+              </div>
+            )}
+
+            {/* STEP 3: OPEN REQUIREMENTS */}
+            {wizardStep === 3 && (
+              <div className="wizard-step active" data-step="3">
+                <h3>Give specific details about your requirements</h3>
+                <textarea
+                  className="wizard-textarea"
+                  rows={5}
+                  placeholder="Tell us anything specific you'd like this report to cover..."
+                  value={wizardAnswers.details || ""}
+                  onChange={(e) => handleWizardOptionToggle("details", e.target.value)}
+                />
+                <div className="wizard-nav">
+                  <button type="button" className="wizard-btn" onClick={() => setWizardStep(2)}>← Back</button>
+                  <button type="button" className="wizard-btn primary" onClick={() => setWizardStep(4)}>Next →</button>
+                </div>
+              </div>
+            )}
+
+            {/* STEP 4: CONTACT DETAILS */}
+            {wizardStep === 4 && (
+              <div className="wizard-step active" data-step="4">
+                <h3>Give your details, we will get back to you ASAP</h3>
+                <div className="wizard-field">
+                  <label>Name</label>
+                  <input
+                    type="text"
+                    className="wizard-input-plain"
+                    placeholder="Your full name"
+                    value={wizardAnswers.name || ""}
+                    onChange={(e) => handleWizardOptionToggle("name", e.target.value)}
+                  />
+                </div>
+                <div className="wizard-field">
+                  <label>Gmail</label>
+                  <input
+                    type="email"
+                    className="wizard-input-plain"
+                    placeholder="you@gmail.com"
+                    value={wizardAnswers.email || ""}
+                    onChange={(e) => handleWizardOptionToggle("email", e.target.value)}
+                  />
+                </div>
+                <div className="wizard-field">
+                  <label>Mobile no.</label>
+                  <input
+                    type="tel"
+                    className="wizard-input-plain"
+                    placeholder="10-digit WhatsApp mobile number"
+                    maxLength={10}
+                    value={wizardAnswers.mobile || ""}
+                    onChange={(e) => handleWizardOptionToggle("mobile", e.target.value)}
+                  />
+                </div>
+
+                {wizardMessage && (
+                  <div className="p-3 mb-4 rounded-xl border border-[#C4432B] text-sm text-[#C4432B] bg-[#fdeceb] font-bold">
+                    {wizardMessage}
+                  </div>
+                )}
+
+                <div className="wizard-nav">
+                  <button type="button" className="wizard-btn" onClick={() => setWizardStep(3)}>← Back</button>
+                  <button
+                    type="button"
+                    className="wizard-btn primary"
+                    disabled={wizardLoading}
+                    onClick={handleWizardSubmit}
+                  >
+                    {wizardLoading ? "Submitting..." : "Submit request"}
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* SUCCESS PANEL */}
+            {wizardStep === "done" && (
+              <div className="wizard-step wizard-success active" data-step="done">
+                <h3>Thanks — your custom report request is in!</h3>
+                <p>We are processing your details and will send your customized report on your WhatsApp number shortly.</p>
+                <button
+                  type="button"
+                  className="wizard-btn"
+                  onClick={() => {
+                    setWizardStep(1);
+                    setWizardAnswers({
+                      ...wizardAnswers,
+                      capital: "",
+                      details: "",
+                      name: "",
+                      email: "",
+                      mobile: ""
+                    });
+                  }}
+                >
+                  Start another request
+                </button>
+              </div>
+            )}
+
+          </div>
+        </div>
+      </section>
+
+      {/* ================= SECTION 4: REPORTS TABLE ================= */}
+      <section className="section reports-table-section" id="table" style={{ borderTop: '1px solid rgba(17,20,17,0.1)' }}>
+        <div className="wrap">
+          <div className="section-head">
+            <div>
+              <h2>Research Reports Database</h2>
+              <p>Explore full institutional-grade analysis from our research desk.</p>
+            </div>
+          </div>
+
+          <div className="filter-tabs">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => handleTabChange(tab.id)}
-                className={`px-4 py-2 border border-black rounded-xl text-sm font-bold uppercase tracking-wider transition-all whitespace-nowrap ${
-                  activeTab === tab.id
-                    ? "bg-[#1FA463] text-white shadow-sm"
-                    : "bg-white text-gray-700 hover:bg-gray-50 shadow-sm hover:shadow-sm hover:-translate-y-0.5"
-                }`}
+                type="button"
+                className={`filter-tab ${reportsFilter === (tab.id === 'all' ? 'all' : tab.id) ? "active" : ""}`}
+                onClick={() => setReportsFilter(tab.id === 'all' ? 'all' : tab.id)}
               >
                 {tab.label}
               </button>
             ))}
           </div>
+
+          {/* REPORTS ROW LIST */}
+          <div className="reports-table">
+            <div className="reports-table-head">
+              <div>Report Info</div>
+              <div>Stock</div>
+              <div>Author</div>
+              <div>Date</div>
+              <div>Rating</div>
+              <div style={{ textAlign: "center" }}>Action</div>
+            </div>
+
+            {filteredDbReports.length === 0 ? (
+              <div className="p-12 text-center text-gray-500 font-bold bg-[#FFFFFF]">
+                No reports found matching your selection.
+              </div>
+            ) : (
+              filteredDbReports.map((report) => (
+                <div className="reports-row" key={report.id} onClick={() => { if (report.pdfUrl) window.open(report.pdfUrl, '_blank', 'noopener,noreferrer'); }}>
+                  <div className="col-info">
+                    <div className="row-title">{report.title}</div>
+                    <div className="row-tags">
+                      {(report.tags || []).map((t, idx) => (
+                        <span className="row-tag" key={idx}>{t}</span>
+                      ))}
+                      {report.reportType && <span className="row-tag">{report.reportType}</span>}
+                    </div>
+                  </div>
+
+                  <div className="col-stock">
+                    <span className="stock-main">{report.stock || "N/A"}</span>
+                    {report.company && <span className="stock-sub">{report.company}</span>}
+                  </div>
+
+                  <div className="col-author">
+                    <span className="author-avatar">
+                      <FaUser />
+                    </span>
+                    <div>
+                      <div className="author-name">{report.author || "Fiscal Forum"}</div>
+                      <div className="author-sub">{report.authorFirm || "Research Desk"}</div>
+                    </div>
+                  </div>
+
+                  <div className="col-date">
+                    <FaCalendarAlt style={{ opacity: 0.6 }} />
+                    {formatDate(report.publishDate)}
+                  </div>
+
+                  <div className="col-rating">
+                    <span className={`rating-pill ${getRatingClass(report.rating)}`}>
+                      {report.rating || "HOLD"}
+                    </span>
+                  </div>
+
+                  <div className="col-action" onClick={(e) => e.stopPropagation()}>
+                    <button className="view-report-btn" onClick={() => { if (report.pdfUrl) window.open(report.pdfUrl, '_blank', 'noopener,noreferrer'); }}>
+                      View Report
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+      </section>
+      {/* ================= SECTION 6B: NSE EQUITY SCREENER ================= */}
+      <section className="section screener-embed-section" id="equity-screener" style={{ borderTop: '1px solid rgba(17,20,17,0.1)' }}>
+        <div className="wrap" style={{ paddingBottom: '0' }}>
+          <div className="section-head" style={{ marginBottom: '10px' }}>
+            <div>
+              <h2>NSE Equity Screener</h2>
+              <p>Search, filter and rank every live NSE-listed equity by valuation, profitability, market-cap tier and index membership — right on this page.</p>
+            </div>
+          </div>
         </div>
 
-        {/* REPORTS TABLE */}
-        <section id="table" className="space-y-6">
-          {/* EMPTY STATE */}
-          {!loading && !error && currentReports.length === 0 && (
-            <div className="bg-white rounded-2xl border border-black p-10 text-center shadow-md">
-              <div className="w-16 h-16 bg-gray-100 rounded-full border border-black flex items-center justify-center mx-auto mb-4">
-                <FaFilePdf className="text-black text-2xl" />
+        <div id="screener-app">
+          <div className="grain"></div>
+          <main>
+            
+            <div className="view-tabs">
+              <div className="view-tabs-btns">
+                <button className={`nav-btn ${screenerTab === 'screener' ? 'active' : ''}`} onClick={() => setScreenerTab('screener')}>
+                  Screener
+                </button>
+                <button className={`nav-btn ${screenerTab === 'watchlist' ? 'active' : ''}`} onClick={() => setScreenerTab('watchlist')}>
+                  Watchlist <span className="count-pill">{watchlist.size}</span>
+                </button>
+                <button className={`nav-btn ${screenerTab === 'about' ? 'active' : ''}`} onClick={() => setScreenerTab('about')}>
+                  About the data
+                </button>
               </div>
-              <h3 className="text-lg font-bold uppercase text-black">
-                No Reports Found
-              </h3>
-              <p className="text-sm text-gray-600 font-medium mt-1">
-                Try adjusting your filters or search.
-              </p>
             </div>
-          )}
 
-          {/* MOBILE CARD VIEW */}
-          {!loading && !error && currentReports.length > 0 && (
-            <div className="md:hidden grid gap-4">
-              {currentReports.map((report) => (
-                <div
-                  key={report.id}
-                  className="bg-white border border-black rounded-2xl p-5 shadow-sm"
-                >
-                  <h3 className="font-bold text-black text-base leading-snug">
-                    {report.title ?? "Untitled"}
-                  </h3>
-
-                  <div className="flex flex-wrap gap-2 mt-3">
-                    <span className="px-2 py-1 border border-black rounded text-[10px] font-bold bg-emerald-50 text-black">
-                      {report.reportType ?? "N/A"}
-                    </span>
-                    <span className="px-2 py-1 border border-black rounded text-[10px] font-bold bg-teal-50 text-black">
-                      {report.sector ?? "N/A"}
-                    </span>
+            {/* SCREENER TABLE VIEW */}
+            {screenerTab === "screener" && (
+              <section className="view active">
+                <div className="control-deck" style={{ border: '1px solid #111411' }}>
+                  
+                  <div className="search-row">
+                    <input
+                      type="text"
+                      placeholder="Search symbol, company name or ISIN…"
+                      value={screenerSearch}
+                      onChange={(e) => {
+                        setScreenerSearch(e.target.value);
+                        setScreenerPage(1);
+                      }}
+                      style={{ border: '1px solid rgba(17,20,17,0.4)' }}
+                    />
+                    <select
+                      value={screenerSort}
+                      onChange={(e) => setScreenerSort(e.target.value)}
+                      style={{ border: '1px solid rgba(17,20,17,0.4)' }}
+                    >
+                      <option value="name-asc">Name A→Z</option>
+                      <option value="name-desc">Name Z→A</option>
+                      <option value="sym-asc">Symbol A→Z</option>
+                      <option value="listyear-desc">Newest listing</option>
+                      <option value="listyear-asc">Oldest listing</option>
+                      <option value="pe-asc">P/E low→high</option>
+                      <option value="pe-desc">P/E high→low</option>
+                      <option value="roe-desc">ROE% high→low</option>
+                      <option value="roce-desc">ROCE% high→low</option>
+                      <option value="mcap-desc">Market Cap high→low</option>
+                      <option value="mcap-asc">Market Cap low→high</option>
+                    </select>
                   </div>
 
-                  <div className="mt-3 text-xs text-gray-700 font-semibold">
-                    <strong className="text-[#1FA463]">
-                      {report.stock ?? "N/A"}
-                    </strong>{" "}
-                    · {report.company ?? "N/A"}
-                  </div>
+                  <div className="filter-groups">
+                    {/* Cap Tier Filter */}
+                    <details className="filter-group filter-dropdown" open>
+                      <summary className="fg-label">
+                        Market cap tier
+                        <span className="fg-caret"><FaChevronDown className="w-3 h-3 inline" /></span>
+                      </summary>
+                      <div className="chip-row">
+                        {["Large Cap", "Mid Cap", "Small Cap", "Micro Cap"].map(tier => (
+                          <button
+                            key={tier}
+                            type="button"
+                            className={`chip ${screenerTierFilter.has(tier) ? "active" : ""}`}
+                            onClick={() => toggleScreenerChip('tier', tier)}
+                          >
+                            {tier}
+                          </button>
+                        ))}
+                      </div>
+                    </details>
 
-                  <div className="flex items-center justify-between mt-4 pt-3 border-t border-black">
-                    <span
-                      className={`px-2.5 py-0.5 rounded border border-black text-xs font-bold ${getRatingColor(
-                        report.rating
-                      )}`}
-                    >
-                      {report.rating ?? "N/A"}
-                    </span>
+                    {/* Mcap Slots */}
+                    <details className="filter-group filter-dropdown">
+                      <summary className="fg-label">
+                        Market capitalization (Cr)
+                        <span className="fg-caret"><FaChevronDown className="w-3 h-3 inline" /></span>
+                      </summary>
+                      <div className="chip-row">
+                        {[
+                          { val: "0-50", label: "Under 50" },
+                          { val: "50-100", label: "50 - 100" },
+                          { val: "100-500", label: "100 - 500" },
+                          { val: "500-1000", label: "500 - 1,000" },
+                          { val: "1000-2000", label: "1,000 - 2,000" },
+                          { val: "2000-5000", label: "2,000 - 5,000" },
+                          { val: "5000-10000", label: "5,000 - 10,000" },
+                          { val: "10000-25000", label: "10,000 - 25,000" },
+                          { val: "25000-50000", label: "25,000 - 50,000" },
+                          { val: "50000-inf", label: "Above 50,000" }
+                        ].map(slot => (
+                          <button
+                            key={slot.val}
+                            type="button"
+                            className={`chip ${screenerMcapFilter.has(slot.val) ? "active" : ""}`}
+                            onClick={() => toggleScreenerChip('mcapSlot', slot.val)}
+                          >
+                            {slot.label}
+                          </button>
+                        ))}
+                      </div>
+                    </details>
 
-                    <Link
-                      href={report.pdfUrl || "#"}
-                      className="inline-flex items-center gap-1 bg-[#1FA463] text-white border border-black px-3 py-1.5 rounded-xl text-xs font-bold shadow-sm hover:bg-[#15824D] "
-                    >
-                      <span>View PDF</span>
-                      <FaFilePdf className="w-3.5 h-3.5" />
-                    </Link>
+                    {/* OPM Slots */}
+                    <details className="filter-group filter-dropdown">
+                      <summary className="fg-label">
+                        Quarterly OPM %
+                        <span className="fg-caret"><FaChevronDown className="w-3 h-3 inline" /></span>
+                      </summary>
+                      <div className="chip-row">
+                        {[
+                          { val: "-inf-0", label: "Negative" },
+                          { val: "0-5", label: "0% - 5%" },
+                          { val: "5-10", label: "5% - 10%" },
+                          { val: "10-15", label: "10% - 15%" },
+                          { val: "15-20", label: "15% - 20%" },
+                          { val: "20-25", label: "20% - 25%" },
+                          { val: "25-30", label: "25% - 30%" },
+                          { val: "30-40", label: "30% - 40%" },
+                          { val: "40-50", label: "40% - 50%" },
+                          { val: "50-inf", label: "Above 50%" }
+                        ].map(slot => (
+                          <button
+                            key={slot.val}
+                            type="button"
+                            className={`chip ${screenerOpmFilter.has(slot.val) ? "active" : ""}`}
+                            onClick={() => toggleScreenerChip('opmSlot', slot.val)}
+                          >
+                            {slot.label}
+                          </button>
+                        ))}
+                      </div>
+                    </details>
+
+                    {/* Broad Market Indices */}
+                    <details className="filter-group filter-dropdown">
+                      <summary className="fg-label">
+                        Broad market indices
+                        <span className="fg-caret"><FaChevronDown className="w-3 h-3 inline" /></span>
+                      </summary>
+                      <div className="chip-row">
+                        {["NIFTY50", "NIFTYNEXT50", "SENSEX30"].map(idx => (
+                          <button
+                            key={idx}
+                            type="button"
+                            className={`chip ${screenerIndexFilter.has(idx) ? "active" : ""}`}
+                            onClick={() => toggleScreenerChip('index', idx)}
+                          >
+                            {idx.replace("NIFTY", "NIFTY ")}
+                          </button>
+                        ))}
+                      </div>
+                    </details>
+
+                    {/* Sectoral Indices */}
+                    <details className="filter-group filter-dropdown">
+                      <summary className="fg-label">
+                        Sectoral indices
+                        <span className="fg-caret"><FaChevronDown className="w-3 h-3 inline" /></span>
+                      </summary>
+                      <div className="chip-row">
+                        {[
+                          { val: "NIFTYBANK", label: "NIFTY BANK" },
+                          { val: "NIFTYFINANCE", label: "NIFTY FINANCIAL SERVICES" },
+                          { val: "NIFTYNBFC", label: "NIFTY NBFC" },
+                          { val: "NIFTYIT", label: "NIFTY IT" },
+                          { val: "NIFTYPHARMA", label: "NIFTY PHARMA" },
+                          { val: "NIFTYHEALTHCARE", label: "NIFTY HEALTHCARE" },
+                          { val: "NIFTYFMCG", label: "NIFTY FMCG" },
+                          { val: "NIFTYAUTO", label: "NIFTY AUTO" },
+                          { val: "NIFTYMETAL", label: "NIFTY METAL" },
+                          { val: "NIFTYENERGY", label: "NIFTY ENERGY" },
+                          { val: "NIFTYOILGAS", label: "NIFTY OIL & GAS" },
+                          { val: "NIFTYPOWER", label: "NIFTY POWER" },
+                          { val: "NIFTYREALTY", label: "NIFTY REALTY" },
+                          { val: "NIFTYTELECOM", label: "NIFTY TELECOM" },
+                          { val: "NIFTYCHEMICALS", label: "NIFTY CHEMICALS" },
+                          { val: "NIFTYCEMENT", label: "NIFTY CEMENT" },
+                          { val: "NIFTYCAPGOODS", label: "NIFTY CAPITAL GOODS" }
+                        ].map(sector => (
+                          <button
+                            key={sector.val}
+                            type="button"
+                            className={`chip ${screenerIndexFilter.has(sector.val) ? "active" : ""}`}
+                            onClick={() => toggleScreenerChip('index', sector.val)}
+                          >
+                            {sector.label}
+                          </button>
+                        ))}
+                      </div>
+                    </details>
+
+                    {showScreenerIndexWarn && (
+                      <div className="index-warning">
+                        ⚠ You cannot select Nifty Indices alongside SENSEX-30
+                      </div>
+                    )}
+
+                    {/* Numeric Range Inputs */}
+                    <div className="filter-group">
+                      <span className="fg-label">Ratio Filters <span className="fg-hint">(Leave blank for no limit)</span></span>
+                      <div className="only-data-toggle">
+                        <input
+                          type="checkbox"
+                          id="onlyWithDataCheckbox"
+                          checked={onlyWithData}
+                          onChange={(e) => {
+                            setOnlyWithData(e.target.checked);
+                            setScreenerPage(1);
+                          }}
+                        />
+                        <label htmlFor="onlyWithDataCheckbox">Only show stocks with ratio data available</label>
+                      </div>
+
+                      <div className="range-filters">
+                        <div className="range-field">
+                          <label>P/E Ratio</label>
+                          <div className="range-inputs">
+                            <input type="number" placeholder="Min" value={peMin} onChange={(e) => { setPeMin(e.target.value); setScreenerPage(1); }} />
+                            <span>to</span>
+                            <input type="number" placeholder="Max" value={peMax} onChange={(e) => { setPeMax(e.target.value); setScreenerPage(1); }} />
+                          </div>
+                        </div>
+
+                        <div className="range-field">
+                          <label>ROE (%)</label>
+                          <div className="range-inputs">
+                            <input type="number" placeholder="Min" value={roeMin} onChange={(e) => { setRoeMin(e.target.value); setScreenerPage(1); }} />
+                            <span>to</span>
+                            <input type="number" placeholder="Max" value={roeMax} onChange={(e) => { setRoeMax(e.target.value); setScreenerPage(1); }} />
+                          </div>
+                        </div>
+
+                        <div className="range-field">
+                          <label>ROCE (%)</label>
+                          <div className="range-inputs">
+                            <input type="number" placeholder="Min" value={roceMin} onChange={(e) => { setRoceMin(e.target.value); setScreenerPage(1); }} />
+                            <span>to</span>
+                            <input type="number" placeholder="Max" value={roceMax} onChange={(e) => { setRoceMax(e.target.value); setScreenerPage(1); }} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <button type="button" className="clear-btn" onClick={clearAllScreenerFilters}>
+                      Clear all filters ✕
+                    </button>
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
 
-          {/* DESKTOP TABLE VIEW */}
-          {!loading && !error && currentReports.length > 0 && (
-            <div className="hidden md:block bg-white rounded-2xl border border-black shadow-md overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead className="bg-emerald-50 border-b border-black">
-                    <tr>
-                      <th className="px-4 py-3 text-left text-xs font-bold uppercase text-black tracking-wider">
-                        Report Info
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-bold uppercase text-black tracking-wider">
-                        Stock
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-bold uppercase text-black tracking-wider">
-                        Author
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-bold uppercase text-black tracking-wider">
-                        Date
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-bold uppercase text-black tracking-wider">
-                        Rating
-                      </th>
-                      <th className="px-4 py-3 text-center text-xs font-bold uppercase text-black tracking-wider">
-                        Action
-                      </th>
-                    </tr>
-                  </thead>
+                <div className="screener-callout" style={{ border: '1px solid #111411' }}>
+                  CLICK ON THE EQUITIES TO KNOW MORE …
+                </div>
 
-                  <tbody className="divide-y divide-black/10">
-                    {currentReports.map((report) => (
-                      <tr
-                        key={report.id}
-                        className="hover:bg-emerald-50/20 transition-colors"
-                      >
-                        {/* Report */}
-                        <td className="px-4 py-4 align-middle">
-                          <div className="space-y-2">
-                            <div className="font-bold text-black text-base">
-                              {report.title ?? "Untitled"}
-                            </div>
-                            <div className="flex gap-2">
-                              <span className="px-2 py-0.5 text-[10px] font-bold bg-emerald-50 border border-black rounded">
-                                {report.reportType ?? "N/A"}
-                              </span>
-                              <span className="px-2 py-0.5 text-[10px] font-bold bg-teal-50 border border-black rounded">
-                                {report.sector ?? "N/A"}
-                              </span>
-                            </div>
-                          </div>
-                        </td>
+                <div className="result-bar">
+                  <span>{filteredStocks.length.toLocaleString()} stocks matched</span>
+                  <span className="result-bar-note">Click a row for full detail. Star to add to watchlist.</span>
+                </div>
 
-                        {/* Stock */}
-                        <td className="px-4 py-4 align-middle">
-                          <div className="font-bold text-black text-base">
-                            {report.stock ?? "N/A"}
-                          </div>
-                          <div className="text-xs text-gray-600 font-semibold">
-                            {report.company ?? "N/A"}
-                          </div>
-                        </td>
-
-                        {/* Author */}
-                        <td className="px-4 py-4 align-middle">
-                          <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 bg-emerald-100 border border-black rounded-lg flex items-center justify-center">
-                              <FaUser className="text-black text-xs" />
-                            </div>
-                            <div>
-                              <div className="text-xs font-bold text-black">
-                                {report.author ?? "Fiscal Forum"}
-                              </div>
-                              <div className="text-[11px] text-gray-500 font-semibold">
-                                {report.authorFirm ?? "Fiscal Forum"}
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-
-                        {/* Date */}
-                        <td className="px-4 py-4 align-middle text-xs text-gray-700 font-bold whitespace-nowrap">
-                          <FaCalendarAlt className="inline mr-1.5 text-black/60" />
-                          {formatDate(report.publishDate)}
-                        </td>
-
-                        {/* Rating */}
-                        <td className="px-4 py-4 align-middle">
-                          <span
-                            className={`px-2.5 py-0.5 rounded border border-black text-xs font-bold ${getRatingColor(
-                              report.rating
-                            )}`}
-                          >
-                            {report.rating ?? "N/A"}
-                          </span>
-                        </td>
-
-                        {/* Action */}
-                        <td className="px-4 py-4 align-middle text-center">
-                          <Link
-                            href={report.pdfUrl || "#"}
-                            className="inline-flex bg-[#1FA463] text-white border border-black px-4 py-2 rounded-xl text-xs font-bold shadow-sm hover:bg-[#15824D] "
-                          >
-                            View Report
-                          </Link>
-                        </td>
+                <div className="table-wrap" style={{ border: '1px solid #111411' }}>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Symbol</th>
+                        <th>Company</th>
+                        <th>Tier</th>
+                        <th className="num-col">Market Cap (Cr)</th>
+                        <th className="num-col">P/E</th>
+                        <th className="num-col">ROE (%)</th>
+                        <th className="num-col">ROCE (%)</th>
+                        <th className="num-col">OPM (%)</th>
+                        <th className="date-col">Listed</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
-        </section>
-
-        {/* What's Inside Our Report Section */}
-        <section className="space-y-8">
-          <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
-            <h2 className="text-3xl md:text-4xl font-bold uppercase text-black leading-none">
-              What&apos;s Inside Our Report?
-            </h2>
-            <p className="text-base text-gray-600 font-medium">
-              Everything you need to stay ahead before the market opens, organized logically.
-            </p>
-          </div>
-
-          {/* Three Report Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Pre-Market Reports Card */}
-            <div className="bg-white border border-black rounded-3xl overflow-hidden shadow-md flex flex-col justify-between hover:-translate-y-0.5 transition-all">
-              <div className="p-6 space-y-4">
-                <div className="w-12 h-12 bg-emerald-100 border border-black rounded-xl flex items-center justify-center shadow-sm">
-                  <svg
-                    className="w-6 h-6 text-black"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold uppercase text-black">
-                  Pre-Market Reports
-                </h3>
-                <p className="text-gray-700 text-sm font-semibold leading-relaxed">
-                  Get ahead with early market insights and technical analysis delivered daily before trading begins.
-                </p>
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {["Global Markets", "Sector Analysis", "Fear & Greed Index"].map((tag, i) => (
-                    <span key={i} className="px-2 py-1 border border-black bg-gray-50 text-black text-xs font-bold rounded-lg shadow-sm">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div className="bg-emerald-50 border-t border-black px-6 py-3">
-                <p className="text-emerald-950 text-xs font-bold uppercase">
-                  Delivered daily at 8:00 AM
-                </p>
-              </div>
-            </div>
-
-            {/* Thematic Reports Card */}
-            <div className="bg-white border border-black rounded-3xl overflow-hidden shadow-md flex flex-col justify-between hover:-translate-y-0.5 transition-all">
-              <div className="p-6 space-y-4">
-                <div className="w-12 h-12 bg-blue-100 border border-black rounded-xl flex items-center justify-center shadow-sm">
-                  <svg
-                    className="w-6 h-6 text-black"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold uppercase text-black">
-                  Thematic Reports
-                </h3>
-                <p className="text-gray-700 text-sm font-semibold leading-relaxed">
-                  Deep-dive thematic research on emerging sectoral trends and mid/long term investment opportunities.
-                </p>
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {["Trend Analysis", "Sector Deep Dive", "Opportunity Spotting"].map((tag, i) => (
-                    <span key={i} className="px-2 py-1 border border-black bg-gray-50 text-black text-xs font-bold rounded-lg shadow-sm">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div className="bg-blue-50 border-t border-black px-6 py-3">
-                <p className="text-blue-950 text-xs font-bold uppercase">
-                  Weekly specialized insights
-                </p>
-              </div>
-            </div>
-
-            {/* Equity Reports Card */}
-            <div className="bg-white border border-black rounded-3xl overflow-hidden shadow-md flex flex-col justify-between hover:-translate-y-0.5 transition-all">
-              <div className="p-6 space-y-4">
-                <div className="w-12 h-12 bg-purple-100 border border-black rounded-xl flex items-center justify-center shadow-sm">
-                  <svg
-                    className="w-6 h-6 text-black"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold uppercase text-black">
-                  Equity Reports
-                </h3>
-                <p className="text-gray-700 text-sm font-semibold leading-relaxed">
-                  Detailed stock analysis reports featuring target prices, technical ratings, and corporate metrics.
-                </p>
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {["Stock Analysis", "Fundamental Research", "BUY / HOLD / SELL"].map((tag, i) => (
-                    <span key={i} className="px-2 py-1 border border-black bg-gray-50 text-black text-xs font-bold rounded-lg shadow-sm">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div className="bg-purple-50 border-t border-black px-6 py-3">
-                <p className="text-purple-950 text-xs font-bold uppercase">
-                  In-depth company analysis
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Global Markets and Snapshot Blocks */}
-          <div className="bg-gray-100/60 border border-black rounded-3xl p-6 md:p-8 space-y-8 shadow-md">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              
-              {/* Global Market Overview */}
-              <div className="bg-white border border-black p-6 rounded-2xl shadow-sm">
-                <h3 className="text-lg font-bold uppercase text-black mb-6 pb-2 border-b border-black">
-                  Global Market Coverage
-                </h3>
-                <div className="space-y-6">
-                  <div>
-                    <h4 className="text-xs font-bold uppercase text-gray-500 mb-3 flex items-center">
-                      <span className="w-2.5 h-2.5 bg-orange-400 border border-black rounded-full mr-2"></span>
-                      Asian Index
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {["Hang Seng", "Nikkei 225", "KOSPI", "ASX 200"].map((market, idx) => (
-                        <div
-                          key={idx}
-                          className="px-3 py-1.5 border border-black rounded-xl text-xs font-bold text-black bg-[#F4FBF7] shadow-sm"
-                        >
-                          {market}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className="text-xs font-bold uppercase text-gray-500 mb-3 flex items-center">
-                      <span className="w-2.5 h-2.5 bg-blue-400 border border-black rounded-full mr-2"></span>
-                      European Index
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {["DAX", "FTSE 100", "CAC 40"].map((market, idx) => (
-                        <div
-                          key={idx}
-                          className="px-3 py-1.5 border border-black rounded-xl text-xs font-bold text-black bg-blue-50/50 shadow-sm"
-                        >
-                          {market}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className="text-xs font-bold uppercase text-gray-500 mb-3 flex items-center">
-                      <span className="w-2.5 h-2.5 bg-emerald-400 border border-black rounded-full mr-2"></span>
-                      US Index
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {["Dow Jones", "Nasdaq", "S&P 500"].map((market, idx) => (
-                        <div
-                          key={idx}
-                          className="px-3 py-1.5 border border-black rounded-xl text-xs font-bold text-black bg-emerald-50/50 shadow-sm"
-                        >
-                          {market}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Market Snapshot */}
-              <div className="bg-white border border-black p-6 rounded-2xl shadow-sm">
-                <h3 className="text-lg font-bold uppercase text-black mb-6 pb-2 border-b border-black">
-                  Market Snapshot metrics
-                </h3>
-                <div className="space-y-3">
-                  {[
-                    { title: "Volume Shockers", color: "bg-blue-400" },
-                    { title: "52 Week High", color: "bg-purple-400" },
-                    { title: "Top Gainers", color: "bg-emerald-400" },
-                    { title: "Top Losers", color: "bg-red-400" },
-                    { title: "Long & Short Buildup", color: "bg-yellow-400" },
-                  ].map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center px-4 py-3 bg-gray-50 border border-black rounded-xl hover:border-black hover:bg-white hover:shadow-sm transition-all"
-                    >
-                      <div className={`w-3.5 h-3.5 ${item.color} border border-black rounded-full mr-3`} />
-                      <span className="text-sm font-bold text-black uppercase tracking-tight">
-                        {item.title}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Sectoral Indices Chart */}
-              <div className="bg-white border border-black p-6 rounded-2xl shadow-sm lg:col-span-2">
-                <h3 className="text-lg font-bold uppercase text-black mb-4">
-                  Sectoral Indices Live Chart
-                </h3>
-                <div className="bg-gray-50 border border-black rounded-2xl p-6">
-                  <div className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-4">
-                    1-Day Percentage Change
-                  </div>
-
-                  {sectorsLoading ? (
-                    <p className="text-sm text-gray-500 font-bold">
-                      Loading sector index data...
-                    </p>
-                  ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {sectorsData.map((sector, idx) => (
-                        <div
-                          key={idx}
-                          className="flex justify-between items-center bg-white border border-black hover:border-black p-3.5 rounded-xl shadow-none hover:shadow-sm transition-all"
-                        >
-                          <span className="text-sm font-bold text-black">
-                            {sector.name}
-                          </span>
-                          <span
-                            className={`text-sm font-bold px-2 py-0.5 rounded border border-black ${
-                              sector.change >= 0
-                                ? "bg-emerald-100 text-emerald-800"
-                                : "bg-red-100 text-red-800"
-                            }`}
-                          >
-                            {sector.percentageChange >= 0 ? "+" : ""}
-                            {sector.percentageChange.toFixed(2)}%
-                          </span>
-                        </div>
-                      ))}
+                    </thead>
+                    <tbody>
+                      {pageItems.map(s => {
+                        const isStarred = watchlist.has(s.sym);
+                        const tierBadgeClass = `tier-${s.tier?.split(" ")[0] || "Micro"}`;
+                        return (
+                          <tr key={s.sym} onClick={() => setScreenerSelectedStock(s)}>
+                            <td onClick={(e) => e.stopPropagation()}>
+                              <button className={`star-btn ${isStarred ? "active" : ""}`} onClick={() => toggleStar(s.sym)}>
+                                {isStarred ? "★" : "☆"}
+                              </button>
+                            </td>
+                            <td className="sym">
+                              <Link
+                                href={`https://www.screener.in/company/${encodeURIComponent(s.sym)}/`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="sym-link"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                {s.sym} ↗
+                              </Link>
+                            </td>
+                            <td className="name">{s.name}</td>
+                            <td>
+                              <span className={`tier-badge ${tierBadgeClass}`}>{s.tier}</span>
+                            </td>
+                            <td className="num">{s.mcap !== null && s.mcap !== undefined ? s.mcap.toLocaleString("en-IN") : "—"}</td>
+                            <td className="num">{s.pe !== null && s.pe !== undefined ? s.pe.toFixed(2) : "—"}</td>
+                            <td className="num">{s.roe !== null && s.roe !== undefined ? s.roe.toFixed(2) + "%" : "—"}</td>
+                            <td className="num">{s.roce !== null && s.roce !== undefined ? s.roce.toFixed(2) + "%" : "—"}</td>
+                            <td className="num">{s.opm !== null && s.opm !== undefined ? s.opm.toFixed(2) + "%" : "—"}</td>
+                            <td className="date">{s.listdt || "—"}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                  
+                  {filteredStocks.length === 0 && (
+                    <div className="empty-state">
+                      <p>No stocks match this combination of filters.</p>
+                      <button type="button" className="clear-btn" onClick={clearAllScreenerFilters} style={{ margin: "0 auto" }}>
+                        Clear filters
+                      </button>
                     </div>
                   )}
                 </div>
-              </div>
+
+                {screenerPageCount > 1 && (
+                  <div className="pager">
+                    <button className="page-btn" disabled={screenerPage === 1} onClick={() => setScreenerPage(screenerPage - 1)}>
+                      ← Prev
+                    </button>
+                    {[...Array(Math.min(5, screenerPageCount))].map((_, i) => {
+                      const start = Math.max(1, screenerPage - 2);
+                      const current = Math.min(screenerPageCount, start + i);
+                      if (current < 1 || current > screenerPageCount) return null;
+                      return (
+                        <button
+                          key={current}
+                          className={`page-btn ${screenerPage === current ? "active" : ""}`}
+                          onClick={() => setScreenerPage(current)}
+                        >
+                          {current}
+                        </button>
+                      );
+                    })}
+                    <button className="page-btn" disabled={screenerPage === screenerPageCount} onClick={() => setScreenerPage(screenerPage + 1)}>
+                      Next →
+                    </button>
+                  </div>
+                )}
+
+              </section>
+            )}
+
+            {/* WATCHLIST VIEW */}
+            {screenerTab === "watchlist" && (
+              <section className="view active">
+                <div className="result-bar">
+                  <span>Your watchlist ({watchlist.size} starred)</span>
+                  <span className="result-bar-note">Stored locally in this browser.</span>
+                </div>
+
+                <div className="table-wrap" style={{ border: '1px solid #111411' }}>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Symbol</th>
+                        <th>Company</th>
+                        <th>Tier</th>
+                        <th className="num-col">Market Cap (Cr)</th>
+                        <th className="num-col">P/E</th>
+                        <th className="num-col">ROE (%)</th>
+                        <th className="num-col">ROCE (%)</th>
+                        <th className="num-col">OPM (%)</th>
+                        <th className="date-col">Listed</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {watchlistStocks.map(s => {
+                        const tierBadgeClass = `tier-${s.tier?.split(" ")[0] || "Micro"}`;
+                        return (
+                          <tr key={s.sym} onClick={() => setScreenerSelectedStock(s)}>
+                            <td onClick={(e) => e.stopPropagation()}>
+                              <button className="star-btn active" onClick={() => toggleStar(s.sym)}>
+                                ★
+                              </button>
+                            </td>
+                            <td className="sym">
+                              <Link
+                                href={`https://www.screener.in/company/${encodeURIComponent(s.sym)}/`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="sym-link"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                {s.sym} ↗
+                              </Link>
+                            </td>
+                            <td className="name">{s.name}</td>
+                            <td>
+                              <span className={`tier-badge ${tierBadgeClass}`}>{s.tier}</span>
+                            </td>
+                            <td className="num">{s.mcap !== null && s.mcap !== undefined ? s.mcap.toLocaleString("en-IN") : "—"}</td>
+                            <td className="num">{s.pe !== null && s.pe !== undefined ? s.pe.toFixed(2) : "—"}</td>
+                            <td className="num">{s.roe !== null && s.roe !== undefined ? s.roe.toFixed(2) + "%" : "—"}</td>
+                            <td className="num">{s.roce !== null && s.roce !== undefined ? s.roce.toFixed(2) + "%" : "—"}</td>
+                            <td className="num">{s.opm !== null && s.opm !== undefined ? s.opm.toFixed(2) + "%" : "—"}</td>
+                            <td className="date">{s.listdt || "—"}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+
+                  {watchlist.size === 0 && (
+                    <div className="empty-state">
+                      <p>Nothing starred yet. Head to the Screener tab and tap the star on any row.</p>
+                    </div>
+                  )}
+                </div>
+              </section>
+            )}
+
+            {/* ABOUT DATA VIEW */}
+            {screenerTab === "about" && (
+              <section className="view active">
+                <div className="about-card" style={{ border: '1px solid #111411' }}>
+                  <h2>About this data</h2>
+                  <p><strong>Source:</strong> NSE Capital Market EQ-series security master, dated 21 Jul 2026. Every placeholder or deleted instrument has been dropped, leaving 3,746 live equity securities.</p>
+                  <p><strong>What&apos;s genuinely in the source file:</strong> symbol, company name, ISIN, face value, market lot, listing date, and NSE index-participation flags, plus corporate action indicators.</p>
+                  <p><strong>What&apos;s added from public knowledge:</strong> Market tier ranking —</p>
+                  <ul>
+                    <li><strong>Large Cap</strong> — constituents of NIFTY 100</li>
+                    <li><strong>Mid Cap</strong> — constituents of NIFTY Midcap 150</li>
+                    <li><strong>Small Cap</strong> — constituents of NIFTY Smallcap 250</li>
+                    <li><strong>Micro Cap</strong> — all other listings</li>
+                  </ul>
+                  <p className="disclaimer">This tool is for educational and research purposes only and does not constitute investment advice.</p>
+                </div>
+              </section>
+            )}
+
+          </main>
+        </div>
+      </section>
+
+      {/* ================= SECTION 5: MARKET METRICS MATRIX ================= */}
+      <section className="section market-metrics-section" style={{ borderTop: '1px solid rgba(17,20,17,0.1)' }}>
+        <div className="wrap">
+          <div className="section-head text-center mx-auto" style={{ marginBottom: '28px' }}>
+            <div>
+              <h2 className="text-3xl font-bold uppercase text-black text-center" style={{ margin: '0 auto 10px' }}>“All the market metrics that matter—decoded, analyzed, and delivered inside our research reports”</h2>
+            </div>
+          </div>
+          <div className="metrics-grid">
+            <div className="metrics-item" onClick={() => window.open('/most-active-equities-volume.png', '_blank')}><img src="/most-active-equities-volume.png" alt="Most Active Equities by Volume" /></div>
+            <div className="metrics-item" onClick={() => window.open('/price-band-hitters.png', '_blank')}><img src="/price-band-hitters.png" alt="Price Band Hitters — upper and lower circuit stocks" /></div>
+            <div className="metrics-item" onClick={() => window.open('/top-25-volume-gainers.png', '_blank')}><img src="/top-25-volume-gainers.png" alt="Top 25 Volume Gainers" /></div>
+            <div className="metrics-item" onClick={() => window.open('/top-20-gainers-losers.png', '_blank')}><img src="/top-20-gainers-losers.png" alt="Top 20 Gainers and Losers" /></div>
+            <div className="metrics-item" onClick={() => window.open('/nifty-index-performance.png', '_blank')}><img src="/nifty-index-performance.png" alt="Nifty Index Performance" /></div>
+            <div className="metrics-item" onClick={() => window.open('/nifty-sector-performance.png', '_blank')}><img src="/nifty-sector-performance.png" alt="Nifty Sector Performance" /></div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= SECTION 7: ONE STOP SECTORAL OVERVIEW ================= */}
+      <section className="section sectoral-overview-section" style={{ borderTop: '1px solid rgba(17,20,17,0.1)' }}>
+        <div className="wrap">
+          <div className="section-head text-center mx-auto" style={{ marginBottom: "28px" }}>
+            <h2 className="text-3xl font-bold uppercase text-black text-center" style={{ margin: '0 auto 10px' }}>One Stop Sectoral Overview</h2>
+            <p className="text-center" style={{ margin: '0 auto' }}>Select a sector below, then click through to open its full performance report PDF.</p>
+          </div>
+
+          <div className="sector-picker">
+            {[
+              { name: "Auto", img: "sector-auto.png", pdf: "nifty-auto-report.pdf" },
+              { name: "Banking", img: "sector-banking.png", pdf: "nifty-bank-report.pdf" },
+              { name: "Capital Goods", img: "sector-capital-goods.png", pdf: "nifty-capital-goods-report.pdf" },
+              { name: "Chemicals", img: "sector-chemicals.png", pdf: "nifty-chemicals-report.pdf" },
+              { name: "FMCG", img: "sector-fmcg.png", pdf: "nifty-fmcg-report.pdf" },
+              { name: "Healthcare", img: "sector-healthcare.png", pdf: "nifty-healthcare-report.pdf" },
+              { name: "IT", img: "sector-it.png", pdf: "nifty-it-report.pdf" },
+              { name: "Metal", img: "sector-metal.png", pdf: "nifty-metal-report.pdf" },
+              { name: "NBFC", img: "sector-nbfc.png", pdf: "nifty-nbfc-report.pdf" },
+              { name: "Oil & Gas", img: "sector-oil-gas.png", pdf: "nifty-oil-gas-report.pdf" },
+              { name: "Financial Services", img: "sector-financial-services.png", pdf: "nifty-financial-services-report.pdf" },
+              { name: "Pharma", img: "sector-pharma.png", pdf: "nifty-pharma-report.pdf" },
+              { name: "Power", img: "sector-power.png", pdf: "nifty-power-report.pdf" },
+              { name: "Realty", img: "sector-realty.png", pdf: "nifty-realty-report.pdf" },
+              { name: "Retail", img: "sector-retail.png", pdf: "nifty-retail-report.pdf" }
+            ].map(sector => (
+              <button
+                key={sector.name}
+                type="button"
+                className="sector-pick-item"
+                style={{ border: '1px solid #111411' }}
+                onClick={() => {
+                  if (sector.pdf) window.open(`/${sector.pdf}`, '_blank', 'noopener,noreferrer');
+                }}
+              >
+                <img src={sector.img} alt={sector.name} />
+                <span>{sector.name}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================= SECTION 8: SECTOR UNIVERSE BUBBLE MAP ================= */}
+      <section className="section sector-universe-section" style={{ borderTop: '1px solid rgba(17,20,17,0.1)' }}>
+        <div className="wrap">
+          <div className="section-head">
+            <div>
+              <h2>Single Heatmap for All Sectors</h2>
+              <p>Bubble size reflects the size of the YTD return, color shows direction. Click a sector bubble to open its full report.</p>
+            </div>
+          </div>
+
+          <div className="universe-layout">
+            <div className="universe-stage" ref={bubbleRef}>
+              {packedBubbles.map((item, idx) => {
+                const heat = heatColor(item.ytd, maxAbsYtdGlobal);
+                const nameFontSize = Math.max(11, Math.round(item.r * 0.19));
+                const changeFontSize = Math.max(10, Math.round(item.r * 0.15));
+                const delay = Math.min(idx * 0.05, 0.5).toFixed(2);
+
+                const bubbleStyle = {
+                  left: `${(item.x - item.r).toFixed(1)}px`,
+                  top: `${(item.y - item.r).toFixed(1)}px`,
+                  width: `${(item.r * 2).toFixed(1)}px`,
+                  height: `${(item.r * 2).toFixed(1)}px`,
+                  background: heat.bg,
+                  color: heat.text,
+                  boxShadow: `0 6px 18px ${heat.glow}, inset 0 2px 6px rgba(255,255,255,0.35)`,
+                  opacity: bubbleRevealed ? 1 : 0,
+                  transform: bubbleRevealed ? "scale(1)" : "scale(0.3)",
+                  transition: `transform .85s cubic-bezier(.16,1,.3,1) ${delay}s, opacity .5s ease ${delay}s`
+                };
+
+                return (
+                  <div
+                    key={item.name}
+                    className="universe-bubble"
+                    style={bubbleStyle}
+                    onClick={() => {
+                      if (item.pdf) window.open(`/${item.pdf}`, '_blank', 'noopener,noreferrer');
+                    }}
+                  >
+                    <div className="universe-bubble-name" style={{ fontSize: `${nameFontSize}px` }}>
+                      {item.name.replace("NIFTY ", "")}
+                    </div>
+                    <div className="universe-bubble-change" style={{ fontSize: `${changeFontSize}px`, color: heat.text }}>
+                      {item.ytd > 0 ? "+" : ""}{item.ytd.toFixed(2)}%
+                    </div>
+                  </div>
+                );
+              })}
             </div>
 
-            {/* Report Features List */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-bold uppercase text-black text-center">
-                What You&apos;ll Get in Every Report
-              </h3>
-              <div className="flex flex-wrap justify-center gap-3">
-                {[
-                  "Market Bulletin",
-                  "Technical Analysis",
-                  "Stocks in News",
-                  "FI and DII Activity",
-                  "Stock in ban list",
-                  "Current IPOs",
-                  "Expert Insights",
-                ].map((feature, idx) => (
+            <div className="universe-list-panel">
+              <div className="universe-list-head">All Sectors</div>
+              <div className="universe-list">
+                {sectorUniverse.map(s => {
+                  const isBullish = s.ytd >= 0;
+                  const heat = heatColor(s.ytd, maxAbsYtdGlobal);
+                  return (
+                    <div
+                      key={s.name}
+                      className="universe-list-row"
+                      onClick={() => {
+                        if (s.pdf) window.open(`/${s.pdf}`, '_blank', 'noopener,noreferrer');
+                      }}
+                    >
+                      <div className="universe-list-row-left">
+                        <span className="universe-swatch" style={{ background: heat.flat }}></span>
+                        <span>{s.name}</span>
+                      </div>
+                      <span className={`universe-list-change ${isBullish ? "bullish" : "bearish"}`}>
+                        {s.ytd > 0 ? "+" : ""}{s.ytd.toFixed(2)}%
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= SECTION 9: THEME BASED SECTORS ================= */}
+      <section className="section theme-based-sectors-section" style={{ borderTop: '1px solid rgba(17,20,17,0.1)' }}>
+        <div className="wrap">
+          <div className="section-head text-center mx-auto" style={{ marginBottom: "28px" }}>
+            <h2 className="text-3xl font-bold uppercase text-black text-center" style={{ margin: '0 auto 10px' }}>Theme Based Sectors at One Place</h2>
+            <p className="text-center" style={{ margin: '0 auto' }}>Click on any index box below to open its official performance report PDF.</p>
+          </div>
+
+          <div className="theme-bars">
+            {themeSectorBars.map((s, idx) => {
+              const isGain = s.ytd >= 0;
+              const maxAbs = Math.max(...themeSectorBars.map(bar => Math.abs(bar.ytd)));
+              const widthPct = Math.max(6, (Math.abs(s.ytd) / maxAbs) * 84).toFixed(1);
+              const valueText = `${s.ytd > 0 ? '+' : ''}${s.ytd.toFixed(2)}%`;
+
+              return (
+                <div
+                  key={s.name}
+                  className="theme-bar-row"
+                  onClick={() => {
+                    if (s.pdf) window.open(`/${s.pdf}`, '_blank', 'noopener,noreferrer');
+                  }}
+                >
+                  <img className="theme-bar-icon" src={s.icon} alt={s.name} />
+                  <span className="theme-bar-name">{s.name}</span>
+                  <div className="theme-bar-track">
+                    <div className={`theme-bar-fill ${isGain ? "gain" : "loss"}`} style={{ width: `${widthPct}%` }}></div>
+                    <span className={`theme-bar-value-outside ${isGain ? "gain" : "loss"}`} style={{ left: `${widthPct}%` }}>
+                      {valueText}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+
+
+
+      {/* ================= PREVIEW MODAL OVERLAY ================= */}
+      {previewReport && (
+        <div className="modal-overlay open" onClick={closePreview}>
+          <div className="book-modal" onClick={(e) => e.stopPropagation()} style={{ border: '1px solid #111411' }}>
+            <div className="book-topbar">
+              <h4>{previewReport.title}</h4>
+              <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                <span className="reading-time mono">~{Math.max(4, Math.ceil((previewReport.pages || 44) * 0.3))} min preview</span>
+                <button className="close-x" onClick={closePreview}>✕</button>
+              </div>
+            </div>
+            <div className="book-body">
+              <div className="page-rail">
+                {previewPages.map((p, idx) => (
                   <div
                     key={idx}
-                    className="bg-white border border-black px-4 py-2.5 rounded-xl shadow-sm font-bold text-black text-xs uppercase tracking-wider"
+                    className={`page-thumb ${idx === previewPageIdx ? "active" : ""} ${p.locked ? "locked" : ""}`}
+                    onClick={() => setPreviewPageIdx(idx)}
                   >
-                    🚀 {feature}
+                    <span className="mono">{String(idx + 1).padStart(2, "0")}</span> {p.label}
+                    {p.locked && <span className="lock-ic" style={{ marginLeft: 'auto' }}>🔒</span>}
                   </div>
                 ))}
               </div>
+              
+              <div className="page-stage">
+                {previewPages[previewPageIdx]?.locked ? (
+                  <div>
+                    <div className="locked-page">{previewPages[previewPageIdx].render()}</div>
+                    <div className="unlock-overlay">
+                      <div className="lock-icon" style={{ borderRadius: '50%' }}>🔒</div>
+                      <h3>Unlock the full report</h3>
+                      <p>Pages 4 onward — including complete financial valuations, targets, and models — unlock after subscription.</p>
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => {
+                          if (previewReport.pdfUrl) {
+                            window.open(previewReport.pdfUrl, "_blank", "noopener,noreferrer");
+                          } else {
+                            window.open("https://wa.me/+918696060387", "_blank", "noopener,noreferrer");
+                          }
+                        }}
+                      >
+                        Unlock Full Report
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  previewPages[previewPageIdx]?.render()
+                )}
+              </div>
             </div>
           </div>
-        </section>
+        </div>
+      )}
 
-        {/* Why is Our Morning PDF a Must Section */}
-        <section className="relative border border-black bg-[#1FA463] rounded-3xl p-8 md:p-12 shadow-md">
-          <div className="text-center mb-12 space-y-3">
-            <h2 className="text-3xl md:text-4xl font-bold uppercase text-black leading-none">
-              Why is Our Morning PDF a Must for You?
-            </h2>
-            <p className="text-black font-semibold text-base max-w-2xl mx-auto">
-              Get ahead of the market with expert analysis delivered directly to your WhatsApp every single morning.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { title: "Stay Updated", emoji: "⚡" },
-              { title: "Save Time", emoji: "⏳" },
-              { title: "Understand Better", emoji: "🧠" },
-              { title: "Be Ready", emoji: "🚀" },
-              { title: "Easy Access", emoji: "📱" },
-              { title: "Boost Confidence", emoji: "😎" },
-              { title: "Smarter Decisions", emoji: "💬" },
-              { title: "Value for Money", emoji: "💰" },
-              { title: "New Updates, FREE", emoji: "❤️" }
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                className="bg-white border border-black p-5 rounded-2xl shadow-sm hover:-translate-y-0.5 transition-all flex items-center justify-between"
-              >
-                <span className="text-sm font-bold uppercase text-black tracking-tight">
-                  {item.title}
+      {/* ================= SCREENER DETAILS MODAL ================= */}
+      {screenerSelectedStock && (
+        <div id="screener-app" className="screener-modal-overlay modal-overlay open" onClick={() => setScreenerSelectedStock(null)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()} style={{ border: '1px solid #111411' }}>
+            <button className="modal-close" onClick={() => setScreenerSelectedStock(null)}>✕</button>
+            <span className="modal-sym">{screenerSelectedStock.sym}</span>
+            <h3>{screenerSelectedStock.name}</h3>
+            
+            <div className="modal-grid mt-4">
+              <div className="modal-field">
+                <span className="k">ISIN</span>
+                <span className="v">{screenerSelectedStock.isin}</span>
+              </div>
+              <div className="modal-field">
+                <span className="k">Market cap tier</span>
+                <span className="v">{screenerSelectedStock.tier}</span>
+              </div>
+              <div className="modal-field">
+                <span className="k">Market cap (Cr)</span>
+                <span className="v">
+                  {screenerSelectedStock.mcap !== null && screenerSelectedStock.mcap !== undefined ? `₹${screenerSelectedStock.mcap.toLocaleString("en-IN")} Cr` : "—"}
                 </span>
-                <span className="text-xl">{item.emoji}</span>
               </div>
-            ))}
-          </div>
-        </section>
-
-        {/* FAQ Section */}
-        <section className="space-y-8 max-w-4xl mx-auto">
-          <div className="text-center space-y-3">
-            <h2 className="text-3xl font-bold uppercase text-black leading-none">
-              Still Have Questions?
-            </h2>
-            <p className="text-base text-gray-600 font-semibold">
-              We&apos;ve got you covered with direct answers to the most common queries.
-            </p>
-          </div>
-
-          <div className="space-y-4">
-            {faqData.map((item, index) => (
-              <div
-                key={index}
-                className="bg-white border border-black rounded-2xl p-6 shadow-sm"
-              >
-                <div
-                  className="flex justify-between items-center cursor-pointer"
-                  onClick={() => toggleFAQ(index)}
-                >
-                  <h3 className="font-bold text-black uppercase tracking-tight text-sm md:text-base">
-                    {item.question}
-                  </h3>
-                  <button className="text-black focus:outline-none">
-                    {openIndex === index ? (
-                      <svg className="w-5 h-5 border border-black rounded" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M20 12H4" />
-                      </svg>
-                    ) : (
-                      <svg className="w-5 h-5 border border-black rounded" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                      </svg>
-                    )}
-                  </button>
-                </div>
-                {openIndex === index && (
-                  <div className="mt-4 pt-4 border-t border-black text-gray-700 font-semibold text-sm leading-relaxed">
-                    {item.answer}
-                  </div>
-                )}
+              <div className="modal-field">
+                <span className="k">Face value</span>
+                <span className="v">₹{screenerSelectedStock.face}</span>
               </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Desktop Custom Report Section */}
-        <section className="hidden lg:block border border-black bg-white rounded-3xl p-8 shadow-md">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-2xl font-bold uppercase text-black">
-                  Need Specific Insights?
-                </h3>
-                <p className="text-gray-600 font-semibold mt-1">
-                  Request a custom research report tailored to your interested sectors or equities.
-                </p>
+              <div className="modal-field">
+                <span className="k">Market lot</span>
+                <span className="v">{screenerSelectedStock.lot} share{screenerSelectedStock.lot === 1 ? "" : "s"}</span>
               </div>
-
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    placeholder="Full Name"
-                    className="px-4 py-3 border border-black rounded-xl text-black"
-                    required
-                  />
-                  <input
-                    type="tel"
-                    name="mobile"
-                    value={formData.mobile}
-                    onChange={handleInputChange}
-                    placeholder="WhatsApp Mobile"
-                    className="px-4 py-3 border border-black rounded-xl text-black"
-                    required
-                  />
-                </div>
-
-                <input
-                  type="text"
-                  name="topic"
-                  value={formData.topic}
-                  onChange={handleInputChange}
-                  placeholder="What stock/sector do you want analyzed?"
-                  className="w-full px-4 py-3 border border-black rounded-xl text-black"
-                  required
-                />
-
-                <button
-                  type="submit"
-                  disabled={formLoading}
-                  className="bg-[#1FA463] text-white border border-black px-6 py-3 rounded-xl font-bold hover:bg-[#15824D] shadow-sm "
-                >
-                  {formLoading ? "Processing..." : "Request Custom Report"}
-                </button>
-
-                {formMessage && (
-                  <div
-                    className={`p-3 rounded-xl border border-black text-sm font-semibold ${
-                      formMessage.startsWith("✅") ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-                    }`}
-                  >
-                    {formMessage}
-                  </div>
-                )}
-              </form>
+              <div className="modal-field">
+                <span className="k">Listing date</span>
+                <span className="v">{screenerSelectedStock.listdt || "Not recorded"}</span>
+              </div>
+              <div className="modal-field">
+                <span className="k">Corporate actions</span>
+                <span className="v">
+                  {(() => {
+                    const actions: string[] = [];
+                    if (screenerSelectedStock.div) actions.push("Dividend");
+                    if (screenerSelectedStock.rights) actions.push("Rights");
+                    if (screenerSelectedStock.bonus) actions.push("Bonus");
+                    return actions.length > 0 ? actions.join(", ") : "None";
+                  })()}
+                </span>
+              </div>
+              <div className="modal-field">
+                <span className="k">Stock P/E</span>
+                <span className="v">{screenerSelectedStock.pe !== null && screenerSelectedStock.pe !== undefined ? screenerSelectedStock.pe.toFixed(2) : "—"}</span>
+              </div>
+              <div className="modal-field">
+                <span className="k">ROE</span>
+                <span className="v">{screenerSelectedStock.roe !== null && screenerSelectedStock.roe !== undefined ? screenerSelectedStock.roe.toFixed(2) + "%" : "—"}</span>
+              </div>
+              <div className="modal-field">
+                <span className="k">ROCE</span>
+                <span className="v">{screenerSelectedStock.roce !== null && screenerSelectedStock.roce !== undefined ? screenerSelectedStock.roce.toFixed(2) + "%" : "—"}</span>
+              </div>
+              <div className="modal-field">
+                <span className="k">Quarterly OPM</span>
+                <span className="v">{screenerSelectedStock.opm !== null && screenerSelectedStock.opm !== undefined ? screenerSelectedStock.opm.toFixed(2) + "%" : "—"}</span>
+              </div>
             </div>
 
-            <div className="bg-[#1FA463] text-black border border-black rounded-2xl p-8 shadow-md space-y-4">
-              <h4 className="text-xl font-bold uppercase">
-                Why Custom Reports?
-              </h4>
-              <ul className="space-y-3 font-semibold">
-                <li className="flex items-start">
-                  <div className="bg-white border border-black rounded-full p-1 mt-1.5 mr-3">
-                    <FaCheck className="w-3 h-3 text-black" />
-                  </div>
-                  <span>Personalized equity/sector analysis</span>
-                </li>
-                <li className="flex items-start">
-                  <div className="bg-white border border-black rounded-full p-1 mt-1.5 mr-3">
-                    <FaCheck className="w-3 h-3 text-black" />
-                  </div>
-                  <span>Direct delivery straight to your WhatsApp</span>
-                </li>
-                <li className="flex items-start">
-                  <div className="bg-white border border-black rounded-full p-1 mt-1.5 mr-3">
-                    <FaCheck className="w-3 h-3 text-black" />
-                  </div>
-                  <span>Actionable insights in 24 hours</span>
-                </li>
-              </ul>
+            <div className="filter-group mb-6">
+              <span className="fg-label block mb-2">Index membership</span>
+              <div className="idx-tags">
+                {screenerSelectedStock.indices?.length ? (
+                  screenerSelectedStock.indices.map((ix: string) => (
+                    <span className="idx-tag" key={ix}>{ix}</span>
+                  ))
+                ) : (
+                  <span className="idx-tag text-gray-400">Not in a tracked index</span>
+                )}
+              </div>
+            </div>
+
+            <div className="modal-actions">
+              <button className="primary" onClick={() => toggleStar(screenerSelectedStock.sym)}>
+                {watchlist.has(screenerSelectedStock.sym) ? "★ Remove from watchlist" : "☆ Add to watchlist"}
+              </button>
+              <a href={`https://www.nseindia.com/get-quotes/equity?symbol=${encodeURIComponent(screenerSelectedStock.sym)}`} target="_blank" rel="noopener noreferrer">
+                View on NSE ↗
+              </a>
+              <a href={`https://www.screener.in/company/${encodeURIComponent(screenerSelectedStock.sym)}/`} target="_blank" rel="noopener noreferrer">
+                View on Screener.in ↗
+              </a>
             </div>
           </div>
-        </section>
+        </div>
+      )}
 
-      </div>
     </div>
   );
 }
