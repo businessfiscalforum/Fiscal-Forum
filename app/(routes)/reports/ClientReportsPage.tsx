@@ -2195,6 +2195,99 @@ export default function ClientReportsPage({
             )}
 
           </main>
+
+          {/* ================= SCREENER DETAILS MODAL ================= */}
+          {screenerSelectedStock && (
+            <div className="screener-modal-overlay modal-overlay open" onClick={() => setScreenerSelectedStock(null)}>
+              <div className="modal" onClick={(e) => e.stopPropagation()} style={{ border: '1px solid #111411' }}>
+                <button className="modal-close" onClick={() => setScreenerSelectedStock(null)}>✕</button>
+                <span className="modal-sym">{screenerSelectedStock.sym}</span>
+                <h3>{screenerSelectedStock.name}</h3>
+                
+                <div className="modal-grid mt-4">
+                  <div className="modal-field">
+                    <span className="k">ISIN</span>
+                    <span className="v">{screenerSelectedStock.isin}</span>
+                  </div>
+                  <div className="modal-field">
+                    <span className="k">Market cap tier</span>
+                    <span className="v">{screenerSelectedStock.tier}</span>
+                  </div>
+                  <div className="modal-field">
+                    <span className="k">Market cap (Cr)</span>
+                    <span className="v">
+                      {screenerSelectedStock.mcap !== null && screenerSelectedStock.mcap !== undefined ? `₹${screenerSelectedStock.mcap.toLocaleString("en-IN")} Cr` : "—"}
+                    </span>
+                  </div>
+                  <div className="modal-field">
+                    <span className="k">Face value</span>
+                    <span className="v">₹{screenerSelectedStock.face}</span>
+                  </div>
+                  <div className="modal-field">
+                    <span className="k">Market lot</span>
+                    <span className="v">{screenerSelectedStock.lot} share{screenerSelectedStock.lot === 1 ? "" : "s"}</span>
+                  </div>
+                  <div className="modal-field">
+                    <span className="k">Listing date</span>
+                    <span className="v">{screenerSelectedStock.listdt || "Not recorded"}</span>
+                  </div>
+                  <div className="modal-field">
+                    <span className="k">Corporate actions</span>
+                    <span className="v">
+                      {(() => {
+                        const actions: string[] = [];
+                        if (screenerSelectedStock.div) actions.push("Dividend");
+                        if (screenerSelectedStock.rights) actions.push("Rights");
+                        if (screenerSelectedStock.bonus) actions.push("Bonus");
+                        return actions.length > 0 ? actions.join(", ") : "None";
+                      })()}
+                    </span>
+                  </div>
+                  <div className="modal-field">
+                    <span className="k">Stock P/E</span>
+                    <span className="v">{screenerSelectedStock.pe !== null && screenerSelectedStock.pe !== undefined ? screenerSelectedStock.pe.toFixed(2) : "—"}</span>
+                  </div>
+                  <div className="modal-field">
+                    <span className="k">ROE</span>
+                    <span className="v">{screenerSelectedStock.roe !== null && screenerSelectedStock.roe !== undefined ? screenerSelectedStock.roe.toFixed(2) + "%" : "—"}</span>
+                  </div>
+                  <div className="modal-field">
+                    <span className="k">ROCE</span>
+                    <span className="v">{screenerSelectedStock.roce !== null && screenerSelectedStock.roce !== undefined ? screenerSelectedStock.roce.toFixed(2) + "%" : "—"}</span>
+                  </div>
+                  <div className="modal-field">
+                    <span className="k">Quarterly OPM</span>
+                    <span className="v">{screenerSelectedStock.opm !== null && screenerSelectedStock.opm !== undefined ? screenerSelectedStock.opm.toFixed(2) + "%" : "—"}</span>
+                  </div>
+                </div>
+
+                <div className="filter-group mb-6">
+                  <span className="fg-label block mb-2">Index membership</span>
+                  <div className="idx-tags">
+                    {screenerSelectedStock.indices?.length ? (
+                      screenerSelectedStock.indices.map((ix: string) => (
+                        <span className="idx-tag" key={ix}>{ix}</span>
+                      ))
+                    ) : (
+                      <span className="idx-tag text-gray-400">Not in a tracked index</span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="modal-actions">
+                  <button className="primary" onClick={() => toggleStar(screenerSelectedStock.sym)}>
+                    {watchlist.has(screenerSelectedStock.sym) ? "★ Remove from watchlist" : "☆ Add to watchlist"}
+                  </button>
+                  <a href={`https://www.nseindia.com/get-quotes/equity?symbol=${encodeURIComponent(screenerSelectedStock.sym)}`} target="_blank" rel="noopener noreferrer">
+                    View on NSE ↗
+                  </a>
+                  <a href={`https://www.screener.in/company/${encodeURIComponent(screenerSelectedStock.sym)}/`} target="_blank" rel="noopener noreferrer">
+                    View on Screener.in ↗
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -2438,98 +2531,6 @@ export default function ClientReportsPage({
         </div>
       )}
 
-      {/* ================= SCREENER DETAILS MODAL ================= */}
-      {screenerSelectedStock && (
-        <div id="screener-app" className="screener-modal-overlay modal-overlay open" onClick={() => setScreenerSelectedStock(null)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()} style={{ border: '1px solid #111411' }}>
-            <button className="modal-close" onClick={() => setScreenerSelectedStock(null)}>✕</button>
-            <span className="modal-sym">{screenerSelectedStock.sym}</span>
-            <h3>{screenerSelectedStock.name}</h3>
-            
-            <div className="modal-grid mt-4">
-              <div className="modal-field">
-                <span className="k">ISIN</span>
-                <span className="v">{screenerSelectedStock.isin}</span>
-              </div>
-              <div className="modal-field">
-                <span className="k">Market cap tier</span>
-                <span className="v">{screenerSelectedStock.tier}</span>
-              </div>
-              <div className="modal-field">
-                <span className="k">Market cap (Cr)</span>
-                <span className="v">
-                  {screenerSelectedStock.mcap !== null && screenerSelectedStock.mcap !== undefined ? `₹${screenerSelectedStock.mcap.toLocaleString("en-IN")} Cr` : "—"}
-                </span>
-              </div>
-              <div className="modal-field">
-                <span className="k">Face value</span>
-                <span className="v">₹{screenerSelectedStock.face}</span>
-              </div>
-              <div className="modal-field">
-                <span className="k">Market lot</span>
-                <span className="v">{screenerSelectedStock.lot} share{screenerSelectedStock.lot === 1 ? "" : "s"}</span>
-              </div>
-              <div className="modal-field">
-                <span className="k">Listing date</span>
-                <span className="v">{screenerSelectedStock.listdt || "Not recorded"}</span>
-              </div>
-              <div className="modal-field">
-                <span className="k">Corporate actions</span>
-                <span className="v">
-                  {(() => {
-                    const actions: string[] = [];
-                    if (screenerSelectedStock.div) actions.push("Dividend");
-                    if (screenerSelectedStock.rights) actions.push("Rights");
-                    if (screenerSelectedStock.bonus) actions.push("Bonus");
-                    return actions.length > 0 ? actions.join(", ") : "None";
-                  })()}
-                </span>
-              </div>
-              <div className="modal-field">
-                <span className="k">Stock P/E</span>
-                <span className="v">{screenerSelectedStock.pe !== null && screenerSelectedStock.pe !== undefined ? screenerSelectedStock.pe.toFixed(2) : "—"}</span>
-              </div>
-              <div className="modal-field">
-                <span className="k">ROE</span>
-                <span className="v">{screenerSelectedStock.roe !== null && screenerSelectedStock.roe !== undefined ? screenerSelectedStock.roe.toFixed(2) + "%" : "—"}</span>
-              </div>
-              <div className="modal-field">
-                <span className="k">ROCE</span>
-                <span className="v">{screenerSelectedStock.roce !== null && screenerSelectedStock.roce !== undefined ? screenerSelectedStock.roce.toFixed(2) + "%" : "—"}</span>
-              </div>
-              <div className="modal-field">
-                <span className="k">Quarterly OPM</span>
-                <span className="v">{screenerSelectedStock.opm !== null && screenerSelectedStock.opm !== undefined ? screenerSelectedStock.opm.toFixed(2) + "%" : "—"}</span>
-              </div>
-            </div>
-
-            <div className="filter-group mb-6">
-              <span className="fg-label block mb-2">Index membership</span>
-              <div className="idx-tags">
-                {screenerSelectedStock.indices?.length ? (
-                  screenerSelectedStock.indices.map((ix: string) => (
-                    <span className="idx-tag" key={ix}>{ix}</span>
-                  ))
-                ) : (
-                  <span className="idx-tag text-gray-400">Not in a tracked index</span>
-                )}
-              </div>
-            </div>
-
-            <div className="modal-actions">
-              <button className="primary" onClick={() => toggleStar(screenerSelectedStock.sym)}>
-                {watchlist.has(screenerSelectedStock.sym) ? "★ Remove from watchlist" : "☆ Add to watchlist"}
-              </button>
-              <a href={`https://www.nseindia.com/get-quotes/equity?symbol=${encodeURIComponent(screenerSelectedStock.sym)}`} target="_blank" rel="noopener noreferrer">
-                View on NSE ↗
-              </a>
-              <a href={`https://www.screener.in/company/${encodeURIComponent(screenerSelectedStock.sym)}/`} target="_blank" rel="noopener noreferrer">
-                View on Screener.in ↗
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
 
     </div>
   );
