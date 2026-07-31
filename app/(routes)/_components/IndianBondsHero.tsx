@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface RawBond {
   SYMBOL: string;
@@ -783,8 +784,8 @@ export default function IndianBondsHero() {
                         selectedBond._chng == null
                           ? ""
                           : selectedBond._chng >= 0
-                          ? "var(--teal)"
-                          : "var(--red)",
+                            ? "var(--teal)"
+                            : "var(--red)",
                     }}
                   >
                     {selectedBond._chng == null ? "—" : (selectedBond._chng >= 0 ? "+" : "") + selectedBond._chng.toFixed(2) + "%"}
@@ -836,12 +837,6 @@ export default function IndianBondsHero() {
         </div>
       </aside>
 
-      {/* Site Footer */}
-      <footer className="site-footer">
-        <p>
-          Data is illustrative end-of-day market data, not a live feed. BondWise Terminal does not provide investment advice — verify every figure on your broker or exchange terminal before acting.
-        </p>
-      </footer>
     </div>
   );
 }

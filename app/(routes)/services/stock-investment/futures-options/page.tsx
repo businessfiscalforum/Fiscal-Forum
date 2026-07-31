@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function FuturesOptionsPage() {
   // ── Playground State ──
@@ -757,6 +758,25 @@ export default function FuturesOptionsPage() {
             </div>
             <div className="pos-explain" dangerouslySetInnerHTML={{ __html: getPositionExplanation() }}></div>
           </div>
+        </div>
+      </section>
+
+      {/* Bottom CTA Section */}
+      <section className="bottom-cta border-t border-line/10 pt-16 pb-12 text-center max-w-4xl mx-auto flex flex-col items-center">
+        <h2 className="text-3xl font-extrabold text-text mb-3" style={{ fontFamily: "var(--font-display)" }}>
+          Ready to Start Trading?
+        </h2>
+        <p className="text-base text-muted mb-6 max-w-xl mx-auto font-semibold">
+          Unlock futures and options trading by opening a Demat and Trading account with our partner brokers.
+        </p>
+        <div>
+          <Link
+            href="/services/stock-investment/open-demat-account"
+            className="btn-primary inline-block px-8 py-3.5 text-center font-bold"
+            style={{ textDecoration: 'none' }}
+          >
+            Explore Demat Account →
+          </Link>
         </div>
       </section>
 
