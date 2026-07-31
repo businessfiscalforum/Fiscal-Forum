@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef, useContext } from "react";
 import {
   FaFilePdf,
   FaCalendarAlt,
@@ -11,6 +11,7 @@ import {
   FaChevronDown,
 } from "react-icons/fa";
 import Link from "next/link";
+import { UserDetailContext } from "../../../context/UserDetailContext";
 
 
 
@@ -289,6 +290,7 @@ function packSectorBubbles(items: { name: string; ytd: number; pdf: string; r: n
 export default function ClientReportsPage({
   initialReports,
 }: ClientReportsPageProps) {
+  const { userDetail } = useContext(UserDetailContext);
   /* ============ PAGE TABS ============ */
   const [activeTab, setActiveTab] = useState(tabs[0].id);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
@@ -781,8 +783,17 @@ export default function ClientReportsPage({
 
     const payload = {
       name: wizardAnswers.name,
+      email: wizardAnswers.email,
       mobile: wizardAnswers.mobile,
-      topic: customDetails
+      age: wizardAnswers.age || null,
+      category: wizardCategory,
+      capitalInvestBorrow: wizardAnswers.capital || null,
+      returnExpected: wizardAnswers.returnExpected || null,
+      investmentGoal: wizardAnswers.investmentGoal || null,
+      riskTolerance: wizardAnswers.riskTolerance || null,
+      investmentStyle: wizardAnswers.investmentStyle || null,
+      monthlySavings: wizardAnswers.monthlySavings || null,
+      addDetails: wizardAnswers.details || null,
     };
 
     try {
