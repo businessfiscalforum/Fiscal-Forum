@@ -17,6 +17,7 @@ import {
   Star,
   Zap,
   Gem,
+  BarChart3,
 } from "lucide-react";
 import { SignedIn, SignedOut, SignOutButton, useUser } from "@clerk/nextjs";
 import { motion, AnimatePresence } from "framer-motion";
@@ -79,10 +80,10 @@ export default function Navbar() {
   ];
 
   const navItems = [
+    { label: "Reports", href: "/reports" },
     { label: "News & IPOs", href: "/news" },
     { label: "About Us", href: "/about-us" },
     { label: "Newsletters", href: "/newsletter" },
-    { label: "Reports", href: "/reports" },
     { label: "Work With Us", href: "/work-with-us" },
   ];
 
@@ -96,7 +97,7 @@ export default function Navbar() {
       className="fixed top-0 z-[100] w-full bg-white border-b border-black px-4 py-3 md:py-4 shadow-none"
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center relative">
-        
+
         {/* Logo */}
         <Link
           href="/"
@@ -159,15 +160,48 @@ export default function Navbar() {
             </AnimatePresence>
           </div>
 
-          {navItems.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className="px-3 py-1.5 text-xs font-bold text-black hover:text-emerald-700 transition-colors uppercase tracking-wider"
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            if (item.label === "Reports") {
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="relative overflow-hidden group flex items-center justify-center w-32 h-[2.5em] rounded-full bg-black/20 p-[1.5px] transition-all duration-300 shadow-sm hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:shadow-sm"
+                >
+                  {/* Rotating border shine layer */}
+                  <motion.div
+                    className="absolute inset-0 w-[150%] h-[300%] -top-[100%] -left-[25%] pointer-events-none"
+                    style={{
+                      background: "conic-gradient(from 0deg, transparent 50%, #FFFFFF 65%, #FAF9F6 80%, #F4FBF7 95%, transparent 100%)",
+                    }}
+                    animate={{
+                      rotate: 360,
+                    }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 4,
+                      ease: "linear",
+                    }}
+                  />
+
+                  {/* Front content panel */}
+                  <div className="absolute inset-[1.5px] rounded-full bg-[#E2F5E9] flex items-center justify-center gap-1.5 z-10 pointer-events-none">
+                    <BarChart3 size={13} className="text-black stroke-[2.5]" />
+                    <span className="text-xs font-bold text-black uppercase tracking-wider">{item.label}</span>
+                  </div>
+                </Link>
+              );
+            }
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                className="px-3 py-1.5 text-xs font-bold text-black hover:text-emerald-700 transition-colors uppercase tracking-wider"
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Action Buttons */}
@@ -237,7 +271,7 @@ export default function Navbar() {
             className="lg:hidden bg-white border-t border-black overflow-hidden mt-3"
           >
             <div className="space-y-4 p-6">
-              
+
               {/* Refer & Earn */}
               <Link
                 href="/referrals"
@@ -311,20 +345,54 @@ export default function Navbar() {
                   </Link>
                 ))}
               </div>
-              
+
               <div className="h-0.5 bg-black/10 my-2" />
-              
+
               <div className="flex flex-col gap-3">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    onClick={closeAll}
-                    className="text-base font-bold text-black uppercase tracking-wider"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
+                {navItems.map((item) => {
+                  if (item.label === "Reports") {
+                    return (
+                      <Link
+                        key={item.label}
+                        href={item.href}
+                        onClick={closeAll}
+                        className="relative overflow-hidden group flex items-center justify-center w-full h-[3em] rounded-full bg-black/20 p-[1.5px] transition-all duration-300 shadow-sm hover:shadow-md"
+                      >
+                        {/* Rotating border shine layer */}
+                        <motion.div
+                          className="absolute inset-0 w-[150%] h-[300%] -top-[100%] -left-[25%] pointer-events-none"
+                          style={{
+                            background: "conic-gradient(from 0deg, transparent 50%, #FFFFFF 65%, #FAF9F6 80%, #F4FBF7 95%, transparent 100%)",
+                          }}
+                          animate={{
+                            rotate: 360,
+                          }}
+                          transition={{
+                            repeat: Infinity,
+                            duration: 4,
+                            ease: "linear",
+                          }}
+                        />
+
+                        {/* Front content panel */}
+                        <div className="absolute inset-[1.5px] rounded-full bg-[#E2F5E9] flex items-center gap-2 px-5 z-10 pointer-events-none">
+                          <BarChart3 size={16} className="text-black stroke-[2.5]" />
+                          <span className="text-base font-bold text-black uppercase tracking-wider">{item.label}</span>
+                        </div>
+                      </Link>
+                    );
+                  }
+                  return (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      onClick={closeAll}
+                      className="text-base font-bold text-black uppercase tracking-wider"
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </motion.div>
