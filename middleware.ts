@@ -64,6 +64,7 @@ const isPublicRoute = createRouteMatcher([
   "/sitemap.xml",
   "/robots.txt",
   "/bonds.json",
+  "/for-women",
 ]);
 
 const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
