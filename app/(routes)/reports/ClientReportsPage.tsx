@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useRef, useContext } from "react";
+import { useState, useEffect, useMemo, useRef, useContext, useCallback } from "react";
 import {
   FaFilePdf,
   FaCalendarAlt,
@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 import { UserDetailContext } from "../../../context/UserDetailContext";
+import useEmblaCarousel from "embla-carousel-react";
 
 
 
@@ -254,39 +255,122 @@ interface PlacedBubble {
   y: number;
 }
 
-function packSectorBubbles(items: { name: string; ytd: number; pdf: string; r: number }[], width: number, height: number): PlacedBubble[] {
-  const placed: PlacedBubble[] = [];
-  const sorted = [...items].sort((a,b) => b.r - a.r);
+function packSectorBubbles(
+  items: { name: string; ytd: number; pdf: string; r: number }[],
+  width: number,
+  height: number,
+  padding: number = 8
+): PlacedBubble[] {
+  let placed: PlacedBubble[] = [];
+  let success = false;
+  let currentItems = items.map(item => ({ ...item }));
+  let scaleFactor = 1.0;
   
-  sorted.forEach(item => {
-    let angle = Math.random() * Math.PI * 2;
-    let radius = 0;
-    let x = width / 2;
-    let y = height / 2;
-    let attempts = 0;
+  const aspect = height / (width || 1);
+  const edgeMargin = 6;
+
+  // Attempt to pack bubbles iteratively. If any fail to pack without overlap,
+  // scale down all bubble radii by 6% and retry (up to 8 iterations).
+  for (let iter = 0; iter < 8; iter++) {
+    placed = [];
+    let failed = false;
+    const sorted = [...currentItems].sort((a, b) => b.r - a.r);
     
-    while (attempts < 4000) {
-      const withinBounds = (x - item.r) >= 6 && (x + item.r) <= width - 6 &&
-                            (y - item.r) >= 6 && (y + item.r) <= height - 6;
-      let collide = false;
-      for (const p of placed) {
-        const dx = x - p.x;
-        const dy = y - p.y;
-        const minDist = p.r + item.r + 8;
-        if (dx * dx + dy * dy < minDist * minDist) { collide = true; break; }
+    for (const item of sorted) {
+      let angle = Math.random() * Math.PI * 2;
+      let radius = 0;
+      let x = width / 2;
+      let y = height / 2;
+      let attempts = 0;
+      
+      while (attempts < 2000) {
+        const withinBounds = (x - item.r) >= edgeMargin && (x + item.r) <= width - edgeMargin &&
+                              (y - item.r) >= edgeMargin && (y + item.r) <= height - edgeMargin;
+        let collide = false;
+        for (const p of placed) {
+          const dx = x - p.x;
+          const dy = y - p.y;
+          const minDist = p.r + item.r + padding;
+          if (dx * dx + dy * dy < minDist * minDist) { collide = true; break; }
+        }
+        if (withinBounds && !collide) break;
+        angle += 0.36;
+        radius += 2.2;
+        x = width / 2 + radius * Math.cos(angle);
+        y = height / 2 + radius * Math.sin(angle) * aspect;
+        attempts++;
       }
-      if (withinBounds && !collide) break;
-      angle += 0.36;
-      radius += 2.4;
-      x = width / 2 + radius * Math.cos(angle);
-      y = height / 2 + radius * Math.sin(angle);
-      attempts++;
+      
+      if (attempts >= 2000) {
+        failed = true;
+        break; // Stop placing this set and trigger scale-down
+      }
+      
+      placed.push({ ...item, x, y });
     }
     
-    placed.push({ ...item, x, y });
-  });
+    if (!failed) {
+      success = true;
+      break; // Successfully packed all with no overlap
+    }
+    
+    // Scale down all radii by 6% and try again
+    scaleFactor *= 0.94;
+    currentItems = items.map(item => ({
+      ...item,
+      r: Math.max(16, item.r * scaleFactor)
+    }));
+  }
+  
+  // Fallback Clamp Run: If we still failed to pack successfully after all scaling iterations,
+  // run once more with clamping fallback (so bubbles at worst overlap slightly rather than disappear)
+  if (!success) {
+    placed = [];
+    const sorted = [...currentItems].sort((a, b) => b.r - a.r);
+    sorted.forEach(item => {
+      let angle = Math.random() * Math.PI * 2;
+      let radius = 0;
+      let x = width / 2;
+      let y = height / 2;
+      let attempts = 0;
+      
+      while (attempts < 2000) {
+        const withinBounds = (x - item.r) >= edgeMargin && (x + item.r) <= width - edgeMargin &&
+                              (y - item.r) >= edgeMargin && (y + item.r) <= height - edgeMargin;
+        let collide = false;
+        for (const p of placed) {
+          const dx = x - p.x;
+          const dy = y - p.y;
+          const minDist = p.r + item.r + padding;
+          if (dx * dx + dy * dy < minDist * minDist) { collide = true; break; }
+        }
+        if (withinBounds && !collide) break;
+        angle += 0.36;
+        radius += 2.2;
+        x = width / 2 + radius * Math.cos(angle);
+        y = height / 2 + radius * Math.sin(angle) * aspect;
+        attempts++;
+      }
+      
+      if (attempts >= 2000) {
+        x = Math.max(item.r + edgeMargin, Math.min(width - item.r - edgeMargin, x));
+        y = Math.max(item.r + edgeMargin, Math.min(height - item.r - edgeMargin, y));
+      }
+      placed.push({ ...item, x, y });
+    });
+  }
+  
   return placed;
 }
+
+const METRICS_ITEMS = [
+  { src: "/most-active-equities-volume.png", alt: "Most Active Equities by Volume" },
+  { src: "/price-band-hitters.png", alt: "Price Band Hitters — upper and lower circuit stocks" },
+  { src: "/top-25-volume-gainers.png", alt: "Top 25 Volume Gainers" },
+  { src: "/top-20-gainers-losers.png", alt: "Top 20 Gainers and Losers" },
+  { src: "/nifty-index-performance.png", alt: "Nifty Index Performance" },
+  { src: "/nifty-sector-performance.png", alt: "Nifty Sector Performance" },
+];
 
 export default function ClientReportsPage({
   initialReports,
@@ -391,6 +475,54 @@ export default function ClientReportsPage({
   const [bubbleDimensions, setBubbleDimensions] = useState({ width: 800, height: 620 });
   const [bubbleRevealed, setBubbleRevealed] = useState(false);
 
+  /* ============ MARKET METRICS SLIDER (MOBILE ONLY) ============ */
+  const [metricsEmblaRef, metricsEmblaApi] = useEmblaCarousel({
+    loop: true,
+    align: "center",
+    skipSnaps: false
+  });
+  const [metricsSelectedIndex, setMetricsSelectedIndex] = useState(0);
+  const [metricsScrollSnaps, setMetricsScrollSnaps] = useState<number[]>([]);
+  const [metricsAutoScrollActive, setMetricsAutoScrollActive] = useState(true);
+
+  const updateMetricsSelectedIndex = useCallback(() => {
+    if (!metricsEmblaApi) return;
+    setMetricsSelectedIndex(metricsEmblaApi.selectedScrollSnap());
+  }, [metricsEmblaApi]);
+
+  const onMetricsInit = useCallback(() => {
+    if (!metricsEmblaApi) return;
+    setMetricsScrollSnaps(metricsEmblaApi.scrollSnapList());
+    setMetricsSelectedIndex(metricsEmblaApi.selectedScrollSnap());
+  }, [metricsEmblaApi]);
+
+  useEffect(() => {
+    if (!metricsEmblaApi) return;
+    metricsEmblaApi.on("select", updateMetricsSelectedIndex);
+    metricsEmblaApi.on("init", onMetricsInit);
+    metricsEmblaApi.on("reInit", onMetricsInit);
+
+    // Pause autoplay on interaction
+    metricsEmblaApi.on("pointerDown", () => setMetricsAutoScrollActive(false));
+    metricsEmblaApi.on("pointerUp", () => setMetricsAutoScrollActive(true));
+
+    return () => {
+      metricsEmblaApi.off("select", updateMetricsSelectedIndex);
+      metricsEmblaApi.off("init", onMetricsInit);
+      metricsEmblaApi.off("reInit", onMetricsInit);
+      metricsEmblaApi.off("pointerDown", () => setMetricsAutoScrollActive(false));
+      metricsEmblaApi.off("pointerUp", () => setMetricsAutoScrollActive(true));
+    };
+  }, [metricsEmblaApi, updateMetricsSelectedIndex, onMetricsInit]);
+
+  useEffect(() => {
+    if (!metricsEmblaApi || !metricsAutoScrollActive) return;
+    const interval = setInterval(() => {
+      metricsEmblaApi.scrollNext();
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [metricsEmblaApi, metricsAutoScrollActive]);
+
   /* ============ LOAD SCREENER DATA DYNAMICALLY ============ */
   useEffect(() => {
     // Load stocks data only when component mounts on client side to prevent bundle bloating
@@ -450,17 +582,40 @@ export default function ClientReportsPage({
 
   /* ============ BUBBLE PACKING DATA ============ */
   const packedBubbles = useMemo(() => {
+    const isMobile = bubbleDimensions.width < 640;
+    const padding = isMobile ? 5 : 8;
+
     const absVals = sectorUniverse.map(s => Math.abs(s.ytd));
     const minAbs = Math.min(...absVals), maxAbs = Math.max(...absVals);
-    const minR = Math.max(40, bubbleDimensions.width * 0.05);
-    const maxR = Math.max(minR + 30, bubbleDimensions.width * 0.105);
 
-    const items = sectorUniverse.map(s => ({
+    // Initial radii calculation (tuned to pack as large as possible)
+    const baseMinR = isMobile ? 32 : 40;
+    const minR = Math.max(baseMinR, bubbleDimensions.width * 0.08);
+    const maxR = Math.max(minR + (isMobile ? 24 : 30), bubbleDimensions.width * 0.14);
+
+    let items = sectorUniverse.map(s => ({
       ...s,
       r: minR + ((Math.abs(s.ytd) - minAbs) / ((maxAbs - minAbs) || 1)) * (maxR - minR)
     }));
 
-    return packSectorBubbles(items, bubbleDimensions.width, bubbleDimensions.height);
+    // Prevent cropping: calculate the combined area of all bubbles (with padding)
+    // and make sure it doesn't exceed a target ratio of the container area.
+    // If it does, dynamically scale down all radii.
+    const totalArea = items.reduce((sum, item) => sum + Math.PI * Math.pow(item.r + padding / 2, 2), 0);
+    const containerArea = bubbleDimensions.width * bubbleDimensions.height;
+    
+    // We target about 65% area fill on mobile to fill white spaces, 48% on desktop
+    const targetRatio = isMobile ? 0.65 : 0.48;
+    if (totalArea > containerArea * targetRatio) {
+      const scale = Math.sqrt((containerArea * targetRatio) / totalArea);
+      items = items.map(item => {
+        // Keep an absolute minimum radius so text remains readable
+        const newR = Math.max(isMobile ? 20 : 30, item.r * scale);
+        return { ...item, r: newR };
+      });
+    }
+
+    return packSectorBubbles(items, bubbleDimensions.width, bubbleDimensions.height, padding);
   }, [bubbleDimensions]);
 
   const maxAbsYtdGlobal = useMemo(() => {
@@ -2232,13 +2387,49 @@ export default function ClientReportsPage({
               <h2 className="text-3xl font-bold uppercase text-black text-center" style={{ margin: '0 auto 10px' }}>“All the market metrics that matter—decoded, analyzed, and delivered inside our research reports”</h2>
             </div>
           </div>
+          
+          {/* Desktop Grid Layout */}
           <div className="metrics-grid">
-            <div className="metrics-item"><img src="/most-active-equities-volume.png" alt="Most Active Equities by Volume" /></div>
-            <div className="metrics-item"><img src="/price-band-hitters.png" alt="Price Band Hitters — upper and lower circuit stocks" /></div>
-            <div className="metrics-item"><img src="/top-25-volume-gainers.png" alt="Top 25 Volume Gainers" /></div>
-            <div className="metrics-item"><img src="/top-20-gainers-losers.png" alt="Top 20 Gainers and Losers" /></div>
-            <div className="metrics-item"><img src="/nifty-index-performance.png" alt="Nifty Index Performance" /></div>
-            <div className="metrics-item"><img src="/nifty-sector-performance.png" alt="Nifty Sector Performance" /></div>
+            {METRICS_ITEMS.map((item, idx) => (
+              <div className="metrics-item" key={idx}>
+                <img src={item.src} alt={item.alt} />
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile Carousel Slider */}
+          <div className="mobile-metrics-slider-wrapper">
+            <div className="metrics-slider-viewport" ref={metricsEmblaRef}>
+              <div className="metrics-slider-container">
+                {METRICS_ITEMS.map((item, idx) => (
+                  <div className="metrics-slider-slide" key={idx}>
+                    <div className="metrics-item">
+                      <img src={item.src} alt={item.alt} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {/* Dots and Slide Position indicator */}
+            {metricsScrollSnaps.length > 0 && (
+              <div className="metrics-slider-controls">
+                <div className="metrics-slider-dots">
+                  {metricsScrollSnaps.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => metricsEmblaApi?.scrollTo(idx)}
+                      className={`metrics-slider-dot ${
+                        metricsSelectedIndex === idx ? 'active' : ''
+                      }`}
+                      aria-label={`Go to slide ${idx + 1}`}
+                    />
+                  ))}
+                </div>
+                <div className="metrics-slider-index">
+                  Slide {metricsSelectedIndex + 1} of {metricsScrollSnaps.length}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -2300,8 +2491,9 @@ export default function ClientReportsPage({
             <div className="universe-stage" ref={bubbleRef}>
               {packedBubbles.map((item, idx) => {
                 const heat = heatColor(item.ytd, maxAbsYtdGlobal);
-                const nameFontSize = Math.max(11, Math.round(item.r * 0.19));
-                const changeFontSize = Math.max(10, Math.round(item.r * 0.15));
+                const isMobile = bubbleDimensions.width < 640;
+                const nameFontSize = Math.max(isMobile ? 10 : 11, Math.round(item.r * (isMobile ? 0.25 : 0.19)));
+                const changeFontSize = Math.max(isMobile ? 9 : 10, Math.round(item.r * (isMobile ? 0.20 : 0.15)));
                 const delay = Math.min(idx * 0.05, 0.5).toFixed(2);
 
                 const bubbleStyle = {
@@ -2314,7 +2506,8 @@ export default function ClientReportsPage({
                   boxShadow: `0 6px 18px ${heat.glow}, inset 0 2px 6px rgba(255,255,255,0.35)`,
                   opacity: bubbleRevealed ? 1 : 0,
                   transform: bubbleRevealed ? "scale(1)" : "scale(0.3)",
-                  transition: `transform .85s cubic-bezier(.16,1,.3,1) ${delay}s, opacity .5s ease ${delay}s`
+                  transition: `transform .85s cubic-bezier(.16,1,.3,1) ${delay}s, opacity .5s ease ${delay}s`,
+                  padding: isMobile ? '2px' : '6px'
                 };
 
                 return (
