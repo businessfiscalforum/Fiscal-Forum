@@ -14,7 +14,7 @@ import {
   FaGlobe,
   FaHandsHelping,
 } from "react-icons/fa";
-import FathomSlider from "./FathomSlider";
+import FathomSliderMobile from "./FathomSliderMobile";
 import FiscalForumCity from "./FiscalForumCity";
 import Link from "next/link";
 import { useState } from "react";
@@ -485,7 +485,7 @@ export default function HomeMobile() {
 
   return (
     <div className="text-gray-800 font-sans min-h-screen bg-white overflow-x-hidden w-full">
-      <FathomSlider />
+      <FathomSliderMobile />
       <FiscalForumCity />
 
       {/* 🔹 Tabbed Services (Cards Grid) */}
