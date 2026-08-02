@@ -2425,9 +2425,6 @@ export default function ClientReportsPage({
                     />
                   ))}
                 </div>
-                <div className="metrics-slider-index">
-                  Slide {metricsSelectedIndex + 1} of {metricsScrollSnaps.length}
-                </div>
               </div>
             )}
           </div>
