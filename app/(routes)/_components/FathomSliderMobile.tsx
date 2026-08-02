@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -19,19 +19,20 @@ const SLIDES_DATA = [
 ];
 
 export default function FathomSliderMobile() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [swiperRef, setSwiperRef] = useState<any>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
-  const openLightbox = () => {
+  const openLightbox = useCallback(() => {
     setIsLightboxOpen(true);
     swiperRef?.autoplay?.stop();
-  };
+  }, [swiperRef]);
 
-  const closeLightbox = () => {
+  const closeLightbox = useCallback(() => {
     setIsLightboxOpen(false);
     swiperRef?.autoplay?.start();
-  };
+  }, [swiperRef]);
 
   // Keyboard accessibility for lightbox close
   useEffect(() => {
@@ -42,7 +43,7 @@ export default function FathomSliderMobile() {
       window.addEventListener("keydown", handleKeyDown);
     }
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isLightboxOpen, swiperRef]);
+  }, [isLightboxOpen, closeLightbox]);
 
   return (
     <div className="relative w-full overflow-hidden bg-[#F4F1EA] pt-20 border-b border-black select-none">
