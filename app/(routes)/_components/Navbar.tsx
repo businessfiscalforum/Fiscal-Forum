@@ -81,6 +81,7 @@ export default function Navbar() {
 
   const navItems = [
     { label: "Reports", href: "/reports" },
+    { label: "For Women", href: "/for-women" },
     { label: "News & IPOs", href: "/news" },
     { label: "About Us", href: "/about-us" },
     { label: "Newsletters", href: "/newsletter" },
@@ -192,11 +193,14 @@ export default function Navbar() {
                 </Link>
               );
             }
+            const isForWomen = item.label === "For Women";
             return (
               <Link
                 key={item.label}
                 href={item.href}
-                className="px-3 py-1.5 text-xs font-bold text-black hover:text-emerald-700 transition-colors uppercase tracking-wider"
+                className={`px-3 py-1.5 text-xs font-bold transition-colors uppercase tracking-wider ${
+                  isForWomen ? "text-[#E11D48] hover:text-[#BE123C]" : "text-black hover:text-emerald-700"
+                }`}
               >
                 {item.label}
               </Link>
@@ -382,12 +386,15 @@ export default function Navbar() {
                       </Link>
                     );
                   }
+                  const isForWomen = item.label === "For Women";
                   return (
                     <Link
                       key={item.label}
                       href={item.href}
                       onClick={closeAll}
-                      className="text-base font-bold text-black uppercase tracking-wider"
+                      className={`text-base font-bold uppercase tracking-wider ${
+                        isForWomen ? "text-[#E11D48] hover:text-[#BE123C]" : "text-black"
+                      }`}
                     >
                       {item.label}
                     </Link>
