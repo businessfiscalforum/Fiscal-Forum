@@ -15,7 +15,7 @@ import {
   FaHandsHelping,
 } from "react-icons/fa";
 import FathomSliderMobile from "./FathomSliderMobile";
-import FiscalForumCity from "./FiscalForumCity";
+import FiscalForumCityMobile from "./FiscalForumCityMobile";
 import Link from "next/link";
 import { useState } from "react";
 import { BarChart3, BookOpen, Shield, TrendingUp, Wallet } from "lucide-react";
@@ -486,7 +486,7 @@ export default function HomeMobile() {
   return (
     <div className="text-gray-800 font-sans min-h-screen bg-white overflow-x-hidden w-full">
       <FathomSliderMobile />
-      <FiscalForumCity />
+      <FiscalForumCityMobile />
 
       {/* 🔹 Tabbed Services (Cards Grid) */}
       <section className="px-4 py-8 bg-[#F4FBF7] border-b border-black">

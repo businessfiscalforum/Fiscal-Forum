@@ -407,6 +407,46 @@ export default function FathomSliderMobile() {
         </div>
       </div>
 
+      {/* Section Divider Line */}
+      <div className="w-full h-px bg-black z-10 relative" aria-hidden="true" />
+
+      {/* Closing CTA */}
+      <div className="relative z-10 w-full bg-white py-12 px-6 flex flex-col items-center select-none border-b border-black">
+        <div className="w-full max-w-[320px] mx-auto flex flex-col items-center">
+          {/* Visual Image */}
+          <div className="w-full flex justify-center mb-6">
+            <Image
+              src="/fathom/research-reports.png"
+              alt="Research Reports Showcase"
+              width={320}
+              height={240}
+              className="w-full max-w-[260px] h-auto object-contain rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.05)] border border-black/5"
+            />
+          </div>
+          
+          {/* Text Contents */}
+          <div className="text-center flex flex-col items-center">
+            <h3 className="text-base font-extrabold text-black leading-snug tracking-tight">
+              Everything you need to invest smarter, all in one place.
+            </h3>
+            <p className="text-xs font-bold text-gray-500 mt-2.5 leading-relaxed">
+              Get actionable market insights, in-depth research, and reports personalized to your investment goals.
+            </p>
+            
+            <Link
+              href="/reports"
+              className="inline-flex w-full max-w-[280px] py-3.5 mt-6 bg-[#1FA463] hover:bg-[#157847] text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-[0_5px_15px_rgba(31,164,99,0.32)] items-center justify-center gap-2 active:scale-98 transition-all"
+            >
+              CLICK HERE <span className="text-sm font-light">→</span>
+            </Link>
+            
+            <p className="text-[10px] font-bold text-gray-400 mt-4">
+              To get your research backed reports ...
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Left/Right Arrow Overlays */}
       {currentIndex > 0 && (
         <button

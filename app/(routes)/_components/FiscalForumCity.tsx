@@ -15,7 +15,7 @@ const hotspots = [
     color: "#10B981",
     bgColor: "bg-emerald-50",
     borderColor: "border-emerald-400",
-    link: "/services/stock-investment",
+    link: "/services/stock-investment/equity-etfs",
     icon: "📈",
   },
   {
@@ -28,7 +28,7 @@ const hotspots = [
     color: "#3B82F6",
     bgColor: "bg-blue-50",
     borderColor: "border-blue-400",
-    link: "/services/stock-investment",
+    link: "/services/stock-investment/commodities",
     icon: "🪙",
   },
   {
@@ -41,7 +41,7 @@ const hotspots = [
     color: "#F59E0B",
     bgColor: "bg-yellow-50",
     borderColor: "border-yellow-400",
-    link: "/services/stock-investment",
+    link: "/services/stock-investment/mtf",
     icon: "⚡",
   },
   {
@@ -53,7 +53,7 @@ const hotspots = [
     color: "#1FA463",
     bgColor: "bg-emerald-50",
     borderColor: "border-emerald-500",
-    link: "/",
+    link: "/services/stock-investment",
     icon: "🏛️",
   },
   {
@@ -78,7 +78,7 @@ const hotspots = [
     color: "#F97316",
     bgColor: "bg-orange-50",
     borderColor: "border-orange-400",
-    link: "/services/stock-investment",
+    link: "/services/stock-investment/futures-options",
     icon: "🎯",
   },
   {
@@ -90,7 +90,7 @@ const hotspots = [
     color: "#A855F7",
     bgColor: "bg-purple-50",
     borderColor: "border-purple-400",
-    link: "/news",
+    link: "/services/stock-investment/ipo",
     icon: "🚀",
   },
   {
