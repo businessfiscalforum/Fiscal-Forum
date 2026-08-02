@@ -652,7 +652,7 @@ export default function ForWomenClientPage() {
               Invest India, <em>Her Way</em>.
             </h1>
             <p className="lede">
-              Welcome to your personal financial sandbox. Every asset you wear, brand you shop, and dream you plan rests on top of a massive financial ecosystem. Let's make it work for you.
+              Welcome to your personal financial sandbox. Every asset you wear, brand you shop, and dream you plan rests on top of a massive financial ecosystem. Let&apos;s make it work for you.
             </p>
           </div>
 
@@ -848,8 +848,8 @@ export default function ForWomenClientPage() {
         <div className="wrap">
           <div className="section-head">
             <span className="eyebrow">03. DREAM LIFE PORTFOLIO</span>
-            <h2>Pick what you want. We'll price the monthly cost of getting there.</h2>
-            <p>This isn't a wishlist — it's a plan with a number attached.</p>
+            <h2>Pick what you want. We&apos;ll price the monthly cost of getting there.</h2>
+            <p>This isn&apos;t a wishlist — it&apos;s a plan with a number attached.</p>
           </div>
 
           <div className="dream-grid" id="dreamGrid">
@@ -945,8 +945,8 @@ export default function ForWomenClientPage() {
         <div className="wrap">
           <div className="section-head">
             <span className="eyebrow">04. SHOPPING CART</span>
-            <h2>What's usually in your cart?</h2>
-            <p>Select the categories you actually spend on. We'll map them to the industries behind them.</p>
+            <h2>What&apos;s usually in your cart?</h2>
+            <p>Select the categories you actually spend on. We&apos;ll map them to the industries behind them.</p>
           </div>
 
           <div className="cart-layout">
@@ -1080,7 +1080,7 @@ export default function ForWomenClientPage() {
                   <h3>
                     {CLOSET_ITEMS[flippedCloset].name} → {CLOSET_ITEMS[flippedCloset].maps}
                   </h3>
-                  <p className="tagline">"{CLOSET_ITEMS[flippedCloset].tagline}"</p>
+                  <p className="tagline">&quot;{CLOSET_ITEMS[flippedCloset].tagline}&quot;</p>
                 </div>
               </div>
               <p style={{ marginTop: "12px" }}>{CLOSET_ITEMS[flippedCloset].body}</p>
@@ -1259,6 +1259,7 @@ export default function ForWomenClientPage() {
           <div className="pair-list">
             {STORES[selectedStoreIdx]?.pairs.map((p) => (
               <div className="pair-row" key={p.brand}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   className="pair-logo"
                   src={`https://www.google.com/s2/favicons?domain=${p.domain}&sz=64`}
