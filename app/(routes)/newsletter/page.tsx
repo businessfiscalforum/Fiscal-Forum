@@ -3,6 +3,8 @@ import { db } from "../../../config/db";
 import { newsletter } from "../../../config/schema"; 
 import { desc } from "drizzle-orm";
 
+export const dynamic = "force-dynamic";
+
 export default async function NewsletterPage() {
   const rows = await db
     .select()

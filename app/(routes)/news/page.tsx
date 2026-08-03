@@ -5,6 +5,8 @@ import { newsTable } from "../../../config/schema";
 import { desc } from "drizzle-orm";
 import { NewsItem } from "./ClientNewsPage"; // Import the interface
 
+export const dynamic = "force-dynamic";
+
 export default async function NewsPage() {
   const news = await db
       .select()

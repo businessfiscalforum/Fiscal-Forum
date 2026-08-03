@@ -606,68 +606,6 @@ export default function HomeMobile() {
         </div>
       </section>
 
-      {/* Referral section */}
-      {user && (
-        <section className="px-4 py-8 bg-white border-b border-black text-center flex flex-col items-center">
-          <h2 className="text-xl sm:text-2xl font-bold text-black uppercase tracking-tight">
-            Referral Program
-          </h2>
-          <motion.p className="text-xs font-semibold text-gray-500 mt-2 max-w-md mx-auto mb-6">
-            Invite friends to Fiscal Forum and earn rewards. Share your code and grow your network today!
-          </motion.p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 w-full">
-            {[
-              {
-                title: "Earn Credits",
-                desc: "Get 10 credits per signup. Redeem for premium features & content.",
-                icon: <FaUsers className="text-[#1FA463] text-lg" />,
-              },
-              {
-                title: "Build Network",
-                desc: "Connect with finance enthusiasts and grow your professional circle.",
-                icon: <FaHandshake className="text-[#1FA463] text-lg" />,
-              },
-              {
-                title: "Exclusive Rewards",
-                desc: "Unlock VIP access, early features, and special perks as you refer more.",
-                icon: <FaAward className="text-[#1FA463] text-lg" />,
-              },
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                className="bg-white border border-black rounded-2xl p-5 shadow-sm text-left space-y-3"
-              >
-                <div className="w-10 h-10 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
-                  {item.icon}
-                </div>
-                <h3 className="text-base font-bold text-black">
-                  {item.title}
-                </h3>
-                <p className="text-xs text-gray-500 font-semibold">
-                  {item.desc}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div className="w-full bg-yellow-50 border border-black rounded-2xl p-6 shadow-sm text-left space-y-3">
-            <h3 className="text-base font-bold text-black uppercase tracking-tight">
-              Ready to Start Referring?
-            </h3>
-            <p className="text-xs font-semibold text-gray-700">
-              Join thousands earning rewards through our referral program.
-            </p>
-            <Link
-              href="/referrals"
-              className="inline-flex items-center justify-center px-5 py-2.5 bg-[#1FA463] text-white border border-black font-bold text-xs uppercase tracking-widest rounded-xl shadow-sm"
-            >
-              <FaRocket className="mr-1.5 text-xs" />
-              View My Referrals
-            </Link>
-          </motion.div>
-        </section>
-      )}
 
       {/* 🔹 Affiliations — Auto-scrolling Logos */}
       <section className="py-8 bg-white">
