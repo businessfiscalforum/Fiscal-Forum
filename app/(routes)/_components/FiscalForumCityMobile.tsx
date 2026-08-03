@@ -67,49 +67,49 @@ const mobileCategories = [
     id: "equity",
     label: "Equity",
     link: "/services/stock-investment/equity-etfs",
-    icon: <TrendingUp className="w-4 h-4 text-[#1FA463]" />,
+    icon: "/images/cat-equity.png",
   },
   {
     id: "mutual",
     label: "Mutual Funds",
     link: "/services/mutual-funds",
-    icon: <Users className="w-4 h-4 text-[#1FA463]" />,
+    icon: "/images/cat-mutual.png",
   },
   {
     id: "ipo",
     label: "IPO",
     link: "/services/stock-investment/ipo",
-    icon: <Rocket className="w-4 h-4 text-[#1FA463]" />,
+    icon: "/images/cat-ipo.png",
   },
   {
     id: "mtf",
     label: "MTF",
     link: "/services/stock-investment/mtf",
-    icon: <Zap className="w-4 h-4 text-[#1FA463]" />,
+    icon: "/images/cat-mtf.png",
   },
   {
     id: "bonds",
     label: "Bonds",
     link: "/services/govt-bonds-and-fd",
-    icon: <Banknote className="w-4 h-4 text-[#1FA463]" />,
+    icon: "/images/cat-bonds.png",
   },
   {
     id: "insurance",
     label: "Insurance",
     link: "/services/insurance",
-    icon: <ShieldCheck className="w-4 h-4 text-[#1FA463]" />,
+    icon: "/images/cat-insurance.png",
   },
   {
     id: "fo",
     label: "F&O Trading",
     link: "/services/stock-investment/futures-options",
-    icon: <Activity className="w-4 h-4 text-[#1FA463]" />,
+    icon: "/images/cat-fo.png",
   },
   {
     id: "commodities",
     label: "Commodities",
     link: "/services/stock-investment/commodities",
-    icon: <Coins className="w-4 h-4 text-[#1FA463]" />,
+    icon: "/images/cat-commodities.png",
   },
 ];
 
@@ -167,10 +167,16 @@ export default function FiscalForumCityMobile() {
               href={spot.link}
               className="flex items-center justify-between bg-white border border-black/5 rounded-xl p-2.5 shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:border-black/10 active:scale-98 transition-all"
             >
-              <div className="flex items-center gap-2 overflow-hidden">
-                {/* Circular Icon Container */}
-                <div className="w-8 h-8 rounded-full bg-[#1FA463]/10 border border-black/5 flex items-center justify-center shrink-0">
-                  {spot.icon}
+              <div className="flex items-center gap-2.5 overflow-hidden">
+                {/* Cartoon Category Illustration */}
+                <div className="w-10 h-10 relative shrink-0">
+                  <Image
+                    src={spot.icon}
+                    alt={spot.label}
+                    fill
+                    sizes="40px"
+                    className="object-contain"
+                  />
                 </div>
                 <div className="flex flex-col justify-center min-w-0">
                   <span className="text-[9px] font-extrabold text-black uppercase tracking-tight leading-tight truncate">

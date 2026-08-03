@@ -778,7 +778,6 @@ export default function HomeDesktop() {
         </section>
 
         <HomeNewsAndResearchSection />
-        <ResearchReportsSection />
 
         {/* Enhanced Why Fiscal Forum Section */}
         <section className="py-16 bg-white border-b border-black">

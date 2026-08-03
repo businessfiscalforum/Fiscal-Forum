@@ -108,19 +108,19 @@ const Footer = () => {
                 </div>
 
                 {/* Contact Info */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 max-w-3xl mx-auto">
+                <div className="grid grid-cols-3 gap-1.5 sm:gap-4 mb-8 max-w-3xl mx-auto">
                   <motion.div
                     whileHover={{ y: -5 }}
-                    className="flex flex-col items-center text-center gap-3 text-gray-300 hover:text-white transition-colors group"
+                    className="flex flex-col items-center text-center gap-2 text-gray-300 hover:text-white transition-colors group"
                   >
-                    <div className="w-14 h-14 bg-blue-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <FaPhone className="text-white text-xl" />
+                    <div className="w-10 h-10 sm:w-14 sm:h-14 bg-blue-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <FaPhone className="text-white text-base sm:text-xl" />
                     </div>
                     <div>
-                      <p className="text-xs text-gray-400 uppercase tracking-wide">
+                      <p className="text-[9px] sm:text-xs text-gray-400 uppercase tracking-wide">
                         Call Us
                       </p>
-                      <p className="font-semibold text-white">
+                      <p className="font-semibold text-white text-[9.5px] sm:text-sm leading-tight mt-0.5">
                         +91 8696060387
                       </p>
                     </div>
@@ -128,16 +128,16 @@ const Footer = () => {
 
                   <motion.div
                     whileHover={{ y: -5 }}
-                    className="flex flex-col items-center text-center gap-3 text-gray-300 hover:text-white transition-colors group"
+                    className="flex flex-col items-center text-center gap-2 text-gray-300 hover:text-white transition-colors group"
                   >
-                    <div className="w-14 h-14 bg-emerald-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <FaEnvelope className="text-white text-xl" />
+                    <div className="w-10 h-10 sm:w-14 sm:h-14 bg-emerald-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <FaEnvelope className="text-white text-base sm:text-xl" />
                     </div>
-                    <div>
-                      <p className="text-xs text-gray-400 uppercase tracking-wide">
+                    <div className="min-w-0 w-full">
+                      <p className="text-[9px] sm:text-xs text-gray-400 uppercase tracking-wide">
                         Email Us
                       </p>
-                      <p className="font-semibold text-white text-sm">
+                      <p className="font-semibold text-white text-[9.5px] sm:text-sm leading-tight mt-0.5 break-all">
                         support@fiscalforum.in
                       </p>
                     </div>
@@ -145,17 +145,17 @@ const Footer = () => {
 
                   <motion.div
                     whileHover={{ y: -5 }}
-                    className="flex flex-col items-center text-center gap-3 text-gray-300 hover:text-white transition-colors group"
+                    className="flex flex-col items-center text-center gap-2 text-gray-300 hover:text-white transition-colors group"
                   >
-                    <div className="w-14 h-14 bg-indigo-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <FaClock className="text-white text-xl" />
+                    <div className="w-10 h-10 sm:w-14 sm:h-14 bg-indigo-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <FaClock className="text-white text-base sm:text-xl" />
                     </div>
                     <div>
-                      <p className="text-xs text-gray-400 uppercase tracking-wide">
-                        Business Hours
+                      <p className="text-[9px] sm:text-xs text-gray-400 uppercase tracking-wide">
+                        Hours
                       </p>
-                      <p className="font-semibold text-white">
-                        24/7 Online Support
+                      <p className="font-semibold text-white text-[9.5px] sm:text-sm leading-tight mt-0.5">
+                        24/7 Support
                       </p>
                     </div>
                   </motion.div>

@@ -643,6 +643,81 @@ export default function ForWomenClientPage() {
 
   return (
     <>
+      {/* ============ JEWELLERY BOX ============ */}
+      <section className="jewel-section jewel-section-top" id="jewellery">
+        <div className="wrap">
+          <div className="section-head">
+            <span className="eyebrow">01. JEWELLERY BOX</span>
+            <h2>You already own gold. Now make it work.</h2>
+            <p>
+              Every piece in your box has a financial twin. Tap one to see what it means as an investment, not just an heirloom.
+            </p>
+          </div>
+
+          <div className="jewel-picker" id="jewelPicker">
+            {JEWELS.map((j, idx) => (
+              <div
+                key={j.name}
+                className={`jewel-item reveal-pop ${selectedJewel === idx ? "active" : ""}`}
+              >
+                <div className="jewel-photo" style={{ position: "relative", height: "150px" }}>
+                  <Image
+                    src={j.img}
+                    alt={j.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
+                <div className="name">{j.name}</div>
+                <div className="maps-to">→ {j.mapsTo}</div>
+                <button
+                  type="button"
+                  className="open-it-btn"
+                  onClick={() => setSelectedJewel(idx)}
+                >
+                  Open it →
+                </button>
+              </div>
+            ))}
+          </div>
+
+          {selectedJewel !== null && (
+            <div className="jewel-panel show">
+              <span className="eyebrow" id="jewelBudgetLabel">
+                {inr(JEWELS[selectedJewel].budget)} TO SPEND ON{" "}
+                {JEWELS[selectedJewel].name.toUpperCase()}
+              </span>
+              <div className="jewel-panel-amount">
+                {inr(JEWELS[selectedJewel].budget)}
+              </div>
+              <div className="versus">
+                <div className="versus-card" id="jewelLeft">
+                  <h4>{JEWELS[selectedJewel].left.title}</h4>
+                  <ul>
+                    {JEWELS[selectedJewel].left.points.map((p, i) => (
+                      <li key={i}>{p}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="vs">vs.</div>
+                <div className="versus-card gold-side" id="jewelRight">
+                  <h4>{JEWELS[selectedJewel].right.title}</h4>
+                  <ul>
+                    {JEWELS[selectedJewel].right.points.map((p, i) => (
+                      <li key={i}>{p}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div className="jewel-cta">
+                {renderRouteButtons(JEWELS[selectedJewel].routes)}
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* ============ HERO SECTION ============ */}
       <section className="hero">
         <div className="wrap">
@@ -728,81 +803,6 @@ export default function ForWomenClientPage() {
         </div>
       </section>
 
-      {/* ============ JEWELLERY BOX ============ */}
-      <section className="jewel-section" id="jewellery">
-        <div className="wrap">
-          <div className="section-head">
-            <span className="eyebrow">01. JEWELLERY BOX</span>
-            <h2>You already own gold. Now make it work.</h2>
-            <p>
-              Every piece in your box has a financial twin. Tap one to see what it means as an investment, not just an heirloom.
-            </p>
-          </div>
-
-          <div className="jewel-picker" id="jewelPicker">
-            {JEWELS.map((j, idx) => (
-              <div
-                key={j.name}
-                className={`jewel-item reveal-pop ${selectedJewel === idx ? "active" : ""}`}
-              >
-                <div className="jewel-photo" style={{ position: "relative", height: "150px" }}>
-                  <Image
-                    src={j.img}
-                    alt={j.name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    style={{ objectFit: "cover" }}
-                  />
-                </div>
-                <div className="name">{j.name}</div>
-                <div className="maps-to">→ {j.mapsTo}</div>
-                <button
-                  type="button"
-                  className="open-it-btn"
-                  onClick={() => setSelectedJewel(idx)}
-                >
-                  Open it →
-                </button>
-              </div>
-            ))}
-          </div>
-
-          {selectedJewel !== null && (
-            <div className="jewel-panel show">
-              <span className="eyebrow" id="jewelBudgetLabel">
-                {inr(JEWELS[selectedJewel].budget)} TO SPEND ON{" "}
-                {JEWELS[selectedJewel].name.toUpperCase()}
-              </span>
-              <div className="jewel-panel-amount">
-                {inr(JEWELS[selectedJewel].budget)}
-              </div>
-              <div className="versus">
-                <div className="versus-card" id="jewelLeft">
-                  <h4>{JEWELS[selectedJewel].left.title}</h4>
-                  <ul>
-                    {JEWELS[selectedJewel].left.points.map((p, i) => (
-                      <li key={i}>{p}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="vs">vs.</div>
-                <div className="versus-card gold-side" id="jewelRight">
-                  <h4>{JEWELS[selectedJewel].right.title}</h4>
-                  <ul>
-                    {JEWELS[selectedJewel].right.points.map((p, i) => (
-                      <li key={i}>{p}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-              <div className="jewel-cta">
-                {renderRouteButtons(JEWELS[selectedJewel].routes)}
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
-
       {/* ============ SHOPPING STREET ============ */}
       <section className="street-section" id="street">
         <div className="wrap">
@@ -876,7 +876,7 @@ export default function ForWomenClientPage() {
 
           <div className="dream-panel show">
             <div className="dream-panel-grid">
-              <div>
+              <div className="dream-panel-left">
                 <span className="eyebrow">GOAL: {DREAMS[selectedDream].label.toUpperCase()}</span>
                 <div className="goal-inputs" style={{ marginTop: "12px" }}>
                   <div className="field">
@@ -923,9 +923,6 @@ export default function ForWomenClientPage() {
                     <b>12% p.a.</b>
                   </div>
                 </div>
-                <div className="route-buttons" style={{ marginTop: "20px" }}>
-                  {renderRouteButtons(["Mutual Funds", "Goal Portfolio"])}
-                </div>
               </div>
               <div className="dream-result-box">
                 <span className="small result-label">YOUR ESTIMATED MONTHLY INVESTMENT</span>
@@ -934,6 +931,9 @@ export default function ForWomenClientPage() {
                   Suggested mix:{" "}
                   {dreamAllocation.map((a) => `${a.l} ${a.v}%`).join(" · ")}
                 </span>
+              </div>
+              <div className="route-buttons dream-route-buttons" style={{ marginTop: "20px" }}>
+                {renderRouteButtons(["Mutual Funds", "Goal Portfolio"])}
               </div>
             </div>
           </div>
@@ -978,9 +978,9 @@ export default function ForWomenClientPage() {
                       <div className="cart-row" key={c.label}>
                         <span className="cat-name">{c.label}</span>
                         <span className="to">→ {c.sector}</span>
-                        <select className="stock-select" aria-label={`Top 5 ${c.label} stocks`}>
-                          <option value="" disabled defaultValue="">
-                            Top 5 stocks (India)
+                        <select className="stock-select" defaultValue="" aria-label={`Top 5 ${c.label} stocks`}>
+                          <option value="" disabled>
+                            Click
                           </option>
                           {c.stocks.map((st) => (
                             <option value={st} key={st}>
@@ -1004,7 +1004,7 @@ export default function ForWomenClientPage() {
                   onChange={(e) => setCartSpend(e.target.value)}
                   step="500"
                 />
-                {spendNum > 0 && selectedCart.size > 0 && (
+                {spendNum > 0 && (
                   <div className="spend-result" id="cartSpendResult">
                     <div className="spend-line">
                       You spent <b>{inr(spendNum)}</b> on these categories last month.
@@ -1052,12 +1052,12 @@ export default function ForWomenClientPage() {
                   <div className="cubby-inner">
                     <div className="cubby-face cubby-front">
                       <div style={{ position: "absolute", inset: 0 }}>
-                        <Image
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
                           src={item.img}
                           alt={item.name}
-                          fill
-                          sizes="(max-width: 768px) 100vw, 25vw"
-                          style={{ objectFit: "cover" }}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
                         />
                       </div>
                       <div className="obj-name">{item.name}</div>

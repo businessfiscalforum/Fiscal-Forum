@@ -66,7 +66,7 @@
 }
 
 .for-women-container section {
-  padding: 72px 0;
+  padding: 36px 0;
 }
 
 .for-women-container a {
@@ -85,7 +85,7 @@
 
 /* ---------- HERO / GOALS ---------- */
 .for-women-container .hero {
-  padding: 120px 0 100px; /* added padding top to clear fixed main navbar */
+  padding: 90px 0 40px; /* added padding top to clear fixed main navbar */
   background:
     radial-gradient(1200px 500px at 15% -10%, var(--yellow-100), transparent 60%),
     radial-gradient(900px 500px at 100% 0%, var(--pink-100), transparent 55%);
@@ -302,7 +302,7 @@
 /* ---------- SECTION HEADERS ---------- */
 .for-women-container .section-head {
   max-width:620px;
-  margin-bottom:44px;
+  margin-bottom:24px;
 }
 
 .for-women-container .section-head .eyebrow {
@@ -331,6 +331,10 @@
 /* ---------- JEWELLERY BOX ---------- */
 .for-women-container .jewel-section {
   background:linear-gradient(180deg,var(--pink-50),var(--cream));
+}
+
+.for-women-container .jewel-section-top {
+  padding-top: 90px;
 }
 
 .for-women-container .jewel-picker {
@@ -657,7 +661,30 @@
   gap:30px;
 }
 
-@media(max-width:720px){.for-women-container .dream-panel-grid{grid-template-columns:1fr;}}
+.for-women-container .dream-panel-left {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.for-women-container .dream-panel-grid > .dream-result-box {
+  grid-column: 2;
+  grid-row: 1 / 3;
+}
+
+.for-women-container .dream-panel-grid > .dream-route-buttons {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+@media(max-width:720px){
+  .for-women-container .dream-panel-grid{grid-template-columns:1fr;}
+  .for-women-container .dream-panel-left,
+  .for-women-container .dream-panel-grid > .dream-result-box,
+  .for-women-container .dream-panel-grid > .dream-route-buttons {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
 
 .for-women-container .dream-calc-line {
   display:flex;
@@ -1284,4 +1311,505 @@
 
 @media(prefers-reduced-motion:reduce){
   .for-women-container .reveal-pop {opacity:1;transform:none;transition:none;}
+}
+
+/* ========== MOBILE LAYOUT (≤ 480px) ========== */
+@media (max-width: 480px) {
+
+  /* --- Global / Layout --- */
+  .for-women-container .wrap {
+    padding: 0 16px;
+  }
+
+  .for-women-container section {
+    padding: 20px 0;
+  }
+
+  .for-women-container .section-head {
+    margin-bottom: 16px;
+  }
+
+  .for-women-container .section-head h2 {
+    font-size: 22px;
+    line-height: 1.18;
+  }
+
+  .for-women-container .section-head p {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  /* --- Buttons --- */
+  .for-women-container .btn {
+    padding: 10px 16px;
+    font-size: 12.5px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .for-women-container .route-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* --- Hero Section --- */
+  .for-women-container .hero {
+    padding: 60px 0 30px;
+  }
+
+  .for-women-container .hero h1 {
+    font-size: 28px;
+  }
+
+  .for-women-container .hero p.lede {
+    font-size: 14px;
+    margin-top: 12px;
+  }
+
+  .for-women-container .goal-question {
+    margin-top: 36px;
+    font-size: 11.5px;
+  }
+
+  .for-women-container .goal-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .for-women-container .goal-card {
+    padding: 14px 12px;
+    gap: 6px;
+  }
+
+  .for-women-container .goal-emoji {
+    font-size: 22px;
+  }
+
+  .for-women-container .goal-label {
+    font-size: 13px;
+  }
+
+  .for-women-container .goal-result {
+    margin-top: 24px;
+    padding: 20px 16px;
+    border-radius: var(--radius-md);
+  }
+
+  .for-women-container .goal-result-head {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .for-women-container .goal-result-figure {
+    font-size: 28px;
+  }
+
+  .for-women-container .goal-inputs {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .for-women-container .field input {
+    width: 100%;
+  }
+
+  .for-women-container .allocation {
+    margin-top: 18px;
+    gap: 8px;
+  }
+
+  .for-women-container .chip {
+    padding: 6px 12px;
+    font-size: 11.5px;
+    gap: 6px;
+  }
+
+  .for-women-container .assumption {
+    font-size: 11px;
+    margin-top: 14px;
+  }
+
+  /* --- Jewellery Box Section --- */
+  .for-women-container .jewel-section-top {
+    padding-top: 60px;
+  }
+
+  .for-women-container .jewel-picker {
+    flex-direction: row;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+
+  .for-women-container .jewel-item {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .for-women-container .jewel-photo {
+    height: 90px !important;
+  }
+
+  .for-women-container .jewel-item .name {
+    font-size: 12px;
+    margin-top: 8px;
+    padding: 0 8px;
+  }
+
+  .for-women-container .jewel-item .maps-to {
+    font-size: 10px;
+    margin-top: 2px;
+    padding: 0 8px 8px;
+  }
+
+  .for-women-container .open-it-btn {
+    width: calc(100% - 16px);
+    margin: auto 8px 10px;
+    padding: 7px 8px;
+    font-size: 11px;
+  }
+
+  .for-women-container .jewel-panel {
+    padding: 20px 16px;
+    border-radius: var(--radius-md);
+    margin-top: 20px;
+  }
+
+  .for-women-container .jewel-panel-amount {
+    font-size: 24px;
+  }
+
+  .for-women-container .versus {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .for-women-container .versus .vs {
+    text-align: center;
+    font-size: 16px;
+  }
+
+  .for-women-container .versus-card {
+    padding: 16px;
+  }
+
+  .for-women-container .versus-card h4 {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .for-women-container .versus-card ul {
+    font-size: 12.5px;
+  }
+
+  .for-women-container .jewel-cta {
+    margin-top: 20px;
+    flex-direction: column;
+  }
+
+  /* --- Shopping Street Section --- */
+  .for-women-container .street-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .for-women-container .store-card {
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .for-women-container .store-photo {
+    aspect-ratio: 1/1;
+    border-radius: 10px;
+  }
+
+  .for-women-container .store-card button {
+    width: 100%;
+    justify-content: center;
+    font-size: 10px;
+    padding: 7px 6px;
+    margin-top: auto;
+  }
+
+  /* --- Dream Life Section --- */
+  .for-women-container .dream-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .for-women-container .dream-item .label {
+    font-size: 12px;
+    margin-top: 8px;
+  }
+
+  .for-women-container .dream-panel {
+    padding: 20px 16px;
+    border-radius: var(--radius-md);
+    margin-top: 20px;
+  }
+
+  .for-women-container .dream-panel-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .for-women-container .dream-panel-left,
+  .for-women-container .dream-panel-grid > .dream-result-box,
+  .for-women-container .dream-panel-grid > .dream-route-buttons {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .for-women-container .dream-calc-line {
+    font-size: 13px;
+    padding: 8px 0;
+  }
+
+  .for-women-container .dream-result-box {
+    padding: 18px;
+  }
+
+  .for-women-container .dream-result-box .amount {
+    font-size: 26px;
+  }
+
+  .for-women-container .dream-result-box .small {
+    font-size: 11px;
+  }
+
+  /* --- Shopping Cart Section --- */
+  .for-women-container .cart-options {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  .for-women-container .cart-check {
+    padding: 8px 6px;
+    font-size: 11px;
+    gap: 4px;
+    border-radius: 8px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .for-women-container .cart-check input {
+    width: 14px;
+    height: 14px;
+  }
+
+  .for-women-container .cart-preview {
+    padding: 20px 16px;
+    border-radius: var(--radius-md);
+  }
+
+  .for-women-container .cart-preview h3 {
+    font-size: 16px;
+  }
+
+  .for-women-container .cart-rows {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  .for-women-container .cart-row {
+    max-width: 100%;
+    flex: none;
+    padding: 8px;
+    gap: 4px;
+  }
+
+  .for-women-container .cart-row .cat-name {
+    font-size: 11px;
+  }
+
+  .for-women-container .cart-row .to {
+    font-size: 9px;
+  }
+
+  .for-women-container .cart-row .stock-select {
+    font-size: 9px;
+    padding: 4px 4px;
+  }
+
+  .for-women-container .cart-empty {
+    grid-column: 1 / -1;
+    margin-top: 8px;
+    font-size: 12px;
+  }
+
+  .for-women-container .spend-box {
+    padding: 14px;
+  }
+
+  .for-women-container .spend-box label {
+    font-size: 11px;
+  }
+
+  .for-women-container .spend-result b {
+    font-size: 17px;
+  }
+
+  /* --- Closet Section --- */
+  .for-women-container .closet-frame {
+    padding: 16px;
+    border-radius: var(--radius-md);
+  }
+
+  .for-women-container .closet-rail {
+    margin-bottom: 14px;
+  }
+
+  .for-women-container .wardrobe {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .for-women-container .cubby {
+    height: 110px;
+  }
+
+  .for-women-container .cubby-front .obj-name {
+    font-size: 11px;
+    padding: 8px 6px 7px;
+  }
+
+  .for-women-container .cubby-back {
+    font-size: 10.5px;
+    padding: 10px;
+  }
+
+  .for-women-container .cubby-back .maps {
+    font-size: 11px;
+  }
+
+  .for-women-container .cubby-back .see-below {
+    font-size: 10px;
+  }
+
+  .for-women-container .closet-detail {
+    padding: 20px 16px;
+    border-radius: var(--radius-md);
+    margin-top: 20px;
+  }
+
+  .for-women-container .closet-detail h3 {
+    font-size: 16px;
+  }
+
+  .for-women-container .closet-detail p.tagline {
+    font-size: 13px;
+  }
+
+  .for-women-container .closet-flow {
+    margin-top: 16px;
+  }
+
+  .for-women-container .flow-stage {
+    padding: 12px 14px;
+  }
+
+  .for-women-container .flow-stage.industry {
+    padding: 10px 14px;
+  }
+
+  .for-women-container .flow-chip {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+
+  .for-women-container .flow-group + .flow-group {
+    margin-top: 14px;
+    padding-top: 14px;
+  }
+
+  /* --- Modals --- */
+  .for-women-container .modal-backdrop {
+    padding: 12px;
+    align-items: flex-end;
+  }
+
+  .for-women-container .modal {
+    padding: 24px 18px;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    max-width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .for-women-container .modal h3 {
+    font-size: 17px;
+  }
+
+  .for-women-container .modal p {
+    font-size: 13px;
+  }
+
+  .for-women-container .gold-modal {
+    max-width: 100%;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+  }
+
+  .for-women-container .gold-modal-list {
+    max-height: 50vh;
+  }
+
+  .for-women-container .gold-option {
+    padding: 14px 0;
+    gap: 10px;
+  }
+
+  .for-women-container .gold-option-title {
+    font-size: 13.5px;
+  }
+
+  .for-women-container .gold-option-body {
+    font-size: 12px;
+  }
+
+  .for-women-container .gold-option-subpoints li {
+    font-size: 12px;
+    padding-left: 16px;
+  }
+
+  .for-women-container .store-modal {
+    max-width: 100%;
+  }
+
+  .for-women-container .pair-row {
+    flex-wrap: wrap;
+    padding: 10px 12px;
+    gap: 6px;
+  }
+
+  .for-women-container .pair-brand,
+  .for-women-container .pair-stock {
+    flex: none;
+    width: calc(100% - 40px);
+    text-align: left;
+  }
+
+  .for-women-container .pair-brand {
+    font-size: 12px;
+  }
+
+  .for-women-container .pair-stock {
+    font-size: 12px;
+    text-align: left;
+  }
+
+  .for-women-container .pair-arrow {
+    display: none;
+  }
+
+  .for-women-container .modal-close {
+    width: 100%;
+    justify-content: center;
+  }
 }

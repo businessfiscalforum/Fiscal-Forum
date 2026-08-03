@@ -546,28 +546,25 @@ export default function HomeMobile() {
       {/* 🔹 News & Research — Mobile */}
       <HomeNewsAndResearchSectionMobile />
 
-      {/* 🔹 Research Reports — Mobile */}
-      <ResearchReportsSectionMobile />
-
       {/* 🔹 Why Choose Us */}
       <section className="px-4 py-8 bg-white border-b border-black">
         <h2 className="text-xl sm:text-2xl font-bold text-black uppercase tracking-tight text-center mb-6">
           Why Fiscal Forum?
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-2.5">
           {features.map((f, i) => (
             <motion.div
               key={i}
-              className="bg-white border border-black rounded-2xl p-5 shadow-sm flex flex-col gap-3 text-left"
+              className="bg-white border border-black rounded-2xl p-3.5 shadow-sm flex flex-col gap-2 text-left aspect-square justify-between"
             >
-              <div className="w-10 h-10 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
-                <f.icon className="text-[#1FA463] text-lg" />
+              <div className="w-8 h-8 bg-emerald-50 border border-black rounded-lg flex items-center justify-center shrink-0">
+                <f.icon className="text-[#1FA463] text-base" />
               </div>
-              <div>
-                <h4 className="font-bold text-black text-base">
+              <div className="flex flex-col flex-grow justify-end">
+                <h4 className="font-bold text-black text-[12px] leading-snug truncate">
                   {f.title}
                 </h4>
-                <p className="text-xs text-gray-500 font-semibold mt-1">
+                <p className="text-[9.5px] text-gray-500 font-semibold mt-0.5 leading-snug line-clamp-3">
                   {f.desc}
                 </p>
               </div>

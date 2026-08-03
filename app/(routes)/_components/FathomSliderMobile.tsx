@@ -62,62 +62,41 @@ export default function FathomSliderMobile() {
         {/* SLIDE 0: REPORT */}
         <SwiperSlide>
           <div className="w-full flex flex-col px-5 pb-6 relative">
-            {/* Header Title & Advisor cutout section */}
-            <div className="relative w-full min-h-[210px] mt-2 mb-4 pt-2">
-              {/* Word pops titles stacked left */}
-              <div className="w-[65%] flex flex-col items-start gap-2.5 z-20 relative">
+            {/* Header Title section */}
+            <div className="relative w-full mt-2 mb-2 pt-2">
+              {/* Word pops titles flowing horizontally */}
+              <div className="w-full flex flex-row flex-wrap items-center justify-center gap-2 z-20 relative">
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.8, rotate: -3 }}
-                  animate={{ opacity: 1, scale: 1, rotate: -1 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4, delay: 0.1 }}
-                  className="bg-[#FFDE21] text-black font-extrabold text-[22px] px-3.5 py-1.5 rounded-lg shadow-[3px_3px_0px_rgba(0,0,0,0.18)] border border-black/10"
+                  className="bg-[#FFDE21] text-black font-extrabold text-[16px] px-2.5 py-1 rounded-lg shadow-[2px_2px_0px_rgba(0,0,0,0.18)] border border-black/10 whitespace-nowrap"
                 >
                   Unlock
                 </motion.div>
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.8, rotate: -2 }}
-                  animate={{ opacity: 1, scale: 1, rotate: 1.2 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4, delay: 0.25 }}
-                  className="bg-[#FFDE21] text-black font-extrabold text-[22px] px-3.5 py-1.5 rounded-lg shadow-[3px_3px_0px_rgba(0,0,0,0.18)] border border-black/10"
+                  className="bg-[#FFDE21] text-black font-extrabold text-[16px] px-2.5 py-1 rounded-lg shadow-[2px_2px_0px_rgba(0,0,0,0.18)] border border-black/10 whitespace-nowrap"
                 >
                   institutional-quality
                 </motion.div>
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.8, rotate: -2 }}
-                  animate={{ opacity: 1, scale: 1, rotate: -0.6 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4, delay: 0.4 }}
-                  className="bg-[#FFDE21] text-black font-extrabold text-[22px] px-3.5 py-1.5 rounded-lg shadow-[3px_3px_0px_rgba(0,0,0,0.18)] border border-black/10"
+                  className="bg-[#FFDE21] text-black font-extrabold text-[16px] px-2.5 py-1 rounded-lg shadow-[2px_2px_0px_rgba(0,0,0,0.18)] border border-black/10 whitespace-nowrap"
                 >
                   research at your
                 </motion.div>
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.8, rotate: -1 }}
-                  animate={{ opacity: 1, scale: 1, rotate: 1.8 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4, delay: 0.55 }}
-                  className="bg-[#FFDE21] text-black font-extrabold text-[22px] px-3.5 py-1.5 rounded-lg shadow-[3px_3px_0px_rgba(0,0,0,0.18)] border border-black/10"
+                  className="bg-[#FFDE21] text-black font-extrabold text-[16px] px-2.5 py-1 rounded-lg shadow-[2px_2px_0px_rgba(0,0,0,0.18)] border border-black/10 whitespace-nowrap"
                 >
                   fingertips
-                </motion.div>
-              </div>
-
-              {/* Pointing Advisor Cutout on the right */}
-              <div className="absolute right-0 bottom-[-22px] w-[110px] z-10 flex flex-col items-center">
-                <motion.div
-                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ duration: 0.6, delay: 0.7 }}
-                  className="relative w-full"
-                >
-                  <Image
-                    src="/fathom/advisor-cutout.png"
-                    alt="Fiscal Forum Advisor"
-                    width={100}
-                    height={175}
-                    className="object-contain drop-shadow-[0_12px_16px_rgba(0,0,0,0.3)] relative z-30 mx-auto"
-                    style={{ transform: "scaleX(-1)" }}
-                  />
-                  {/* Custom Oval Shadow under advisor feet */}
-                  <div className="absolute bottom-[-2px] left-1/2 transform -translate-x-1/2 w-[70px] h-[5px] bg-black/15 rounded-[50%] blur-[3px] z-10" />
                 </motion.div>
               </div>
             </div>
@@ -129,7 +108,7 @@ export default function FathomSliderMobile() {
                 animate={{ opacity: 1, scale: 1, rotate: -2.2 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
                 onClick={openLightbox}
-                className="relative cursor-zoom-in active:scale-[0.99] transition-transform border border-black/5 shadow-[0_20px_45px_rgba(0,0,0,0.16)] rounded-lg overflow-hidden max-w-[250px] w-full bg-white"
+                className="relative cursor-zoom-in active:scale-[0.99] transition-transform border border-black/5 shadow-[0_20px_45px_rgba(0,0,0,0.16)] rounded-2xl overflow-hidden max-w-[250px] w-full bg-white"
               >
                 <Image
                   src="/fathom/research-report.png"
@@ -148,35 +127,18 @@ export default function FathomSliderMobile() {
             {/* Callout Cards stacked below */}
             <div className="flex flex-col gap-2 mt-4 w-full max-w-[340px] mx-auto">
               {[
-                {
-                  icon: <Search className="w-3.5 h-3.5 text-[#1FA463]" />,
-                  text: <>We don&apos;t limit to <span className="text-[#1FA463] font-bold">Research</span>,</>,
-                },
-                {
-                  icon: <TrendingUp className="w-3.5 h-3.5 text-[#1FA463]" />,
-                  text: <>we help you <span className="text-[#1FA463] font-bold">park your money</span></>,
-                },
-                {
-                  icon: <Target className="w-3.5 h-3.5 text-[#1FA463]" />,
-                  text: <>in <span className="text-[#1FA463] font-bold">right assets</span> according to</>,
-                },
-                {
-                  icon: <User className="w-3.5 h-3.5 text-[#1FA463]" />,
-                  text: <>your <span className="text-[#1FA463] font-bold">needs</span>.</>,
-                },
-              ].map((item, idx) => (
+                <>We don&apos;t limit to <span className="text-[#1FA463] font-bold">Research</span>, we help you <span className="text-[#1FA463] font-bold">park your money</span></>,
+                <>in <span className="text-[#1FA463] font-bold">right assets</span> according to your <span className="text-[#1FA463] font-bold">needs</span>.</>,
+              ].map((text, idx) => (
                 <motion.div
                   key={idx}
                   initial={{ opacity: 0, x: idx % 2 === 0 ? -15 : 15 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: 0.8 + idx * 0.15 }}
-                  className="flex items-center bg-white border border-black/5 rounded-2xl py-2.5 px-4 shadow-[0_6px_14px_rgba(0,0,0,0.04)]"
+                  className="bg-white border border-black/5 rounded-2xl py-2.5 px-4 shadow-[0_6px_14px_rgba(0,0,0,0.04)]"
                 >
-                  <div className="w-8.5 h-8.5 rounded-full bg-emerald-50 border border-black/5 flex items-center justify-center mr-4 flex-shrink-0">
-                    {item.icon}
-                  </div>
                   <p className="text-gray-800 text-sm font-semibold tracking-tight leading-snug">
-                    {item.text}
+                    {text}
                   </p>
                 </motion.div>
               ))}
@@ -189,7 +151,7 @@ export default function FathomSliderMobile() {
               </p>
               <Link
                 href="/reports"
-                className="inline-flex w-full max-w-[280px] py-3 bg-[#FF5500] hover:bg-[#E64D00] text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-[0_5px_15px_rgba(255,85,0,0.32)] items-center justify-center gap-2 active:scale-98 transition-all"
+                className="inline-flex w-full max-w-[280px] py-3 bg-[#FFDE21] hover:bg-[#E5C71D] text-black font-extrabold text-xs uppercase tracking-wider rounded-full shadow-[0_5px_15px_rgba(255,222,33,0.32)] items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
               >
                 CLICK HERE <span className="text-sm font-light">→</span>
               </Link>
@@ -237,7 +199,7 @@ export default function FathomSliderMobile() {
               </p>
               <Link
                 href="/services/mutual-funds"
-                className="inline-flex w-full max-w-[280px] py-3 bg-[#FF5500] hover:bg-[#E64D00] text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-[0_5px_15px_rgba(255,85,0,0.32)] items-center justify-center gap-2 active:scale-98 transition-all"
+                className="inline-flex w-full max-w-[280px] py-3 bg-[#FFDE21] hover:bg-[#E5C71D] text-black font-extrabold text-xs uppercase tracking-wider rounded-full shadow-[0_5px_15px_rgba(255,222,33,0.32)] items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
               >
                 CLICK HERE <span className="text-sm font-light">→</span>
               </Link>
@@ -284,7 +246,7 @@ export default function FathomSliderMobile() {
               </p>
               <Link
                 href="/services/stock-investment"
-                className="inline-flex w-full max-w-[280px] py-3 bg-[#FF5500] hover:bg-[#E64D00] text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-[0_5px_15px_rgba(255,85,0,0.32)] items-center justify-center gap-2 active:scale-98 transition-all"
+                className="inline-flex w-full max-w-[280px] py-3 bg-[#FFDE21] hover:bg-[#E5C71D] text-black font-extrabold text-xs uppercase tracking-wider rounded-full shadow-[0_5px_15px_rgba(255,222,33,0.32)] items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
               >
                 CLICK HERE <span className="text-sm font-light">→</span>
               </Link>
@@ -331,7 +293,7 @@ export default function FathomSliderMobile() {
               </p>
               <Link
                 href="/services/credit-card"
-                className="inline-flex w-full max-w-[280px] py-3 bg-[#FF5500] hover:bg-[#E64D00] text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-[0_5px_15px_rgba(255,85,0,0.32)] items-center justify-center gap-2 active:scale-98 transition-all"
+                className="inline-flex w-full max-w-[280px] py-3 bg-[#FFDE21] hover:bg-[#E5C71D] text-black font-extrabold text-xs uppercase tracking-wider rounded-full shadow-[0_5px_15px_rgba(255,222,33,0.32)] items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
               >
                 CLICK HERE <span className="text-sm font-light">→</span>
               </Link>
@@ -378,7 +340,7 @@ export default function FathomSliderMobile() {
               </p>
               <Link
                 href="/services/insurance"
-                className="inline-flex w-full max-w-[280px] py-3 bg-[#FF5500] hover:bg-[#E64D00] text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-[0_5px_15px_rgba(255,85,0,0.32)] items-center justify-center gap-2 active:scale-98 transition-all"
+                className="inline-flex w-full max-w-[280px] py-3 bg-[#FFDE21] hover:bg-[#E5C71D] text-black font-extrabold text-xs uppercase tracking-wider rounded-full shadow-[0_5px_15px_rgba(255,222,33,0.32)] items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
               >
                 CLICK HERE <span className="text-sm font-light">→</span>
               </Link>
@@ -436,7 +398,7 @@ export default function FathomSliderMobile() {
             
             <Link
               href="/reports"
-              className="inline-flex w-full max-w-[280px] py-3.5 mt-6 bg-[#1FA463] hover:bg-[#157847] text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-[0_5px_15px_rgba(31,164,99,0.32)] items-center justify-center gap-2 active:scale-98 transition-all"
+              className="inline-flex w-full max-w-[280px] py-3.5 mt-6 bg-[#FFDE21] hover:bg-[#E5C71D] text-black font-extrabold text-xs uppercase tracking-wider rounded-full shadow-[0_5px_15px_rgba(255,222,33,0.32)] items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
             >
               CLICK HERE <span className="text-sm font-light">→</span>
             </Link>
