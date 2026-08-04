@@ -258,22 +258,22 @@ export default function StockInvestmentPage() {
                     let coords = { left: "0%", top: "0%", width: "0%", height: "0%" };
                     switch (option.id) {
                       case "equity-etfs":
-                        coords = { left: "32.13%", top: "13.19%", width: "11.91%", height: "15.02%" };
+                        coords = { left: "32.03%", top: "12.94%", width: "12.11%", height: "15.26%" };
                         break;
                       case "futures-options":
-                        coords = { left: "55.18%", top: "12.70%", width: "12.40%", height: "15.14%" };
+                        coords = { left: "55.08%", top: "12.70%", width: "12.60%", height: "15.26%" };
                         break;
                       case "ipo":
-                        coords = { left: "23.14%", top: "32.72%", width: "11.91%", height: "15.02%" };
+                        coords = { left: "23.05%", top: "32.60%", width: "12.21%", height: "15.26%" };
                         break;
                       case "mtf":
-                        coords = { left: "64.26%", top: "32.60%", width: "12.01%", height: "15.02%" };
+                        coords = { left: "63.96%", top: "32.48%", width: "12.40%", height: "15.26%" };
                         break;
                       case "commodities":
-                        coords = { left: "28.00%", top: "54.46%", width: "12.01%", height: "15.02%" };
+                        coords = { left: "29.20%", top: "54.46%", width: "12.11%", height: "15.26%" };
                         break;
                       case "unlisted-shares":
-                        coords = { left: "59.77%", top: "54.82%", width: "12.01%", height: "14.53%" };
+                        coords = { left: "59.67%", top: "54.82%", width: "12.21%", height: "15.26%" };
                         break;
                     }
 
@@ -302,10 +302,10 @@ export default function StockInvestmentPage() {
                         }}
                       >
                         <div
-                          className={`w-full h-full rounded-xl border-2 transition-all duration-200 ${
+                          className={`w-full h-full rounded-[10px] border-2 transition-all duration-200 ${
                             isHovered
-                              ? "border-[#1FA463] bg-[#1FA463]/10 shadow-[0_0_15px_rgba(31,164,99,0.4)] scale-105"
-                              : "border-transparent bg-transparent hover:border-[#1FA463]/50 hover:bg-[#1FA463]/5"
+                              ? "border-[#FFD400] bg-[#FFD400]/15 shadow-[0_0_15px_rgba(255,212,0,0.4)]"
+                              : "border-transparent bg-transparent hover:border-[#FFD400]/50 hover:bg-[#FFD400]/5"
                           }`}
                         />
                       </Link>
