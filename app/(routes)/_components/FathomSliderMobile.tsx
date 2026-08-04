@@ -115,7 +115,7 @@ export default function FathomSliderMobile() {
                   alt="Equity Research Report Preview"
                   width={250}
                   height={340}
-                  className="w-full h-auto object-contain"
+                  className="w-full h-auto object-contain rounded-2xl"
                   priority
                 />
                 <span className="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-black/75 text-white flex items-center justify-center pointer-events-none shadow-md">

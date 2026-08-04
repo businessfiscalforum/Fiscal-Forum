@@ -203,7 +203,7 @@ main, header, footer{ position: relative; z-index: 1; }
   position: relative;
   max-width: 420px;
   margin: 0 auto;
-  border-radius: 4px;
+  border-radius: 16px;
   overflow: hidden;
   transform: translateX(46%) rotate(-1.2deg) scale(0.75);
   transition: transform 0.15s ease-out, box-shadow 0.3s ease;
@@ -241,6 +241,7 @@ main, header, footer{ position: relative; z-index: 1; }
   width: 100%;
   display: block;
   pointer-events: none;
+  border-radius: 16px;
 }
 
 /* Expand affordance */
