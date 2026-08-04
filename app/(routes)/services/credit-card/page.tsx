@@ -799,201 +799,52 @@ export default function CreditCardsPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50">
-        <div className="text-2xl text-emerald-800">Loading Cards...</div>
+      <div className="min-h-screen flex items-center justify-center bg-[#F2F8F4]">
+        <div className="text-2xl text-[#111315]">Loading Cards...</div>
       </div>
     );
   }
 
   return (
     <div
-      className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 text-gray-800 pt-20"
+      className="min-h-screen bg-[#F2F8F4] text-[#111315] pt-32 pb-16 font-sans relative"
       style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a7f3d0' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        backgroundImage: `
+          linear-gradient(to right, rgba(17,19,21,0.07) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(17,19,21,0.07) 1px, transparent 1px)
+        `,
+        backgroundSize: "40px 40px",
       }}
     >
-      {/* Header */}
-      <header className="relative py-10 md:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-r from-green-600 to-emerald-700 ">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="relative z-10 max-w-4xl mx-auto text-center"
-        >
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="flex justify-center mb-6"
-          >
-            <div className="bg-white/20 backdrop-blur-sm p-4 rounded-full shadow-lg">
-              <CreditCard className="w-10 h-10 text-white" />
-            </div>
-          </motion.div>
-
-          <motion.h1
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className="text-3xl sm:text-3xl md:text-3xl lg:text-4xl font-extrabold text-white mb-4 sm:mb-6 leading-tight"
-          >
-            Unlock the Best Credit Card Deals
-          </motion.h1>
-
-          <motion.p
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="text-base sm:text-lg md:text-xl lg:text-2xl text-white max-w-3xl md:max-w-4xl mx-auto leading-relaxed px-2 mb-8"
-          >
-            Maximize rewards, minimize fees. Find the card that fits your
-            spending and elevates your lifestyle.
-          </motion.p>
-
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="flex flex-wrap justify-center gap-4 sm:gap-6 mt-6 text-white"
-          >
-            <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30 shadow-sm">
-              <Gem className="w-5 h-5 text-yellow-400 flex-shrink-0" />
-              <span className="text-sm font-medium">Earn Reward Points</span>
-            </div>
-            <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30 shadow-sm">
-              <Percent className="w-5 h-5 text-yellow-400 flex-shrink-0" />
-              <span className="text-sm font-medium">Get Cashback Offers</span>
-            </div>
-            <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30 shadow-sm">
-              <ShieldCheck className="w-5 h-5 text-yellow-400 flex-shrink-0" />
-              <span className="text-sm font-medium">
-                Enjoy Security Features
-              </span>
-            </div>
-          </motion.div>
-        </motion.div>
-        {/* <motion.div
-  initial={{ opacity: 0, scale: 0.8 }}
-  animate={{ opacity: 1, scale: 1 }}
-  transition={{ delay: 0.6, duration: 0.5 }}
-  className="absolute top-4 right-4 md:top-6 md:right-6 z-20"
->
-  <div className="bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/30 shadow-xl w-72 text-center">
-    <h3 className="text-white font-semibold text-base mb-2">
-      Check Your Credit Card Offers
-    </h3>
-    <p className="text-white/80 text-sm mb-4">
-      Discover personalized deals based on your spending habits.
-    </p>
-    <a
-      href="https://credue.in/next/credit-card-eligibility?cba_code=QzAwMTExMzI="
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-block bg-green-600 hover:bg-green-700 text-white font-medium text-sm px-4 py-2 rounded-lg transition-all duration-300 shadow-md"
-    >
-      Click Here
-    </a>
-  </div>
-</motion.div> */}
-      </header>
-      <section className="py-6 sm:py-8 bg-gradient-to-r from-blue-50 to-indigo-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 sm:gap-8">
-            {/* Left Side - Text and Buttons */}
-            <div className="sm:w-auto flex-shrink-0 w-full sm:max-w-[200px]">
-              <h3 className="text-lg sm:text-xl font-bold text-gray-800">
-                Not Sure Which Card to Pick?
-              </h3>
-              <p className="text-gray-600 text-sm mt-1">
-                Find the perfect card for your client
-              </p>
-              <div className="flex flex-wrap gap-2 sm:gap-3 pt-3">
-                <Link
-                  href="https://credue.in/next/credit-card-eligibility?cba_code=QzAwMTExMzI="
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 sm:px-4 sm:py-2.5 text-sm rounded-lg font-medium transition-colors duration-300 whitespace-nowrap"
-                >
-                  Add Lead
-                </Link>
-                <button className="text-green-600 hover:text-green-700 font-medium text-sm flex items-center gap-1 sm:gap-2 transition-colors duration-300 whitespace-nowrap">
-                  Copy Link
-                </button>
-              </div>
-            </div>
-
-            {/* Right Side - Credit Cards (Smaller, Horizontal) */}
-            <div className="flex justify-start sm:justify-end w-full sm:w-auto">
-              <div className="flex space-x-2 sm:space-x-3">
-                {/* Card 1 */}
-                <div className="relative w-20 h-12 sm:w-24 sm:h-14 bg-black rounded-md overflow-hidden shadow-sm transform hover:scale-105 transition-transform duration-200">
-                  <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-black"></div>
-                  <div className="absolute top-1 left-1.5 text-white text-[8px] sm:text-xs">
-                    VISA
-                  </div>
-                  <div className="absolute bottom-1 left-1.5 text-white text-[7px] sm:text-[9px] font-mono">
-                    •••• 8901
-                  </div>
-                </div>
-
-                {/* Card 2 */}
-                <div className="relative w-20 h-12 sm:w-24 sm:h-14 bg-gradient-to-r from-orange-500 to-purple-600 rounded-md overflow-hidden shadow-sm transform hover:scale-105 transition-transform duration-200">
-                  <div className="absolute top-1 left-1.5 text-white text-[8px] sm:text-xs">
-                    SWIGGY
-                  </div>
-                  <div className="absolute top-1 right-1.5 text-white text-[7px] sm:text-[9px]">
-                    HDFC
-                  </div>
-                  <div className="absolute bottom-1 left-1.5 text-white text-[7px] sm:text-[9px] font-mono">
-                    •••• 8901
-                  </div>
-                  <div className="absolute bottom-1 right-1.5 text-white">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="10"
-                      height="10"
-                      fill="currentColor"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M11 1a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11 3.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3z" />
-                      <path d="M4.5 1A1.5 1.5 0 003 2.5v9A1.5 1.5 0 004.5 13h11a1.5 1.5 0 001.5-1.5V2.5A1.5 1.5 0 0015.5 1h-11z" />
-                    </svg>
-                  </div>
-                </div>
-
-                {/* Card 3 */}
-                <div className="relative w-20 h-12 sm:w-24 sm:h-14 bg-gradient-to-r from-green-600 to-teal-500 rounded-md overflow-hidden shadow-sm transform hover:scale-105 transition-transform duration-200">
-                  <div className="absolute top-1 left-1.5 text-white text-[8px] sm:text-xs">
-                    ESB
-                  </div>
-                  <div className="absolute bottom-1 left-1.5 text-white text-[7px] sm:text-[9px] font-mono">
-                    •••• 8901
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Title / Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold uppercase tracking-tight text-[#111315] mb-4">
+            CREDIT CARDS
+          </h1>
+          <p className="text-lg md:text-xl text-[#5B6B7C] max-w-3xl mx-auto font-medium">
+            Maximize rewards, minimize fees. Find the card that fits your spending.
+          </p>
         </div>
-      </section>
-      {/* Filters Section */}
-      <section className="py-8 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 flex items-center gap-2">
-              <FaFilter className="text-emerald-600" /> Find Your Perfect Card
+
+        {/* Filters Section (Neo-Brutalist) */}
+        <div className="bg-white border border-[#111315] rounded-[28px] p-6 shadow-sm mb-12">
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-6 border-b border-[rgba(17,19,21,0.08)] pb-4">
+            <h2 className="text-lg font-bold text-[#111315] flex items-center gap-2">
+              <FaFilter className="text-[#5C9A78] text-sm" /> FIND YOUR PERFECT CARD
             </h2>
-            <p className="text-sm text-gray-600">
+            <span className="text-xs font-bold text-[#8B98A6] uppercase tracking-wider">
               {filteredCards.length}{" "}
               {filteredCards.length === 1 ? "Card" : "Cards"} Found
-            </p>
+            </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 items-end">
             {/* Bank Filter */}
             <div>
               <label
                 htmlFor="bank-filter"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-[10px] font-bold text-[#8B98A6] uppercase tracking-wider mb-2"
               >
                 Bank
               </label>
@@ -1001,7 +852,7 @@ export default function CreditCardsPage() {
                 id="bank-filter"
                 value={selectedBank}
                 onChange={(e) => setSelectedBank(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
+                className="w-full p-2.5 bg-white border border-[#111315] rounded-xl text-xs font-bold text-[#111315] focus:outline-none focus:ring-1 focus:ring-[#5C9A78]"
               >
                 {banks.map((bank) => (
                   <option key={bank} value={bank}>
@@ -1011,11 +862,11 @@ export default function CreditCardsPage() {
               </select>
             </div>
 
-            {/* Category Filter (Tagline) */}
+            {/* Category Filter */}
             <div>
               <label
                 htmlFor="category-filter"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-[10px] font-bold text-[#8B98A6] uppercase tracking-wider mb-2"
               >
                 Category
               </label>
@@ -1023,7 +874,7 @@ export default function CreditCardsPage() {
                 id="category-filter"
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
+                className="w-full p-2.5 bg-white border border-[#111315] rounded-xl text-xs font-bold text-[#111315] focus:outline-none focus:ring-1 focus:ring-[#5C9A78]"
               >
                 {categories.map((category) => (
                   <option key={category} value={category}>
@@ -1037,7 +888,7 @@ export default function CreditCardsPage() {
             <div>
               <label
                 htmlFor="reward-filter"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-[10px] font-bold text-[#8B98A6] uppercase tracking-wider mb-2"
               >
                 Reward Type
               </label>
@@ -1045,7 +896,7 @@ export default function CreditCardsPage() {
                 id="reward-filter"
                 value={selectedRewardType}
                 onChange={(e) => setSelectedRewardType(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
+                className="w-full p-2.5 bg-white border border-[#111315] rounded-xl text-xs font-bold text-[#111315] focus:outline-none focus:ring-1 focus:ring-[#5C9A78]"
               >
                 {rewardTypes.map((type) => (
                   <option key={type} value={type}>
@@ -1056,27 +907,24 @@ export default function CreditCardsPage() {
             </div>
 
             {/* Welcome Bonus Filter */}
-            <div className="flex items-end">
-              <div className="flex items-center">
+            <div className="flex h-11 items-center">
+              <label className="flex items-center cursor-pointer select-none">
                 <input
                   id="welcome-bonus-filter"
                   name="welcome-bonus-filter"
                   type="checkbox"
                   checked={showWelcomeBonusOnly}
                   onChange={(e) => setShowWelcomeBonusOnly(e.target.checked)}
-                  className="h-4 w-4 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500"
+                  className="h-4 w-4 accent-[#5C9A78] border-[#111315] rounded mr-2"
                 />
-                <label
-                  htmlFor="welcome-bonus-filter"
-                  className="ml-2 block text-sm text-gray-700"
-                >
-                  Has Welcome Bonus
-                </label>
-              </div>
+                <span className="text-xs font-bold text-[#111315]">
+                  HAS WELCOME BONUS
+                </span>
+              </label>
             </div>
 
             {/* Reset Filters Button */}
-            <div className="flex items-end">
+            <div>
               <button
                 onClick={() => {
                   setSelectedBank("All");
@@ -1084,217 +932,218 @@ export default function CreditCardsPage() {
                   setSelectedRewardType("All");
                   setShowWelcomeBonusOnly(false);
                 }}
-                className="w-full py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
+                className="w-full p-2.5 bg-white border border-[#111315] rounded-xl text-xs font-bold text-[#111315] hover:bg-[#F2F8F4] transition-colors cursor-pointer"
               >
-                Reset Filters
+                RESET FILTERS
               </button>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* Main Grid - Now uses filteredCards */}
-      <main className="py-16 sm:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {filteredCards.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {filteredCards.map((card, index) => (
-                <motion.div
-                  key={card.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.05, duration: 0.3 }}
-                  whileHover={{ y: -8 }}
-                  className="relative rounded-2xl sm:rounded-3xl shadow-lg sm:shadow-xl overflow-hidden transition-all duration-300 bg-white border border-emerald-200 flex flex-col h-full"
-                >
-                  <div className="h-1.5 sm:h-2 bg-gradient-to-r from-green-500 to-emerald-600 w-full"></div>
+        {/* Cards Grid */}
+        {filteredCards.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+            {filteredCards.map((card, index) => (
+              <motion.div
+                key={card.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
+                className="bg-white border border-[#111315] rounded-[24px] overflow-hidden shadow-sm flex flex-col justify-between h-full p-6 hover:-translate-y-1 transition-transform"
+              >
+                <div>
+                  {/* Top Row Badges */}
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="bg-[#D9F0E1] text-[#2F5541] border border-[rgba(17,19,21,0.15)] px-3 py-1 rounded-full text-[0.68rem] font-bold tracking-wider uppercase">
+                      {card.bank}
+                    </span>
+                    <span className="bg-white text-[#111315] border border-[#111315] px-3 py-1 rounded-full text-[0.68rem] font-bold uppercase">
+                      CARD
+                    </span>
+                  </div>
 
-                  <div className="p-5 sm:p-6 flex flex-col flex-grow">
-                    {/* Logo & Name */}
-                    <div className="flex items-start gap-3 mb-4 sm:mb-5">
-                      <div className="bg-white border border-emerald-200 rounded-lg p-2">
-                        <Image
-                          src={card.logo}
-                          alt={`${card.bank} Logo`}
-                          width={40}
-                          height={40}
-                          className="h-8 w-auto object-contain"
-                        />
-                      </div>
-                      <div>
-                        <h3 className="text-base sm:text-lg font-bold text-gray-900">
-                          {card.cardName}
-                        </h3>
-                        {card.tagline && (
-                          <p className="text-xs sm:text-sm text-emerald-700 mt-1">
-                            {card.tagline}
-                          </p>
-                        )}
-                      </div>
+                  {/* Logo & Card Name */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="bg-white border border-[rgba(17,19,21,0.12)] rounded-lg p-1.5 w-10 h-10 flex items-center justify-center flex-shrink-0">
+                      <Image
+                        src={card.logo}
+                        alt={`${card.bank} Logo`}
+                        width={30}
+                        height={30}
+                        className="object-contain"
+                      />
                     </div>
-
-                    {/* Card Image */}
-                    <div className="flex justify-center mb-5 sm:mb-6 flex-grow">
-                      <div className="relative w-full max-w-[200px] sm:max-w-[240px] h-[120px] sm:h-[140px]">
-                        <Image
-                          src={card.cardImage}
-                          alt={`${card.cardName} Image`}
-                          fill
-                          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                          className="object-contain"
-                          priority={index === 0} // Prioritize first card image
-                        />
-                      </div>
-                    </div>
-
-                    {/* Rewards Highlights */}
-                    {(card.cashbackRate ||
-                      card.rewardPoints ||
-                      card.welcomeBonus) && (
-                      <div className="grid grid-cols-3 gap-2 mb-4 sm:mb-5 text-center">
-                        {card.cashbackRate && (
-                          <div className="bg-emerald-50 rounded-lg p-2">
-                            <p className="text-[10px] sm:text-xs text-emerald-800 font-semibold">
-                              Cashback
-                            </p>
-                            <p className="text-xs sm:text-sm font-bold text-emerald-600">
-                              {card.cashbackRate}
-                            </p>
-                          </div>
-                        )}
-                        {card.rewardPoints && (
-                          <div className="bg-teal-50 rounded-lg p-2">
-                            <p className="text-[10px] sm:text-xs text-teal-800 font-semibold">
-                              Rewards
-                            </p>
-                            <p className="text-xs sm:text-sm font-bold text-teal-600 truncate">
-                              {card.rewardPoints}
-                            </p>
-                          </div>
-                        )}
-                        {card.welcomeBonus && (
-                          <div className="bg-green-50 rounded-lg p-2">
-                            <p className="text-[10px] sm:text-xs text-green-800 font-semibold">
-                              Bonus
-                            </p>
-                            <p className="text-xs sm:text-sm font-bold text-green-600 truncate">
-                              {card.welcomeBonus}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    {/* Key Features */}
-                    <div className="mb-5 sm:mb-6 flex-grow">
-                      <h4 className="font-bold text-sm text-gray-800 mb-2 flex items-center gap-2">
-                        <FaStar className="text-emerald-500 text-xs" /> Key
-                        Features
-                      </h4>
-                      <ul className="space-y-1.5 sm:space-y-2">
-                        {card.features.slice(0, 3).map((feature, i) => (
-                          <li
-                            key={i}
-                            className="text-xs sm:text-sm text-gray-700 flex items-start gap-2"
-                          >
-                            <span className="text-emerald-400 mt-1.5 text-[8px]">
-                              •
-                            </span>
-                            <span>{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Buttons */}
-                    <div className="flex flex-col gap-2.5 sm:gap-3 mt-auto">
-                      <button
-                        onClick={() => openModal(card)}
-                        className="flex items-center justify-center gap-2 px-3 py-2.5 sm:px-4 sm:py-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 rounded-xl text-xs sm:text-sm font-semibold border border-emerald-200 transition-colors duration-200"
-                        aria-label={`View details for ${card.cardName}`}
-                      >
-                        <FaInfoCircle className="text-xs" />{" "}
-                        <span>View Details</span>
-                      </button>
-
-                      <div className="flex gap-2.5 sm:gap-3">
-                        <Link
-                          href={card.pdfLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center justify-center gap-1.5 sm:gap-2 px-3 py-2.5 sm:px-4 sm:py-3 bg-teal-100 hover:bg-teal-200 text-teal-800 rounded-xl text-xs sm:text-sm font-semibold border border-teal-200 flex-shrink-0 transition-colors duration-200 w-2/5"
-                          aria-label={`Download PDF for ${card.cardName}`}
-                        >
-                          <FaFilePdf className="text-xs" /> <span>PDF</span>
-                        </Link>
-                        <Link
-                          href={card.applyLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 px-3 py-2.5 sm:px-4 sm:py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-xl text-xs sm:text-sm font-bold transition-all shadow-md text-center"
-                          aria-label={`Apply for ${card.cardName}`}
-                        >
-                          Apply Now
-                        </Link>
-                      </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-[#111315] leading-tight">
+                        {card.cardName}
+                      </h3>
+                      {card.tagline && (
+                        <p className="text-[10px] font-bold text-[#5B6B7C] uppercase tracking-wider mt-0.5">
+                          {card.tagline}
+                        </p>
+                      )}
                     </div>
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12">
-              <div className="text-5xl mb-4">🔍</div>
-              <h3 className="text-xl font-bold text-gray-800 mb-2">
-                No Cards Found
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Try adjusting your filters to see more results.
-              </p>
-              <button
-                onClick={() => {
-                  setSelectedBank("All");
-                  setSelectedCategory("All");
-                  setSelectedRewardType("All");
-                  setShowWelcomeBonusOnly(false);
-                }}
-                className="px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors"
-              >
-                Reset All Filters
-              </button>
-            </div>
-          )}
-        </div>
-      </main>
 
-      {/* Why Choose Us */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-emerald-700 to-teal-800 text-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Why Choose Us for Your Credit Card Needs?
+                  {/* Card Visual representation */}
+                  <div className="flex justify-center mb-6">
+                    <div className="relative w-full max-w-[200px] h-[120px]">
+                      <Image
+                        src={card.cardImage}
+                        alt={`${card.cardName} Image`}
+                        fill
+                        sizes="200px"
+                        className="object-contain"
+                        priority={index === 0}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Spec Highlights Grid */}
+                  {(card.cashbackRate ||
+                    card.rewardPoints ||
+                    card.welcomeBonus) && (
+                    <div className="grid grid-cols-3 gap-2 mb-4 text-center">
+                      {card.cashbackRate && (
+                        <div className="border border-[#111315] bg-[#F2F8F4]/40 rounded-xl p-2 flex flex-col justify-center">
+                          <span className="text-[8px] font-bold text-[#8B98A6] uppercase">
+                            Cashback
+                          </span>
+                          <span className="text-xs font-extrabold text-[#111315] truncate">
+                            {card.cashbackRate}
+                          </span>
+                        </div>
+                      )}
+                      {card.rewardPoints && (
+                        <div className="border border-[#111315] bg-[#F2F8F4]/40 rounded-xl p-2 flex flex-col justify-center">
+                          <span className="text-[8px] font-bold text-[#8B98A6] uppercase">
+                            Rewards
+                          </span>
+                          <span className="text-xs font-extrabold text-[#111315] truncate">
+                            {card.rewardPoints}
+                          </span>
+                        </div>
+                      )}
+                      {card.welcomeBonus && (
+                        <div className="border border-[#111315] bg-[#F2F8F4]/40 rounded-xl p-2 flex flex-col justify-center">
+                          <span className="text-[8px] font-bold text-[#8B98A6] uppercase">
+                            Bonus
+                          </span>
+                          <span className="text-xs font-extrabold text-[#111315] truncate">
+                            {card.welcomeBonus}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  <div className="border-b border-[rgba(17,19,21,0.12)] my-4"></div>
+
+                  {/* Features */}
+                  <div className="mb-6">
+                    <h4 className="font-bold text-xs text-[#111315] mb-2 flex items-center gap-1.5">
+                      <FaStar className="text-[#5C9A78] text-[9px]" /> KEY FEATURES
+                    </h4>
+                    <ul className="space-y-1.5">
+                      {card.features.slice(0, 3).map((feature, i) => (
+                        <li
+                          key={i}
+                          className="text-xs text-[#5B6B7C] font-medium flex items-start gap-2"
+                        >
+                          <span className="text-[#5C9A78] mt-1 flex-shrink-0">
+                            •
+                          </span>
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Bottom Row */}
+                <div className="flex flex-col gap-2.5 mt-auto pt-4 border-t border-[rgba(17,19,21,0.08)]">
+                  <button
+                    onClick={() => openModal(card)}
+                    className="w-full py-2 bg-white border border-[#111315] text-[#111315] rounded-full text-xs font-bold hover:bg-[#F2F8F4] transition-colors cursor-pointer"
+                  >
+                    View Card Details
+                  </button>
+                  <div className="flex gap-2">
+                    <Link
+                      href={card.pdfLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-1/3 py-2 bg-white border border-[#111315] text-[#111315] rounded-full text-xs font-bold text-center hover:bg-[#F2F8F4] transition-colors"
+                    >
+                      PDF
+                    </Link>
+                    <Link
+                      href={card.applyLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 py-2 bg-[#5C9A78] hover:bg-[#2F5541] text-white rounded-full text-xs font-bold text-center transition-colors"
+                    >
+                      Apply Now →
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-16 bg-white border border-[#111315] rounded-[28px] p-8 max-w-md mx-auto mb-20 shadow-sm">
+            <div className="text-4xl mb-3">🔍</div>
+            <h3 className="text-lg font-bold text-[#111315] mb-1">
+              NO CARDS FOUND
+            </h3>
+            <p className="text-xs text-[#5B6B7C] mb-4">
+              Try adjusting your filter parameters.
+            </p>
+            <button
+              onClick={() => {
+                setSelectedBank("All");
+                setSelectedCategory("All");
+                setSelectedRewardType("All");
+                setShowWelcomeBonusOnly(false);
+              }}
+              className="px-5 py-2.5 bg-[#5C9A78] hover:bg-[#2F5541] text-white rounded-full text-xs font-bold cursor-pointer transition-colors"
+            >
+              Reset All Filters
+            </button>
+          </div>
+        )}
+
+        {/* Why Choose Us */}
+        <div className="bg-white border border-[#111315] rounded-[28px] p-8 max-w-5xl mx-auto shadow-sm">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#111315] mb-2 uppercase font-display">
+              WHY FIND YOUR CARD WITH US
             </h2>
-            <p className="text-lg sm:text-xl text-emerald-100 max-w-3xl mx-auto">
-              We simplify the process of finding and applying for the perfect
-              credit card for your lifestyle.
+            <p className="text-sm text-[#5B6B7C] font-medium">
+              We streamline credit card search with total transparency.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-emerald-500/30">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 flex items-center justify-center mb-4">
-                <FaCheck className="text-white w-6 h-6" />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="p-4 border-r last:border-0 border-[rgba(17,19,21,0.08)] flex flex-col items-center text-center">
+              <div className="w-10 h-10 rounded-full bg-[#D9F0E1] text-[#2F5541] flex items-center justify-center mb-3">
+                <FaCheck />
               </div>
-              <h3 className="text-xl font-bold mb-2">Curated Selection</h3>
-              <p className="text-emerald-100">
-                We handpick the best credit cards from top banks, ensuring you
-                get access to the latest offers and benefits.
+              <h3 className="text-sm font-bold text-[#111315] mb-2">
+                Curated Selection
+              </h3>
+              <p className="text-xs text-[#5B6B7C] leading-relaxed">
+                Handpicked credit cards from top banks matching your exact spend
+                habits.
               </p>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-emerald-500/30">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 flex items-center justify-center mb-4">
+
+            <div className="p-4 border-r last:border-0 border-[rgba(17,19,21,0.08)] flex flex-col items-center text-center">
+              <div className="w-10 h-10 rounded-full bg-[#D9F0E1] text-[#2F5541] flex items-center justify-center mb-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-white"
+                  className="h-5 w-5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -1307,17 +1156,20 @@ export default function CreditCardsPage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-2">Secure & Trusted</h3>
-              <p className="text-emerald-100">
-                Your data security is our priority. We use industry-standard
-                encryption to protect your information.
+              <h3 className="text-sm font-bold text-[#111315] mb-2">
+                Secure & Trusted
+              </h3>
+              <p className="text-xs text-[#5B6B7C] leading-relaxed">
+                We safeguard your application data with industry-grade SSL
+                encryption.
               </p>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-emerald-500/30">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 flex items-center justify-center mb-4">
+
+            <div className="p-4 border-r last:border-0 border-[rgba(17,19,21,0.08)] flex flex-col items-center text-center">
+              <div className="w-10 h-10 rounded-full bg-[#D9F0E1] text-[#2F5541] flex items-center justify-center mb-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-white"
+                  className="h-5 w-5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -1330,17 +1182,19 @@ export default function CreditCardsPage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-2">Expert Guidance</h3>
-              <p className="text-emerald-100">
-                Our team of financial experts is here to help you understand the
-                features and choose the right card.
+              <h3 className="text-sm font-bold text-[#111315] mb-2">
+                Expert Guidance
+              </h3>
+              <p className="text-xs text-[#5B6B7C] leading-relaxed">
+                One-on-one coordinator support to help you compare rewards and fees.
               </p>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-emerald-500/30">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 flex items-center justify-center mb-4">
+
+            <div className="p-4 flex flex-col items-center text-center">
+              <div className="w-10 h-10 rounded-full bg-[#D9F0E1] text-[#2F5541] flex items-center justify-center mb-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-white"
+                  className="h-5 w-5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -1353,15 +1207,16 @@ export default function CreditCardsPage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold mb-2">Exclusive Perks</h3>
-              <p className="text-emerald-100">
-                Get access to special bonuses, lower interest rates, and
-                exclusive deals through our partnerships.
+              <h3 className="text-sm font-bold text-[#111315] mb-2">
+                Exclusive Perks
+              </h3>
+              <p className="text-xs text-[#5B6B7C] leading-relaxed">
+                Avail special welcome voucher partnerships and cashback overrides.
               </p>
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Modal */}
       <Dialog open={isModalOpen} onClose={closeModal} className="relative z-50">

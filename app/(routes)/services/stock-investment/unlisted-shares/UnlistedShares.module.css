@@ -5,7 +5,7 @@
   --green:#5C9A78;
   --green-dark:#2F5541;
   --badge-bg:#D9F0E1;
-  --cream:#FBF1D3;
+  --cream:#F4F1EA;
   --slate:#5B6B7C;
   --slate-light:#8B98A6;
   --line:#111315;
@@ -21,6 +21,7 @@
   color:var(--ink);
   font-family:'Inter', sans-serif;
   width: 100%;
+  min-height: 100vh;
 }
 
 .unlistedPage *{box-sizing:border-box;}

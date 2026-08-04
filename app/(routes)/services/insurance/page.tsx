@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useMemo } from "react";
 import {
   Heart,
   Car,
@@ -155,6 +155,26 @@ const cards = [
 
 const InsurancePage = () => {
   const router = useRouter();
+  const [activeCategory, setActiveCategory] = useState("all");
+
+  const filteredCards = useMemo(() => {
+    if (activeCategory === "all") return cards;
+    if (activeCategory === "health") {
+      return cards.filter((c) =>
+        ["health", "personal-accident", "life"].includes(c.id)
+      );
+    }
+    if (activeCategory === "vehicle") {
+      return cards.filter((c) =>
+        ["car", "two-wheeler", "commercial-vehicle"].includes(c.id)
+      );
+    }
+    if (activeCategory === "other") {
+      return cards.filter((c) => ["home", "travel"].includes(c.id));
+    }
+    return cards;
+  }, [activeCategory]);
+
   const applicationSteps = [
     {
       step: 1,
@@ -183,325 +203,260 @@ const InsurancePage = () => {
   ];
 
   return (
-    <div className="text-gray-800 font-sans bg-gradient-to-br from-slate-50 via-teal-50 to-emerald-100 min-h-screen">
-      {/* Hero Section */}
-      <section className="relative w-full h-[60vh] overflow-hidden">
-        <Swiper
-          spaceBetween={30}
-          slidesPerView={1}
-          loop
-          autoplay={{ delay: 4000, disableOnInteraction: false }}
-          pagination={{ clickable: true }}
-          modules={[Autoplay, Pagination]}
-          className="w-full h-full"
-        >
-          {slides.map((slide, index) => (
-            <SwiperSlide key={index}>
-              <div className="absolute inset-0 z-0">
-                <div
-                  className={`absolute inset-0 bg-gradient-to-r ${slide.gradient} opacity-80`}
-                ></div>
-              </div>
-              <div className="relative z-10 h-full flex items-center px-6 sm:px-12 md:px-20 lg:px-32">
-                <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                  className="text-white max-w-xl"
-                >
-                  <motion.p
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="uppercase tracking-widest text-sm text-green-200 font-semibold mb-2"
-                  >
-                    {slide.subtitle}
-                  </motion.p>
-                  <motion.h2
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.4 }}
-                    className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6"
-                  >
-                    {slide.title}
-                  </motion.h2>
-                  <motion.p
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.6 }}
-                    className="text-lg sm:text-xl mb-8 opacity-90 leading-relaxed"
-                  >
-                    {slide.description}
-                  </motion.p>
-                  <Link href={slide.path}>
-                    <motion.button
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.8 }}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition-all duration-300 flex items-center gap-3"
-                    >
-                      Explore Plans
-                      <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-                    </motion.button>
-                  </Link>
-                </motion.div>
-              </div>
-            </SwiperSlide>
+    <div
+      className="min-h-screen bg-[#F2F8F4] text-[#111315] pt-32 pb-16 font-sans relative"
+      style={{
+        backgroundImage: `
+          linear-gradient(to right, rgba(17,19,21,0.07) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(17,19,21,0.07) 1px, transparent 1px)
+        `,
+        backgroundSize: "40px 40px",
+      }}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Title / Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold uppercase tracking-tight text-[#111315] mb-4">
+            INSURANCE PLANS
+          </h1>
+          <p className="text-lg md:text-xl text-[#5B6B7C] max-w-3xl mx-auto font-medium">
+            Compare policies, optimize premiums, and secure what matters most.
+          </p>
+        </div>
+
+        {/* Outlined Pill Filters */}
+        <div className="flex flex-wrap justify-center gap-3 mb-10 border-b border-[#111315] pb-8">
+          {[
+            { id: "all", label: "ALL INSURANCE" },
+            { id: "health", label: "HEALTH & LIFE" },
+            { id: "vehicle", label: "VEHICLE INSURANCE" },
+            { id: "other", label: "PROPERTY & TRAVEL" },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveCategory(tab.id)}
+              className={`px-5 py-2.5 rounded-full text-xs font-bold border border-[#111315] transition-all cursor-pointer ${
+                activeCategory === tab.id
+                  ? "bg-[#5C9A78] text-white shadow-sm"
+                  : "bg-white text-[#111315] hover:bg-[#F2F8F4]"
+              }`}
+            >
+              {tab.label}
+            </button>
           ))}
-        </Swiper>
-        <div className="swiper-pagination absolute bottom-8 w-full flex justify-center z-20"></div>
-      </section>
-
-      {/* Insurance Options Grid Section */}
-      <section className="py-16 bg-gradient-to-r from-teal-50 to-emerald-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-teal-900 mb-4">
-              Comprehensive Insurance Solutions
-            </h2>
-            <p className="text-lg text-teal-700 max-w-3xl mx-auto">
-              Find the perfect insurance plan to protect what matters most to
-              you.
-            </p>
-          </div>
-
-          {/* This is the grid with your specified styling */}
-          <div className="max-w-7xl mx-auto px-4 mb-16">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {cards.map((option, index) => {
-                const IconComponent = option.icon;
-                return (
-                  <motion.div
-                    key={option.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    whileHover={{ y: -8, scale: 1.02 }}
-                    className="relative rounded-2xl shadow-lg overflow-hidden transition-all duration-300 transform hover:shadow-xl bg-white"
-                  >
-                    <div className="p-1 bg-gradient-to-r from-green-500 to-emerald-600"></div>
-                    <div className="p-6 space-y-4 h-full flex flex-col cursor-pointer">
-                      <div
-                        className={`p-3 rounded-xl ${option.iconBgColor} flex-shrink-0 w-12 h-12 flex items-center justify-center`}
-                      >
-                        {IconComponent && (
-                          <IconComponent
-                            className={`w-6 h-6 ${option.iconColor}`}
-                          />
-                        )}
-                      </div>
-                      <h2 className="text-xl font-bold text-gray-800">
-                        {option.title}
-                      </h2>
-                      <p className="text-sm leading-relaxed flex-grow text-gray-600">
-                        {option.description}
-                      </p>
-                      <div className="flex gap-3 pt-4 justify-evenly">
-                        {/* Learn More */}
-                        <Link
-                          href={option.link}
-                          className="inline-flex items-center gap-1 px-3 py-2 rounded-lg 
-               text-emerald-600 font-medium text-md 
-               hover:text-emerald-700 transition"
-                        >
-                          Learn More
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            className="w-4 h-4"
-                          >
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                          </svg>
-                        </Link>
-
-                        {/* Get Quote */}
-                        <Link
-                          href={option.formLink}
-                          className="inline-flex items-center gap-1 px-3 py-2 rounded-lg 
-               bg-gradient-to-r from-emerald-500 to-teal-600 
-               hover:from-emerald-600 hover:to-teal-700 
-               text-white font-medium text-md 
-               transition-all duration-300 shadow-md 
-               hover:shadow-lg transform hover:scale-105"
-                        >
-                          Get Quote <ArrowRight className="w-4 h-4" />
-                        </Link>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
         </div>
-      </section>
 
-      <FeatureBannerCarousel />
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+          {filteredCards.map((option) => {
+            const IconComponent = option.icon;
+            // Determine category label
+            let catLabel = "INSURANCE";
+            if (["health", "personal-accident", "life"].includes(option.id)) {
+              catLabel = "HEALTH";
+            } else if (
+              ["car", "two-wheeler", "commercial-vehicle"].includes(option.id)
+            ) {
+              catLabel = "VEHICLE";
+            } else if (["home", "travel"].includes(option.id)) {
+              catLabel = "PROPERTY";
+            }
 
-      <section className="py-16 my-10 mx-4 sm:mx-auto max-w-4xl text-center bg-gradient-to-r from-teal-600 to-green-600 text-white rounded-2xl px-6">
-        <Phone className="w-16 h-16 mx-auto mb-6" />
-        <h2 className="text-3xl font-bold mb-4">
-          Need Help? Talk to an Expert
-        </h2>
-        <p className="text-xl mb-8 opacity-90">
-          Get personalized guidance on opening your queries related to mutual
-          funds.
-        </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <button
-            onClick={() => router.push("/services/stock-investment/contact")}
-            className="bg-white text-green-700 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3"
-          >
-            <Phone className="w-5 h-5" />
-            Schedule a Free Call
-          </button>
-          {/* WhatsApp Button */}
-          <a
-            href="https://wa.me/+918696060387" // Pre-filled number
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full font-bold shadow-lg transition flex items-center gap-3" // Similar styling to the call button
-          >
-            <FaWhatsapp className="w-5 h-5" />{" "}
-            {/* Make sure to import FaWhatsapp */}
-            Chat with Us
-          </a>
-        </div>
-      </section>
-
-      {/* Application Process */}
-      <section className="py-20 bg-gradient-to-b from-white to-emerald-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Heading */}
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Get Insured in 4 Simple Steps
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Our digital process makes securing your future quick and easy.
-            </p>
-          </div>
-
-          {/* Steps */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 relative">
-            {applicationSteps.map((step, index) => (
-              <div key={index} className="text-center relative">
-                {/* Connector Line */}
-                <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-emerald-200"></div>
-                {/* Icon + Step Number */}
-                <div className="relative mb-6">
-                  <div className="w-20 h-20 rounded-2xl shadow-md bg-gradient-to-r from-teal-500 to-emerald-600 flex items-center justify-center mx-auto mb-4">
-                    <step.icon className="h-9 w-9 text-white" />
+            return (
+              <motion.div
+                key={option.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
+                className="bg-white border border-[#111315] rounded-[24px] overflow-hidden shadow-sm flex flex-col justify-between h-full p-6 hover:-translate-y-1 transition-transform"
+              >
+                <div>
+                  {/* Top Row Badges */}
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="bg-[#D9F0E1] text-[#2F5541] border border-[rgba(17,19,21,0.15)] px-3 py-1 rounded-full text-[0.68rem] font-bold tracking-wider uppercase">
+                      {catLabel}
+                    </span>
+                    <span className="bg-white text-[#111315] border border-[#111315] px-3 py-1 rounded-full text-[0.68rem] font-bold uppercase">
+                      VERIFIED
+                    </span>
                   </div>
-                  <div className="absolute -top-2 -right-2 bg-white shadow-md border-2 border-emerald-500 text-emerald-600 w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold">
+
+                  {/* Title & Icon */}
+                  <div className="flex items-center gap-3 mb-3">
+                    <div
+                      className={`p-2 rounded-xl ${option.iconBgColor} flex items-center justify-center w-10 h-10`}
+                    >
+                      {IconComponent && (
+                        <IconComponent className={`w-5 h-5 ${option.iconColor}`} />
+                      )}
+                    </div>
+                    <h3 className="text-xl font-bold text-[#111315]">
+                      {option.title}
+                    </h3>
+                  </div>
+
+                  <p className="text-[#5B6B7C] text-sm leading-relaxed mb-4">
+                    {option.description}
+                  </p>
+                </div>
+
+                {/* Bottom Row */}
+                <div className="flex justify-between items-center mt-auto pt-4 border-t border-[rgba(17,19,21,0.08)]">
+                  <div>
+                    <span className="text-[0.65rem] text-[#8B98A6] font-bold uppercase tracking-wider block">
+                      NETWORK
+                    </span>
+                    <span className="text-[#111315] font-bold text-sm">
+                      100% Cashless
+                    </span>
+                  </div>
+                  <div className="flex gap-2">
+                    <Link href={option.link} passHref>
+                      <button className="px-4 py-2 rounded-full text-xs font-semibold text-[#5B6B7C] hover:text-[#111315] transition-colors cursor-pointer">
+                        Details
+                      </button>
+                    </Link>
+                    <Link href={option.formLink} passHref>
+                      <button className="bg-[#5C9A78] hover:bg-[#2F5541] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-1 transition-colors cursor-pointer">
+                        Get Quote →
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* FeatureBannerCarousel spacer if any, or just display the banner */}
+        <div className="mb-20">
+          <FeatureBannerCarousel />
+        </div>
+
+        {/* Help Center */}
+        <div className="my-10 mx-auto max-w-4xl text-center bg-white border border-[#111315] rounded-[28px] p-8 shadow-sm mb-20">
+          <Phone className="w-12 h-12 mx-auto mb-4 text-[#5C9A78]" />
+          <h2 className="text-2xl sm:text-3xl font-bold text-[#111315] mb-2 uppercase">
+            Need Help? Talk to an Expert
+          </h2>
+          <p className="text-sm text-[#5B6B7C] mb-6 font-medium">
+            Get personalized guidance on insurance plans and claim support.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button
+              onClick={() => router.push("/services/stock-investment/contact")}
+              className="bg-white border border-[#111315] text-[#111315] hover:bg-[#F2F8F4] px-6 py-3 rounded-full font-bold text-xs transition shadow-sm flex items-center gap-2 cursor-pointer"
+            >
+              <Phone className="w-4 h-4" />
+              Schedule a Free Call
+            </button>
+            <a
+              href="https://wa.me/+918696060387"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[#5C9A78] hover:bg-[#2F5541] text-white px-6 py-3 rounded-full font-bold text-xs transition flex items-center gap-2 cursor-pointer"
+            >
+              <FaWhatsapp className="w-4 h-4" />
+              Chat with Us
+            </a>
+          </div>
+        </div>
+
+        {/* Steps Process */}
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#111315] mb-2 uppercase">
+              GET INSURED IN 4 SIMPLE STEPS
+            </h2>
+            <p className="text-sm text-[#5B6B7C] font-medium">
+              Our streamlined process makes securing your future quick and easy.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative max-w-5xl mx-auto">
+            {applicationSteps.map((step, index) => (
+              <div
+                key={index}
+                className="text-center relative bg-white border border-[#111315] p-6 rounded-[24px]"
+              >
+                <div className="relative mb-4">
+                  <div className="w-14 h-14 rounded-2xl bg-[#D9F0E1] border border-[rgba(17,19,21,0.15)] flex items-center justify-center mx-auto mb-2 text-[#2F5541]">
+                    <step.icon className="h-6 w-6" />
+                  </div>
+                  <div className="absolute -top-3 -right-3 bg-white border border-[#111315] text-[#111315] w-7 h-7 rounded-full flex items-center justify-center text-xs font-extrabold">
                     {step.step}
                   </div>
                 </div>
 
-                {/* Title + Description */}
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                <h3 className="text-sm font-bold text-[#111315] mb-1">
                   {step.title}
                 </h3>
-                <p className="text-gray-600 text-sm leading-relaxed max-w-[220px] mx-auto">
+                <p className="text-xs text-[#5B6B7C] leading-relaxed max-w-[200px] mx-auto">
                   {step.description}
                 </p>
               </div>
             ))}
           </div>
         </div>
-      </section>
 
-      {/* CTA Section */}
-      {/* <section className="py-16 bg-gradient-to-r from-teal-600 to-emerald-700 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Ready to Secure Your Future?
-          </h2>
-          <p className="text-xl text-teal-100 mb-8 max-w-2xl mx-auto">
-            Get a personalized quote today and take the first step towards
-            complete peace of mind.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-emerald-600 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition-all duration-300 flex items-center justify-center gap-3">
-              <FileText className="w-5 h-5" />
-              Get a Free Quote
-            </button>
-            <button className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-8 py-4 rounded-full font-bold shadow-lg transition-all duration-300 flex items-center justify-center gap-3">
-              <Phone className="w-5 h-5" />
-              Talk to an Expert
-            </button>
-          </div>
-        </div>
-      </section> */}
-      <section className="py-16 bg-gradient-to-r from-teal-900 to-green-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Why Choose Insurance Plans from Fiscal Forum
+        {/* Why Choose Us */}
+        <div className="bg-white border border-[#111315] rounded-[28px] p-8 max-w-5xl mx-auto shadow-sm">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#111315] mb-2 uppercase">
+              WHY CHOOSE FISCAL FORUM
             </h2>
-            <p className="text-xl text-teal-200 max-w-3xl mx-auto">
-              We provide reliable coverage with exceptional service.
+            <p className="text-sm text-[#5B6B7C] font-medium">
+              We offer robust coverage coupled with direct coordinator support.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-teal-400 to-emerald-500 flex items-center justify-center mb-4">
-                <Zap className="text-white w-6 h-6" />
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {[
+              {
+                icon: <Zap />,
+                title: "Compare & Save",
+                desc: "Compare policy terms and secure maximum benefits at lowest premiums.",
+              },
+              {
+                icon: <Lock />,
+                title: "Quote Beat Promise",
+                desc: "Provide any existing quote — we will match or beat the rates.",
+              },
+              {
+                icon: <Users />,
+                title: "Dedicated Support",
+                desc: "Helpful direct calling support whenever updates or claims are needed.",
+              },
+              {
+                icon: <Award />,
+                title: "Query Resolution",
+                desc: "Direct coordinate support for swift claim processing and clarifications.",
+              },
+              {
+                icon: <Award />,
+                title: "Trusted Partners",
+                desc: "Affiliated with all Tier-1 insurance networks across the country.",
+              },
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="p-4 border-r last:border-0 border-[rgba(17,19,21,0.08)] flex flex-col items-center text-center"
+              >
+                <div className="w-10 h-10 rounded-full bg-[#D9F0E1] text-[#2F5541] flex items-center justify-center mb-3">
+                  {item.icon}
+                </div>
+                <h3 className="text-sm font-bold text-[#111315] mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-[11px] text-[#5B6B7C] leading-relaxed">
+                  {item.desc}
+                </p>
               </div>
-              <h3 className="text-xl font-bold mb-3">Compare & Save</h3>
-              <p className="text-teal-200">
-                Get the best premium with maximum benefits guaranteed.
-              </p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 flex items-center justify-center mb-4">
-                <Lock className="text-white w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold mb-3">Quote Beat Promise</h3>
-              <p className="text-teal-200">
-                Upload your existing quote — we&apos;ll get you a better price.
-              </p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-emerald-400 to-green-500 flex items-center justify-center mb-4">
-                <Users className="text-white w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold mb-3">Dedicated Support</h3>
-              <p className="text-teal-200">
-                Dedicated calling support for any changes or help you need.
-              </p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-400 to-teal-500 flex items-center justify-center mb-4">
-                <Award className="text-white w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold mb-3">Personalised Query Resolution</h3>
-              <p className="text-teal-200">
-                One-to-one coordination for fast, clear answers to every concern.
-              </p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-400 to-teal-500 flex items-center justify-center mb-4">
-                <Award className="text-white w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold mb-3">Trusted Partnerships</h3>
-              <p className="text-teal-200">
-                We&apos;re partnered with top insurance companies across the country.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };

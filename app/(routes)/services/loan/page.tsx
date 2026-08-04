@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
@@ -98,14 +98,15 @@ const slides = [
     subtitle: "Secure Investments with",
     description:
       "Low-risk government bonds and fixed deposits to preserve capital and earn steady returns.",
-    image: "/asset-bondfd.jpg",
-    gradient: "from-teal-600 via-emerald-500 to-green-600",
-    path: "/services/govts-bond-&-fd",
+    image: "/asset-fd.jpg",
+    gradient: "from-teal-600 via-green-500 to-emerald-600",
+    path: "/services/govt-bonds-and-fd",
   },
 ];
 
 const LoanLandingPage = () => {
   const router = useRouter();
+  const [activeCategory, setActiveCategory] = useState("all");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -366,6 +367,21 @@ const LoanLandingPage = () => {
       iconColor: "text-cyan-500",
     },
   ];
+
+  const filteredLoans = useMemo(() => {
+    if (activeCategory === "all") return loanTypes;
+    if (activeCategory === "consumer") {
+      return loanTypes.filter(loan => ["personal-loan", "car-loan", "education-loan"].includes(loan.id));
+    }
+    if (activeCategory === "asset") {
+      return loanTypes.filter(loan => ["home-loan", "loan-against-property", "gold-loan", "loan-against-securities"].includes(loan.id));
+    }
+    if (activeCategory === "business") {
+      return loanTypes.filter(loan => ["business-loan"].includes(loan.id));
+    }
+    return loanTypes;
+  }, [activeCategory, loanTypes]);
+
   const eligibilityCriteria = [
     { label: "Age", value: "21-65 years" },
     { label: "Income", value: "₹3,00,000+ annually" },
@@ -401,405 +417,334 @@ const LoanLandingPage = () => {
   ];
 
   return (
-    <>
-      <div className="text-gray-800 font-sans bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50 pt-20">
-        {/* Hero Section */}
-        {/* <section className="relative w-full h-[60vh] overflow-hidden">
-          <Swiper
-            spaceBetween={30}
-            slidesPerView={1}
-            loop
-            autoplay={{ delay: 4000, disableOnInteraction: false }}
-            pagination={{ clickable: true }}
-            modules={[Autoplay, Pagination]}
-            className="w-full h-full"
-          >
-            {slides.map((slide, index) => (
-              <SwiperSlide key={index}>
-                <div className="absolute inset-0 z-0">
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-r ${slide.gradient}/80`}
-                  ></div>
-                </div>
-                <div className="relative z-10 h-full flex items-center px-6 sm:px-12 md:px-20 lg:px-32">
-                  <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="text-white max-w-xl"
-                  >
-                    <motion.p
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2 }}
-                      className="uppercase tracking-widest text-sm text-green-200 font-semibold mb-2"
+    <div
+      className="min-h-screen bg-[#F2F8F4] text-[#111315] pt-32 pb-16 font-sans relative"
+      style={{
+        backgroundImage: `
+          linear-gradient(to right, rgba(17,19,21,0.07) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(17,19,21,0.07) 1px, transparent 1px)
+        `,
+        backgroundSize: "40px 40px",
+      }}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Title / Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold uppercase tracking-tight text-[#111315] mb-4">
+            LOAN SERVICES
+          </h1>
+          <p className="text-lg md:text-xl text-[#5B6B7C] max-w-3xl mx-auto font-medium">
+            Curated rates and flexible repayment options for every financial goal.
+          </p>
+        </div>
+
+        {/* Outlined Pill Filters */}
+        <div className="flex flex-wrap justify-center gap-3 mb-10 border-b border-[#111315] pb-8">
+          {[
+            { id: "all", label: "ALL LOANS" },
+            { id: "consumer", label: "PERSONAL & CONSUMER" },
+            { id: "asset", label: "ASSET & PROPERTY" },
+            { id: "business", label: "BUSINESS" },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveCategory(tab.id)}
+              className={`px-5 py-2.5 rounded-full text-xs font-bold border border-[#111315] transition-all cursor-pointer ${
+                activeCategory === tab.id
+                  ? "bg-[#5C9A78] text-white shadow-sm"
+                  : "bg-white text-[#111315] hover:bg-[#F2F8F4]"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+          {filteredLoans.map((loan) => {
+            const IconComponent = loan.icon;
+            // Determine category label
+            let catLabel = "LOAN";
+            if (
+              [
+                "home-loan",
+                "loan-against-property",
+                "gold-loan",
+                "loan-against-securities",
+              ].includes(loan.id)
+            ) {
+              catLabel = "ASSET";
+            } else if (
+              ["personal-loan", "car-loan", "education-loan"].includes(loan.id)
+            ) {
+              catLabel = "CONSUMER";
+            } else if (loan.id === "business-loan") {
+              catLabel = "BUSINESS";
+            }
+
+            return (
+              <motion.div
+                key={loan.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
+                className="bg-white border border-[#111315] rounded-[24px] overflow-hidden shadow-sm flex flex-col justify-between h-full p-6 hover:-translate-y-1 transition-transform"
+              >
+                <div>
+                  {/* Top Row Badges */}
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="bg-[#D9F0E1] text-[#2F5541] border border-[rgba(17,19,21,0.15)] px-3 py-1 rounded-full text-[0.68rem] font-bold tracking-wider uppercase">
+                      {catLabel}
+                    </span>
+                    <span className="bg-white text-[#111315] border border-[#111315] px-3 py-1 rounded-full text-[0.68rem] font-bold uppercase">
+                      {loan.rate}
+                    </span>
+                  </div>
+
+                  {/* Title & Icon */}
+                  <div className="flex items-center gap-3 mb-3">
+                    <div
+                      className={`p-2 rounded-xl ${loan.iconBgColor} flex items-center justify-center w-10 h-10`}
                     >
-                      {slide.subtitle}
-                    </motion.p>
-                    <motion.h2
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.4 }}
-                      className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6"
-                    >
-                      {slide.title}
-                    </motion.h2>
-                    <motion.p
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.6 }}
-                      className="text-lg sm:text-xl mb-8 opacity-90 leading-relaxed"
-                    >
-                      {slide.description}
-                    </motion.p>
-                    <Link href={slide.path}>
-                      <motion.button
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.8 }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 rounded-full font-bold shadow-lg transition-all duration-300 flex items-center gap-3"
+                      {IconComponent && (
+                        <IconComponent className={`w-5 h-5 ${loan.iconColor}`} />
+                      )}
+                    </div>
+                    <h3 className="text-xl font-bold text-[#111315]">
+                      {loan.title}
+                    </h3>
+                  </div>
+
+                  <p className="text-[#5B6B7C] text-sm leading-relaxed mb-4">
+                    {loan.description}
+                  </p>
+
+                  <div className="border-b border-[rgba(17,19,21,0.12)] my-4"></div>
+
+                  {/* Features */}
+                  <ul className="space-y-2 mb-6">
+                    {loan.features.slice(0, 3).map((feature, index) => (
+                      <li
+                        key={index}
+                        className="flex items-center gap-2 text-sm text-[#5B6B7C] font-medium"
                       >
-                        Know More
-                        <FaRocket className="group-hover:translate-x-1 transition-transform" />
-                      </motion.button>
-                    </Link>
-                  </motion.div>
+                        <CheckCircle className="text-[#5C9A78] flex-shrink-0 w-4 h-4" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          <div className="swiper-pagination absolute bottom-8 w-full flex justify-center z-20"></div>
-        </section> */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-emerald-900 mb-4">
-              Choose Your Loan Type
+
+                {/* Bottom Row */}
+                <div className="flex justify-between items-center mt-auto pt-4 border-t border-[rgba(17,19,21,0.08)]">
+                  <div>
+                    <span className="text-[0.65rem] text-[#8B98A6] font-bold uppercase tracking-wider block">
+                      MAX AMOUNT
+                    </span>
+                    <span className="text-[#111315] font-bold text-sm">
+                      {loan.maxAmount}
+                    </span>
+                  </div>
+                  <div className="flex gap-2">
+                    <Link href={loan.link} passHref>
+                      <button className="px-4 py-2 rounded-full text-xs font-semibold text-[#5B6B7C] hover:text-[#111315] transition-colors cursor-pointer">
+                        Details
+                      </button>
+                    </Link>
+                    <Link href={loan.glink} passHref>
+                      <button className="bg-[#5C9A78] hover:bg-[#2F5541] text-white font-bold text-xs px-5 py-2.5 rounded-full flex items-center gap-1 transition-colors cursor-pointer">
+                        Apply Now →
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* EMI Calculator */}
+        <div className="bg-white border border-[#111315] rounded-[28px] p-8 max-w-4xl mx-auto shadow-sm mb-20">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#111315] mb-2 uppercase">
+              ESTIMATE YOUR MONTHLY EMI
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Explore our comprehensive range of loan products designed to meet
-              every financial need
+            <p className="text-sm text-[#5B6B7C] font-medium">
+              Adjust the parameters to estimate your monthly payments
             </p>
           </div>
-          <div className="max-w-7xl mx-auto px-4 mb-16">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {loanTypes.map((loan) => {
-                const IconComponent = loan.icon;
-                return (
-                  <motion.div
-                    key={loan.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    whileHover={{ y: -10 }}
-                    className="relative rounded-2xl shadow-lg overflow-hidden transition-all duration-300 transform bg-white border border-emerald-100"
-                  >
-                    <div className="p-1 bg-gradient-to-r from-green-500 to-emerald-600"></div>
-                    <div className="p-6">
-                      <div className="flex items-center mb-4">
-                        <div
-                          className={`p-3 rounded-xl ${loan.iconBgColor} flex-shrink-0 w-12 h-12 flex items-center justify-center`}
-                        >
-                          {IconComponent && (
-                            <IconComponent
-                              className={`w-6 h-6 ${loan.iconColor}`}
-                            />
-                          )}
-                        </div>
-                        <div className="ml-4">
-                          <h3 className="text-xl font-bold text-gray-900">
-                            {loan.title}
-                          </h3>
-                          <div className="flex items-center gap-3 text-sm">
-                            <span className="font-semibold text-emerald-600">
-                              {loan.rate}
-                            </span>
-                            <span className="text-gray-500">
-                              Up to {loan.maxAmount}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
 
-                      <p className="text-gray-600 mb-6 text-sm leading-relaxed">
-                        {loan.description}
-                      </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            {/* Sliders */}
+            <div className="space-y-6">
+              <div>
+                <label className="block text-xs font-bold text-[#8B98A6] uppercase tracking-wider mb-2">
+                  LOAN AMOUNT (₹):{" "}
+                  <span className="text-[#111315] font-extrabold text-sm ml-1">
+                    {parseInt(formData.loanAmount.toString()).toLocaleString(
+                      "en-IN"
+                    )}
+                  </span>
+                </label>
+                <input
+                  type="range"
+                  name="loanAmount"
+                  min="100000"
+                  max="50000000"
+                  step="200000"
+                  value={formData.loanAmount}
+                  onChange={handleChange}
+                  className="w-full h-2 bg-[#D9F0E1] rounded-lg appearance-none cursor-pointer accent-[#5C9A78]"
+                />
+                <div className="flex justify-between text-[10px] font-bold text-[#8B98A6] mt-1">
+                  <span>₹1 LAKH</span>
+                  <span>₹5 CRORE</span>
+                </div>
+              </div>
 
-                      <ul className="space-y-2 mb-6">
-                        {loan.features.slice(0, 3).map((feature, index) => (
-                          <li
-                            key={index}
-                            className="flex items-start gap-2 text-sm text-gray-600"
-                          >
-                            <CheckCircle className="text-emerald-500 mt-0.5 flex-shrink-0 w-4 h-4" />
-                            <span>{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
+              <div>
+                <label className="block text-xs font-bold text-[#8B98A6] uppercase tracking-wider mb-2">
+                  LOAN TENURE:{" "}
+                  <span className="text-[#111315] font-extrabold text-sm ml-1">
+                    {formData.tenure} Years
+                  </span>
+                </label>
+                <input
+                  type="range"
+                  name="tenure"
+                  min="5"
+                  max="30"
+                  step="1"
+                  value={formData.tenure}
+                  onChange={handleChange}
+                  className="w-full h-2 bg-[#D9F0E1] rounded-lg appearance-none cursor-pointer accent-[#5C9A78]"
+                />
+                <div className="flex justify-between text-[10px] font-bold text-[#8B98A6] mt-1">
+                  <span>5 YEARS</span>
+                  <span>30 YEARS</span>
+                </div>
+              </div>
 
-                      <div className="flex gap-4 pt-4 justify-evenly">
-                        <Link href={loan.link} passHref>
-                          <button className="px-4 py-2 rounded-lg  text-emerald-600 font-medium hover:text-emerald-700 flex items-center gap-2">
-                            Learn More
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              className="w-4 h-4"
-                            >
-                              <path d="M5 12h14M12 5l7 7-7 7" />
-                            </svg>
-                          </button>
-                        </Link>
+              <div>
+                <label className="block text-xs font-bold text-[#8B98A6] uppercase tracking-wider mb-2">
+                  INTEREST RATE (% P.A.):{" "}
+                  <span className="text-[#111315] font-extrabold text-sm ml-1">
+                    {formData.interestRate.toFixed(2)}%
+                  </span>
+                </label>
+                <input
+                  type="range"
+                  name="interestRate"
+                  min="6"
+                  max="15"
+                  step="0.1"
+                  value={formData.interestRate}
+                  onChange={handleChange}
+                  className="w-full h-2 bg-[#D9F0E1] rounded-lg appearance-none cursor-pointer accent-[#5C9A78]"
+                />
+                <div className="flex justify-between text-[10px] font-bold text-[#8B98A6] mt-1">
+                  <span>6%</span>
+                  <span>15%</span>
+                </div>
+              </div>
+            </div>
 
-                        <Link href={loan.glink} passHref>
-                          <button className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-6 py-3 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 shadow-lg group-hover:shadow-2xl transform group-hover:scale-105">
-                            Apply Now
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              className="w-4 h-4"
-                            >
-                              <path d="M5 12h14M12 5l7 7-7 7" />
-                            </svg>
-                          </button>
-                        </Link>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
+            {/* EMI Output Card */}
+            <div className="bg-[#D9F0E1] border border-[rgba(17,19,21,0.15)] rounded-[20px] p-6 text-center h-full flex flex-col justify-center items-center">
+              <h3 className="text-sm font-bold text-[#2F5541] tracking-wider uppercase mb-2">
+                ESTIMATED MONTHLY EMI
+              </h3>
+              <div className="text-4xl font-extrabold text-[#2F5541] mb-2">
+                ₹{monthlyEMI.toLocaleString()}
+              </div>
+              <p className="text-xs text-[#2F5541]/80 font-medium">
+                Computed at {formData.interestRate}% interest rate for{" "}
+                {formData.tenure} years.
+              </p>
             </div>
           </div>
-
-          {/* EMI Calculator */}
-          <section className="py-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-3xl shadow-2xl mb-16">
-            <div className="max-w-4xl mx-auto px-6">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                  Calculate Your EMI
-                </h2>
-                <p className="text-xl text-emerald-100 max-w-2xl mx-auto">
-                  Adjust the sliders to estimate your monthly payment
-                </p>
-              </div>
-
-              <div className="bg-white rounded-2xl p-8 shadow-lg">
-                {/* Loan Amount */}
-                <div className="mb-8">
-                  <label className="block text-sm font-medium text-gray-700 mb-3">
-                    Loan Amount (₹):{" "}
-                    <span className="font-semibold text-gray-900">
-                      {parseInt(formData.loanAmount.toString()).toLocaleString(
-                        "en-IN"
-                      )}
-                    </span>
-                  </label>
-                  <div className="relative">
-                    <Building className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-                    <input
-                      type="range"
-                      name="loanAmount"
-                      min="100000"
-                      max="50000000"
-                      step="200000"
-                      value={formData.loanAmount}
-                      onChange={handleChange}
-                      className="w-full h-2 bg-emerald-200 rounded-lg appearance-none cursor-pointer pl-10"
-                    />
-                    <div className="flex justify-between text-xs text-gray-500 mt-2 px-1">
-                      <span>₹1 Lakh</span>
-                      <span>₹5 Crore</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Tenure */}
-                <div className="mb-8">
-                  <label className="block text-sm font-medium text-gray-700 mb-3">
-                    Loan Tenure:{" "}
-                    <span className="font-semibold text-gray-900">
-                      {formData.tenure} years
-                    </span>
-                  </label>
-                  <div className="relative">
-                    <Clock className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-                    <input
-                      type="range"
-                      name="tenure"
-                      min="5"
-                      max="30"
-                      step="1"
-                      value={formData.tenure}
-                      onChange={handleChange}
-                      className="w-full h-2 bg-emerald-200 rounded-lg appearance-none cursor-pointer pl-10"
-                    />
-                    <div className="flex justify-between text-xs text-gray-500 mt-2 px-1">
-                      <span>5 Years</span>
-                      <span>30 Years</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Interest Rate */}
-                <div className="mb-8">
-                  <label className="block text-sm font-medium text-gray-700 mb-3">
-                    Interest Rate:{" "}
-                    <span className="font-semibold text-gray-900">
-                      {formData.interestRate.toFixed(2)}% p.a.
-                    </span>
-                  </label>
-                  <div className="relative">
-                    <Percent className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-                    <input
-                      type="range"
-                      name="interestRate"
-                      min="6"
-                      max="15"
-                      step="0.1"
-                      value={formData.interestRate}
-                      onChange={handleChange}
-                      className="w-full h-2 bg-emerald-200 rounded-lg appearance-none cursor-pointer pl-10"
-                    />
-                    <div className="flex justify-between text-xs text-gray-500 mt-2 px-1">
-                      <span>6%</span>
-                      <span>15%</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* EMI Summary */}
-                <div className="bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl p-6 text-center shadow-md">
-                  <h3 className="text-lg font-semibold text-white mb-2">
-                    Estimated Monthly EMI
-                  </h3>
-                  <div className="text-3xl font-bold text-white mb-2">
-                    ₹{monthlyEMI.toLocaleString()}
-                  </div>
-                  <p className="text-emerald-100">
-                    At {formData.interestRate}% interest for {formData.tenure}{" "}
-                    years
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
         </div>
+
         {/* Eligibility Criteria */}
-        <section className="py-16 bg-white shadow-xl">
-          <div className="max-w-4xl mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-emerald-900 mb-4">
-                Eligibility Criteria
-              </h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Check if you meet our simple eligibility requirements
-              </p>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {eligibilityCriteria.map((criteria, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-emerald-50 p-6 rounded-xl text-center border border-emerald-100"
-                >
-                  <h3 className="font-semibold text-emerald-900 mb-2">
-                    {criteria.label}
-                  </h3>
-                  <p className="text-emerald-700 font-medium">
-                    {criteria.value}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
+        <div className="mb-20">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#111315] mb-2 uppercase">
+              ELIGIBILITY CRITERIA
+            </h2>
+            <p className="text-sm text-[#5B6B7C] font-medium">
+              Check if you meet our baseline guidelines
+            </p>
           </div>
-        </section>
-
-        {/* Features Section */}
-        <section className="py-16 bg-gradient-to-r from-emerald-800 to-teal-800 shadow-2xl text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Turn Dreams into Reality
-              </h2>
-              <p className="text-xl text-emerald-200 max-w-3xl mx-auto">
-                Flexible financing solutions tailored to your life goals
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <motion.div
-                className="bg-white/10 p-6 rounded-xl backdrop-blur-sm border border-white/20"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+            {eligibilityCriteria.map((criteria, index) => (
+              <div
+                key={index}
+                className="bg-white border border-[#111315] p-5 rounded-[20px] text-center shadow-sm"
               >
-                <div className="text-yellow-400 text-2xl mb-4">
-                  <FaBolt />
-                </div>
-                <h3 className="text-lg font-bold mb-2">Instant Approval</h3>
-                <p className="text-emerald-100">
-                  Get approved within 24 hours with minimal documentation
+                <h3 className="text-xs font-bold text-[#8B98A6] uppercase tracking-wider mb-2">
+                  {criteria.label}
+                </h3>
+                <p className="text-[#111315] font-extrabold text-sm sm:text-base">
+                  {criteria.value}
                 </p>
-              </motion.div>
-
-              <motion.div
-                className="bg-white/10 p-6 rounded-xl backdrop-blur-sm border border-white/20"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                <div className="text-yellow-400 text-2xl mb-4">
-                  <FaRegMoneyBillAlt />
-                </div>
-                <h3 className="text-lg font-bold mb-2">Competitive Rates</h3>
-                <p className="text-emerald-100">
-                  Interest rates starting from 8.4% for qualified borrowers
-                </p>
-              </motion.div>
-
-              <motion.div
-                className="bg-white/10 p-6 rounded-xl backdrop-blur-sm border border-white/20"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                <div className="text-yellow-400 text-2xl mb-4">
-                  <FaBalanceScale />
-                </div>
-                <h3 className="text-lg font-bold mb-2">Flexible Tenure</h3>
-                <p className="text-emerald-100">
-                  Repayment options from 12 months to 30 years
-                </p>
-              </motion.div>
-
-              <motion.div
-                className="bg-white/10 p-6 rounded-xl backdrop-blur-sm border border-white/20"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-              >
-                <div className="text-yellow-400 text-2xl mb-4">
-                  <FaAward />
-                </div>
-                <h3 className="text-lg font-bold mb-2">Referral Rewards</h3>
-                <p className="text-emerald-100">
-                  Earn 0.5% of loan amount as cashback for referrals
-                </p>
-              </motion.div>
-            </div>
+              </div>
+            ))}
           </div>
-        </section>
+        </div>
+
+        {/* Features & Benefits */}
+        <div className="bg-white border border-[#111315] rounded-[28px] p-8 max-w-5xl mx-auto shadow-sm">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#111315] mb-2 uppercase">
+              Features & Benefits
+            </h2>
+            <p className="text-sm text-[#5B6B7C] font-medium">
+              Why clients prefer our verified direct lending networks
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                icon: <FaBolt />,
+                title: "Instant Approval",
+                text: "Get approved within 24 hours with minimal documents.",
+              },
+              {
+                icon: <FaRegMoneyBillAlt />,
+                title: "Competitive Rates",
+                text: "Interest rates starting from 7.5% onwards.",
+              },
+              {
+                icon: <FaBalanceScale />,
+                title: "Flexible Tenure",
+                text: "Repayment options from 12 months up to 30 years.",
+              },
+              {
+                icon: <FaAward />,
+                title: "Referral Rewards",
+                text: "Earn 0.5% of the loan amount for successful referrals.",
+              },
+            ].map((feat, index) => (
+              <div
+                key={index}
+                className="p-5 border-r last:border-0 border-[rgba(17,19,21,0.08)] lg:block flex flex-col items-center text-center lg:text-left lg:items-start"
+              >
+                <div className="text-[#5C9A78] text-2xl mb-3">{feat.icon}</div>
+                <h4 className="text-base font-bold text-[#111315] mb-2">
+                  {feat.title}
+                </h4>
+                <p className="text-xs text-[#5B6B7C] leading-relaxed">
+                  {feat.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

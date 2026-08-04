@@ -1344,11 +1344,11 @@ body {
 
 /* Scoped Mandi Commodities Terminal Styles */
 .mandiTerminal {
-  --bg: #FAF2D6;
-  --grid-line: #E9E2C8;
+  --bg: #F4F1EA;
+  --grid-line: #E5E2DA;
   --grid-size: 79px;
   --surface: #FFFFFF;
-  --surface-warm: #FBF3D9;
+  --surface-warm: #FAF8F5;
   --ink: #111111;
   --line: #111111;
   --text: #111111;
