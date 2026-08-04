@@ -7,7 +7,12 @@ import { NewsItem } from "./ClientNewsPage"; // Import the interface
 
 export const dynamic = "force-dynamic";
 
-export default async function NewsPage() {
+export default async function NewsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ tab?: string }>;
+}) {
+  const { tab } = await searchParams;
   const news = await db
       .select()
       .from(newsTable)
@@ -44,5 +49,5 @@ export default async function NewsPage() {
     };
   });
 
-  return <ClientNewsPage initialNews={serializedNews} />;
+  return <ClientNewsPage initialNews={serializedNews} initialTab={tab} />;
 }

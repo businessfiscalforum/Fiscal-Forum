@@ -16,7 +16,6 @@ import {
   Sparkles,
   Star,
   Zap,
-  Gem,
   BarChart3,
 } from "lucide-react";
 import { SignedIn, SignedOut, SignOutButton, useUser } from "@clerk/nextjs";
@@ -83,7 +82,8 @@ export default function Navbar() {
     { label: "Reports", href: "/reports" },
     { label: "Stock Investment", href: "/services/stock-investment" },
     { label: "For Women", href: "/for-women" },
-    { label: "News & IPOs", href: "/news" },
+    { label: "News", href: "/news?tab=news-buzz" },
+    { label: "IPOs", href: "/news?tab=ipo-scoop" },
     { label: "About Us", href: "/about-us" },
     { label: "Work With Us", href: "/work-with-us" },
   ];
@@ -210,17 +210,6 @@ export default function Navbar() {
 
         {/* Action Buttons */}
         <div className="hidden lg:flex items-center gap-6">
-          <Link
-            href="/referrals"
-            className="group flex items-center gap-2 px-3 py-1.5 border border-black rounded-xl bg-yellow-100 text-xs font-bold text-black uppercase tracking-wider shadow-sm  hover:-translate-y-0.5 hover:shadow-sm  active:translate-y-0 active:shadow-sm transition-all"
-          >
-            <Gem
-              size={14}
-              className="group-hover:rotate-12 transition-transform text-black"
-            />
-            <span>Refer & Earn</span>
-          </Link>
-
           {isClient && (
             <>
               <SignedIn>
@@ -275,16 +264,6 @@ export default function Navbar() {
             className="lg:hidden bg-white border-t border-black overflow-hidden mt-3"
           >
             <div className="space-y-4 p-6">
-
-              {/* Refer & Earn */}
-              <Link
-                href="/referrals"
-                onClick={closeAll}
-                className="flex items-center justify-center gap-2 p-3 border border-black rounded-xl bg-yellow-100 text-xs font-bold text-black uppercase tracking-wider shadow-sm"
-              >
-                <Gem size={14} />
-                <span>Refer & Earn</span>
-              </Link>
 
               {isClient && (
                 <>

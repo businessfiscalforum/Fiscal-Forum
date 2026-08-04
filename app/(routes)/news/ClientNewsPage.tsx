@@ -132,9 +132,10 @@ const formatDate = (dateString: string | undefined | null): string => {
 // --- Main Component ---
 interface ClientNewsPageProps {
   initialNews: NewsItem[];
+  initialTab?: string;
 }
 
-const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
+const ClientNewsPage = ({ initialNews, initialTab }: ClientNewsPageProps) => {
   const router = useRouter();
 
   // --- UI States & Data States ---
@@ -143,7 +144,13 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
     { id: "corp-pulse", label: "CORP PULSE" },
     { id: "ipo-scoop", label: "IPO SCOOP" },
   ];
-  const [activeTab, setActiveTab] = useState("news-buzz");
+  const [activeTab, setActiveTab] = useState(initialTab || "news-buzz");
+
+  useEffect(() => {
+    if (initialTab && ["news-buzz", "corp-pulse", "ipo-scoop"].includes(initialTab)) {
+      setActiveTab(initialTab);
+    }
+  }, [initialTab]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
