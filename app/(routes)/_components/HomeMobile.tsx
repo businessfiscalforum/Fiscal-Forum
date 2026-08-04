@@ -517,7 +517,7 @@ export default function HomeMobile() {
               <motion.div
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="bg-white border border-black rounded-2xl p-5 shadow-sm flex flex-col justify-between h-full min-h-[220px]"
+                className="bg-yellow-50 border border-black rounded-2xl p-5 shadow-sm flex flex-col justify-between h-full min-h-[220px]"
               >
                 <div className="space-y-3">
                   <div className="w-10 h-10 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">

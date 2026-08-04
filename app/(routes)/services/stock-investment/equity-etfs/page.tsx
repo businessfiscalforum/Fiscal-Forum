@@ -655,25 +655,25 @@ export default function EquityETFsPage() {
                     })()}
                   </div>
                 </div>
+              </div>
+            </div>
 
-                <div className="insight-card">
-                  <h3>Segment notes</h3>
-                  <div className="seg-grid">
-                    {SEGMENTS.map((seg) => {
-                      const pct = allocation[seg.key] || 0;
-                      if (pct <= 0) return null;
-                      return (
-                        <div key={seg.key} className="seg-item">
-                          <div className="top">
-                            <span className="nm">{seg.name}</span>
-                            <span className="pc">{pct}%</span>
-                          </div>
-                          <div className="desc">{seg.desc}</div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
+            <div className="insight-card mt-6">
+              <h3>Segment notes</h3>
+              <div className="seg-grid">
+                {SEGMENTS.map((seg) => {
+                  const pct = allocation[seg.key] || 0;
+                  if (pct <= 0) return null;
+                  return (
+                    <div key={seg.key} className="seg-item">
+                      <div className="top">
+                        <span className="nm">{seg.name}</span>
+                        <span className="pc">{pct}%</span>
+                      </div>
+                      <div className="desc">{seg.desc}</div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 

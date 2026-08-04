@@ -730,7 +730,7 @@ export default function HomeDesktop() {
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className="bg-white border border-black rounded-2xl p-6 shadow-md  hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full justify-between"
+                  className="bg-yellow-50 border border-black rounded-2xl p-6 shadow-md  hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full justify-between"
                 >
                   <div className="space-y-4">
                     {/* Icon */}
