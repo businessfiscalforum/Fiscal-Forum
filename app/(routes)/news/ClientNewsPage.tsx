@@ -18,9 +18,7 @@ import {
   FaCheck,
 } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-import NewsBuzzList from "./NewsBuzzList";
 import IpoScoopList from "./IpoScoopList";
-import CorpPulseList from "./CorpPulseList";
 
 const ShareButton = ({ id, title }: { id: string; title: string }) => {
   const [copied, setCopied] = useState(false);
@@ -118,27 +116,39 @@ interface ApiIndexData {
   error?: string;
 }
 
+const formatDate = (dateString: string | undefined | null): string => {
+  if (!dateString) return "N/A";
+  try {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  } catch (e) {
+    return dateString;
+  }
+};
+
 // --- Main Component ---
 interface ClientNewsPageProps {
   initialNews: NewsItem[];
 }
-
 
 const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
   const router = useRouter();
 
   // --- UI States & Data States ---
   const tabs = [
-    { id: "news-buzz", label: "News Buzz" },
-    { id: "corp-pulse", label: "Corp Pulse" },
-    { id: "ipo-scoop", label: "IPO Scoop" },
+    { id: "news-buzz", label: "NEWS BUZZ" },
+    { id: "corp-pulse", label: "CORP PULSE" },
+    { id: "ipo-scoop", label: "IPO SCOOP" },
   ];
   const [activeTab, setActiveTab] = useState("news-buzz");
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState<"latest" | "popular">("latest");
-  const itemsPerPage = 9;
+  const itemsPerPage = 6;
 
   const [newsByTab, setNewsByTab] = useState<Record<string, NewsItem[]>>({
     "news-buzz": initialNews,
@@ -375,20 +385,51 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
 
     switch (activeTab) {
       case "news-buzz":
-        return (
-          <NewsBuzzList
-            currentNews={currentNews}
-            handleNewsClick={handleNewsClick}
-            ShareButton={ShareButton}
-          />
-        );
       case "corp-pulse":
         return (
-          <CorpPulseList
-            currentNews={currentNews}
-            handleNewsClick={handleNewsClick}
-            ShareButton={ShareButton}
-          />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {currentNews.map((news) => {
+              const displayCategory = news.category || (activeTab === "news-buzz" ? "NEWS BUZZ" : "CORP PULSE");
+              return (
+                <motion.div
+                  key={news.id}
+                  whileHover={{ y: -6 }}
+                  onClick={() => handleNewsClick(news.id)}
+                  className="bg-white border border-slate-300 rounded-[1.5rem] p-6 flex flex-col justify-between h-full min-h-[220px] shadow-[0_4px_20px_rgba(0,0,0,0.01)] transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)] cursor-pointer"
+                >
+                  {/* Top Badges */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="bg-[#e6f4ea] text-[#137333] border border-[#ceead6] px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider">
+                      {displayCategory}
+                    </span>
+                    <span className="bg-[#f1f3f4] text-[#3c4043] border border-[#dadce0] px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider">
+                      FEATURED
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <div className="mb-4">
+                    <h3 className="text-lg md:text-xl font-semibold text-slate-700 leading-snug line-clamp-3 hover:text-emerald-700 transition-colors">
+                      {news.title}
+                    </h3>
+                  </div>
+
+                  {/* Divider and Footer */}
+                  <div className="mt-auto">
+                    <div className="border-t border-slate-300 w-full mb-4" />
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs md:text-sm text-slate-500 font-medium">
+                        {formatDate(news.publishDate)}
+                      </span>
+                      <button className="bg-[#0f9d58] hover:bg-[#0b8043] text-white px-5 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-1">
+                        Read <span className="font-sans">→</span>
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
         );
       case "ipo-scoop":
         return (
@@ -404,55 +445,44 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
   };
   return (
     <div
-      className="min-h-screen bg-[#fcfdfd] relative overflow-hidden"
+      className="min-h-screen bg-[#f5f8f5] pt-32 pb-20 relative font-sans"
+      style={{
+        backgroundImage:
+          "linear-gradient(to right, rgba(20, 110, 80, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(20, 110, 80, 0.04) 1px, transparent 1px)",
+        backgroundSize: "36px 36px",
+      }}
     >
-      {/* Premium Sparkle Background & Gradients */}
-      <div className="absolute top-0 left-0 w-full h-[100px] bg-gradient-to-b from-emerald-50 to-transparent -z-10" />
-      <motion.div 
-        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3], rotate: [0, 45, 0] }}
-        transition={{ duration: 10, repeat: Infinity }}
-        className="absolute top-20 right-[5%] w-[40rem] h-[40rem] bg-emerald-100/40 rounded-full blur-[120px] -z-10"
-      />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-30">
-        {/* --- Header Section --- */}
-        <header className="text-center mb-4 relative">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.8 }} 
-            animate={{ opacity: 1, scale: 1 }} 
-            className="inline-block mb-6"
-          >
-            <span className="bg-emerald-100 text-emerald-700 px-6 py-2 rounded-full text-xs font-black uppercase tracking-[0.2em] flex items-center gap-3 shadow-sm border border-emerald-200">
-              <FaMagic className="text-yellow-500 animate-pulse" /> Latest Market Updates
-            </span>
-          </motion.div>
-          <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter mb-6 leading-none">
-            Global <span className="text-emerald-600 relative">News </span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        {/* Page Header */}
+        <header className="text-center mb-8">
+          <h1 className="text-4xl md:text-5xl font-black text-black tracking-tight uppercase mb-3">
+            FINANCIAL NEWS HUB
           </h1>
-          <p className="text-slate-500 max-w-2xl mx-auto text-lg md:text-xl font-medium leading-relaxed">
-            Real-time financial coverage and deep-dive analysis into the trends shaping the global economy.
+          <p className="text-slate-600 font-medium text-sm md:text-base max-w-2xl mx-auto">
+            Curated insights and breaking news from global markets
           </p>
         </header>
-        </div>
 
-        {/* --- Tab Navigation --- */}
-        <div className="flex justify-center mb-4 flex-wrap gap-3">
+        {/* Tab Filters */}
+        <div className="flex justify-center gap-3 md:gap-4 mb-8 flex-wrap">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-10 py-4 rounded-2xl text-base font-bold transition-all duration-300 relative overflow-hidden group
-                ${activeTab === tab.id 
-                  ? "bg-emerald-600 text-white shadow-2xl shadow-emerald-200" 
-                  : "bg-white text-slate-600 hover:bg-emerald-50 border border-slate-100"}`}
+              className={`px-6 py-2.5 rounded-full border border-black text-xs md:text-sm font-extrabold tracking-wider transition-all duration-200 cursor-pointer ${
+                activeTab === tab.id
+                  ? "bg-[#e6f4ea] text-black shadow-sm"
+                  : "bg-white text-black hover:bg-[#f0f4f1]"
+              }`}
             >
               {tab.label}
-              {activeTab === tab.id && (
-                <motion.div layoutId="tabUnderline" className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400" />
-              )}
             </button>
           ))}
         </div>
+
+        {/* Horizontal Divider Line */}
+        <div className="w-full border-t border-slate-300 mb-10" />
+      </div>
       {/* --- Stock Indices Section --- (Unchanged) */}
       {/* <section className="pt-24 bg-white border-b border-emerald-300">
         <div className="max-w-8xl mx-auto px-2 sm:px-4 lg:px-6">
@@ -600,53 +630,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
       </section> */}
 
 
-      <section className="py-8 bg-white border-b border-emerald-200">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex flex-col lg:flex-row gap-6 items-center justify-between"
-          >
-            <div className="relative flex-1 max-w-md">
-              <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-emerald-400" />
-              <input
-                type="text"
-                placeholder="Search news articles..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 rounded-2xl border border-emerald-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/20 transition-all duration-300 bg-white shadow-sm text-black"
-              />
-            </div>
-            <div className="flex gap-4 items-center">
-              <div className="flex items-center gap-2">
-                <FaFilter className="text-emerald-600" />
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="px-4 py-2 rounded-xl border border-emerald-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all duration-300 bg-white text-black"
-                >
-                  {categories.map((category) => (
-                    <option key={category} value={category}>
-                      {category.charAt(0).toUpperCase() + category.slice(1)}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <select
-                value={sortBy}
-                onChange={(e) =>
-                  setSortBy(e.target.value as "latest" | "popular")
-                }
-                className="px-4 py-2 rounded-xl border border-emerald-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all duration-300 bg-white text-black"
-              >
-                <option value="latest">Latest First</option>
-                <option value="popular">Most Popular</option>
-              </select>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+
 
       {/* Main Content Grid (3:1) */}
       <section className="py-4">
