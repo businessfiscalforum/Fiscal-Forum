@@ -81,10 +81,10 @@ export default function Navbar() {
 
   const navItems = [
     { label: "Reports", href: "/reports" },
+    { label: "Stock Investment", href: "/services/stock-investment" },
     { label: "For Women", href: "/for-women" },
     { label: "News & IPOs", href: "/news" },
     { label: "About Us", href: "/about-us" },
-    { label: "Newsletters", href: "/newsletter" },
     { label: "Work With Us", href: "/work-with-us" },
   ];
 
