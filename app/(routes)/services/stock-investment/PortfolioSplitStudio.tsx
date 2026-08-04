@@ -208,7 +208,7 @@ export default function PortfolioSplitStudio() {
             <Image
               src="/images/portfolio-app-screenshot.png"
               alt="Portfolio App"
-              width={500}
+              width={450}
               height={900}
               className="phone-image"
               priority
