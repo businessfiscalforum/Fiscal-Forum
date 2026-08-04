@@ -1,15 +1,75 @@
+// components/ClientNewsPage.tsx
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import "swiper/css";
+import "swiper/css/pagination";
 import {
+  FaSearch,
+  FaFilter,
   FaChevronLeft,
   FaChevronRight,
-  FaNewspaper
+  FaArrowUp,
+  FaNewspaper,
+  FaShareAlt,
+  FaMagic,
+  FaCheck,
 } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import NewsBuzzList from "./NewsBuzzList";
+import IpoScoopList from "./IpoScoopList";
+import CorpPulseList from "./CorpPulseList";
 
+const ShareButton = ({ id, title }: { id: string; title: string }) => {
+  const [copied, setCopied] = useState(false);
+  
+  const handleShare = async (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevents clicking the card redirect
+    const shareUrl = `${window.location.origin}/news/${id}`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: title,
+          text: `Check out this market update: ${title}`,
+          url: shareUrl,
+        });
+      } catch (err) {
+        if ((err as Error).name !== 'AbortError') console.error("Share failed:", err);
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch (err) {
+        console.error("Copy failed:", err);
+      }
+    }
+  };
+  return (
+    <button
+      onClick={handleShare}
+      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 hover:bg-emerald-100 transition-all duration-200"
+    >
+      {copied ? (
+        <>
+          <FaCheck className="w-3 h-3 text-emerald-500" />
+          <span className="text-[10px] font-bold uppercase">Copied</span>
+        </>
+      ) : (
+        <>
+          <FaShareAlt className="w-3 h-3" />
+          <span className="text-[10px] font-bold uppercase">Share</span>
+        </>
+      )}
+    </button>
+  );
+};
+
+// --- Interface Definitions (Moved to this file as they are essential for the overall structure) ---
 export interface NewsItem {
   id: string;
   title: string;
@@ -23,33 +83,79 @@ export interface NewsItem {
   link: string;
   featured?: boolean | null;
   tags?: string | null;
+  ipoName?: string | null;
+  companyName?: string | null;
+  priceRange?: string | null;
+  issueSize?: string | null;
+  currentPrice?: string | null;
+  listingGain?: string | null;
+  subscriptionRate?: string | null;
+  applyLink?: string | null;
+  offerPrice?: string | null;
+  openDate?: string | null;
+  closeDate?: string | null;
+  allotmentDate?: string | null;
+  refundDate?: string | null;
+  listingDate?: string | null;
 }
 
+export interface Newsletter {
+  id: string;
+  title: string;
+  description?: string;
+  content?: string;
+  image?: string;
+  author?: string;
+  publishDate: string;
+}
+
+interface ApiIndexData {
+  symbol: string;
+  name: string;
+  value: number;
+  change: number;
+  percentageChange: number;
+  error?: string;
+}
+
+// --- Main Component ---
 interface ClientNewsPageProps {
   initialNews: NewsItem[];
 }
+
 
 const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
   const router = useRouter();
 
   // --- UI States & Data States ---
   const tabs = [
-    { id: "news-buzz", label: "NEWS BUZZ" },
-    { id: "corp-pulse", label: "CORP PULSE" },
-    { id: "ipo-scoop", label: "IPO SCOOP" },
+    { id: "news-buzz", label: "News Buzz" },
+    { id: "corp-pulse", label: "Corp Pulse" },
+    { id: "ipo-scoop", label: "IPO Scoop" },
   ];
   const [activeTab, setActiveTab] = useState("news-buzz");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6; // Display 6 items per page to match the 2x3 grid in the image
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [sortBy, setSortBy] = useState<"latest" | "popular">("latest");
+  const itemsPerPage = 9;
 
   const [newsByTab, setNewsByTab] = useState<Record<string, NewsItem[]>>({
     "news-buzz": initialNews,
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [newsletter, setNewsletter] = useState<Newsletter[]>([]);
+  const [newsletterLoading, setNewsletterLoading] = useState(true);
 
-  // --- API Fetching Effects ---
+  const [stockIndices, setStockIndices] = useState<ApiIndexData[]>([]);
+  const [stockLoading, setStockLoading] = useState(true);
+  const [stockError, setStockError] = useState<string | null>(null);
+
+  // --- API Fetching Effects (Keep unchanged) ---
+
   useEffect(() => {
+    // ... (Your fetchNewsForTab logic) ...
     const fetchNewsForTab = async (tabId: string) => {
       setLoading(true);
       setError(null);
@@ -79,7 +185,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
         const data: NewsItem[] = await response.json();
         setNewsByTab((prev) => ({ ...prev, [tabId]: data }));
       } catch (err: any) {
-        console.error(`Failed to fetch ${tabId} news:`, err);
+        console.error(`Failed to fetch ${activeTab} news:`, err);
         setError(`Failed to load ${tabId} news. Please try again later.`);
       } finally {
         setLoading(false);
@@ -87,25 +193,110 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
       }
     };
 
-    if (!newsByTab[activeTab]) {
+    if (activeTab !== "news-buzz" && !newsByTab[activeTab]) {
       fetchNewsForTab(activeTab);
     } else {
       setCurrentPage(1);
     }
-  }, [activeTab]);
+  }, [activeTab, newsByTab]);
 
+  useEffect(() => {
+    // ... (Your newsletter fetching logic remains the same) ...
+    const fetchNewsletter = async () => {
+      setNewsletterLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/newsletter`
+        );
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(
+            `HTTP error! status: ${response.status}: ${errorText}`
+          );
+        }
+        const data = await response.json();
+        setNewsletter(data.newsletter || []);
+      } catch (err) {
+        console.error("Failed to fetch newsletter:", err);
+      } finally {
+        setNewsletterLoading(false);
+      }
+    };
+    fetchNewsletter();
+  }, []);
+
+  // useEffect(() => {
+  //   // ... (Your stock data fetching logic remains the same) ...
+  //   let isMounted = true;
+  //   const fetchStockData = async () => {
+  //     setStockLoading(true);
+  //     setStockError(null);
+  //     try {
+  //       const response = await fetch(
+  //         `${process.env.NEXT_PUBLIC_API_URL}/api/yahoo-stock-data`
+  //       );
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! status: ${response.status}`);
+  //       }
+  //       const data = await response.json();
+
+  //       if (data.error) {
+  //         throw new Error(data.error);
+  //       }
+
+  //       if (isMounted) {
+  //         setStockIndices(data.indices);
+  //       }
+  //     } catch (err: any) {
+  //       console.error("Failed to fetch stock data (Yahoo):", err);
+  //       if (isMounted) {
+  //         setStockError(err.message || "Failed to load market data.");
+  //       }
+  //     } finally {
+  //       if (isMounted) {
+  //         setStockLoading(false);
+  //       }
+  //     }
+  //   };
+  //   fetchStockData();
+  //   const intervalId = setInterval(fetchStockData, 60000);
+  //   return () => {
+  //     isMounted = false;
+  //     clearInterval(intervalId);
+  //   };
+  // }, []);
+
+  // --- Data Processing (Keep unchanged) ---
   const currentNewsData = newsByTab[activeTab] || [];
+  const categories = [
+    "all",
+    ...new Set(currentNewsData.map((news) => news.category || "Uncategorized")),
+  ];
 
-  const sortedNews = [...currentNewsData].sort((a, b) => {
-    return (
-      new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime()
-    );
-  });
+  const filteredNews = currentNewsData
+    .filter(
+      (news) =>
+        (selectedCategory === "all" ||
+          (news.category || "Uncategorized") === selectedCategory) &&
+        (news.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          news.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          "")
+    )
+    .sort((a, b) => {
+      if (sortBy === "latest") {
+        return (
+          new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime()
+        );
+      }
+      return 0;
+    });
 
-  const totalPages = Math.ceil(sortedNews.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredNews.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentNews = sortedNews.slice(startIndex, startIndex + itemsPerPage);
+  const currentNews = filteredNews.slice(startIndex, startIndex + itemsPerPage);
 
+  // --- Handler Functions (Keep unchanged) ---
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -114,144 +305,405 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
   const handleNewsClick = (id: string) => {
     router.push(`/news/${id}`);
   };
-
-  const formatDate = (dateString: string) => {
-    try {
-      return new Date(dateString).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      });
-    } catch (e) {
-      return dateString;
-    }
+  const handleNewsletterClick = (id: string) => {
+    router.push(`/newsletter/${id}`);
   };
 
+  // --- RENDER LOGIC (UPDATED) ---
+
+  const renderNewsContent = () => {
+    if (loading) {
+      return (
+        <div className="flex justify-center items-center py-20">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
+        </div>
+      );
+    }
+    if (error) {
+      return (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center py-16"
+        >
+          <div className="w-24 h-24 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full flex items-center justify-center mx-auto mb-6">
+            <FaNewspaper className="text-3xl text-gray-500" />
+          </div>
+          <h3 className="text-2xl font-bold text-gray-800 mb-4">
+            Oops! Something went wrong.
+          </h3>
+          <p className="text-gray-600 mb-6">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
+          >
+            Retry
+          </button>
+        </motion.div>
+      );
+    }
+    if (currentNews.length === 0) {
+      return (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center py-16"
+        >
+          <div className="w-24 h-24 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full flex items-center justify-center mx-auto mb-6">
+            <FaNewspaper className="text-3xl text-gray-500" />
+          </div>
+          <h3 className="text-2xl font-bold text-emerald-800 mb-4">
+            No News Articles Found
+          </h3>
+          <p className="text-emerald-600 mb-6">
+            {searchTerm || selectedCategory !== "all"
+              ? "Try adjusting your search or filter criteria"
+              : `No news has been published yet for ${activeTab}.`}
+          </p>
+          <button
+            onClick={() => {
+              setSearchTerm("");
+              setSelectedCategory("all");
+            }}
+            className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
+          >
+            Clear Filters
+          </button>
+        </motion.div>
+      );
+    }
+
+    switch (activeTab) {
+      case "news-buzz":
+        return (
+          <NewsBuzzList
+            currentNews={currentNews}
+            handleNewsClick={handleNewsClick}
+            ShareButton={ShareButton}
+          />
+        );
+      case "corp-pulse":
+        return (
+          <CorpPulseList
+            currentNews={currentNews}
+            handleNewsClick={handleNewsClick}
+            ShareButton={ShareButton}
+          />
+        );
+      case "ipo-scoop":
+        return (
+          <IpoScoopList
+            currentNews={currentNews}
+            handleNewsClick={handleNewsClick}
+            ShareButton={ShareButton}
+          />
+        );
+      default:
+        return null;
+    }
+  };
   return (
     <div
-      className="min-h-screen bg-[#f5f8f5] pt-32 pb-20 relative font-sans"
-      style={{
-        backgroundImage:
-          "linear-gradient(to right, rgba(20, 110, 80, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(20, 110, 80, 0.04) 1px, transparent 1px)",
-        backgroundSize: "36px 36px",
-      }}
+      className="min-h-screen bg-[#fcfdfd] relative overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        {/* Page Header */}
-        <header className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-black text-black tracking-tight uppercase mb-3">
-            FINANCIAL NEWS HUB
+      {/* Premium Sparkle Background & Gradients */}
+      <div className="absolute top-0 left-0 w-full h-[100px] bg-gradient-to-b from-emerald-50 to-transparent -z-10" />
+      <motion.div 
+        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3], rotate: [0, 45, 0] }}
+        transition={{ duration: 10, repeat: Infinity }}
+        className="absolute top-20 right-[5%] w-[40rem] h-[40rem] bg-emerald-100/40 rounded-full blur-[120px] -z-10"
+      />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-30">
+        {/* --- Header Section --- */}
+        <header className="text-center mb-4 relative">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }} 
+            animate={{ opacity: 1, scale: 1 }} 
+            className="inline-block mb-6"
+          >
+            <span className="bg-emerald-100 text-emerald-700 px-6 py-2 rounded-full text-xs font-black uppercase tracking-[0.2em] flex items-center gap-3 shadow-sm border border-emerald-200">
+              <FaMagic className="text-yellow-500 animate-pulse" /> Latest Market Updates
+            </span>
+          </motion.div>
+          <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tighter mb-6 leading-none">
+            Global <span className="text-emerald-600 relative">News </span>
           </h1>
-          <p className="text-slate-600 font-medium text-sm md:text-base max-w-2xl mx-auto">
-            Curated insights and breaking news from global markets
+          <p className="text-slate-500 max-w-2xl mx-auto text-lg md:text-xl font-medium leading-relaxed">
+            Real-time financial coverage and deep-dive analysis into the trends shaping the global economy.
           </p>
         </header>
+        </div>
 
-        {/* Tab Filters */}
-        <div className="flex justify-center gap-3 md:gap-4 mb-8 flex-wrap">
+        {/* --- Tab Navigation --- */}
+        <div className="flex justify-center mb-4 flex-wrap gap-3">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-6 py-2.5 rounded-full border border-black text-xs md:text-sm font-extrabold tracking-wider transition-all duration-200 cursor-pointer ${
-                activeTab === tab.id
-                  ? "bg-[#e6f4ea] text-black shadow-sm"
-                  : "bg-white text-black hover:bg-[#f0f4f1]"
-              }`}
+              className={`px-10 py-4 rounded-2xl text-base font-bold transition-all duration-300 relative overflow-hidden group
+                ${activeTab === tab.id 
+                  ? "bg-emerald-600 text-white shadow-2xl shadow-emerald-200" 
+                  : "bg-white text-slate-600 hover:bg-emerald-50 border border-slate-100"}`}
             >
               {tab.label}
+              {activeTab === tab.id && (
+                <motion.div layoutId="tabUnderline" className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400" />
+              )}
             </button>
           ))}
         </div>
-
-        {/* Horizontal Divider Line */}
-        <div className="w-full border-t border-slate-300 mb-10" />
-
-        {/* Main Content */}
-        {loading ? (
-          <div className="flex justify-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-emerald-600"></div>
-          </div>
-        ) : error ? (
-          <div className="text-center py-16">
-            <h3 className="text-xl font-bold text-red-800 mb-4">Error Loading News</h3>
-            <p className="text-red-600 mb-6">{error}</p>
-            <button
-              onClick={() => window.location.reload()}
-              className="bg-emerald-600 text-white px-6 py-2 rounded-full font-bold hover:bg-emerald-700 transition-colors"
-            >
-              Retry
-            </button>
-          </div>
-        ) : currentNews.length === 0 ? (
-          <div className="col-span-full py-20 text-center bg-white/50 backdrop-blur-sm rounded-3xl border border-dashed border-slate-300">
-            <FaNewspaper className="mx-auto text-4xl text-slate-300 mb-4" />
-            <p className="text-slate-400 font-bold uppercase tracking-widest">
-              Awaiting New Stories...
-            </p>
-          </div>
-        ) : (
-          <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-              {currentNews.map((news) => {
-                const displayCategory = news.category || (activeTab === "news-buzz" ? "News Buzz" : activeTab === "corp-pulse" ? "Corp Pulse" : "IPO Scoop");
-                return (
-                  <motion.div
-                    key={news.id}
-                    whileHover={{ y: -6 }}
-                    onClick={() => handleNewsClick(news.id)}
-                    className="bg-white/95 backdrop-blur-sm border border-slate-300 rounded-[1.5rem] p-6 flex flex-col justify-between h-full min-h-[220px] shadow-[0_4px_20px_rgba(0,0,0,0.01)] transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)] cursor-pointer"
-                  >
-                    {/* Top Badges */}
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="bg-[#e6f4ea] text-[#137333] border border-[#ceead6] px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider">
-                        {displayCategory}
-                      </span>
-                      <span className="bg-[#f1f3f4] text-[#3c4043] border border-[#dadce0] px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider">
-                        FEATURED
-                      </span>
-                    </div>
-
-                    {/* Title */}
-                    <div className="mb-4">
-                      <h3 className="text-lg md:text-xl font-semibold text-slate-700 leading-snug line-clamp-3 hover:text-emerald-700 transition-colors">
-                        {news.title}
-                      </h3>
-                    </div>
-
-                    {/* Divider and Footer */}
-                    <div className="mt-auto">
-                      <div className="border-t border-slate-300 w-full mb-4" />
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs md:text-sm text-slate-500 font-medium">
-                          {formatDate(news.publishDate)}
-                        </span>
-                        <button className="bg-[#0f9d58] hover:bg-[#0b8043] text-white px-5 py-2 rounded-xl text-xs font-bold transition-colors flex items-center gap-1">
-                          Read <span className="font-sans">→</span>
-                        </button>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
+      {/* --- Stock Indices Section --- (Unchanged) */}
+      {/* <section className="pt-24 bg-white border-b border-emerald-300">
+        <div className="max-w-8xl mx-auto px-2 sm:px-4 lg:px-6">
+          <div className="border-b border-emerald-200 bg-white py-2">
+            <div className="flex justify-between items-center mb-2">
+              {stockLoading && (
+                <span className="text-xs text-gray-500">
+                  Loading market data...
+                </span>
+              )}
+              {stockError && (
+                <span className="text-xs text-red-500">({stockError})</span>
+              )}
             </div>
 
-            {/* Pagination */}
-            {totalPages > 1 && (
+            {stockLoading ? (
+              <div className="flex justify-center py-3">
+                <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-emerald-500"></div>
+              </div>
+            ) : stockError ? (
+              <p className="text-center text-gray-500 py-3">
+                Error loading market data: {stockError}
+              </p>
+            ) : stockIndices.length > 0 ? (
+              <>
+                <div className="block sm:hidden overflow-x-auto no-scrollbar py-2">
+                  <div className="flex gap-3 min-w-max">
+                    {stockIndices.map((index) => (
+                      <div
+                        key={index.symbol}
+                        className={`px-3 py-2 border rounded-lg bg-white shadow-sm flex items-center gap-2 min-w-[160px] ${
+                          index.error ? "opacity-70" : ""
+                        }`}
+                      >
+                        <div
+                          className={`flex items-center justify-center w-6 h-6 ${
+                            index.error
+                              ? "bg-gray-300 text-gray-600"
+                              : "bg-emerald-600 text-white"
+                          }`}
+                        >
+                          {index.error ? "?" : <FaChartLine size={12} />}
+                        </div>
+
+                        <div className="leading-tight">
+                          <p
+                            className={`text-xs font-semibold ${
+                              index.error ? "text-gray-500" : "text-emerald-800"
+                            }`}
+                          >
+                            {index.name}
+                          </p>
+
+                          {index.error ? (
+                            <p className="text-[10px] text-gray-500">
+                              {index.error}
+                            </p>
+                          ) : (
+                            <p className="text-[11px] text-gray-600">
+                              {index.value.toLocaleString(undefined, {
+                                maximumFractionDigits: 2,
+                              })}{" "}
+                              <span
+                                className={`font-bold ${
+                                  index.change > 0
+                                    ? "text-green-600"
+                                    : index.change < 0
+                                      ? "text-red-500"
+                                      : "text-gray-500"
+                                }`}
+                              >
+                                {index.change >= 0 ? "+" : ""}
+                                {index.change.toFixed(2)} (
+                                {index.percentageChange.toFixed(2)}%)
+                              </span>
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="hidden sm:grid grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-2">
+                  {stockIndices.map((index) => (
+                    <div
+                      key={index.symbol}
+                      className={`px-3 py-2 border rounded-lg bg-white shadow-sm flex items-center gap-2 min-w-[160px] ${
+                        index.error ? "opacity-70" : ""
+                      }`}
+                    >
+                      <div
+                        className={`flex items-center justify-center w-6 h-6 ${
+                          index.error
+                            ? "bg-gray-300 text-gray-600"
+                            : "bg-emerald-600 text-white"
+                        }`}
+                      >
+                        {index.error ? "?" : <FaChartLine size={12} />}
+                      </div>
+                      <div className="leading-tight">
+                        <p
+                          className={`text-xs font-semibold ${
+                            index.error ? "text-gray-500" : "text-emerald-800"
+                          }`}
+                        >
+                          {index.name}
+                        </p>
+                        {index.error ? (
+                          <p className="text-[10px] text-gray-500">
+                            {index.error}
+                          </p>
+                        ) : (
+                          <p className="text-[11px] text-gray-600">
+                            {index.value.toLocaleString(undefined, {
+                              maximumFractionDigits: 2,
+                            })}{" "}
+                            <span
+                              className={`font-bold ${
+                                index.change > 0
+                                  ? "text-green-600"
+                                  : index.change < 0
+                                    ? "text-red-500"
+                                    : "text-gray-500"
+                              }`}
+                            >
+                              {index.change >= 0 ? "+" : ""}
+                              {index.change.toFixed(2)} (
+                              {index.percentageChange.toFixed(2)}%)
+                            </span>
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <p className="text-center text-gray-500 py-3">
+                No market data available.
+              </p>
+            )}
+          </div>
+        </div>
+      </section> */}
+
+
+      <section className="py-8 bg-white border-b border-emerald-200">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-col lg:flex-row gap-6 items-center justify-between"
+          >
+            <div className="relative flex-1 max-w-md">
+              <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-emerald-400" />
+              <input
+                type="text"
+                placeholder="Search news articles..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-12 pr-4 py-3 rounded-2xl border border-emerald-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/20 transition-all duration-300 bg-white shadow-sm text-black"
+              />
+            </div>
+            <div className="flex gap-4 items-center">
+              <div className="flex items-center gap-2">
+                <FaFilter className="text-emerald-600" />
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="px-4 py-2 rounded-xl border border-emerald-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all duration-300 bg-white text-black"
+                >
+                  {categories.map((category) => (
+                    <option key={category} value={category}>
+                      {category.charAt(0).toUpperCase() + category.slice(1)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <select
+                value={sortBy}
+                onChange={(e) =>
+                  setSortBy(e.target.value as "latest" | "popular")
+                }
+                className="px-4 py-2 rounded-xl border border-emerald-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all duration-300 bg-white text-black"
+              >
+                <option value="latest">Latest First</option>
+                <option value="popular">Most Popular</option>
+              </select>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Main Content Grid (3:1) */}
+      <section className="py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-7">
+          {/* Main News Content Area */}
+          <div className=" space-y-8 mb-16">
+            {" "}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="flex items-center justify-between "
+            >
+              {loading ? (
+                <p className="text-gray-600">Loading {activeTab} news...</p>
+              ) : error ? (
+                <p className="text-red-500">{error}</p>
+              ) : (
+                <>
+                  <p className="text-gray-600">
+                    Showing {startIndex + 1}-
+                    {Math.min(startIndex + itemsPerPage, filteredNews.length)}{" "}
+                    of {filteredNews.length} articles
+                  </p>
+                  <div className="flex items-center gap-2 text-gray-500">
+                    <FaArrowUp className="text-green-500" />
+                    <span className="text-sm">Updated in real-time</span>
+                  </div>
+                </>
+              )}
+            </motion.div>
+            {/* DELEGATE RENDERING */}
+            {renderNewsContent()}
+            {/* Pagination - Updated Theme (Unchanged) */}
+            {!loading && !error && totalPages > 1 && (
               <motion.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex items-center justify-center gap-2 mt-8"
+                transition={{ delay: 0.3 }}
+                className="flex items-center justify-center gap-2 px-2 max-w-full overflow-hidden"
               >
-                <button
+                {/* Previous */}
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
-                  className="flex items-center justify-center h-9 w-9 rounded-lg border border-slate-300 bg-white text-black disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50"
+                  className="flex items-center justify-center
+                 h-9 w-9
+                 rounded-lg border border-emerald-200
+                 bg-white text-emerald-800
+                 disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   <FaChevronLeft />
-                </button>
+                </motion.button>
 
-                <div className="flex items-center gap-2">
+                {/* Page Numbers (allowed to shrink) */}
+                <div className="flex items-center gap-2 min-w-0 overflow-hidden">
                   {[...Array(totalPages)].map((_, index) => {
                     const page = index + 1;
                     const isActive = page === currentPage;
@@ -265,11 +717,12 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                         <button
                           key={page}
                           onClick={() => handlePageChange(page)}
-                          className={`w-8 h-8 rounded-lg text-sm font-semibold border ${
-                            isActive
-                              ? "bg-[#e6f4ea] text-black border-black"
-                              : "border-slate-300 text-black bg-white hover:bg-slate-50"
-                          }`}
+                          className={`w-8 h-8 rounded-lg text-sm font-semibold
+                ${
+                  isActive
+                    ? "bg-emerald-600 text-white"
+                    : "border border-emerald-200 text-emerald-700"
+                }`}
                         >
                           {page}
                         </button>
@@ -278,7 +731,7 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
 
                     if (page === currentPage - 2 || page === currentPage + 2) {
                       return (
-                        <span key={page} className="text-slate-400 px-1">
+                        <span key={page} className="text-emerald-400 px-1">
                           …
                         </span>
                       );
@@ -288,18 +741,24 @@ const ClientNewsPage = ({ initialNews }: ClientNewsPageProps) => {
                   })}
                 </div>
 
-                <button
+                {/* Next */}
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
-                  className="flex items-center justify-center h-9 w-9 rounded-lg border border-slate-300 bg-white text-black disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50"
+                  className="flex items-center justify-center
+                 h-9 w-9
+                 rounded-lg border border-emerald-200
+                 bg-white text-emerald-800
+                 disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   <FaChevronRight />
-                </button>
+                </motion.button>
               </motion.div>
             )}
-          </>
-        )}
-      </div>
+          </div>{" "}
+        </div>
+      </section>
     </div>
   );
 };
