@@ -299,15 +299,35 @@ export default function StockInvestmentPage() {
                           top: coords.top,
                           width: coords.width,
                           height: coords.height,
+                          containerType: "size",
                         }}
                       >
                         <div
-                          className={`w-full h-full rounded-[10px] border-2 transition-all duration-200 ${
+                          className={`w-full h-full rounded-[8px] bg-white border border-[#2D3748]/20 flex flex-col items-center justify-center p-[6cqw] text-center transition-all duration-200 ${
                             isHovered
-                              ? "border-[#FFD400] bg-[#FFD400]/15 shadow-[0_0_15px_rgba(255,212,0,0.4)]"
-                              : "border-transparent bg-transparent hover:border-[#FFD400]/50 hover:bg-[#FFD400]/5"
+                              ? "border-[#FFD400] shadow-[0_0_12px_rgba(255,212,0,0.5)] scale-[1.03]"
+                              : "hover:border-[#FFD400] hover:scale-[1.03]"
                           }`}
-                        />
+                        >
+                          <option.icon
+                            className="transition-colors duration-200"
+                            style={{
+                              width: "28cqw",
+                              height: "28cqw",
+                              marginBottom: "8cqw",
+                              color: isHovered ? "#B9903D" : "#1A1A1A",
+                            }}
+                          />
+                          <span
+                            className="font-extrabold uppercase leading-tight tracking-wider transition-colors duration-200"
+                            style={{
+                              fontSize: "9cqw",
+                              color: "#1A1A1A",
+                            }}
+                          >
+                            {option.title}
+                          </span>
+                        </div>
                       </Link>
                     );
                   })}
