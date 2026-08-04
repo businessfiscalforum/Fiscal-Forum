@@ -463,29 +463,35 @@ const ClientNewsPage = ({ initialNews, initialTab }: ClientNewsPageProps) => {
         {/* Page Header */}
         <header className="text-center mb-8">
           <h1 className="text-4xl md:text-5xl font-black text-black tracking-tight uppercase mb-3">
-            FINANCIAL NEWS HUB
+            {activeTab === "ipo-scoop" ? "IPO SCOOP" : "FINANCIAL NEWS HUB"}
           </h1>
           <p className="text-slate-600 font-medium text-sm md:text-base max-w-2xl mx-auto">
-            Curated insights and breaking news from global markets
+            {activeTab === "ipo-scoop"
+              ? "All the latest information and updates on current and upcoming IPOs"
+              : "Curated insights and breaking news from global markets"}
           </p>
         </header>
 
         {/* Tab Filters */}
-        <div className="flex justify-center gap-3 md:gap-4 mb-8 flex-wrap">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`px-6 py-2.5 rounded-full border border-black text-xs md:text-sm font-extrabold tracking-wider transition-all duration-200 cursor-pointer ${
-                activeTab === tab.id
-                  ? "bg-[#e6f4ea] text-black shadow-sm"
-                  : "bg-white text-black hover:bg-[#f0f4f1]"
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
+        {activeTab !== "ipo-scoop" && (
+          <div className="flex justify-center gap-3 md:gap-4 mb-8 flex-wrap">
+            {tabs
+              .filter((tab) => tab.id !== "ipo-scoop")
+              .map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`px-6 py-2.5 rounded-full border border-black text-xs md:text-sm font-extrabold tracking-wider transition-all duration-200 cursor-pointer ${
+                    activeTab === tab.id
+                      ? "bg-[#e6f4ea] text-black shadow-sm"
+                      : "bg-white text-black hover:bg-[#f0f4f1]"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+          </div>
+        )}
 
         {/* Horizontal Divider Line */}
         <div className="w-full border-t border-slate-300 mb-10" />
