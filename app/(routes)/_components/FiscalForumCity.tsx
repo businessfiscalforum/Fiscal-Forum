@@ -382,7 +382,7 @@ export default function FiscalForumCity() {
         <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-black px-6 sm:px-12 max-w-7xl mx-auto leading-relaxed">
           While others are building wealth, what&apos;s stopping you? Start Clicking{" "}
           <Link
-            href="/sign-up"
+            href="/services/stock-investment"
             className="inline-block bg-yellow-300 hover:bg-yellow-400 text-black border-2 border-black px-3 py-1 rounded-xl shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:-translate-y-0.5 active:translate-y-0 mx-1.5 align-middle"
           >
             here

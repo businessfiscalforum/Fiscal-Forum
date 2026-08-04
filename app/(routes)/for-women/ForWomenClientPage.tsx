@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 // Constant annual return rate for illustrative purposes
 const RATE = 0.12;
@@ -532,6 +534,8 @@ function allocationFor(years: number) {
 }
 
 export default function ForWomenClientPage() {
+  const router = useRouter();
+
   // --- State Hooks ---
   const [selectedJewel, setSelectedJewel] = useState<number | null>(null);
   const [selectedDream, setSelectedDream] = useState<number>(2); // Default to Travel (index 2)
@@ -574,7 +578,11 @@ export default function ForWomenClientPage() {
 
   // Handle route detail clicks
   const triggerRoute = (name: string) => {
-    if (name === "Gold") {
+    if (name === "Mutual Funds") {
+      router.push("/services/mutual-funds");
+    } else if (name === "Goal Portfolio") {
+      router.push("/services/stock-investment");
+    } else if (name === "Gold") {
       setActiveModal("gold");
     } else if (name === "Silver") {
       setActiveModal("silver");
@@ -593,6 +601,30 @@ export default function ForWomenClientPage() {
   const renderRouteButtons = (names: string[]) => {
     return names.map((n) => {
       const isPrimary = n === "Stocks" || n === "Consumer Stocks";
+      if (n === "Mutual Funds") {
+        return (
+          <Link
+            key={n}
+            href="/services/mutual-funds"
+            className={`btn ${isPrimary ? "btn-primary" : "btn-gold"}`}
+            style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
+          >
+            Explore {ROUTE_LABELS[n] || n} →
+          </Link>
+        );
+      }
+      if (n === "Goal Portfolio") {
+        return (
+          <Link
+            key={n}
+            href="/services/stock-investment"
+            className={`btn ${isPrimary ? "btn-primary" : "btn-gold"}`}
+            style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
+          >
+            Explore {ROUTE_LABELS[n] || n} →
+          </Link>
+        );
+      }
       return (
         <button
           key={n}
@@ -1013,13 +1045,13 @@ export default function ForWomenClientPage() {
                       What if <b>{inr(tenPctSpend)}</b> (10%) went toward your goals instead?
                     </div>
                     <div style={{ marginTop: "16px" }}>
-                      <button
-                        type="button"
+                      <Link
+                        href="/services/stock-investment"
                         className="btn btn-gold"
-                        onClick={() => triggerRoute("Goal Portfolio")}
+                        style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
                       >
                         Invest My 10% →
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 )}
@@ -1114,9 +1146,6 @@ export default function ForWomenClientPage() {
                 ))}
               </div>
 
-              <div className="route-buttons" id="closetDetailButtons" style={{ marginTop: "20px" }}>
-                {renderRouteButtons(CLOSET_ITEMS[flippedCloset].routes)}
-              </div>
             </div>
           )}
         </div>
