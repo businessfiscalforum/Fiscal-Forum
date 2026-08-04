@@ -466,6 +466,8 @@ export default function ClientReportsPage({
   const [watchlist, setWatchlist] = useState<Set<string>>(new Set());
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [screenerSelectedStock, setScreenerSelectedStock] = useState<any>(null);
+  const [highlightedStockSym, setHighlightedStockSym] = useState<string | null>(null);
+  const [showScreenerSuggestions, setShowScreenerSuggestions] = useState(false);
   const [showScreenerIndexWarn, setShowScreenerIndexWarn] = useState(false);
 
   const SCREENER_PAGE_SIZE = 15;
@@ -766,6 +768,14 @@ export default function ClientReportsPage({
     const start = (screenerPage - 1) * SCREENER_PAGE_SIZE;
     return filteredStocks.slice(start, start + SCREENER_PAGE_SIZE);
   }, [filteredStocks, screenerPage]);
+
+  const screenerSuggestions = useMemo(() => {
+    if (!screenerSearch.trim()) return [];
+    const q = screenerSearch.toLowerCase();
+    return stocksData
+      .filter(s => s.sym.toLowerCase().includes(q) || s.name.toLowerCase().includes(q))
+      .slice(0, 8);
+  }, [stocksData, screenerSearch]);
 
   const watchlistStocks = useMemo(() => {
     return stocksData.filter(s => watchlist.has(s.sym)).sort((a, b) => a.name.localeCompare(b.name));
@@ -1864,16 +1874,69 @@ export default function ClientReportsPage({
                 <div className="control-deck" style={{ border: '1px solid #111411' }}>
                   
                   <div className="search-row">
-                    <input
-                      type="text"
-                      placeholder="Search symbol, company name or ISIN…"
-                      value={screenerSearch}
-                      onChange={(e) => {
-                        setScreenerSearch(e.target.value);
-                        setScreenerPage(1);
-                      }}
-                      style={{ border: '1px solid rgba(17,20,17,0.4)' }}
-                    />
+                    <div className="search-input-wrapper" style={{ position: 'relative', flex: '1 1 320px' }}>
+                      <input
+                        type="text"
+                        placeholder="Search symbol, company name or ISIN…"
+                        value={screenerSearch}
+                        onChange={(e) => {
+                          setScreenerSearch(e.target.value);
+                          setScreenerPage(1);
+                          setShowScreenerSuggestions(true);
+                        }}
+                        onFocus={() => setShowScreenerSuggestions(true)}
+                        onBlur={() => setTimeout(() => setShowScreenerSuggestions(false), 200)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            setShowScreenerSuggestions(false);
+                            if (filteredStocks.length > 0) {
+                              const targetStock = filteredStocks[0];
+                              setHighlightedStockSym(targetStock.sym);
+                              setTimeout(() => {
+                                const element = document.getElementById("screener-table-section");
+                                if (element) {
+                                  element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                }
+                              }, 100);
+                              setTimeout(() => {
+                                setHighlightedStockSym(null);
+                              }, 2500);
+                            }
+                          }
+                        }}
+                        style={{ border: '1px solid rgba(17,20,17,0.4)', width: '100%', boxSizing: 'border-box' }}
+                      />
+
+                      {showScreenerSuggestions && screenerSuggestions.length > 0 && (
+                        <div className="screener-suggestions-dropdown">
+                          {screenerSuggestions.map(s => (
+                            <button
+                              key={s.sym}
+                              type="button"
+                              className="dropdown-item"
+                              onClick={() => {
+                                setScreenerSearch(s.sym);
+                                setScreenerPage(1);
+                                setHighlightedStockSym(s.sym);
+                                setShowScreenerSuggestions(false);
+                                setTimeout(() => {
+                                  const element = document.getElementById("screener-table-section");
+                                  if (element) {
+                                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                  }
+                                }, 100);
+                                setTimeout(() => {
+                                  setHighlightedStockSym(null);
+                                }, 2500);
+                              }}
+                            >
+                              <span className="sym">{s.sym}</span>
+                              <span className="name">{s.name}</span>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                     <select
                       value={screenerSort}
                       onChange={(e) => setScreenerSort(e.target.value)}
@@ -2101,7 +2164,7 @@ export default function ClientReportsPage({
                   <span className="result-bar-note">Click a row for full detail. Star to add to watchlist.</span>
                 </div>
 
-                <div className="table-wrap" style={{ border: '1px solid #111411' }}>
+                <div id="screener-table-section" className="table-wrap" style={{ border: '1px solid #111411' }}>
                   <table>
                     <thead>
                       <tr>
@@ -2122,7 +2185,7 @@ export default function ClientReportsPage({
                         const isStarred = watchlist.has(s.sym);
                         const tierBadgeClass = `tier-${s.tier?.split(" ")[0] || "Micro"}`;
                         return (
-                          <tr key={s.sym} onClick={() => setScreenerSelectedStock(s)}>
+                          <tr key={s.sym} className={highlightedStockSym === s.sym ? "highlighted-row" : ""} onClick={() => setScreenerSelectedStock(s)}>
                             <td onClick={(e) => e.stopPropagation()}>
                               <button className={`star-btn ${isStarred ? "active" : ""}`} onClick={() => toggleStar(s.sym)}>
                                 {isStarred ? "★" : "☆"}
