@@ -489,7 +489,7 @@ export default function HomeMobile() {
       <FiscalForumCityMobile />
 
       {/* 🔹 Tabbed Services (Cards Grid) */}
-      <section className="px-4 py-8 bg-yellow-50 border-b border-black">
+      <section className="px-4 py-8 bg-[#F4FBF7] border-b border-black">
         <h2 className="text-xl sm:text-2xl font-bold text-black uppercase tracking-tight text-center mb-6">
           Our Financial Premium Services
         </h2>
@@ -502,8 +502,8 @@ export default function HomeMobile() {
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`px-4 py-2 border border-black rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${activeTab === tab.id
-                ? "bg-yellow-300 text-black shadow-sm"
-                : "bg-yellow-100 text-black hover:bg-yellow-200"
+                ? "bg-yellow-100 text-black shadow-sm"
+                : "bg-white text-black"
                 }`}
             >
               {tab.label}
@@ -517,7 +517,7 @@ export default function HomeMobile() {
               <motion.div
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="bg-yellow-100 border border-black rounded-2xl p-5 shadow-sm flex flex-col justify-between h-full min-h-[220px]"
+                className="bg-yellow-50 border border-black rounded-2xl p-5 shadow-sm flex flex-col justify-between h-full min-h-[220px]"
               >
                 <div className="space-y-3">
                   <div className="w-10 h-10 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
@@ -533,7 +533,7 @@ export default function HomeMobile() {
                   </p>
                 </div>
                 <div className="mt-4">
-                  <span className="inline-block w-full text-center py-2 bg-yellow-300 text-black border border-black text-xs font-bold uppercase rounded-lg shadow-sm">
+                  <span className="inline-block w-full text-center py-2 bg-[#1FA463] text-white border border-black text-xs font-bold uppercase rounded-lg shadow-sm">
                     Learn More
                   </span>
                 </div>
