@@ -681,7 +681,7 @@ export default function HomeDesktop() {
         <FiscalForumCity />
 
         {/* Enhanced Services Section */}
-        <section className="py-16 bg-[#F4FBF7] border-b border-black">
+        <section className="py-16 bg-yellow-50 border-b border-black">
           <div className="max-w-7xl mx-auto px-4 md:px-8">
             {/* Header */}
             <motion.div
@@ -713,8 +713,8 @@ export default function HomeDesktop() {
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as TabKey)}
                   className={`px-6 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider border border-black rounded-xl transition-all ${activeTab === tab.id
-                    ? "bg-yellow-100 text-black shadow-sm translate-x-[-1px] translate-y-[-1px]"
-                    : "bg-white text-black hover:bg-emerald-50 shadow-sm"
+                    ? "bg-yellow-300 text-black shadow-sm translate-x-[-1px] translate-y-[-1px]"
+                    : "bg-yellow-100 text-black hover:bg-yellow-200 shadow-sm"
                     }`}
                 >
                   {tab.label}
@@ -730,7 +730,7 @@ export default function HomeDesktop() {
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
-                  className="bg-yellow-50 border border-black rounded-2xl p-6 shadow-md  hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full justify-between"
+                  className="bg-yellow-100 border border-black rounded-2xl p-6 shadow-md  hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full justify-between"
                 >
                   <div className="space-y-4">
                     {/* Icon */}
@@ -756,7 +756,7 @@ export default function HomeDesktop() {
                   {/* Learn More Button */}
                   <div className="mt-6">
                     <Link href={item.link} className="block w-full">
-                      <button className="w-full bg-[#1FA463] text-white border border-black py-2.5 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider shadow-sm hover:-translate-y-0.5 hover:shadow-sm active:translate-y-0  transition-all flex items-center justify-center gap-1.5">
+                      <button className="w-full bg-yellow-300 text-black border border-black py-2.5 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider shadow-sm hover:-translate-y-0.5 hover:bg-yellow-400 hover:shadow-sm active:translate-y-0 transition-all flex items-center justify-center gap-1.5">
                         Learn More
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
