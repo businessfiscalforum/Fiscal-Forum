@@ -319,14 +319,31 @@ export default function FathomSlider() {
                   </div>
 
                   <div className="advisor-figure">
-                    <Image
-                      className="advisor-figure__img"
-                      src="/fathom/advisor-cutout.png"
-                      alt="An advisor in a suit, pointing toward the highlighted takeaway."
-                      width={280}
-                      height={480}
-                      priority
-                    />
+                    <span className="fiscal-forum-pop-text">
+                      <span className="word">
+                        {Array.from("FISCAL").map((char, index) => (
+                          <span
+                            key={index}
+                            className="letter"
+                            style={{ "--char-index": index } as React.CSSProperties}
+                          >
+                            {char}
+                          </span>
+                        ))}
+                      </span>
+                      <br />
+                      <span className="word">
+                        {Array.from("FORUM").map((char, index) => (
+                          <span
+                            key={index}
+                            className="letter"
+                            style={{ "--char-index": index + 6 } as React.CSSProperties}
+                          >
+                            {char}
+                          </span>
+                        ))}
+                      </span>
+                    </span>
                   </div>
 
                   <div className="slide__side">
