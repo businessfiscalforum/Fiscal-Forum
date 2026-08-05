@@ -555,19 +555,17 @@ export default function HomeMobile() {
           {features.map((f, i) => (
             <motion.div
               key={i}
-              className="bg-white border border-black rounded-2xl p-3.5 shadow-sm flex flex-col gap-2 text-left aspect-square justify-between"
+              className="bg-white border border-black rounded-2xl p-4 shadow-sm flex flex-col h-full text-left"
             >
-              <div className="w-8 h-8 bg-emerald-50 border border-black rounded-lg flex items-center justify-center shrink-0">
+              <div className="w-8 h-8 bg-emerald-50 border border-black rounded-lg flex items-center justify-center shrink-0 mb-3">
                 <f.icon className="text-[#1FA463] text-base" />
               </div>
-              <div className="flex flex-col flex-grow justify-end">
-                <h4 className="font-bold text-black text-[12px] leading-snug truncate">
-                  {f.title}
-                </h4>
-                <p className="text-[9.5px] text-gray-500 font-semibold mt-0.5 leading-snug line-clamp-3">
-                  {f.desc}
-                </p>
-              </div>
+              <h4 className="font-bold text-black text-[12px] leading-snug mb-1">
+                {f.title}
+              </h4>
+              <p className="text-[10px] text-gray-500 font-semibold leading-normal">
+                {f.desc}
+              </p>
             </motion.div>
           ))}
         </div>
