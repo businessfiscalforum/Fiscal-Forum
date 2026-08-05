@@ -361,9 +361,6 @@ export default function IndianBondsHero() {
             <h1>
               BondWise <span>Terminal</span>
             </h1>
-            <p className="sub">
-              A screener built for the way retail investors actually choose bonds in India — by safety, by yield, by maturity. Set your filters once. Watch the board update live.
-            </p>
           </div>
           <div className="hero-art">
             <Image
