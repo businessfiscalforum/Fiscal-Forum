@@ -195,12 +195,40 @@
 .sector-pick-item.active span{color:var(--forest);}
 
 @media (max-width:640px){
-  .sector-picker{grid-template-columns:repeat(2,1fr);}
-  .sector-pick-item span{font-size:12px;}
-  .sector-pick-item img{width:30px;height:30px;}
+  .sector-picker{
+    grid-template-columns:repeat(3,1fr);
+    gap: 6px;
+  }
+  .sector-pick-item{
+    padding: 4px 6px;
+    gap: 4px;
+  }
+  .sector-pick-item span{
+    font-size: 10px;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.1;
+  }
+  .sector-pick-item img{
+    width: 22px;
+    height: 22px;
+  }
 }
-@media (max-width:420px){
-  .sector-picker{grid-template-columns:1fr;}
+@media (max-width:400px){
+  .sector-picker{
+    gap: 4px;
+  }
+  .sector-pick-item{
+    padding: 3px 4px;
+    gap: 3px;
+  }
+  .sector-pick-item span{
+    font-size: 8.5px;
+  }
+  .sector-pick-item img{
+    width: 18px;
+    height: 18px;
+  }
 }
 
 /* ================= SECTION 8 : SECTOR UNIVERSE BUBBLE MAP ================= */
