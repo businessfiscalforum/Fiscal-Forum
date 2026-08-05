@@ -98,7 +98,7 @@ const Footer = () => {
               >
                 <div className="">
                   <h2 className="text-3xl font-bold text-white mb-4">
-                    Fiscal Forum
+                    Fiscal Forum Finserve
                   </h2>
                   <p className="text-gray-300 text-base leading-relaxed max-w-2xl mx-auto mb-6">
                     Your trusted partner in financial growth. We provide
@@ -190,7 +190,7 @@ const Footer = () => {
           <div className="max-w-4xl mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <p className="text-gray-400 text-sm">
-                © {new Date().getFullYear()} Fiscal Forum. All rights reserved.
+                © {new Date().getFullYear()} Fiscal Forum Finserve. All rights reserved.
               </p>
               <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</Link>
               <Link href="/terms-and-conditions" className="text-gray-400 hover:text-white text-sm transition-colors">Terms & Conditions</Link>
