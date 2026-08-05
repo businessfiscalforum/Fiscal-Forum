@@ -39,6 +39,7 @@ const investmentOptions = [
     bgColor: "bg-white",
     iconBgColor: "bg-blue-100",
     iconColor: "text-blue-600",
+    image: "/images/cat-equity.png",
   },
   {
     id: "futures-options",
@@ -51,6 +52,7 @@ const investmentOptions = [
     bgColor: "bg-white",
     iconBgColor: "bg-purple-100",
     iconColor: "text-purple-600",
+    image: "/images/cat-fo.png",
   },
   {
     id: "ipo",
@@ -63,6 +65,7 @@ const investmentOptions = [
     bgColor: "bg-white",
     iconBgColor: "bg-emerald-100",
     iconColor: "text-emerald-600",
+    image: "/images/cat-ipo.png",
   },
   {
     id: "mtf",
@@ -75,6 +78,7 @@ const investmentOptions = [
     bgColor: "bg-white",
     iconBgColor: "bg-orange-100",
     iconColor: "text-orange-600",
+    image: "/images/cat-mtf.png",
   },
   {
     id: "commodities",
@@ -87,6 +91,7 @@ const investmentOptions = [
     bgColor: "bg-gradient-to-br from-green-500 to-green-700",
     iconBgColor: "bg-yellow-100",
     iconColor: "text-yellow-600",
+    image: "/images/cat-commodities.png",
   },
   {
     id: "unlisted-shares",
@@ -99,6 +104,7 @@ const investmentOptions = [
     bgColor: "bg-white",
     iconBgColor: "bg-indigo-100",
     iconColor: "text-indigo-600",
+    image: "/images/cat-unlisted.png",
   },
 ];
 
@@ -371,6 +377,17 @@ export default function StockInvestmentPage() {
                           {hoveredOption.description}
                         </p>
                       </div>
+
+                      {/* Illustration Image */}
+                      {hoveredOption.image && (
+                        <div className="flex justify-center items-center py-4 flex-grow">
+                          <img
+                            src={hoveredOption.image}
+                            alt={hoveredOption.title}
+                            className="max-h-32 md:max-h-40 w-auto object-contain transition-all duration-300 transform hover:scale-105"
+                          />
+                        </div>
+                      )}
 
                       {/* Action Buttons */}
                       <div className="pt-4 md:pt-6 space-y-3">
