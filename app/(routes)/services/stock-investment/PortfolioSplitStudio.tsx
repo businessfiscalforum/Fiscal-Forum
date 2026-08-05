@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import Image from "next/image";
 
 // Helper: compute SVG arc path for a pie slice
 function describeArc(
@@ -201,22 +200,9 @@ export default function PortfolioSplitStudio() {
           product mix.
         </h2>
 
-        {/* Top Row: Image & Chart side-by-side */}
-        <div className="studio-top-row">
-          {/* Column 1: Phone Preview with rounded border & glow */}
-          <div className="phone-preview">
-            <Image
-              src="/images/portfolio-app-screenshot.png"
-              alt="Portfolio App"
-              width={450}
-              height={900}
-              className="phone-image"
-              priority
-            />
-          </div>
-
-          {/* Column 2: Pie Chart & Splitting Table */}
-          <div className="chart-card">
+        {/* Main Content Area: Chart and Table side-by-side */}
+        <div className="studio-main-content">
+          <div className="chart-container">
             <div className="hover-instruction">
               <span>💡 Hover over slices or table rows to inspect details</span>
             </div>
@@ -353,8 +339,8 @@ export default function PortfolioSplitStudio() {
                         textAnchor={textAnchor}
                         fontSize={isHovered ? "5" : "4"}
                         fontWeight="900"
-                        fill={isHovered ? slice.color : "#ffffff"}
-                        fillOpacity={isHovered ? 1 : 0.75}
+                        fill={isHovered ? slice.color : "#000000"}
+                        fillOpacity={isHovered ? 1 : 0.85}
                         style={{ transition: "fill 0.3s ease, font-size 0.3s ease, fill-opacity 0.3s ease" }}
                       >
                         {slice.value}%
@@ -390,7 +376,9 @@ export default function PortfolioSplitStudio() {
                 </div>
               )}
             </div>
+          </div>
 
+          <div className="table-container">
             {/* Allocation Table */}
             <table className="split-table">
               <thead>
@@ -431,7 +419,7 @@ export default function PortfolioSplitStudio() {
                           />
                           <span
                             style={{
-                              color: isHovered ? item.color : "white",
+                              color: isHovered ? item.color : "#000000",
                               transition: "color 0.25s ease",
                               fontWeight: isHovered ? 900 : 700,
                             }}
@@ -443,7 +431,7 @@ export default function PortfolioSplitStudio() {
                       <td
                         className="value-cell"
                         style={{
-                          color: isHovered ? "#fff" : "#f59e0b",
+                          color: isHovered ? item.color : "#000000",
                           transition: "color 0.25s ease",
                           fontWeight: 900,
                         }}
@@ -561,11 +549,11 @@ export default function PortfolioSplitStudio() {
           max-width: 1200px;
           border-radius: 32px;
           padding: 40px 32px;
-          background: linear-gradient(135deg, #101720 0%, #172536 100%);
+          background: #FAF6EE;
           position: relative;
           overflow: hidden;
-          border: 2px solid #000000;
-          box-shadow: 8px 8px 0px #000;
+          border: 1px solid #000000;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
         }
 
         .studio-card::before {
@@ -573,12 +561,12 @@ export default function PortfolioSplitStudio() {
           position: absolute;
           inset: 0;
           background-image: linear-gradient(
-              rgba(255, 255, 255, 0.03) 1px,
+              rgba(0, 0, 0, 0.03) 1px,
               transparent 1px
             ),
             linear-gradient(
               90deg,
-              rgba(255, 255, 255, 0.03) 1px,
+              rgba(0, 0, 0, 0.03) 1px,
               transparent 1px
             );
           background-size: 44px 44px;
@@ -586,7 +574,7 @@ export default function PortfolioSplitStudio() {
         }
 
         .studio-tag {
-          color: #f59e0b;
+          color: #d97706;
           font-size: 13px;
           font-weight: 900;
           letter-spacing: 3px;
@@ -597,7 +585,7 @@ export default function PortfolioSplitStudio() {
         }
 
         .studio-heading {
-          color: white;
+          color: #101720;
           font-size: 48px;
           line-height: 1.1;
           font-weight: 900;
@@ -608,21 +596,36 @@ export default function PortfolioSplitStudio() {
           letter-spacing: -0.02em;
         }
 
-        .studio-top-row {
+        .studio-main-content {
           display: grid;
           grid-template-columns: 1fr;
           gap: 32px;
+          padding: 32px;
+          border-radius: 24px;
+          background: rgba(0, 0, 0, 0.02);
+          border: 1px solid #000000;
           margin-bottom: 32px;
           position: relative;
           z-index: 2;
-          width: 100%;
+          align-items: center;
         }
 
         @media (min-width: 768px) {
-          .studio-top-row {
-            grid-template-columns: 1fr 1fr;
-            align-items: center;
+          .studio-main-content {
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 48px;
           }
+        }
+
+        .chart-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 100%;
+        }
+
+        .table-container {
+          width: 100%;
         }
 
         .studio-bottom-row {
@@ -631,43 +634,23 @@ export default function PortfolioSplitStudio() {
           width: 100%;
         }
 
-        /* Phone Preview */
-        .phone-preview {
-          width: 100%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          padding: 10px;
-        }
-
-        .phone-preview :global(.phone-image) {
-          border-radius: 36px !important;
-          border: 4px solid rgba(255, 255, 255, 0.15) !important;
-          box-shadow: 0 0 35px rgba(34, 197, 94, 0.3) !important;
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        }
-
-        .phone-preview :global(.phone-image:hover) {
-          box-shadow: 0 0 55px rgba(34, 197, 94, 0.55) !important;
-          transform: scale(1.03) translateY(-4px) !important;
-        }
-
         /* Form Card */
         .form-card {
           display: grid;
-          grid-template-columns: 1fr;
-          gap: 20px;
-          padding: 28px;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+          padding: 20px 16px;
           border-radius: 24px;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.08);
+          background: rgba(0, 0, 0, 0.03);
+          border: 1px solid rgba(0, 0, 0, 0.08);
           backdrop-filter: blur(12px);
           width: 100%;
         }
 
         @media (min-width: 640px) {
           .form-card {
-            grid-template-columns: repeat(2, 1fr);
+            padding: 28px;
+            gap: 20px;
           }
         }
 
@@ -684,54 +667,80 @@ export default function PortfolioSplitStudio() {
         }
 
         .field label {
-          color: rgba(255, 255, 255, 0.7);
-          font-size: 14px;
+          color: rgba(16, 23, 32, 0.7);
+          font-size: 11px;
           font-weight: 800;
           text-transform: uppercase;
           letter-spacing: 0.5px;
+          min-height: 45px;
+          display: flex;
+          align-items: flex-end;
+        }
+
+        @media (min-width: 640px) {
+          .field label {
+            font-size: 13px;
+            min-height: 38px;
+            align-items: flex-end;
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .field label {
+            font-size: 14px;
+            min-height: auto;
+            display: block;
+          }
         }
 
         .field select {
-          height: 52px;
-          border-radius: 14px;
-          border: 2px solid #000;
+          height: 48px;
+          border-radius: 12px;
+          border: 1px solid rgba(0, 0, 0, 0.15);
           outline: none;
-          padding: 0 16px;
-          font-size: 16px;
+          padding: 0 8px;
+          font-size: 13px;
           font-weight: 800;
           color: #000000;
           background: white;
           cursor: pointer;
           transition: all 0.2s ease;
-          box-shadow: 2px 2px 0px #000;
+          width: 100%;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+
+        @media (min-width: 640px) {
+          .field select {
+            height: 52px;
+            border-radius: 14px;
+            padding: 0 16px;
+            font-size: 15px;
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .field select {
+            font-size: 16px;
+          }
         }
 
         .field select:focus {
-          transform: translate(-1px, -1px);
-          box-shadow: 3px 3px 0px #000;
-        }
-
-        /* Chart Card */
-        .chart-card {
-          padding: 28px;
-          border-radius: 24px;
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
+          border-color: #22c55e;
+          box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
         }
 
         .hover-instruction {
-          color: rgba(255, 255, 255, 0.65);
+          color: rgba(16, 23, 32, 0.65);
           font-size: 13px;
           font-weight: 700;
           margin-bottom: 20px;
           text-align: center;
-          background: rgba(255, 255, 255, 0.04);
+          background: rgba(0, 0, 0, 0.03);
           padding: 8px 16px;
           border-radius: 100px;
-          border: 1px solid rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(0, 0, 0, 0.06);
           display: flex;
           align-items: center;
           gap: 6px;
@@ -769,7 +778,7 @@ export default function PortfolioSplitStudio() {
           height: 340px;
           position: relative;
           z-index: 1;
-          filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.6));
+          filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.15));
         }
 
         .pie-slice {
@@ -828,17 +837,17 @@ export default function PortfolioSplitStudio() {
         .split-table th {
           text-align: left;
           padding: 12px 8px;
-          color: rgba(255, 255, 255, 0.5);
+          color: rgba(16, 23, 32, 0.5);
           font-size: 12px;
           font-weight: 800;
           letter-spacing: 1.5px;
-          border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+          border-bottom: 2px solid rgba(0, 0, 0, 0.1);
         }
 
         .split-table td {
           padding: 12px 8px;
-          border-top: 1px solid rgba(255, 255, 255, 0.05);
-          color: white;
+          border-top: 1px solid rgba(0, 0, 0, 0.05);
+          color: #101720;
           font-size: 15px;
           font-weight: 800;
         }
@@ -858,7 +867,7 @@ export default function PortfolioSplitStudio() {
 
         .value-cell {
           text-align: right;
-          color: #f59e0b !important;
+          color: #d97706 !important;
         }
 
         /* Responsiveness */

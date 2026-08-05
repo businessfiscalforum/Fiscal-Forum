@@ -215,7 +215,7 @@ export default function StockInvestmentPage() {
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#1FA463]/10 rounded-full blur-3xl pointer-events-none" />
             
             <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
-              <div className="space-y-4 max-w-3xl">
+              <div className="space-y-4 max-w-3xl pr-16 md:pr-0">
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-100 border border-black rounded-lg text-black font-bold text-xs uppercase tracking-wider">
                   <BarChart3 className="w-3.5 h-3.5" />
                   Investments
@@ -227,9 +227,9 @@ export default function StockInvestmentPage() {
                   Navigate the financial markets with absolute confidence. Discover premium investment options tailored to your personal wealth goals, built for long-term growth and success.
                 </p>
               </div>
-              <div className="flex-shrink-0">
-                <div className="w-24 h-24 bg-yellow-100 border border-black rounded-2xl flex items-center justify-center shadow-sm rotate-3 hover:rotate-0 transition-transform">
-                  <TrendingUp className="w-12 h-12 text-black" />
+              <div className="flex-shrink-0 absolute top-8 right-8 md:relative md:top-0 md:right-0">
+                <div className="w-16 h-16 md:w-24 md:h-24 bg-yellow-100 border border-black rounded-2xl flex items-center justify-center shadow-sm rotate-3 hover:rotate-0 transition-transform">
+                  <TrendingUp className="w-8 h-8 md:w-12 md:h-12 text-black" />
                 </div>
               </div>
             </div>
