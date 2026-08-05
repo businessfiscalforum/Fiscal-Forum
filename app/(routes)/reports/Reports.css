@@ -197,7 +197,7 @@
 @media (max-width:640px){
   .sector-picker{
     grid-template-columns:repeat(3,1fr);
-    gap: 6px;
+    gap: 12px 6px;
   }
   .sector-pick-item{
     padding: 4px 6px;
@@ -216,7 +216,7 @@
 }
 @media (max-width:400px){
   .sector-picker{
-    gap: 4px;
+    gap: 10px 4px;
   }
   .sector-pick-item{
     padding: 3px 4px;
