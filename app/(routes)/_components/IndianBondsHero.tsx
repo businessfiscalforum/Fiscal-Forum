@@ -89,7 +89,7 @@ const RISK_COPY = {
   bbb: "BBB and below is riskier territory. The borrower is more likely to struggle or delay payments — that's exactly why these bonds often dangle a juicy coupon. Higher reward always comes with higher risk.",
 };
 
-const PAGE_SIZE = 40;
+const PAGE_SIZE = 6;
 
 export default function IndianBondsHero() {
   const [bonds, setBonds] = useState<ProcessedBond[]>([]);
