@@ -298,8 +298,8 @@ export default function FathomSlider() {
                   >
                     <Image
                       className="report-image"
-                      src="/fathom/research-report.png"
-                      alt="Sample equity research report from Fiscal Forum, showing report highlights and key financial ratios including ROE, NIM, cost-to-income ratio, and capital adequacy ratio."
+                      src="/fathom/pre-market-report.png"
+                      alt="Sample pre market report from Fiscal Forum, showing market snapshot, global cues, top movers, and today's focus."
                       width={420}
                       height={580}
                       priority
@@ -716,8 +716,8 @@ export default function FathomSlider() {
           </button>
           <Image
             className="lightbox__img"
-            src="/fathom/research-report.png"
-            alt="Enlarged view of the Fiscal Forum equity research report."
+            src="/fathom/pre-market-report.png"
+            alt="Enlarged view of the Fiscal Forum pre market report."
             width={640}
             height={900}
           />

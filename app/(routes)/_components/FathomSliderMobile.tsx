@@ -111,8 +111,8 @@ export default function FathomSliderMobile() {
                 className="relative cursor-zoom-in active:scale-[0.99] transition-transform border border-black/5 shadow-[0_20px_45px_rgba(0,0,0,0.16)] rounded-2xl overflow-hidden max-w-[250px] w-full bg-white"
               >
                 <Image
-                  src="/fathom/research-report.png"
-                  alt="Equity Research Report Preview"
+                  src="/fathom/pre-market-report.png"
+                  alt="Pre Market Report Preview"
                   width={250}
                   height={340}
                   className="w-full h-auto object-contain rounded-2xl"
@@ -457,8 +457,8 @@ export default function FathomSliderMobile() {
                 <X size={18} />
               </button>
               <Image
-                src="/fathom/research-report.png"
-                alt="Enlarged Research Report"
+                src="/fathom/pre-market-report.png"
+                alt="Enlarged Pre Market Report"
                 width={560}
                 height={800}
                 className="rounded-lg max-h-[75vh] object-contain shadow-2xl bg-white p-1"
