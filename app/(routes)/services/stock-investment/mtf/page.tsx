@@ -2,19 +2,12 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Space_Grotesk, Archivo_Black, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 
-const spaceGrotesk = Space_Grotesk({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-space-grotesk",
-  display: "swap",
-});
-
-const archivoBlack = Archivo_Black({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-archivo-black",
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -309,11 +302,13 @@ export default function MTFPage() {
   };
 
   return (
-    <div className={`${spaceGrotesk.variable} ${archivoBlack.variable} ${jetbrainsMono.variable} mtf-page-container min-h-screen pt-20`}>
+    <div className={`${inter.variable} ${jetbrainsMono.variable} mtf-page-container min-h-screen pt-20`}>
       
       {/* Scope page styles only inside this container to avoid leaking into other pages */}
       <style dangerouslySetInnerHTML={{ __html: `
         .mtf-page-container {
+          --font-space-grotesk: var(--font-inter);
+          --font-archivo-black: var(--font-inter);
           --cream: #F1ECDE;
           --cream-dim: #E5DEC9;
           --ink: #12140E;
