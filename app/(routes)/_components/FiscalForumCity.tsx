@@ -17,6 +17,8 @@ const hotspots = [
     borderColor: "border-emerald-400",
     link: "/services/stock-investment/equity-etfs",
     icon: "📈",
+    xOffset: -120,
+    yOffset: -20,
   },
   {
     id: "commodities",
@@ -30,6 +32,8 @@ const hotspots = [
     borderColor: "border-blue-400",
     link: "/services/stock-investment/commodities",
     icon: "🪙",
+    xOffset: -100,
+    yOffset: 100,
   },
   {
     id: "mtf",
@@ -43,6 +47,8 @@ const hotspots = [
     borderColor: "border-yellow-400",
     link: "/services/stock-investment/mtf",
     icon: "⚡",
+    xOffset: -100,
+    yOffset: -100,
   },
   {
     id: "fiscal",
@@ -55,6 +61,8 @@ const hotspots = [
     borderColor: "border-emerald-500",
     link: "/services/stock-investment",
     icon: "🏛️",
+    xOffset: 0,
+    yOffset: -120,
   },
   {
     id: "mutual",
@@ -68,6 +76,8 @@ const hotspots = [
     borderColor: "border-indigo-400",
     link: "/services/mutual-funds",
     icon: "📊",
+    xOffset: 80,
+    yOffset: -80,
   },
   {
     id: "fo",
@@ -80,6 +90,8 @@ const hotspots = [
     borderColor: "border-orange-400",
     link: "/services/stock-investment/futures-options",
     icon: "🎯",
+    xOffset: 120,
+    yOffset: 80,
   },
   {
     id: "ipo",
@@ -92,6 +104,8 @@ const hotspots = [
     borderColor: "border-purple-400",
     link: "/services/stock-investment/ipo",
     icon: "🚀",
+    xOffset: 100,
+    yOffset: -100,
   },
   {
     id: "insurance",
@@ -104,6 +118,8 @@ const hotspots = [
     borderColor: "border-red-400",
     link: "/services/insurance",
     icon: "🛡️",
+    xOffset: 100,
+    yOffset: 100,
   },
   {
     id: "bonds",
@@ -117,6 +133,8 @@ const hotspots = [
     borderColor: "border-teal-400",
     link: "/services/govt-bonds-and-fd",
     icon: "🏦",
+    xOffset: 20,
+    yOffset: 120,
   },
 ];
 
@@ -185,19 +203,38 @@ export default function FiscalForumCity() {
               </AnimatePresence>
 
               {/* HOTSPOTS */}
-              {hotspots.map((spot) => {
+              {hotspots.map((spot, index) => {
                 const isActive = activeSpot === spot.id;
                 const tooltipGoesLeft =
                   "right" in spot.position &&
                   parseFloat(spot.position.right || "50") < 50;
 
                 return (
-                  <div
+                  <motion.div
                     key={spot.id}
                     className="absolute z-20"
                     style={spot.position as React.CSSProperties}
                     onMouseEnter={() => setActiveSpot(spot.id)}
                     onMouseLeave={() => setActiveSpot(null)}
+                    initial={{
+                      opacity: 0,
+                      x: spot.xOffset || 0,
+                      y: spot.yOffset || 0,
+                      scale: 0.3,
+                    }}
+                    whileInView={{
+                      opacity: 1,
+                      x: 0,
+                      y: 0,
+                      scale: 1,
+                    }}
+                    viewport={{ once: true, amount: 0.1 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 90,
+                      damping: 12,
+                      delay: index * 0.08,
+                    }}
                   >
                     <div className="group relative flex items-center justify-center">
                       {/* Outer pulse ring */}
@@ -329,7 +366,7 @@ export default function FiscalForumCity() {
                         )}
                       </AnimatePresence>
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })}
             </div>
