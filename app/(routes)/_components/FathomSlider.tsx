@@ -318,7 +318,7 @@ export default function FathomSlider() {
                     </span>
                   </div>
 
-                  <div className="advisor-figure">
+                  <div className="advisor-figure" key={currentIndex}>
                     <span className="fiscal-forum-pop-text">
                       <span className="word">
                         {Array.from("FISCAL").map((char, index) => (
