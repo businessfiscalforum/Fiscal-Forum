@@ -258,6 +258,7 @@ body {
     text-align: center;
     overflow: hidden;
     background: var(--bg);
+    border-bottom: none !important;
   }
   
   .hero-inner {
