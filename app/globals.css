@@ -258,7 +258,6 @@ body {
     text-align: center;
     overflow: hidden;
     background: var(--bg);
-    border-bottom: var(--bw) solid var(--bond-border);
   }
   
   .hero-inner {
@@ -299,6 +298,7 @@ body {
     width: 100%;
     height: auto;
     display: block;
+    border-radius: var(--radius-lg);
   }
   
   .eyebrow {
