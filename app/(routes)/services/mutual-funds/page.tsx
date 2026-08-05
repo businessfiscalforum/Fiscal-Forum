@@ -72,6 +72,16 @@ const goalCategoryBoost: Record<string, string[]> = {
 
 
 export default function MutualFundScreenerPage() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Categories & AMCs list sorted
   const categories = useMemo<string[]>(() => {
@@ -135,7 +145,7 @@ export default function MutualFundScreenerPage() {
   const [filterAMC, setFilterAMC] = useState("");
   const [explorePage, setExplorePage] = useState(1);
   const [exploreView, setExploreView] = useState<"grid" | "list">("grid");
-  const itemsPerPage = 24;
+  const itemsPerPage = isMobile ? 7 : 24;
 
   // Selected Fund for details Modal
   const [selectedFund, setSelectedFund] = useState<FundItem | null>(null);
@@ -337,7 +347,7 @@ export default function MutualFundScreenerPage() {
   const paginatedFunds = useMemo(() => {
     const startIndex = (explorePage - 1) * itemsPerPage;
     return filteredFunds.slice(startIndex, startIndex + itemsPerPage);
-  }, [filteredFunds, explorePage]);
+  }, [filteredFunds, explorePage, itemsPerPage]);
 
   const totalPages = Math.ceil(filteredFunds.length / itemsPerPage);
 
