@@ -102,10 +102,10 @@ export default function FathomSliderMobile() {
             </div>
 
             {/* Research Report Card Tilted */}
-            <div className="w-full flex justify-center py-4 relative z-10">
+            <div className="w-full flex justify-center pt-4 pb-10 relative z-10">
               <motion.div
-                initial={{ opacity: 0, scale: 0.9, rotate: 0 }}
-                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                initial={{ opacity: 0, scale: 0.9, rotate: 0, y: 0 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0, y: 24 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
                 onClick={openLightbox}
                 className="relative cursor-zoom-in active:scale-[0.99] transition-transform border border-black/5 shadow-[0_20px_45px_rgba(0,0,0,0.16)] rounded-[28px] overflow-hidden max-w-[250px] w-full bg-white"

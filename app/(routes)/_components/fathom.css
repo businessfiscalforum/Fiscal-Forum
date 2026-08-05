@@ -1585,7 +1585,7 @@ main, header, footer{ position: relative; z-index: 1; }
 .slide--report.intro-done .report-image-wrap{
   animation: none !important;
   opacity: 1 !important;
-  transform: rotate(0deg) scale(1) !important;
+  transform: translateY(24px) rotate(0deg) scale(1) !important;
 }
 .slide--report.intro-done .advisor-figure{
   animation: none !important;
@@ -1619,7 +1619,7 @@ main, header, footer{ position: relative; z-index: 1; }
 }
 @media (max-width: 900px){
   .slide--report.intro-done .report-image-wrap{
-    transform: rotate(0deg) scale(1) !important;
+    transform: translateY(24px) rotate(0deg) scale(1) !important;
   }
 }
 
@@ -1634,13 +1634,13 @@ main, header, footer{ position: relative; z-index: 1; }
 @keyframes reportPop{
   0%{ opacity: 0; transform: translateX(46%) rotate(0deg) scale(0.7); }
   55%{ opacity: 1; transform: translateX(4%) rotate(0deg) scale(1.05); }
-  100%{ opacity: 1; transform: translateX(0) rotate(0deg) scale(1); }
+  100%{ opacity: 1; transform: translateX(0) translateY(24px) rotate(0deg) scale(1); }
 }
 
 @keyframes reportPop{
     0%{ opacity: 0; transform: rotate(0deg) scale(0.75); }
     60%{ opacity: 1; transform: rotate(0deg) scale(1.04); }
-    100%{ opacity: 1; transform: rotate(0deg) scale(1); }
+    100%{ opacity: 1; transform: translateY(24px) rotate(0deg) scale(1); }
   }
 
 @keyframes hotspotPulse{
