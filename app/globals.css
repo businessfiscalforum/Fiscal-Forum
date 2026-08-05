@@ -1258,14 +1258,28 @@ body {
     --shadow-md: 3px 3px 0 var(--bond-border);
     --shadow-lg: 4px 4px 0 var(--bond-border);
     
-    .panel,
-    .stats {
+    .panel {
       margin: 18px;
       padding: 20px;
     }
     
     .stats {
-      padding: 0 18px;
+      margin: 18px;
+      padding: 0;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .card {
+      padding: 16px;
+    }
+
+    .card h3 {
+      font-size: 1.4rem;
+    }
+
+    .card p {
+      font-size: 10px;
     }
     
     .hero {
