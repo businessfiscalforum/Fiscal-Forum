@@ -203,9 +203,9 @@ main, header, footer{ position: relative; z-index: 1; }
   position: relative;
   max-width: 420px;
   margin: 0 auto;
-  border-radius: 16px;
+  border-radius: 28px;
   overflow: hidden;
-  transform: translateX(46%) rotate(-1.2deg) scale(0.75);
+  transform: translateX(46%) rotate(0deg) scale(0.75);
   transition: transform 0.15s ease-out, box-shadow 0.3s ease;
   transform-style: preserve-3d;
   will-change: transform;
@@ -225,7 +225,7 @@ main, header, footer{ position: relative; z-index: 1; }
    horizontal travel — a straight pop-in reads better once centered */
 @media (max-width: 900px){
   .report-image-wrap{
-    transform: rotate(-1.2deg) scale(0.78);
+    transform: rotate(0deg) scale(0.78);
   }
   
 }
@@ -242,7 +242,7 @@ main, header, footer{ position: relative; z-index: 1; }
   width: 100%;
   display: block;
   pointer-events: none;
-  border-radius: 16px;
+  border-radius: 28px;
 }
 
 /* Expand affordance */
@@ -581,7 +581,7 @@ main, header, footer{ position: relative; z-index: 1; }
 @media (prefers-reduced-motion: reduce){
   .word-pop{ opacity: 1; transform: scale(1); }
   .slide.is-active .word-pop{ animation: none; }
-  .report-image-wrap{ opacity: 1; transform: rotate(-1.2deg) scale(1); }
+  .report-image-wrap{ opacity: 1; transform: rotate(0deg) scale(1); }
   .slide.is-active .report-image-wrap{ animation: none; }
   .advisor-figure{ opacity: 1; transform: translateY(0) scale(1); }
   .slide.is-active .advisor-figure{ animation: none; }
@@ -1361,8 +1361,8 @@ main, header, footer{ position: relative; z-index: 1; }
   }
 
   /* Report slide */
-  .report-image-wrap{ transform: rotate(-1deg) scale(0.94); }
-  .slide--report.intro-done .report-image-wrap{ transform: rotate(-1deg) scale(1) !important; }
+  .report-image-wrap{ transform: rotate(0deg) scale(0.94); }
+  .slide--report.intro-done .report-image-wrap{ transform: rotate(0deg) scale(1) !important; }
   .advisor-figure{ max-height: 220px; }
   .advisor-figure__img{ max-height: 220px; }
   .callout-words{ max-width: 320px; }
@@ -1585,7 +1585,7 @@ main, header, footer{ position: relative; z-index: 1; }
 .slide--report.intro-done .report-image-wrap{
   animation: none !important;
   opacity: 1 !important;
-  transform: rotate(-1.2deg) scale(1) !important;
+  transform: rotate(0deg) scale(1) !important;
 }
 .slide--report.intro-done .advisor-figure{
   animation: none !important;
@@ -1619,7 +1619,7 @@ main, header, footer{ position: relative; z-index: 1; }
 }
 @media (max-width: 900px){
   .slide--report.intro-done .report-image-wrap{
-    transform: rotate(-1.2deg) scale(1) !important;
+    transform: rotate(0deg) scale(1) !important;
   }
 }
 
@@ -1632,15 +1632,15 @@ main, header, footer{ position: relative; z-index: 1; }
 }
 
 @keyframes reportPop{
-  0%{ opacity: 0; transform: translateX(46%) rotate(-1.2deg) scale(0.7); }
-  55%{ opacity: 1; transform: translateX(4%) rotate(-1.6deg) scale(1.05); }
-  100%{ opacity: 1; transform: translateX(0) rotate(-1.2deg) scale(1); }
+  0%{ opacity: 0; transform: translateX(46%) rotate(0deg) scale(0.7); }
+  55%{ opacity: 1; transform: translateX(4%) rotate(0deg) scale(1.05); }
+  100%{ opacity: 1; transform: translateX(0) rotate(0deg) scale(1); }
 }
 
 @keyframes reportPop{
-    0%{ opacity: 0; transform: rotate(-1.2deg) scale(0.75); }
-    60%{ opacity: 1; transform: rotate(-1.6deg) scale(1.04); }
-    100%{ opacity: 1; transform: rotate(-1.2deg) scale(1); }
+    0%{ opacity: 0; transform: rotate(0deg) scale(0.75); }
+    60%{ opacity: 1; transform: rotate(0deg) scale(1.04); }
+    100%{ opacity: 1; transform: rotate(0deg) scale(1); }
   }
 
 @keyframes hotspotPulse{

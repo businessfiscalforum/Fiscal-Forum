@@ -104,23 +104,20 @@ export default function FathomSliderMobile() {
             {/* Research Report Card Tilted */}
             <div className="w-full flex justify-center py-4 relative z-10">
               <motion.div
-                initial={{ opacity: 0, scale: 0.9, rotate: -4 }}
-                animate={{ opacity: 1, scale: 1, rotate: -2.2 }}
+                initial={{ opacity: 0, scale: 0.9, rotate: 0 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
                 onClick={openLightbox}
-                className="relative cursor-zoom-in active:scale-[0.99] transition-transform border border-black/5 shadow-[0_20px_45px_rgba(0,0,0,0.16)] rounded-2xl overflow-hidden max-w-[250px] w-full bg-white"
+                className="relative cursor-zoom-in active:scale-[0.99] transition-transform border border-black/5 shadow-[0_20px_45px_rgba(0,0,0,0.16)] rounded-[28px] overflow-hidden max-w-[250px] w-full bg-white"
               >
                 <Image
                   src="/fathom/pre-market-report.png"
                   alt="Pre Market Report Preview"
                   width={250}
                   height={340}
-                  className="w-full h-auto object-contain rounded-2xl"
+                  className="w-full h-auto object-contain rounded-[28px]"
                   priority
                 />
-                <span className="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-black/75 text-white flex items-center justify-center pointer-events-none shadow-md">
-                  <Search size={14} />
-                </span>
               </motion.div>
             </div>
 

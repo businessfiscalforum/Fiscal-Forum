@@ -304,19 +304,6 @@ export default function FathomSlider() {
                       height={580}
                       priority
                     />
-
-                    <span className="report-image-wrap__expand" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" width="16" height="16">
-                        <path
-                          d="M9 3H3v6M15 3h6v6M9 21H3v-6M15 21h6v-6"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </span>
                   </div>
 
                   <div className="advisor-figure" key={currentIndex}>
