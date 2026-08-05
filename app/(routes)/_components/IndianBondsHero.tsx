@@ -367,8 +367,8 @@ export default function IndianBondsHero() {
           </div>
           <div className="hero-art">
             <Image
-              src="/bond-illustration.png"
-              alt="Illustration of stacked Indian currency notes"
+              src="/indian-bond-certificate.jpg"
+              alt="Government of India Indian Bond Certificate"
               width={300}
               height={300}
               priority
