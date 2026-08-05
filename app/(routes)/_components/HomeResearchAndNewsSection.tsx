@@ -148,18 +148,28 @@ export default function HomeNewsAndResearchSection() {
           <div className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <AnimatePresence mode="popLayout">
-                {filteredItems.slice(0, getNewsCount()).map((item, i) => (
-                  <motion.div
-                    key={item.id}
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -15 }}
-                    transition={{ delay: i * 0.05 }}
-                    className="bg-white border border-black rounded-2xl p-5 shadow-md  hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full cursor-pointer"
-                  >
-                    <NewsCard item={item} categoryPath={getCategoryPath(item.category)} />
-                  </motion.div>
-                ))}
+                {filteredItems.slice(0, getNewsCount()).map((item, i) => {
+                  const total = Math.min(filteredItems.length, getNewsCount());
+                  const isLeft = i < total / 2;
+                  const xOffset = isLeft ? -120 : 120;
+                  return (
+                    <motion.div
+                      key={item.id}
+                      initial={{ opacity: 0, x: xOffset, y: 15, scale: 0.9 }}
+                      animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, x: -xOffset, y: -15, scale: 0.9 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 80,
+                        damping: 14,
+                        delay: i * 0.06,
+                      }}
+                      className="bg-white border border-black rounded-2xl p-5 shadow-md  hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full cursor-pointer"
+                    >
+                      <NewsCard item={item} categoryPath={getCategoryPath(item.category)} />
+                    </motion.div>
+                  );
+                })}
               </AnimatePresence>
             </div>
 

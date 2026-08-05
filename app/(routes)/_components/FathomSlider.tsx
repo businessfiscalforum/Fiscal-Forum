@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import "./fathom.css";
@@ -647,7 +648,17 @@ export default function FathomSlider() {
           ref={closingRef}
         >
           <div className="closing__inner">
-            <div className="closing__visual">
+            <motion.div
+              className="closing__visual"
+              initial={{ opacity: 0, x: -150, scale: 0.9 }}
+              whileInView={{ opacity: 1, x: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{
+                type: "spring",
+                stiffness: 70,
+                damping: 14,
+              }}
+            >
               <Image
                 className="closing__image"
                 src="/fathom/research-reports.png"
@@ -655,8 +666,19 @@ export default function FathomSlider() {
                 width={420}
                 height={320}
               />
-            </div>
-            <div className="closing__content">
+            </motion.div>
+            <motion.div
+              className="closing__content"
+              initial={{ opacity: 0, x: 150, scale: 0.9 }}
+              whileInView={{ opacity: 1, x: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{
+                type: "spring",
+                stiffness: 70,
+                damping: 14,
+                delay: 0.1,
+              }}
+            >
               <h2 className="closing__title">
                 <span className="closing__line closing__line--1">
                   Everything you need to invest smarter, all in one place.
@@ -669,7 +691,7 @@ export default function FathomSlider() {
                 CLICK HERE<span className="btn__arrow">→</span>
               </Link>
               <p className="closing__note">To get your research backed reports ...</p>
-            </div>
+            </motion.div>
           </div>
         </section>
       </main>
