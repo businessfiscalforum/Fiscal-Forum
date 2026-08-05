@@ -1278,9 +1278,7 @@ body {
     }
     
     .hero-art {
-      width: 100%;
-      max-width: 320px;
-      height: auto;
+      display: none;
     }
     
     h1 {
