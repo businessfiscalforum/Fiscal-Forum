@@ -325,7 +325,7 @@ export default function FathomSlider() {
                           <span
                             key={index}
                             className="letter"
-                            style={{ animationDelay: `${0.1 + index * 0.05}s` }}
+                            style={{ animationDelay: `${index * 0.08}s` }}
                           >
                             {char}
                           </span>
@@ -337,7 +337,7 @@ export default function FathomSlider() {
                           <span
                             key={index}
                             className="letter"
-                            style={{ animationDelay: `${0.1 + (index + 6) * 0.05}s` }}
+                            style={{ animationDelay: `${(index + 6) * 0.08}s` }}
                           >
                             {char}
                           </span>
