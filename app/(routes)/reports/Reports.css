@@ -1702,3 +1702,43 @@
 @media (prefers-reduced-motion:reduce){
   #screener-app *{transition:none !important;}
 }
+
+/* ================= RESEARCH REPORTS DATABASE PAGINATION ================= */
+.pagination-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+.pagination-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 700;
+  border: 1px solid var(--border-light);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+.pagination-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: var(--cream);
+  border-color: var(--ink);
+}
+.pagination-btn.active {
+  background: var(--mint);
+  border-color: var(--forest);
+  color: var(--ink);
+}
+.pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

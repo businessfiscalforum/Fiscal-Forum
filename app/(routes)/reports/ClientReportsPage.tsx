@@ -384,6 +384,11 @@ export default function ClientReportsPage({
   const [dbReports, setDbReports] = useState<ResearchReport[]>(initialReports);
   const [reportsSearch, setReportsSearch] = useState("");
   const [reportsFilter, setReportsFilter] = useState("all");
+  const [reportsPage, setReportsPage] = useState(1);
+
+  useEffect(() => {
+    setReportsPage(1);
+  }, [reportsFilter, reportsSearch]);
 
 
 
@@ -638,6 +643,13 @@ export default function ClientReportsPage({
       return titleMatches && typeMatches;
     });
   }, [dbReports, reportsSearch, reportsFilter]);
+
+  const ITEMS_PER_PAGE = 3;
+  const totalReportsPages = Math.ceil(filteredDbReports.length / ITEMS_PER_PAGE);
+  const displayedDbReports = useMemo(() => {
+    const start = (reportsPage - 1) * ITEMS_PER_PAGE;
+    return filteredDbReports.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredDbReports, reportsPage]);
 
   /* ============ SCREENER FILTER LOGIC ============ */
   const filteredStocks = useMemo(() => {
@@ -1785,12 +1797,12 @@ export default function ClientReportsPage({
               <div style={{ textAlign: "center" }}>Action</div>
             </div>
 
-            {filteredDbReports.length === 0 ? (
+            {displayedDbReports.length === 0 ? (
               <div className="p-12 text-center text-gray-500 font-bold bg-[#FFFFFF]">
                 No reports found matching your selection.
               </div>
             ) : (
-              filteredDbReports.map((report) => (
+              displayedDbReports.map((report) => (
                 <div className="reports-row" key={report.id} onClick={() => { if (report.pdfUrl) window.open(report.pdfUrl, '_blank', 'noopener,noreferrer'); }}>
                   <div className="col-info">
                     <div className="row-title">{report.title}</div>
@@ -1837,6 +1849,43 @@ export default function ClientReportsPage({
               ))
             )}
           </div>
+
+          {/* PAGINATION CONTROLS */}
+          {totalReportsPages > 1 && (
+            <div className="pagination-wrap">
+              <button
+                type="button"
+                className="pagination-btn"
+                onClick={() => setReportsPage(prev => Math.max(prev - 1, 1))}
+                disabled={reportsPage === 1}
+              >
+                Previous
+              </button>
+              
+              {Array.from({ length: totalReportsPages }, (_, idx) => {
+                const pageNum = idx + 1;
+                return (
+                  <button
+                    key={pageNum}
+                    type="button"
+                    className={`pagination-btn ${reportsPage === pageNum ? "active" : ""}`}
+                    onClick={() => setReportsPage(pageNum)}
+                  >
+                    {pageNum}
+                  </button>
+                );
+              })}
+
+              <button
+                type="button"
+                className="pagination-btn"
+                onClick={() => setReportsPage(prev => Math.min(prev + 1, totalReportsPages))}
+                disabled={reportsPage === totalReportsPages}
+              >
+                Next
+              </button>
+            </div>
+          )}
         </div>
       </section>
       {/* ================= SECTION 6B: NSE EQUITY SCREENER ================= */}
