@@ -42,7 +42,7 @@ export default function FathomSlider() {
   // 2. Set introDone class on Slide 0 (Report) after POP sequence (5.2s)
   useEffect(() => {
     if (currentIndex === 0 && !introDone) {
-      const delay = reduceMotion ? 0 : 5200;
+      const delay = reduceMotion ? 0 : 6200;
       const timer = setTimeout(() => {
         setIntroDone(true);
       }, delay);
@@ -53,7 +53,7 @@ export default function FathomSlider() {
   // Autoplay Effect (Autoplay transitions to next slide every 3s)
   useEffect(() => {
     if (!autoplayActive) return;
-    const intervalTime = currentIndex === 0 ? 5200 : 3000;
+    const intervalTime = currentIndex === 0 ? 6200 : 3000;
     const timer = setInterval(() => {
       if (currentIndex < SLIDES_DATA.length - 1) {
         goTo(currentIndex + 1);
