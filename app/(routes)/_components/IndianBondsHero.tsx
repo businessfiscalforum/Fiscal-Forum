@@ -353,25 +353,6 @@ export default function IndianBondsHero() {
 
   return (
     <div className="bondWiseTerminal">
-      {/* Ticker tape signature element */}
-      <div className="ticker-wrap" aria-hidden="true">
-        <div className="ticker">
-          {tickerBonds.length > 0 &&
-            [...tickerBonds, ...tickerBonds].map((b, idx) => {
-              const dir = b._chng == null ? "" : b._chng >= 0 ? "up" : "down";
-              const arrow = dir === "up" ? "▲" : dir === "down" ? "▼" : "•";
-              const chngTxt = b._chng == null ? "" : ` ${arrow} ${Math.abs(b._chng).toFixed(2)}%`;
-              return (
-                <span key={idx}>
-                  {b.SYMBOL || b._id} · {b._coupon != null ? b._coupon.toFixed(2) + "%" : ""} ·{" "}
-                  {fmtMoney(b._ltp)}
-                  <span className={dir}>{chngTxt}</span>
-                </span>
-              );
-            })}
-        </div>
-      </div>
-
       {/* Hero Header */}
       <header className="hero">
         <div className="hero-flex">
