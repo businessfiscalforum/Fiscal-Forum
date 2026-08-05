@@ -444,7 +444,6 @@ main, header, footer{ position: relative; z-index: 1; }
 
 .slide.is-active .fiscal-forum-pop-text .letter {
   animation: letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  animation-delay: calc(0.1s + var(--char-index) * 0.05s);
 }
 
 @keyframes letterPop {
@@ -1587,6 +1586,11 @@ main, header, footer{ position: relative; z-index: 1; }
   animation: none !important;
   opacity: 1 !important;
   transform: translateY(0) scale(1) !important;
+}
+.slide--report.intro-done .fiscal-forum-pop-text .letter {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
 }
 .slide--report.intro-done .word-pop{
   animation: none !important;
