@@ -128,11 +128,11 @@
   background:#fff;
   border:1.5px solid var(--line);
   border-radius:var(--radius-md);
-  padding:18px 16px;
-  text-align:left;
+  padding:0;
+  text-align:center;
   display:flex;
   flex-direction:column;
-  gap:8px;
+  overflow:hidden;
   transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
 }
 
@@ -148,8 +148,29 @@
   box-shadow:var(--shadow);
 }
 
-.for-women-container .goal-emoji {
-  font-size:26px;
+.for-women-container .goal-card.active .goal-label-container {
+  background:transparent;
+}
+
+.for-women-container .goal-img-container {
+  position:relative;
+  width:100%;
+  aspect-ratio:1.75 / 1;
+  overflow:hidden;
+}
+
+.for-women-container .goal-img {
+  object-fit:cover;
+}
+
+.for-women-container .goal-label-container {
+  padding:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#fff;
+  flex-grow:1;
+  border-top:1px solid var(--line);
 }
 
 .for-women-container .goal-label {
@@ -1378,12 +1399,11 @@
   }
 
   .for-women-container .goal-card {
-    padding: 14px 12px;
-    gap: 6px;
+    padding: 0;
   }
 
-  .for-women-container .goal-emoji {
-    font-size: 22px;
+  .for-women-container .goal-label-container {
+    padding: 8px 4px;
   }
 
   .for-women-container .goal-label {

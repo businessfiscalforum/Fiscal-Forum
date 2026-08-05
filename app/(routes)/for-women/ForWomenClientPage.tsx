@@ -772,15 +772,17 @@ export default function ForWomenClientPage() {
                 className={`goal-card ${selectedDream === idx ? "active" : ""}`}
                 onClick={() => handleSelectDream(idx)}
               >
-                <span className="goal-emoji">
-                  {idx === 0 && "🏠"}
-                  {idx === 1 && "🚗"}
-                  {idx === 2 && "✈️"}
-                  {idx === 3 && "💍"}
-                  {idx === 4 && "🎓"}
-                  {idx === 5 && "💼"}
-                </span>
-                <span className="goal-label">{d.label}</span>
+                <div className="goal-img-container">
+                  <Image
+                    src={d.img}
+                    alt={d.label}
+                    fill
+                    className="goal-img"
+                  />
+                </div>
+                <div className="goal-label-container">
+                  <span className="goal-label">{d.label}</span>
+                </div>
               </button>
             ))}
           </div>
