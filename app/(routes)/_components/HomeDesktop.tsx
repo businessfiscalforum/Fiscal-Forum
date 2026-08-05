@@ -720,14 +720,24 @@ export default function HomeDesktop() {
 
             {/* Content Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {content[activeTab].map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                  className="bg-yellow-50 border border-black rounded-2xl p-6 shadow-md  hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full justify-between"
-                >
+              {content[activeTab].map((item, index) => {
+                const total = content[activeTab].length;
+                const isLeft = index < total / 2;
+                const xOffset = isLeft ? -120 : 120;
+                return (
+                  <motion.div
+                    key={`${activeTab}-${index}`}
+                    initial={{ opacity: 0, x: xOffset, y: 20, scale: 0.9 }}
+                    whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+                    viewport={{ once: true, amount: 0.05 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 80,
+                      damping: 14,
+                      delay: index * 0.08,
+                    }}
+                    className="bg-yellow-50 border border-black rounded-2xl p-6 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full justify-between"
+                  >
                   <div className="space-y-4">
                     {/* Icon */}
                     <div className="w-12 h-12 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
@@ -768,7 +778,7 @@ export default function HomeDesktop() {
                     </Link>
                   </div>
                 </motion.div>
-              ))}
+              )})}
             </div>
           </div>
         </section>
