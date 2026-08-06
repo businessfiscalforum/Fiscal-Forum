@@ -539,8 +539,8 @@ export default function ForWomenClientPage() {
   // --- State Hooks ---
   const [selectedJewel, setSelectedJewel] = useState<number | null>(null);
   const [selectedDream, setSelectedDream] = useState<number>(2); // Default to Travel (index 2)
-  const [dreamAmount, setDreamAmount] = useState<number>(DREAMS[2].amount);
-  const [dreamYears, setDreamYears] = useState<number>(DREAMS[2].years);
+  const [dreamAmount, setDreamAmount] = useState<string>(String(DREAMS[2].amount));
+  const [dreamYears, setDreamYears] = useState<string>(String(DREAMS[2].years));
 
   const [selectedCart, setSelectedCart] = useState<Set<number>>(new Set());
   const [cartSpend, setCartSpend] = useState<string>("");
@@ -641,8 +641,8 @@ export default function ForWomenClientPage() {
   // Handle Dream Goal Click presets
   const handleSelectDream = (idx: number) => {
     setSelectedDream(idx);
-    setDreamAmount(DREAMS[idx].amount);
-    setDreamYears(DREAMS[idx].years);
+    setDreamAmount(String(DREAMS[idx].amount));
+    setDreamYears(String(DREAMS[idx].years));
   };
 
   // Handle Shopping Cart portfolio categories toggles
@@ -666,8 +666,10 @@ export default function ForWomenClientPage() {
   };
 
   // Calculations for Dream Life Portfolio
-  const sipValue = monthlySIP(dreamAmount, dreamYears, RATE);
-  const dreamAllocation = allocationFor(dreamYears);
+  const amountVal = parseFloat(dreamAmount) || 0;
+  const yearsVal = Math.min(30, Math.max(1, parseFloat(dreamYears) || 1));
+  const sipValue = monthlySIP(amountVal, yearsVal, RATE);
+  const dreamAllocation = allocationFor(yearsVal);
 
   // Calculations for Shopping Cart Portfolio
   const spendNum = parseFloat(cartSpend) || 0;
@@ -801,7 +803,7 @@ export default function ForWomenClientPage() {
                   <input
                     type="number"
                     value={dreamAmount}
-                    onChange={(e) => setDreamAmount(parseFloat(e.target.value) || 0)}
+                    onChange={(e) => setDreamAmount(e.target.value)}
                     step="10000"
                   />
                 </div>
@@ -810,7 +812,7 @@ export default function ForWomenClientPage() {
                   <input
                     type="number"
                     value={dreamYears}
-                    onChange={(e) => setDreamYears(Math.max(1, parseFloat(e.target.value) || 1))}
+                    onChange={(e) => setDreamYears(e.target.value)}
                     min="1"
                     max="30"
                   />
@@ -918,7 +920,7 @@ export default function ForWomenClientPage() {
                     <input
                       type="number"
                       value={dreamAmount}
-                      onChange={(e) => setDreamAmount(parseFloat(e.target.value) || 0)}
+                      onChange={(e) => setDreamAmount(e.target.value)}
                       step="10000"
                       style={{
                         color: "var(--plum)",
@@ -932,7 +934,7 @@ export default function ForWomenClientPage() {
                     <input
                       type="number"
                       value={dreamYears}
-                      onChange={(e) => setDreamYears(Math.max(1, parseFloat(e.target.value) || 1))}
+                      onChange={(e) => setDreamYears(e.target.value)}
                       min="1"
                       max="30"
                       style={{
@@ -946,11 +948,11 @@ export default function ForWomenClientPage() {
                 <div style={{ marginTop: "18px" }}>
                   <div className="dream-calc-line">
                     <span>Goal</span>
-                    <b>{inr(dreamAmount)}</b>
+                    <b>{inr(amountVal)}</b>
                   </div>
                   <div className="dream-calc-line">
                     <span>Time</span>
-                    <b>{dreamYears} years</b>
+                    <b>{yearsVal} years</b>
                   </div>
                   <div className="dream-calc-line">
                     <span>Assumed return</span>
