@@ -193,6 +193,37 @@ export default function Navbar() {
                 </Link>
               );
             }
+            if (item.label === "Stock Investment") {
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="relative overflow-hidden group flex items-center justify-center w-48 h-[2.5em] rounded-full bg-black/20 p-[1.5px] transition-all duration-300 shadow-sm hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:shadow-sm"
+                >
+                  {/* Rotating border shine layer */}
+                  <motion.div
+                    className="absolute inset-0 w-[150%] h-[300%] -top-[100%] -left-[25%] pointer-events-none"
+                    style={{
+                      background: "conic-gradient(from 0deg, transparent 50%, #FFFFFF 65%, #FFFDE7 80%, #FFF9C4 95%, transparent 100%)",
+                    }}
+                    animate={{
+                      rotate: 360,
+                    }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 4,
+                      ease: "linear",
+                    }}
+                  />
+
+                  {/* Front content panel */}
+                  <div className="absolute inset-[1.5px] rounded-full bg-[#FEF08A] flex items-center justify-center gap-1.5 z-10 pointer-events-none">
+                    <LineChart size={13} className="text-black stroke-[2.5]" />
+                    <span className="text-xs font-bold text-black uppercase tracking-wider">{item.label}</span>
+                  </div>
+                </Link>
+              );
+            }
             const isForWomen = item.label === "For Women";
             return (
               <Link
@@ -360,6 +391,38 @@ export default function Navbar() {
                         {/* Front content panel */}
                         <div className="absolute inset-[1.5px] rounded-full bg-[#E2F5E9] flex items-center gap-2 px-5 z-10 pointer-events-none">
                           <BarChart3 size={16} className="text-black stroke-[2.5]" />
+                          <span className="text-base font-bold text-black uppercase tracking-wider">{item.label}</span>
+                        </div>
+                      </Link>
+                    );
+                  }
+                  if (item.label === "Stock Investment") {
+                    return (
+                      <Link
+                        key={item.label}
+                        href={item.href}
+                        onClick={closeAll}
+                        className="relative overflow-hidden group flex items-center justify-center w-full h-[3em] rounded-full bg-black/20 p-[1.5px] transition-all duration-300 shadow-sm hover:shadow-md"
+                      >
+                        {/* Rotating border shine layer */}
+                        <motion.div
+                          className="absolute inset-0 w-[150%] h-[300%] -top-[100%] -left-[25%] pointer-events-none"
+                          style={{
+                            background: "conic-gradient(from 0deg, transparent 50%, #FFFFFF 65%, #FFFDE7 80%, #FFF9C4 95%, transparent 100%)",
+                          }}
+                          animate={{
+                            rotate: 360,
+                          }}
+                          transition={{
+                            repeat: Infinity,
+                            duration: 4,
+                            ease: "linear",
+                          }}
+                        />
+
+                        {/* Front content panel */}
+                        <div className="absolute inset-[1.5px] rounded-full bg-[#FEF08A] flex items-center gap-2 px-5 z-10 pointer-events-none">
+                          <LineChart size={16} className="text-black stroke-[2.5]" />
                           <span className="text-base font-bold text-black uppercase tracking-wider">{item.label}</span>
                         </div>
                       </Link>
