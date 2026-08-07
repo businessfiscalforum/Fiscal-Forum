@@ -449,16 +449,7 @@ export default function GameZone() {
   };
 
   return (
-    <div className={`about-page-container min-h-screen pt-24 pb-16 bg-[#FFF8E7] ${spaceGrotesk.className}`}>
-      {/* Background Styling */}
-      <style jsx global>{`
-        .about-page-container {
-          background-image:
-            linear-gradient(#0a0a0a 1px, transparent 1px),
-            linear-gradient(90deg, #0a0a0a 1px, transparent 1px);
-          background-size: 28px 28px;
-        }
-      `}</style>
+    <div className={`min-h-screen pt-24 pb-16 bg-[#FFF8E7] ${spaceGrotesk.className}`}>
 
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         
