@@ -84,6 +84,7 @@ export default function Navbar() {
     { label: "For Women", href: "/for-women" },
     { label: "News", href: "/news?tab=news-buzz" },
     { label: "IPOs", href: "/news?tab=ipo-scoop" },
+    { label: "Game Zone", href: "/game-zone" },
     { label: "About Us", href: "/about-us" },
     { label: "Work With Us", href: "/work-with-us" },
   ];

@@ -1,0 +1,658 @@
+/* ================================================
+   NEO-BRUTALIST THEME — FINANCE DODGE RUNNER
+   ================================================ */
+
+:root {
+  --ink: #0a0a0a;
+  --cream: #FFF8E7;
+  --mint: #B7F3C0;
+  --pink: #FFADAD;
+  --yellow: #FFE066;
+  --blue: #8EC9FF;
+  --border: 4px solid var(--ink);
+  --border-thick: 5px solid var(--ink);
+  --shadow-sm: 4px 4px 0 var(--ink);
+  --shadow-md: 6px 6px 0 var(--ink);
+  --shadow-lg: 10px 10px 0 var(--ink);
+}
+
+/* ---------------- RESET ---------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------------- BODY ---------------- */
+html, body {
+  font-family: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  background: var(--cream);
+  background-image:
+    linear-gradient(var(--ink) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ink) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-position: -1px -1px;
+  background-attachment: fixed;
+  background-color: var(--cream);
+  color: var(--ink);
+  height: 100%;
+  overscroll-behavior: none;
+}
+
+body {
+  touch-action: manipulation;
+}
+
+/* ---------------- APP SHELL ---------------- */
+.app-shell {
+  max-width: 1300px;
+  margin: auto;
+  padding: 24px;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ---------------- GLASS -> FLAT BLOCK ---------------- */
+.glass {
+  background: #ffffff;
+  border: var(--border-thick);
+  border-radius: 4px;
+  box-shadow: var(--shadow-lg);
+}
+
+/* ---------------- HEADER ---------------- */
+.top-bar {
+  text-align: center;
+}
+
+.title-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+}
+
+.glow-title {
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-shadow:
+    3px 3px 0 var(--yellow),
+    6px 6px 0 var(--ink);
+}
+
+.badge-sticker {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  font-size: 13px;
+  background: var(--mint);
+  border: 3px solid var(--ink);
+  border-radius: 50px;
+  padding: 4px 14px;
+  box-shadow: 3px 3px 0 var(--ink);
+  transform: rotate(-6deg);
+  align-self: flex-start;
+  margin-top: -6px;
+}
+
+.tagline {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 500;
+  opacity: 0.85;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* ---------------- GAME LAYOUT ---------------- */
+.game-wrapper {
+  flex: 1;
+  display: flex;
+  gap: 24px;
+}
+
+/* ---------------- GAME PANEL ---------------- */
+.game-panel {
+  flex: 3;
+  padding: 18px;
+  background: var(--blue);
+}
+
+.canvas-wrap {
+  position: relative;
+  width: 100%;
+  line-height: 0;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  border-radius: 0;
+  border: var(--border);
+  background: #ffffff;
+  touch-action: none;
+}
+
+/* ---------------- MOBILE SCORE BAR (hidden on desktop) ---------------- */
+.mobile-score-bar {
+  display: none;
+}
+
+/* ---------------- IMMERSIVE TOUCH CONTROLS PANEL (hidden on desktop) ---------------- */
+.touch-controls-panel {
+  display: none;
+}
+
+/* ---------------- SCORE PANEL ---------------- */
+.score-panel {
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--yellow);
+}
+
+.glow-text {
+  font-size: 22px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+  color: var(--ink);
+}
+
+.score-value {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 64px;
+  font-weight: 900;
+  margin: 16px 0;
+  padding: 6px 22px;
+  background: #ffffff;
+  border: var(--border);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.15s, color 0.15s, background 0.15s;
+}
+
+/* score animation */
+.score-up {
+  color: var(--ink);
+  background: var(--mint);
+  transform: scale(1.1) rotate(-2deg);
+}
+
+.score-down {
+  color: #ffffff;
+  background: #ff3b3b;
+  transform: scale(1.1) rotate(2deg);
+}
+
+/* ---------------- PROGRESS BAR ---------------- */
+.progress-container {
+  width: 100%;
+  height: 20px;
+  background: #ffffff;
+  border: 3px solid var(--ink);
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--mint),
+    var(--mint) 10px,
+    #88e29c 10px,
+    #88e29c 20px
+  );
+  transition: width 0.3s;
+}
+
+/* ---------------- HUD INFO ---------------- */
+.hud-info {
+  margin-top: 22px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.hud-info p {
+  background: #ffffff;
+  border: 3px solid var(--ink);
+  padding: 6px 10px;
+  margin-bottom: 8px;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+/* ---------------- FOOTER ---------------- */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  font-weight: 700;
+  background: var(--ink);
+  color: var(--cream);
+  padding: 10px 18px;
+  border: var(--border);
+}
+
+/* ---------------- GAME OVER ---------------- */
+.game-over {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.78);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  padding: 20px;
+}
+
+.game-over-box {
+  padding: 50px 70px;
+  text-align: center;
+  background: var(--pink);
+  transform: rotate(-1deg);
+}
+
+.final-score {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 80px;
+  font-weight: 900;
+  color: var(--ink);
+  margin: 20px 0;
+  background: #ffffff;
+  border: var(--border);
+  box-shadow: var(--shadow-md);
+  display: inline-block;
+  padding: 4px 26px;
+}
+
+/* ---------------- BUTTON ---------------- */
+.retry-btn {
+  margin-top: 24px;
+  padding: 14px 42px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: var(--border);
+  border-radius: 0;
+  background: var(--yellow);
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+
+.retry-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 var(--ink);
+}
+
+.retry-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+/* ---------------- INSTRUCTIONS ---------------- */
+.instructions {
+  padding: 40px 60px;
+  text-align: center;
+  max-width: 700px;
+  margin: 40px auto;
+  background: var(--mint);
+}
+
+.rules {
+  list-style: none;
+  margin: 25px 0;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.9;
+  text-align: left;
+}
+
+.rules li {
+  margin-bottom: 10px;
+  background: #ffffff;
+  border: 3px solid var(--ink);
+  padding: 10px 14px;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+/* Instruction highlights */
+.skip-warning {
+  background: var(--yellow);
+  font-weight: 700;
+}
+
+.game-end-warning {
+  background: var(--pink);
+  font-weight: 800;
+}
+
+.win-condition {
+  background: var(--mint);
+  font-weight: 800;
+}
+
+/* ---------------- INSTRUCTIONS LAYOUT ---------------- */
+.instructions-content {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.instructions-text {
+  flex: 1.2;
+}
+
+.instructions-image {
+  flex: 0.8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.instructions-image img {
+  max-width: 260px;
+  width: 100%;
+  border: var(--border);
+  border-radius: 0;
+  box-shadow: var(--shadow-md);
+  transform: rotate(2deg);
+}
+
+/* BONUS TIP */
+.bonus-tip {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+  background: var(--yellow);
+  border: 3px solid var(--ink);
+  padding: 4px 12px;
+  box-shadow: 3px 3px 0 var(--ink);
+  transform: rotate(-3deg);
+}
+
+/* ---------------- START BUTTON ---------------- */
+.start-btn {
+  margin-top: 30px;
+  padding: 16px 60px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+
+  border: var(--border-thick);
+  border-radius: 0;
+  cursor: pointer;
+  color: var(--ink);
+
+  background: var(--blue);
+
+  box-shadow: var(--shadow-lg);
+
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.start-btn:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 13px 13px 0 var(--ink);
+}
+
+.start-btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+/* =====================================================
+   MOBILE OVERHAUL
+   ===================================================== */
+@media (max-width: 768px) {
+
+  .app-shell {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  /* ---- HEADER ---- */
+  .glow-title {
+    font-size: 22px;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-sticker {
+    font-size: 11px;
+    padding: 3px 10px;
+  }
+
+  .tagline {
+    font-size: 11px;
+    margin-top: 6px;
+  }
+
+  /* ---- INSTRUCTIONS ---- */
+  .instructions {
+    padding: 24px 18px;
+    margin: 12px auto;
+    max-width: 100%;
+  }
+
+  .instructions-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .instructions-image img {
+    max-width: 200px;
+  }
+
+  .rules {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .start-btn {
+    width: 100%;
+    padding: 16px;
+    font-size: 18px;
+  }
+
+  /* ---- GAME LAYOUT: STACK VERTICALLY ---- */
+  .game-wrapper {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* hide the desktop score sidebar entirely on mobile */
+  .score-panel {
+    display: none;
+  }
+
+  /* show the compact glowing top bar instead */
+  .mobile-score-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: var(--border);
+    border-radius: 0;
+    background: var(--yellow);
+    box-shadow: var(--shadow-sm);
+    order: -1;
+  }
+
+  .mobile-score-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.1;
+  }
+
+  .mobile-score-item--end {
+    flex-shrink: 0;
+  }
+
+  .mobile-score-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    opacity: 0.75;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .mobile-score-value {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 20px;
+    font-weight: 900;
+    transition: transform 0.2s, color 0.2s;
+  }
+
+  .mobile-score-value--danger {
+    color: #d80000;
+    font-size: 15px;
+  }
+
+  .mobile-progress {
+    flex: 1;
+    height: 12px;
+  }
+
+  /* ---- GAME PANEL / CANVAS ---- */
+  .game-panel {
+    padding: 8px;
+    border-radius: 0;
+  }
+
+  canvas {
+    border-radius: 0;
+  }
+
+  /* ---- NAVIGATION BUTTONS PANEL (BELOW CANVAS) ---- */
+  .touch-controls-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 14px 20px;
+    background: var(--mint);
+  }
+
+  .touch-controls-heading {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.9;
+  }
+
+  .touch-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 28px;
+    width: 100%;
+  }
+
+  .touch-btn {
+    width: 72px;
+    height: 72px;
+    border-radius: 0;
+    border: 4px solid var(--ink);
+    background: #ffffff;
+    color: var(--ink);
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: none;
+    transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+  }
+
+  .touch-btn--up { background: var(--blue); }
+  .touch-btn--down { background: var(--pink); }
+
+  .touch-btn-arrow {
+    transform: translateY(-1px);
+  }
+
+  .touch-btn:active,
+  .touch-btn.is-pressed {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--ink);
+  }
+
+  /* ---- FOOTER ---- */
+  .footer {
+    font-size: 10px;
+    flex-wrap: wrap;
+    gap: 4px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .footer-desktop-hint {
+    display: none;
+  }
+
+  /* ---- GAME OVER ---- */
+  .game-over-box {
+    padding: 36px 24px;
+    width: 100%;
+    max-width: 340px;
+  }
+
+  .final-score {
+    font-size: 48px;
+  }
+
+  .retry-btn {
+    width: 100%;
+    padding: 16px;
+  }
+}
+
+/* Extra-small phones */
+@media (max-width: 380px) {
+  .touch-btn {
+    width: 54px;
+    height: 54px;
+    font-size: 18px;
+  }
+
+  .glow-title {
+    font-size: 18px;
+  }
+}
+
+/* ---------------- UTIL ---------------- */
+.hidden {
+  display: none;
+}

@@ -678,7 +678,7 @@ export default function HomeDesktop() {
 
         {/* Enhanced Services Section */}
         <section className="py-16 bg-[#F4FBF7] border-b border-black">
-          <div className="max-w-7xl mx-auto px-4 md:px-8">
+          <div className="m. ax-w-7xl mx-auto px-4 md:px-8">
             {/* Header */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -738,47 +738,48 @@ export default function HomeDesktop() {
                     }}
                     className="bg-white border border-black rounded-2xl p-6 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full justify-between"
                   >
-                  <div className="space-y-4">
-                    {/* Icon */}
-                    <div className="w-12 h-12 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
-                      {item.icon && (
-                        <item.icon className="w-6 h-6 text-[#1FA463]" />
+                    <div className="space-y-4">
+                      {/* Icon */}
+                      <div className="w-12 h-12 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
+                        {item.icon && (
+                          <item.icon className="w-6 h-6 text-[#1FA463]" />
+                        )}
+                      </div>
+
+                      {/* Title */}
+                      <h4 className="text-xl font-bold text-black leading-snug">
+                        {item.title}
+                      </h4>
+
+                      {/* Description */}
+                      {!isSmallScreen && (
+                        <p className="text-xs sm:text-sm leading-relaxed text-black font-semibold">
+                          {item.description}
+                        </p>
                       )}
                     </div>
 
-                    {/* Title */}
-                    <h4 className="text-xl font-bold text-black leading-snug">
-                      {item.title}
-                    </h4>
-
-                    {/* Description */}
-                    {!isSmallScreen && (
-                      <p className="text-xs sm:text-sm leading-relaxed text-black font-semibold">
-                        {item.description}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Learn More Button */}
-                  <div className="mt-6">
-                    <Link href={item.link} className="block w-full">
-                      <button className="w-full bg-[#1FA463] text-white border border-black py-2.5 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider shadow-sm hover:-translate-y-0.5 hover:shadow-sm active:translate-y-0 transition-all flex items-center justify-center gap-1.5">
-                        Learn More
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="3"
-                          className="w-4 h-4"
-                        >
-                          <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                      </button>
-                    </Link>
-                  </div>
-                </motion.div>
-              )})}
+                    {/* Learn More Button */}
+                    <div className="mt-6">
+                      <Link href={item.link} className="block w-full">
+                        <button className="w-full bg-[#1FA463] text-white border border-black py-2.5 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider shadow-sm hover:-translate-y-0.5 hover:shadow-sm active:translate-y-0 transition-all flex items-center justify-center gap-1.5">
+                          Learn More
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="3"
+                            className="w-4 h-4"
+                          >
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                          </svg>
+                        </button>
+                      </Link>
+                    </div>
+                  </motion.div>
+                )
+              })}
             </div>
           </div>
         </section>
@@ -824,19 +825,20 @@ export default function HomeDesktop() {
                     }}
                     className="bg-white border border-black rounded-2xl p-6 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full text-left"
                   >
-                  <div className="w-12 h-12 bg-emerald-50 border border-black rounded-xl flex items-center justify-center mb-4">
-                    <feature.icon className="text-[#1FA463] text-xl" />
-                  </div>
-                  <h4 className="text-lg font-bold text-black mb-2">
-                    {feature.title}
-                  </h4>
-                  {!isSmallScreen && (
-                    <p className="text-xs sm:text-sm leading-relaxed text-gray-500 font-semibold">
-                      {feature.desc}
-                    </p>
-                  )}
-                </motion.div>
-              )})}
+                    <div className="w-12 h-12 bg-emerald-50 border border-black rounded-xl flex items-center justify-center mb-4">
+                      <feature.icon className="text-[#1FA463] text-xl" />
+                    </div>
+                    <h4 className="text-lg font-bold text-black mb-2">
+                      {feature.title}
+                    </h4>
+                    {!isSmallScreen && (
+                      <p className="text-xs sm:text-sm leading-relaxed text-gray-500 font-semibold">
+                        {feature.desc}
+                      </p>
+                    )}
+                  </motion.div>
+                )
+              })}
             </div>
           </div>
         </section>

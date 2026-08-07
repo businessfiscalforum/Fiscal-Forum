@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#FFE066" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <title>Finance Dodge Runner</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app-shell">
+
+    <!-- HEADER -->
+    <header class="top-bar">
+      <div class="title-row">
+        <h1 class="glow-title">FINANCE DODGE RUNNER</h1>
+        <span class="badge-sticker">v1.0</span>
+      </div>
+      <p class="tagline">Learn money decisions the hard way 💸</p>
+    </header>
+
+    <!-- INSTRUCTIONS SCREEN -->
+    <div id="instructionsScreen" class="instructions glass">
+      <h2 class="glow-text">🎮 How to Play</h2>
+
+      <!-- NEW FLEX CONTAINER -->
+      <div class="instructions-content">
+
+        <!-- LEFT: RULES -->
+        <div class="instructions-text">
+          <ul class="rules">
+            <li>⬆️ ⬇️ Use <b>Arrow Keys</b> or the <b>on-screen buttons</b> to move</li>
+            <li>⭐ Start with <b>20 points</b></li>
+            <li>✅ Hitting a good decision → <b>+10 points</b></li>
+            <li>❌ Hitting a bad decision → <b>−20 points</b></li>
+            <li class="skip-warning">
+              ⚠️ Skipping a good decision → <b>−10 points</b>
+            </li>
+            <li class="game-end-warning">
+              💥 Game ends at <b>0 points</b>
+            </li>
+            <li class="win-condition">
+              🏆 Reach <b>100 points</b> to win!
+            </li>
+          </ul>
+        </div>
+
+        <!-- RIGHT: IMAGE -->
+      <div class="instructions-image">
+  <div class="bonus-tip">BONUS TIP BY ME</div>
+  <img src="nirmala.jpeg" alt="Tax meme" />
+</div>
+
+
+
+      </div>
+
+      <button class="start-btn" onclick="startGame()">Start Game</button>
+    </div>
+
+    <!-- MAIN GAME AREA -->
+    <main class="game-wrapper hidden" id="gameArea">
+
+      <!-- MOBILE COMPACT SCORE BAR -->
+      <div class="mobile-score-bar">
+        <div class="mobile-score-item">
+          <span class="mobile-score-label">SCORE</span>
+          <span id="scoreValueMobile" class="mobile-score-value">20</span>
+        </div>
+        <div class="progress-container mobile-progress">
+          <div id="progressBarMobile" class="progress-bar" style="width: 20%;"></div>
+        </div>
+        <div class="mobile-score-item mobile-score-item--end">
+          <span class="mobile-score-label">LOSE AT</span>
+          <span class="mobile-score-value mobile-score-value--danger">0</span>
+        </div>
+      </div>
+
+      <!-- GAME CANVAS -->
+      <section class="game-panel glass">
+        <div class="canvas-wrap" id="canvasWrap">
+          <canvas id="gameCanvas" width="900" height="420"></canvas>
+        </div>
+      </section>
+
+      <!-- IMMERSIVE TOUCH CONTROLS (BELOW CANVAS) -->
+      <section class="touch-controls-panel glass" id="touchControlsPanel">
+        <h3 class="touch-controls-heading">NAVIGATION BUTTONS</h3>
+        <div class="touch-controls" id="touchControls">
+          <button class="touch-btn touch-btn--up" id="btnUp" aria-label="Move Up">
+            <span class="touch-btn-arrow">▲</span>
+          </button>
+          <button class="touch-btn touch-btn--down" id="btnDown" aria-label="Move Down">
+            <span class="touch-btn-arrow">▼</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- SCORE PANEL (DESKTOP) -->
+      <aside class="score-panel glass">
+        <h2 class="glow-text">SCORE</h2>
+
+        <div id="scoreValue" class="score-value">20</div>
+ 
+        <div class="progress-container">
+          <div id="progressBar" class="progress-bar" style="width: 20%;"></div>
+        </div>
+ 
+        <div class="hud-info">
+          <p>🏆 Win at <b>100</b></p>
+          <p>💥 Lose at <b>0</b></p>
+        </div>
+      </aside>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <span class="footer-desktop-hint">⬆️ ⬇️ Move</span>
+      <span>🟧 Decisions are neutral — think first</span>
+    </footer>
+
+  </div>
+
+  <!-- GAME OVER SCREEN -->
+  <div id="gameOverScreen" class="game-over">
+    <div class="game-over-box glass" id="gameOverBox">
+      <h2 class="glow-text" id="gameOverTitle">GAME OVER</h2>
+      <div id="finalScore" class="final-score">0</div>
+      <button class="retry-btn" onclick="restartGame()">Retry</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
