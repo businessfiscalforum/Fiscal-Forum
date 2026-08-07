@@ -5,9 +5,6 @@ import HomeMobile from "./(routes)/_components/HomeMobile";
 import HomeDesktop from "./(routes)/_components/HomeDesktop";
 
 
-import FallingNotes from "../components/FallingNotes";
-
-
 export default function HomePage() {
   const [isMobile, setIsMobile] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -24,10 +21,5 @@ export default function HomePage() {
     return null;
   }
 
-  return (
-    <>
-      <FallingNotes />
-      {isMobile ? <HomeMobile /> : <HomeDesktop />}
-    </>
-  );
+  return isMobile ? <HomeMobile /> : <HomeDesktop />;
 }
