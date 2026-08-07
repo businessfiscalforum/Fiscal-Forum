@@ -736,7 +736,7 @@ export default function HomeDesktop() {
                       damping: 14,
                       delay: index * 0.08,
                     }}
-                    className="bg-yellow-50 border border-black rounded-2xl p-6 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full justify-between"
+                    className="bg-white border border-black rounded-2xl p-6 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full justify-between"
                   >
                   <div className="space-y-4">
                     {/* Icon */}
@@ -753,7 +753,7 @@ export default function HomeDesktop() {
 
                     {/* Description */}
                     {!isSmallScreen && (
-                      <p className="text-xs sm:text-sm leading-relaxed text-gray-500 font-semibold">
+                      <p className="text-xs sm:text-sm leading-relaxed text-black font-semibold">
                         {item.description}
                       </p>
                     )}
