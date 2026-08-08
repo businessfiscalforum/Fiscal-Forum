@@ -524,7 +524,7 @@ export default function HomeMobile() {
                   <h3 className="font-bold text-black text-base">
                     {item.title}
                   </h3>
-                  <p className="text-xs text-black font-semibold line-clamp-2">
+                  <p className="text-xs text-black font-semibold">
                     {item.description}
                   </p>
                 </div>
