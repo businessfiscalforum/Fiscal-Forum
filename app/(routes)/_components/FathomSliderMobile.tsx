@@ -62,6 +62,35 @@ export default function FathomSliderMobile() {
         {/* SLIDE 0: REPORT */}
         <SwiperSlide>
           <div className="w-full flex flex-col px-5 pb-6 relative">
+            {/* Brand Title (Fiscal Forum 3D text) */}
+            <div className="w-full flex justify-center mt-3 mb-4 z-20 relative">
+              <span className="fiscal-forum-pop-text">
+                <span className="word">
+                  {Array.from("FISCAL").map((char, index) => (
+                    <span
+                      key={index}
+                      className="letter"
+                      style={{ animationDelay: `${index * 0.08}s` }}
+                    >
+                      {char}
+                    </span>
+                  ))}
+                </span>
+                <br />
+                <span className="word">
+                  {Array.from("FORUM").map((char, index) => (
+                    <span
+                      key={index}
+                      className="letter"
+                      style={{ animationDelay: `${(index + 6) * 0.08}s` }}
+                    >
+                      {char}
+                    </span>
+                  ))}
+                </span>
+              </span>
+            </div>
+
             {/* Header Title section */}
             <div className="relative w-full mt-2 mb-2 pt-2">
               {/* Word pops titles flowing horizontally */}

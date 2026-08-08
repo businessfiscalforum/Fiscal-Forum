@@ -422,48 +422,26 @@ main, header, footer{ position: relative; z-index: 1; }
   font-family: 'Space Grotesk', 'Sora', sans-serif;
   font-size: clamp(2.5rem, 4.8vw, 5.5rem);
   font-weight: 900;
-  color: #1FA463;
+  color: #ffffff;
+  -webkit-text-stroke: 2px #000000;
+  text-shadow: 
+    1px 1px 0px #000000,
+    2px 2px 0px #000000,
+    3px 3px 0px #000000,
+    4px 4px 0px #000000,
+    5px 5px 0px #000000,
+    6px 6px 0px #000000,
+    7px 7px 0px #000000,
+    8px 8px 0px #000000,
+    9px 9px 0px #000000,
+    10px 10px 0px #000000,
+    11px 11px 0px #000000,
+    12px 12px 0px #000000;
   text-transform: uppercase;
   text-align: center;
-  line-height: 1.15;
-  letter-spacing: 4px;
+  line-height: 1.1;
+  letter-spacing: 1px;
   display: inline-block;
-}
-
-.fiscal-forum-pop-text .word {
-  display: inline-block;
-  white-space: nowrap;
-}
-
-.fiscal-forum-pop-text .letter {
-  display: inline-block;
-  opacity: 1;
-  transform: none;
-  text-shadow: 
-    1px 1px 0px #1c9459,
-    2px 2px 0px #19854f,
-    3px 3px 0px #167646,
-    4px 4px 0px #13673d,
-    5px 5px 0px #105834,
-    6px 6px 0px #0d492b,
-    7px 7px 0px #0b3f25,
-    8px 8px 0px #000000,
-    9px 9px 12px rgba(0, 0, 0, 0.4);
-}
-
-@keyframes letterPop {
-  0% {
-    opacity: 0;
-    transform: translateY(20px) scale(0.5);
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(-4px) scale(1.15);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
 }
 
 .advisor-figure__img{
