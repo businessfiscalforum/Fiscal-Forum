@@ -585,7 +585,42 @@ export default function ClientReportsPage({
     };
   }, []);
 
+  /* ============ REVEAL ON SCROLL INTERSECTION OBSERVER ============ */
+  useEffect(() => {
+    const revealEls = document.querySelectorAll(".reveal-panel, .reveal-item");
+    if (!revealEls.length) return;
 
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const target = entry.target as HTMLElement;
+            target.classList.add("in-view");
+            observer.unobserve(target);
+
+            // Clean up the animation classes after the transition completes (0.9s duration in CSS)
+            setTimeout(() => {
+              target.classList.remove(
+                "reveal-panel",
+                "reveal-item",
+                "reveal-left",
+                "reveal-right",
+                "reveal-top",
+                "in-view"
+              );
+            }, 1000);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    revealEls.forEach((el) => observer.observe(el));
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   /* ============ BUBBLE PACKING DATA ============ */
   const packedBubbles = useMemo(() => {
@@ -1135,7 +1170,7 @@ export default function ClientReportsPage({
           <div className="showcase-grid">
             
             {/* Pre-Market Showcase */}
-            <div className="showcase-col" style={{ border: '1px solid #111411' }}>
+            <div className="showcase-col reveal-panel reveal-left" style={{ border: '1px solid #111411' }}>
               <div className="showcase-top">
                 <div className="showcase-copy">
                   <span className="section-num">Daily · Before the bell</span>
@@ -1165,7 +1200,7 @@ export default function ClientReportsPage({
             </div>
 
             {/* Weekly Showcase */}
-            <div className="showcase-col" style={{ border: '1px solid #111411' }}>
+            <div className="showcase-col reveal-panel reveal-right" style={{ border: '1px solid #111411' }}>
               <div className="showcase-top">
                 <div className="showcase-copy">
                   <span className="section-num">Weekly · Every Monday</span>
