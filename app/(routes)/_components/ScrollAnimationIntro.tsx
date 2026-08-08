@@ -82,7 +82,7 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
       if (stepRef.current >= 6) return;
       
       const now = Date.now();
-      if (now - lastStepChangeTime.current < 2000) {
+      if (now - lastStepChangeTime.current < 1000) {
         accumulatedDelta.current = 0;
         return;
       }
@@ -110,7 +110,7 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
       if (stepRef.current >= 6) return;
 
       const now = Date.now();
-      if (now - lastStepChangeTime.current < 2000) {
+      if (now - lastStepChangeTime.current < 1000) {
         accumulatedDelta.current = 0;
         return;
       }
