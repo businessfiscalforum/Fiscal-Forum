@@ -36,7 +36,7 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
   const accumulatedDelta = useRef(0);
   const touchStartY = useRef(0);
   
-  const SCROLL_THRESHOLD = 150; // Scroll delta threshold to trigger step change
+  const SCROLL_THRESHOLD = 240; // Scroll delta threshold to trigger step change
 
   // Step 1: Sentinel Intersection to lock body scroll and trigger active state
   useEffect(() => {
@@ -278,7 +278,7 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
                   scale: step >= 6 ? 0.78 : 1.0,
                 }}
                 transition={{ duration: 0.9, ease: "easeInOut" }}
-                className="relative w-full max-w-[1200px] aspect-[1024/667] max-h-[85vh] rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-black translate-y-[8vh]"
+                className="relative w-full max-w-[1200px] aspect-[1024/667] max-h-[85vh] rounded-none overflow-hidden border border-white/10 shadow-2xl bg-black translate-y-[8vh]"
               >
                 {/* Static Monument Background (fades to black at Step 6) */}
                 <motion.div
@@ -286,13 +286,13 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
                   transition={{ duration: 0.5 }}
                   className="absolute inset-0 z-0"
                 >
-                  <Image
-                    src="/monument.jpg"
-                    alt="Fiscal Forum Headquarters"
-                    fill
-                    priority
-                    className="object-cover"
-                  />
+                    <Image
+                      src="/monument.jpg"
+                      alt="Fiscal Forum Headquarters"
+                      fill
+                      priority
+                      className="w-full h-full object-fill"
+                    />
                 </motion.div>
 
                 {/* Final Complete City fading in on Step 7 */}
@@ -307,7 +307,7 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
                     alt="Fiscal Forum City"
                     fill
                     priority
-                    className="object-cover"
+                    className="w-full h-full object-fill"
                   />
                 </motion.div>
 
@@ -426,7 +426,7 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
                         src="/empire.jpg"
                         alt={building.name}
                         fill
-                        className="object-cover"
+                        className="w-full h-full object-fill"
                       />
                     </motion.div>
                   ))}
@@ -438,31 +438,86 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
                     className="absolute z-30 pointer-events-none"
                     style={{ left: puff.x, top: puff.y }}
                   >
-                    {/* Render 22 cloud particles puffing outwards aggressively */}
-                    {Array.from({ length: 22 }).map((_, idx) => {
-                      const angle = (idx / 22) * 2 * Math.PI + (Math.random() * 0.2 - 0.1);
+                    {/* 1. Dust Cloud Billows (18 particles, brown & grey mix) */}
+                    {Array.from({ length: 18 }).map((_, idx) => {
+                      const angle = (idx / 18) * 2 * Math.PI + (Math.random() * 0.2 - 0.1);
                       const distance = 35 + Math.random() * 55;
                       const targetX = Math.cos(angle) * distance;
-                      const targetY = Math.sin(angle) * distance - 10;
-                      const size = 24 + Math.random() * 24; // 24px to 48px
-                      const duration = 0.65 + Math.random() * 0.3;
+                      const targetY = Math.sin(angle) * distance - 8;
+                      const size = 30 + Math.random() * 30; // 30px to 60px
+                      const duration = 0.7 + Math.random() * 0.3;
+
+                      const dustColors = [
+                        "rgba(139, 115, 85, 0.82)", // Warm brown
+                        "rgba(160, 140, 115, 0.82)", // Sand brown
+                        "rgba(112, 102, 92, 0.85)",  // Muted brown-grey
+                        "rgba(125, 125, 125, 0.85)", // Medium grey
+                        "rgba(145, 145, 145, 0.82)", // Light grey
+                        "rgba(95, 90, 85, 0.85)",    // Dark earthy grey
+                      ];
+                      const dustColor = dustColors[idx % dustColors.length];
 
                       return (
                         <motion.div
-                          key={idx}
-                          initial={{ x: 0, y: 0, scale: 0.1, opacity: 0.85 }}
+                          key={`dust-${idx}`}
+                          initial={{ x: 0, y: 0, scale: 0.1, opacity: 0.9 }}
                           animate={{
                             x: targetX,
                             y: targetY,
-                            scale: [0.1, 1.6, 2.2],
-                            opacity: [0.85, 0.45, 0],
+                            scale: [0.1, 1.8, 2.4],
+                            opacity: [0.9, 0.6, 0],
                           }}
                           transition={{
                             duration: duration,
                             ease: "easeOut",
                           }}
-                          className="absolute -translate-x-1/2 -translate-y-1/2 bg-gray-300/85 rounded-full filter blur-[6px]"
-                          style={{ width: size, height: size }}
+                          className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full filter blur-[5px]"
+                          style={{
+                            width: size,
+                            height: size,
+                            backgroundColor: dustColor,
+                          }}
+                        />
+                      );
+                    })}
+
+                    {/* 2. Sharp Pebbles / Rock Debris (10 particles, dark jagged) */}
+                    {Array.from({ length: 10 }).map((_, idx) => {
+                      const angle = (idx / 10) * 2 * Math.PI + Math.random() * 0.4;
+                      const distance = 50 + Math.random() * 50;
+                      const targetX = Math.cos(angle) * distance;
+                      const targetY = Math.sin(angle) * distance;
+                      const size = 4 + Math.random() * 5; // 4px to 9px
+                      const duration = 0.6 + Math.random() * 0.25;
+
+                      const pebbleColors = [
+                        "#2E2B27", // Dark charcoal
+                        "#3D3934", // Muted rock
+                        "#5C554E", // Earthy gravel
+                        "#4A453F", // Sandy rock
+                      ];
+                      const pebbleColor = pebbleColors[idx % pebbleColors.length];
+
+                      return (
+                        <motion.div
+                          key={`pebble-${idx}`}
+                          initial={{ x: 0, y: 0, scale: 0.2, opacity: 1 }}
+                          animate={{
+                            x: targetX,
+                            y: [0, targetY - 25, targetY + 15], // arching path (gravity fall)
+                            scale: [0.2, 1.1, 0.3],
+                            opacity: [1, 1, 0],
+                          }}
+                          transition={{
+                            duration: duration,
+                            ease: "easeOut",
+                          }}
+                          className="absolute -translate-x-1/2 -translate-y-1/2 rounded-sm shadow-sm"
+                          style={{
+                            width: size,
+                            height: size,
+                            backgroundColor: pebbleColor,
+                          }}
                         />
                       );
                     })}
