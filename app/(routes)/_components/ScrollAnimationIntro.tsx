@@ -35,6 +35,8 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
   const sentinelRef = useRef<HTMLDivElement>(null);
   const accumulatedDelta = useRef(0);
   const touchStartY = useRef(0);
+  const stepRef = useRef(step);
+  stepRef.current = step;
   
   const SCROLL_THRESHOLD = 240; // Scroll delta threshold to trigger step change
 
@@ -71,7 +73,7 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
 
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
-      if (step >= 6) return;
+      if (stepRef.current >= 6) return;
       accumulatedDelta.current += e.deltaY;
 
       if (accumulatedDelta.current >= SCROLL_THRESHOLD) {
@@ -92,7 +94,7 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
 
     const handleTouchMove = (e: TouchEvent) => {
       e.preventDefault();
-      if (step >= 6) return;
+      if (stepRef.current >= 6) return;
       const currentY = e.touches[0].clientY;
       const deltaY = touchStartY.current - currentY;
 
@@ -198,12 +200,14 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
             className="fixed inset-0 z-50 flex items-center justify-center select-none font-sans overflow-hidden"
           >
             {/* Skip Button */}
-            <button
-              onClick={handleSkip}
-              className="absolute top-6 right-6 z-[100] rounded-full border border-white/20 bg-white/10 px-5 py-2 text-sm font-semibold text-white backdrop-blur-md transition-all hover:bg-white hover:text-black hover:border-white shadow-lg active:scale-95"
-            >
-              Skip Intro ⏭️
-            </button>
+            {step < 6 && (
+              <button
+                onClick={handleSkip}
+                className="absolute top-6 right-6 z-[100] rounded-full border border-white/20 bg-white/10 px-5 py-2 text-sm font-semibold text-white backdrop-blur-md transition-all hover:bg-white hover:text-black hover:border-white shadow-lg active:scale-95"
+              >
+                Skip Intro ⏭️
+              </button>
+            )}
 
             {/* Scroll Navigation Helper */}
             {step < 6 && (
