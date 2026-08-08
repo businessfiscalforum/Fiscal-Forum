@@ -37,6 +37,12 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
   const touchStartY = useRef(0);
   const stepRef = useRef(step);
   stepRef.current = step;
+  const lastStepChangeTime = useRef(0);
+
+  // Lock scroll for 2 seconds on every step change
+  useEffect(() => {
+    lastStepChangeTime.current = Date.now();
+  }, [step]);
   
   const SCROLL_THRESHOLD = 240; // Scroll delta threshold to trigger step change
 
@@ -74,6 +80,13 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
       if (stepRef.current >= 6) return;
+      
+      const now = Date.now();
+      if (now - lastStepChangeTime.current < 2000) {
+        accumulatedDelta.current = 0;
+        return;
+      }
+      
       accumulatedDelta.current += e.deltaY;
 
       if (accumulatedDelta.current >= SCROLL_THRESHOLD) {
@@ -95,6 +108,13 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
     const handleTouchMove = (e: TouchEvent) => {
       e.preventDefault();
       if (stepRef.current >= 6) return;
+
+      const now = Date.now();
+      if (now - lastStepChangeTime.current < 2000) {
+        accumulatedDelta.current = 0;
+        return;
+      }
+
       const currentY = e.touches[0].clientY;
       const deltaY = touchStartY.current - currentY;
 
