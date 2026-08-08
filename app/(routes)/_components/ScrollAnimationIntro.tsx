@@ -36,7 +36,7 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
   const accumulatedDelta = useRef(0);
   const touchStartY = useRef(0);
   
-  const SCROLL_THRESHOLD = 90; // Scroll delta threshold to trigger step change
+  const SCROLL_THRESHOLD = 150; // Scroll delta threshold to trigger step change
 
   // Step 1: Sentinel Intersection to lock body scroll and trigger active state
   useEffect(() => {
@@ -140,7 +140,7 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
     if (step === 6) {
       const timer = setTimeout(() => {
         setStep(7);
-      }, 2400);
+      }, 5000);
       return () => clearTimeout(timer);
     }
   }, [step]);
@@ -170,7 +170,7 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
       BUILDINGS.forEach((b, index) => {
         setTimeout(() => {
           triggerDust(b.dustX, b.dustY);
-        }, index * 200 + 400); // sync with spring fall time
+        }, index * 450 + 1000); // sync with new slow spring fall time
       });
     }
   }, [step]);
@@ -278,7 +278,7 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
                   scale: step >= 6 ? 0.78 : 1.0,
                 }}
                 transition={{ duration: 0.9, ease: "easeInOut" }}
-                className="relative w-full max-w-[1200px] aspect-[1024/667] max-h-[85vh] rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-black translate-y-[4vh]"
+                className="relative w-full max-w-[1200px] aspect-[1024/667] max-h-[85vh] rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-black translate-y-[8vh]"
               >
                 {/* Static Monument Background (fades to black at Step 6) */}
                 <motion.div
@@ -415,9 +415,9 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
                       animate={{ y: 0, opacity: 1 }}
                       transition={{
                         type: "spring",
-                        stiffness: 90,
-                        damping: 16,
-                        delay: i * 0.2, // fast cascading stagger
+                        stiffness: 45,
+                        damping: 14,
+                        delay: i * 0.45, // slow cascading stagger step-by-step
                       }}
                       className="absolute inset-0 z-10 pointer-events-none"
                       style={{ clipPath: building.clipPath }}

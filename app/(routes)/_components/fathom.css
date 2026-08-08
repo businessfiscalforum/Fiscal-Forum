@@ -1413,7 +1413,7 @@ main, header, footer{ position: relative; z-index: 1; }
    CLOSING CTA
 ============================================ */
 .closing{
-  padding: 110px 32px;
+  padding: 150px 32px 80px;
   background: #F4FBF7;
   overflow: hidden;
   border-bottom: 1px solid #000000;
