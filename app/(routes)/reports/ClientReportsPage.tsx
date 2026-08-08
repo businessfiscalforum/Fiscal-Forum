@@ -2244,7 +2244,11 @@ export default function ClientReportsPage({
                 </div>
 
                 <div className="result-bar">
-                  <span>{filteredStocks.length.toLocaleString()} s                 <div id="screener-table-section" className="table-wrap reveal-panel" style={{ border: '1px solid #111411' }}>
+                  <span>{filteredStocks.length.toLocaleString()} stocks matched</span>
+                  <span className="result-bar-note">Click a row for full detail. Star to add to watchlist.</span>
+                </div>
+
+                <div id="screener-table-section" className="table-wrap reveal-panel" style={{ border: '1px solid #111411' }}>
                   <table>
                     <thead>
                       <tr>
