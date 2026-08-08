@@ -620,7 +620,7 @@ export default function ClientReportsPage({
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [screenerTab]);
 
   /* ============ BUBBLE PACKING DATA ============ */
   const packedBubbles = useMemo(() => {
@@ -2244,24 +2244,20 @@ export default function ClientReportsPage({
                 </div>
 
                 <div className="result-bar">
-                  <span>{filteredStocks.length.toLocaleString()} stocks matched</span>
-                  <span className="result-bar-note">Click a row for full detail. Star to add to watchlist.</span>
-                </div>
-
-                <div id="screener-table-section" className="table-wrap" style={{ border: '1px solid #111411' }}>
+                  <span>{filteredStocks.length.toLocaleString()} s                 <div id="screener-table-section" className="table-wrap reveal-panel" style={{ border: '1px solid #111411' }}>
                   <table>
                     <thead>
                       <tr>
-                        <th></th>
-                        <th>Symbol</th>
-                        <th>Company</th>
-                        <th>Tier</th>
-                        <th className="num-col">Market Cap (Cr)</th>
-                        <th className="num-col">P/E</th>
-                        <th className="num-col">ROE (%)</th>
-                        <th className="num-col">ROCE (%)</th>
-                        <th className="num-col">OPM (%)</th>
-                        <th className="date-col">Listed</th>
+                        <th className="reveal-left"></th>
+                        <th className="reveal-left">Symbol</th>
+                        <th className="reveal-left">Company</th>
+                        <th className="reveal-left">Tier</th>
+                        <th className="num-col reveal-left">Market Cap (Cr)</th>
+                        <th className="num-col reveal-right">P/E</th>
+                        <th className="num-col reveal-right">ROE (%)</th>
+                        <th className="num-col reveal-right">ROCE (%)</th>
+                        <th className="num-col reveal-right">OPM (%)</th>
+                        <th className="date-col reveal-right">Listed</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -2270,12 +2266,12 @@ export default function ClientReportsPage({
                         const tierBadgeClass = `tier-${s.tier?.split(" ")[0] || "Micro"}`;
                         return (
                           <tr key={s.sym} className={highlightedStockSym === s.sym ? "highlighted-row" : ""} onClick={() => setScreenerSelectedStock(s)}>
-                            <td onClick={(e) => e.stopPropagation()}>
+                            <td className="reveal-left" onClick={(e) => e.stopPropagation()}>
                               <button className={`star-btn ${isStarred ? "active" : ""}`} onClick={() => toggleStar(s.sym)}>
                                 {isStarred ? "★" : "☆"}
                               </button>
                             </td>
-                            <td className="sym">
+                            <td className="sym reveal-left">
                               <Link
                                 href={`https://www.screener.in/company/${encodeURIComponent(s.sym)}/`}
                                 target="_blank"
@@ -2286,16 +2282,16 @@ export default function ClientReportsPage({
                                 {s.sym} ↗
                               </Link>
                             </td>
-                            <td className="name">{s.name}</td>
-                            <td>
+                            <td className="name reveal-left">{s.name}</td>
+                            <td className="reveal-left">
                               <span className={`tier-badge ${tierBadgeClass}`}>{s.tier}</span>
                             </td>
-                            <td className="num">{s.mcap !== null && s.mcap !== undefined ? s.mcap.toLocaleString("en-IN") : "—"}</td>
-                            <td className="num">{s.pe !== null && s.pe !== undefined ? s.pe.toFixed(2) : "—"}</td>
-                            <td className="num">{s.roe !== null && s.roe !== undefined ? s.roe.toFixed(2) + "%" : "—"}</td>
-                            <td className="num">{s.roce !== null && s.roce !== undefined ? s.roce.toFixed(2) + "%" : "—"}</td>
-                            <td className="num">{s.opm !== null && s.opm !== undefined ? s.opm.toFixed(2) + "%" : "—"}</td>
-                            <td className="date">{s.listdt || "—"}</td>
+                            <td className="num reveal-left">{s.mcap !== null && s.mcap !== undefined ? s.mcap.toLocaleString("en-IN") : "—"}</td>
+                            <td className="num reveal-right">{s.pe !== null && s.pe !== undefined ? s.pe.toFixed(2) : "—"}</td>
+                            <td className="num reveal-right">{s.roe !== null && s.roe !== undefined ? s.roe.toFixed(2) + "%" : "—"}</td>
+                            <td className="num reveal-right">{s.roce !== null && s.roce !== undefined ? s.roce.toFixed(2) + "%" : "—"}</td>
+                            <td className="num reveal-right">{s.opm !== null && s.opm !== undefined ? s.opm.toFixed(2) + "%" : "—"}</td>
+                            <td className="date reveal-right">{s.listdt || "—"}</td>
                           </tr>
                         );
                       })}
@@ -2348,20 +2344,20 @@ export default function ClientReportsPage({
                   <span className="result-bar-note">Stored locally in this browser.</span>
                 </div>
 
-                <div className="table-wrap" style={{ border: '1px solid #111411' }}>
+                <div className="table-wrap reveal-panel" style={{ border: '1px solid #111411' }}>
                   <table>
                     <thead>
                       <tr>
-                        <th></th>
-                        <th>Symbol</th>
-                        <th>Company</th>
-                        <th>Tier</th>
-                        <th className="num-col">Market Cap (Cr)</th>
-                        <th className="num-col">P/E</th>
-                        <th className="num-col">ROE (%)</th>
-                        <th className="num-col">ROCE (%)</th>
-                        <th className="num-col">OPM (%)</th>
-                        <th className="date-col">Listed</th>
+                        <th className="reveal-left"></th>
+                        <th className="reveal-left">Symbol</th>
+                        <th className="reveal-left">Company</th>
+                        <th className="reveal-left">Tier</th>
+                        <th className="num-col reveal-left">Market Cap (Cr)</th>
+                        <th className="num-col reveal-right">P/E</th>
+                        <th className="num-col reveal-right">ROE (%)</th>
+                        <th className="num-col reveal-right">ROCE (%)</th>
+                        <th className="num-col reveal-right">OPM (%)</th>
+                        <th className="date-col reveal-right">Listed</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -2369,12 +2365,12 @@ export default function ClientReportsPage({
                         const tierBadgeClass = `tier-${s.tier?.split(" ")[0] || "Micro"}`;
                         return (
                           <tr key={s.sym} onClick={() => setScreenerSelectedStock(s)}>
-                            <td onClick={(e) => e.stopPropagation()}>
+                            <td className="reveal-left" onClick={(e) => e.stopPropagation()}>
                               <button className="star-btn active" onClick={() => toggleStar(s.sym)}>
                                 ★
                               </button>
                             </td>
-                            <td className="sym">
+                            <td className="sym reveal-left">
                               <Link
                                 href={`https://www.screener.in/company/${encodeURIComponent(s.sym)}/`}
                                 target="_blank"
@@ -2385,16 +2381,16 @@ export default function ClientReportsPage({
                                 {s.sym} ↗
                               </Link>
                             </td>
-                            <td className="name">{s.name}</td>
-                            <td>
+                            <td className="name reveal-left">{s.name}</td>
+                            <td className="reveal-left">
                               <span className={`tier-badge ${tierBadgeClass}`}>{s.tier}</span>
                             </td>
-                            <td className="num">{s.mcap !== null && s.mcap !== undefined ? s.mcap.toLocaleString("en-IN") : "—"}</td>
-                            <td className="num">{s.pe !== null && s.pe !== undefined ? s.pe.toFixed(2) : "—"}</td>
-                            <td className="num">{s.roe !== null && s.roe !== undefined ? s.roe.toFixed(2) + "%" : "—"}</td>
-                            <td className="num">{s.roce !== null && s.roce !== undefined ? s.roce.toFixed(2) + "%" : "—"}</td>
-                            <td className="num">{s.opm !== null && s.opm !== undefined ? s.opm.toFixed(2) + "%" : "—"}</td>
-                            <td className="date">{s.listdt || "—"}</td>
+                            <td className="num reveal-left">{s.mcap !== null && s.mcap !== undefined ? s.mcap.toLocaleString("en-IN") : "—"}</td>
+                            <td className="num reveal-right">{s.pe !== null && s.pe !== undefined ? s.pe.toFixed(2) : "—"}</td>
+                            <td className="num reveal-right">{s.roe !== null && s.roe !== undefined ? s.roe.toFixed(2) + "%" : "—"}</td>
+                            <td className="num reveal-right">{s.roce !== null && s.roce !== undefined ? s.roce.toFixed(2) + "%" : "—"}</td>
+                            <td className="num reveal-right">{s.opm !== null && s.opm !== undefined ? s.opm.toFixed(2) + "%" : "—"}</td>
+                            <td className="date reveal-right">{s.listdt || "—"}</td>
                           </tr>
                         );
                       })}
