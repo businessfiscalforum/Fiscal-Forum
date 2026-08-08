@@ -1570,11 +1570,7 @@ main, header, footer{ position: relative; z-index: 1; }
   opacity: 1 !important;
   transform: translateY(0) scale(1) !important;
 }
-.slide--report.intro-done .fiscal-forum-pop-text .letter {
-  animation: none !important;
-  opacity: 1 !important;
-  transform: none !important;
-}
+
 .slide--report.intro-done .word-pop{
   animation: none !important;
   opacity: 1 !important;

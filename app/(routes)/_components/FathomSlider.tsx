@@ -308,29 +308,9 @@ export default function FathomSlider() {
 
                   <div className="advisor-figure" key={currentIndex}>
                     <span className="fiscal-forum-pop-text">
-                      <span className="word">
-                        {Array.from("FISCAL").map((char, index) => (
-                          <span
-                            key={index}
-                            className="letter"
-                            style={{ animationDelay: `${index * 0.08}s` }}
-                          >
-                            {char}
-                          </span>
-                        ))}
-                      </span>
+                      FISCAL
                       <br />
-                      <span className="word">
-                        {Array.from("FORUM").map((char, index) => (
-                          <span
-                            key={index}
-                            className="letter"
-                            style={{ animationDelay: `${(index + 6) * 0.08}s` }}
-                          >
-                            {char}
-                          </span>
-                        ))}
-                      </span>
+                      FORUM
                     </span>
                   </div>
 
