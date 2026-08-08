@@ -312,6 +312,9 @@ export default function FathomSlider() {
                       <br />
                       FORUM
                     </span>
+                    <span className="fiscal-forum-subtitle-text">
+                      RESEARCH | INSIGHTS | IMPACT
+                    </span>
                   </div>
 
                   <div className="slide__side">

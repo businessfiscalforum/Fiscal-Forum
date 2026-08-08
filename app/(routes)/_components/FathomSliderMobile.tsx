@@ -63,11 +63,14 @@ export default function FathomSliderMobile() {
         <SwiperSlide>
           <div className="w-full flex flex-col px-5 pb-6 relative">
             {/* Brand Title (Fiscal Forum 3D text) */}
-            <div className="w-full flex justify-center mt-3 mb-4 z-20 relative">
+            <div className="w-full flex flex-col items-center justify-center mt-3 mb-4 z-20 relative">
               <span className="fiscal-forum-pop-text">
                 FISCAL
                 <br />
                 FORUM
+              </span>
+              <span className="text-[#0B0B0B] font-extrabold tracking-[0.2em] text-[10px] sm:text-xs mt-3 uppercase text-center opacity-85">
+                RESEARCH | INSIGHTS | IMPACT
               </span>
             </div>
 
