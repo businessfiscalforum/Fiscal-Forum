@@ -343,7 +343,7 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
                         src="/businessman-nobg.png"
                         alt="Businessman"
                         fill
-                        className="object-contain filter drop-shadow-[0_8px_12px_rgba(0,0,0,0.3)]"
+                        className="object-contain"
                       />
                     </div>
                   </motion.div>
