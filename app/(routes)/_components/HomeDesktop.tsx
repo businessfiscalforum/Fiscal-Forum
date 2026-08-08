@@ -35,6 +35,7 @@ import { UsersDetail } from "../../provider";
 import HomeNewsAndResearchSection from "./HomeResearchAndNewsSection";
 import FathomSlider from "./FathomSlider";
 import FiscalForumCity from "./FiscalForumCity";
+import ScrollAnimationIntro from "./ScrollAnimationIntro";
 
 
 const slides = [
@@ -414,6 +415,15 @@ const additionalServices = [
 
 export default function HomeDesktop() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [animationCompleted, setAnimationCompleted] = useState(false);
+
+  useEffect(() => {
+    const completed = sessionStorage.getItem("scrollAnimationCompleted");
+    if (completed === "true") {
+      setAnimationCompleted(true);
+    }
+  }, []);
+
   useEffect(() => {
     // This runs only on the client
     const handleResize = () => setIsSmallScreen(window.innerWidth < 768);
@@ -674,7 +684,16 @@ export default function HomeDesktop() {
 
       <div className="text-gray-800 font-sans min-h-screen overflow-x-hidden w-full">
         <FathomSlider />
-        <FiscalForumCity />
+        {animationCompleted ? (
+          <FiscalForumCity />
+        ) : (
+          <ScrollAnimationIntro
+            onComplete={() => {
+              setAnimationCompleted(true);
+              sessionStorage.setItem("scrollAnimationCompleted", "true");
+            }}
+          />
+        )}
 
         {/* Enhanced Services Section */}
         <section className="py-16 bg-[#F4FBF7] border-b border-black">
