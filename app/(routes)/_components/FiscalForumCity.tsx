@@ -143,7 +143,7 @@ export default function FiscalForumCity() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-[#F4FBF7] py-16 border-b border-black">
+      <section id="fiscal-forum-city" className="relative overflow-hidden bg-[#F4FBF7] py-16 border-b border-black">
         <div className="relative mx-auto max-w-7xl px-4 md:px-8">
           {/* Heading */}
           <div className="mb-12 text-center flex flex-col items-center max-w-4xl mx-auto">

@@ -162,7 +162,7 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
     if (step === 7) {
       const timer = setTimeout(() => {
         setStep(8);
-      }, 5000);
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, [step]);
