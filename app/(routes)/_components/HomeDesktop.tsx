@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 // import "swiper/css";
 // import "swiper/css/pagination";
 import {
@@ -684,16 +684,31 @@ export default function HomeDesktop() {
 
       <div className="text-gray-800 font-sans min-h-screen overflow-x-hidden w-full">
         <FathomSlider />
-        {animationCompleted ? (
-          <FiscalForumCity />
-        ) : (
-          <ScrollAnimationIntro
-            onComplete={() => {
-              setAnimationCompleted(true);
-              sessionStorage.setItem("scrollAnimationCompleted", "true");
-            }}
-          />
-        )}
+        <AnimatePresence mode="sync">
+          {!animationCompleted ? (
+            <motion.div
+              key="intro"
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+            >
+              <ScrollAnimationIntro
+                onComplete={() => {
+                  setAnimationCompleted(true);
+                  sessionStorage.setItem("scrollAnimationCompleted", "true");
+                }}
+              />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="city"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+            >
+              <FiscalForumCity />
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Enhanced Services Section */}
         <section className="py-16 bg-[#F4FBF7] border-b border-black">

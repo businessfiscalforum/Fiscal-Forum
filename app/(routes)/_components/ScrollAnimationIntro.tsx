@@ -21,16 +21,9 @@ const BUILDINGS = [
   { name: "Insurance", clipPath: "inset(55% 0% 0% 76%)", dustX: "90.5%", dustY: "98%" },
 ];
 
-interface DustPuff {
-  id: number;
-  x: string;
-  y: string;
-}
-
 export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntroProps) {
   const [isActive, setIsActive] = useState(false);
   const [step, setStep] = useState(0); // Steps 0 to 8
-  const [dustPuffs, setDustPuffs] = useState<DustPuff[]>([]);
   
   const sentinelRef = useRef<HTMLDivElement>(null);
   const accumulatedDelta = useRef(0);
@@ -149,11 +142,8 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
   // Step 3: Trigger transition completion
   useEffect(() => {
     if (step === 8) {
-      const timer = setTimeout(() => {
-        document.body.style.overflow = "";
-        onComplete();
-      }, 800); // Wait for fadeout animation
-      return () => clearTimeout(timer);
+      document.body.style.overflow = "";
+      onComplete();
     }
   }, [step, onComplete]);
 
@@ -177,26 +167,6 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
     }
   }, [step]);
 
-  // Step 4: Spawning dust particle effects
-  const triggerDust = (x: string, y: string) => {
-    const id = Date.now() + Math.random();
-    setDustPuffs((prev) => [...prev, { id, x, y }]);
-    setTimeout(() => {
-      setDustPuffs((prev) => prev.filter((p) => p.id !== id));
-    }, 1000);
-  };
-
-  // Trigger building dust cascade at Step 6
-  useEffect(() => {
-    if (step === 6) {
-      BUILDINGS.forEach((b, index) => {
-        setTimeout(() => {
-          triggerDust(b.dustX, b.dustY);
-        }, index * 450 + 1000); // sync with new slow spring fall time
-      });
-    }
-  }, [step]);
-
   const handleSkip = () => {
     document.body.style.overflow = "";
     onComplete();
@@ -208,7 +178,7 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
       <div ref={sentinelRef} className="h-4 w-full bg-transparent" />
 
       <AnimatePresence>
-        {isActive && step < 8 && (
+        {isActive && step <= 8 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{
@@ -455,98 +425,7 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
                     </motion.div>
                   ))}
 
-                {/* Dust Puff Overlay */}
-                {dustPuffs.map((puff) => (
-                  <div
-                    key={puff.id}
-                    className="absolute z-30 pointer-events-none"
-                    style={{ left: puff.x, top: puff.y }}
-                  >
-                    {/* 1. Dust Cloud Billows (18 particles, brown & grey mix) */}
-                    {Array.from({ length: 18 }).map((_, idx) => {
-                      const angle = (idx / 18) * 2 * Math.PI + (Math.random() * 0.2 - 0.1);
-                      const distance = 35 + Math.random() * 55;
-                      const targetX = Math.cos(angle) * distance;
-                      const targetY = Math.sin(angle) * distance - 8;
-                      const size = 30 + Math.random() * 30; // 30px to 60px
-                      const duration = 0.7 + Math.random() * 0.3;
 
-                      const dustColors = [
-                        "rgba(139, 115, 85, 0.82)", // Warm brown
-                        "rgba(160, 140, 115, 0.82)", // Sand brown
-                        "rgba(112, 102, 92, 0.85)",  // Muted brown-grey
-                        "rgba(125, 125, 125, 0.85)", // Medium grey
-                        "rgba(145, 145, 145, 0.82)", // Light grey
-                        "rgba(95, 90, 85, 0.85)",    // Dark earthy grey
-                      ];
-                      const dustColor = dustColors[idx % dustColors.length];
-
-                      return (
-                        <motion.div
-                          key={`dust-${idx}`}
-                          initial={{ x: 0, y: 0, scale: 0.1, opacity: 0.9 }}
-                          animate={{
-                            x: targetX,
-                            y: targetY,
-                            scale: [0.1, 1.8, 2.4],
-                            opacity: [0.9, 0.6, 0],
-                          }}
-                          transition={{
-                            duration: duration,
-                            ease: "easeOut",
-                          }}
-                          className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full filter blur-[5px]"
-                          style={{
-                            width: size,
-                            height: size,
-                            backgroundColor: dustColor,
-                          }}
-                        />
-                      );
-                    })}
-
-                    {/* 2. Sharp Pebbles / Rock Debris (10 particles, dark jagged) */}
-                    {Array.from({ length: 10 }).map((_, idx) => {
-                      const angle = (idx / 10) * 2 * Math.PI + Math.random() * 0.4;
-                      const distance = 50 + Math.random() * 50;
-                      const targetX = Math.cos(angle) * distance;
-                      const targetY = Math.sin(angle) * distance;
-                      const size = 4 + Math.random() * 5; // 4px to 9px
-                      const duration = 0.6 + Math.random() * 0.25;
-
-                      const pebbleColors = [
-                        "#2E2B27", // Dark charcoal
-                        "#3D3934", // Muted rock
-                        "#5C554E", // Earthy gravel
-                        "#4A453F", // Sandy rock
-                      ];
-                      const pebbleColor = pebbleColors[idx % pebbleColors.length];
-
-                      return (
-                        <motion.div
-                          key={`pebble-${idx}`}
-                          initial={{ x: 0, y: 0, scale: 0.2, opacity: 1 }}
-                          animate={{
-                            x: targetX,
-                            y: [0, targetY - 25, targetY + 15], // arching path (gravity fall)
-                            scale: [0.2, 1.1, 0.3],
-                            opacity: [1, 1, 0],
-                          }}
-                          transition={{
-                            duration: duration,
-                            ease: "easeOut",
-                          }}
-                          className="absolute -translate-x-1/2 -translate-y-1/2 rounded-sm shadow-sm"
-                          style={{
-                            width: size,
-                            height: size,
-                            backgroundColor: pebbleColor,
-                          }}
-                        />
-                      );
-                    })}
-                  </div>
-                ))}
 
                 {/* ======================================================== */}
                 {/* 6. FINAL TEXT CALL (Step 7)                              */}
