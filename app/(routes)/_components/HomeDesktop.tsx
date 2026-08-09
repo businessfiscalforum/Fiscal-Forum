@@ -684,31 +684,40 @@ export default function HomeDesktop() {
 
       <div className="text-gray-800 font-sans min-h-screen overflow-x-hidden w-full">
         <FathomSlider />
-        <AnimatePresence mode="sync">
-          {!animationCompleted ? (
-            <motion.div
-              key="intro"
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
-            >
-              <ScrollAnimationIntro
-                onComplete={() => {
-                  setAnimationCompleted(true);
-                  sessionStorage.setItem("scrollAnimationCompleted", "true");
+        <div className="relative w-full">
+          <AnimatePresence mode="sync">
+            {!animationCompleted ? (
+              <motion.div
+                key="intro"
+                exit={{
+                  opacity: 0,
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
                 }}
-              />
-            </motion.div>
-          ) : (
-            <motion.div
-              key="city"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
-            >
-              <FiscalForumCity />
-            </motion.div>
-          )}
-        </AnimatePresence>
+                transition={{ duration: 0.8, ease: "easeInOut" }}
+              >
+                <ScrollAnimationIntro
+                  onComplete={() => {
+                    setAnimationCompleted(true);
+                    sessionStorage.setItem("scrollAnimationCompleted", "true");
+                  }}
+                />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="city"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
+                className="w-full"
+              >
+                <FiscalForumCity />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
         {/* Enhanced Services Section */}
         <section className="py-16 bg-[#F4FBF7] border-b border-black">
