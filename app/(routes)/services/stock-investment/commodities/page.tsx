@@ -611,39 +611,6 @@ export default function CommoditiesPage() {
   // Render
   return (
     <div className="mandiTerminal">
-      {/* TICKER */}
-      <div className="ticker-wrap" aria-hidden="true">
-        <div className="ticker-track">
-          {[
-            { name: "GOLD", v: "₹71,240/10g", dir: "up", d: "+0.4%" },
-            { name: "SILVER", v: "₹83,910/kg", dir: "down", d: "-0.2%" },
-            { name: "CRUDE (BRENT)", v: "$82.16/bbl", dir: "up", d: "+1.1%" },
-            { name: "NATURAL GAS", v: "₹248/mmBtu", dir: "down", d: "-0.6%" },
-            { name: "WHEAT", v: "₹2,425/qtl", dir: "up", d: "+0.3%" },
-            { name: "COTTON", v: "₹58,900/candy", dir: "down", d: "-0.8%" },
-            { name: "COPPER", v: "₹812/kg", dir: "up", d: "+0.9%" },
-          ]
-            .concat([
-              { name: "GOLD", v: "₹71,240/10g", dir: "up", d: "+0.4%" },
-              { name: "SILVER", v: "₹83,910/kg", dir: "down", d: "-0.2%" },
-              { name: "CRUDE (BRENT)", v: "$82.16/bbl", dir: "up", d: "+1.1%" },
-              { name: "NATURAL GAS", v: "₹248/mmBtu", dir: "down", d: "-0.6%" },
-              { name: "WHEAT", v: "₹2,425/qtl", dir: "up", d: "+0.3%" },
-              { name: "COTTON", v: "₹58,900/candy", dir: "down", d: "-0.8%" },
-              { name: "COPPER", v: "₹812/kg", dir: "up", d: "+0.9%" },
-            ])
-            .map((r, idx) => (
-              <span className="tick-item" key={idx}>
-                <span className="name">{r.name}</span>
-                <span>{r.v}</span>
-                <span className={r.dir}>
-                  {r.dir === "up" ? "▲" : "▼"} {r.d}
-                </span>
-              </span>
-            ))}
-        </div>
-      </div>
-
       {/* NAV */}
       <nav className="nav">
         <button
