@@ -351,7 +351,7 @@
   font-size: 0.82rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  background: var(--paper);
+  background: #FFF4C2;
   color: var(--ink);
   border: 1px solid var(--ink);
   padding: 14px 22px;
