@@ -281,9 +281,14 @@ export default function StockInvestmentPage() {
 
           {/* Investment Cards Grid / Interactive Tree */}
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold uppercase text-black border-b border-black pb-2">
-              Our Investment Verticals
-            </h2>
+            <div className="space-y-2">
+              <h2 className="text-2xl font-bold uppercase text-black border-b border-black pb-2">
+                Our Investment Verticals
+              </h2>
+              <p className="text-sm md:text-base text-gray-600 font-medium">
+                Click on the boxes on tree you want to explore ...
+              </p>
+            </div>
             
             {/* Unified Responsive Grid: Stacked on Mobile/Tablet, Side-by-Side on Desktop */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
