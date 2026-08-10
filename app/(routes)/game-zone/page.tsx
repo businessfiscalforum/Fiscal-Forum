@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import FallingNotes from "../../../components/FallingNotes";
@@ -67,6 +68,7 @@ const badItems = [
 ];
 
 export default function GameZone() {
+  const router = useRouter();
   const [score, setScore] = useState(20);
   const [gameState, setGameState] = useState<"instructions" | "playing" | "win" | "lose">("instructions");
   const [scoreChangedType, setScoreChangedType] = useState<"up" | "down" | null>(null);
@@ -658,12 +660,18 @@ export default function GameZone() {
                 {score}
               </div>
 
-              <div className="w-full">
+              <div className="w-full flex flex-col gap-3">
                 <button
                   onClick={startGame}
                   className="w-full py-3.5 bg-[#FFE066] text-[#0a0a0a] border-4 border-[#0a0a0a] font-black text-lg uppercase tracking-wider hover:-translate-y-0.5 hover:shadow-[8px_8px_0_#0a0a0a] active:translate-y-0.5 active:shadow-[2px_2px_0_#0a0a0a] shadow-[6px_6px_0_#0a0a0a] transition-all cursor-pointer"
                 >
                   Retry
+                </button>
+                <button
+                  onClick={() => router.push("/")}
+                  className="w-full py-3.5 bg-white text-[#0a0a0a] border-4 border-[#0a0a0a] font-black text-lg uppercase tracking-wider hover:-translate-y-0.5 hover:shadow-[8px_8px_0_#0a0a0a] active:translate-y-0.5 active:shadow-[2px_2px_0_#0a0a0a] shadow-[6px_6px_0_#0a0a0a] transition-all cursor-pointer"
+                >
+                  EXIT
                 </button>
               </div>
             </div>
