@@ -574,9 +574,19 @@ export default function HomeMobile() {
           {/* Women's Section Card */}
           <div className="bg-white border border-black rounded-2xl p-5 shadow-sm flex flex-col justify-between">
             <div className="space-y-3">
-              <h3 className="text-lg font-bold text-black uppercase tracking-tight">
-                Womens Section
-              </h3>
+              <div className="flex justify-between items-start gap-3">
+                <h3 className="text-lg font-bold text-black uppercase tracking-tight flex-1">
+                  Womens Section
+                </h3>
+                <div className="flex-shrink-0 w-20 h-20 relative rounded-xl overflow-hidden border border-black/10 shadow-sm">
+                  <Image
+                    src="/images/service-women.png"
+                    alt="Womens Section"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
               <p className="text-xs sm:text-sm text-gray-700 font-medium leading-relaxed">
                 {"When a woman understands money, the whole family's future becomes stronger."}
                 <br />
@@ -595,9 +605,19 @@ export default function HomeMobile() {
           {/* IPO World Card */}
           <div className="bg-white border border-black rounded-2xl p-5 shadow-sm flex flex-col justify-between">
             <div className="space-y-3">
-              <h3 className="text-lg font-bold text-black uppercase tracking-tight">
-                IPO WORLD
-              </h3>
+              <div className="flex justify-between items-start gap-3">
+                <h3 className="text-lg font-bold text-black uppercase tracking-tight flex-1">
+                  IPO WORLD
+                </h3>
+                <div className="flex-shrink-0 w-20 h-20 relative rounded-xl overflow-hidden border border-black/10 shadow-sm">
+                  <Image
+                    src="/images/service-ipo.png"
+                    alt="IPO WORLD"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
               <p className="text-xs sm:text-sm text-gray-700 font-medium leading-relaxed">
                 {"Every successful company was once a new opportunity."}
                 <br />
