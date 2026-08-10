@@ -27,6 +27,31 @@ import { useRouter } from "next/navigation";
 // import { BrokerInfiniteScroll } from "../../_components/Broker";
 import PortfolioSplitStudio from "./PortfolioSplitStudio";
 
+const NestIcon = ({ size, className, ...props }: React.SVGProps<SVGSVGElement> & { size?: number | string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    width={size || "24"}
+    height={size || "24"}
+    className={className}
+    {...props}
+  >
+    {/* Nest bowl (twigs/layers) */}
+    <path d="M3 14c0 4.5 4 7 9 7s9-2.5 9-7" />
+    <path d="M2 16c1 3.5 4.5 5.5 10 5.5s9-2 10-5.5" />
+    <path d="M5 13c1.5.5 3 1 7 1s5.5-.5 7-1" />
+    <path d="M4 18h16" />
+    {/* Eggs */}
+    <path d="M9 10c0-1.5 1-2.5 2-2.5s2 1 2 2.5c0 1.5-1 2.5-2 2.5S9 11.5 9 10z" fill="currentColor" fillOpacity="0.2" />
+    <path d="M12 9c0-1.5 1-2.5 2-2.5s2 1 2 2.5c0 1.5-1 2.5-2 2.5S12 10.5 12 9z" fill="currentColor" fillOpacity="0.2" />
+  </svg>
+);
+
 const investmentOptions = [
   {
     id: "equity-etfs",
@@ -105,6 +130,19 @@ const investmentOptions = [
     iconBgColor: "bg-indigo-100",
     iconColor: "text-indigo-600",
     image: "/images/cat-unlisted.png",
+  },
+  {
+    id: "mutual-funds",
+    title: "Mutual Fund",
+    description:
+      "Diversify your portfolio with our expert-curated mutual fund options.",
+    icon: NestIcon,
+    link: "/services/mutual-funds",
+    alink: "/services/mutual-funds/open-demat-account",
+    bgColor: "bg-white",
+    iconBgColor: "bg-green-100",
+    iconColor: "text-green-600",
+    image: "/images/cat-mutual.png",
   },
 ];
 
@@ -277,6 +315,9 @@ export default function StockInvestmentPage() {
                         break;
                       case "commodities":
                         coords = { left: "29.20%", top: "54.46%", width: "12.11%", height: "15.26%" };
+                        break;
+                      case "mutual-funds":
+                        coords = { left: "43.51%", top: "32.54%", width: "12.21%", height: "15.26%" };
                         break;
                       case "unlisted-shares":
                         coords = { left: "59.67%", top: "54.82%", width: "12.21%", height: "15.26%" };
