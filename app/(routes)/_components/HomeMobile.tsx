@@ -522,20 +522,25 @@ export default function HomeMobile() {
                 className="bg-white border border-black rounded-2xl p-5 shadow-sm flex flex-col justify-between h-full min-h-[220px]"
               >
                 <div className="space-y-3">
-                  {/* Icon, Title, and Image Row */}
+                  {/* Title and Image Row */}
                   <div className="flex justify-between items-start gap-3">
                     <div className="space-y-2 flex-1">
-                      {/* Icon */}
-                      <div className="w-10 h-10 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
-                        {item.icon && (
-                          <item.icon className="text-[#1FA463] w-5 h-5" />
-                        )}
-                      </div>
                       {/* Title */}
                       <h3 className="font-bold text-black text-base leading-snug">
                         {item.title}
                       </h3>
                     </div>
+                    {/* Cropped illustration image */}
+                    {(item as { image?: string }).image && (
+                      <div className="flex-shrink-0 w-20 h-20 relative rounded-xl overflow-hidden border border-black/10 shadow-sm">
+                        <Image
+                          src={(item as { image?: string }).image!}
+                          alt={item.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    )}
                   </div>
 
                   {/* Description */}

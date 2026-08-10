@@ -747,9 +747,6 @@ export default function HomeDesktop() {
               transition={{ duration: 0.6 }}
               className="text-center mb-12 max-w-4xl mx-auto flex flex-col items-center"
             >
-              <div className="w-16 h-16 bg-[#1FA463]/10 border border-black rounded-2xl flex items-center justify-center mb-4 shadow-sm">
-                <FaCoins className="text-black text-2xl" />
-              </div>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black uppercase tracking-tight">
                 Our Financial Premium Services
               </h2>
@@ -800,20 +797,25 @@ export default function HomeDesktop() {
                     className="bg-white border border-black rounded-2xl p-6 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full justify-between"
                   >
                     <div className="space-y-4">
-                      {/* Icon, Title, and Image Row */}
+                      {/* Title and Image Row */}
                       <div className="flex justify-between items-start gap-4">
                         <div className="space-y-3 flex-1">
-                          {/* Icon */}
-                          <div className="w-12 h-12 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
-                            {item.icon && (
-                              <item.icon className="w-6 h-6 text-[#1FA463]" />
-                            )}
-                          </div>
                           {/* Title */}
                           <h4 className="text-xl font-bold text-black leading-snug">
                             {item.title}
                           </h4>
                         </div>
+                        {/* Cropped illustration image */}
+                        {(item as { image?: string }).image && (
+                          <div className="flex-shrink-0 w-24 h-24 relative rounded-2xl overflow-hidden border border-black/10 shadow-sm">
+                            <Image
+                              src={(item as { image?: string }).image!}
+                              alt={item.title}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                        )}
                       </div>
 
                       {/* Description */}
