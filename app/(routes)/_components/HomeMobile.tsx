@@ -386,28 +386,28 @@ const content = {
       title: "Stock Investment",
       icon: BarChart3,
       description:
-        "Step into the stock market with confidence and curiosity. Grow your wealth one smart choice at a time, guided by insights and people who genuinely care about your progress. Start where you are, invest wisely, and build your tomorrow.",
+        "Own a part of India's leading companies and grow your wealth over time. Learn how stocks work, discover high-potential opportunities, and invest with confidence backed by research. Start your investing journey today.",
       link: "/services/stock-investment",
     },
     {
       title: "Mutual Funds",
       icon: TrendingUp,
       description:
-        "Invest in mutual funds with the comfort of knowing you're never alone on the journey. Let your money work gently, balancing risk and opportunity, as you focus on living life fully today while planning for tomorrow's dreams.",
+        "Let experts manage your investments while you focus on your goals. Explore professionally managed funds that help build wealth through diversified investing with any budget. Find the right fund for your financial future.",
       link: "/services/mutual-funds",
     },
     {
       title: "Insurance",
       icon: Shield,
       description:
-        "Life can be unpredictable, but your peace of mind shouldn't be. From your car to your health to your family's future, our insurance solutions stand by you — protecting what matters most, every single day, with care and trust.",
+        "Protect what matters most before life surprises you. Compare health, life, and vehicle insurance plans that safeguard your family and financial security. Choose protection that's made for your needs.",
       link: "/services/insurance",
     },
     {
-      title: "FD & Govt. Bonds",
+      title: "FD & Government Bonds",
       icon: Wallet,
       description:
-        "Grow your savings safely with a thoughtful mix of Fixed Deposits and Government Bonds. Enjoy steady growth and dependable protection, giving you the calm confidence that your hard-earned money is secure while you're working.",
+        "Earn stable returns while keeping your money secure. Discover Fixed Deposits and Government Bonds designed for predictable income and lower investment risk. Grow your savings with confidence.",
       link: "/services/govt-bonds-and-fd",
     },
   ],
