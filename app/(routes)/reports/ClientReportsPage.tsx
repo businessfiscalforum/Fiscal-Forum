@@ -478,6 +478,13 @@ export default function ClientReportsPage({
 
   const SCREENER_PAGE_SIZE = 15;
 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   /* ============ BUBBLE CHART REFS & MEASUREMENT ============ */
   const bubbleRef = useRef<HTMLDivElement>(null);
   const [bubbleDimensions, setBubbleDimensions] = useState({ width: 800, height: 620 });
@@ -1105,6 +1112,30 @@ export default function ClientReportsPage({
                   </span>
                 </span>
               </p>
+              
+              <div className="hero-ctas">
+                <button
+                  type="button"
+                  className="hero-cta-btn"
+                  onClick={() => scrollToSection("equity-screener")}
+                >
+                  NSE Equity Screener
+                </button>
+                <button
+                  type="button"
+                  className="hero-cta-btn"
+                  onClick={() => scrollToSection("sectoral-overview")}
+                >
+                  One Stop Sectoral Overview
+                </button>
+                <button
+                  type="button"
+                  className="hero-cta-btn"
+                  onClick={() => scrollToSection("theme-based-sectors")}
+                >
+                  Theme Based Sectoral Overview
+                </button>
+              </div>
               
 
             </div>
@@ -2632,7 +2663,7 @@ export default function ClientReportsPage({
       </section>
 
       {/* ================= SECTION 7: ONE STOP SECTORAL OVERVIEW ================= */}
-      <section className="section sectoral-overview-section" style={{ borderTop: '1px solid rgba(17,20,17,0.1)' }}>
+      <section className="section sectoral-overview-section" id="sectoral-overview" style={{ borderTop: '1px solid rgba(17,20,17,0.1)' }}>
         <div className="wrap">
           <div className="section-head text-center mx-auto" style={{ marginBottom: "28px" }}>
             <h2 className="text-3xl font-bold uppercase text-black text-center" style={{ margin: '0 auto 10px' }}>One Stop Sectoral Overview</h2>
@@ -2758,7 +2789,7 @@ export default function ClientReportsPage({
       </section>
 
       {/* ================= SECTION 9: THEME BASED SECTORS ================= */}
-      <section className="section theme-based-sectors-section" style={{ borderTop: '1px solid rgba(17,20,17,0.1)' }}>
+      <section className="section theme-based-sectors-section" id="theme-based-sectors" style={{ borderTop: '1px solid rgba(17,20,17,0.1)' }}>
         <div className="wrap">
           <div className="section-head text-center mx-auto" style={{ marginBottom: "28px" }}>
             <h2 className="text-3xl font-bold uppercase text-black text-center" style={{ margin: '0 auto 10px' }}>Theme Based Sectors at One Place</h2>

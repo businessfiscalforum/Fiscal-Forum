@@ -331,7 +331,50 @@
   72%{transform:translateX(2%) scale(1.08);box-shadow:0 20px 34px rgba(17,20,17,0.24);}
   100%{opacity:1;color:var(--ink);transform:translateX(0) scale(1);filter:blur(0);box-shadow:0 8px 18px rgba(17,20,17,0.16);}
 }
-.hero-ctas{display:flex;gap:14px;margin-bottom:44px;}
+.hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 32px;
+  margin-bottom: 44px;
+}
+@media (max-width: 768px) {
+  .hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.hero-cta-btn {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  padding: 14px 22px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0px var(--ink);
+  transition: all 0.15s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+}
+
+.hero-cta-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--ink);
+  background: var(--mint-dim);
+}
+
+.hero-cta-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px var(--ink);
+}
+
 
 /* ================= CANDLESTICK TICKER STRIP ================= */
 .candle-strip{
