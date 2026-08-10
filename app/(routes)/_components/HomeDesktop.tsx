@@ -518,6 +518,7 @@ export default function HomeDesktop() {
         description:
           "Own a part of India's leading companies and grow your wealth over time. Learn how stocks work, discover high-potential opportunities, and invest with confidence backed by research. Start your investing journey today.",
         link: "/services/stock-investment",
+        image: "/images/service-stock.png",
       },
       {
         title: "Mutual Funds",
@@ -525,6 +526,7 @@ export default function HomeDesktop() {
         description:
           "Let experts manage your investments while you focus on your goals. Explore professionally managed funds that help build wealth through diversified investing with any budget. Find the right fund for your financial future.",
         link: "/services/mutual-funds",
+        image: "/images/service-mutual.png",
       },
       {
         title: "Insurance",
@@ -532,6 +534,7 @@ export default function HomeDesktop() {
         description:
           "Protect what matters most before life surprises you. Compare health, life, and vehicle insurance plans that safeguard your family and financial security. Choose protection that's made for your needs.",
         link: "/services/insurance",
+        image: "/images/service-insurance.png",
       },
       {
         title: "FD & Government Bonds",
@@ -539,6 +542,7 @@ export default function HomeDesktop() {
         description:
           "Earn stable returns while keeping your money secure. Discover Fixed Deposits and Government Bonds designed for predictable income and lower investment risk. Grow your savings with confidence.",
         link: "/services/govt-bonds-and-fd",
+        image: "/images/service-bonds.png",
       },
     ],
     "banking-products": [
@@ -794,17 +798,32 @@ export default function HomeDesktop() {
                     className="bg-white border border-black rounded-2xl p-6 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full justify-between"
                   >
                     <div className="space-y-4">
-                      {/* Icon */}
-                      <div className="w-12 h-12 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
-                        {item.icon && (
-                          <item.icon className="w-6 h-6 text-[#1FA463]" />
+                      {/* Icon, Title, and Image Row */}
+                      <div className="flex justify-between items-start gap-4">
+                        <div className="space-y-3 flex-1">
+                          {/* Icon */}
+                          <div className="w-12 h-12 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
+                            {item.icon && (
+                              <item.icon className="w-6 h-6 text-[#1FA463]" />
+                            )}
+                          </div>
+                          {/* Title */}
+                          <h4 className="text-xl font-bold text-black leading-snug">
+                            {item.title}
+                          </h4>
+                        </div>
+                        {/* Cropped illustration image */}
+                        {(item as { image?: string }).image && (
+                          <div className="flex-shrink-0 w-24 h-24 relative rounded-2xl overflow-hidden border border-black/10 shadow-sm">
+                            <Image
+                              src={(item as { image?: string }).image!}
+                              alt={item.title}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
                         )}
                       </div>
-
-                      {/* Title */}
-                      <h4 className="text-xl font-bold text-black leading-snug">
-                        {item.title}
-                      </h4>
 
                       {/* Description */}
                       {!isSmallScreen && (

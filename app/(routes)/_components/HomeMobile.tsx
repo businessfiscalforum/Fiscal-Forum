@@ -388,6 +388,7 @@ const content = {
       description:
         "Own a part of India's leading companies and grow your wealth over time. Learn how stocks work, discover high-potential opportunities, and invest with confidence backed by research. Start your investing journey today.",
       link: "/services/stock-investment",
+      image: "/images/service-stock.png",
     },
     {
       title: "Mutual Funds",
@@ -395,6 +396,7 @@ const content = {
       description:
         "Let experts manage your investments while you focus on your goals. Explore professionally managed funds that help build wealth through diversified investing with any budget. Find the right fund for your financial future.",
       link: "/services/mutual-funds",
+      image: "/images/service-mutual.png",
     },
     {
       title: "Insurance",
@@ -402,6 +404,7 @@ const content = {
       description:
         "Protect what matters most before life surprises you. Compare health, life, and vehicle insurance plans that safeguard your family and financial security. Choose protection that's made for your needs.",
       link: "/services/insurance",
+      image: "/images/service-insurance.png",
     },
     {
       title: "FD & Government Bonds",
@@ -409,6 +412,7 @@ const content = {
       description:
         "Earn stable returns while keeping your money secure. Discover Fixed Deposits and Government Bonds designed for predictable income and lower investment risk. Grow your savings with confidence.",
       link: "/services/govt-bonds-and-fd",
+      image: "/images/service-bonds.png",
     },
   ],
   "banking-products": [
@@ -516,14 +520,34 @@ export default function HomeMobile() {
                 className="bg-white border border-black rounded-2xl p-5 shadow-sm flex flex-col justify-between h-full min-h-[220px]"
               >
                 <div className="space-y-3">
-                  <div className="w-10 h-10 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
-                    {item.icon && (
-                      <item.icon className="text-[#1FA463] w-5 h-5" />
+                  {/* Icon, Title, and Image Row */}
+                  <div className="flex justify-between items-start gap-3">
+                    <div className="space-y-2 flex-1">
+                      {/* Icon */}
+                      <div className="w-10 h-10 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
+                        {item.icon && (
+                          <item.icon className="text-[#1FA463] w-5 h-5" />
+                        )}
+                      </div>
+                      {/* Title */}
+                      <h3 className="font-bold text-black text-base leading-snug">
+                        {item.title}
+                      </h3>
+                    </div>
+                    {/* Cropped illustration image */}
+                    {(item as { image?: string }).image && (
+                      <div className="flex-shrink-0 w-20 h-20 relative rounded-xl overflow-hidden border border-black/10 shadow-sm">
+                        <Image
+                          src={(item as { image?: string }).image!}
+                          alt={item.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
                     )}
                   </div>
-                  <h3 className="font-bold text-black text-base">
-                    {item.title}
-                  </h3>
+
+                  {/* Description */}
                   <p className="text-xs text-black font-semibold">
                     {item.description}
                   </p>
