@@ -536,6 +536,17 @@ export default function HomeMobile() {
                         {item.title}
                       </h3>
                     </div>
+                    {/* Cropped illustration image */}
+                    {(item as { image?: string }).image && (
+                      <div className="flex-shrink-0 w-20 h-20 relative rounded-xl overflow-hidden border border-black/10 shadow-sm">
+                        <Image
+                          src={(item as { image?: string }).image!}
+                          alt={item.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    )}
                   </div>
 
                   {/* Description */}
