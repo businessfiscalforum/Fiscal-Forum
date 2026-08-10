@@ -814,17 +814,6 @@ export default function HomeDesktop() {
                             {item.title}
                           </h4>
                         </div>
-                        {/* Cropped illustration image */}
-                        {(item as { image?: string }).image && (
-                          <div className="flex-shrink-0 w-24 h-24 relative rounded-2xl overflow-hidden border border-black/10 shadow-sm">
-                            <Image
-                              src={(item as { image?: string }).image!}
-                              alt={item.title}
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-                        )}
                       </div>
 
                       {/* Description */}
