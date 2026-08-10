@@ -547,6 +547,52 @@ export default function HomeMobile() {
         <h2 className="text-xl sm:text-2xl font-bold text-black uppercase tracking-tight text-center mb-6">
           Why Fiscal Forum?
         </h2>
+
+        {/* Women's Section & IPO WORLD */}
+        <div className="flex flex-col gap-4 mb-8 text-left">
+          {/* Women's Section Card */}
+          <div className="bg-white border border-black rounded-2xl p-5 shadow-sm flex flex-col justify-between">
+            <div className="space-y-3">
+              <h3 className="text-lg font-bold text-[#E11D48] uppercase tracking-tight">
+                Womens Section
+              </h3>
+              <p className="text-xs sm:text-sm text-gray-700 font-medium leading-relaxed">
+                {"When a woman understands money, the whole family's future becomes stronger."}
+                <br />
+                {"Start your financial learning journey with easy, bite-sized insights..."}
+              </p>
+            </div>
+            <div className="pt-4">
+              <Link href="/for-women">
+                <button className="px-5 py-2 bg-white text-[#E11D48] border border-[#E11D48] font-bold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-rose-50 active:translate-y-0.5 transition-all cursor-pointer">
+                  Womens Section
+                </button>
+              </Link>
+            </div>
+          </div>
+
+          {/* IPO World Card */}
+          <div className="bg-white border border-black rounded-2xl p-5 shadow-sm flex flex-col justify-between">
+            <div className="space-y-3">
+              <h3 className="text-lg font-bold text-blue-600 uppercase tracking-tight">
+                IPO WORLD
+              </h3>
+              <p className="text-xs sm:text-sm text-gray-700 font-medium leading-relaxed">
+                {"Every successful company was once a new opportunity."}
+                <br />
+                {"Discover IPOs explained simply before you decide to invest..."}
+              </p>
+            </div>
+            <div className="pt-4">
+              <Link href="/services/stock-investment/ipo">
+                <button className="px-5 py-2 bg-white text-blue-600 border border-blue-600 font-bold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-blue-50 active:translate-y-0.5 transition-all cursor-pointer">
+                  Explore IPO Universe
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-2 gap-2.5">
           {features.map((f, i) => (
             <motion.div

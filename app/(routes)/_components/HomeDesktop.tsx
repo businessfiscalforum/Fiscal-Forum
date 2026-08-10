@@ -861,6 +861,51 @@ export default function HomeDesktop() {
               </p>
             </motion.div>
 
+            {/* Women's Section & IPO WORLD */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl mb-16 text-left">
+              {/* Women's Section Card */}
+              <div className="bg-white border border-black rounded-2xl p-6 md:p-8 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col justify-between h-full">
+                <div className="space-y-4">
+                  <h3 className="text-xl md:text-2xl font-bold text-[#E11D48] uppercase tracking-tight">
+                    Womens Section
+                  </h3>
+                  <p className="text-sm md:text-base text-gray-700 font-medium leading-relaxed">
+                    {"When a woman understands money, the whole family's future becomes stronger."}
+                    <br />
+                    {"Start your financial learning journey with easy, bite-sized insights..."}
+                  </p>
+                </div>
+                <div className="pt-6">
+                  <Link href="/for-women">
+                    <button className="px-6 py-2.5 bg-white text-[#E11D48] border border-[#E11D48] font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-sm hover:bg-rose-50 hover:-translate-y-0.5 transition-all cursor-pointer">
+                      Womens Section
+                    </button>
+                  </Link>
+                </div>
+              </div>
+
+              {/* IPO World Card */}
+              <div className="bg-white border border-black rounded-2xl p-6 md:p-8 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col justify-between h-full">
+                <div className="space-y-4">
+                  <h3 className="text-xl md:text-2xl font-bold text-blue-600 uppercase tracking-tight">
+                    IPO WORLD
+                  </h3>
+                  <p className="text-sm md:text-base text-gray-700 font-medium leading-relaxed">
+                    {"Every successful company was once a new opportunity."}
+                    <br />
+                    {"Discover IPOs explained simply before you decide to invest..."}
+                  </p>
+                </div>
+                <div className="pt-6">
+                  <Link href="/services/stock-investment/ipo">
+                    <button className="px-6 py-2.5 bg-white text-blue-600 border border-blue-600 font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-sm hover:bg-blue-50 hover:-translate-y-0.5 transition-all cursor-pointer">
+                      Explore IPO Universe
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {features.map((feature, index) => {
                 const total = features.length;
