@@ -552,6 +552,7 @@ export default function HomeDesktop() {
         description:
           "Enjoy life's moments with a credit card that matches your lifestyle. From everyday essentials to special treats, spend smartly, earn rewards, and manage your money with ease — all while knowing you have support whenever you need it.",
         link: "/services/credit-card",
+        image: "/images/service-card.png",
       },
       // {
       //   title: "Savings Account",
@@ -566,6 +567,7 @@ export default function HomeDesktop() {
         description:
           "Turn your plans into reality with a loan that understands your needs. Whether it's your dream home, a new venture, or unexpected expenses, we're here to help you move forward with clarity, comfort, and a trusted helping hand.",
         link: "/services/loan",
+        image: "/images/service-loans.png",
       },
     ],
     "research-reports": [
