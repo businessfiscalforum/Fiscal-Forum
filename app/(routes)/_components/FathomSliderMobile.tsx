@@ -131,28 +131,19 @@ export default function FathomSliderMobile() {
                   priority
                 />
               </motion.div>
+            </div>            {/* Combined Callout Card */}
+            <div className="mt-4 w-full max-w-[340px] mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.8 }}
+                className="bg-white border border-black/5 rounded-2xl py-3 px-4 shadow-[0_6px_14px_rgba(0,0,0,0.04)]"
+              >
+                <p className="text-gray-800 text-sm font-semibold tracking-tight leading-normal">
+                  We don&apos;t limit to <span className="text-[#1FA463] font-bold">Research</span>, we help you <span className="text-[#1FA463] font-bold">park your money</span> in <span className="text-[#1FA463] font-bold">right assets</span> according to your <span className="text-[#1FA463] font-bold">needs</span>.
+                </p>
+              </motion.div>
             </div>
-
-            {/* Callout Cards stacked below */}
-            <div className="flex flex-col gap-2 mt-4 w-full max-w-[340px] mx-auto">
-              {[
-                <>We don&apos;t limit to <span className="text-[#1FA463] font-bold">Research</span>, we help you <span className="text-[#1FA463] font-bold">park your money</span></>,
-                <>in <span className="text-[#1FA463] font-bold">right assets</span> according to your <span className="text-[#1FA463] font-bold">needs</span>.</>,
-              ].map((text, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, x: idx % 2 === 0 ? -15 : 15 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.8 + idx * 0.15 }}
-                  className="bg-white border border-black/5 rounded-2xl py-2.5 px-4 shadow-[0_6px_14px_rgba(0,0,0,0.04)]"
-                >
-                  <p className="text-gray-800 text-sm font-semibold tracking-tight leading-snug">
-                    {text}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-
             {/* CTA Orange Button */}
             <div className="mt-6 text-center">
               <p className="font-bold text-[#0B0B0B] text-sm mb-1.5">
