@@ -2109,6 +2109,12 @@ export default function ClientReportsPage({
                           <span>All Small Caps above 5000 Crs.</span>
                         </div>
                       )}
+                      {screenerTierFilter.has("Micro Cap") && screenerMcapFilter.size > 0 && Array.from(screenerMcapFilter).some(val => ["5000-10000", "10000-25000", "25000-50000", "50000-inf"].includes(val)) && (
+                        <div className="screener-note-inline">
+                          <FaInfoCircle className="info-icon" style={{ flexShrink: 0 }} />
+                          <span>All Micro Caps are below 5000 Crs.</span>
+                        </div>
+                      )}
                     </details>
 
                     {/* OPM Slots */}
@@ -2224,6 +2230,13 @@ export default function ClientReportsPage({
                       <div className="screener-note">
                         <FaInfoCircle className="info-icon" style={{ flexShrink: 0 }} />
                         <span>All Small Caps above 5000 Crs.</span>
+                      </div>
+                    )}
+
+                    {screenerTierFilter.has("Micro Cap") && screenerMcapFilter.size > 0 && Array.from(screenerMcapFilter).some(val => ["5000-10000", "10000-25000", "25000-50000", "50000-inf"].includes(val)) && (
+                      <div className="screener-note">
+                        <FaInfoCircle className="info-icon" style={{ flexShrink: 0 }} />
+                        <span>All Micro Caps are below 5000 Crs.</span>
                       </div>
                     )}
 
