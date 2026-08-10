@@ -9,6 +9,7 @@ import {
   FaPaperPlane,
   FaCheck,
   FaChevronDown,
+  FaInfoCircle,
 } from "react-icons/fa";
 import Link from "next/link";
 import { UserDetailContext } from "../../../context/UserDetailContext";
@@ -2090,6 +2091,12 @@ export default function ClientReportsPage({
                           </button>
                         ))}
                       </div>
+                      {screenerTierFilter.has("Large Cap") && screenerMcapFilter.size > 0 && Array.from(screenerMcapFilter).some(val => val !== "50000-inf") && (
+                        <div className="screener-note-inline">
+                          <FaInfoCircle className="info-icon" style={{ flexShrink: 0 }} />
+                          <span>All Large Caps are above 50,000</span>
+                        </div>
+                      )}
                     </details>
 
                     {/* OPM Slots */}
@@ -2184,6 +2191,13 @@ export default function ClientReportsPage({
                     {showScreenerIndexWarn && (
                       <div className="index-warning">
                         ⚠ You cannot select Nifty Indices alongside SENSEX-30
+                      </div>
+                    )}
+
+                    {screenerTierFilter.has("Large Cap") && screenerMcapFilter.size > 0 && Array.from(screenerMcapFilter).some(val => val !== "50000-inf") && (
+                      <div className="screener-note">
+                        <FaInfoCircle className="info-icon" style={{ flexShrink: 0 }} />
+                        <span>All Large Caps are above 50,000</span>
                       </div>
                     )}
 
