@@ -542,18 +542,13 @@ export default function HomeMobile() {
       {/* 🔹 News & Research — Mobile */}
       <HomeNewsAndResearchSectionMobile />
 
-      {/* 🔹 Why Choose Us */}
       <section className="px-4 py-8 bg-white border-b border-black">
-        <h2 className="text-xl sm:text-2xl font-bold text-black uppercase tracking-tight text-center mb-6">
-          Why Fiscal Forum?
-        </h2>
-
         {/* Women's Section & IPO WORLD */}
         <div className="flex flex-col gap-4 mb-8 text-left">
           {/* Women's Section Card */}
           <div className="bg-white border border-black rounded-2xl p-5 shadow-sm flex flex-col justify-between">
             <div className="space-y-3">
-              <h3 className="text-lg font-bold text-[#E11D48] uppercase tracking-tight">
+              <h3 className="text-lg font-bold text-black uppercase tracking-tight">
                 Womens Section
               </h3>
               <p className="text-xs sm:text-sm text-gray-700 font-medium leading-relaxed">
@@ -574,7 +569,7 @@ export default function HomeMobile() {
           {/* IPO World Card */}
           <div className="bg-white border border-black rounded-2xl p-5 shadow-sm flex flex-col justify-between">
             <div className="space-y-3">
-              <h3 className="text-lg font-bold text-blue-600 uppercase tracking-tight">
+              <h3 className="text-lg font-bold text-black uppercase tracking-tight">
                 IPO WORLD
               </h3>
               <p className="text-xs sm:text-sm text-gray-700 font-medium leading-relaxed">
@@ -592,6 +587,10 @@ export default function HomeMobile() {
             </div>
           </div>
         </div>
+
+        <h2 className="text-xl sm:text-2xl font-bold text-black uppercase tracking-tight text-center mb-6">
+          Why Fiscal Forum?
+        </h2>
 
         <div className="grid grid-cols-2 gap-2.5">
           {features.map((f, i) => (

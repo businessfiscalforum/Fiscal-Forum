@@ -844,29 +844,12 @@ export default function HomeDesktop() {
         {/* Enhanced Why Fiscal Forum Section */}
         <section className="py-16 bg-white border-b border-black">
           <div className="max-w-7xl mx-auto px-4 md:px-8 text-center flex flex-col items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="mb-12 flex flex-col items-center"
-            >
-              <div className="w-16 h-16 bg-[#1FA463]/10 border border-black rounded-2xl flex items-center justify-center mb-4 shadow-sm">
-                <FaAward className="text-black text-2xl" />
-              </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black uppercase tracking-tight">
-                Why Choose Fiscal Forum?
-              </h2>
-              <p className="text-sm font-semibold text-gray-500 mt-2 max-w-lg mx-auto">
-                Experience the difference with our comprehensive financial ecosystem designed for your success
-              </p>
-            </motion.div>
-
             {/* Women's Section & IPO WORLD */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl mb-16 text-left">
               {/* Women's Section Card */}
               <div className="bg-white border border-black rounded-2xl p-6 md:p-8 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col justify-between h-full">
                 <div className="space-y-4">
-                  <h3 className="text-xl md:text-2xl font-bold text-[#E11D48] uppercase tracking-tight">
+                  <h3 className="text-xl md:text-2xl font-bold text-black uppercase tracking-tight">
                     Womens Section
                   </h3>
                   <p className="text-sm md:text-base text-gray-700 font-medium leading-relaxed">
@@ -887,7 +870,7 @@ export default function HomeDesktop() {
               {/* IPO World Card */}
               <div className="bg-white border border-black rounded-2xl p-6 md:p-8 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col justify-between h-full">
                 <div className="space-y-4">
-                  <h3 className="text-xl md:text-2xl font-bold text-blue-600 uppercase tracking-tight">
+                  <h3 className="text-xl md:text-2xl font-bold text-black uppercase tracking-tight">
                     IPO WORLD
                   </h3>
                   <p className="text-sm md:text-base text-gray-700 font-medium leading-relaxed">
@@ -905,6 +888,23 @@ export default function HomeDesktop() {
                 </div>
               </div>
             </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-12 flex flex-col items-center"
+            >
+              <div className="w-16 h-16 bg-[#1FA463]/10 border border-black rounded-2xl flex items-center justify-center mb-4 shadow-sm">
+                <FaAward className="text-black text-2xl" />
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black uppercase tracking-tight">
+                Why Choose Fiscal Forum?
+              </h2>
+              <p className="text-sm font-semibold text-gray-500 mt-2 max-w-lg mx-auto">
+                Experience the difference with our comprehensive financial ecosystem designed for your success
+              </p>
+            </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {features.map((feature, index) => {
