@@ -597,8 +597,8 @@ export default function HomeMobile() {
           {/* Active Card */}
           <motion.div
             key={`mobile-slide-${activeSlideIndex}`}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
             className="bg-white border border-black rounded-2xl p-5 shadow-sm text-left flex flex-col gap-4"
           >

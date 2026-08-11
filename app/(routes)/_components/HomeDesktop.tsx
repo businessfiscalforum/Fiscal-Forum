@@ -890,9 +890,9 @@ export default function HomeDesktop() {
               {/* Left Card */}
               <motion.div
                 key={`slide-left-${activeSlideIndex}`}
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
                 className="bg-white border border-black rounded-3xl p-6 md:p-8 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col justify-between text-left"
               >
                 <div>
@@ -927,9 +927,9 @@ export default function HomeDesktop() {
               {/* Right Card */}
               <motion.div
                 key={`slide-right-${activeSlideIndex}`}
-                initial={{ opacity: 0, x: 30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
                 className="bg-white border border-black rounded-3xl p-6 md:p-8 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col justify-between text-left"
               >
                 <div>
