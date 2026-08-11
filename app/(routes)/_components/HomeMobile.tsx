@@ -219,6 +219,7 @@ const partners = [
   {
     title: "Business Development Partner",
     icon: FaBuilding,
+    image: "/images/work-dev-partner.png",
     desc: "Join us in expanding financial services across the country.",
     gradient: "from-emerald-500 to-teal-600",
     hoverGradient: "from-emerald-600 to-teal-700",
@@ -227,6 +228,7 @@ const partners = [
   {
     title: "Remisorship",
     icon: FaUsers,
+    image: "/images/work-remisorship.png",
     desc: "Start referral by remisorship to get benefits.",
     gradient: "from-green-500 to-emerald-600",
     hoverGradient: "from-green-600 to-emerald-700",
@@ -235,6 +237,7 @@ const partners = [
   {
     title: "B2B Partner",
     icon: FaHandshake,
+    image: "/images/work-b2b.png",
     desc: "Collaborate with us to deliver seamless financial integration.",
     gradient: "from-teal-500 to-cyan-600",
     hoverGradient: "from-teal-600 to-cyan-700",

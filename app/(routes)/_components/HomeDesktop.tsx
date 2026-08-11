@@ -234,6 +234,7 @@ const partners = [
   {
     title: "Business Development Partner",
     icon: FaBuilding,
+    image: "/images/work-dev-partner.png",
     desc: "Join us in expanding financial services across the country.",
     gradient: "from-emerald-500 to-teal-600",
     hoverGradient: "from-emerald-600 to-teal-700",
@@ -242,6 +243,7 @@ const partners = [
   {
     title: "Remisorship",
     icon: FaUsers,
+    image: "/images/work-remisorship.png",
     desc: "Start referral by remisorship to get benefits.",
     gradient: "from-green-500 to-emerald-600",
     hoverGradient: "from-green-600 to-emerald-700",
@@ -250,6 +252,7 @@ const partners = [
   {
     title: "B2B Partner",
     icon: FaHandshake,
+    image: "/images/work-b2b.png",
     desc: "Collaborate with us to deliver seamless financial integration.",
     gradient: "from-teal-500 to-cyan-600",
     hoverGradient: "from-teal-600 to-cyan-700",
@@ -1030,26 +1033,40 @@ export default function HomeDesktop() {
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
-                  className="bg-white border border-black rounded-2xl p-6 shadow-md  hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col justify-between h-full text-left"
+                  className="bg-white border border-black rounded-2xl shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col justify-between h-full text-left overflow-hidden"
                 >
-                  <div className="space-y-4">
-                    {/* Icon */}
-                    <div className="w-12 h-12 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
-                      <partner.icon className="text-[#1FA463] text-xl" />
+                  <div className="space-y-0">
+                    {/* Header Image with Overlapping Icon */}
+                    <div className="relative w-full">
+                      <div className="relative w-full aspect-[4/3] overflow-hidden border-b border-black/10">
+                        <Image
+                          src={partner.image}
+                          alt={partner.title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      {/* Icon */}
+                      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-14 h-14 bg-white border border-black rounded-full flex items-center justify-center shadow-md z-10">
+                        <partner.icon className="text-[#1FA463] text-2xl" />
+                      </div>
                     </div>
 
-                    {/* Title */}
-                    <h4 className="text-lg font-bold text-black leading-snug">
-                      {partner.title}
-                    </h4>
+                    {/* Text content with offset padding for overlapping icon */}
+                    <div className="pt-10 px-6 pb-4 space-y-3">
+                      {/* Title */}
+                      <h4 className="text-lg font-bold text-black leading-snug">
+                        {partner.title}
+                      </h4>
 
-                    {/* Desc */}
-                    <p className="text-xs sm:text-sm text-gray-500 font-semibold">
-                      {partner.desc}
-                    </p>
+                      {/* Desc */}
+                      <p className="text-xs sm:text-sm text-gray-500 font-semibold">
+                        {partner.desc}
+                      </p>
+                    </div>
                   </div>
 
-                  <div className="mt-6">
+                  <div className="px-6 pb-6">
                     <Link
                       href={partner.path}
                       className="block w-full text-center py-2.5 bg-[#1FA463] text-white border border-black font-bold text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-sm hover:-translate-y-0.5 hover:shadow-sm transition-all"
