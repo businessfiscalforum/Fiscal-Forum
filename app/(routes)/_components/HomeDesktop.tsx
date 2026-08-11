@@ -858,7 +858,7 @@ export default function HomeDesktop() {
                   src="/images/portfolio-allocation.png"
                   alt="One profile. One portfolio. Designed just for you !"
                   fill
-                  className="object-cover"
+                  className="object-contain p-4"
                 />
               </div>
               {/* Text and Button side */}
