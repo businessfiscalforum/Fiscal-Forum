@@ -608,12 +608,12 @@ export default function HomeMobile() {
             <h3 className="text-lg font-bold text-black uppercase tracking-tight">
               {homeSlides[activeSlideIndex].title}
             </h3>
-            <div className="w-full relative aspect-[4/3] rounded-xl overflow-hidden border border-black/10 shadow-sm bg-white">
+            <div className="w-full relative aspect-[16/10] rounded-xl overflow-hidden border border-black/10 shadow-sm bg-white">
               <Image
                 src={homeSlides[activeSlideIndex].image}
                 alt={homeSlides[activeSlideIndex].title}
                 fill
-                className="object-contain p-3"
+                className="object-contain p-1.5"
               />
             </div>
             <div className="space-y-3">

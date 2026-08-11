@@ -903,12 +903,12 @@ export default function HomeDesktop() {
                     {homeSlides[activeSlideIndex].title}
                   </h3>
                   <div className="flex flex-col sm:flex-row items-center gap-6">
-                    <div className="w-full sm:w-[320px] shrink-0 relative aspect-[4/3] rounded-2xl overflow-hidden border border-black/10 shadow-sm bg-white">
+                    <div className="w-full sm:w-[380px] md:w-[480px] shrink-0 relative aspect-[16/10] rounded-2xl overflow-hidden border border-black/10 shadow-sm bg-white">
                       <Image
                         src={homeSlides[activeSlideIndex].image}
                         alt={homeSlides[activeSlideIndex].title}
                         fill
-                        className="object-contain p-3"
+                        className="object-contain p-1.5"
                       />
                     </div>
                     <div className="flex-1 flex flex-col justify-center space-y-4">
