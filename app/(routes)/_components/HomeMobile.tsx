@@ -613,7 +613,11 @@ export default function HomeMobile() {
                 src={homeSlides[activeSlideIndex].image}
                 alt={homeSlides[activeSlideIndex].title}
                 fill
-                className="object-contain p-1.5"
+                className={
+                  homeSlides[activeSlideIndex].title.includes("SECTORAL ANALYSIS")
+                    ? "object-fill p-1.5"
+                    : "object-contain p-1.5"
+                }
               />
             </div>
             <div className="space-y-3">
