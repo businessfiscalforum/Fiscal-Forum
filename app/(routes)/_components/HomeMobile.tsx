@@ -560,12 +560,12 @@ export default function HomeMobile() {
         {/* One Profile. One Portfolio Section */}
         <div className="bg-white border border-black rounded-2xl p-5 mb-6 text-left flex flex-col gap-5 hover:shadow-sm transition-all">
           {/* Image */}
-          <div className="w-full relative aspect-[5/4] rounded-xl overflow-hidden border border-black/10 shadow-sm">
+          <div className="w-full relative aspect-[4/3] rounded-xl overflow-hidden border border-black/10 shadow-sm bg-white">
             <Image
               src="/images/portfolio-allocation.png"
               alt="One profile. One portfolio. Designed just for you !"
               fill
-              className="object-cover"
+              className="object-contain p-2"
             />
           </div>
           {/* Text and Button */}

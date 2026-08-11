@@ -853,12 +853,12 @@ export default function HomeDesktop() {
             {/* One Profile. One Portfolio Section */}
             <div className="w-full max-w-5xl bg-white border border-black rounded-3xl p-6 md:p-8 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col md:flex-row items-center gap-8 md:gap-12 mb-12 text-left">
               {/* Image side */}
-              <div className="w-full md:w-1/2 relative aspect-[5/4] rounded-2xl overflow-hidden border border-black/10 shadow-sm">
+              <div className="w-full md:w-1/2 relative aspect-[4/3] rounded-2xl overflow-hidden border border-black/10 shadow-sm bg-white">
                 <Image
                   src="/images/portfolio-allocation.png"
                   alt="One profile. One portfolio. Designed just for you !"
                   fill
-                  className="object-cover"
+                  className="object-contain p-2"
                 />
               </div>
               {/* Text and Button side */}
