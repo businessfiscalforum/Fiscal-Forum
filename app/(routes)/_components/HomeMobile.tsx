@@ -17,7 +17,7 @@ import {
 import FathomSliderMobile from "./FathomSliderMobile";
 import FiscalForumCityMobile from "./FiscalForumCityMobile";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { BarChart3, BookOpen, Shield, TrendingUp, Wallet, Coins, Rocket } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
 import HomeNewsAndResearchSectionMobile from "./HomeResearchAndNewsSection";
@@ -503,41 +503,45 @@ export default function HomeMobile() {
     { id: "commodities", name: "COMMODITIES", value: 5, min: 2, max: 10, color: "text-teal-600 bg-teal-50 border-teal-200", icon: Coins, textColor: "text-teal-700" },
   ]);
 
+  const allocationsRef = useRef(allocations);
+  useEffect(() => {
+    allocationsRef.current = allocations;
+  }, [allocations]);
+
   useEffect(() => {
     const mainInterval = setInterval(() => {
       setActiveRowIdx((prevIdx) => {
         const nextIdx = (prevIdx + 1) % 7;
+        const currentAllocations = allocationsRef.current;
         
-        setAllocations((currentAllocations) => {
-          const targetRow = currentAllocations[nextIdx];
-          const step = 5;
+        const targetRow = currentAllocations[nextIdx];
+        const step = 5;
+        
+        let direction = Math.random() > 0.5 ? 1 : -1;
+        if (targetRow.value + step > targetRow.max) {
+          direction = -1;
+        } else if (targetRow.value - step < targetRow.min) {
+          direction = 1;
+        }
+        const delta = step * direction;
+        
+        const possiblePartners = currentAllocations
+          .map((r, i) => ({ r, i }))
+          .filter(({ r, i }) => {
+            if (i === nextIdx) return false;
+            const newValue = r.value - delta;
+            return newValue >= r.min && newValue <= r.max;
+          });
           
-          let direction = Math.random() > 0.5 ? 1 : -1;
-          if (targetRow.value + step > targetRow.max) {
-            direction = -1;
-          } else if (targetRow.value - step < targetRow.min) {
-            direction = 1;
-          }
-          const delta = step * direction;
-          
-          const possiblePartners = currentAllocations
-            .map((r, i) => ({ r, i }))
-            .filter(({ r, i }) => {
-              if (i === nextIdx) return false;
-              const newValue = r.value - delta;
-              return newValue >= r.min && newValue <= r.max;
-            });
-            
-          if (possiblePartners.length === 0) return currentAllocations;
-          
+        if (possiblePartners.length > 0) {
           const partner = possiblePartners[Math.floor(Math.random() * possiblePartners.length)];
           
           let stepsRun = 0;
           const stepTimer = setInterval(() => {
             setAllocations((prev) => {
               const updated = [...prev];
-              const nextVal = updated[nextIdx].value + direction;
-              const partnerVal = updated[partner.i].value - direction;
+              const nextVal = Math.min(updated[nextIdx].max, Math.max(updated[nextIdx].min, updated[nextIdx].value + direction));
+              const partnerVal = Math.min(updated[partner.i].max, Math.max(updated[partner.i].min, updated[partner.i].value - direction));
               
               updated[nextIdx] = { ...updated[nextIdx], value: nextVal };
               updated[partner.i] = { ...updated[partner.i], value: partnerVal };
@@ -549,9 +553,7 @@ export default function HomeMobile() {
               clearInterval(stepTimer);
             }
           }, 40);
-          
-          return currentAllocations;
-        });
+        }
         
         return nextIdx;
       });
