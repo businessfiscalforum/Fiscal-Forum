@@ -496,7 +496,7 @@ export default function HomeMobile() {
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveSlideIndex((prev) => (prev + 1) % homeSlides.length);
-    }, 2000);
+    }, 3000);
     return () => clearInterval(timer);
   }, []);
 
