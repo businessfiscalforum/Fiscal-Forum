@@ -908,11 +908,7 @@ export default function HomeDesktop() {
                         src={homeSlides[activeSlideIndex].image}
                         alt={homeSlides[activeSlideIndex].title}
                         fill
-                        className={
-                          homeSlides[activeSlideIndex].title.includes("SECTORAL ANALYSIS")
-                            ? "object-fill p-1.5"
-                            : "object-contain p-1.5"
-                        }
+                        className="object-contain p-1.5"
                       />
                     </div>
                     <div className="flex-1 flex flex-col justify-center space-y-4">
