@@ -593,6 +593,9 @@ export default function HomeMobile() {
       </section>
       {/* Screener and Heatmap Section — Mobile */}
       <section className="px-4 py-8 bg-[#F4FBF7] border-b border-black text-center overflow-hidden">
+        <h2 className="text-xl sm:text-2xl font-bold text-black uppercase tracking-tight mb-6">
+          Financial Services Like NEVER Before
+        </h2>
         <div className="relative">
           {/* Active Card */}
           <motion.div

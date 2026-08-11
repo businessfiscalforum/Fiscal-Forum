@@ -885,6 +885,9 @@ export default function HomeDesktop() {
         {/* Screener and Heatmap Grid Section */}
         <section className="py-16 bg-[#F4FBF7] border-b border-black overflow-hidden">
           <div className="max-w-4xl mx-auto px-4 md:px-8 text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black uppercase tracking-tight mb-8">
+              Financial Services Like NEVER Before
+            </h2>
             <div className="relative min-h-[320px]">
               
               {/* Active Card */}
