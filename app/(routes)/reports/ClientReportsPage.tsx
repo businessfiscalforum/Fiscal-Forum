@@ -1135,6 +1135,13 @@ export default function ClientReportsPage({
                 >
                   Theme Based Sectoral Overview
                 </button>
+                <button
+                  type="button"
+                  className="hero-cta-btn"
+                  onClick={() => scrollToSection("sectoral-heatmap")}
+                >
+                  SEE SECTORAL HEATMAP
+                </button>
               </div>
               
 
@@ -2706,7 +2713,7 @@ export default function ClientReportsPage({
       </section>
 
       {/* ================= SECTION 8: SECTOR UNIVERSE BUBBLE MAP ================= */}
-      <section className="section sector-universe-section" style={{ borderTop: '1px solid rgba(17,20,17,0.1)' }}>
+      <section id="sectoral-heatmap" className="section sector-universe-section" style={{ borderTop: '1px solid rgba(17,20,17,0.1)' }}>
         <div className="wrap">
           <div className="section-head">
             <div>
