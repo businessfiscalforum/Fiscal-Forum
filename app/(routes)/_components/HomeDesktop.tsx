@@ -905,7 +905,7 @@ export default function HomeDesktop() {
                         src={homeSlides[activeSlideIndex].image}
                         alt={homeSlides[activeSlideIndex].title}
                         fill
-                        className="object-cover"
+                        className="object-contain p-3"
                       />
                     </div>
                     <div className="flex-1 flex flex-col justify-center space-y-4">

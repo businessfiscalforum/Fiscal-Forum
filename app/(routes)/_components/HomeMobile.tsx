@@ -610,7 +610,7 @@ export default function HomeMobile() {
                 src={homeSlides[activeSlideIndex].image}
                 alt={homeSlides[activeSlideIndex].title}
                 fill
-                className="object-cover"
+                className="object-contain p-3"
               />
             </div>
             <div className="space-y-3">
