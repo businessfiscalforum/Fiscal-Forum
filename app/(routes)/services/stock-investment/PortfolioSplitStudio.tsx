@@ -191,7 +191,7 @@ export default function PortfolioSplitStudio() {
   const EXPLODE = 3; // how far a hovered slice pops out
 
   return (
-    <section className="portfolio-studio">
+    <section id="portfolio-studio" className="portfolio-studio">
       <div className="studio-card">
         <p className="studio-tag">PORTFOLIO SPLIT STUDIO</p>
         <h2 className="studio-heading">
