@@ -912,7 +912,7 @@ export default function HomeDesktop() {
                   </p>
                 </div>
                 <div className="pt-6">
-                  <Link href="/services/stock-investment/ipo">
+                  <Link href="/news?tab=ipo-scoop">
                     <button className="px-6 py-2.5 bg-white text-blue-600 border border-blue-600 font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-sm hover:bg-blue-50 hover:-translate-y-0.5 transition-all cursor-pointer">
                       Explore IPO Universe
                     </button>
