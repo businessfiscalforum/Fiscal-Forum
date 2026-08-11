@@ -26,7 +26,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { BarChart3, BookOpen, Shield, TrendingUp, Wallet } from "lucide-react";
+import { BarChart3, BookOpen, Shield, TrendingUp, Wallet, Coins, Rocket } from "lucide-react";
 import ResearchReportsSection from "./ResearchReportsSection";
 import Head from "next/head";
 
@@ -441,6 +441,73 @@ export default function HomeDesktop() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [animationCompleted, setAnimationCompleted] = useState(false);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [activeRowIdx, setActiveRowIdx] = useState(0);
+  const [allocations, setAllocations] = useState([
+    { id: "equity", name: "EQUITY", value: 20, min: 10, max: 35, color: "text-emerald-600 bg-emerald-50 border-emerald-200", icon: TrendingUp, emoji: "🐂 📈", textColor: "text-emerald-700" },
+    { id: "mutualFund", name: "MUTUAL FUND", value: 45, min: 30, max: 55, color: "text-blue-600 bg-blue-50 border-blue-200", icon: BarChart3, emoji: "💰 📊", textColor: "text-blue-700" },
+    { id: "fAndO", name: "F&O", value: 0, min: 0, max: 10, color: "text-rose-600 bg-rose-50 border-rose-200", icon: TrendingUp, emoji: "📊 📉", textColor: "text-rose-700" },
+    { id: "mtf", name: "MTF", value: 0, min: 0, max: 10, color: "text-amber-600 bg-amber-50 border-amber-200", icon: Wallet, emoji: "🪙 💵", textColor: "text-amber-700" },
+    { id: "ipo", name: "IPO", value: 10, min: 5, max: 20, color: "text-purple-600 bg-purple-50 border-purple-200", icon: Rocket, emoji: "🏢 📢", textColor: "text-purple-700" },
+    { id: "bonds", name: "BONDS", value: 20, min: 10, max: 25, color: "text-yellow-600 bg-yellow-50 border-yellow-200", icon: Shield, emoji: "🏛️ 📜", textColor: "text-yellow-700" },
+    { id: "commodities", name: "COMMODITIES", value: 5, min: 2, max: 10, color: "text-teal-600 bg-teal-50 border-teal-200", icon: Coins, emoji: "🛢️ 🪙", textColor: "text-teal-700" },
+  ]);
+
+  useEffect(() => {
+    const mainInterval = setInterval(() => {
+      setActiveRowIdx((prevIdx) => {
+        const nextIdx = (prevIdx + 1) % 7;
+        
+        setAllocations((currentAllocations) => {
+          const targetRow = currentAllocations[nextIdx];
+          const step = 5;
+          
+          let direction = Math.random() > 0.5 ? 1 : -1;
+          if (targetRow.value + step > targetRow.max) {
+            direction = -1;
+          } else if (targetRow.value - step < targetRow.min) {
+            direction = 1;
+          }
+          const delta = step * direction;
+          
+          const possiblePartners = currentAllocations
+            .map((r, i) => ({ r, i }))
+            .filter(({ r, i }) => {
+              if (i === nextIdx) return false;
+              const newValue = r.value - delta;
+              return newValue >= r.min && newValue <= r.max;
+            });
+            
+          if (possiblePartners.length === 0) return currentAllocations;
+          
+          const partner = possiblePartners[Math.floor(Math.random() * possiblePartners.length)];
+          
+          let stepsRun = 0;
+          const stepTimer = setInterval(() => {
+            setAllocations((prev) => {
+              const updated = [...prev];
+              const nextVal = updated[nextIdx].value + direction;
+              const partnerVal = updated[partner.i].value - direction;
+              
+              updated[nextIdx] = { ...updated[nextIdx], value: nextVal };
+              updated[partner.i] = { ...updated[partner.i], value: partnerVal };
+              return updated;
+            });
+            
+            stepsRun++;
+            if (stepsRun >= step) {
+              clearInterval(stepTimer);
+            }
+          }, 120);
+          
+          return currentAllocations;
+        });
+        
+        return nextIdx;
+      });
+    }, 3500);
+    
+    return () => clearInterval(mainInterval);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -954,14 +1021,50 @@ export default function HomeDesktop() {
           <div className="max-w-7xl mx-auto px-4 md:px-8 text-center flex flex-col items-center">
             {/* One Profile. One Portfolio Section */}
             <div className="w-full max-w-5xl bg-white border border-black rounded-3xl p-6 md:p-8 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col md:flex-row items-center gap-8 md:gap-12 mb-12 text-left">
-              {/* Image side */}
-              <div className="w-full md:w-[380px] shrink-0 relative aspect-[2/3] rounded-2xl overflow-hidden border border-black/10 shadow-sm bg-white">
-                <Image
-                  src="/images/portfolio-allocation.png"
-                  alt="One profile. One portfolio. Designed just for you !"
-                  fill
-                  className="object-contain p-4"
-                />
+              {/* Table side */}
+              <div className="w-full md:w-[380px] shrink-0 bg-[#fcfdfd] border border-black/10 rounded-2xl p-4 shadow-sm">
+                <div className="flex justify-between items-center border-b border-gray-100 pb-2 mb-3 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                  <span>ASSET CLASS</span>
+                  <span>ALLOCATION</span>
+                </div>
+                <div className="space-y-2">
+                  {allocations.map((row, idx) => {
+                    const IconComponent = row.icon;
+                    const isActive = idx === activeRowIdx;
+                    return (
+                      <div
+                        key={row.id}
+                        className={`flex items-center justify-between p-2.5 rounded-xl border transition-all duration-300 ${
+                          isActive
+                            ? "bg-gray-50/80 border-black/20 shadow-sm scale-[1.01]"
+                            : "bg-white border-black/5 hover:border-black/10"
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          {/* Round Icon */}
+                          <div className={`w-8 h-8 rounded-full flex items-center justify-center border ${row.color} shrink-0`}>
+                            <IconComponent className="w-4 h-4" />
+                          </div>
+                          {/* Name */}
+                          <span className="font-bold text-xs sm:text-sm text-black tracking-tight">
+                            {row.name}
+                          </span>
+                          {/* Emojis/Mini-illustration */}
+                          <span className="text-sm sm:text-base opacity-90 select-none ml-1">
+                            {row.emoji}
+                          </span>
+                        </div>
+                        
+                        {/* Percentage Allocation */}
+                        <div className="flex items-center gap-2">
+                          <span className={`font-extrabold text-base sm:text-lg ${row.textColor} tracking-tight min-w-[45px] text-right`}>
+                            {row.value}%
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
               {/* Text and Button side */}
               <div className="flex-1 flex flex-col justify-center space-y-6">
