@@ -856,6 +856,39 @@ export default function HomeDesktop() {
         {/* Enhanced Why Fiscal Forum Section */}
         <section className="py-16 bg-white border-b border-black">
           <div className="max-w-7xl mx-auto px-4 md:px-8 text-center flex flex-col items-center">
+            {/* One Profile. One Portfolio Section */}
+            <div className="w-full max-w-5xl bg-white border border-black rounded-3xl p-6 md:p-8 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col md:flex-row items-center gap-8 md:gap-12 mb-12 text-left">
+              {/* Image side */}
+              <div className="w-full md:w-1/2 relative aspect-[5/4] rounded-2xl overflow-hidden border border-black/10 shadow-sm">
+                <Image
+                  src="/images/portfolio-allocation.png"
+                  alt="One profile. One portfolio. Designed just for you !"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              {/* Text and Button side */}
+              <div className="w-full md:w-1/2 flex flex-col justify-center space-y-6">
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-extrabold text-black uppercase tracking-tight leading-tight">
+                    One profile. One portfolio.
+                    <br />
+                    Designed just for you !
+                  </h3>
+                  <p className="text-base md:text-lg font-semibold text-gray-800 mt-4 leading-snug">
+                    Want your personalised portfolio mix ?
+                  </p>
+                </div>
+                <div>
+                  <Link href="/services/stock-investment#portfolio-studio">
+                    <button className="px-6 py-3 bg-yellow-400 text-black border border-black font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 hover:-translate-y-0.5 transition-all cursor-pointer">
+                      Click Here
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
             {/* Women's Section & IPO WORLD */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl mb-16 text-left">
               {/* Women's Section Card */}
