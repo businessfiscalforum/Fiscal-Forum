@@ -694,20 +694,37 @@ export default function HomeMobile() {
           {partners.map((p, i) => (
             <Link key={i} href={p.path} className="block">
               <motion.div
-                className="bg-white border border-black rounded-2xl p-5 shadow-sm flex flex-col justify-between h-full min-h-[200px]"
+                className="bg-white border border-black rounded-2xl shadow-sm flex flex-col justify-between h-full overflow-hidden text-left"
               >
-                <div className="space-y-3">
-                  <div className="w-10 h-10 bg-emerald-50 border border-black rounded-xl flex items-center justify-center">
-                    <p.icon className="text-[#1FA463] text-lg" />
+                <div className="space-y-0">
+                  {/* Header Image with Overlapping Icon */}
+                  <div className="relative w-full">
+                    <div className="relative w-full aspect-[4/3] overflow-hidden border-b border-black/10">
+                      <Image
+                        src={p.image}
+                        alt={p.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    {/* Icon */}
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-12 h-12 bg-white border border-black rounded-full flex items-center justify-center shadow-md z-10">
+                      <p.icon className="text-[#1FA463] text-xl" />
+                    </div>
                   </div>
-                  <h5 className="font-bold text-black text-sm">
-                    {p.title}
-                  </h5>
-                  <p className="text-xs text-gray-500 font-semibold">
-                    {p.desc}
-                  </p>
+
+                  {/* Text content with offset padding for overlapping icon */}
+                  <div className="pt-8 px-5 pb-3 space-y-2">
+                    <h5 className="font-bold text-black text-sm leading-snug">
+                      {p.title}
+                    </h5>
+                    <p className="text-xs text-gray-500 font-semibold leading-relaxed">
+                      {p.desc}
+                    </p>
+                  </div>
                 </div>
-                <div className="mt-4">
+
+                <div className="px-5 pb-5">
                   <span className="block w-full text-center py-2 bg-[#1FA463] text-white border border-black text-xs font-bold uppercase rounded-lg shadow-sm">
                     Join Now
                   </span>
