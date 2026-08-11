@@ -445,7 +445,7 @@ export default function HomeDesktop() {
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveSlideIndex((prev) => (prev + 1) % homeSlides.length);
-    }, 3000);
+    }, 2000);
     return () => clearInterval(timer);
   }, []);
 
@@ -884,12 +884,12 @@ export default function HomeDesktop() {
         </section>
         {/* Screener and Heatmap Grid Section */}
         <section className="py-16 bg-[#F4FBF7] border-b border-black overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 md:px-8 text-center">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch relative min-h-[320px]">
+          <div className="max-w-4xl mx-auto px-4 md:px-8 text-center">
+            <div className="relative min-h-[320px]">
               
-              {/* Left Card */}
+              {/* Active Card */}
               <motion.div
-                key={`slide-left-${activeSlideIndex}`}
+                key={`slide-${activeSlideIndex}`}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}
@@ -900,7 +900,7 @@ export default function HomeDesktop() {
                     {homeSlides[activeSlideIndex].title}
                   </h3>
                   <div className="flex flex-col sm:flex-row items-center gap-6">
-                    <div className="w-full sm:w-[220px] shrink-0 relative aspect-[4/3] rounded-2xl overflow-hidden border border-black/10 shadow-sm bg-white">
+                    <div className="w-full sm:w-[320px] shrink-0 relative aspect-[4/3] rounded-2xl overflow-hidden border border-black/10 shadow-sm bg-white">
                       <Image
                         src={homeSlides[activeSlideIndex].image}
                         alt={homeSlides[activeSlideIndex].title}
@@ -909,48 +909,11 @@ export default function HomeDesktop() {
                       />
                     </div>
                     <div className="flex-1 flex flex-col justify-center space-y-4">
-                      <p className="text-base md:text-lg font-bold text-gray-800 leading-snug">
+                      <p className="text-lg md:text-xl font-bold text-gray-800 leading-snug">
                         {homeSlides[activeSlideIndex].text}
                       </p>
                       <div>
                         <Link href={homeSlides[activeSlideIndex].link}>
-                          <button className="px-6 py-2.5 bg-yellow-400 text-black border border-black font-bold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 hover:-translate-y-0.5 transition-all cursor-pointer">
-                            CLICK HERE
-                          </button>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Right Card */}
-              <motion.div
-                key={`slide-right-${activeSlideIndex}`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-                className="bg-white border border-black rounded-3xl p-6 md:p-8 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col justify-between text-left"
-              >
-                <div>
-                  <h3 className="text-xl md:text-2xl font-bold text-black uppercase tracking-tight mb-6">
-                    {homeSlides[(activeSlideIndex + 1) % homeSlides.length].title}
-                  </h3>
-                  <div className="flex flex-col sm:flex-row items-center gap-6">
-                    <div className="w-full sm:w-[220px] shrink-0 relative aspect-[4/3] rounded-2xl overflow-hidden border border-black/10 shadow-sm bg-white">
-                      <Image
-                        src={homeSlides[(activeSlideIndex + 1) % homeSlides.length].image}
-                        alt={homeSlides[(activeSlideIndex + 1) % homeSlides.length].title}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="flex-1 flex flex-col justify-center space-y-4">
-                      <p className="text-base md:text-lg font-bold text-gray-800 leading-snug">
-                        {homeSlides[(activeSlideIndex + 1) % homeSlides.length].text}
-                      </p>
-                      <div>
-                        <Link href={homeSlides[(activeSlideIndex + 1) % homeSlides.length].link}>
                           <button className="px-6 py-2.5 bg-yellow-400 text-black border border-black font-bold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 hover:-translate-y-0.5 transition-all cursor-pointer">
                             CLICK HERE
                           </button>
