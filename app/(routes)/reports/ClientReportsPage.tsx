@@ -1119,7 +1119,7 @@ export default function ClientReportsPage({
                   className="hero-cta-btn"
                   onClick={() => scrollToSection("equity-screener")}
                 >
-                  NSE Equity Screener
+                  TRY NSE SCREENER
                 </button>
                 <button
                   type="button"
