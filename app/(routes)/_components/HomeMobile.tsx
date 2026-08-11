@@ -494,13 +494,13 @@ export default function HomeMobile() {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [activeRowIdx, setActiveRowIdx] = useState(0);
   const [allocations, setAllocations] = useState([
-    { id: "equity", name: "EQUITY", value: 20, min: 10, max: 35, color: "text-emerald-600 bg-emerald-50 border-emerald-200", icon: TrendingUp, emoji: "🐂 📈", textColor: "text-emerald-700" },
-    { id: "mutualFund", name: "MUTUAL FUND", value: 45, min: 30, max: 55, color: "text-blue-600 bg-blue-50 border-blue-200", icon: BarChart3, emoji: "💰 📊", textColor: "text-blue-700" },
-    { id: "fAndO", name: "F&O", value: 0, min: 0, max: 10, color: "text-rose-600 bg-rose-50 border-rose-200", icon: TrendingUp, emoji: "📊 📉", textColor: "text-rose-700" },
-    { id: "mtf", name: "MTF", value: 0, min: 0, max: 10, color: "text-amber-600 bg-amber-50 border-amber-200", icon: Wallet, emoji: "🪙 💵", textColor: "text-amber-700" },
-    { id: "ipo", name: "IPO", value: 10, min: 5, max: 20, color: "text-purple-600 bg-purple-50 border-purple-200", icon: Rocket, emoji: "🏢 📢", textColor: "text-purple-700" },
-    { id: "bonds", name: "BONDS", value: 20, min: 10, max: 25, color: "text-yellow-600 bg-yellow-50 border-yellow-200", icon: Shield, emoji: "🏛️ 📜", textColor: "text-yellow-700" },
-    { id: "commodities", name: "COMMODITIES", value: 5, min: 2, max: 10, color: "text-teal-600 bg-teal-50 border-teal-200", icon: Coins, emoji: "🛢️ 🪙", textColor: "text-teal-700" },
+    { id: "equity", name: "EQUITY", value: 20, min: 10, max: 35, color: "text-emerald-600 bg-emerald-50 border-emerald-200", icon: TrendingUp, textColor: "text-emerald-700" },
+    { id: "mutualFund", name: "MUTUAL FUND", value: 45, min: 30, max: 55, color: "text-blue-600 bg-blue-50 border-blue-200", icon: BarChart3, textColor: "text-blue-700" },
+    { id: "fAndO", name: "F&O", value: 0, min: 0, max: 10, color: "text-rose-600 bg-rose-50 border-rose-200", icon: TrendingUp, textColor: "text-rose-700" },
+    { id: "mtf", name: "MTF", value: 0, min: 0, max: 10, color: "text-amber-600 bg-amber-50 border-amber-200", icon: Wallet, textColor: "text-amber-700" },
+    { id: "ipo", name: "IPO", value: 10, min: 5, max: 20, color: "text-purple-600 bg-purple-50 border-purple-200", icon: Rocket, textColor: "text-purple-700" },
+    { id: "bonds", name: "BONDS", value: 20, min: 10, max: 25, color: "text-yellow-600 bg-yellow-50 border-yellow-200", icon: Shield, textColor: "text-yellow-700" },
+    { id: "commodities", name: "COMMODITIES", value: 5, min: 2, max: 10, color: "text-teal-600 bg-teal-50 border-teal-200", icon: Coins, textColor: "text-teal-700" },
   ]);
 
   useEffect(() => {
@@ -548,14 +548,14 @@ export default function HomeMobile() {
             if (stepsRun >= step) {
               clearInterval(stepTimer);
             }
-          }, 120);
+          }, 40);
           
           return currentAllocations;
         });
         
         return nextIdx;
       });
-    }, 3500);
+    }, 1500);
     
     return () => clearInterval(mainInterval);
   }, []);
@@ -757,10 +757,6 @@ export default function HomeMobile() {
                       {/* Name */}
                       <span className="font-bold text-xs sm:text-sm text-black tracking-tight">
                         {row.name}
-                      </span>
-                      {/* Emojis/Mini-illustration */}
-                      <span className="text-sm sm:text-base opacity-90 select-none ml-1">
-                        {row.emoji}
                       </span>
                     </div>
                     
