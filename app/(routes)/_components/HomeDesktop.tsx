@@ -295,33 +295,27 @@ const testimonials = [
 const features = [
   {
     title: "Certified Market Updates",
-    icon: FaLock,
-    desc: "Stay ahead with timely, verified market news and insights so you can make smart decisions with confidence.",
+    image: "/images/why-market-updates.png",
   },
   {
     title: "Research Reports That Guide Your Next Move",
-    icon: FaAward,
-    desc: "Make informed choices with the best research reports designed to empower your next investment-clear, actionable, and easy to trust.",
+    image: "/images/why-research-reports.png",
   },
   {
     title: "Everything in One Place",
-    icon: FaRocket,
-    desc: "Enjoy all your financial services under one trusted roof-the more you see, the more you use, the more rewards you unlock.",
+    image: "/images/why-one-place.png",
   },
   {
     title: "Trusted Partners & Dedicated Support",
-    icon: FaHeadset,
-    desc: "We're connected with prominent companies and back you with reliable, friendly support whenever you need a helping hand.",
+    image: "/images/why-partners-support.png",
   },
   {
     title: "Exclusive Rewards & Cashback",
-    icon: FaCoins,
-    desc: "Every services you choose brings unique perks, tailored rewards, and cashback benefits that add extra value to your journey",
+    image: "/images/why-rewards-cashback.png",
   },
   {
     title: "24X7 Call Support",
-    icon: FaCoins,
-    desc: "Get your queries solved by scheduling a call, we will call you on your preferred scheduled time",
+    image: "/images/why-call-support.png",
   },
 ];
 
