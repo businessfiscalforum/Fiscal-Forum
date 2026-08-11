@@ -260,6 +260,33 @@ const partners = [
   },
 ];
 
+const homeSlides = [
+  {
+    title: "NSE SCREENER LIKE NEVER BEFORE",
+    image: "/images/screener-preview.png",
+    text: "Want to screen stocks but according to your criterias ?",
+    link: "/reports#equity-screener",
+  },
+  {
+    title: "ALL SECTORS HEATMAP AT ONE PLACE ...",
+    image: "/images/heatmap-preview.png",
+    text: "Want all sectors returns heatmap in one single interface ?",
+    link: "/reports#sectoral-heatmap",
+  },
+  {
+    title: "THEME BASED SECTORS ANALYSIS ...",
+    image: "/images/theme-sectors-preview.png",
+    text: "Want to analyse various theme based sectors in INDIA ?",
+    link: "/reports#theme-based-sectors",
+  },
+  {
+    title: "WHOLE SECTORAL ANALYSIS AT SINGLE PLACE",
+    image: "/images/whole-sectoral-preview.png",
+    text: "Want every sector analysis at one go ?",
+    link: "/reports#sectoral-overview",
+  },
+];
+
 const testimonials = [
   {
     name: "Ravi Kumar",
@@ -413,6 +440,14 @@ const additionalServices = [
 export default function HomeDesktop() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [animationCompleted, setAnimationCompleted] = useState(false);
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveSlideIndex((prev) => (prev + 1) % homeSlides.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const completed = sessionStorage.getItem("scrollAnimationCompleted");
@@ -848,31 +883,37 @@ export default function HomeDesktop() {
           </div>
         </section>
         {/* Screener and Heatmap Grid Section */}
-        <section className="py-16 bg-[#F4FBF7] border-b border-black">
+        <section className="py-16 bg-[#F4FBF7] border-b border-black overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 md:px-8 text-center">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch relative min-h-[320px]">
               
-              {/* Screener Card */}
-              <div className="bg-white border border-black rounded-3xl p-6 md:p-8 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col justify-between text-left">
+              {/* Left Card */}
+              <motion.div
+                key={`slide-left-${activeSlideIndex}`}
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4 }}
+                className="bg-white border border-black rounded-3xl p-6 md:p-8 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col justify-between text-left"
+              >
                 <div>
                   <h3 className="text-xl md:text-2xl font-bold text-black uppercase tracking-tight mb-6">
-                    NSE SCREENER LIKE NEVER BEFORE
+                    {homeSlides[activeSlideIndex].title}
                   </h3>
                   <div className="flex flex-col sm:flex-row items-center gap-6">
                     <div className="w-full sm:w-[220px] shrink-0 relative aspect-[4/3] rounded-2xl overflow-hidden border border-black/10 shadow-sm bg-white">
                       <Image
-                        src="/images/screener-preview.png"
-                        alt="NSE Screener"
+                        src={homeSlides[activeSlideIndex].image}
+                        alt={homeSlides[activeSlideIndex].title}
                         fill
                         className="object-cover"
                       />
                     </div>
                     <div className="flex-1 flex flex-col justify-center space-y-4">
                       <p className="text-base md:text-lg font-bold text-gray-800 leading-snug">
-                        Want to screen stocks but according to your criterias ?
+                        {homeSlides[activeSlideIndex].text}
                       </p>
                       <div>
-                        <Link href="/reports#equity-screener">
+                        <Link href={homeSlides[activeSlideIndex].link}>
                           <button className="px-6 py-2.5 bg-yellow-400 text-black border border-black font-bold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 hover:-translate-y-0.5 transition-all cursor-pointer">
                             CLICK HERE
                           </button>
@@ -881,29 +922,35 @@ export default function HomeDesktop() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-              {/* Heatmap Card */}
-              <div className="bg-white border border-black rounded-3xl p-6 md:p-8 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col justify-between text-left">
+              {/* Right Card */}
+              <motion.div
+                key={`slide-right-${activeSlideIndex}`}
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4 }}
+                className="bg-white border border-black rounded-3xl p-6 md:p-8 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col justify-between text-left"
+              >
                 <div>
                   <h3 className="text-xl md:text-2xl font-bold text-black uppercase tracking-tight mb-6">
-                    ALL SECTORS HEATMAP AT ONE PLACE ...
+                    {homeSlides[(activeSlideIndex + 1) % homeSlides.length].title}
                   </h3>
                   <div className="flex flex-col sm:flex-row items-center gap-6">
                     <div className="w-full sm:w-[220px] shrink-0 relative aspect-[4/3] rounded-2xl overflow-hidden border border-black/10 shadow-sm bg-white">
                       <Image
-                        src="/images/heatmap-preview.png"
-                        alt="All Sectors Heatmap"
+                        src={homeSlides[(activeSlideIndex + 1) % homeSlides.length].image}
+                        alt={homeSlides[(activeSlideIndex + 1) % homeSlides.length].title}
                         fill
                         className="object-cover"
                       />
                     </div>
                     <div className="flex-1 flex flex-col justify-center space-y-4">
                       <p className="text-base md:text-lg font-bold text-gray-800 leading-snug">
-                        Want all sectors returns heatmap in one single interface ?
+                        {homeSlides[(activeSlideIndex + 1) % homeSlides.length].text}
                       </p>
                       <div>
-                        <Link href="/reports#sectoral-heatmap">
+                        <Link href={homeSlides[(activeSlideIndex + 1) % homeSlides.length].link}>
                           <button className="px-6 py-2.5 bg-yellow-400 text-black border border-black font-bold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 hover:-translate-y-0.5 transition-all cursor-pointer">
                             CLICK HERE
                           </button>
@@ -912,8 +959,24 @@ export default function HomeDesktop() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
+            </div>
+
+            {/* Pagination dots */}
+            <div className="flex justify-center gap-2 mt-6">
+              {homeSlides.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveSlideIndex(idx)}
+                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                    activeSlideIndex === idx
+                      ? "bg-[#1FA463] w-6"
+                      : "bg-gray-300 hover:bg-gray-400"
+                  }`}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
             </div>
           </div>
         </section>

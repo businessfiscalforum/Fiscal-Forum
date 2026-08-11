@@ -17,7 +17,7 @@ import {
 import FathomSliderMobile from "./FathomSliderMobile";
 import FiscalForumCityMobile from "./FiscalForumCityMobile";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BarChart3, BookOpen, Shield, TrendingUp, Wallet } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
 import HomeNewsAndResearchSectionMobile from "./HomeResearchAndNewsSection";
@@ -245,6 +245,33 @@ const partners = [
   },
 ];
 
+const homeSlides = [
+  {
+    title: "NSE SCREENER LIKE NEVER BEFORE",
+    image: "/images/screener-preview.png",
+    text: "Want to screen stocks but according to your criterias ?",
+    link: "/reports#equity-screener",
+  },
+  {
+    title: "ALL SECTORS HEATMAP AT ONE PLACE ...",
+    image: "/images/heatmap-preview.png",
+    text: "Want all sectors returns heatmap in one single interface ?",
+    link: "/reports#sectoral-heatmap",
+  },
+  {
+    title: "THEME BASED SECTORS ANALYSIS ...",
+    image: "/images/theme-sectors-preview.png",
+    text: "Want to analyse various theme based sectors in INDIA ?",
+    link: "/reports#theme-based-sectors",
+  },
+  {
+    title: "WHOLE SECTORAL ANALYSIS AT SINGLE PLACE",
+    image: "/images/whole-sectoral-preview.png",
+    text: "Want every sector analysis at one go ?",
+    link: "/reports#sectoral-overview",
+  },
+];
+
 const testimonials = [
   {
     name: "Ravi Kumar",
@@ -464,6 +491,15 @@ const content = {
 
 export default function HomeMobile() {
   const [email, setEmail] = useState("");
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveSlideIndex((prev) => (prev + 1) % homeSlides.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{
     text: string;
@@ -555,62 +591,54 @@ export default function HomeMobile() {
           ))}
         </div>
       </section>
-
       {/* Screener and Heatmap Section — Mobile */}
-      <section className="px-4 py-8 bg-[#F4FBF7] border-b border-black">
-        <div className="flex flex-col gap-6">
-          {/* Screener Card */}
-          <div className="bg-white border border-black rounded-2xl p-5 shadow-sm text-left flex flex-col gap-4">
+      <section className="px-4 py-8 bg-[#F4FBF7] border-b border-black text-center overflow-hidden">
+        <div className="relative">
+          {/* Active Card */}
+          <motion.div
+            key={`mobile-slide-${activeSlideIndex}`}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3 }}
+            className="bg-white border border-black rounded-2xl p-5 shadow-sm text-left flex flex-col gap-4"
+          >
             <h3 className="text-lg font-bold text-black uppercase tracking-tight">
-              NSE SCREENER LIKE NEVER BEFORE
+              {homeSlides[activeSlideIndex].title}
             </h3>
             <div className="w-full relative aspect-[4/3] rounded-xl overflow-hidden border border-black/10 shadow-sm bg-white">
               <Image
-                src="/images/screener-preview.png"
-                alt="NSE Screener"
+                src={homeSlides[activeSlideIndex].image}
+                alt={homeSlides[activeSlideIndex].title}
                 fill
                 className="object-cover"
               />
             </div>
             <div className="space-y-3">
               <p className="text-xs sm:text-sm font-semibold text-gray-800 leading-snug">
-                Want to screen stocks but according to your criterias ?
+                {homeSlides[activeSlideIndex].text}
               </p>
               <div>
-                <Link href="/reports#equity-screener" className="w-full block">
+                <Link href={homeSlides[activeSlideIndex].link} className="w-full block">
                   <button className="w-full py-2.5 bg-yellow-400 text-black border border-black font-bold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 active:translate-y-0.5 transition-all cursor-pointer text-center">
                     CLICK HERE
                   </button>
                 </Link>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Heatmap Card */}
-          <div className="bg-white border border-black rounded-2xl p-5 shadow-sm text-left flex flex-col gap-4">
-            <h3 className="text-lg font-bold text-black uppercase tracking-tight">
-              ALL SECTORS HEATMAP AT ONE PLACE ...
-            </h3>
-            <div className="w-full relative aspect-[4/3] rounded-xl overflow-hidden border border-black/10 shadow-sm bg-white">
-              <Image
-                src="/images/heatmap-preview.png"
-                alt="All Sectors Heatmap"
-                fill
-                className="object-cover"
+          {/* Pagination dots */}
+          <div className="flex justify-center gap-1.5 mt-4">
+            {homeSlides.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveSlideIndex(idx)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  activeSlideIndex === idx ? "bg-[#1FA463] w-4" : "bg-gray-300"
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
               />
-            </div>
-            <div className="space-y-3">
-              <p className="text-xs sm:text-sm font-semibold text-gray-800 leading-snug">
-                Want all sectors returns heatmap in one single interface ?
-              </p>
-              <div>
-                <Link href="/reports#sectoral-heatmap" className="w-full block">
-                  <button className="w-full py-2.5 bg-yellow-400 text-black border border-black font-bold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 active:translate-y-0.5 transition-all cursor-pointer text-center">
-                    CLICK HERE
-                  </button>
-                </Link>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
