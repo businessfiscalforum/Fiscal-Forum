@@ -563,6 +563,39 @@ export default function HomeMobile() {
       <HomeNewsAndResearchSectionMobile />
 
       <section className="px-4 py-8 bg-white border-b border-black">
+        {/* One Profile. One Portfolio Section */}
+        <div className="bg-white border border-black rounded-2xl p-5 mb-6 text-left flex flex-col gap-5 hover:shadow-sm transition-all">
+          {/* Image */}
+          <div className="w-full relative aspect-[5/4] rounded-xl overflow-hidden border border-black/10 shadow-sm">
+            <Image
+              src="/images/portfolio-allocation.png"
+              alt="One profile. One portfolio. Designed just for you !"
+              fill
+              className="object-cover"
+            />
+          </div>
+          {/* Text and Button */}
+          <div className="flex flex-col justify-center space-y-4">
+            <div>
+              <h3 className="text-lg font-bold text-black uppercase tracking-tight leading-tight">
+                One profile. One portfolio.
+                <br />
+                Designed just for you !
+              </h3>
+              <p className="text-xs sm:text-sm font-semibold text-gray-800 mt-2 leading-snug">
+                Want your personalised portfolio mix ?
+              </p>
+            </div>
+            <div>
+              <Link href="/services/stock-investment#portfolio-studio" className="w-full block">
+                <button className="w-full py-2.5 bg-yellow-400 text-black border border-black font-bold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 active:translate-y-0.5 transition-all cursor-pointer text-center">
+                  Click Here
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+
         {/* Women's Section & IPO WORLD */}
         <div className="flex flex-col gap-4 mb-8 text-left">
           {/* Women's Section Card */}
