@@ -982,19 +982,21 @@ export default function HomeDesktop() {
                       damping: 14,
                       delay: index * 0.08,
                     }}
-                    className="bg-white border border-black rounded-2xl p-6 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full text-left"
+                    className="bg-white border border-black rounded-2xl shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full text-left overflow-hidden"
                   >
-                    <div className="w-12 h-12 bg-emerald-50 border border-black rounded-xl flex items-center justify-center mb-4">
-                      <feature.icon className="text-[#1FA463] text-xl" />
+                    <div className="relative w-full aspect-[16/10] overflow-hidden border-b border-black/10">
+                      <Image
+                        src={feature.image}
+                        alt={feature.title}
+                        fill
+                        className="object-cover"
+                      />
                     </div>
-                    <h4 className="text-lg font-bold text-black mb-2">
-                      {feature.title}
-                    </h4>
-                    {!isSmallScreen && (
-                      <p className="text-xs sm:text-sm leading-relaxed text-gray-500 font-semibold">
-                        {feature.desc}
-                      </p>
-                    )}
+                    <div className="p-5 flex-1 flex flex-col justify-center">
+                      <h4 className="text-base sm:text-lg font-bold text-black leading-snug">
+                        {feature.title}
+                      </h4>
+                    </div>
                   </motion.div>
                 )
               })}
