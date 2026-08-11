@@ -556,6 +556,65 @@ export default function HomeMobile() {
         </div>
       </section>
 
+      {/* Screener and Heatmap Section — Mobile */}
+      <section className="px-4 py-8 bg-[#F4FBF7] border-b border-black">
+        <div className="flex flex-col gap-6">
+          {/* Screener Card */}
+          <div className="bg-white border border-black rounded-2xl p-5 shadow-sm text-left flex flex-col gap-4">
+            <h3 className="text-lg font-bold text-black uppercase tracking-tight">
+              NSE SCREENER LIKE NEVER BEFORE
+            </h3>
+            <div className="w-full relative aspect-[4/3] rounded-xl overflow-hidden border border-black/10 shadow-sm bg-white">
+              <Image
+                src="/images/screener-preview.png"
+                alt="NSE Screener"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="space-y-3">
+              <p className="text-xs sm:text-sm font-semibold text-gray-800 leading-snug">
+                Want to screen stocks but according to your criterias ?
+              </p>
+              <div>
+                <Link href="/reports#equity-screener" className="w-full block">
+                  <button className="w-full py-2.5 bg-yellow-400 text-black border border-black font-bold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 active:translate-y-0.5 transition-all cursor-pointer text-center">
+                    CLICK HERE
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Heatmap Card */}
+          <div className="bg-white border border-black rounded-2xl p-5 shadow-sm text-left flex flex-col gap-4">
+            <h3 className="text-lg font-bold text-black uppercase tracking-tight">
+              ALL SECTORS HEATMAP AT ONE PLACE ...
+            </h3>
+            <div className="w-full relative aspect-[4/3] rounded-xl overflow-hidden border border-black/10 shadow-sm bg-white">
+              <Image
+                src="/images/heatmap-preview.png"
+                alt="All Sectors Heatmap"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="space-y-3">
+              <p className="text-xs sm:text-sm font-semibold text-gray-800 leading-snug">
+                Want all sectors returns heatmap in one single interface ?
+              </p>
+              <div>
+                <Link href="/reports#sectoral-heatmap" className="w-full block">
+                  <button className="w-full py-2.5 bg-yellow-400 text-black border border-black font-bold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 active:translate-y-0.5 transition-all cursor-pointer text-center">
+                    CLICK HERE
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 🔹 News & Research — Mobile */}
       <HomeNewsAndResearchSectionMobile />
 
