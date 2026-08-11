@@ -56,31 +56,31 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
 
   // Step 2: Trigger transition completion when reaching step 8
   useEffect(() => {
-    if (step === 8) {
+    if (isActive && step === 8) {
       document.body.style.overflow = "";
       onComplete();
     }
-  }, [step, onComplete]);
+  }, [step, isActive, onComplete]);
 
   // Automate Step 6 -> Step 7 transition after building cascade completes (5 seconds)
   useEffect(() => {
-    if (step === 6) {
+    if (isActive && step === 6) {
       const timer = setTimeout(() => {
         setStep(7);
       }, 5000);
       return () => clearTimeout(timer);
     }
-  }, [step]);
+  }, [step, isActive]);
 
   // Automate Step 7 -> Step 8 transition after showing final welcome message (3 seconds)
   useEffect(() => {
-    if (step === 7) {
+    if (isActive && step === 7) {
       const timer = setTimeout(() => {
         setStep(8);
       }, 3000);
       return () => clearTimeout(timer);
     }
-  }, [step]);
+  }, [step, isActive]);
 
   const handleSkip = () => {
     document.body.style.overflow = "";
