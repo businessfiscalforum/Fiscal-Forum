@@ -26,7 +26,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
-import { BarChart3, BookOpen, Shield, TrendingUp, Wallet, Coins, Rocket } from "lucide-react";
+import { BarChart3, BookOpen, Shield, TrendingUp, Wallet, Coins, Rocket, ChevronLeft, ChevronRight } from "lucide-react";
 import ResearchReportsSection from "./ResearchReportsSection";
 import Head from "next/head";
 
@@ -441,6 +441,27 @@ export default function HomeDesktop() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [animationCompleted, setAnimationCompleted] = useState(false);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  const handleNextSlide = () => {
+    setDirection(1);
+    setActiveSlideIndex((prev) => (prev + 1) % homeSlides.length);
+    setIsAutoPlaying(false);
+  };
+
+  const handlePrevSlide = () => {
+    setDirection(-1);
+    setActiveSlideIndex((prev) => (prev - 1 + homeSlides.length) % homeSlides.length);
+    setIsAutoPlaying(false);
+  };
+
+  const handleDotClick = (idx: number) => {
+    setDirection(idx > activeSlideIndex ? 1 : -1);
+    setActiveSlideIndex(idx);
+    setIsAutoPlaying(false);
+  };
+
   const [activeRowIdx, setActiveRowIdx] = useState(0);
   const [allocations, setAllocations] = useState([
     { id: "equity", name: "EQUITY", value: 20, min: 10, max: 35, color: "text-emerald-600 bg-emerald-50 border-emerald-200", icon: TrendingUp, textColor: "text-emerald-700" },
@@ -512,11 +533,13 @@ export default function HomeDesktop() {
   }, []);
 
   useEffect(() => {
+    if (!isAutoPlaying) return;
     const timer = setInterval(() => {
+      setDirection(1);
       setActiveSlideIndex((prev) => (prev + 1) % homeSlides.length);
     }, 3000);
     return () => clearInterval(timer);
-  }, []);
+  }, [isAutoPlaying]);
 
   useEffect(() => {
     const completed = sessionStorage.getItem("scrollAnimationCompleted");
@@ -959,13 +982,33 @@ export default function HomeDesktop() {
             </h2>
             <div className="relative min-h-[320px]">
               
+              {/* Prev Button */}
+              <button
+                onClick={handlePrevSlide}
+                className="absolute left-[-20px] md:left-[-24px] top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full border border-black bg-white hover:bg-gray-50 flex items-center justify-center shadow-md hover:scale-105 active:scale-95 transition-all focus:outline-none cursor-pointer"
+                aria-label="Previous Slide"
+              >
+                <ChevronLeft className="w-5 h-5 text-black" />
+              </button>
+
               {/* Active Card */}
               <motion.div
                 key={`slide-${activeSlideIndex}`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={(e, info) => {
+                  const swipeThreshold = 50;
+                  if (info.offset.x < -swipeThreshold) {
+                    handleNextSlide();
+                  } else if (info.offset.x > swipeThreshold) {
+                    handlePrevSlide();
+                  }
+                }}
+                initial={{ opacity: 0, x: direction * 40 }}
+                animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3 }}
-                className="bg-white border border-black rounded-3xl p-6 md:p-8 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col justify-between text-left"
+                className="bg-white border border-black rounded-3xl p-6 md:p-8 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col justify-between text-left cursor-grab active:cursor-grabbing select-none"
               >
                 <div>
                   <h3 className="text-xl md:text-2xl font-bold text-black uppercase tracking-tight mb-6">
@@ -996,6 +1039,15 @@ export default function HomeDesktop() {
                 </div>
               </motion.div>
 
+              {/* Next Button */}
+              <button
+                onClick={handleNextSlide}
+                className="absolute right-[-20px] md:right-[-24px] top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full border border-black bg-white hover:bg-gray-50 flex items-center justify-center shadow-md hover:scale-105 active:scale-95 transition-all focus:outline-none cursor-pointer"
+                aria-label="Next Slide"
+              >
+                <ChevronRight className="w-5 h-5 text-black" />
+              </button>
+
             </div>
 
             {/* Pagination dots */}
@@ -1003,7 +1055,7 @@ export default function HomeDesktop() {
               {homeSlides.map((_, idx) => (
                 <button
                   key={idx}
-                  onClick={() => setActiveSlideIndex(idx)}
+                  onClick={() => handleDotClick(idx)}
                   className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                     activeSlideIndex === idx
                       ? "bg-[#1FA463] w-6"

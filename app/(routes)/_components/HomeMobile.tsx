@@ -18,7 +18,7 @@ import FathomSliderMobile from "./FathomSliderMobile";
 import FiscalForumCityMobile from "./FiscalForumCityMobile";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
-import { BarChart3, BookOpen, Shield, TrendingUp, Wallet, Coins, Rocket } from "lucide-react";
+import { BarChart3, BookOpen, Shield, TrendingUp, Wallet, Coins, Rocket, ChevronLeft, ChevronRight } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
 import HomeNewsAndResearchSectionMobile from "./HomeResearchAndNewsSection";
 import ResearchReportsSectionMobile from "./ResearchReportsSection";
@@ -492,6 +492,27 @@ const content = {
 export default function HomeMobile() {
   const [email, setEmail] = useState("");
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  const handleNextSlide = () => {
+    setDirection(1);
+    setActiveSlideIndex((prev) => (prev + 1) % homeSlides.length);
+    setIsAutoPlaying(false);
+  };
+
+  const handlePrevSlide = () => {
+    setDirection(-1);
+    setActiveSlideIndex((prev) => (prev - 1 + homeSlides.length) % homeSlides.length);
+    setIsAutoPlaying(false);
+  };
+
+  const handleDotClick = (idx: number) => {
+    setDirection(idx > activeSlideIndex ? 1 : -1);
+    setActiveSlideIndex(idx);
+    setIsAutoPlaying(false);
+  };
+
   const [activeRowIdx, setActiveRowIdx] = useState(0);
   const [allocations, setAllocations] = useState([
     { id: "equity", name: "EQUITY", value: 20, min: 10, max: 35, color: "text-emerald-600 bg-emerald-50 border-emerald-200", icon: TrendingUp, textColor: "text-emerald-700" },
@@ -563,11 +584,13 @@ export default function HomeMobile() {
   }, []);
 
   useEffect(() => {
+    if (!isAutoPlaying) return;
     const timer = setInterval(() => {
+      setDirection(1);
       setActiveSlideIndex((prev) => (prev + 1) % homeSlides.length);
     }, 3000);
     return () => clearInterval(timer);
-  }, []);
+  }, [isAutoPlaying]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{
@@ -669,10 +692,21 @@ export default function HomeMobile() {
           {/* Active Card */}
           <motion.div
             key={`mobile-slide-${activeSlideIndex}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragEnd={(e, info) => {
+              const swipeThreshold = 50;
+              if (info.offset.x < -swipeThreshold) {
+                handleNextSlide();
+              } else if (info.offset.x > swipeThreshold) {
+                handlePrevSlide();
+              }
+            }}
+            initial={{ opacity: 0, x: direction * 30 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3 }}
-            className="bg-white border border-black rounded-2xl p-5 shadow-sm text-left flex flex-col gap-4"
+            className="bg-white border border-black rounded-2xl p-5 shadow-sm text-left flex flex-col gap-4 cursor-grab active:cursor-grabbing select-none"
           >
             <h3 className="text-lg font-bold text-black uppercase tracking-tight">
               {homeSlides[activeSlideIndex].title}
@@ -699,18 +733,36 @@ export default function HomeMobile() {
             </div>
           </motion.div>
 
-          {/* Pagination dots */}
-          <div className="flex justify-center gap-1.5 mt-4">
-            {homeSlides.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setActiveSlideIndex(idx)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  activeSlideIndex === idx ? "bg-[#1FA463] w-4" : "bg-gray-300"
-                }`}
-                aria-label={`Go to slide ${idx + 1}`}
-              />
-            ))}
+          {/* Pagination dots & Controls */}
+          <div className="flex justify-center items-center gap-4 mt-4">
+            <button
+              onClick={handlePrevSlide}
+              className="w-8 h-8 rounded-full border border-black bg-white hover:bg-gray-50 flex items-center justify-center shadow-sm active:scale-95 transition-all focus:outline-none cursor-pointer"
+              aria-label="Previous Slide"
+            >
+              <ChevronLeft className="w-4 h-4 text-black" />
+            </button>
+            
+            <div className="flex justify-center gap-1.5">
+              {homeSlides.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleDotClick(idx)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    activeSlideIndex === idx ? "bg-[#1FA463] w-4" : "bg-gray-300"
+                  }`}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={handleNextSlide}
+              className="w-8 h-8 rounded-full border border-black bg-white hover:bg-gray-50 flex items-center justify-center shadow-sm active:scale-95 transition-all focus:outline-none cursor-pointer"
+              aria-label="Next Slide"
+            >
+              <ChevronRight className="w-4 h-4 text-black" />
+            </button>
           </div>
         </div>
       </section>
