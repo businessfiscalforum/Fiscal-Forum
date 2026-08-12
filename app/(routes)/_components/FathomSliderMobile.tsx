@@ -77,38 +77,22 @@ export default function FathomSliderMobile() {
             {/* Header Title section */}
             <div className="relative w-full mt-2 mb-2 pt-2">
               {/* Word pops titles flowing horizontally */}
-              <div className="w-full flex flex-row flex-wrap items-center justify-center gap-2 z-20 relative">
+              <div className="w-full flex flex-col items-center gap-2 z-20 relative text-center">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4, delay: 0.1 }}
                   className="bg-[#FFDE21] text-black font-extrabold text-[16px] px-2.5 py-1 rounded-lg shadow-[2px_2px_0px_rgba(0,0,0,0.18)] border border-black/10 whitespace-nowrap"
                 >
-                  Unlock
+                  Unlock institutional-quality
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, delay: 0.25 }}
+                  transition={{ duration: 0.4, delay: 0.3 }}
                   className="bg-[#FFDE21] text-black font-extrabold text-[16px] px-2.5 py-1 rounded-lg shadow-[2px_2px_0px_rgba(0,0,0,0.18)] border border-black/10 whitespace-nowrap"
                 >
-                  institutional-quality
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, delay: 0.4 }}
-                  className="bg-[#FFDE21] text-black font-extrabold text-[16px] px-2.5 py-1 rounded-lg shadow-[2px_2px_0px_rgba(0,0,0,0.18)] border border-black/10 whitespace-nowrap"
-                >
-                  research at your
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, delay: 0.55 }}
-                  className="bg-[#FFDE21] text-black font-extrabold text-[16px] px-2.5 py-1 rounded-lg shadow-[2px_2px_0px_rgba(0,0,0,0.18)] border border-black/10 whitespace-nowrap"
-                >
-                  fingertips
+                  research at your fingertips
                 </motion.div>
               </div>
             </div>

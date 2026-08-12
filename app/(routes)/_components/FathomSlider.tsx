@@ -318,24 +318,12 @@ export default function FathomSlider() {
                   </div>
 
                   <div className="slide__side">
-                    <p className="callout-words">
-                      <span className="word-pop" style={{ "--i": 0 } as React.CSSProperties}>
-                        Unlock
+                    <p className="callout-words flex flex-col items-start gap-2.5">
+                      <span className="word-pop whitespace-nowrap" style={{ "--i": 0 } as React.CSSProperties}>
+                        Unlock institutional-quality
                       </span>
-                      <span className="word-pop" style={{ "--i": 1 } as React.CSSProperties}>
-                        institutional-quality
-                      </span>
-                      <span className="word-pop" style={{ "--i": 2 } as React.CSSProperties}>
-                        research
-                      </span>
-                      <span className="word-pop" style={{ "--i": 3 } as React.CSSProperties}>
-                        at
-                      </span>
-                      <span className="word-pop" style={{ "--i": 4 } as React.CSSProperties}>
-                        your
-                      </span>
-                      <span className="word-pop" style={{ "--i": 5 } as React.CSSProperties}>
-                        fingertips
+                      <span className="word-pop whitespace-nowrap" style={{ "--i": 1 } as React.CSSProperties}>
+                        research at your fingertips
                       </span>
                     </p>
                     <div className="callout-lines">
