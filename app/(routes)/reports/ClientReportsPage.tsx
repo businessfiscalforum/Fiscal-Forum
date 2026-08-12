@@ -1263,6 +1263,33 @@ export default function ClientReportsPage({
                 </button>
               </div>
               
+              {/* Get Customised Report Button */}
+              <div className="relative mt-4 flex justify-start select-none">
+                <Link
+                  href="/reports/join"
+                  className="hero-customised-report-btn"
+                >
+                  {/* SVG Animated Border Overlay */}
+                  <div className="absolute inset-0 pointer-events-none rounded-[4px] overflow-hidden z-20">
+                    <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                      <rect
+                        rx="4"
+                        fill="none"
+                        stroke="black"
+                        strokeWidth="1.5"
+                        style={{
+                          x: 0.75,
+                          y: 0.75,
+                          width: "calc(100% - 1.5px)",
+                          height: "calc(100% - 1.5px)",
+                        }}
+                        className="button-border-line"
+                      />
+                    </svg>
+                  </div>
+                  GET CUSTOMISED REPORT
+                </Link>
+              </div>
 
             </div>
 
