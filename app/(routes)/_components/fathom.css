@@ -1683,18 +1683,18 @@ main, header, footer{ position: relative; z-index: 1; }
 
 /* Hover interactions for Research Reports card */
 .research-card-hover:hover .border-animate-line {
-  stroke: #1FA463 !important;
+  stroke: black !important;
   stroke-width: 2px !important;
   animation-duration: 4s !important; /* speed up on hover */
-  filter: drop-shadow(0 0 2px rgba(31, 164, 99, 0.4));
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.2));
 }
 
 /* Hover interactions for Customized Reports card */
 .customized-card-hover:hover .border-animate-line {
-  stroke: #EAB308 !important;
+  stroke: black !important;
   stroke-width: 2px !important;
   animation-duration: 4s !important; /* speed up on hover */
-  filter: drop-shadow(0 0 2px rgba(234, 179, 8, 0.4));
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.2));
 }
 
 @keyframes borderDraw {
