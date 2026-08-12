@@ -462,9 +462,15 @@ export default function FathomSliderMobile() {
               <h3 className="text-lg font-extrabold text-black uppercase tracking-tight leading-tight">
                 Want Customised Reports ?
               </h3>
-              <div className="mt-2">
+              <div className="mt-2 space-y-1 text-center">
                 <p className="text-[11px] font-semibold text-gray-700 leading-tight">
-                  Personalized insights for every decision your money makes...
+                  Your financial journey is unique.
+                </p>
+                <p className="text-[11px] font-semibold text-gray-700 leading-tight">
+                  So why settle for generic recommendations?
+                </p>
+                <p className="text-[11px] font-semibold text-gray-700 leading-tight">
+                  Get insights designed specifically for you...
                 </p>
               </div>
             </div>
