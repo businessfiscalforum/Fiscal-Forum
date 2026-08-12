@@ -2096,34 +2096,35 @@
   font-size: 0.82rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  background: #FFDE21 !important;
-  color: #0B0B0B !important;
-  border: 1.5px solid #0B0B0B !important;
+  background: black !important;
+  color: white !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.15) !important;
   padding: 14px 28px;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   transition: all 0.15s ease-in-out;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 6px !important;
+  border-radius: 999px !important;
   position: relative;
   text-decoration: none;
 }
 
 .hero-customised-report-btn:hover {
-  background: #ffe94d !important;
+  background: #1a1a1a !important;
+  color: white !important;
   transform: translateY(-1px);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
 }
 
 .hero-customised-report-btn:active {
   transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
 .button-border-line {
-  stroke: black;
+  stroke: white; /* White outline for visibility on black button */
   stroke-width: 2.5px;
   stroke-dasharray: 80 400; /* longer dash segment */
   stroke-linecap: round;

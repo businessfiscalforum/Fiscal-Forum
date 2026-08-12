@@ -1270,12 +1270,13 @@ export default function ClientReportsPage({
                   className="hero-customised-report-btn"
                 >
                   {/* SVG Animated Border Overlay */}
-                  <div className="absolute inset-0 pointer-events-none rounded-[6px] overflow-hidden z-20">
+                  <div className="absolute inset-0 pointer-events-none rounded-full overflow-hidden z-20">
                     <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
                       <rect
-                        rx="6"
+                        rx="26"
+                        ry="26"
                         fill="none"
-                        stroke="black"
+                        stroke="white"
                         strokeWidth="2.5"
                         style={{
                           x: 1.25,
