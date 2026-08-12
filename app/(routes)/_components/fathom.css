@@ -1670,9 +1670,31 @@ main, header, footer{ position: relative; z-index: 1; }
 
 /* Animated border for home page report boxes */
 .border-animate-line {
-  stroke-dasharray: 120 1800;
+  stroke: black;
+  stroke-width: 1px;
+  stroke-dasharray: 250 1800; /* longer segment covering more border portion */
   stroke-linecap: round;
-  animation: borderDraw 6s linear infinite;
+  transition: stroke 0.3s ease, stroke-width 0.3s ease, filter 0.3s ease;
+}
+
+.border-animate-container rect {
+  animation: borderDraw 8s linear infinite;
+}
+
+/* Hover interactions for Research Reports card */
+.research-card-hover:hover .border-animate-line {
+  stroke: #1FA463 !important;
+  stroke-width: 2px !important;
+  animation-duration: 4s !important; /* speed up on hover */
+  filter: drop-shadow(0 0 2px rgba(31, 164, 99, 0.4));
+}
+
+/* Hover interactions for Customized Reports card */
+.customized-card-hover:hover .border-animate-line {
+  stroke: #EAB308 !important;
+  stroke-width: 2px !important;
+  animation-duration: 4s !important; /* speed up on hover */
+  filter: drop-shadow(0 0 2px rgba(234, 179, 8, 0.4));
 }
 
 @keyframes borderDraw {
