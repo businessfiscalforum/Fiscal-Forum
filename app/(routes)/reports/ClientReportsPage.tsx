@@ -1350,7 +1350,7 @@ export default function ClientReportsPage({
                         "--hover-shadow-color": "rgba(16, 185, 129, 0.12)"
                       } as React.CSSProperties}>
                         <div>
-                          <div className="w-full h-32 relative rounded-xl overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
+                          <div className="w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
                             <Image
                               src="/images/wizard_mutual_fund.png"
                               alt="Mutual Fund"
@@ -1396,7 +1396,7 @@ export default function ClientReportsPage({
                         "--hover-shadow-color": "rgba(59, 130, 246, 0.12)"
                       } as React.CSSProperties}>
                         <div>
-                          <div className="w-full h-32 relative rounded-xl overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
+                          <div className="w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
                             <Image
                               src="/images/wizard_stocks.png"
                               alt="Stocks"
@@ -1442,7 +1442,7 @@ export default function ClientReportsPage({
                         "--hover-shadow-color": "rgba(139, 92, 246, 0.12)"
                       } as React.CSSProperties}>
                         <div>
-                          <div className="w-full h-32 relative rounded-xl overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
+                          <div className="w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
                             <Image
                               src="/images/wizard_credit_card.png"
                               alt="Credit Card"
@@ -1488,7 +1488,7 @@ export default function ClientReportsPage({
                         "--hover-shadow-color": "rgba(245, 158, 11, 0.12)"
                       } as React.CSSProperties}>
                         <div>
-                          <div className="w-full h-32 relative rounded-xl overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
+                          <div className="w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
                             <Image
                               src="/images/wizard_insurance.png"
                               alt="Insurance"
@@ -1534,7 +1534,7 @@ export default function ClientReportsPage({
                         "--hover-shadow-color": "rgba(99, 102, 241, 0.12)"
                       } as React.CSSProperties}>
                         <div>
-                          <div className="w-full h-32 relative rounded-xl overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
+                          <div className="w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
                             <Image
                               src="/images/wizard_loans.png"
                               alt="Loans"

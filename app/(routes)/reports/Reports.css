@@ -1878,16 +1878,56 @@
   line-height: 1.15;
 }
 
+@keyframes rotateBorder {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .report-center-card {
-  border: 1.5px solid #111411 !important;
-  background: #FFFFFF !important;
-  border-radius: 20px;
+  position: relative;
+  border: 1.5px solid transparent !important;
+  background: transparent !important;
+  border-radius: 8px !important;
   padding: 24px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 12px rgba(17,20,17,0.03);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.report-center-card::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  left: -50%;
+  top: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    #111411 0deg,
+    #111411 30deg,
+    rgba(17, 20, 17, 0.3) 60deg,
+    transparent 90deg,
+    transparent 360deg
+  );
+  animation: rotateBorder 4s linear infinite;
+}
+
+.report-center-card::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 1.5px;
+  background: #FFFFFF;
+  border-radius: 6.5px;
 }
 
 .report-center-card:hover {
@@ -1898,7 +1938,7 @@
 .report-center-card-icon {
   width: 56px;
   height: 56px;
-  border-radius: 14px;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1931,7 +1971,7 @@
   font-size: 11.5px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  border-radius: 12px;
+  border-radius: 6px !important;
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: center;
@@ -1945,7 +1985,7 @@
 .report-center-card-arrow {
   width: 38px;
   height: 38px;
-  border-radius: 12px;
+  border-radius: 6px !important;
   background: #FFFFFF !important;
   color: #111411 !important;
   display: flex;
