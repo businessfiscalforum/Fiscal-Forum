@@ -1879,8 +1879,8 @@
 }
 
 .report-center-card {
-  border: 1.5px solid var(--border-color, #111411);
-  background: var(--bg-gradient, linear-gradient(to bottom, #FFFFFF, #FFFFFF));
+  border: 1.5px solid #111411 !important;
+  background: #FFFFFF !important;
   border-radius: 20px;
   padding: 24px;
   display: flex;
@@ -1892,7 +1892,7 @@
 
 .report-center-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 24px var(--hover-shadow-color, rgba(17,20,17,0.08));
+  box-shadow: 0 8px 24px rgba(17,20,17,0.1) !important;
 }
 
 .report-center-card-icon {
@@ -1909,13 +1909,13 @@
 .report-center-card-title {
   font-size: 19px;
   font-weight: 800;
-  color: var(--title-color, #111411);
+  color: #000000 !important;
   margin-bottom: 10px;
 }
 
 .report-center-card-desc {
   font-size: 12.5px;
-  color: #555855;
+  color: #111411 !important;
   font-weight: 600;
   line-height: 1.5;
   margin-bottom: 24px;
@@ -1924,9 +1924,9 @@
 .report-center-card-btn {
   flex: 1;
   padding: 10px 16px;
-  background: var(--btn-bg, #FFFFFF);
-  border: 1.5px solid var(--btn-border, #111411);
-  color: var(--btn-text, #111411);
+  background: #FFFFFF !important;
+  border: 1.5px solid #111411 !important;
+  color: #111411 !important;
   font-weight: 800;
   font-size: 11.5px;
   text-transform: uppercase;
@@ -1938,7 +1938,7 @@
 }
 
 .report-center-card-btn:hover {
-  background: var(--btn-hover-bg, #F9FAF9);
+  background: #F4FBF7 !important;
   transform: translateY(-1px);
 }
 
@@ -1946,17 +1946,18 @@
   width: 38px;
   height: 38px;
   border-radius: 12px;
-  background: var(--arrow-bg, #111411);
-  color: #FFFFFF;
+  background: #FFFFFF !important;
+  color: #111411 !important;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border: 1.5px solid var(--arrow-border, #111411);
+  border: 1.5px solid #111411 !important;
   transition: all 0.2s ease;
 }
 
 .report-center-card-arrow:hover {
+  background: #F4FBF7 !important;
   transform: scale(1.05);
 }
 
