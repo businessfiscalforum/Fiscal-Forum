@@ -703,12 +703,12 @@ export default function FathomSlider() {
                 </svg>
               </div>
 
-              <div className="w-full md:w-[340px] shrink-0 relative aspect-[4/3] rounded-[16px] overflow-hidden border border-black/10 bg-white shadow-sm">
+              <div className="w-full md:w-[340px] shrink-0 relative aspect-[3/2] rounded-[16px] overflow-hidden border border-black/10 bg-white shadow-sm">
                 <Image
-                  src="/images/report_hero.png"
-                  alt="Personalized Report Center"
+                  src="/images/report_banner.jpg"
+                  alt="Personalized Report Center Banner"
                   fill
-                  className="object-contain p-2"
+                  className="object-cover"
                 />
               </div>
               <div className="flex-1 flex flex-col justify-between h-full space-y-6">
