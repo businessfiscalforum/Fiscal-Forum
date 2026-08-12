@@ -2089,3 +2089,53 @@
   box-shadow: none !important;
 }
 
+/* Animated border line for GET CUSTOMISED REPORT button */
+.hero-customised-report-btn {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: #FFDE21 !important;
+  color: #0B0B0B !important;
+  border: 1.5px solid #0B0B0B !important;
+  padding: 14px 28px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0px #0B0B0B;
+  transition: all 0.15s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  position: relative;
+  text-decoration: none;
+}
+
+.hero-customised-report-btn:hover {
+  background: #ffe94d !important;
+  transform: translateY(-1px);
+  box-shadow: 5px 5px 0px #0B0B0B;
+}
+
+.hero-customised-report-btn:active {
+  transform: translateY(1px);
+  box-shadow: 2px 2px 0px #0B0B0B;
+}
+
+.button-border-line {
+  stroke: black;
+  stroke-width: 2px;
+  stroke-dasharray: 45 400; /* short dash */
+  stroke-linecap: round;
+  animation: buttonBorderDraw 4s linear infinite;
+}
+
+@keyframes buttonBorderDraw {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -440;
+  }
+}
+
