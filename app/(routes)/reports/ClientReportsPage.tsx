@@ -397,6 +397,15 @@ export default function ClientReportsPage({
   /* ============ WIZARD STATE ============ */
   const [wizardStep, setWizardStep] = useState<number | "done">(1);
   const [wizardCategory, setWizardCategory] = useState<string>("");
+
+  useEffect(() => {
+    if (wizardCategory) {
+      const element = document.getElementById("customReport");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }, [wizardStep, wizardCategory]);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [wizardAnswers, setWizardAnswers] = useState<Record<string, any>>({
     capital: "",
