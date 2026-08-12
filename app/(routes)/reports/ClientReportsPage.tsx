@@ -1335,7 +1335,7 @@ export default function ClientReportsPage({
                     </div>
 
                     {/* 5 Cards Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-8 text-left">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-8 text-left report-center-grid-container">
                       {/* Mutual Fund Card */}
                       <div className="report-center-card" style={{
                         "--border-color": "#A7F3D0",
@@ -1350,7 +1350,7 @@ export default function ClientReportsPage({
                         "--hover-shadow-color": "rgba(16, 185, 129, 0.12)"
                       } as React.CSSProperties}>
                         <div>
-                          <div className="w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
+                          <div className="report-center-card-image-wrapper w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
                             <Image
                               src="/images/wizard_mutual_fund.png"
                               alt="Mutual Fund"
@@ -1363,7 +1363,7 @@ export default function ClientReportsPage({
                             Detailed analysis and top performing mutual funds curated for you.
                           </p>
                         </div>
-                        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-emerald-50">
+                        <div className="report-center-card-btn-row flex items-center gap-2 mt-4 pt-4 border-t border-emerald-50">
                           <button
                             type="button"
                             onClick={() => setWizardCategory("Mutual Fund")}
@@ -1396,7 +1396,7 @@ export default function ClientReportsPage({
                         "--hover-shadow-color": "rgba(59, 130, 246, 0.12)"
                       } as React.CSSProperties}>
                         <div>
-                          <div className="w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
+                          <div className="report-center-card-image-wrapper w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
                             <Image
                               src="/images/wizard_stocks.png"
                               alt="Stocks"
@@ -1409,7 +1409,7 @@ export default function ClientReportsPage({
                             In-depth stock research, expert picks and market outlook.
                           </p>
                         </div>
-                        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-blue-50">
+                        <div className="report-center-card-btn-row flex items-center gap-2 mt-4 pt-4 border-t border-blue-50">
                           <button
                             type="button"
                             onClick={() => setWizardCategory("Stocks")}
@@ -1442,7 +1442,7 @@ export default function ClientReportsPage({
                         "--hover-shadow-color": "rgba(139, 92, 246, 0.12)"
                       } as React.CSSProperties}>
                         <div>
-                          <div className="w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
+                          <div className="report-center-card-image-wrapper w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
                             <Image
                               src="/images/wizard_credit_card.png"
                               alt="Credit Card"
@@ -1455,7 +1455,7 @@ export default function ClientReportsPage({
                             Best credit card recommendations tailored to your lifestyle.
                           </p>
                         </div>
-                        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-purple-50">
+                        <div className="report-center-card-btn-row flex items-center gap-2 mt-4 pt-4 border-t border-purple-50">
                           <button
                             type="button"
                             onClick={() => setWizardCategory("Credit Card")}
@@ -1488,7 +1488,7 @@ export default function ClientReportsPage({
                         "--hover-shadow-color": "rgba(245, 158, 11, 0.12)"
                       } as React.CSSProperties}>
                         <div>
-                          <div className="w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
+                          <div className="report-center-card-image-wrapper w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
                             <Image
                               src="/images/wizard_insurance.png"
                               alt="Insurance"
@@ -1501,7 +1501,7 @@ export default function ClientReportsPage({
                             Smart insurance recommendations for a secure future.
                           </p>
                         </div>
-                        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-amber-50">
+                        <div className="report-center-card-btn-row flex items-center gap-2 mt-4 pt-4 border-t border-amber-50">
                           <button
                             type="button"
                             onClick={() => setWizardCategory("Insurance")}
@@ -1534,7 +1534,7 @@ export default function ClientReportsPage({
                         "--hover-shadow-color": "rgba(99, 102, 241, 0.12)"
                       } as React.CSSProperties}>
                         <div>
-                          <div className="w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
+                          <div className="report-center-card-image-wrapper w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
                             <Image
                               src="/images/wizard_loans.png"
                               alt="Loans"
@@ -1547,7 +1547,7 @@ export default function ClientReportsPage({
                             Compare and choose the best loan options for your needs.
                           </p>
                         </div>
-                        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-indigo-50">
+                        <div className="report-center-card-btn-row flex items-center gap-2 mt-4 pt-4 border-t border-indigo-50">
                           <button
                             type="button"
                             onClick={() => setWizardCategory("Loans")}
