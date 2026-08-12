@@ -794,6 +794,18 @@
   box-shadow:0 6px 0 var(--ink), 0 18px 40px rgba(17,20,17,0.14);
   animation:wizardCardIn 600ms cubic-bezier(.16,1,.3,1) both;
 }
+.wizard-card:not(.landing-mode) {
+  min-height: 560px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+@media (max-width: 639px) {
+  .wizard-card:not(.landing-mode) {
+    min-height: 480px;
+    padding: 24px 20px !important;
+  }
+}
 .wizard-card::before{
   content:"";position:absolute;top:0;left:44px;right:44px;height:4px;
   background:linear-gradient(90deg, var(--forest), var(--mint));
@@ -824,6 +836,12 @@
 
 .wizard-step{display:none;}
 .wizard-step.active{display:block;animation:wizardStepIn 420ms cubic-bezier(.16,1,.3,1) both;}
+.wizard-card:not(.landing-mode) .wizard-step.active {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
 .wizard-step h3{font-size:21px;margin:0 0 24px;letter-spacing:-0.01em;}
 
 .wizard-options{display:flex;flex-wrap:wrap;gap:12px;}
