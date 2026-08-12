@@ -416,7 +416,7 @@ export default function FathomSliderMobile() {
             </div>
             <div className="w-full relative z-10">
               <Link href="/reports" className="w-full block">
-                <button className="w-full py-2.5 bg-[#FFDE21] text-black border border-black font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-[#E5C71D] active:scale-98 transition-all cursor-pointer">
+                <button className="w-full py-2.5 bg-yellow-400 text-black border border-black font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 active:scale-98 transition-all cursor-pointer">
                   CLICK HERE →
                 </button>
               </Link>
