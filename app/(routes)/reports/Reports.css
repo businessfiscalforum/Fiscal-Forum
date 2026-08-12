@@ -2124,10 +2124,10 @@
 
 .button-border-line {
   stroke: black;
-  stroke-width: 2px;
-  stroke-dasharray: 45 400; /* short dash */
+  stroke-width: 2.5px;
+  stroke-dasharray: 80 400; /* longer dash segment */
   stroke-linecap: round;
-  animation: buttonBorderDraw 4s linear infinite;
+  animation: buttonBorderDraw 1.8s linear infinite; /* fast animation */
 }
 
 @keyframes buttonBorderDraw {
@@ -2135,7 +2135,7 @@
     stroke-dashoffset: 0;
   }
   to {
-    stroke-dashoffset: -440;
+    stroke-dashoffset: -480;
   }
 }
 
