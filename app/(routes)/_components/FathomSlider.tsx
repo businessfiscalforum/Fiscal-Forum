@@ -616,18 +616,37 @@ export default function FathomSlider() {
           className={`closing ${closingVisible ? "is-visible" : ""}`}
           id="closing"
           ref={closingRef}
-          style={{ padding: "80px 32px" }}
+          style={{ padding: "100px 32px" }}
         >
-          <div className="max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+          <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch px-4 md:px-8">
             {/* Left Card: Research Reports */}
             <motion.div
               initial={{ opacity: 0, x: -100 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ type: "spring", stiffness: 70, damping: 14 }}
-              className="bg-white border border-black rounded-[24px] p-6 md:p-8 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col md:flex-row items-center gap-6 text-left"
+              className="relative bg-white border border-black/10 rounded-[24px] p-8 md:p-12 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col md:flex-row items-center gap-8 text-left min-h-[420px] justify-between overflow-hidden"
             >
-              <div className="w-[180px] shrink-0 relative aspect-[4/5] rounded-[16px] overflow-hidden border border-black/10 bg-white">
+              {/* Animated Border Overlay */}
+              <div className="absolute inset-0 pointer-events-none rounded-[24px] overflow-hidden">
+                <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                  <rect
+                    rx="24"
+                    fill="none"
+                    stroke="black"
+                    strokeWidth="2.5"
+                    style={{
+                      x: 1.25,
+                      y: 1.25,
+                      width: "calc(100% - 2.5px)",
+                      height: "calc(100% - 2.5px)",
+                    }}
+                    className="border-animate-line"
+                  />
+                </svg>
+              </div>
+
+              <div className="w-full md:w-[220px] shrink-0 relative aspect-[4/5] rounded-[16px] overflow-hidden border border-black/10 bg-white shadow-sm">
                 <Image
                   src="/fathom/research-reports.png"
                   alt="Research Reports"
@@ -635,12 +654,12 @@ export default function FathomSlider() {
                   className="object-contain p-2"
                 />
               </div>
-              <div className="flex-1 flex flex-col justify-between h-full space-y-4">
+              <div className="flex-1 flex flex-col justify-between h-full space-y-6">
                 <div>
-                  <h3 className="text-xl md:text-2xl font-extrabold text-black uppercase tracking-tight leading-tight">
+                  <h3 className="text-2xl md:text-3xl font-extrabold text-black uppercase tracking-tight leading-tight">
                     Research Reports
                   </h3>
-                  <p className="text-xs sm:text-sm font-semibold text-gray-800 leading-snug mt-3">
+                  <p className="text-sm sm:text-base font-semibold text-gray-800 leading-snug mt-3">
                     Everything you need to invest smarter, all in one place. Get actionable market insights, in-depth research, and reports personalized to your investment goals.
                   </p>
                 </div>
@@ -663,9 +682,28 @@ export default function FathomSlider() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ type: "spring", stiffness: 70, damping: 14, delay: 0.1 }}
-              className="bg-white border border-black rounded-[24px] p-6 md:p-8 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col md:flex-row items-center gap-6 text-left"
+              className="relative bg-white border border-black/10 rounded-[24px] p-8 md:p-12 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col md:flex-row items-center gap-8 text-left min-h-[420px] justify-between overflow-hidden"
             >
-              <div className="w-[180px] shrink-0 relative aspect-[4/5] rounded-[16px] overflow-hidden border border-black/10 bg-white">
+              {/* Animated Border Overlay */}
+              <div className="absolute inset-0 pointer-events-none rounded-[24px] overflow-hidden">
+                <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                  <rect
+                    rx="24"
+                    fill="none"
+                    stroke="black"
+                    strokeWidth="2.5"
+                    style={{
+                      x: 1.25,
+                      y: 1.25,
+                      width: "calc(100% - 2.5px)",
+                      height: "calc(100% - 2.5px)",
+                    }}
+                    className="border-animate-line"
+                  />
+                </svg>
+              </div>
+
+              <div className="w-full md:w-[220px] shrink-0 relative aspect-[4/5] rounded-[16px] overflow-hidden border border-black/10 bg-white shadow-sm">
                 <Image
                   src="/images/wizard_credit_card.png"
                   alt="Customized Credit Card Report Form"
@@ -673,13 +711,13 @@ export default function FathomSlider() {
                   className="object-contain p-2"
                 />
               </div>
-              <div className="flex-1 flex flex-col justify-between h-full space-y-4">
+              <div className="flex-1 flex flex-col justify-between h-full space-y-6">
                 <div>
-                  <h3 className="text-xl md:text-2xl font-extrabold text-black uppercase tracking-tight leading-tight">
+                  <h3 className="text-2xl md:text-3xl font-extrabold text-black uppercase tracking-tight leading-tight">
                     Want Customised Reports ?
                   </h3>
-                  <div className="flex items-center gap-3 mt-3">
-                    <div className="w-12 h-12 shrink-0 relative rounded-xl overflow-hidden bg-transparent">
+                  <div className="flex items-center gap-4 mt-3">
+                    <div className="w-16 h-16 shrink-0 relative rounded-xl overflow-hidden bg-transparent border border-black/5 shadow-sm">
                       <Image
                         src="/images/report_hero.png"
                         alt="Personalized Report Center"
@@ -687,7 +725,7 @@ export default function FathomSlider() {
                         className="object-contain"
                       />
                     </div>
-                    <p className="text-xs font-semibold text-gray-700 leading-tight">
+                    <p className="text-sm font-semibold text-gray-700 leading-tight">
                       Personalized insights for every decision your money makes...
                     </p>
                   </div>
