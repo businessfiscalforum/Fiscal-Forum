@@ -12,6 +12,7 @@ import {
   FaInfoCircle,
 } from "react-icons/fa";
 import Link from "next/link";
+import Image from "next/image";
 import { UserDetailContext } from "../../../context/UserDetailContext";
 import useEmblaCarousel from "embla-carousel-react";
 
@@ -928,7 +929,7 @@ export default function ClientReportsPage({
 
     // Format wizard answers into details block
     const isCc = wizardCategory === 'Credit Card';
-    const isLoan = wizardCategory === 'Loan';
+    const isLoan = wizardCategory === 'Loan' || wizardCategory === 'Loans';
     const isMf = wizardCategory === 'Mutual Fund';
     const isStocks = wizardCategory === 'Stocks';
     const isIns = wizardCategory === 'Insurance';
@@ -1276,42 +1277,306 @@ export default function ClientReportsPage({
       {/* ================= SECTION 3B: CUSTOM REPORT REQUEST WIZARD ================= */}
       <section className="section custom-report-section" id="customReport">
         <div className="wrap">
-          <div className="section-head text-center mx-auto max-w-xl">
-            <h2 className="text-3xl font-bold uppercase text-black text-center" style={{ margin: '0 auto 10px' }}>Want a customized report?</h2>
-            <p className="text-center" style={{ margin: '0 auto' }}>Answer a few quick questions and we&apos;ll tailor a report to exactly what you need.</p>
-          </div>
+          {/* Section Head: Show only when wizard is active/progressing beyond category selection */}
+          {!(wizardStep === 1 && !wizardCategory) && (
+            <div className="section-head text-center mx-auto max-w-xl">
+              <h2 className="text-3xl font-bold uppercase text-black text-center" style={{ margin: '0 auto 10px' }}>Want a customized report?</h2>
+              <p className="text-center" style={{ margin: '0 auto' }}>Answer a few quick questions and we&apos;ll tailor a report to exactly what you need.</p>
+            </div>
+          )}
 
-          <div className="wizard-card">
+          <div className={`wizard-card ${wizardStep === 1 && !wizardCategory ? "landing-mode" : ""}`}>
             
             {/* PROGRESS DOTS */}
-            <div className="wizard-progress">
-              <span className={`wizard-step-dot ${wizardStep === 1 ? "active" : (((typeof wizardStep === "number" && wizardStep > 1) || wizardStep === "done") ? "done" : "")}`} data-dot="1">1</span>
-              <span className={`wizard-step-line ${((typeof wizardStep === "number" && wizardStep > 1) || wizardStep === "done") ? "filled" : ""}`}></span>
-              <span className={`wizard-step-dot ${wizardStep === 2 ? "active" : (((typeof wizardStep === "number" && wizardStep > 2) || wizardStep === "done") ? "done" : "")}`} data-dot="2">2</span>
-              <span className={`wizard-step-line ${((typeof wizardStep === "number" && wizardStep > 2) || wizardStep === "done") ? "filled" : ""}`}></span>
-              <span className={`wizard-step-dot ${wizardStep === 3 ? "active" : (((typeof wizardStep === "number" && wizardStep > 3) || wizardStep === "done") ? "done" : "")}`} data-dot="3">3</span>
-              <span className={`wizard-step-line ${((typeof wizardStep === "number" && wizardStep > 3) || wizardStep === "done") ? "filled" : ""}`}></span>
-              <span className={`wizard-step-dot ${wizardStep === 4 ? "active" : (wizardStep === "done" ? "done" : "")}`} data-dot="4">4</span>
-            </div>
+            {!(wizardStep === 1 && !wizardCategory) && (
+              <div className="wizard-progress">
+                <span className={`wizard-step-dot ${wizardStep === 1 ? "active" : (((typeof wizardStep === "number" && wizardStep > 1) || wizardStep === "done") ? "done" : "")}`} data-dot="1">1</span>
+                <span className={`wizard-step-line ${((typeof wizardStep === "number" && wizardStep > 1) || wizardStep === "done") ? "filled" : ""}`}></span>
+                <span className={`wizard-step-dot ${wizardStep === 2 ? "active" : (((typeof wizardStep === "number" && wizardStep > 2) || wizardStep === "done") ? "done" : "")}`} data-dot="2">2</span>
+                <span className={`wizard-step-line ${((typeof wizardStep === "number" && wizardStep > 2) || wizardStep === "done") ? "filled" : ""}`}></span>
+                <span className={`wizard-step-dot ${wizardStep === 3 ? "active" : (((typeof wizardStep === "number" && wizardStep > 3) || wizardStep === "done") ? "done" : "")}`} data-dot="3">3</span>
+                <span className={`wizard-step-line ${((typeof wizardStep === "number" && wizardStep > 3) || wizardStep === "done") ? "filled" : ""}`}></span>
+                <span className={`wizard-step-dot ${wizardStep === 4 ? "active" : (wizardStep === "done" ? "done" : "")}`} data-dot="4">4</span>
+              </div>
+            )}
 
             {/* STEP 1: CATEGORY SELECTION & SCOPED FIELDS */}
             {wizardStep === 1 && (
               <div className="wizard-step active" data-step="1">
-                <h3>Select a category for your custom report:</h3>
-                <div className="wizard-options mb-8">
-                  {["Stocks", "Mutual Fund", "Insurance", "Credit Card", "Loan"].map(cat => (
-                    <button
-                      key={cat}
-                      type="button"
-                      className={`wizard-option ${wizardCategory === cat ? "selected" : ""}`}
-                      onClick={() => setWizardCategory(cat)}
-                    >
-                      {cat}
-                    </button>
-                  ))}
-                </div>
+                
+                {/* Landing View: Welcome & 5 Cards */}
+                {!wizardCategory ? (
+                  <div className="personalized-report-center-landing">
+                    {/* Hero Section */}
+                    <div className="report-center-hero flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
+                      <div className="flex-1 text-left space-y-4">
+                        <div className="flex items-center gap-2 text-amber-600 font-extrabold text-sm uppercase tracking-wider">
+                          <span>✦</span> Welcome to your
+                        </div>
+                        <h2 className="text-4xl md:text-5xl report-center-title">
+                          Personalized
+                          <br />
+                          Report Center
+                        </h2>
+                        <div className="w-24 h-1 bg-amber-400 rounded-full mt-2 mb-4"></div>
+                        <p className="text-base text-gray-600 font-bold">
+                          Curated insights and recommendations, designed for your financial growth.
+                        </p>
+                      </div>
+                      <div className="w-64 h-64 md:w-80 md:h-80 shrink-0 relative rounded-2xl overflow-hidden bg-transparent">
+                        <Image
+                          src="/images/report_hero.png"
+                          alt="Personalized Report Center Illustration"
+                          fill
+                          className="object-contain"
+                          priority
+                        />
+                      </div>
+                    </div>
 
-                <div className="wizard-category-details">
+                    {/* 5 Cards Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-8 text-left">
+                      {/* Mutual Fund Card */}
+                      <div className="report-center-card" style={{
+                        "--border-color": "#A7F3D0",
+                        "--bg-gradient": "linear-gradient(to bottom, #F0FDF4, #FFFFFF)",
+                        "--title-color": "#065F46",
+                        "--btn-bg": "#ECFDF5",
+                        "--btn-border": "#A7F3D0",
+                        "--btn-text": "#065F46",
+                        "--btn-hover-bg": "#D1FAE5",
+                        "--arrow-bg": "#065F46",
+                        "--arrow-border": "#065F46",
+                        "--hover-shadow-color": "rgba(16, 185, 129, 0.12)"
+                      } as React.CSSProperties}>
+                        <div>
+                          <div className="report-center-card-icon bg-emerald-100 text-emerald-600">
+                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
+                          </div>
+                          <h3 className="report-center-card-title">Mutual Fund</h3>
+                          <p className="report-center-card-desc">
+                            Detailed analysis and top performing mutual funds curated for you.
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-emerald-50">
+                          <button
+                            type="button"
+                            onClick={() => setWizardCategory("Mutual Fund")}
+                            className="report-center-card-btn"
+                          >
+                            Get Yours
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setWizardCategory("Mutual Fund")}
+                            className="report-center-card-arrow"
+                            aria-label="Mutual Fund Section"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7"></path></svg>
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Stocks Card */}
+                      <div className="report-center-card" style={{
+                        "--border-color": "#BFDBFE",
+                        "--bg-gradient": "linear-gradient(to bottom, #EFF6FF, #FFFFFF)",
+                        "--title-color": "#1E40AF",
+                        "--btn-bg": "#EFF6FF",
+                        "--btn-border": "#BFDBFE",
+                        "--btn-text": "#1E40AF",
+                        "--btn-hover-bg": "#DBEAFE",
+                        "--arrow-bg": "#1E40AF",
+                        "--arrow-border": "#1E40AF",
+                        "--hover-shadow-color": "rgba(59, 130, 246, 0.12)"
+                      } as React.CSSProperties}>
+                        <div>
+                          <div className="report-center-card-icon bg-blue-100 text-blue-600">
+                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                          </div>
+                          <h3 className="report-center-card-title">Stocks</h3>
+                          <p className="report-center-card-desc">
+                            In-depth stock research, expert picks and market outlook.
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-blue-50">
+                          <button
+                            type="button"
+                            onClick={() => setWizardCategory("Stocks")}
+                            className="report-center-card-btn"
+                          >
+                            Get Yours
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setWizardCategory("Stocks")}
+                            className="report-center-card-arrow"
+                            aria-label="Stocks Section"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7"></path></svg>
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Credit Card Card */}
+                      <div className="report-center-card" style={{
+                        "--border-color": "#DDD6FE",
+                        "--bg-gradient": "linear-gradient(to bottom, #F5F3FF, #FFFFFF)",
+                        "--title-color": "#5B21B6",
+                        "--btn-bg": "#F5F3FF",
+                        "--btn-border": "#DDD6FE",
+                        "--btn-text": "#5B21B6",
+                        "--btn-hover-bg": "#EDE9FE",
+                        "--arrow-bg": "#5B21B6",
+                        "--arrow-border": "#5B21B6",
+                        "--hover-shadow-color": "rgba(139, 92, 246, 0.12)"
+                      } as React.CSSProperties}>
+                        <div>
+                          <div className="report-center-card-icon bg-purple-100 text-purple-600">
+                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                          </div>
+                          <h3 className="report-center-card-title">Credit Card</h3>
+                          <p className="report-center-card-desc">
+                            Best credit card recommendations tailored to your lifestyle.
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-purple-50">
+                          <button
+                            type="button"
+                            onClick={() => setWizardCategory("Credit Card")}
+                            className="report-center-card-btn"
+                          >
+                            Get Yours
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setWizardCategory("Credit Card")}
+                            className="report-center-card-arrow"
+                            aria-label="Credit Card Section"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7"></path></svg>
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Insurance Card */}
+                      <div className="report-center-card" style={{
+                        "--border-color": "#FDE68A",
+                        "--bg-gradient": "linear-gradient(to bottom, #FEF3C7, #FFFFFF)",
+                        "--title-color": "#92400E",
+                        "--btn-bg": "#FEF3C7",
+                        "--btn-border": "#FDE68A",
+                        "--btn-text": "#92400E",
+                        "--btn-hover-bg": "#FDE68A",
+                        "--arrow-bg": "#92400E",
+                        "--arrow-border": "#92400E",
+                        "--hover-shadow-color": "rgba(245, 158, 11, 0.12)"
+                      } as React.CSSProperties}>
+                        <div>
+                          <div className="report-center-card-icon bg-amber-100 text-amber-600">
+                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                          </div>
+                          <h3 className="report-center-card-title">Insurance</h3>
+                          <p className="report-center-card-desc">
+                            Smart insurance recommendations for a secure future.
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-amber-50">
+                          <button
+                            type="button"
+                            onClick={() => setWizardCategory("Insurance")}
+                            className="report-center-card-btn"
+                          >
+                            Get Yours
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setWizardCategory("Insurance")}
+                            className="report-center-card-arrow"
+                            aria-label="Insurance Section"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7"></path></svg>
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Loans Card */}
+                      <div className="report-center-card" style={{
+                        "--border-color": "#C7D2FE",
+                        "--bg-gradient": "linear-gradient(to bottom, #EEF2FF, #FFFFFF)",
+                        "--title-color": "#3730A3",
+                        "--btn-bg": "#EEF2FF",
+                        "--btn-border": "#C7D2FE",
+                        "--btn-text": "#3730A3",
+                        "--btn-hover-bg": "#C7D2FE",
+                        "--arrow-bg": "#3730A3",
+                        "--arrow-border": "#3730A3",
+                        "--hover-shadow-color": "rgba(99, 102, 241, 0.12)"
+                      } as React.CSSProperties}>
+                        <div>
+                          <div className="report-center-card-icon bg-indigo-100 text-indigo-600">
+                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                          </div>
+                          <h3 className="report-center-card-title">Loans</h3>
+                          <p className="report-center-card-desc">
+                            Compare and choose the best loan options for your needs.
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-indigo-50">
+                          <button
+                            type="button"
+                            onClick={() => setWizardCategory("Loans")}
+                            className="report-center-card-btn"
+                          >
+                            Get Yours
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setWizardCategory("Loans")}
+                            className="report-center-card-arrow"
+                            aria-label="Loans Section"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7"></path></svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  /* Active Questionnaire view: Active category block at the top as banner, and show the questions below it */
+                  <div className="wizard-category-questions-container">
+                    
+                    {/* Active Block Header banner */}
+                    <div className="mb-8 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 bg-[#F4FBF7] border border-black rounded-2xl shadow-sm">
+                      <div className="flex items-center gap-4">
+                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl font-black shadow-sm ${
+                          wizardCategory === "Mutual Fund" ? "bg-emerald-100 text-emerald-800" :
+                          wizardCategory === "Stocks" ? "bg-blue-100 text-blue-800" :
+                          wizardCategory === "Credit Card" ? "bg-purple-100 text-purple-800" :
+                          wizardCategory === "Insurance" ? "bg-amber-100 text-amber-800" :
+                          "bg-indigo-100 text-indigo-800"
+                        }`}>
+                          {wizardCategory === "Mutual Fund" && <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>}
+                          {wizardCategory === "Stocks" && <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>}
+                          {wizardCategory === "Credit Card" && <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>}
+                          {wizardCategory === "Insurance" && <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>}
+                          {(wizardCategory === "Loans" || wizardCategory === "Loan") && <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>}
+                        </div>
+                        <div className="text-left">
+                          <h4 className="text-lg font-black text-black uppercase tracking-tight">Customized {wizardCategory} Report</h4>
+                          <p className="text-xs text-gray-500 font-semibold">Please answer the questions below to customize your report.</p>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setWizardCategory("")}
+                        className="px-4 py-2 bg-white hover:bg-gray-50 text-black border border-black rounded-xl font-bold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-sm"
+                      >
+                        ← Change Category
+                      </button>
+                    </div>
+
+                    <div className="wizard-category-details">
                   
                   {/* Stocks Scoped Fields */}
                   {wizardCategory === "Stocks" && (
@@ -1588,7 +1853,7 @@ export default function ClientReportsPage({
                   )}
 
                   {/* Loan Scoped Fields */}
-                  {wizardCategory === "Loan" && (
+                  {(wizardCategory === "Loan" || wizardCategory === "Loans") && (
                     <div className="wizard-category-fields">
                       <h4 className="wizard-subheading" style={{ marginTop: 0 }}>What do you need the loan for?</h4>
                       <div className="wizard-visual-cards">
@@ -1700,16 +1965,26 @@ export default function ClientReportsPage({
 
                 </div>
 
-                <div className="wizard-nav flex justify-end">
-                  <button
-                    type="button"
-                    className="wizard-btn primary"
-                    disabled={!wizardCategory}
-                    onClick={() => setWizardStep(2)}
-                  >
-                    Next →
-                  </button>
-                </div>
+                    {/* Navigation Buttons for Step 1 Questions */}
+                    <div className="wizard-nav flex justify-between mt-8">
+                      <button
+                        type="button"
+                        className="wizard-btn"
+                        onClick={() => setWizardCategory("")}
+                      >
+                        ← Back
+                      </button>
+                      <button
+                        type="button"
+                        className="wizard-btn primary"
+                        disabled={!wizardCategory}
+                        onClick={() => setWizardStep(2)}
+                      >
+                        Next →
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
