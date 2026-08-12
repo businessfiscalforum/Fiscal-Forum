@@ -666,7 +666,7 @@ export default function FathomSlider() {
                 </div>
                 <div>
                   <Link href="/reports">
-                    <button className="px-6 py-2.5 bg-[#1FA463] text-white border border-black font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:-translate-y-0.5 transition-all cursor-pointer">
+                    <button className="px-6 py-2.5 bg-yellow-400 text-black border border-black font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 hover:-translate-y-0.5 transition-all cursor-pointer">
                       CLICK HERE →
                     </button>
                   </Link>
