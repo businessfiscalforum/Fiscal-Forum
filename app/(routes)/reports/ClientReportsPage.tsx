@@ -1265,9 +1265,10 @@ export default function ClientReportsPage({
               
               {/* Get Customised Report Button */}
               <div className="relative mt-4 flex justify-start select-none">
-                <Link
-                  href="/reports/join"
+                <button
+                  type="button"
                   className="hero-customised-report-btn"
+                  onClick={() => scrollToSection("customReport")}
                 >
                   {/* SVG Animated Border Overlay */}
                   <div className="absolute inset-0 pointer-events-none rounded-full overflow-hidden z-20">
@@ -1289,7 +1290,7 @@ export default function ClientReportsPage({
                     </svg>
                   </div>
                   GET CUSTOMISED REPORT
-                </Link>
+                </button>
               </div>
 
             </div>
