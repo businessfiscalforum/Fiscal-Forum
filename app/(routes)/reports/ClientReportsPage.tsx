@@ -1350,8 +1350,13 @@ export default function ClientReportsPage({
                         "--hover-shadow-color": "rgba(16, 185, 129, 0.12)"
                       } as React.CSSProperties}>
                         <div>
-                          <div className="report-center-card-icon bg-emerald-100 text-emerald-600">
-                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
+                          <div className="w-full h-32 relative rounded-xl overflow-hidden mb-4 border border-emerald-100 bg-gray-50 shadow-sm">
+                            <Image
+                              src="/images/wizard_mutual_fund.png"
+                              alt="Mutual Fund"
+                              fill
+                              className="object-cover"
+                            />
                           </div>
                           <h3 className="report-center-card-title">Mutual Fund</h3>
                           <p className="report-center-card-desc">
@@ -1391,8 +1396,13 @@ export default function ClientReportsPage({
                         "--hover-shadow-color": "rgba(59, 130, 246, 0.12)"
                       } as React.CSSProperties}>
                         <div>
-                          <div className="report-center-card-icon bg-blue-100 text-blue-600">
-                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                          <div className="w-full h-32 relative rounded-xl overflow-hidden mb-4 border border-blue-100 bg-gray-50 shadow-sm">
+                            <Image
+                              src="/images/wizard_stocks.png"
+                              alt="Stocks"
+                              fill
+                              className="object-cover"
+                            />
                           </div>
                           <h3 className="report-center-card-title">Stocks</h3>
                           <p className="report-center-card-desc">
@@ -1432,8 +1442,13 @@ export default function ClientReportsPage({
                         "--hover-shadow-color": "rgba(139, 92, 246, 0.12)"
                       } as React.CSSProperties}>
                         <div>
-                          <div className="report-center-card-icon bg-purple-100 text-purple-600">
-                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                          <div className="w-full h-32 relative rounded-xl overflow-hidden mb-4 border border-purple-100 bg-gray-50 shadow-sm">
+                            <Image
+                              src="/images/wizard_credit_card.png"
+                              alt="Credit Card"
+                              fill
+                              className="object-cover"
+                            />
                           </div>
                           <h3 className="report-center-card-title">Credit Card</h3>
                           <p className="report-center-card-desc">
@@ -1473,8 +1488,13 @@ export default function ClientReportsPage({
                         "--hover-shadow-color": "rgba(245, 158, 11, 0.12)"
                       } as React.CSSProperties}>
                         <div>
-                          <div className="report-center-card-icon bg-amber-100 text-amber-600">
-                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                          <div className="w-full h-32 relative rounded-xl overflow-hidden mb-4 border border-amber-100 bg-gray-50 shadow-sm">
+                            <Image
+                              src="/images/wizard_insurance.png"
+                              alt="Insurance"
+                              fill
+                              className="object-cover"
+                            />
                           </div>
                           <h3 className="report-center-card-title">Insurance</h3>
                           <p className="report-center-card-desc">
@@ -1514,8 +1534,13 @@ export default function ClientReportsPage({
                         "--hover-shadow-color": "rgba(99, 102, 241, 0.12)"
                       } as React.CSSProperties}>
                         <div>
-                          <div className="report-center-card-icon bg-indigo-100 text-indigo-600">
-                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                          <div className="w-full h-32 relative rounded-xl overflow-hidden mb-4 border border-indigo-100 bg-gray-50 shadow-sm">
+                            <Image
+                              src="/images/wizard_loans.png"
+                              alt="Loans"
+                              fill
+                              className="object-cover"
+                            />
                           </div>
                           <h3 className="report-center-card-title">Loans</h3>
                           <p className="report-center-card-desc">
@@ -1549,18 +1574,19 @@ export default function ClientReportsPage({
                     {/* Active Block Header banner */}
                     <div className="mb-8 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 bg-[#F4FBF7] border border-black rounded-2xl shadow-sm">
                       <div className="flex items-center gap-4">
-                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl font-black shadow-sm ${
-                          wizardCategory === "Mutual Fund" ? "bg-emerald-100 text-emerald-800" :
-                          wizardCategory === "Stocks" ? "bg-blue-100 text-blue-800" :
-                          wizardCategory === "Credit Card" ? "bg-purple-100 text-purple-800" :
-                          wizardCategory === "Insurance" ? "bg-amber-100 text-amber-800" :
-                          "bg-indigo-100 text-indigo-800"
-                        }`}>
-                          {wizardCategory === "Mutual Fund" && <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>}
-                          {wizardCategory === "Stocks" && <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>}
-                          {wizardCategory === "Credit Card" && <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>}
-                          {wizardCategory === "Insurance" && <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>}
-                          {(wizardCategory === "Loans" || wizardCategory === "Loan") && <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>}
+                        <div className="w-12 h-12 rounded-xl overflow-hidden relative shrink-0 shadow-sm border border-black/10 bg-white">
+                          <Image
+                            src={
+                              wizardCategory === "Mutual Fund" ? "/images/wizard_mutual_fund.png" :
+                              wizardCategory === "Stocks" ? "/images/wizard_stocks.png" :
+                              wizardCategory === "Credit Card" ? "/images/wizard_credit_card.png" :
+                              wizardCategory === "Insurance" ? "/images/wizard_insurance.png" :
+                              "/images/wizard_loans.png"
+                            }
+                            alt={wizardCategory}
+                            fill
+                            className="object-cover"
+                          />
                         </div>
                         <div className="text-left">
                           <h4 className="text-lg font-black text-black uppercase tracking-tight">Customized {wizardCategory} Report</h4>
