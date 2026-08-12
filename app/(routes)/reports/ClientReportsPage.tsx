@@ -1371,14 +1371,6 @@ export default function ClientReportsPage({
                           >
                             Get Yours
                           </button>
-                          <button
-                            type="button"
-                            onClick={() => setWizardCategory("Mutual Fund")}
-                            className="report-center-card-arrow"
-                            aria-label="Mutual Fund Section"
-                          >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7"></path></svg>
-                          </button>
                         </div>
                       </div>
 
@@ -1416,14 +1408,6 @@ export default function ClientReportsPage({
                             className="report-center-card-btn"
                           >
                             Get Yours
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setWizardCategory("Stocks")}
-                            className="report-center-card-arrow"
-                            aria-label="Stocks Section"
-                          >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7"></path></svg>
                           </button>
                         </div>
                       </div>
@@ -1463,14 +1447,6 @@ export default function ClientReportsPage({
                           >
                             Get Yours
                           </button>
-                          <button
-                            type="button"
-                            onClick={() => setWizardCategory("Credit Card")}
-                            className="report-center-card-arrow"
-                            aria-label="Credit Card Section"
-                          >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7"></path></svg>
-                          </button>
                         </div>
                       </div>
 
@@ -1509,14 +1485,6 @@ export default function ClientReportsPage({
                           >
                             Get Yours
                           </button>
-                          <button
-                            type="button"
-                            onClick={() => setWizardCategory("Insurance")}
-                            className="report-center-card-arrow"
-                            aria-label="Insurance Section"
-                          >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7"></path></svg>
-                          </button>
                         </div>
                       </div>
 
@@ -1554,14 +1522,6 @@ export default function ClientReportsPage({
                             className="report-center-card-btn"
                           >
                             Get Yours
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setWizardCategory("Loans")}
-                            className="report-center-card-arrow"
-                            aria-label="Loans Section"
-                          >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7"></path></svg>
                           </button>
                         </div>
                       </div>
