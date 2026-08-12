@@ -973,7 +973,7 @@ export default function ClientReportsPage({
     }
 
     if (isCc) {
-      customDetails += `Monthly Spend: ₹${wizardAnswers.ccMonthlySpending}\n`;
+      customDetails += `Annual Salary: ₹${wizardAnswers.ccMonthlySpending}\n`;
       customDetails += `Major Categories: ${(wizardAnswers.ccSpending || []).join(", ") || "None"}\n`;
       customDetails += `Card Preferences: ${(wizardAnswers.ccPreference || []).join(", ") || "None"}\n`;
       if ((wizardAnswers.ccSpending || []).includes("Travel") || (wizardAnswers.ccPreference || []).includes("Airport Lounge Access") || (wizardAnswers.ccPreference || []).includes("Air Miles")) {
@@ -1292,11 +1292,9 @@ export default function ClientReportsPage({
               <div className="wizard-progress">
                 <span className={`wizard-step-dot ${wizardStep === 1 ? "active" : (((typeof wizardStep === "number" && wizardStep > 1) || wizardStep === "done") ? "done" : "")}`} data-dot="1">1</span>
                 <span className={`wizard-step-line ${((typeof wizardStep === "number" && wizardStep > 1) || wizardStep === "done") ? "filled" : ""}`}></span>
-                <span className={`wizard-step-dot ${wizardStep === 2 ? "active" : (((typeof wizardStep === "number" && wizardStep > 2) || wizardStep === "done") ? "done" : "")}`} data-dot="2">2</span>
-                <span className={`wizard-step-line ${((typeof wizardStep === "number" && wizardStep > 2) || wizardStep === "done") ? "filled" : ""}`}></span>
-                <span className={`wizard-step-dot ${wizardStep === 3 ? "active" : (((typeof wizardStep === "number" && wizardStep > 3) || wizardStep === "done") ? "done" : "")}`} data-dot="3">3</span>
+                <span className={`wizard-step-dot ${wizardStep === 3 ? "active" : (((typeof wizardStep === "number" && wizardStep > 3) || wizardStep === "done") ? "done" : "")}`} data-dot="2">2</span>
                 <span className={`wizard-step-line ${((typeof wizardStep === "number" && wizardStep > 3) || wizardStep === "done") ? "filled" : ""}`}></span>
-                <span className={`wizard-step-dot ${wizardStep === 4 ? "active" : (wizardStep === "done" ? "done" : "")}`} data-dot="4">4</span>
+                <span className={`wizard-step-dot ${wizardStep === 4 ? "active" : (wizardStep === "done" ? "done" : "")}`} data-dot="3">3</span>
               </div>
             )}
 
@@ -1750,8 +1748,8 @@ export default function ClientReportsPage({
                           <input type="number" className="wizard-input-plain" placeholder="e.g. 27" value={wizardAnswers.ccAge || ""} onChange={(e) => handleWizardOptionToggle("ccAge", e.target.value)} />
                         </div>
                         <div className="wizard-field">
-                          <label>Monthly Spending (₹)</label>
-                          <input type="number" className="wizard-input-plain" placeholder="e.g. 35000" value={wizardAnswers.ccMonthlySpending || ""} onChange={(e) => handleWizardOptionToggle("ccMonthlySpending", e.target.value)} />
+                          <label>Annual Salary (₹)</label>
+                          <input type="number" className="wizard-input-plain" placeholder="e.g. 600000" value={wizardAnswers.ccMonthlySpending || ""} onChange={(e) => handleWizardOptionToggle("ccMonthlySpending", e.target.value)} />
                         </div>
                         <div className="wizard-field">
                           <label>Occupation</label>
@@ -1964,34 +1962,13 @@ export default function ClientReportsPage({
                         type="button"
                         className="wizard-btn primary"
                         disabled={!wizardCategory}
-                        onClick={() => setWizardStep(2)}
+                        onClick={() => setWizardStep(3)}
                       >
                         Next →
                       </button>
                     </div>
                   </div>
                 )}
-              </div>
-            )}
-
-            {/* STEP 2: CAPITAL AMOUNT */}
-            {wizardStep === 2 && (
-              <div className="wizard-step active" data-step="2">
-                <h3>What amount of capital do you intend to invest/borrow?</h3>
-                <div className="wizard-input-row" style={{ border: '1px solid #111411' }}>
-                  <span className="wizard-input-prefix">₹</span>
-                  <input
-                    type="number"
-                    className="wizard-input"
-                    placeholder="e.g. 50000"
-                    value={wizardAnswers.capital || ""}
-                    onChange={(e) => handleWizardOptionToggle("capital", e.target.value)}
-                  />
-                </div>
-                <div className="wizard-nav">
-                  <button type="button" className="wizard-btn" onClick={() => setWizardStep(1)}>← Back</button>
-                  <button type="button" className="wizard-btn primary" onClick={() => setWizardStep(3)}>Next →</button>
-                </div>
               </div>
             )}
 
@@ -2007,7 +1984,7 @@ export default function ClientReportsPage({
                   onChange={(e) => handleWizardOptionToggle("details", e.target.value)}
                 />
                 <div className="wizard-nav">
-                  <button type="button" className="wizard-btn" onClick={() => setWizardStep(2)}>← Back</button>
+                  <button type="button" className="wizard-btn" onClick={() => setWizardStep(1)}>← Back</button>
                   <button type="button" className="wizard-btn primary" onClick={() => setWizardStep(4)}>Next →</button>
                 </div>
               </div>
