@@ -143,7 +143,13 @@ export default function FiscalForumCity() {
 
   return (
     <>
-      <section id="fiscal-forum-city" className="relative overflow-hidden bg-[#F4FBF7] py-16 border-b border-black">
+      <motion.section
+        id="fiscal-forum-city"
+        className="relative overflow-hidden bg-[#F4FBF7] py-16 border-b border-black"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+      >
         <div className="relative mx-auto max-w-7xl px-4 md:px-8">
           {/* Heading */}
           <div className="mb-12 text-center flex flex-col items-center max-w-4xl mx-auto">
@@ -216,24 +222,25 @@ export default function FiscalForumCity() {
                     style={spot.position as React.CSSProperties}
                     onMouseEnter={() => setActiveSpot(spot.id)}
                     onMouseLeave={() => setActiveSpot(null)}
-                    initial={{
-                      opacity: 0,
-                      x: spot.xOffset || 0,
-                      y: spot.yOffset || 0,
-                      scale: 0.3,
-                    }}
-                    whileInView={{
-                      opacity: 1,
-                      x: 0,
-                      y: 0,
-                      scale: 1,
-                    }}
-                    viewport={{ once: true, amount: 0.1 }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 90,
-                      damping: 12,
-                      delay: index * 0.08,
+                    variants={{
+                      hidden: {
+                        opacity: 0,
+                        x: spot.xOffset || 0,
+                        y: spot.yOffset || 0,
+                        scale: 0.3,
+                      },
+                      visible: {
+                        opacity: 1,
+                        x: 0,
+                        y: 0,
+                        scale: 1,
+                        transition: {
+                          type: "spring",
+                          stiffness: 90,
+                          damping: 12,
+                          delay: index * 0.08,
+                        },
+                      },
                     }}
                   >
                     <div className="group relative flex items-center justify-center">
@@ -412,7 +419,7 @@ export default function FiscalForumCity() {
 
 
         </div>
-      </section>
+      </motion.section>
 
       {/* CTA Banner */}
       <div className="bg-white border-b border-black py-12 w-full text-center flex items-center justify-center">
