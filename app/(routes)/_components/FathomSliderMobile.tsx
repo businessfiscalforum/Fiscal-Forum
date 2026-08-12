@@ -376,7 +376,7 @@ export default function FathomSliderMobile() {
       {/* Closing CTA */}
       <div className="relative z-10 w-full bg-[#F4FBF7] py-12 px-6 flex flex-col gap-6 select-none border-b border-black">
         {/* Left Card: Research Reports */}
-        <div className="relative w-full bg-white border border-black/10 rounded-[24px] p-5 shadow-sm flex flex-col items-center gap-4 text-center overflow-hidden">
+        <div className="relative w-full bg-white border border-black/10 rounded-[24px] shadow-sm flex flex-col items-center overflow-hidden">
           {/* Animated Border Overlay */}
           <div className="absolute inset-0 pointer-events-none rounded-[24px] overflow-hidden">
             <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -396,15 +396,16 @@ export default function FathomSliderMobile() {
             </svg>
           </div>
 
-          <div className="w-[220px] h-[275px] shrink-0 relative rounded-xl overflow-hidden border border-black/10 bg-white shadow-sm">
+          {/* Cover Image Showcase */}
+          <div className="w-full relative aspect-[3/2] border-b border-black/10 bg-[#F4FBF7]">
             <Image
               src="/fathom/research-reports.png"
               alt="Research Reports"
               fill
-              className="object-contain p-2"
+              className="object-contain p-4"
             />
           </div>
-          <div className="flex-1 flex flex-col justify-between space-y-4">
+          <div className="p-5 flex-1 flex flex-col justify-between space-y-4 text-center">
             <div>
               <h3 className="text-lg font-extrabold text-black uppercase tracking-tight leading-tight">
                 Research Reports
