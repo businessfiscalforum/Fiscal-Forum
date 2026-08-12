@@ -396,7 +396,7 @@ export default function FathomSliderMobile() {
             </svg>
           </div>
 
-          <div className="w-[160px] h-[200px] shrink-0 relative rounded-xl overflow-hidden border border-black/10 bg-white">
+          <div className="w-[220px] h-[275px] shrink-0 relative rounded-xl overflow-hidden border border-black/10 bg-white shadow-sm">
             <Image
               src="/fathom/research-reports.png"
               alt="Research Reports"
@@ -447,7 +447,7 @@ export default function FathomSliderMobile() {
             </svg>
           </div>
 
-          <div className="w-[220px] h-[165px] shrink-0 relative rounded-xl overflow-hidden border border-black/10 bg-white shadow-sm">
+          <div className="w-[260px] h-[195px] shrink-0 relative rounded-xl overflow-hidden border border-black/10 bg-white shadow-sm">
             <Image
               src="/images/report_hero.png"
               alt="Personalized Report Center"
