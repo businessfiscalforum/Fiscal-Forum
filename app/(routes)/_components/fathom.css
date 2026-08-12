@@ -1685,7 +1685,6 @@ main, header, footer{ position: relative; z-index: 1; }
 .research-card-hover:hover .border-animate-line {
   stroke: black !important;
   stroke-width: 2px !important;
-  animation-duration: 4s !important; /* speed up on hover */
   filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.2));
 }
 
@@ -1693,7 +1692,6 @@ main, header, footer{ position: relative; z-index: 1; }
 .customized-card-hover:hover .border-animate-line {
   stroke: black !important;
   stroke-width: 2px !important;
-  animation-duration: 4s !important; /* speed up on hover */
   filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.2));
 }
 
