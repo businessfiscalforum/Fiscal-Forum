@@ -2005,3 +2005,55 @@
   transform: scale(0.95);
 }
 
+@media (max-width: 639px) {
+  .report-center-grid-container {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 8px !important;
+  }
+  .report-center-card {
+    width: calc(33.33% - 6px) !important;
+    min-width: 0 !important;
+    padding: 8px !important;
+    border-radius: 6px !important;
+  }
+  .report-center-card::after {
+    inset: 1.5px !important;
+    border-radius: 4.5px !important;
+  }
+  .report-center-card-title {
+    font-size: 11px !important;
+    margin-bottom: 4px !important;
+  }
+  .report-center-card-desc {
+    font-size: 9px !important;
+    margin-bottom: 12px !important;
+    line-height: 1.3 !important;
+  }
+  .report-center-card-image-wrapper {
+    height: 60px !important;
+    margin-bottom: 8px !important;
+    border-radius: 4px !important;
+  }
+  .report-center-card-btn {
+    padding: 6px 4px !important;
+    font-size: 8px !important;
+    border-radius: 4px !important;
+  }
+  .report-center-card-arrow {
+    width: 24px !important;
+    height: 24px !important;
+    border-radius: 4px !important;
+  }
+  .report-center-card-arrow svg {
+    width: 10px !important;
+    height: 10px !important;
+  }
+  .report-center-card-btn-row {
+    gap: 4px !important;
+    margin-top: 8px !important;
+    padding-top: 8px !important;
+  }
+}
+
