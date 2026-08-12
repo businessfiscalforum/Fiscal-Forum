@@ -703,7 +703,7 @@ export default function FathomSlider() {
                 </svg>
               </div>
 
-              <div className="w-full md:w-[220px] shrink-0 relative aspect-[4/5] rounded-[16px] overflow-hidden border border-black/10 bg-white shadow-sm">
+              <div className="w-full md:w-[280px] shrink-0 relative aspect-[4/3] rounded-[16px] overflow-hidden border border-black/10 bg-white shadow-sm">
                 <Image
                   src="/images/report_hero.png"
                   alt="Personalized Report Center"
