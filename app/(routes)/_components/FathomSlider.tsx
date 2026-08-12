@@ -625,7 +625,7 @@ export default function FathomSlider() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ type: "spring", stiffness: 70, damping: 14 }}
-              className="relative bg-white border border-black/10 rounded-[24px] shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col min-h-[420px] justify-between overflow-hidden text-left"
+              className="research-card-hover border-animate-container relative bg-white border border-black/10 rounded-[24px] shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col min-h-[420px] justify-between overflow-hidden text-left"
             >
               {/* Animated Border Overlay */}
               <div className="absolute inset-0 pointer-events-none rounded-[24px] overflow-hidden">
@@ -683,7 +683,7 @@ export default function FathomSlider() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ type: "spring", stiffness: 70, damping: 14, delay: 0.1 }}
-              className="relative bg-white border border-black/10 rounded-[24px] shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col min-h-[420px] justify-between overflow-hidden text-left"
+              className="customized-card-hover border-animate-container relative bg-white border border-black/10 rounded-[24px] shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col min-h-[420px] justify-between overflow-hidden text-left"
             >
               {/* Animated Border Overlay */}
               <div className="absolute inset-0 pointer-events-none rounded-[24px] overflow-hidden">
