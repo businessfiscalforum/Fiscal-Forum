@@ -2106,7 +2106,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius);
+  border-radius: 6px !important;
   position: relative;
   text-decoration: none;
 }
@@ -2127,7 +2127,7 @@
   stroke-width: 2.5px;
   stroke-dasharray: 80 400; /* longer dash segment */
   stroke-linecap: round;
-  animation: buttonBorderDraw 1.8s linear infinite; /* fast animation */
+  animation: buttonBorderDraw 3s linear infinite; /* reduced speed animation */
 }
 
 @keyframes buttonBorderDraw {
