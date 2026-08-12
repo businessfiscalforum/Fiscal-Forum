@@ -926,6 +926,115 @@ export default function ClientReportsPage({
     }
   };
 
+  const isStep1FormValid = () => {
+    if (!wizardCategory) return false;
+
+    const isMf = wizardCategory === "Mutual Fund";
+    const isStocks = wizardCategory === "Stocks";
+    const isCc = wizardCategory === "Credit Card";
+    const isIns = wizardCategory === "Insurance";
+    const isLoan = wizardCategory === "Loan" || wizardCategory === "Loans";
+
+    if (isMf) {
+      return (
+        !!wizardAnswers.mfAge &&
+        parseInt(wizardAnswers.mfAge) > 0 &&
+        !!wizardAnswers.mfOccupation?.trim() &&
+        !!wizardAnswers.mfMonthlySavings &&
+        parseInt(wizardAnswers.mfMonthlySavings) > 0 &&
+        !!wizardAnswers.mfGoal?.trim() &&
+        !!wizardAnswers.mfRisk &&
+        !!wizardAnswers.mfPreference
+      );
+    }
+
+    if (isStocks) {
+      return (
+        !!wizardAnswers.stAge &&
+        parseInt(wizardAnswers.stAge) > 0 &&
+        !!wizardAnswers.stMonthlySavings &&
+        parseInt(wizardAnswers.stMonthlySavings) > 0 &&
+        !!wizardAnswers.stReturns?.trim() &&
+        !!wizardAnswers.stGoal?.trim() &&
+        !!wizardAnswers.stRisk &&
+        !!wizardAnswers.stStyle?.trim()
+      );
+    }
+
+    if (isCc) {
+      const basicValid =
+        !!wizardAnswers.ccAge &&
+        parseInt(wizardAnswers.ccAge) > 0 &&
+        !!wizardAnswers.ccMonthlySpending &&
+        parseInt(wizardAnswers.ccMonthlySpending) > 0 &&
+        !!wizardAnswers.ccOccupation?.trim() &&
+        Array.isArray(wizardAnswers.ccSpending) &&
+        wizardAnswers.ccSpending.length > 0 &&
+        !!wizardAnswers.ccFee;
+
+      if (!basicValid) return false;
+
+      const hasTravelOrHotel =
+        wizardAnswers.ccSpending.includes("Travel") ||
+        wizardAnswers.ccSpending.includes("Hotels");
+      if (hasTravelOrHotel) {
+        return !!wizardAnswers.ccFlyFrequency && !!wizardAnswers.ccTravelType;
+      }
+
+      return true;
+    }
+
+    if (isIns) {
+      const basicValid =
+        !!wizardAnswers.insAnnualIncome &&
+        parseInt(wizardAnswers.insAnnualIncome) > 0 &&
+        !!wizardAnswers.insMonthlySavings &&
+        parseInt(wizardAnswers.insMonthlySavings) > 0 &&
+        !!wizardAnswers.insDependents &&
+        parseInt(wizardAnswers.insDependents) >= 0 &&
+        !!wizardAnswers.insMarital &&
+        Array.isArray(wizardAnswers.insExisting) &&
+        wizardAnswers.insExisting.length > 0 &&
+        !!wizardAnswers.insLoansLiabilities?.trim();
+
+      if (!basicValid) return false;
+
+      const selectedCovers = wizardAnswers.insExisting || [];
+      for (const cover of selectedCovers) {
+        const amt = wizardAnswers.insuranceCovers?.[cover];
+        if (!amt || parseInt(amt) <= 0) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    if (isLoan) {
+      const basicValid =
+        !!wizardAnswers.loanPurpose &&
+        !!wizardAnswers.loanAge &&
+        parseInt(wizardAnswers.loanAge) > 0 &&
+        !!wizardAnswers.loanEmployment &&
+        !!wizardAnswers.loanMonthlyIncome &&
+        parseInt(wizardAnswers.loanMonthlyIncome) > 0 &&
+        !!wizardAnswers.loanIncomeStability &&
+        !!wizardAnswers.loanAmount &&
+        parseInt(wizardAnswers.loanAmount) > 0 &&
+        !!wizardAnswers.loanHasCollateral;
+
+      if (!basicValid) return false;
+
+      if (wizardAnswers.loanHasCollateral === "Yes") {
+        return !!wizardAnswers.loanCollateralType;
+      }
+
+      return true;
+    }
+
+    return false;
+  };
+
   const handleInsuranceCoverInput = (coverName: string, amount: string) => {
     const prev = { ...(wizardAnswers.insuranceCovers || {}) };
     prev[coverName] = amount;
@@ -1970,7 +2079,7 @@ export default function ClientReportsPage({
                       <button
                         type="button"
                         className="wizard-btn primary"
-                        disabled={!wizardCategory}
+                        disabled={!isStep1FormValid()}
                         onClick={() => setWizardStep(3)}
                       >
                         Next →
@@ -1994,7 +2103,7 @@ export default function ClientReportsPage({
                 />
                 <div className="wizard-nav">
                   <button type="button" className="wizard-btn" onClick={() => setWizardStep(1)}>← Back</button>
-                  <button type="button" className="wizard-btn primary" onClick={() => setWizardStep(4)}>Next →</button>
+                  <button type="button" className="wizard-btn primary" disabled={!wizardAnswers.details?.trim()} onClick={() => setWizardStep(4)}>Next →</button>
                 </div>
               </div>
             )}
@@ -2046,7 +2155,13 @@ export default function ClientReportsPage({
                   <button
                     type="button"
                     className="wizard-btn primary"
-                    disabled={wizardLoading}
+                    disabled={
+                      wizardLoading ||
+                      !wizardAnswers.name?.trim() ||
+                      !wizardAnswers.email?.trim() ||
+                      !wizardAnswers.mobile?.trim() ||
+                      wizardAnswers.mobile.trim().length !== 10
+                    }
                     onClick={handleWizardSubmit}
                   >
                     {wizardLoading ? "Submitting..." : "Submit request"}

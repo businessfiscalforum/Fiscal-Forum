@@ -2082,3 +2082,10 @@
   }
 }
 
+.wizard-btn:disabled {
+  opacity: 0.55 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
