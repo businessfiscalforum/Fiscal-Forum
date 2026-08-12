@@ -1958,7 +1958,13 @@
   color: #111411 !important;
   font-weight: 600;
   line-height: 1.5;
-  margin-bottom: 24px;
+  margin-bottom: 0px !important;
+}
+
+.report-center-card-btn-row {
+  border-top: none !important;
+  padding-top: 0 !important;
+  margin-top: 10px !important;
 }
 
 .report-center-card-btn {
@@ -2052,8 +2058,9 @@
   }
   .report-center-card-btn-row {
     gap: 4px !important;
-    margin-top: 8px !important;
-    padding-top: 8px !important;
+    margin-top: 6px !important;
+    padding-top: 0px !important;
+    border-top: none !important;
   }
 }
 
