@@ -1667,3 +1667,18 @@ main, header, footer{ position: relative; z-index: 1; }
   0%{ opacity: 0; transform: translateY(16px) scale(0.96); }
   100%{ opacity: 1; transform: translateY(0) scale(1); }
 }
+
+/* Animated border for home page report boxes */
+.border-animate-line {
+  stroke-dasharray: 120 1800;
+  animation: borderDraw 6s linear infinite;
+}
+
+@keyframes borderDraw {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -1920;
+  }
+}
