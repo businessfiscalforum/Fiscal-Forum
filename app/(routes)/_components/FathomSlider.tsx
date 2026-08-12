@@ -616,51 +616,90 @@ export default function FathomSlider() {
           className={`closing ${closingVisible ? "is-visible" : ""}`}
           id="closing"
           ref={closingRef}
+          style={{ padding: "80px 32px" }}
         >
-          <div className="closing__inner">
+          <div className="max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+            {/* Left Card: Research Reports */}
             <motion.div
-              className="closing__visual"
-              initial={{ opacity: 0, x: -150, scale: 0.9 }}
-              whileInView={{ opacity: 1, x: 0, scale: 1 }}
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.15 }}
-              transition={{
-                type: "spring",
-                stiffness: 70,
-                damping: 14,
-              }}
+              transition={{ type: "spring", stiffness: 70, damping: 14 }}
+              className="bg-white border border-black rounded-[24px] p-6 md:p-8 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col md:flex-row items-center gap-6 text-left"
             >
-              <Image
-                className="closing__image"
-                src="/fathom/research-reports.png"
-                alt="Research reports lineup..."
-                width={420}
-                height={320}
-              />
+              <div className="w-[180px] shrink-0 relative aspect-[4/5] rounded-[16px] overflow-hidden border border-black/10 bg-white">
+                <Image
+                  src="/fathom/research-reports.png"
+                  alt="Research Reports"
+                  fill
+                  className="object-contain p-2"
+                />
+              </div>
+              <div className="flex-1 flex flex-col justify-between h-full space-y-4">
+                <div>
+                  <h3 className="text-xl md:text-2xl font-extrabold text-black uppercase tracking-tight leading-tight">
+                    Research Reports
+                  </h3>
+                  <p className="text-xs sm:text-sm font-semibold text-gray-800 leading-snug mt-3">
+                    Everything you need to invest smarter, all in one place. Get actionable market insights, in-depth research, and reports personalized to your investment goals.
+                  </p>
+                </div>
+                <div>
+                  <Link href="/reports">
+                    <button className="px-6 py-2.5 bg-[#1FA463] text-white border border-black font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:-translate-y-0.5 transition-all cursor-pointer">
+                      CLICK HERE →
+                    </button>
+                  </Link>
+                  <p className="text-[10px] font-bold text-gray-400 mt-2">
+                    To get your research backed reports ...
+                  </p>
+                </div>
+              </div>
             </motion.div>
+
+            {/* Right Card: Want Customised Reports ? */}
             <motion.div
-              className="closing__content"
-              initial={{ opacity: 0, x: 150, scale: 0.9 }}
-              whileInView={{ opacity: 1, x: 0, scale: 1 }}
+              initial={{ opacity: 0, x: 100 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.15 }}
-              transition={{
-                type: "spring",
-                stiffness: 70,
-                damping: 14,
-                delay: 0.1,
-              }}
+              transition={{ type: "spring", stiffness: 70, damping: 14, delay: 0.1 }}
+              className="bg-white border border-black rounded-[24px] p-6 md:p-8 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col md:flex-row items-center gap-6 text-left"
             >
-              <h2 className="closing__title">
-                <span className="closing__line closing__line--1">
-                  Everything you need to invest smarter, all in one place.
-                </span>
-                <span className="closing__line closing__line--2">
-                  Get actionable market insights, in-depth research, and reports personalized to your investment goals.
-                </span>
-              </h2>
-              <Link href="/reports" className="btn btn--primary btn--large closing__btn">
-                CLICK HERE<span className="btn__arrow">→</span>
-              </Link>
-              <p className="closing__note">To get your research backed reports ...</p>
+              <div className="w-[180px] shrink-0 relative aspect-[4/5] rounded-[16px] overflow-hidden border border-black/10 bg-white">
+                <Image
+                  src="/images/wizard_credit_card.png"
+                  alt="Customized Credit Card Report Form"
+                  fill
+                  className="object-contain p-2"
+                />
+              </div>
+              <div className="flex-1 flex flex-col justify-between h-full space-y-4">
+                <div>
+                  <h3 className="text-xl md:text-2xl font-extrabold text-black uppercase tracking-tight leading-tight">
+                    Want Customised Reports ?
+                  </h3>
+                  <div className="flex items-center gap-3 mt-3">
+                    <div className="w-12 h-12 shrink-0 relative rounded-xl overflow-hidden bg-transparent">
+                      <Image
+                        src="/images/report_hero.png"
+                        alt="Personalized Report Center"
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                    <p className="text-xs font-semibold text-gray-700 leading-tight">
+                      Personalized insights for every decision your money makes...
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <Link href="/reports#customReport">
+                    <button className="px-6 py-2.5 bg-yellow-400 text-black border border-black font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 hover:-translate-y-0.5 transition-all cursor-pointer">
+                      CLICK HERE
+                    </button>
+                  </Link>
+                </div>
+              </div>
             </motion.div>
           </div>
         </section>

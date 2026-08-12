@@ -1138,50 +1138,6 @@ export default function HomeDesktop() {
               </div>
             </div>
 
-            {/* Customized Reports Section */}
-            <div className="w-full max-w-5xl bg-white border border-black rounded-3xl p-6 md:p-8 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col md:flex-row items-center gap-8 md:gap-12 mb-12 text-left">
-              {/* Image side (First Image) */}
-              <div className="w-full md:w-[380px] shrink-0 bg-[#fcfdfd] border border-black/10 rounded-2xl p-4 shadow-sm flex items-center justify-center">
-                <div className="w-full relative aspect-[4/3] rounded-xl overflow-hidden border border-black/10 bg-white">
-                  <Image
-                    src="/images/wizard_credit_card.png"
-                    alt="Customized Credit Card Report Form"
-                    width={380}
-                    height={285}
-                    className="object-contain p-2"
-                  />
-                </div>
-              </div>
-              {/* Text, Image, and Button side */}
-              <div className="flex-1 flex flex-col justify-center space-y-6">
-                <div>
-                  <h3 className="text-2xl md:text-3xl font-extrabold text-black uppercase tracking-tight leading-tight">
-                    Want Customised Reports ?
-                  </h3>
-                  <div className="flex flex-col sm:flex-row items-center gap-4 mt-4">
-                    <div className="w-24 h-24 shrink-0 relative rounded-xl overflow-hidden bg-transparent">
-                      <Image
-                        src="/images/report_hero.png"
-                        alt="Personalized Report Center"
-                        fill
-                        className="object-contain"
-                      />
-                    </div>
-                    <p className="text-base md:text-lg font-semibold text-gray-800 leading-snug">
-                      Personalized insights for every decision your money makes...
-                    </p>
-                  </div>
-                </div>
-                <div>
-                  <Link href="/reports#customReport">
-                    <button className="px-6 py-3 bg-yellow-400 text-black border border-black font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 hover:-translate-y-0.5 transition-all cursor-pointer">
-                      CLICK HERE
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
             {/* Women's Section & IPO WORLD */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl mb-16 text-left">
               {/* Women's Section Card */}

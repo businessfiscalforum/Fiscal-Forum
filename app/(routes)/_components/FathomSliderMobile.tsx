@@ -374,38 +374,75 @@ export default function FathomSliderMobile() {
       <div className="w-full h-px bg-black z-10 relative" aria-hidden="true" />
 
       {/* Closing CTA */}
-      <div className="relative z-10 w-full bg-white py-12 px-6 flex flex-col items-center select-none border-b border-black">
-        <div className="w-full max-w-[320px] mx-auto flex flex-col items-center">
-          {/* Visual Image */}
-          <div className="w-full flex justify-center mb-6">
+      <div className="relative z-10 w-full bg-[#F4FBF7] py-12 px-6 flex flex-col gap-6 select-none border-b border-black">
+        {/* Left Card: Research Reports */}
+        <div className="w-full bg-white border border-black rounded-[24px] p-5 shadow-sm flex flex-col items-center gap-4 text-center">
+          <div className="w-[160px] h-[200px] shrink-0 relative rounded-xl overflow-hidden border border-black/10 bg-white">
             <Image
               src="/fathom/research-reports.png"
-              alt="Research Reports Showcase"
-              width={320}
-              height={240}
-              className="w-full max-w-[260px] h-auto object-contain rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.05)] border border-black/5"
+              alt="Research Reports"
+              fill
+              className="object-contain p-2"
             />
           </div>
-          
-          {/* Text Contents */}
-          <div className="text-center flex flex-col items-center">
-            <h3 className="text-base font-extrabold text-black leading-snug tracking-tight">
-              Everything you need to invest smarter, all in one place.
-            </h3>
-            <p className="text-xs font-bold text-gray-500 mt-2.5 leading-relaxed">
-              Get actionable market insights, in-depth research, and reports personalized to your investment goals.
-            </p>
-            
-            <Link
-              href="/reports"
-              className="inline-flex w-full max-w-[280px] py-3.5 mt-6 bg-[#FFDE21] hover:bg-[#E5C71D] text-black font-extrabold text-xs uppercase tracking-wider rounded-full shadow-[0_5px_15px_rgba(255,222,33,0.32)] items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
-            >
-              CLICK HERE <span className="text-sm font-light">→</span>
-            </Link>
-            
-            <p className="text-[10px] font-bold text-gray-400 mt-4">
-              To get your research backed reports ...
-            </p>
+          <div className="flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <h3 className="text-lg font-extrabold text-black uppercase tracking-tight leading-tight">
+                Research Reports
+              </h3>
+              <p className="text-xs font-semibold text-gray-800 leading-snug mt-2">
+                Everything you need to invest smarter, all in one place. Get actionable market insights, in-depth research, and reports personalized to your investment goals.
+              </p>
+            </div>
+            <div className="w-full">
+              <Link href="/reports" className="w-full block">
+                <button className="w-full py-2.5 bg-[#FFDE21] text-black border border-black font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-[#E5C71D] active:scale-98 transition-all cursor-pointer">
+                  CLICK HERE →
+                </button>
+              </Link>
+              <p className="text-[10px] font-bold text-gray-400 mt-2">
+                To get your research backed reports ...
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Card: Want Customised Reports ? */}
+        <div className="w-full bg-white border border-black rounded-[24px] p-5 shadow-sm flex flex-col items-center gap-4 text-center">
+          <div className="w-[160px] h-[200px] shrink-0 relative rounded-xl overflow-hidden border border-black/10 bg-white">
+            <Image
+              src="/images/wizard_credit_card.png"
+              alt="Customized Credit Card Report Form"
+              fill
+              className="object-contain p-2"
+            />
+          </div>
+          <div className="flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <h3 className="text-lg font-extrabold text-black uppercase tracking-tight leading-tight">
+                Want Customised Reports ?
+              </h3>
+              <div className="flex items-center justify-center gap-3 mt-2">
+                <div className="w-8 h-8 shrink-0 relative rounded-xl overflow-hidden bg-transparent">
+                  <Image
+                    src="/images/report_hero.png"
+                    alt="Personalized Report Center"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <p className="text-[11px] font-semibold text-gray-700 leading-tight text-left">
+                  Personalized insights for every decision your money makes...
+                </p>
+              </div>
+            </div>
+            <div className="w-full">
+              <Link href="/reports#customReport" className="w-full block">
+                <button className="w-full py-2.5 bg-yellow-400 text-black border border-black font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 active:scale-98 transition-all cursor-pointer">
+                  CLICK HERE
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
