@@ -1207,13 +1207,14 @@ main, header, footer{ position: relative; z-index: 1; }
 .report-cta__btn{
   margin-top: 14px;
   display: inline-flex;
-  background: #F5811F;
+  background: #FFDE21;
   color: #0B0B0B;
   opacity: 0;
   transform: translateY(16px) scale(0.94);
+  box-shadow: 0 5px 15px rgba(255,222,33,0.32);
 }
 .report-cta__btn:hover{
-  background: #ff9a3d;
+  background: #E5C71D;
 }
 
 /* CTA pops in last, after the report image, advisor, yellow words, and
