@@ -360,7 +360,13 @@ export default function FathomSliderMobile() {
       {/* Closing CTA */}
       <div className="relative z-10 w-full bg-[#F4FBF7] py-12 px-6 flex flex-col gap-6 select-none border-b border-black">
         {/* Left Card: Research Reports */}
-        <div className="research-card-hover border-animate-container relative w-full bg-white border border-black/10 rounded-[24px] shadow-sm flex flex-col items-center overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, x: -60 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ type: "spring", stiffness: 45, damping: 14 }}
+          className="research-card-hover border-animate-container relative w-full bg-white border border-black/10 rounded-[24px] shadow-sm flex flex-col items-center overflow-hidden"
+        >
           {/* Animated Border Overlay */}
           <div className="absolute inset-0 pointer-events-none rounded-[24px] overflow-hidden z-20">
             <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -409,10 +415,16 @@ export default function FathomSliderMobile() {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Right Card: Want Customised Reports ? */}
-        <div className="customized-card-hover border-animate-container relative w-full bg-white border border-black/10 rounded-[24px] shadow-sm flex flex-col items-center overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, x: 60 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ type: "spring", stiffness: 45, damping: 14 }}
+          className="customized-card-hover border-animate-container relative w-full bg-white border border-black/10 rounded-[24px] shadow-sm flex flex-col items-center overflow-hidden"
+        >
           {/* Animated Border Overlay */}
           <div className="absolute inset-0 pointer-events-none rounded-[24px] overflow-hidden z-20">
             <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -466,7 +478,7 @@ export default function FathomSliderMobile() {
               </Link>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Left/Right Arrow Overlays */}
