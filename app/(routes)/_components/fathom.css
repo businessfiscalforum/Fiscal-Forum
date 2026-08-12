@@ -1671,6 +1671,7 @@ main, header, footer{ position: relative; z-index: 1; }
 /* Animated border for home page report boxes */
 .border-animate-line {
   stroke-dasharray: 120 1800;
+  stroke-linecap: round;
   animation: borderDraw 6s linear infinite;
 }
 

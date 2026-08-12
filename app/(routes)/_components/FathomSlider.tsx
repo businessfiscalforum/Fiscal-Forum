@@ -634,12 +634,12 @@ export default function FathomSlider() {
                     rx="24"
                     fill="none"
                     stroke="black"
-                    strokeWidth="2.5"
+                    strokeWidth="1"
                     style={{
-                      x: 1.25,
-                      y: 1.25,
-                      width: "calc(100% - 2.5px)",
-                      height: "calc(100% - 2.5px)",
+                      x: 0.5,
+                      y: 0.5,
+                      width: "calc(100% - 1.0px)",
+                      height: "calc(100% - 1.0px)",
                     }}
                     className="border-animate-line"
                   />
@@ -691,12 +691,12 @@ export default function FathomSlider() {
                     rx="24"
                     fill="none"
                     stroke="black"
-                    strokeWidth="2.5"
+                    strokeWidth="1"
                     style={{
-                      x: 1.25,
-                      y: 1.25,
-                      width: "calc(100% - 2.5px)",
-                      height: "calc(100% - 2.5px)",
+                      x: 0.5,
+                      y: 0.5,
+                      width: "calc(100% - 1.0px)",
+                      height: "calc(100% - 1.0px)",
                     }}
                     className="border-animate-line"
                   />
@@ -705,8 +705,8 @@ export default function FathomSlider() {
 
               <div className="w-full md:w-[220px] shrink-0 relative aspect-[4/5] rounded-[16px] overflow-hidden border border-black/10 bg-white shadow-sm">
                 <Image
-                  src="/images/wizard_credit_card.png"
-                  alt="Customized Credit Card Report Form"
+                  src="/images/report_hero.png"
+                  alt="Personalized Report Center"
                   fill
                   className="object-contain p-2"
                 />
@@ -716,16 +716,8 @@ export default function FathomSlider() {
                   <h3 className="text-2xl md:text-3xl font-extrabold text-black uppercase tracking-tight leading-tight">
                     Want Customised Reports ?
                   </h3>
-                  <div className="flex items-center gap-4 mt-3">
-                    <div className="w-16 h-16 shrink-0 relative rounded-xl overflow-hidden bg-transparent border border-black/5 shadow-sm">
-                      <Image
-                        src="/images/report_hero.png"
-                        alt="Personalized Report Center"
-                        fill
-                        className="object-contain"
-                      />
-                    </div>
-                    <p className="text-sm font-semibold text-gray-700 leading-tight">
+                  <div className="mt-3">
+                    <p className="text-sm sm:text-base font-semibold text-gray-800 leading-snug">
                       Personalized insights for every decision your money makes...
                     </p>
                   </div>

@@ -376,7 +376,26 @@ export default function FathomSliderMobile() {
       {/* Closing CTA */}
       <div className="relative z-10 w-full bg-[#F4FBF7] py-12 px-6 flex flex-col gap-6 select-none border-b border-black">
         {/* Left Card: Research Reports */}
-        <div className="w-full bg-white border border-black rounded-[24px] p-5 shadow-sm flex flex-col items-center gap-4 text-center">
+        <div className="relative w-full bg-white border border-black/10 rounded-[24px] p-5 shadow-sm flex flex-col items-center gap-4 text-center overflow-hidden">
+          {/* Animated Border Overlay */}
+          <div className="absolute inset-0 pointer-events-none rounded-[24px] overflow-hidden">
+            <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+              <rect
+                rx="24"
+                fill="none"
+                stroke="black"
+                strokeWidth="1"
+                style={{
+                  x: 0.5,
+                  y: 0.5,
+                  width: "calc(100% - 1.0px)",
+                  height: "calc(100% - 1.0px)",
+                }}
+                className="border-animate-line"
+              />
+            </svg>
+          </div>
+
           <div className="w-[160px] h-[200px] shrink-0 relative rounded-xl overflow-hidden border border-black/10 bg-white">
             <Image
               src="/fathom/research-reports.png"
@@ -394,7 +413,7 @@ export default function FathomSliderMobile() {
                 Everything you need to invest smarter, all in one place. Get actionable market insights, in-depth research, and reports personalized to your investment goals.
               </p>
             </div>
-            <div className="w-full">
+            <div className="w-full relative z-10">
               <Link href="/reports" className="w-full block">
                 <button className="w-full py-2.5 bg-[#FFDE21] text-black border border-black font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-[#E5C71D] active:scale-98 transition-all cursor-pointer">
                   CLICK HERE →
@@ -408,11 +427,30 @@ export default function FathomSliderMobile() {
         </div>
 
         {/* Right Card: Want Customised Reports ? */}
-        <div className="w-full bg-white border border-black rounded-[24px] p-5 shadow-sm flex flex-col items-center gap-4 text-center">
+        <div className="relative w-full bg-white border border-black/10 rounded-[24px] p-5 shadow-sm flex flex-col items-center gap-4 text-center overflow-hidden">
+          {/* Animated Border Overlay */}
+          <div className="absolute inset-0 pointer-events-none rounded-[24px] overflow-hidden">
+            <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+              <rect
+                rx="24"
+                fill="none"
+                stroke="black"
+                strokeWidth="1"
+                style={{
+                  x: 0.5,
+                  y: 0.5,
+                  width: "calc(100% - 1.0px)",
+                  height: "calc(100% - 1.0px)",
+                }}
+                className="border-animate-line"
+              />
+            </svg>
+          </div>
+
           <div className="w-[160px] h-[200px] shrink-0 relative rounded-xl overflow-hidden border border-black/10 bg-white">
             <Image
-              src="/images/wizard_credit_card.png"
-              alt="Customized Credit Card Report Form"
+              src="/images/report_hero.png"
+              alt="Personalized Report Center"
               fill
               className="object-contain p-2"
             />
@@ -422,21 +460,13 @@ export default function FathomSliderMobile() {
               <h3 className="text-lg font-extrabold text-black uppercase tracking-tight leading-tight">
                 Want Customised Reports ?
               </h3>
-              <div className="flex items-center justify-center gap-3 mt-2">
-                <div className="w-8 h-8 shrink-0 relative rounded-xl overflow-hidden bg-transparent">
-                  <Image
-                    src="/images/report_hero.png"
-                    alt="Personalized Report Center"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-                <p className="text-[11px] font-semibold text-gray-700 leading-tight text-left">
+              <div className="mt-2">
+                <p className="text-[11px] font-semibold text-gray-700 leading-tight">
                   Personalized insights for every decision your money makes...
                 </p>
               </div>
             </div>
-            <div className="w-full">
+            <div className="w-full relative z-10">
               <Link href="/reports#customReport" className="w-full block">
                 <button className="w-full py-2.5 bg-yellow-400 text-black border border-black font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 active:scale-98 transition-all cursor-pointer">
                   CLICK HERE
