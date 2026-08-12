@@ -682,7 +682,7 @@ export default function FathomSlider() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ type: "spring", stiffness: 70, damping: 14, delay: 0.1 }}
-              className="relative bg-white border border-black/10 rounded-[24px] p-8 md:p-12 shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col md:flex-row items-center gap-8 text-left min-h-[420px] justify-between overflow-hidden"
+              className="relative bg-white border border-black/10 rounded-[24px] shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col min-h-[420px] justify-between overflow-hidden text-left"
             >
               {/* Animated Border Overlay */}
               <div className="absolute inset-0 pointer-events-none rounded-[24px] overflow-hidden">
@@ -703,7 +703,8 @@ export default function FathomSlider() {
                 </svg>
               </div>
 
-              <div className="w-full md:w-[340px] shrink-0 relative aspect-[3/2] rounded-[16px] overflow-hidden border border-black/10 bg-white shadow-sm">
+              {/* Banner Image (spanning full width of the card) */}
+              <div className="w-full relative aspect-[3/2] border-b border-black/10 bg-white">
                 <Image
                   src="/images/report_banner.jpg"
                   alt="Personalized Report Center Banner"
@@ -711,7 +712,7 @@ export default function FathomSlider() {
                   className="object-cover"
                 />
               </div>
-              <div className="flex-1 flex flex-col justify-between h-full space-y-6">
+              <div className="p-6 md:p-8 flex-1 flex flex-col justify-between space-y-6">
                 <div>
                   <h3 className="text-2xl md:text-3xl font-extrabold text-black uppercase tracking-tight leading-tight">
                     Want Customised Reports ?

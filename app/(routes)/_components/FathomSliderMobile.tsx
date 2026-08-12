@@ -427,7 +427,7 @@ export default function FathomSliderMobile() {
         </div>
 
         {/* Right Card: Want Customised Reports ? */}
-        <div className="relative w-full bg-white border border-black/10 rounded-[24px] p-5 shadow-sm flex flex-col items-center gap-4 text-center overflow-hidden">
+        <div className="relative w-full bg-white border border-black/10 rounded-[24px] shadow-sm flex flex-col items-center overflow-hidden">
           {/* Animated Border Overlay */}
           <div className="absolute inset-0 pointer-events-none rounded-[24px] overflow-hidden">
             <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -447,7 +447,8 @@ export default function FathomSliderMobile() {
             </svg>
           </div>
 
-          <div className="w-[260px] shrink-0 relative aspect-[3/2] rounded-xl overflow-hidden border border-black/10 bg-white shadow-sm">
+          {/* Banner Image (spanning full width of the card) */}
+          <div className="w-full relative aspect-[3/2] border-b border-black/10 bg-white">
             <Image
               src="/images/report_banner.jpg"
               alt="Personalized Report Center Banner"
@@ -455,7 +456,7 @@ export default function FathomSliderMobile() {
               className="object-cover"
             />
           </div>
-          <div className="flex-1 flex flex-col justify-between space-y-4">
+          <div className="p-5 flex-1 flex flex-col justify-between space-y-4 text-center">
             <div>
               <h3 className="text-lg font-extrabold text-black uppercase tracking-tight leading-tight">
                 Want Customised Reports ?
