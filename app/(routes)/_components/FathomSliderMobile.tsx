@@ -378,7 +378,7 @@ export default function FathomSliderMobile() {
         {/* Left Card: Research Reports */}
         <div className="research-card-hover border-animate-container relative w-full bg-white border border-black/10 rounded-[24px] shadow-sm flex flex-col items-center overflow-hidden">
           {/* Animated Border Overlay */}
-          <div className="absolute inset-0 pointer-events-none rounded-[24px] overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none rounded-[24px] overflow-hidden z-20">
             <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
               <rect
                 rx="24"
@@ -430,7 +430,7 @@ export default function FathomSliderMobile() {
         {/* Right Card: Want Customised Reports ? */}
         <div className="customized-card-hover border-animate-container relative w-full bg-white border border-black/10 rounded-[24px] shadow-sm flex flex-col items-center overflow-hidden">
           {/* Animated Border Overlay */}
-          <div className="absolute inset-0 pointer-events-none rounded-[24px] overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none rounded-[24px] overflow-hidden z-20">
             <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
               <rect
                 rx="24"

@@ -628,7 +628,7 @@ export default function FathomSlider() {
               className="research-card-hover border-animate-container relative bg-white border border-black/10 rounded-[24px] shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col min-h-[420px] justify-between overflow-hidden text-left"
             >
               {/* Animated Border Overlay */}
-              <div className="absolute inset-0 pointer-events-none rounded-[24px] overflow-hidden">
+              <div className="absolute inset-0 pointer-events-none rounded-[24px] overflow-hidden z-20">
                 <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
                   <rect
                     rx="24"
@@ -686,7 +686,7 @@ export default function FathomSlider() {
               className="customized-card-hover border-animate-container relative bg-white border border-black/10 rounded-[24px] shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col min-h-[420px] justify-between overflow-hidden text-left"
             >
               {/* Animated Border Overlay */}
-              <div className="absolute inset-0 pointer-events-none rounded-[24px] overflow-hidden">
+              <div className="absolute inset-0 pointer-events-none rounded-[24px] overflow-hidden z-20">
                 <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
                   <rect
                     rx="24"
