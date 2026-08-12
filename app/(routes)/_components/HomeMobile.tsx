@@ -835,6 +835,50 @@ export default function HomeMobile() {
           </div>
         </div>
 
+        {/* Customized Reports Section */}
+        <div className="bg-white border border-black rounded-2xl p-5 mb-6 text-left flex flex-col gap-5 hover:shadow-sm transition-all">
+          {/* Title */}
+          <div>
+            <h3 className="text-lg font-bold text-black uppercase tracking-tight leading-tight">
+              Want Customised Reports ?
+            </h3>
+          </div>
+          {/* Image (First Image) */}
+          <div className="w-full bg-[#fcfdfd] border border-black/10 rounded-2xl p-4 shadow-sm flex items-center justify-center">
+            <div className="w-full relative aspect-[4/3] rounded-xl overflow-hidden border border-black/10 bg-white">
+              <Image
+                src="/images/wizard_credit_card.png"
+                alt="Customized Credit Card Report Form"
+                width={380}
+                height={285}
+                className="object-contain p-2"
+              />
+            </div>
+          </div>
+          {/* Second Image & Text Row */}
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 shrink-0 relative rounded-xl overflow-hidden bg-transparent">
+              <Image
+                src="/images/report_hero.png"
+                alt="Personalized Report Center"
+                fill
+                className="object-contain"
+              />
+            </div>
+            <p className="text-xs sm:text-sm font-semibold text-gray-800 leading-snug">
+              Personalized insights for every decision your money makes...
+            </p>
+          </div>
+          {/* Button */}
+          <div>
+            <Link href="/reports#customReport" className="w-full block">
+              <button className="w-full py-2.5 bg-yellow-400 text-black border border-black font-bold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 active:translate-y-0.5 transition-all cursor-pointer text-center">
+                CLICK HERE
+              </button>
+            </Link>
+          </div>
+        </div>
+
         {/* Women's Section & IPO WORLD */}
         <div className="flex flex-col gap-4 mb-8 text-left">
           {/* Women's Section Card */}
