@@ -397,12 +397,12 @@ export default function FathomSliderMobile() {
           </div>
 
           {/* Cover Image Showcase */}
-          <div className="w-full relative aspect-[3/2] border-b border-black/10 bg-[#F4FBF7]">
+          <div className="w-full relative aspect-[3/2] border-b border-black/10 bg-white">
             <Image
-              src="/fathom/research-reports.png"
-              alt="Research Reports"
+              src="/images/research_banner.jpg"
+              alt="Research Reports Banner"
               fill
-              className="object-contain p-4"
+              className="object-cover"
             />
           </div>
           <div className="p-5 flex-1 flex flex-col justify-between space-y-4 text-center">

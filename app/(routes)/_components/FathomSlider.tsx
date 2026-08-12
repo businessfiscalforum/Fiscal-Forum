@@ -647,12 +647,12 @@ export default function FathomSlider() {
               </div>
 
               {/* Showcase Image (spanning full width of the card) */}
-              <div className="w-full relative aspect-[3/2] border-b border-black/10 bg-[#F4FBF7]">
+              <div className="w-full relative aspect-[3/2] border-b border-black/10 bg-white">
                 <Image
-                  src="/fathom/research-reports.png"
-                  alt="Research Reports"
+                  src="/images/research_banner.jpg"
+                  alt="Research Reports Banner"
                   fill
-                  className="object-contain p-6"
+                  className="object-cover"
                 />
               </div>
               <div className="p-6 md:p-8 flex-1 flex flex-col justify-between space-y-6">
