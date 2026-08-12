@@ -609,10 +609,10 @@ export default function FathomSlider() {
           <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch px-4 md:px-8">
             {/* Left Card: Research Reports */}
             <motion.div
-              initial={{ opacity: 0, x: -100 }}
+              initial={{ opacity: 0, x: -80 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ type: "spring", stiffness: 70, damping: 14 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ type: "spring", stiffness: 45, damping: 14 }}
               className="research-card-hover border-animate-container relative bg-white border border-black/10 rounded-[24px] shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col min-h-[420px] justify-between overflow-hidden text-left"
             >
               {/* Animated Border Overlay */}
@@ -667,10 +667,10 @@ export default function FathomSlider() {
 
             {/* Right Card: Want Customised Reports ? */}
             <motion.div
-              initial={{ opacity: 0, x: 100 }}
+              initial={{ opacity: 0, x: 80 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ type: "spring", stiffness: 70, damping: 14, delay: 0.1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ type: "spring", stiffness: 45, damping: 14, delay: 0.08 }}
               className="customized-card-hover border-animate-container relative bg-white border border-black/10 rounded-[24px] shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col min-h-[420px] justify-between overflow-hidden text-left"
             >
               {/* Animated Border Overlay */}
