@@ -281,7 +281,7 @@ const homeSlides = [
   },
   {
     title: "WHOLE SECTORAL ANALYSIS AT SINGLE PLACE",
-    image: "/images/whole-sectoral-preview.png",
+    image: "/images/whole-sectoral-preview.jpg",
     text: "Want every sector analysis at one go ?",
     link: "/reports#sectoral-overview",
   },
