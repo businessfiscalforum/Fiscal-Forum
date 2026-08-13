@@ -1225,7 +1225,7 @@ export default function HomeDesktop() {
                       damping: 14,
                       delay: index * 0.08,
                     }}
-                    className="bg-white border border-black rounded-2xl shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full text-left overflow-hidden"
+                    className="bg-white border border-black rounded-2xl shadow-md hover:-translate-y-0.5 hover:shadow-lg transition-all flex flex-col h-full text-center overflow-hidden"
                   >
                     <div className="relative w-full aspect-[16/10] overflow-hidden border-b border-black/10">
                       <Image

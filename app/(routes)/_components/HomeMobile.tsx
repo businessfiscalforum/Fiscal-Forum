@@ -902,7 +902,7 @@ export default function HomeMobile() {
           {features.map((f, i) => (
             <motion.div
               key={i}
-              className="bg-white border border-black rounded-2xl shadow-sm flex flex-col h-full text-left overflow-hidden"
+              className="bg-white border border-black rounded-2xl shadow-sm flex flex-col h-full text-center overflow-hidden"
             >
               <div className="relative w-full aspect-[16/10] overflow-hidden border-b border-black/10">
                 <Image
