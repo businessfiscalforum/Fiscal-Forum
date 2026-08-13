@@ -534,7 +534,7 @@ export default function HomeMobile() {
         let attempts = 0;
         while (attempts < 100) {
           const values = prev.map((c) => c.min);
-          let currentSum = values.reduce((a, b) => a + b, 0);
+          const currentSum = values.reduce((a, b) => a + b, 0);
           const targetSum = 100;
           let remaining = targetSum - currentSum;
 
