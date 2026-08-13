@@ -1028,7 +1028,7 @@ export default function HomeMobile() {
         .revolving-border-btn {
           position: relative;
           overflow: hidden;
-          padding: 1.5px;
+          padding: 2.2px;
           background: #000;
           border-radius: 12px;
           display: block;
@@ -1043,8 +1043,10 @@ export default function HomeMobile() {
           background: conic-gradient(
             from 90deg at 50% 50%,
             #fff 0%,
-            transparent 25%,
-            transparent 75%,
+            #fff 15%,
+            transparent 35%,
+            transparent 65%,
+            #fff 85%,
             #fff 100%
           );
           animation: border-spin 4s linear infinite;
@@ -1059,7 +1061,7 @@ export default function HomeMobile() {
           height: 100%;
           background-color: #000;
           color: #fff;
-          border-radius: 11px;
+          border-radius: 10px;
           font-weight: 700;
           text-transform: uppercase;
           transition: background-color 0.3s ease;
