@@ -35,7 +35,6 @@ import { UsersDetail } from "../../provider";
 import HomeNewsAndResearchSection from "./HomeResearchAndNewsSection";
 import FathomSlider from "./FathomSlider";
 import FiscalForumCity from "./FiscalForumCity";
-import ScrollAnimationIntro from "./ScrollAnimationIntro";
 
 
 const slides = [
@@ -439,8 +438,6 @@ const additionalServices = [
 
 export default function HomeDesktop() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const [hasMounted, setHasMounted] = useState(false);
-  const [animationCompleted, setAnimationCompleted] = useState(false);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
@@ -524,33 +521,7 @@ export default function HomeDesktop() {
     return () => clearInterval(timer);
   }, [isAutoPlaying]);
 
-  useEffect(() => {
-    setHasMounted(true);
-    const completed = sessionStorage.getItem("scrollAnimationCompleted");
-    if (completed === "true") {
-      setAnimationCompleted(true);
-    }
-  }, []);
 
-  useEffect(() => {
-    // This runs only on the client
-    const handleResize = () => setIsSmallScreen(window.innerWidth < 768);
-    handleResize(); // Check on first load
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    if (animationCompleted) {
-      const timer = setTimeout(() => {
-        const element = document.getElementById("fiscal-forum-city");
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      }, 50);
-      return () => clearTimeout(timer);
-    }
-  }, [animationCompleted]);
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{
@@ -811,40 +782,7 @@ export default function HomeDesktop() {
       <div className="text-gray-800 font-sans min-h-screen overflow-x-hidden w-full">
         <FathomSlider />
         <div className="relative w-full">
-          {hasMounted && (
-            <AnimatePresence mode="sync">
-              {!animationCompleted ? (
-                <motion.div
-                  key="intro"
-                  exit={{
-                    opacity: 0,
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                  }}
-                  transition={{ duration: 0.8, ease: "easeInOut" }}
-                >
-                  <ScrollAnimationIntro
-                    onComplete={() => {
-                      setAnimationCompleted(true);
-                      sessionStorage.setItem("scrollAnimationCompleted", "true");
-                    }}
-                  />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="city"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.8, ease: "easeInOut" }}
-                  className="w-full"
-                >
-                  <FiscalForumCity />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          )}
+          <FiscalForumCity />
         </div>
 
         {/* Enhanced Services Section */}
