@@ -428,7 +428,7 @@ export default function FathomSliderMobile() {
                   href="/reports"
                   className="w-full py-2.5 bg-black text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-zinc-900 transition-all cursor-pointer relative z-10 block text-center"
                 >
-                  CLICK HERE →
+                  CLICK HERE
                 </Link>
               </div>
               <p className="text-[10px] font-bold text-gray-400 mt-2">

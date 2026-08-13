@@ -1712,7 +1712,7 @@ main, header, footer{ position: relative; z-index: 1; }
   stroke-dasharray: 50 250; /* 50px line segment, 250px gap */
   stroke-linecap: round;
   filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8));
-  animation: buttonBorderDraw 3s linear infinite;
+  animation: buttonBorderDraw 6s linear infinite;
   transition: stroke-width 0.3s ease, filter 0.3s ease;
 }
 
@@ -1727,7 +1727,7 @@ main, header, footer{ position: relative; z-index: 1; }
 
 /* Speed up and make more glowing on hover */
 .button-border-animate-container:hover .button-border-animate-line {
-  animation-duration: 1.5s;
+  animation-duration: 3s;
   stroke-width: 2px;
   filter: drop-shadow(0 0 4px rgba(255, 255, 255, 1));
 }
