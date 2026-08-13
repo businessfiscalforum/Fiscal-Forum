@@ -405,11 +405,32 @@ export default function FathomSliderMobile() {
               </p>
             </div>
             <div className="w-full relative z-10">
-              <Link href="/reports" className="w-full block">
-                <button className="w-full py-2.5 bg-yellow-400 text-black border border-black font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 active:scale-98 transition-all cursor-pointer">
+              <div className="relative w-full button-border-animate-container hover:-translate-y-0.5 transition-all duration-200">
+                {/* Animated Border Overlay */}
+                <div className="absolute inset-0 pointer-events-none rounded-xl overflow-hidden z-20">
+                  <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                    <rect
+                      rx="12"
+                      fill="none"
+                      stroke="white"
+                      strokeWidth="1.5"
+                      style={{
+                        x: 0.75,
+                        y: 0.75,
+                        width: "calc(100% - 1.5px)",
+                        height: "calc(100% - 1.5px)",
+                      }}
+                      className="button-border-animate-line"
+                    />
+                  </svg>
+                </div>
+                <Link
+                  href="/reports"
+                  className="w-full py-2.5 bg-black text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-zinc-900 transition-all cursor-pointer relative z-10 block text-center"
+                >
                   CLICK HERE →
-                </button>
-              </Link>
+                </Link>
+              </div>
               <p className="text-[10px] font-bold text-gray-400 mt-2">
                 To get your research backed reports ...
               </p>
@@ -471,11 +492,32 @@ export default function FathomSliderMobile() {
               </div>
             </div>
             <div className="w-full relative z-10">
-              <Link href="/reports#customReport" className="w-full block">
-                <button className="w-full py-2.5 bg-yellow-400 text-black border border-black font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 active:scale-98 transition-all cursor-pointer">
+              <div className="relative w-full button-border-animate-container hover:-translate-y-0.5 transition-all duration-200">
+                {/* Animated Border Overlay */}
+                <div className="absolute inset-0 pointer-events-none rounded-xl overflow-hidden z-20">
+                  <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                    <rect
+                      rx="12"
+                      fill="none"
+                      stroke="white"
+                      strokeWidth="1.5"
+                      style={{
+                        x: 0.75,
+                        y: 0.75,
+                        width: "calc(100% - 1.5px)",
+                        height: "calc(100% - 1.5px)",
+                      }}
+                      className="button-border-animate-line"
+                        />
+                      </svg>
+                    </div>
+                <Link
+                  href="/reports#customReport"
+                  className="w-full py-2.5 bg-black text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-zinc-900 transition-all cursor-pointer relative z-10 block text-center"
+                >
                   CLICK HERE
-                </button>
-              </Link>
+                </Link>
+              </div>
             </div>
           </div>
         </motion.div>
