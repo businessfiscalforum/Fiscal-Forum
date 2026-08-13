@@ -353,8 +353,26 @@ export default function FathomSlider() {
                       </p>
                     </div>
                     <p className="report-cta__prompt">Want your market research report?</p>
-                    <Link href="/reports" className="btn btn--black report-cta__btn">
-                      CLICK HERE<span className="btn__arrow">→</span>
+                    <Link href="/reports" className="btn btn--black report-cta__btn relative overflow-hidden button-border-animate-container">
+                      <div className="absolute inset-0 pointer-events-none rounded-[999px] overflow-hidden z-20">
+                        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                          <rect
+                            rx="24"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth="1.5"
+                            style={{
+                              x: 0.75,
+                              y: 0.75,
+                              width: "calc(100% - 1.5px)",
+                              height: "calc(100% - 1.5px)",
+                            }}
+                            className="button-border-animate-line"
+                          />
+                        </svg>
+                      </div>
+                      <span className="relative z-10">CLICK HERE</span>
+                      <span className="btn__arrow relative z-10">→</span>
                     </Link>
                     <p className="slide__hint">
                       Swipe or use the arrows to see what to do about it{" "}
@@ -411,8 +429,26 @@ export default function FathomSlider() {
                       />
                     </div>
                     <p className="fund-recommend__prompt">Want recommendations like these?</p>
-                    <Link href="/services/mutual-funds" className="btn btn--black">
-                      CLICK HERE<span className="btn__arrow">→</span>
+                    <Link href="/services/mutual-funds" className="btn btn--black relative overflow-hidden button-border-animate-container">
+                      <div className="absolute inset-0 pointer-events-none rounded-[999px] overflow-hidden z-20">
+                        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                          <rect
+                            rx="24"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth="1.5"
+                            style={{
+                              x: 0.75,
+                              y: 0.75,
+                              width: "calc(100% - 1.5px)",
+                              height: "calc(100% - 1.5px)",
+                            }}
+                            className="button-border-animate-line"
+                          />
+                        </svg>
+                      </div>
+                      <span className="relative z-10">CLICK HERE</span>
+                      <span className="btn__arrow relative z-10">→</span>
                     </Link>
                   </div>
                 </div>
@@ -462,8 +498,26 @@ export default function FathomSlider() {
                       />
                     </div>
                     <p className="stock-recommend__prompt">Want recommendations like this?</p>
-                    <Link href="/services/stock-investment" className="btn btn--black">
-                      CLICK HERE<span className="btn__arrow">→</span>
+                    <Link href="/services/stock-investment" className="btn btn--black relative overflow-hidden button-border-animate-container">
+                      <div className="absolute inset-0 pointer-events-none rounded-[999px] overflow-hidden z-20">
+                        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                          <rect
+                            rx="24"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth="1.5"
+                            style={{
+                              x: 0.75,
+                              y: 0.75,
+                              width: "calc(100% - 1.5px)",
+                              height: "calc(100% - 1.5px)",
+                            }}
+                            className="button-border-animate-line"
+                          />
+                        </svg>
+                      </div>
+                      <span className="relative z-10">CLICK HERE</span>
+                      <span className="btn__arrow relative z-10">→</span>
                     </Link>
                   </div>
                 </div>
@@ -516,8 +570,26 @@ export default function FathomSlider() {
                       />
                     </div>
                     <p className="card-recommend__prompt">Want to save money using credit card?</p>
-                    <Link href="/services/credit-card" className="btn btn--black">
-                      CLICK HERE<span className="btn__arrow">→</span>
+                    <Link href="/services/credit-card" className="btn btn--black relative overflow-hidden button-border-animate-container">
+                      <div className="absolute inset-0 pointer-events-none rounded-[999px] overflow-hidden z-20">
+                        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                          <rect
+                            rx="24"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth="1.5"
+                            style={{
+                              x: 0.75,
+                              y: 0.75,
+                              width: "calc(100% - 1.5px)",
+                              height: "calc(100% - 1.5px)",
+                            }}
+                            className="button-border-animate-line"
+                          />
+                        </svg>
+                      </div>
+                      <span className="relative z-10">CLICK HERE</span>
+                      <span className="btn__arrow relative z-10">→</span>
                     </Link>
                   </div>
                 </div>
@@ -569,8 +641,26 @@ export default function FathomSlider() {
                     <p className="insurance-recommend__prompt">
                       Don&apos;t want to risk your family life and your belongings?
                     </p>
-                    <Link href="/services/insurance" className="btn btn--black">
-                      CLICK HERE<span className="btn__arrow">→</span>
+                    <Link href="/services/insurance" className="btn btn--black relative overflow-hidden button-border-animate-container">
+                      <div className="absolute inset-0 pointer-events-none rounded-[999px] overflow-hidden z-20">
+                        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                          <rect
+                            rx="24"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth="1.5"
+                            style={{
+                              x: 0.75,
+                              y: 0.75,
+                              width: "calc(100% - 1.5px)",
+                              height: "calc(100% - 1.5px)",
+                            }}
+                            className="button-border-animate-line"
+                          />
+                        </svg>
+                      </div>
+                      <span className="relative z-10">CLICK HERE</span>
+                      <span className="btn__arrow relative z-10">→</span>
                     </Link>
                   </div>
                 </div>

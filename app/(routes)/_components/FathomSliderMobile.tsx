@@ -135,9 +135,27 @@ export default function FathomSliderMobile() {
               </p>
               <Link
                 href="/reports"
-                className="inline-flex w-full max-w-[280px] py-3 bg-black hover:bg-zinc-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
+                className="relative overflow-hidden button-border-animate-container inline-flex w-full max-w-[280px] py-3 bg-black hover:bg-zinc-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
               >
-                CLICK HERE <span className="text-sm font-light">→</span>
+                <div className="absolute inset-0 pointer-events-none rounded-full overflow-hidden z-20">
+                  <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                    <rect
+                      rx="24"
+                      fill="none"
+                      stroke="white"
+                      strokeWidth="1.5"
+                      style={{
+                        x: 0.75,
+                        y: 0.75,
+                        width: "calc(100% - 1.5px)",
+                        height: "calc(100% - 1.5px)",
+                      }}
+                      className="button-border-animate-line"
+                    />
+                  </svg>
+                </div>
+                <span className="relative z-10">CLICK HERE</span>
+                <span className="text-sm font-light relative z-10">→</span>
               </Link>
             </div>
           </div>
@@ -183,9 +201,27 @@ export default function FathomSliderMobile() {
               </p>
               <Link
                 href="/services/mutual-funds"
-                className="inline-flex w-full max-w-[280px] py-3 bg-black hover:bg-zinc-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
+                className="relative overflow-hidden button-border-animate-container inline-flex w-full max-w-[280px] py-3 bg-black hover:bg-zinc-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
               >
-                CLICK HERE <span className="text-sm font-light">→</span>
+                <div className="absolute inset-0 pointer-events-none rounded-full overflow-hidden z-20">
+                  <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                    <rect
+                      rx="24"
+                      fill="none"
+                      stroke="white"
+                      strokeWidth="1.5"
+                      style={{
+                        x: 0.75,
+                        y: 0.75,
+                        width: "calc(100% - 1.5px)",
+                        height: "calc(100% - 1.5px)",
+                      }}
+                      className="button-border-animate-line"
+                    />
+                  </svg>
+                </div>
+                <span className="relative z-10">CLICK HERE</span>
+                <span className="text-sm font-light relative z-10">→</span>
               </Link>
             </div>
           </div>
@@ -230,9 +266,27 @@ export default function FathomSliderMobile() {
               </p>
               <Link
                 href="/services/stock-investment"
-                className="inline-flex w-full max-w-[280px] py-3 bg-black hover:bg-zinc-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
+                className="relative overflow-hidden button-border-animate-container inline-flex w-full max-w-[280px] py-3 bg-black hover:bg-zinc-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
               >
-                CLICK HERE <span className="text-sm font-light">→</span>
+                <div className="absolute inset-0 pointer-events-none rounded-full overflow-hidden z-20">
+                  <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                    <rect
+                      rx="24"
+                      fill="none"
+                      stroke="white"
+                      strokeWidth="1.5"
+                      style={{
+                        x: 0.75,
+                        y: 0.75,
+                        width: "calc(100% - 1.5px)",
+                        height: "calc(100% - 1.5px)",
+                      }}
+                      className="button-border-animate-line"
+                    />
+                  </svg>
+                </div>
+                <span className="relative z-10">CLICK HERE</span>
+                <span className="text-sm font-light relative z-10">→</span>
               </Link>
             </div>
           </div>
@@ -277,9 +331,27 @@ export default function FathomSliderMobile() {
               </p>
               <Link
                 href="/services/credit-card"
-                className="inline-flex w-full max-w-[280px] py-3 bg-black hover:bg-zinc-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
+                className="relative overflow-hidden button-border-animate-container inline-flex w-full max-w-[280px] py-3 bg-black hover:bg-zinc-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
               >
-                CLICK HERE <span className="text-sm font-light">→</span>
+                <div className="absolute inset-0 pointer-events-none rounded-full overflow-hidden z-20">
+                  <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                    <rect
+                      rx="24"
+                      fill="none"
+                      stroke="white"
+                      strokeWidth="1.5"
+                      style={{
+                        x: 0.75,
+                        y: 0.75,
+                        width: "calc(100% - 1.5px)",
+                        height: "calc(100% - 1.5px)",
+                      }}
+                      className="button-border-animate-line"
+                    />
+                  </svg>
+                </div>
+                <span className="relative z-10">CLICK HERE</span>
+                <span className="text-sm font-light relative z-10">→</span>
               </Link>
             </div>
           </div>
@@ -324,9 +396,27 @@ export default function FathomSliderMobile() {
               </p>
               <Link
                 href="/services/insurance"
-                className="inline-flex w-full max-w-[280px] py-3 bg-black hover:bg-zinc-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
+                className="relative overflow-hidden button-border-animate-container inline-flex w-full max-w-[280px] py-3 bg-black hover:bg-zinc-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
               >
-                CLICK HERE <span className="text-sm font-light">→</span>
+                <div className="absolute inset-0 pointer-events-none rounded-full overflow-hidden z-20">
+                  <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                    <rect
+                      rx="24"
+                      fill="none"
+                      stroke="white"
+                      strokeWidth="1.5"
+                      style={{
+                        x: 0.75,
+                        y: 0.75,
+                        width: "calc(100% - 1.5px)",
+                        height: "calc(100% - 1.5px)",
+                      }}
+                      className="button-border-animate-line"
+                    />
+                  </svg>
+                </div>
+                <span className="relative z-10">CLICK HERE</span>
+                <span className="text-sm font-light relative z-10">→</span>
               </Link>
             </div>
           </div>
