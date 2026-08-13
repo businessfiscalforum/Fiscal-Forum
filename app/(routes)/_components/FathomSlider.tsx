@@ -353,7 +353,7 @@ export default function FathomSlider() {
                       </p>
                     </div>
                     <p className="report-cta__prompt">Want your market research report?</p>
-                    <Link href="/reports" className="btn btn--yellow report-cta__btn">
+                    <Link href="/reports" className="btn btn--black report-cta__btn">
                       CLICK HERE<span className="btn__arrow">→</span>
                     </Link>
                     <p className="slide__hint">
@@ -411,7 +411,7 @@ export default function FathomSlider() {
                       />
                     </div>
                     <p className="fund-recommend__prompt">Want recommendations like these?</p>
-                    <Link href="/services/mutual-funds" className="btn btn--yellow">
+                    <Link href="/services/mutual-funds" className="btn btn--black">
                       CLICK HERE<span className="btn__arrow">→</span>
                     </Link>
                   </div>
@@ -462,7 +462,7 @@ export default function FathomSlider() {
                       />
                     </div>
                     <p className="stock-recommend__prompt">Want recommendations like this?</p>
-                    <Link href="/services/stock-investment" className="btn btn--yellow">
+                    <Link href="/services/stock-investment" className="btn btn--black">
                       CLICK HERE<span className="btn__arrow">→</span>
                     </Link>
                   </div>
@@ -516,7 +516,7 @@ export default function FathomSlider() {
                       />
                     </div>
                     <p className="card-recommend__prompt">Want to save money using credit card?</p>
-                    <Link href="/services/credit-card" className="btn btn--yellow">
+                    <Link href="/services/credit-card" className="btn btn--black">
                       CLICK HERE<span className="btn__arrow">→</span>
                     </Link>
                   </div>
@@ -569,7 +569,7 @@ export default function FathomSlider() {
                     <p className="insurance-recommend__prompt">
                       Don&apos;t want to risk your family life and your belongings?
                     </p>
-                    <Link href="/services/insurance" className="btn btn--yellow">
+                    <Link href="/services/insurance" className="btn btn--black">
                       CLICK HERE<span className="btn__arrow">→</span>
                     </Link>
                   </div>

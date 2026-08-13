@@ -135,7 +135,7 @@ export default function FathomSliderMobile() {
               </p>
               <Link
                 href="/reports"
-                className="inline-flex w-full max-w-[280px] py-3 bg-[#FFDE21] hover:bg-[#E5C71D] text-black font-extrabold text-xs uppercase tracking-wider rounded-full shadow-[0_5px_15px_rgba(255,222,33,0.32)] items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
+                className="inline-flex w-full max-w-[280px] py-3 bg-black hover:bg-zinc-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
               >
                 CLICK HERE <span className="text-sm font-light">→</span>
               </Link>
@@ -183,7 +183,7 @@ export default function FathomSliderMobile() {
               </p>
               <Link
                 href="/services/mutual-funds"
-                className="inline-flex w-full max-w-[280px] py-3 bg-[#FFDE21] hover:bg-[#E5C71D] text-black font-extrabold text-xs uppercase tracking-wider rounded-full shadow-[0_5px_15px_rgba(255,222,33,0.32)] items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
+                className="inline-flex w-full max-w-[280px] py-3 bg-black hover:bg-zinc-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
               >
                 CLICK HERE <span className="text-sm font-light">→</span>
               </Link>
@@ -230,7 +230,7 @@ export default function FathomSliderMobile() {
               </p>
               <Link
                 href="/services/stock-investment"
-                className="inline-flex w-full max-w-[280px] py-3 bg-[#FFDE21] hover:bg-[#E5C71D] text-black font-extrabold text-xs uppercase tracking-wider rounded-full shadow-[0_5px_15px_rgba(255,222,33,0.32)] items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
+                className="inline-flex w-full max-w-[280px] py-3 bg-black hover:bg-zinc-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
               >
                 CLICK HERE <span className="text-sm font-light">→</span>
               </Link>
@@ -277,7 +277,7 @@ export default function FathomSliderMobile() {
               </p>
               <Link
                 href="/services/credit-card"
-                className="inline-flex w-full max-w-[280px] py-3 bg-[#FFDE21] hover:bg-[#E5C71D] text-black font-extrabold text-xs uppercase tracking-wider rounded-full shadow-[0_5px_15px_rgba(255,222,33,0.32)] items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
+                className="inline-flex w-full max-w-[280px] py-3 bg-black hover:bg-zinc-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
               >
                 CLICK HERE <span className="text-sm font-light">→</span>
               </Link>
@@ -324,7 +324,7 @@ export default function FathomSliderMobile() {
               </p>
               <Link
                 href="/services/insurance"
-                className="inline-flex w-full max-w-[280px] py-3 bg-[#FFDE21] hover:bg-[#E5C71D] text-black font-extrabold text-xs uppercase tracking-wider rounded-full shadow-[0_5px_15px_rgba(255,222,33,0.32)] items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
+                className="inline-flex w-full max-w-[280px] py-3 bg-black hover:bg-zinc-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
               >
                 CLICK HERE <span className="text-sm font-light">→</span>
               </Link>

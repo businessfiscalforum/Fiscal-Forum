@@ -172,12 +172,12 @@ main, header, footer{ position: relative; z-index: 1; }
 .btn--ghost:hover{
   border-color: rgba(255,255,255,0.5);
 }
-.btn--yellow{
-  background: #FFDE21;
-  color: #0B0B0B;
+.btn--black{
+  background: #000000;
+  color: #ffffff;
 }
-.btn--yellow:hover{
-  background: #ffe94d;
+.btn--black:hover{
+  background: #27272a;
   transform: translateY(-1px);
 }
 .btn--small{
@@ -1207,14 +1207,14 @@ main, header, footer{ position: relative; z-index: 1; }
 .report-cta__btn{
   margin-top: 14px;
   display: inline-flex;
-  background: #FFDE21;
-  color: #0B0B0B;
+  background: #000000;
+  color: #ffffff;
   opacity: 0;
   transform: translateY(16px) scale(0.94);
-  box-shadow: 0 5px 15px rgba(255,222,33,0.32);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 .report-cta__btn:hover{
-  background: #E5C71D;
+  background: #27272a;
 }
 
 /* CTA pops in last, after the report image, advisor, yellow words, and
