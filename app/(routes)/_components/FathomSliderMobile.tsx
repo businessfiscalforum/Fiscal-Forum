@@ -426,7 +426,8 @@ export default function FathomSliderMobile() {
                 </div>
                 <Link
                   href="/reports"
-                  className="w-full py-2.5 bg-black text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-zinc-900 transition-all cursor-pointer relative z-10 block text-center"
+                  className="w-full py-2.5 bg-black !text-white hover:!text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-zinc-900 transition-all cursor-pointer relative z-10 block text-center"
+                  style={{ color: '#ffffff' }}
                 >
                   CLICK HERE
                 </Link>
@@ -513,7 +514,8 @@ export default function FathomSliderMobile() {
                     </div>
                 <Link
                   href="/reports#customReport"
-                  className="w-full py-2.5 bg-black text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-zinc-900 transition-all cursor-pointer relative z-10 block text-center"
+                  className="w-full py-2.5 bg-black !text-white hover:!text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-zinc-900 transition-all cursor-pointer relative z-10 block text-center"
+                  style={{ color: '#ffffff' }}
                 >
                   CLICK HERE
                 </Link>
