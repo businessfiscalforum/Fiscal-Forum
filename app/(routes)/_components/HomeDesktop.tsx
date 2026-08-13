@@ -521,6 +521,13 @@ export default function HomeDesktop() {
     return () => clearInterval(timer);
   }, [isAutoPlaying]);
 
+  useEffect(() => {
+    // This runs only on the client
+    const handleResize = () => setIsSmallScreen(window.innerWidth < 768);
+    handleResize(); // Check on first load
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
