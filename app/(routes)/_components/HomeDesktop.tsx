@@ -473,61 +473,43 @@ export default function HomeDesktop() {
     { id: "commodities", name: "COMMODITIES", value: 5, min: 2, max: 10, color: "text-teal-600 bg-teal-50 border-teal-200", icon: Coins, textColor: "text-teal-700" },
   ]);
 
-  const allocationsRef = useRef(allocations);
-  useEffect(() => {
-    allocationsRef.current = allocations;
-  }, [allocations]);
-
   useEffect(() => {
     const mainInterval = setInterval(() => {
-      setActiveRowIdx((prevIdx) => {
-        const nextIdx = (prevIdx + 1) % 7;
-        const currentAllocations = allocationsRef.current;
-        
-        const targetRow = currentAllocations[nextIdx];
-        const step = 5;
-        
-        let direction = Math.random() > 0.5 ? 1 : -1;
-        if (targetRow.value + step > targetRow.max) {
-          direction = -1;
-        } else if (targetRow.value - step < targetRow.min) {
-          direction = 1;
-        }
-        const delta = step * direction;
-        
-        const possiblePartners = currentAllocations
-          .map((r, i) => ({ r, i }))
-          .filter(({ r, i }) => {
-            if (i === nextIdx) return false;
-            const newValue = r.value - delta;
-            return newValue >= r.min && newValue <= r.max;
-          });
-          
-        if (possiblePartners.length > 0) {
-          const partner = possiblePartners[Math.floor(Math.random() * possiblePartners.length)];
-          
-          let stepsRun = 0;
-          const stepTimer = setInterval(() => {
-            setAllocations((prev) => {
-              const updated = [...prev];
-              const nextVal = Math.min(updated[nextIdx].max, Math.max(updated[nextIdx].min, updated[nextIdx].value + direction));
-              const partnerVal = Math.min(updated[partner.i].max, Math.max(updated[partner.i].min, updated[partner.i].value - direction));
-              
-              updated[nextIdx] = { ...updated[nextIdx], value: nextVal };
-              updated[partner.i] = { ...updated[partner.i], value: partnerVal };
-              return updated;
-            });
-            
-            stepsRun++;
-            if (stepsRun >= step) {
-              clearInterval(stepTimer);
+      // Rotate active row index for highlighting
+      setActiveRowIdx((prevIdx) => (prevIdx + 1) % 7);
+
+      // Randomly change all allocations keeping sum at 100% and respecting bounds
+      setAllocations((prev) => {
+        let attempts = 0;
+        while (attempts < 100) {
+          const values = prev.map((c) => c.min);
+          let currentSum = values.reduce((a, b) => a + b, 0);
+          const targetSum = 100;
+          let remaining = targetSum - currentSum;
+
+          while (remaining > 0) {
+            const eligibleIndices = [];
+            for (let i = 0; i < prev.length; i++) {
+              if (values[i] < prev[i].max) {
+                eligibleIndices.push(i);
+              }
             }
-          }, 40);
+            if (eligibleIndices.length === 0) break;
+            const randIdx = eligibleIndices[Math.floor(Math.random() * eligibleIndices.length)];
+            values[randIdx] += 1;
+            remaining -= 1;
+          }
+
+          // Ensure all values have moved (changed) from their previous values
+          const allChanged = values.every((val, idx) => val !== prev[idx].value);
+          if (allChanged || attempts > 80) {
+            return prev.map((c, idx) => ({ ...c, value: values[idx] }));
+          }
+          attempts++;
         }
-        
-        return nextIdx;
+        return prev;
       });
-    }, 1500);
+    }, 1000);
     
     return () => clearInterval(mainInterval);
   }, []);
@@ -1109,7 +1091,7 @@ export default function HomeDesktop() {
                         
                         {/* Percentage Allocation */}
                         <div className="flex items-center gap-2">
-                          <span className={`font-extrabold text-base sm:text-lg ${row.textColor} tracking-tight min-w-[45px] text-right`}>
+                          <span className="font-extrabold text-base sm:text-lg text-black tracking-tight min-w-[45px] text-right">
                             {row.value}%
                           </span>
                         </div>
