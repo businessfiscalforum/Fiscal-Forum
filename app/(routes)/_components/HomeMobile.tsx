@@ -674,8 +674,20 @@ export default function HomeMobile() {
                   </p>
                 </div>
                 <div className="mt-4">
-                  <span className="inline-block w-full text-center py-2 bg-[#1FA463] text-white border border-black text-xs font-bold uppercase rounded-lg shadow-sm">
-                    Learn More
+                  <span className="revolving-border-btn shadow-sm">
+                    <span className="revolving-border-btn-content py-2 text-xs tracking-wider gap-1.5">
+                      EXPLORE HERE
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        className="w-4 h-4"
+                      >
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </span>
                   </span>
                 </div>
               </motion.div>
@@ -1004,6 +1016,59 @@ export default function HomeMobile() {
         </div>
       </section>
       <style jsx global>{`
+        @keyframes border-spin {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        .revolving-border-btn {
+          position: relative;
+          overflow: hidden;
+          padding: 1.5px;
+          background: #000;
+          border-radius: 12px;
+          display: block;
+          width: 100%;
+          border: none;
+        }
+
+        .revolving-border-btn::before {
+          content: '';
+          position: absolute;
+          inset: -1000%;
+          background: conic-gradient(
+            from 90deg at 50% 50%,
+            #fff 0%,
+            transparent 25%,
+            transparent 75%,
+            #fff 100%
+          );
+          animation: border-spin 4s linear infinite;
+        }
+
+        .revolving-border-btn-content {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+          background-color: #000;
+          color: #fff;
+          border-radius: 11px;
+          font-weight: 700;
+          text-transform: uppercase;
+          transition: background-color 0.3s ease;
+        }
+
+        .revolving-border-btn:hover .revolving-border-btn-content {
+          background-color: #1c1c1e;
+        }
+
         .hide-scrollbar::-webkit-scrollbar {
           display: none;
         }
