@@ -150,11 +150,13 @@ const STORES: Store[] = [
     category: "Gold & Jewellery Businesses",
     img: "/jewellery.jpg",
     pairs: [
-      { brand: "Tanishq", stock: "Titan Company", domain: "tanishq.co.in" },
-      { brand: "Malabar", stock: "Thangamayil Jewellery", domain: "malabargoldanddiamonds.com" },
-      { brand: "Kalyan", stock: "Kalyan Jewellers", domain: "kalyanjewellers.net" },
-      { brand: "Senco", stock: "Senco Gold", domain: "sencogoldanddiamonds.com" },
-      { brand: "Tribhovandas Bhimji Zaveri", stock: "TBZ Ltd", domain: "tbztheoriginal.com" },
+      { brand: "Tanishq", stock: "Titan Company Ltd.", domain: "tanishq.co.in", stockDomain: "titancompany.in" },
+      { brand: "Kalyan Jewellers", stock: "Kalyan Jewellers India Ltd.", domain: "kalyanjewellers.net", stockDomain: "kalyanjewellers.net" },
+      { brand: "Senco Gold & Diamonds", stock: "Senco Gold Ltd.", domain: "sencogoldanddiamonds.com", stockDomain: "sencogoldanddiamonds.com" },
+      { brand: "TBZ – The Original", stock: "Tribhovandas Bhimji Zaveri Ltd.", domain: "tbztheoriginal.com", stockDomain: "tbztheoriginal.com" },
+      { brand: "Thangamayil Jewellery", stock: "Thangamayil Jewellery Ltd.", domain: "thangamayil.com", stockDomain: "thangamayil.com" },
+      { brand: "PNG Jewellers", stock: "P N Gadgil Jewellers Ltd.", domain: "pngjewellers.com", stockDomain: "pngjewellers.com" },
+      { brand: "PC Jeweller", stock: "PC Jeweller Ltd.", domain: "pcjeweller.com", stockDomain: "pcjeweller.com" },
     ],
   },
   {
