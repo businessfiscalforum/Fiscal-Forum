@@ -428,9 +428,6 @@ export default function FathomSliderMobile() {
                   <span className="relative z-10">CLICK HERE</span>
                 </button>
               </Link>
-              <p className="text-[10px] font-bold text-gray-400 mt-2">
-                To get your research backed reports ...
-              </p>
             </div>
           </div>
         </motion.div>
