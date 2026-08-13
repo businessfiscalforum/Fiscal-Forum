@@ -439,6 +439,7 @@ const additionalServices = [
 
 export default function HomeDesktop() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
   const [animationCompleted, setAnimationCompleted] = useState(false);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [direction, setDirection] = useState(0);
@@ -524,6 +525,7 @@ export default function HomeDesktop() {
   }, [isAutoPlaying]);
 
   useEffect(() => {
+    setHasMounted(true);
     const completed = sessionStorage.getItem("scrollAnimationCompleted");
     if (completed === "true") {
       setAnimationCompleted(true);
@@ -809,38 +811,40 @@ export default function HomeDesktop() {
       <div className="text-gray-800 font-sans min-h-screen overflow-x-hidden w-full">
         <FathomSlider />
         <div className="relative w-full">
-          <AnimatePresence mode="sync">
-            {!animationCompleted ? (
-              <motion.div
-                key="intro"
-                exit={{
-                  opacity: 0,
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                }}
-                transition={{ duration: 0.8, ease: "easeInOut" }}
-              >
-                <ScrollAnimationIntro
-                  onComplete={() => {
-                    setAnimationCompleted(true);
-                    sessionStorage.setItem("scrollAnimationCompleted", "true");
+          {hasMounted && (
+            <AnimatePresence mode="sync">
+              {!animationCompleted ? (
+                <motion.div
+                  key="intro"
+                  exit={{
+                    opacity: 0,
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
                   }}
-                />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="city"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, ease: "easeInOut" }}
-                className="w-full"
-              >
-                <FiscalForumCity />
-              </motion.div>
-            )}
-          </AnimatePresence>
+                  transition={{ duration: 0.8, ease: "easeInOut" }}
+                >
+                  <ScrollAnimationIntro
+                    onComplete={() => {
+                      setAnimationCompleted(true);
+                      sessionStorage.setItem("scrollAnimationCompleted", "true");
+                    }}
+                  />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="city"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8, ease: "easeInOut" }}
+                  className="w-full"
+                >
+                  <FiscalForumCity />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          )}
         </div>
 
         {/* Enhanced Services Section */}

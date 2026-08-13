@@ -31,7 +31,10 @@ export default function ScrollAnimationIntro({ onComplete }: ScrollAnimationIntr
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !isActive) {
+        // Only trigger if entering from the bottom of the screen (scrolling down)
+        const isEnteringFromBottom = entry.boundingClientRect.top > 100;
+
+        if (entry.isIntersecting && !isActive && isEnteringFromBottom) {
           setIsActive(true);
           setStep(6);
           document.body.style.overflow = "hidden";
