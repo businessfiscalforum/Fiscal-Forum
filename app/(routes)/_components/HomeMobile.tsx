@@ -1028,12 +1028,14 @@ export default function HomeMobile() {
         .revolving-border-btn {
           position: relative;
           overflow: hidden;
-          padding: 2.2px;
+          padding: 3px;
           background: #000;
           border-radius: 12px;
           display: block;
           width: 100%;
           border: none;
+          box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .revolving-border-btn::before {
@@ -1041,13 +1043,12 @@ export default function HomeMobile() {
           position: absolute;
           inset: -1000%;
           background: conic-gradient(
-            from 90deg at 50% 50%,
-            #fff 0%,
-            #fff 15%,
-            transparent 35%,
-            transparent 65%,
-            #fff 85%,
-            #fff 100%
+            from 0deg,
+            transparent 0%,
+            #fff 8%,
+            #fff 22%,
+            transparent 30%,
+            transparent 100%
           );
           animation: border-spin 4s linear infinite;
         }
@@ -1061,10 +1062,14 @@ export default function HomeMobile() {
           height: 100%;
           background-color: #000;
           color: #fff;
-          border-radius: 10px;
+          border-radius: 9px;
           font-weight: 700;
           text-transform: uppercase;
           transition: background-color 0.3s ease;
+        }
+
+        .revolving-border-btn:hover {
+          box-shadow: 0 0 16px rgba(255, 255, 255, 0.35);
         }
 
         .revolving-border-btn:hover .revolving-border-btn-content {
