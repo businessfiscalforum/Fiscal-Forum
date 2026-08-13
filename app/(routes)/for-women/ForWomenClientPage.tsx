@@ -106,6 +106,7 @@ interface StorePair {
   brand: string;
   stock: string;
   domain: string;
+  stockDomain?: string;
 }
 
 interface Store {
@@ -121,13 +122,13 @@ const STORES: Store[] = [
     category: "Beauty & Personal Care",
     img: "/beauty.jpg",
     pairs: [
-      { brand: "Nykaa", stock: "FSN E-Commerce Ventures", domain: "nykaa.com" },
-      { brand: "Lakmé", stock: "Hindustan Unilever", domain: "lakmeindia.com" },
-      { brand: "Mamaearth", stock: "Honasa Consumer", domain: "mamaearth.in" },
-      { brand: "Lotus", stock: "Marico", domain: "lotusherbals.com" },
-      { brand: "Colorbar", stock: "Godrej Consumer Products", domain: "colorbarcosmetics.com" },
-      { brand: "VLCC", stock: "Dabur India", domain: "vlccwellness.com" },
-      { brand: "Biotique", stock: "Colgate-Palmolive India", domain: "biotique.com" },
+      { brand: "Lakmé", stock: "Hindustan Unilever Ltd.", domain: "lakmeindia.com", stockDomain: "hul.co.in" },
+      { brand: "Mamaearth", stock: "Honasa Consumer Ltd.", domain: "mamaearth.in", stockDomain: "honasa.in" },
+      { brand: "Nykaa", stock: "FSN E-Commerce Ventures Ltd.", domain: "nykaa.com", stockDomain: "fsn.co.in" },
+      { brand: "Beardo", stock: "Marico Ltd.", domain: "beardo.in", stockDomain: "marico.com" },
+      { brand: "Just Herbs", stock: "Marico Ltd.", domain: "justherbs.in", stockDomain: "marico.com" },
+      { brand: "Livon", stock: "Marico Ltd.", domain: "livonhairserum.com", stockDomain: "marico.com" },
+      { brand: "BoroPlus", stock: "Emami Ltd.", domain: "boroplushealthyskin.com", stockDomain: "emamiltd.in" },
     ],
   },
   {
@@ -1301,6 +1302,15 @@ export default function ForWomenClientPage() {
                 />
                 <span className="pair-brand">{p.brand}</span>
                 <span className="pair-arrow">→</span>
+                {p.stockDomain && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    className="pair-logo"
+                    src={`https://www.google.com/s2/favicons?domain=${p.stockDomain}&sz=64`}
+                    alt={p.stock}
+                    loading="lazy"
+                  />
+                )}
                 <span className="pair-stock">{p.stock}</span>
               </div>
             ))}
