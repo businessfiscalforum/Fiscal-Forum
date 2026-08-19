@@ -1,19 +1,6 @@
 // app/(routes)/reports/pre-market/page.tsx
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import Link from "next/link";
 import "./premarket.css";
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
-  weight: ["400", "500", "600", "700"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
-  weight: ["400", "500", "700"],
-});
 
 export const metadata = {
   title: "Before the Market Opens — Fiscal Forum",
@@ -23,7 +10,7 @@ export const metadata = {
 export default function PreMarketLandingPage() {
   return (
     <div
-      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} premarket-page-container`}
+      className="premarket-page-container"
     >
       <section className="hero">
         <div className="grid-field"></div>

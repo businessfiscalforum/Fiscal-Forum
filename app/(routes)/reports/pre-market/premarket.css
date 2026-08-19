@@ -1,3 +1,8 @@
+.premarket-page-container,
+.premarket-page-container * {
+  font-family: 'Inter', sans-serif !important;
+}
+
 .premarket-page-container {
   --cream: #F7F5EE;
   --paper: #FFFFFF;
@@ -11,7 +16,6 @@
 
   background: var(--cream);
   color: var(--ink);
-  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
   overflow-x: hidden;
   position: relative;
   padding-top: 80px; /* offset fixed global navbar */
