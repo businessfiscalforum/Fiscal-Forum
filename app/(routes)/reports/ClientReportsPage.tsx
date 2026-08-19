@@ -1412,7 +1412,7 @@ export default function ClientReportsPage({
                 </ul>
                 <div className="showcase-cta">
                   <p className="showcase-cta-label">To Get Latest Report</p>
-                  <Link href="#table" className="btn btn-primary" style={{ display: 'block', textDecoration: 'none', color: '#FFFFFF' }}>CLICK HERE</Link>
+                  <Link href="/reports/weekly" className="btn btn-primary" style={{ display: 'block', textDecoration: 'none', color: '#FFFFFF' }}>CLICK HERE</Link>
                 </div>
               </div>
             </div>
