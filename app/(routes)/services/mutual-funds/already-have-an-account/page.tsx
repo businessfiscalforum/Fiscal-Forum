@@ -33,7 +33,7 @@ const existingAccounts: Broker[] = [
   {
     name: "Choice",
     logo: "/choice.png",
-    link: "https://choiceindia.com/mutual-funds-investment?refercode=QzAwMTExMzI=&source=Q0hPSUNFX0NPTk5FQ1Q=",
+    link: "https://choiceindia.com/register?refercode=QzAwODcwMTU=&source=Q0hPSUNFX0NPTk5FQ1Q=",
   },
   {
     name: "Nuvama",

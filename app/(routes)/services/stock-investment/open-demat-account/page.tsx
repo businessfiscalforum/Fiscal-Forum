@@ -51,7 +51,7 @@ const brokers: Broker[] = [
   {
     name: "Choice",
     logo: "/choice.png",
-    link: "https://choiceindia.com/open-free-demat-account?refercode=QzAwMTExMzI=&source=Q0hPSUNFX0NPTk5FQ1Q=",
+    link: "https://choiceindia.com/register?refercode=QzAwODcwMTU=&source=Q0hPSUNFX0NPTk5FQ1Q=",
     brokerage: [
       "• Equity Delivery: 0.20% of transaction value",
       "• Equity Intraday: 0.02% of transaction value",

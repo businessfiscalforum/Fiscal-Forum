@@ -262,7 +262,7 @@ export default function ReferralLinksPage() {
       name: "Choice",
       logo: "/choice.png",
       applyLink:
-        "https://choiceindia.com/open-free-demat-account?refercode=QzAwMTExMzI=&source=Q0hPSUNFX0NPTk5FQ1Q=",
+        "https://choiceindia.com/register?refercode=QzAwODcwMTU=&source=Q0hPSUNFX0NPTk5FQ1Q=",
       brokerage: ["• Equity Delivery: 0.20%", "• Equity Intraday: 0.02%"],
     },
     {
@@ -311,7 +311,7 @@ export default function ReferralLinksPage() {
       name: "Choice",
       logo: "/choice.png",
       applyLink:
-        "https://choiceindia.com/mutual-funds-investment?refercode=QzAwMTExMzI=&source=Q0hPSUNFX0NPTk5FQ1Q=",
+        "https://choiceindia.com/register?refercode=QzAwODcwMTU=&source=Q0hPSUNFX0NPTk5FQ1Q=",
       brokerage: [
         "• Smart mutual fund investing with expert recommendations",
         "• Research-driven suggestions to grow your portfolio",
