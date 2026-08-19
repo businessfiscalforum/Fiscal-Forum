@@ -228,8 +228,25 @@
 .premarket-page-container .card-stage {
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.premarket-page-container .hero-img-wrap {
+  width: 100%;
+  max-width: 400px;
+  height: 220px;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid rgba(16, 21, 18, 0.14);
+  box-shadow: 0 10px 30px rgba(16, 21, 18, 0.08);
+  margin-bottom: 24px;
+}
+.premarket-page-container .hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 .premarket-page-container .report-card {
   position: relative;
@@ -352,6 +369,11 @@
   }
   .premarket-page-container .card-stage { order: -1; }
   .premarket-page-container .report-card { max-width: 320px; }
+  .premarket-page-container .hero-img-wrap {
+    max-width: 320px;
+    height: 180px;
+    margin-bottom: 16px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

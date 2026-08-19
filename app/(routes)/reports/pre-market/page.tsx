@@ -55,6 +55,9 @@ export default function PreMarketLandingPage() {
           </div>
 
           <div className="card-stage">
+            <div className="hero-img-wrap">
+              <img src="/premarket-header.png" alt="Pre-Market Report Banner" className="hero-image" />
+            </div>
             <div className="report-card">
               <div className="badge-float">New</div>
               <div className="card-top">
