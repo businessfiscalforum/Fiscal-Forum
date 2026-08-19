@@ -229,10 +229,7 @@ export default async function PreMarketLandingPage() {
         <div className="clay-table-container">
           <div className="clay-table-header">
             <div>Report Info</div>
-            <div>Stock</div>
-            <div>Author</div>
             <div>Date</div>
-            <div>Rating</div>
             <div style={{ textAlign: "center" }}>Action</div>
           </div>
 
@@ -242,7 +239,6 @@ export default async function PreMarketLandingPage() {
             </div>
           ) : (
             preMarketReports.map((report) => {
-              const ratingClass = (report.rating || "").toLowerCase();
               return (
                 <div className="clay-table-row" key={report.id}>
                   <div>
@@ -257,24 +253,6 @@ export default async function PreMarketLandingPage() {
                     </div>
                   </div>
 
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span style={{ fontWeight: "700", color: "var(--ink)" }}>{report.stock || "N/A"}</span>
-                    {report.company && <span style={{ fontSize: "12px", color: "var(--muted)" }}>{report.company}</span>}
-                  </div>
-
-                  <div className="clay-author-col">
-                    <span className="clay-avatar">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                        <circle cx="12" cy="7" r="4" />
-                      </svg>
-                    </span>
-                    <div>
-                      <div style={{ fontWeight: "700", fontSize: "13px" }}>{report.author || "Fiscal Forum"}</div>
-                      <div style={{ fontSize: "11px", color: "var(--muted)" }}>{report.authorFirm || "Research Desk"}</div>
-                    </div>
-                  </div>
-
                   <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "var(--muted)" }}>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ opacity: 0.6 }}>
                       <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -283,12 +261,6 @@ export default async function PreMarketLandingPage() {
                       <line x1="3" y1="10" x2="21" y2="10" />
                     </svg>
                     {report.publishDate ? format(new Date(report.publishDate), "MMM d, yyyy") : "N/A"}
-                  </div>
-
-                  <div>
-                    <span className={`clay-rating-pill ${ratingClass}`}>
-                      {report.rating || "HOLD"}
-                    </span>
                   </div>
 
                   <div style={{ textAlign: "center" }}>
