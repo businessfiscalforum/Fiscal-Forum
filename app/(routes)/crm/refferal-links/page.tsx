@@ -429,7 +429,7 @@ export default function ReferralLinksPage() {
         "Dining discounts",
       ],
       applyLink:
-        "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19zd2lnZ3k=&bank_source=aGRmY19iYW5r&agent_code=",
+        "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19zd2lnZ3k=&bank_source=cmtwbA==&agent_code=QzAwODcwMTU=",
     },
     {
       id: "axis-lic",
@@ -445,7 +445,7 @@ export default function ReferralLinksPage() {
         "Dining and shopping offers",
       ],
       applyLink:
-        "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19saWM=&bank_source=YXhpc19saWM=&agent_code=",
+        "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19iYW5r&bank_source=cmtwbA==&agent_code=QzAwODcwMTU=",
     },
     {
       id: "yes-popclub",
@@ -461,7 +461,7 @@ export default function ReferralLinksPage() {
         "Instant digital card",
       ],
       applyLink:
-        "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=eWVzX3BvcGNsdWI=&bank_source=eWVzX3BvcGNsdWI=&agent_code=",
+        "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=eWVzX2Jhbms=&bank_source=eWVzX2Jhbms=&agent_code=QzAwODcwMTU=",
     },
     // {
     //   id: "hsbc-liveplus",

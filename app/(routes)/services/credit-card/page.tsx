@@ -217,7 +217,7 @@ const creditCards: CreditCard[] = [
     pdfLink:
       "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
     applyLink:
-      "https://credue.in/next/credit-card/QzAwMTExMzI=?lead_source=YXBwX2FuZHJvaWQ=&bank_name=aGRmY19zd2lnZ3k=&bank_source=aGRmY19iYW5r&agent_code=",
+      "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19zd2lnZ3k=&bank_source=cmtwbA==&agent_code=QzAwODcwMTU=",
   },
   {
     id: "axis-lic",
@@ -257,7 +257,7 @@ const creditCards: CreditCard[] = [
     pdfLink:
       "https://drive.google.com/file/d/1qCTgChpQVEQtvaBWymCHwC1LLdRT4T-y/view?usp=sharing",
     applyLink:
-      "https://credue.in/next/credit-card/QzAwMTExMzI=?lead_source=YXBwX2FuZHJvaWQ=&bank_name=YXhpc19saWM=&bank_source=YXhpc19saWM=&agent_code=",
+      "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19iYW5r&bank_source=cmtwbA==&agent_code=QzAwODcwMTU=",
   },
   {
     id: "yes-popclub",
@@ -301,7 +301,7 @@ const creditCards: CreditCard[] = [
     pdfLink:
       "https://drive.google.com/file/d/10VnJxQ08ptUlsF7_ljYMY_xUssrPiHXK/view?usp=sharing",
     applyLink:
-      "https://credue.in/next/credit-card/QzAwMTExMzI=?lead_source=YXBwX2FuZHJvaWQ=&bank_name=eWVzX3BvcGNsdWI=&bank_source=eWVzX3BvcGNsdWI=&agent_code=",
+      "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=eWVzX2Jhbms=&bank_source=eWVzX2Jhbms=&agent_code=QzAwODcwMTU=",
   },
   // {
   //   id: "hsbc-liveplus",
@@ -621,7 +621,7 @@ const creditCards: CreditCard[] = [
     pdfLink:
       "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
     applyLink:
-      "https://credue.in/next/credit-card/QzAwMTExMzI=?lead_source=YXBwX2FuZHJvaWQ=&bank_name=YXVfYmFuaw==&bank_source=YXVfYmFuaw==&agent_code=",
+      "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXVfYmFuaw==&bank_source=YXVfYmFuaw==&agent_code=QzAwODcwMTU=",
   },
   {
     id: "idfc-bank",
@@ -661,7 +661,7 @@ const creditCards: CreditCard[] = [
     pdfLink:
       "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
     applyLink:
-      "https://credue.in/next/credit-card/QzAwMTExMzI=?lead_source=YXBwX2FuZHJvaWQ=&bank_name=aWRmY19iYW5r&bank_source=aWRmY19iYW5r&agent_code=",
+      "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aWRmY19iYW5r&bank_source=aWRmY19iYW5r&agent_code=QzAwODcwMTU=",
   },
   {
     id: "idfc-first-power-bank",
