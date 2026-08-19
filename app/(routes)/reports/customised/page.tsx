@@ -497,15 +497,7 @@ export default function CustomisedReportsPage() {
     setWizardMessage(null);
   };
 
-  const handleOpenGeneralWizard = () => {
-    if (selectedCategories.length > 0) {
-      setWizardCategory(selectedCategories[0]);
-    } else {
-      setWizardCategory("Mutual Fund");
-    }
-    setWizardStep(1);
-    setWizardOpen(true);
-  };
+
 
   return (
     <div className="customised-page-container">
@@ -620,23 +612,7 @@ export default function CustomisedReportsPage() {
               );
             })}
           </div>
-
-          <div className="report-cta">
-            <div>
-              <h3>Your report. Your priorities. Your market.</h3>
-              <p>Choose the inputs. We bring the relevant market story together.</p>
-            </div>
-            <button
-              onClick={handleOpenGeneralWizard}
-              className="cta"
-              style={{ border: "none" }}
-            >
-              Create My Custom Report
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M2 8H14M14 8L9 3M14 8L9 13" stroke="#14432A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-          </div>
+          
         </div>
       </section>
 
