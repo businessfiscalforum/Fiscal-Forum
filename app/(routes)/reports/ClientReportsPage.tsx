@@ -1509,13 +1509,13 @@ export default function ClientReportsPage({
                           </p>
                         </div>
                         <div className="report-center-card-btn-row flex items-center gap-2 mt-4 pt-4 border-t border-emerald-50">
-                          <button
-                            type="button"
-                            onClick={() => setWizardCategory("Mutual Fund")}
-                            className="report-center-card-btn"
+                          <Link
+                            href="/reports/customised"
+                            className="report-center-card-btn text-center block w-full"
+                            style={{ textDecoration: 'none' }}
                           >
                             Get Yours
-                          </button>
+                          </Link>
                         </div>
                       </div>
 
@@ -1547,13 +1547,13 @@ export default function ClientReportsPage({
                           </p>
                         </div>
                         <div className="report-center-card-btn-row flex items-center gap-2 mt-4 pt-4 border-t border-blue-50">
-                          <button
-                            type="button"
-                            onClick={() => setWizardCategory("Stocks")}
-                            className="report-center-card-btn"
+                          <Link
+                            href="/reports/customised"
+                            className="report-center-card-btn text-center block w-full"
+                            style={{ textDecoration: 'none' }}
                           >
                             Get Yours
-                          </button>
+                          </Link>
                         </div>
                       </div>
 
@@ -1585,13 +1585,13 @@ export default function ClientReportsPage({
                           </p>
                         </div>
                         <div className="report-center-card-btn-row flex items-center gap-2 mt-4 pt-4 border-t border-purple-50">
-                          <button
-                            type="button"
-                            onClick={() => setWizardCategory("Credit Card")}
-                            className="report-center-card-btn"
+                          <Link
+                            href="/reports/customised"
+                            className="report-center-card-btn text-center block w-full"
+                            style={{ textDecoration: 'none' }}
                           >
                             Get Yours
-                          </button>
+                          </Link>
                         </div>
                       </div>
 
@@ -1623,13 +1623,13 @@ export default function ClientReportsPage({
                           </p>
                         </div>
                         <div className="report-center-card-btn-row flex items-center gap-2 mt-4 pt-4 border-t border-amber-50">
-                          <button
-                            type="button"
-                            onClick={() => setWizardCategory("Insurance")}
-                            className="report-center-card-btn"
+                          <Link
+                            href="/reports/customised"
+                            className="report-center-card-btn text-center block w-full"
+                            style={{ textDecoration: 'none' }}
                           >
                             Get Yours
-                          </button>
+                          </Link>
                         </div>
                       </div>
 
@@ -1661,13 +1661,13 @@ export default function ClientReportsPage({
                           </p>
                         </div>
                         <div className="report-center-card-btn-row flex items-center gap-2 mt-4 pt-4 border-t border-indigo-50">
-                          <button
-                            type="button"
-                            onClick={() => setWizardCategory("Loans")}
-                            className="report-center-card-btn"
+                          <Link
+                            href="/reports/customised"
+                            className="report-center-card-btn text-center block w-full"
+                            style={{ textDecoration: 'none' }}
                           >
                             Get Yours
-                          </button>
+                          </Link>
                         </div>
                       </div>
                     </div>
