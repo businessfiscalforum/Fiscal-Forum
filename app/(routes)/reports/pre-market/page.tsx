@@ -48,9 +48,6 @@ export default function PreMarketLandingPage() {
                   />
                 </svg>
               </a>
-              <span className="cta-note mono">
-                <span className="clock-dot"></span>04:12 to opening bell
-              </span>
             </div>
           </div>
 
