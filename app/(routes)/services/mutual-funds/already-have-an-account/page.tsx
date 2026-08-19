@@ -43,7 +43,7 @@ const existingAccounts: Broker[] = [
   {
     name: "NJ Wealth",
     logo: "/Nj-wealth.png",
-    link: "  https://www.njindiaonline.com/etada/partintiate.fin?cmdAction=showMenu&njBrcode=47283",
+    link: "http://p.njw.bz/47283",
   },
   {
     name: "Prudent",
