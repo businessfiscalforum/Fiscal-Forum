@@ -1020,6 +1020,11 @@ export default function HomeMobile() {
           transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
+        .revolving-border-btn.inline {
+          display: inline-block;
+          width: auto;
+        }
+
         .revolving-border-btn::before {
           content: '';
           position: absolute;

@@ -961,9 +961,11 @@ export default function HomeDesktop() {
                         {homeSlides[activeSlideIndex].text}
                       </p>
                       <div>
-                        <Link href={homeSlides[activeSlideIndex].link}>
-                          <button className="px-6 py-2.5 bg-yellow-400 text-black border border-black font-bold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 hover:-translate-y-0.5 transition-all cursor-pointer">
-                            CLICK HERE
+                        <Link href={homeSlides[activeSlideIndex].link} className="inline-block">
+                          <button className="revolving-border-btn inline shadow-sm hover:-translate-y-0.5 transition-all min-w-[140px]">
+                            <span className="revolving-border-btn-content py-2.5 text-xs font-bold tracking-wider">
+                              CLICK HERE
+                            </span>
                           </button>
                         </Link>
                       </div>
@@ -1062,9 +1064,11 @@ export default function HomeDesktop() {
                   </p>
                 </div>
                 <div>
-                  <Link href="/services/learning-centre#portfolio-studio">
-                    <button className="px-6 py-3 bg-yellow-400 text-black border border-black font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 hover:-translate-y-0.5 transition-all cursor-pointer">
-                      Click Here
+                  <Link href="/services/learning-centre#portfolio-studio" className="inline-block">
+                    <button className="revolving-border-btn inline shadow-sm hover:-translate-y-0.5 transition-all min-w-[140px]">
+                      <span className="revolving-border-btn-content py-3 text-xs sm:text-sm font-bold tracking-wider">
+                        Click Here
+                      </span>
                     </button>
                   </Link>
                 </div>
@@ -1096,9 +1100,11 @@ export default function HomeDesktop() {
                   </p>
                 </div>
                 <div className="pt-6">
-                  <Link href="/for-women">
-                    <button className="px-6 py-2.5 bg-white text-[#E11D48] border border-[#E11D48] font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-sm hover:bg-rose-50 hover:-translate-y-0.5 transition-all cursor-pointer">
-                      Womens Section
+                  <Link href="/for-women" className="inline-block">
+                    <button className="revolving-border-btn inline shadow-sm hover:-translate-y-0.5 transition-all min-w-[160px]">
+                      <span className="revolving-border-btn-content py-2.5 text-xs sm:text-sm font-bold tracking-wider">
+                        Womens Section
+                      </span>
                     </button>
                   </Link>
                 </div>
@@ -1127,9 +1133,11 @@ export default function HomeDesktop() {
                   </p>
                 </div>
                 <div className="pt-6">
-                  <Link href="/news?tab=ipo-scoop">
-                    <button className="px-6 py-2.5 bg-white text-blue-600 border border-blue-600 font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-sm hover:bg-blue-50 hover:-translate-y-0.5 transition-all cursor-pointer">
-                      Explore IPO Universe
+                  <Link href="/news?tab=ipo-scoop" className="inline-block">
+                    <button className="revolving-border-btn inline shadow-sm hover:-translate-y-0.5 transition-all min-w-[200px]">
+                      <span className="revolving-border-btn-content py-2.5 text-xs sm:text-sm font-bold tracking-wider">
+                        Explore IPO Universe
+                      </span>
                     </button>
                   </Link>
                 </div>
@@ -1252,11 +1260,12 @@ export default function HomeDesktop() {
                   </div>
 
                   <div className="px-6 pb-6">
-                    <Link
-                      href={partner.path}
-                      className="block w-full text-center py-2.5 bg-[#1FA463] text-white border border-black font-bold text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-sm hover:-translate-y-0.5 hover:shadow-sm transition-all"
-                    >
-                      Join Now
+                    <Link href={partner.path} className="block w-full">
+                      <button className="revolving-border-btn shadow-sm hover:-translate-y-0.5 transition-all">
+                        <span className="revolving-border-btn-content py-2.5 text-xs sm:text-sm font-bold tracking-widest">
+                          Join Now
+                        </span>
+                      </button>
                     </Link>
                   </div>
                 </motion.div>
@@ -1322,6 +1331,11 @@ export default function HomeDesktop() {
             cursor: pointer;
             box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+          }
+
+          .revolving-border-btn.inline {
+            display: inline-block;
+            width: auto;
           }
 
           .revolving-border-btn::before {
