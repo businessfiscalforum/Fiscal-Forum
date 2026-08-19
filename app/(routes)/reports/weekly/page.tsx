@@ -51,26 +51,12 @@ export default async function WeeklyReportsPage() {
           </div>
 
           <div className="card-stage">
-            <div className="report-card">
-              <div className="badge-float">Every Friday</div>
-              <div className="card-top">
-                <span className="mono">Weekly Report Report &nbsp;•&nbsp; Week in Review</span>
-                <h2>Morning Bell:<br />What to Watch This Week</h2>
-              </div>
-              <div className="card-body">
-                <div className="line">Weekly market performance</div>
-                <div className="line">Top stocks & movers</div>
-                <div className="line">Indian market recap</div>
-                <div className="line">Sector winners & laggards</div>
-              </div>
-              <div className="card-foot">
-                <span className="mono">Start Reading</span>
-                <span className="arrow-badge">
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                    <path d="M2 8H14M14 8L9 3M14 8L9 13" stroke="#14432A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-              </div>
+            <div className="hero-img-wrap">
+              <img 
+                src="/weekly-header.jpg" 
+                alt="Weekly Market Report Banner" 
+                className="hero-image"
+              />
             </div>
           </div>
         </div>
