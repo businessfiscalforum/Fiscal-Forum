@@ -381,7 +381,7 @@ export default function ReferralLinksPage() {
         "Zero liability protection",
       ],
       applyLink:
-        "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19iYW5r&bank_source=aGRmY19iYW5r&agent_code=",
+        "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19iYW5r&bank_source=cmtwbA==&agent_code=QzAwODcwMTU=",
     },
     {
       id: "indusind",
@@ -397,7 +397,7 @@ export default function ReferralLinksPage() {
         "Fuel surcharge waiver",
       ],
       applyLink:
-        "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aW5kdXNpbmRfYmFuaw==&bank_source=aW5kdXNfYmFuaw==&agent_code=",
+        "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aW5kdXNpbmRfYmFuaw==&bank_source=aW5kdXNfYmFuaw==&agent_code=QzAwODcwMTU=",
     },
     // {
     //   id: "hsbc",
