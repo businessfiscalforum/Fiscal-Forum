@@ -719,8 +719,10 @@ export default function HomeMobile() {
               </p>
               <div>
                 <Link href={homeSlides[activeSlideIndex].link} className="w-full block">
-                  <button className="w-full py-2.5 bg-yellow-400 text-black border border-black font-bold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 active:translate-y-0.5 transition-all cursor-pointer text-center">
-                    CLICK HERE
+                  <button className="revolving-border-btn shadow-sm w-full">
+                    <span className="revolving-border-btn-content py-2.5 text-xs font-bold tracking-wider">
+                      CLICK HERE
+                    </span>
                   </button>
                 </Link>
               </div>
@@ -822,8 +824,10 @@ export default function HomeMobile() {
           {/* Button */}
           <div>
             <Link href="/services/learning-centre#portfolio-studio" className="w-full block">
-              <button className="w-full py-2.5 bg-yellow-400 text-black border border-black font-bold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 active:translate-y-0.5 transition-all cursor-pointer text-center">
-                Click Here
+              <button className="revolving-border-btn shadow-sm w-full">
+                <span className="revolving-border-btn-content py-2.5 text-xs font-bold tracking-wider">
+                  Click Here
+                </span>
               </button>
             </Link>
           </div>
@@ -854,9 +858,11 @@ export default function HomeMobile() {
               </p>
             </div>
             <div className="pt-4">
-              <Link href="/for-women">
-                <button className="px-5 py-2 bg-white text-[#E11D48] border border-[#E11D48] font-bold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-rose-50 active:translate-y-0.5 transition-all cursor-pointer">
-                  Womens Section
+              <Link href="/for-women" className="inline-block">
+                <button className="revolving-border-btn shadow-sm min-w-[140px]">
+                  <span className="revolving-border-btn-content py-2 text-xs font-bold tracking-wider">
+                    Womens Section
+                  </span>
                 </button>
               </Link>
             </div>
@@ -885,9 +891,11 @@ export default function HomeMobile() {
               </p>
             </div>
             <div className="pt-4">
-              <Link href="/news?tab=ipo-scoop">
-                <button className="px-5 py-2 bg-white text-blue-600 border border-blue-600 font-bold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-blue-50 active:translate-y-0.5 transition-all cursor-pointer">
-                  Explore IPO Universe
+              <Link href="/news?tab=ipo-scoop" className="inline-block">
+                <button className="revolving-border-btn shadow-sm min-w-[180px]">
+                  <span className="revolving-border-btn-content py-2 text-xs font-bold tracking-wider">
+                    Explore IPO Universe
+                  </span>
                 </button>
               </Link>
             </div>
@@ -962,8 +970,10 @@ export default function HomeMobile() {
                 </div>
 
                 <div className="px-5 pb-5">
-                  <span className="block w-full text-center py-2 bg-[#1FA463] text-white border border-black text-xs font-bold uppercase rounded-lg shadow-sm">
-                    Join Now
+                  <span className="revolving-border-btn shadow-sm">
+                    <span className="revolving-border-btn-content py-2 text-xs font-bold uppercase tracking-wider">
+                      Join Now
+                    </span>
                   </span>
                 </div>
               </motion.div>
