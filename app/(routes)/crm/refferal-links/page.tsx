@@ -251,7 +251,7 @@ export default function ReferralLinksPage() {
       id: "angel-one",
       name: "Angel One",
       logo: "/angel-one.png",
-      applyLink: "https://a.aonelink.in/ANGOne/6pTAS0u",
+      applyLink: "https://angel-one.onelink.me/Wjgr/34yk9lib",
       brokerage: [
         "• Equity Intraday: ₹20 or 0.03% (whichever is lower) per executed order",
         "• Equity Delivery: ₹20 or 0.1% whichever is lower",

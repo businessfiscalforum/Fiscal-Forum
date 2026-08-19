@@ -29,7 +29,7 @@ const brokers: Broker[] = [
   {
     name: "Angel One",
     logo: "/angel-one.png",
-    link: "https://a.aonelink.in/ANGOne/6pTAS0u",
+    link: "https://angel-one.onelink.me/Wjgr/34yk9lib",
     brokerage: [
       "• Equity Delivery: ₹20 or 0.1% whichever is lower per executed order (minimum brokerage of INR 2 will be levied)",
       "• Equity Intraday: ₹20 or 0.03% (whichever is lower) per executed order",
