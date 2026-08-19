@@ -15,7 +15,7 @@ export default function sitemap() {
     { url: `${base}/refund`, lastModified: new Date() },
     { url: `${base}/terms-and-conditions`, lastModified: new Date() },
 
-    { url: `${base}/services/stock-investment`, lastModified: new Date() },
+    { url: `${base}/services/learning-centre`, lastModified: new Date() },
     { url: `${base}/services/mutual-funds`, lastModified: new Date() },
     { url: `${base}/services/insurance`, lastModified: new Date() },
     { url: `${base}/services/loan`, lastModified: new Date() },
@@ -28,11 +28,11 @@ export default function sitemap() {
 
     { url: `${base}/reports/join`, lastModified: new Date() },
 
-    { url: `${base}/services/stock-investment/equity-etfs`, lastModified: new Date() },
-    { url: `${base}/services/stock-investment/futures-options`, lastModified: new Date() },
-    { url: `${base}/services/stock-investment/ipo`, lastModified: new Date() },
-    { url: `${base}/services/stock-investment/mtf`, lastModified: new Date() },
-    { url: `${base}/services/stock-investment/commodities`, lastModified: new Date() },
-    { url: `${base}/services/stock-investment/unlisted-shares`, lastModified: new Date() },
+    { url: `${base}/services/learning-centre/equity-etfs`, lastModified: new Date() },
+    { url: `${base}/services/learning-centre/futures-options`, lastModified: new Date() },
+    { url: `${base}/services/learning-centre/ipo`, lastModified: new Date() },
+    { url: `${base}/services/learning-centre/mtf`, lastModified: new Date() },
+    { url: `${base}/services/learning-centre/commodities`, lastModified: new Date() },
+    { url: `${base}/services/learning-centre/unlisted-shares`, lastModified: new Date() },
   ];
 }

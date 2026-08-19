@@ -498,7 +498,7 @@ export default function FathomSlider() {
                       />
                     </div>
                     <p className="stock-recommend__prompt">Want recommendations like this?</p>
-                    <Link href="/services/stock-investment" className="btn btn--black relative overflow-hidden button-border-animate-container">
+                    <Link href="/services/learning-centre" className="btn btn--black relative overflow-hidden button-border-animate-container">
                       <div className="absolute inset-0 pointer-events-none rounded-[999px] overflow-hidden z-20">
                         <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
                           <rect

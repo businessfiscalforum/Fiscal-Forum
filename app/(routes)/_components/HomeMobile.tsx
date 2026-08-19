@@ -37,7 +37,7 @@ const slides = [
       "Real-time market alerts",
       "Expert research & recommendations",
     ],
-    path: "services/stock-investment",
+    path: "services/learning-centre",
     stats: [
       { value: "100+", label: "Active Traders" },
       { value: "50+", label: "Stocks & ETFs" },
@@ -411,7 +411,7 @@ const content = {
       icon: BarChart3,
       description:
         "Own a part of India's leading companies and grow your wealth over time. Learn how stocks work, discover high-potential opportunities, and invest with confidence backed by research. Start your investing journey today.",
-      link: "/services/stock-investment",
+      link: "/services/learning-centre",
       image: "/images/service-stock.png",
     },
     {
@@ -821,7 +821,7 @@ export default function HomeMobile() {
           </div>
           {/* Button */}
           <div>
-            <Link href="/services/stock-investment#portfolio-studio" className="w-full block">
+            <Link href="/services/learning-centre#portfolio-studio" className="w-full block">
               <button className="w-full py-2.5 bg-yellow-400 text-black border border-black font-bold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 active:translate-y-0.5 transition-all cursor-pointer text-center">
                 Click Here
               </button>

@@ -299,7 +299,7 @@ export default function ReferralLinksPage() {
       id: "unlisted-shares",
       name: "Unlisted Shares",
       logo: "/unlisted-shares.png",
-      applyLink: "/services/stock-investment/unlisted-shares/apply",
+      applyLink: "/services/learning-centre/unlisted-shares/apply",
       brokerage: [""],
     },
   ];

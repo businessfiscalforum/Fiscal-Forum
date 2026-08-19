@@ -60,7 +60,7 @@ const StockPopup = ({ onClose }: { onClose: () => void }) => (
       </div>
       <p className="text-slate-600 text-sm mb-6 font-medium">Trade with India&apos;s most trusted brokers via Fiscal Forum.</p>
       {/* Added onClick={onClose} to close dialog on redirect */}
-      <Link href="/services/stock-investment" onClick={onClose} className="w-full bg-blue-600 text-white py-4 font-black tracking-widest block uppercase">
+      <Link href="/services/learning-centre" onClick={onClose} className="w-full bg-blue-600 text-white py-4 font-black tracking-widest block uppercase">
         START TRADING
       </Link>
     </div>

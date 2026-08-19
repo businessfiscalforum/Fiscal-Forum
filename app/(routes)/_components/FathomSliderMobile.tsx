@@ -265,7 +265,7 @@ export default function FathomSliderMobile() {
                 Want recommendations like this?
               </p>
               <Link
-                href="/services/stock-investment"
+                href="/services/learning-centre"
                 className="relative overflow-hidden button-border-animate-container inline-flex w-full max-w-[280px] py-3 bg-black hover:bg-zinc-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
               >
                 <div className="absolute inset-0 pointer-events-none rounded-full overflow-hidden z-20">

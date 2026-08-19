@@ -1,4 +1,4 @@
-// app/services/stock-investment/metadata.ts
+// app/services/learning-centre/metadata.ts
 
 export const metadata = {
   title: "Smart Stock Investment Plans | Fiscal Forum – Equity, F&O, IPO & More",
@@ -34,13 +34,13 @@ export const metadata = {
     },
   },
   alternates: {
-    canonical: "https://www.fiscalforum.in/services/stock-investment",
+    canonical: "https://www.fiscalforum.in/services/learning-centre",
   },
   openGraph: {
     title: "Start Stock Investing Today | Fiscal Forum",
     description:
       "Trade Equity, F&O, IPOs, Commodities & more. Get free premarket reports, 24/7 support, and brokerage cashback. Open your Demat account in minutes.",
-    url: "https://www.fiscalforum.in/services/stock-investment",
+    url: "https://www.fiscalforum.in/services/learning-centre",
     siteName: "Fiscal Forum",
     locale: "en_IN",
     type: "website",

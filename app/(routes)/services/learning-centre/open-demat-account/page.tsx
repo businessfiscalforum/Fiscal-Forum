@@ -133,7 +133,7 @@ const brokers: Broker[] = [
   // {
   //   name: "Unlisted Shares",
   //   logo: "/unlisted-shares.png",
-  //   link: "/services/stock-investment/unlisted-shares/apply",
+  //   link: "/services/learning-centre/unlisted-shares/apply",
   //   brokerage: [
   //     "• Unlisted Shares: Brokerage as per deal basis. Contact us for the best rate.",
   //   ],

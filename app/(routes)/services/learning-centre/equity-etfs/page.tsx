@@ -314,10 +314,10 @@ export default function EquityETFsPage() {
               <button className="btn-hero-secondary" onClick={() => scrollTo(compareRef)}>
                 Equity vs ETF
               </button>
-              <Link href="/services/stock-investment/equity-etfs/apply" className="btn-hero-secondary" style={{ display: "inline-flex", alignItems: "center" }}>
+              <Link href="/services/learning-centre/equity-etfs/apply" className="btn-hero-secondary" style={{ display: "inline-flex", alignItems: "center" }}>
                 Apply
               </Link>
-              <Link href="/services/stock-investment/open-demat-account" className="btn-hero-secondary" style={{ display: "inline-flex", alignItems: "center" }}>
+              <Link href="/services/learning-centre/open-demat-account" className="btn-hero-secondary" style={{ display: "inline-flex", alignItems: "center" }}>
                 Explore
               </Link>
             </div>
@@ -702,13 +702,13 @@ export default function EquityETFsPage() {
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
             <Link
-              href="/services/stock-investment/equity-etfs/apply"
+              href="/services/learning-centre/equity-etfs/apply"
               className="btn btn-primary"
             >
               Apply
             </Link>
             <Link
-              href="/services/stock-investment/open-demat-account"
+              href="/services/learning-centre/open-demat-account"
               className="btn"
             >
               Explore
