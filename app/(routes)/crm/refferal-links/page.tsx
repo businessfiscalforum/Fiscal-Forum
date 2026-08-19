@@ -445,7 +445,7 @@ export default function ReferralLinksPage() {
         "Dining and shopping offers",
       ],
       applyLink:
-        "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19iYW5r&bank_source=cmtwbA==&agent_code=QzAwODcwMTU=",
+        "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19saWM=&bank_source=YXhpc19saWM=&agent_code=QzAwODcwMTU=",
     },
     {
       id: "yes-popclub",
@@ -461,7 +461,7 @@ export default function ReferralLinksPage() {
         "Instant digital card",
       ],
       applyLink:
-        "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=eWVzX2Jhbms=&bank_source=eWVzX2Jhbms=&agent_code=QzAwODcwMTU=",
+        "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=eWVzX3BvcGNsdWI=&bank_source=eWVzX3BvcGNsdWI=&agent_code=QzAwODcwMTU=",
     },
     // {
     //   id: "hsbc-liveplus",
@@ -509,7 +509,7 @@ export default function ReferralLinksPage() {
         "Low annual fee",
       ],
       applyLink:
-        "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19iYW5rX2ZkX2NyZWRpdF9jYXJk&bank_source=YXhpc19iYW5r&agent_code=",
+        "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19iYW5rX2ZkX2NyZWRpdF9jYXJk&bank_source=YXhpc19iYW5r&agent_code=QzAwODcwMTU=",
     },
     {
       id: "tataneu",
@@ -525,7 +525,7 @@ export default function ReferralLinksPage() {
         "Fuel surcharge waiver",
       ],
       applyLink:
-        "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=dGF0YW5ldV9jYXJk&bank_source=dGF0YW5ldQ==&agent_code=",
+        "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=dGF0YW5ldV9jYXJk&bank_source=dGF0YW5ldQ==&agent_code=QzAwODcwMTU=",
     },
     {
       id: "hdfc-giga",
@@ -541,7 +541,7 @@ export default function ReferralLinksPage() {
         "Fuel surcharge waiver",
       ],
       applyLink:
-        "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19naWdh&bank_source=Z0lnYV9idXNpbmVzc19jcmVkaXRfY2FyZA==&agent_code=",
+        "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19naWdh&bank_source=Z0lnYV9idXNpbmVzc19jcmVkaXRfY2FyZA==&agent_code=QzAwODcwMTU=",
     },
   ];
 

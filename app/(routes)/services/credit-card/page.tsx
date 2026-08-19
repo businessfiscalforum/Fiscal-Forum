@@ -257,7 +257,7 @@ const creditCards: CreditCard[] = [
     pdfLink:
       "https://drive.google.com/file/d/1qCTgChpQVEQtvaBWymCHwC1LLdRT4T-y/view?usp=sharing",
     applyLink:
-      "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19iYW5r&bank_source=cmtwbA==&agent_code=QzAwODcwMTU=",
+      "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19saWM=&bank_source=YXhpc19saWM=&agent_code=QzAwODcwMTU=",
   },
   {
     id: "yes-popclub",
@@ -301,7 +301,7 @@ const creditCards: CreditCard[] = [
     pdfLink:
       "https://drive.google.com/file/d/10VnJxQ08ptUlsF7_ljYMY_xUssrPiHXK/view?usp=sharing",
     applyLink:
-      "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=eWVzX2Jhbms=&bank_source=eWVzX2Jhbms=&agent_code=QzAwODcwMTU=",
+      "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=eWVzX3BvcGNsdWI=&bank_source=eWVzX3BvcGNsdWI=&agent_code=QzAwODcwMTU=",
   },
   // {
   //   id: "hsbc-liveplus",
@@ -420,7 +420,7 @@ const creditCards: CreditCard[] = [
   //   pdfLink:
   //     "https://drive.google.com/file/d/1qCTgChpQVEQtvaBWymCHwC1LLdRT4T-y/view?usp=sharing",
   //   applyLink:
-  //     "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19iYW5rX2ZkX2NyZWRpdF9jYXJk&bank_source=YXhpc19iYW5r&agent_code=",
+  //     "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YXhpc19iYW5rX2ZkX2NyZWRpdF9jYXJk&bank_source=YXhpc19iYW5r&agent_code=QzAwODcwMTU=",
   // },
   // {
   //   id: "tataneu",
@@ -460,7 +460,7 @@ const creditCards: CreditCard[] = [
   //   pdfLink:
   //     "https://www.hdfcbank.com/content/bbp/repositories/723fb80a-2dde-42a3-9793-7ae1be57c87f/?path=/Personal/Pay/Cards/Credit%20Card/Credit%20Card%20Landing%20Page/Credit%20Cards/TATA%20Neu%20Infinity%20HDFC%20Bank%20Credit%20Card/TATA_Neu_Infinity_Card_FAQ.pdf",
   //   applyLink:
-  //     "https://credue.in/credit-card/QzAwMTExMzI=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=dGF0YW5ldV9jYXJk&bank_source=dGF0YW5ldQ==&agent_code=",
+  //     "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=dGF0YW5ldV9jYXJk&bank_source=dGF0YW5ldQ==&agent_code=QzAwODcwMTU=",
   // },
   {
     id: "hdfc-giga",
@@ -500,7 +500,7 @@ const creditCards: CreditCard[] = [
     pdfLink:
       "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
     applyLink:
-      "https://credue.in/next/credit-card/QzAwMTExMzI=?lead_source=YXBwX2FuZHJvaWQ=&bank_name=aGRmY19naWdh&bank_source=Z0lnYV9idXNpbmVzc19jcmVkaXRfY2FyZA==&agent_code=",
+      "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aGRmY19naWdh&bank_source=Z0lnYV9idXNpbmVzc19jcmVkaXRfY2FyZA==&agent_code=QzAwODcwMTU=",
   },
   {
     id: "scapia-credit-card",
@@ -541,7 +541,7 @@ const creditCards: CreditCard[] = [
     pdfLink:
       "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
     applyLink:
-      "https://credue.in/next/credit-card/QzAwMTExMzI=?lead_source=YXBwX2FuZHJvaWQ=&bank_name=c2NhcGlhX2NyZWRpdF9jYXJk&bank_source=c2NhcGlh&agent_code=",
+      "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=c2NhcGlhX2NyZWRpdF9jYXJk&bank_source=c2NhcGlh&agent_code=QzAwODcwMTU=",
   },
   {
     id: "Bank-of-Baroda",
@@ -581,7 +581,7 @@ const creditCards: CreditCard[] = [
     pdfLink:
       "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
     applyLink:
-      "https://credue.in/next/credit-card/QzAwMTExMzI=?lead_source=YXBwX2FuZHJvaWQ=&bank_name=YmFua19vZl9iYXJvZGE=&bank_source=cmtwbA==&agent_code=",
+      "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=YmFua19vZl9iYXJvZGE=&bank_source=cmtwbA==&agent_code=QzAwODcwMTU=",
   },
   {
     id: "au-bank",
@@ -702,7 +702,7 @@ const creditCards: CreditCard[] = [
     pdfLink:
       "https://drive.google.com/file/d/1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO/view?usp=sharing",
     applyLink:
-      "https://credue.in/next/credit-card/QzAwMTExMzI=?lead_source=YXBwX2FuZHJvaWQ=&bank_name=aWRmY19wb3dlcl9ydXBheV9jYXJk&bank_source=aWRmY19iYW5r&agent_code=",
+      "https://credue.in/next/credit-card/QzAwODcwMTU=?lead_source=Y29ubmVjdF9yZWZlcnJhbF9saW5r&bank_name=aWRmY19wb3dlcl9ydXBheV9jYXJk&bank_source=aWRmY19iYW5r&agent_code=QzAwODcwMTU=",
   },
 ];
 
@@ -1374,7 +1374,7 @@ export default function CreditCardsPage() {
         <p className="text-gray-600">Find the perfect card for your client</p>
         <div className="flex flex-wrap gap-4 pt-2">
           <Link
-          href="https://credue.in/next/credit-card-eligibility?cba_code=QzAwMTExMzI="
+          href="https://credue.in/next/credit-card-eligibility?cba_code=QzAwODcwMTU="
           target="_blank"
           rel="noopener noreferrer"
           className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-300">
