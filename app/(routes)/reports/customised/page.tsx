@@ -527,28 +527,14 @@ export default function CustomisedReportsPage() {
             </div>
           </div>
 
-          <div className="card-stage">
-            <div className="report-card">
-              <div className="badge-float">New</div>
-              <div className="card-top">
-                <span className="mono">Custom Report &nbsp;•&nbsp; Your Edition</span>
-                <h2>Your Market:<br />What Matters to You</h2>
-              </div>
-              <div className="card-body">
-                <div className="line">Choose your market interests</div>
-                <div className="line">Select stocks, sectors & themes</div>
-                <div className="line">Set your preferred report depth</div>
-                <div className="line">Receive a focused market view</div>
-              </div>
-              <div className="card-foot">
-                <span className="mono">Start Customising</span>
-                <span className="arrow-badge">
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                    <path d="M2 8H14M14 8L9 3M14 8L9 13" stroke="#14432A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-              </div>
-            </div>
+          <div className="hero-img-wrap">
+            <Image
+              src="/customised-header.jpg"
+              alt="Customised Reports Banner"
+              fill
+              className="hero-image"
+              priority
+            />
           </div>
         </div>
 
