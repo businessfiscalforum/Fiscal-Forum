@@ -1537,21 +1537,8 @@ export default function ClientReportsPage({
                           <span className="entity-label">Stocks</span>
                         </div>
 
-                        {/* Bottom-Left: Credit Card */}
+                        {/* Bottom-Left: Insurance */}
                         <div className="squarish-box-entity entity-bottom-left">
-                          <div className="entity-image-wrap">
-                            <Image
-                              src="/images/wizard_credit_card.png"
-                              alt="Credit Card"
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-                          <span className="entity-label">Credit Card</span>
-                        </div>
-
-                        {/* Bottom-Right: Insurance */}
-                        <div className="squarish-box-entity entity-bottom-right">
                           <div className="entity-image-wrap">
                             <Image
                               src="/images/wizard_insurance.png"
@@ -1563,8 +1550,8 @@ export default function ClientReportsPage({
                           <span className="entity-label">Insurance</span>
                         </div>
 
-                        {/* Center: Loans */}
-                        <div className="squarish-box-entity entity-center">
+                        {/* Bottom-Right: Loans */}
+                        <div className="squarish-box-entity entity-bottom-right">
                           <div className="entity-image-wrap">
                             <Image
                               src="/images/wizard_loans.png"
@@ -1574,6 +1561,19 @@ export default function ClientReportsPage({
                             />
                           </div>
                           <span className="entity-label">Loans</span>
+                        </div>
+
+                        {/* Center: Credit Card */}
+                        <div className="squarish-box-entity entity-center">
+                          <div className="entity-image-wrap">
+                            <Image
+                              src="/images/wizard_credit_card.png"
+                              alt="Credit Card"
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                          <span className="entity-label">Credit Card</span>
                         </div>
                       </div>
 

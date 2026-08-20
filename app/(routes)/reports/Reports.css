@@ -2161,10 +2161,10 @@
   margin: 0 auto 32px;
   box-shadow: 0 12px 36px rgba(16, 21, 18, 0.04);
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   padding: 24px;
-  gap: 24px;
+  gap: 16px;
   box-sizing: border-box;
 }
 
@@ -2189,7 +2189,7 @@
   background: rgba(247, 245, 238, 0.45);
   border: 1px solid rgba(16, 21, 18, 0.05);
   border-radius: 14px;
-  padding: 16px;
+  padding: 12px;
   box-sizing: border-box;
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
@@ -2206,33 +2206,47 @@
   aspect-ratio: 16 / 10;
   border-radius: 8px;
   overflow: hidden;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   border: 1px solid rgba(16, 21, 18, 0.08);
 }
 
 .squarish-box-entity .entity-label {
   font-family: 'Inter', sans-serif !important;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 800;
   color: #101512;
   text-align: center;
 }
 
-/* Diagonal Animations */
+/* Grid Placement and Directional Animations */
 .report-center-squarish-box .entity-top-left {
-  transform: translate(-120px, -120px) scale(0.5);
+  grid-column: 1;
+  grid-row: 1;
+  transform: translate(-80px, -80px) scale(0.6);
   opacity: 0;
 }
 .report-center-squarish-box .entity-top-right {
-  transform: translate(120px, -120px) scale(0.5);
+  grid-column: 3;
+  grid-row: 1;
+  transform: translate(80px, -80px) scale(0.6);
   opacity: 0;
 }
 .report-center-squarish-box .entity-bottom-left {
-  transform: translate(-120px, 120px) scale(0.5);
+  grid-column: 1;
+  grid-row: 3;
+  transform: translate(-80px, 80px) scale(0.6);
   opacity: 0;
 }
 .report-center-squarish-box .entity-bottom-right {
-  transform: translate(120px, 120px) scale(0.5);
+  grid-column: 3;
+  grid-row: 3;
+  transform: translate(80px, 80px) scale(0.6);
+  opacity: 0;
+}
+.report-center-squarish-box .entity-center {
+  grid-column: 2;
+  grid-row: 2;
+  transform: scale(0.2);
   opacity: 0;
 }
 
@@ -2255,43 +2269,8 @@
   opacity: 1;
   transition-delay: 0.24s;
 }
-
-/* Center Overlapping Bubble Card (Loans) */
-.report-center-squarish-box .entity-center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.1);
-  width: 170px;
-  height: 170px;
-  background: #FFFFFF;
-  border: 1.5px solid rgba(16, 21, 18, 0.12);
-  box-shadow: 0 10px 24px rgba(16, 21, 18, 0.08);
-  z-index: 10;
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 16px;
-  opacity: 0;
-  box-sizing: border-box;
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.report-center-squarish-box .entity-center:hover {
-  border-color: rgba(16, 21, 18, 0.18);
-  box-shadow: 0 12px 30px rgba(16, 21, 18, 0.12);
-}
-
-.report-center-squarish-box .entity-center .entity-image-wrap {
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  margin-bottom: 8px;
-}
-
 .report-center-squarish-box.animate-in .entity-center {
-  transform: translate(-50%, -50%) scale(1);
+  transform: scale(1);
   opacity: 1;
   transition-delay: 0.32s;
 }
