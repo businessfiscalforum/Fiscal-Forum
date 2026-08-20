@@ -21,17 +21,15 @@
   padding-top: 80px; /* offset fixed global navbar */
 }
 
-/* ---------- HERO ---------- */
 .customised-page-container .hero {
   position: relative;
-  min-height: calc(100vh - 80px);
   background: var(--cream);
   color: var(--ink);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 5vw;
+  padding: 100px 5vw 80px;
   border-bottom: 1px solid rgba(16, 21, 18, 0.1);
 }
 
@@ -65,8 +63,8 @@
   width: 100%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 64px;
+  grid-template-columns: 0.9fr 1.15fr;
+  gap: 48px;
   align-items: center;
 }
 
@@ -183,7 +181,7 @@
 .customised-page-container .hero-img-wrap {
   position: relative;
   width: 100%;
-  max-width: 540px;
+  max-width: 660px;
   aspect-ratio: 16 / 9;
   border-radius: 16px;
   overflow: hidden;
@@ -238,7 +236,7 @@
 .customised-page-container .report-content {
   position: relative;
   background: var(--paper);
-  padding: 110px 5vw 120px;
+  padding: 80px 5vw 90px;
   overflow: hidden;
   border-bottom: 1px solid rgba(16, 21, 18, .1);
 }
