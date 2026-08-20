@@ -308,9 +308,9 @@
 }
 .customised-page-container .section-heading {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 30px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
   margin-bottom: 42px;
 }
 .customised-page-container .section-heading h2 {
@@ -324,7 +324,7 @@
   color: var(--forest);
 }
 .customised-page-container .section-heading p {
-  max-width: 410px;
+  max-width: 680px;
   color: var(--muted);
   font-size: 15px;
   line-height: 1.6;
