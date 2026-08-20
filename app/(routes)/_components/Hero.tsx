@@ -62,7 +62,7 @@ const slides = [
       "Tap into long-term growth by investing in equity markets. Build wealth through diversified stocks tailored to your financial goals.",
     image: "/asset6.jpg",
     gradient: "from-violet-600 via-purple-500 to-indigo-600",
-    path: "/services/learning-centre",
+    path: "/services/learn-earn",
   },
   {
     title: "Mutual Funds",

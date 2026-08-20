@@ -59,8 +59,8 @@ const investmentOptions = [
     description:
       "Own company shares or diversify smartly with ETFs.",
     icon: BarChart3,
-    link: "/services/learning-centre/equity-etfs",
-    alink: "/services/learning-centre/equity-etfs/apply",
+    link: "/services/learn-earn/equity-etfs",
+    alink: "/services/learn-earn/equity-etfs/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-blue-100",
     iconColor: "text-blue-600",
@@ -72,8 +72,8 @@ const investmentOptions = [
     description:
       "Hedge risk or speculate on price moves.",
     icon: TrendingUp,
-    link: "/services/learning-centre/futures-options",
-    alink: "/services/learning-centre/futures-options/apply",
+    link: "/services/learn-earn/futures-options",
+    alink: "/services/learn-earn/futures-options/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-purple-100",
     iconColor: "text-purple-600",
@@ -85,8 +85,8 @@ const investmentOptions = [
     description:
       "Invest early in growing companies.",
     icon: Sparkles,
-    link: "/services/learning-centre/ipo",
-    alink: "/services/learning-centre/ipo/apply",
+    link: "/services/learn-earn/ipo",
+    alink: "/services/learn-earn/ipo/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-emerald-100",
     iconColor: "text-emerald-600",
@@ -98,8 +98,8 @@ const investmentOptions = [
     description:
       "Buy stocks with borrowed broker funds for leverage.",
     icon: Zap,
-    link: "/services/learning-centre/mtf",
-    alink: "/services/learning-centre/mtf/apply",
+    link: "/services/learn-earn/mtf",
+    alink: "/services/learn-earn/mtf/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-orange-100",
     iconColor: "text-orange-600",
@@ -111,8 +111,8 @@ const investmentOptions = [
     description:
       "Trade real assets like gold, silver, crude oil.",
     icon: Coins,
-    link: "/services/learning-centre/commodities",
-    alink: "/services/learning-centre/commodities/apply",
+    link: "/services/learn-earn/commodities",
+    alink: "/services/learn-earn/commodities/apply",
     bgColor: "bg-gradient-to-br from-green-500 to-green-700",
     iconBgColor: "bg-yellow-100",
     iconColor: "text-yellow-600",
@@ -124,8 +124,8 @@ const investmentOptions = [
     description:
       "Invest early in companies before listing.",
     icon: Gem,
-    link: "/services/learning-centre/unlisted-shares",
-    alink: "/services/learning-centre/unlisted-shares/apply",
+    link: "/services/learn-earn/unlisted-shares",
+    alink: "/services/learn-earn/unlisted-shares/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-indigo-100",
     iconColor: "text-indigo-600",
@@ -489,7 +489,7 @@ export default function StockInvestmentPage() {
                 </p>
               </div>
               <div className="pt-8 z-10">
-                <Link href="/services/learning-centre/open-demat-account">
+                <Link href="/services/learn-earn/open-demat-account">
                   <button className="w-full sm:w-auto bg-white text-black border border-black px-6 py-3.5 rounded-xl font-bold hover:bg-yellow-100 hover:shadow-sm  transition-all shadow-sm uppercase text-sm">
                     Start Investing Now
                   </button>
@@ -513,7 +513,7 @@ export default function StockInvestmentPage() {
                 </p>
               </div>
               <div className="pt-8 z-10">
-                <Link href="/services/learning-centre/already-have-an-account">
+                <Link href="/services/learn-earn/already-have-an-account">
                   <button className="w-full sm:w-auto bg-[#1FA463] text-white border border-black px-6 py-3.5 rounded-xl font-bold hover:bg-[#15824D] hover:shadow-sm  transition-all shadow-sm uppercase text-sm">
                     Continue Your Journey
                   </button>

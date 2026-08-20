@@ -1733,7 +1733,7 @@ export default function MTFPage() {
         <p>
           Get up to 4x buying power on stock trades with Fiscal Forum. Apply for Margin Trading Facility in under 5 minutes.
         </p>
-        <button onClick={() => router.push("/services/learning-centre/mtf/apply")} className="btn primary" onMouseMove={handleBtnMouseMove} onMouseLeave={handleBtnMouseLeave} style={{ fontSize: "1.05rem", padding: "1.1rem 2.2rem" }}>
+        <button onClick={() => router.push("/services/learn-earn/mtf/apply")} className="btn primary" onMouseMove={handleBtnMouseMove} onMouseLeave={handleBtnMouseLeave} style={{ fontSize: "1.05rem", padding: "1.1rem 2.2rem" }}>
           Apply for MTF Now →
         </button>
       </div>

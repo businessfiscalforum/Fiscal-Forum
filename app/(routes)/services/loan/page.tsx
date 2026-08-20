@@ -73,7 +73,7 @@ const slides = [
       "Build a diversified portfolio and start investing in the stock market with expert guidance.",
     image: "/asset-stock.jpg",
     gradient: "from-emerald-600 via-green-500 to-teal-600",
-    path: "/services/learning-centre",
+    path: "/services/learn-earn",
   },
   {
     title: "Mutual Funds",

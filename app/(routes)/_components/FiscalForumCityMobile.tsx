@@ -17,22 +17,22 @@ import {
 const clickAreas = [
   {
     id: "equity",
-    link: "/services/learning-centre/equity-etfs",
+    link: "/services/learn-earn/equity-etfs",
     style: { left: "20%", top: "18%", width: "16%", height: "28%" },
   },
   {
     id: "commodities",
-    link: "/services/learning-centre/commodities",
+    link: "/services/learn-earn/commodities",
     style: { left: "10%", top: "54%", width: "22%", height: "28%" },
   },
   {
     id: "mtf",
-    link: "/services/learning-centre/mtf",
+    link: "/services/learn-earn/mtf",
     style: { left: "12%", top: "8%", width: "10%", height: "46%" },
   },
   {
     id: "fiscal",
-    link: "/services/learning-centre",
+    link: "/services/learn-earn",
     style: { left: "42%", top: "30%", width: "20%", height: "30%" },
   },
   {
@@ -42,12 +42,12 @@ const clickAreas = [
   },
   {
     id: "fo",
-    link: "/services/learning-centre/futures-options",
+    link: "/services/learn-earn/futures-options",
     style: { left: "62%", top: "44%", width: "20%", height: "24%" },
   },
   {
     id: "ipo",
-    link: "/services/learning-centre/ipo",
+    link: "/services/learn-earn/ipo",
     style: { left: "78%", top: "12%", width: "16%", height: "34%" },
   },
   {
@@ -66,7 +66,7 @@ const mobileCategories = [
   {
     id: "equity",
     label: "Equity",
-    link: "/services/learning-centre/equity-etfs",
+    link: "/services/learn-earn/equity-etfs",
     icon: "/images/cat-equity.png",
   },
   {
@@ -78,13 +78,13 @@ const mobileCategories = [
   {
     id: "ipo",
     label: "IPO",
-    link: "/services/learning-centre/ipo",
+    link: "/services/learn-earn/ipo",
     icon: "/images/cat-ipo.png",
   },
   {
     id: "mtf",
     label: "MTF",
-    link: "/services/learning-centre/mtf",
+    link: "/services/learn-earn/mtf",
     icon: "/images/cat-mtf.png",
   },
   {
@@ -102,13 +102,13 @@ const mobileCategories = [
   {
     id: "fo",
     label: "F&O Trading",
-    link: "/services/learning-centre/futures-options",
+    link: "/services/learn-earn/futures-options",
     icon: "/images/cat-fo.png",
   },
   {
     id: "commodities",
     label: "Commodities",
-    link: "/services/learning-centre/commodities",
+    link: "/services/learn-earn/commodities",
     icon: "/images/cat-commodities.png",
   },
 ];
@@ -206,7 +206,7 @@ export default function FiscalForumCityMobile() {
       <p className="text-sm font-bold text-black px-4 max-w-xs mx-auto leading-relaxed">
         While others are building wealth, what&apos;s stopping you? Start Clicking{" "}
         <Link
-          href="/services/learning-centre"
+          href="/services/learn-earn"
           className="inline-block bg-yellow-300 hover:bg-yellow-400 text-black border-2 border-black px-2.5 py-0.5 rounded-lg shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all hover:-translate-y-0.5 active:translate-y-0 mx-1 align-middle text-xs"
         >
           here

@@ -51,7 +51,7 @@ const slides = [
       "Real-time market alerts",
       "Expert research & recommendations",
     ],
-    path: "services/learning-centre",
+    path: "services/learn-earn",
     stats: [
       { value: "100+", label: "Active Traders" },
       { value: "50+", label: "Stocks & ETFs" },
@@ -603,7 +603,7 @@ export default function HomeDesktop() {
         icon: BarChart3,
         description:
           "Own a part of India's leading companies and grow your wealth over time. Learn how stocks work, discover high-potential opportunities, and invest with confidence backed by research. Start your investing journey today.",
-        link: "/services/learning-centre",
+        link: "/services/learn-earn",
         image: "/images/service-stock.png",
       },
       {
@@ -1064,7 +1064,7 @@ export default function HomeDesktop() {
                   </p>
                 </div>
                 <div>
-                  <Link href="/services/learning-centre#portfolio-studio" className="inline-block">
+                  <Link href="/services/learn-earn#portfolio-studio" className="inline-block">
                     <button className="revolving-border-btn inline shadow-sm hover:-translate-y-0.5 transition-all min-w-[140px]">
                       <span className="revolving-border-btn-content py-3 text-xs sm:text-sm font-bold tracking-wider">
                         Click Here

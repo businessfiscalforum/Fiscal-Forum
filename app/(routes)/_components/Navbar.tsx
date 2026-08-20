@@ -47,8 +47,8 @@ export default function Navbar() {
 
   const servicesDropdown = [
     {
-      name: "LEARNING CENTRE",
-      href: "/services/learning-centre",
+      name: "LEARN & EARN",
+      href: "/services/learn-earn",
       icon: <LineChart className="w-5 h-5 text-black" />,
     },
     {
@@ -80,7 +80,7 @@ export default function Navbar() {
 
   const navItems = [
     { label: "Reports", href: "/reports" },
-    { label: "LEARNING CENTRE", href: "/services/learning-centre" },
+    { label: "LEARN & EARN", href: "/services/learn-earn" },
     { label: "For Women", href: "/for-women" },
     { label: "News", href: "/news?tab=news-buzz" },
     { label: "IPOs", href: "/news?tab=ipo-scoop" },
@@ -194,7 +194,7 @@ export default function Navbar() {
                 </Link>
               );
             }
-            if (item.label === "LEARNING CENTRE") {
+            if (item.label === "LEARN & EARN") {
               return (
                 <Link
                   key={item.label}
@@ -397,7 +397,7 @@ export default function Navbar() {
                       </Link>
                     );
                   }
-                  if (item.label === "LEARNING CENTRE") {
+                  if (item.label === "LEARN & EARN") {
                     return (
                       <Link
                         key={item.label}

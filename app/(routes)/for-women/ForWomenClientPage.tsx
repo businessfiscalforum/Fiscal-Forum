@@ -585,7 +585,7 @@ export default function ForWomenClientPage() {
     if (name === "Mutual Funds") {
       router.push("/services/mutual-funds");
     } else if (name === "Goal Portfolio") {
-      router.push("/services/learning-centre");
+      router.push("/services/learn-earn");
     } else if (name === "Gold") {
       setActiveModal("gold");
     } else if (name === "Silver") {
@@ -621,7 +621,7 @@ export default function ForWomenClientPage() {
         return (
           <Link
             key={n}
-            href="/services/learning-centre"
+            href="/services/learn-earn"
             className={`btn ${isPrimary ? "btn-primary" : "btn-gold"}`}
             style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
           >
@@ -1054,7 +1054,7 @@ export default function ForWomenClientPage() {
                     </div>
                     <div style={{ marginTop: "16px" }}>
                       <Link
-                        href="/services/learning-centre"
+                        href="/services/learn-earn"
                         className="btn btn-gold"
                         style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", justifyContent: "center" }}
                       >
