@@ -394,6 +394,32 @@ export default function ClientReportsPage({
 
 
 
+  /* ============ RADIAL BOX VIEWPORT OBSERVER ============ */
+  const [isBoxVisible, setIsBoxVisible] = useState(false);
+  const boxRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsBoxVisible(true);
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    const currentBox = boxRef.current;
+    if (currentBox) {
+      observer.observe(currentBox);
+    }
+
+    return () => {
+      if (currentBox) {
+        observer.unobserve(currentBox);
+      }
+    };
+  }, []);
+
   /* ============ WIZARD STATE ============ */
   const [wizardStep, setWizardStep] = useState<number | "done">(1);
   const [wizardCategory, setWizardCategory] = useState<string>("");
@@ -1479,24 +1505,15 @@ export default function ClientReportsPage({
                       </div>
                     </div>
 
-                    {/* 5 Cards Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-8 text-left report-center-grid-container">
-                      {/* Mutual Fund Card */}
-                      <Link href="/reports/customised" className="report-center-card" style={{
-                        "--border-color": "#A7F3D0",
-                        "--bg-gradient": "linear-gradient(to bottom, #F0FDF4, #FFFFFF)",
-                        "--title-color": "#065F46",
-                        "--btn-bg": "#ECFDF5",
-                        "--btn-border": "#A7F3D0",
-                        "--btn-text": "#065F46",
-                        "--btn-hover-bg": "#D1FAE5",
-                        "--arrow-bg": "#065F46",
-                        "--arrow-border": "#065F46",
-                        "--hover-shadow-color": "rgba(16, 185, 129, 0.12)",
-                        textDecoration: 'none'
-                      } as React.CSSProperties}>
-                        <div>
-                          <div className="report-center-card-image-wrapper w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
+                    {/* Squarish Box with Pop-up Radial Entities */}
+                    <div className="report-center-single-box-container">
+                      <div className={`report-center-squarish-box ${isBoxVisible ? "animate-in" : ""}`} ref={boxRef}>
+                        {/* Background Grid Lines inside the squarish box */}
+                        <div className="squarish-box-grid-bg"></div>
+
+                        {/* Top-Left: Mutual Fund */}
+                        <div className="squarish-box-entity entity-top-left">
+                          <div className="entity-image-wrap">
                             <Image
                               src="/images/wizard_mutual_fund.png"
                               alt="Mutual Fund"
@@ -1504,36 +1521,12 @@ export default function ClientReportsPage({
                               className="object-cover"
                             />
                           </div>
-                          <h3 className="report-center-card-title">Mutual Fund</h3>
-                          <p className="report-center-card-desc">
-                            Detailed analysis and top performing mutual funds curated for you.
-                          </p>
+                          <span className="entity-label">Mutual Fund</span>
                         </div>
-                        <div className="report-center-card-btn-row flex items-center gap-2 mt-4 pt-4 border-t border-emerald-50">
-                          <span
-                            className="report-center-card-btn text-center block w-full"
-                          >
-                            Get Yours
-                          </span>
-                        </div>
-                      </Link>
 
-                      {/* Stocks Card */}
-                      <Link href="/reports/customised" className="report-center-card" style={{
-                        "--border-color": "#BFDBFE",
-                        "--bg-gradient": "linear-gradient(to bottom, #EFF6FF, #FFFFFF)",
-                        "--title-color": "#1E40AF",
-                        "--btn-bg": "#EFF6FF",
-                        "--btn-border": "#BFDBFE",
-                        "--btn-text": "#1E40AF",
-                        "--btn-hover-bg": "#DBEAFE",
-                        "--arrow-bg": "#1E40AF",
-                        "--arrow-border": "#1E40AF",
-                        "--hover-shadow-color": "rgba(59, 130, 246, 0.12)",
-                        textDecoration: 'none'
-                      } as React.CSSProperties}>
-                        <div>
-                          <div className="report-center-card-image-wrapper w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
+                        {/* Top-Right: Stocks */}
+                        <div className="squarish-box-entity entity-top-right">
+                          <div className="entity-image-wrap">
                             <Image
                               src="/images/wizard_stocks.png"
                               alt="Stocks"
@@ -1541,36 +1534,12 @@ export default function ClientReportsPage({
                               className="object-cover"
                             />
                           </div>
-                          <h3 className="report-center-card-title">Stocks</h3>
-                          <p className="report-center-card-desc">
-                            In-depth stock research, expert picks and market outlook.
-                          </p>
+                          <span className="entity-label">Stocks</span>
                         </div>
-                        <div className="report-center-card-btn-row flex items-center gap-2 mt-4 pt-4 border-t border-blue-50">
-                          <span
-                            className="report-center-card-btn text-center block w-full"
-                          >
-                            Get Yours
-                          </span>
-                        </div>
-                      </Link>
 
-                      {/* Credit Card Card */}
-                      <Link href="/reports/customised" className="report-center-card" style={{
-                        "--border-color": "#DDD6FE",
-                        "--bg-gradient": "linear-gradient(to bottom, #F5F3FF, #FFFFFF)",
-                        "--title-color": "#5B21B6",
-                        "--btn-bg": "#F5F3FF",
-                        "--btn-border": "#DDD6FE",
-                        "--btn-text": "#5B21B6",
-                        "--btn-hover-bg": "#EDE9FE",
-                        "--arrow-bg": "#5B21B6",
-                        "--arrow-border": "#5B21B6",
-                        "--hover-shadow-color": "rgba(139, 92, 246, 0.12)",
-                        textDecoration: 'none'
-                      } as React.CSSProperties}>
-                        <div>
-                          <div className="report-center-card-image-wrapper w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
+                        {/* Bottom-Left: Credit Card */}
+                        <div className="squarish-box-entity entity-bottom-left">
+                          <div className="entity-image-wrap">
                             <Image
                               src="/images/wizard_credit_card.png"
                               alt="Credit Card"
@@ -1578,36 +1547,12 @@ export default function ClientReportsPage({
                               className="object-cover"
                             />
                           </div>
-                          <h3 className="report-center-card-title">Credit Card</h3>
-                          <p className="report-center-card-desc">
-                            Best credit card recommendations tailored to your lifestyle.
-                          </p>
+                          <span className="entity-label">Credit Card</span>
                         </div>
-                        <div className="report-center-card-btn-row flex items-center gap-2 mt-4 pt-4 border-t border-purple-50">
-                          <span
-                            className="report-center-card-btn text-center block w-full"
-                          >
-                            Get Yours
-                          </span>
-                        </div>
-                      </Link>
 
-                      {/* Insurance Card */}
-                      <Link href="/reports/customised" className="report-center-card" style={{
-                        "--border-color": "#FDE68A",
-                        "--bg-gradient": "linear-gradient(to bottom, #FEF3C7, #FFFFFF)",
-                        "--title-color": "#92400E",
-                        "--btn-bg": "#FEF3C7",
-                        "--btn-border": "#FDE68A",
-                        "--btn-text": "#92400E",
-                        "--btn-hover-bg": "#FDE68A",
-                        "--arrow-bg": "#92400E",
-                        "--arrow-border": "#92400E",
-                        "--hover-shadow-color": "rgba(245, 158, 11, 0.12)",
-                        textDecoration: 'none'
-                      } as React.CSSProperties}>
-                        <div>
-                          <div className="report-center-card-image-wrapper w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
+                        {/* Bottom-Right: Insurance */}
+                        <div className="squarish-box-entity entity-bottom-right">
+                          <div className="entity-image-wrap">
                             <Image
                               src="/images/wizard_insurance.png"
                               alt="Insurance"
@@ -1615,36 +1560,12 @@ export default function ClientReportsPage({
                               className="object-cover"
                             />
                           </div>
-                          <h3 className="report-center-card-title">Insurance</h3>
-                          <p className="report-center-card-desc">
-                            Smart insurance recommendations for a secure future.
-                          </p>
+                          <span className="entity-label">Insurance</span>
                         </div>
-                        <div className="report-center-card-btn-row flex items-center gap-2 mt-4 pt-4 border-t border-amber-50">
-                          <span
-                            className="report-center-card-btn text-center block w-full"
-                          >
-                            Get Yours
-                          </span>
-                        </div>
-                      </Link>
 
-                      {/* Loans Card */}
-                      <Link href="/reports/customised" className="report-center-card" style={{
-                        "--border-color": "#C7D2FE",
-                        "--bg-gradient": "linear-gradient(to bottom, #EEF2FF, #FFFFFF)",
-                        "--title-color": "#3730A3",
-                        "--btn-bg": "#EEF2FF",
-                        "--btn-border": "#C7D2FE",
-                        "--btn-text": "#3730A3",
-                        "--btn-hover-bg": "#C7D2FE",
-                        "--arrow-bg": "#3730A3",
-                        "--arrow-border": "#3730A3",
-                        "--hover-shadow-color": "rgba(99, 102, 241, 0.12)",
-                        textDecoration: 'none'
-                      } as React.CSSProperties}>
-                        <div>
-                          <div className="report-center-card-image-wrapper w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
+                        {/* Center: Loans */}
+                        <div className="squarish-box-entity entity-center">
+                          <div className="entity-image-wrap">
                             <Image
                               src="/images/wizard_loans.png"
                               alt="Loans"
@@ -1652,19 +1573,16 @@ export default function ClientReportsPage({
                               className="object-cover"
                             />
                           </div>
-                          <h3 className="report-center-card-title">Loans</h3>
-                          <p className="report-center-card-desc">
-                            Compare and choose the best loan options for your needs.
-                          </p>
+                          <span className="entity-label">Loans</span>
                         </div>
-                        <div className="report-center-card-btn-row flex items-center gap-2 mt-4 pt-4 border-t border-indigo-50">
-                          <span
-                            className="report-center-card-btn text-center block w-full"
-                          >
-                            Get Yours
-                          </span>
-                        </div>
-                      </Link>
+                      </div>
+
+                      {/* Single Common Get Yours Button */}
+                      <div className="report-center-get-yours-btn-wrap">
+                        <Link href="/reports/customised" className="report-center-common-btn">
+                          Get Yours
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 ) : (
