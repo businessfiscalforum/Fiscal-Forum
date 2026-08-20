@@ -529,7 +529,7 @@ export default function CustomisedReportsPage() {
 
           <div className="hero-img-wrap">
             <Image
-              src="/customised-header.jpg"
+              src="/customised-header-v2.jpg"
               alt="Customised Reports Banner"
               fill
               className="hero-image"
