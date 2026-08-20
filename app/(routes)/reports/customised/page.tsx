@@ -15,6 +15,29 @@ const insuranceCoverMap: Record<string, { id: string; label: string; placeholder
   'Motor insurance': { id: 'insCoverMotor', label: 'Motor Insurance IDV (₹)', placeholder: 'e.g. 500000' }
 };
 
+const faqs = [
+  {
+    q: "What can I customise a report on?",
+    a: "You can customise reports across Mutual Funds, Stocks, Credit Cards, Insurance, and Loans—based on the specific company, product, sector, theme, or requirement you want to explore."
+  },
+  {
+    q: "Can I compare multiple products or companies?",
+    a: "Absolutely. You can request comparisons between stocks, mutual funds, credit cards, insurance products, or loans based on the parameters that matter most to you."
+  },
+  {
+    q: "How do I request a Customised Report?",
+    a: "Simply submit your requirements through the Customised Report Request section. Tell us what you want analysed and the specific areas you want covered."
+  },
+  {
+    q: "How long does it take to receive my report?",
+    a: "The timeline depends on the complexity and depth of your request. Once your requirement is reviewed, you will receive an estimated delivery timeline."
+  },
+  {
+    q: "Why choose a Customised Report instead of a regular report?",
+    a: "Because you get research built around what you actually want to know—without unnecessary information. Whether you're evaluating a stock, comparing mutual funds, choosing insurance, or researching a loan, the analysis is tailored to your specific requirement."
+  }
+];
+
 export default function CustomisedReportsPage() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [wizardOpen, setWizardOpen] = useState(false);
@@ -22,6 +45,7 @@ export default function CustomisedReportsPage() {
   const [wizardStep, setWizardStep] = useState<number | "done">(1);
   const [wizardLoading, setWizardLoading] = useState(false);
   const [wizardMessage, setWizardMessage] = useState<string | null>(null);
+  const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [wizardAnswers, setWizardAnswers] = useState<Record<string, any>>({
@@ -599,6 +623,48 @@ export default function CustomisedReportsPage() {
             })}
           </div>
           
+        </div>
+      </section>
+
+      {/* FAQs Section */}
+      <section className="faq-section">
+        <div className="section-wrap">
+          <div className="section-kicker">FAQS</div>
+          <div className="section-heading">
+            <h2>Frequently Asked <em>Questions</em></h2>
+            <p>Everything you need to know about requesting, building, and receiving customised reports.</p>
+          </div>
+
+          <div className="faq-accordion">
+            {faqs.map((faq, idx) => {
+              const isOpen = activeFaq === idx;
+              return (
+                <div
+                  key={idx}
+                  className={`faq-item ${isOpen ? "open" : ""}`}
+                >
+                  <button
+                    className="faq-trigger"
+                    onClick={() => setActiveFaq(isOpen ? null : idx)}
+                    aria-expanded={isOpen}
+                  >
+                    <span className="faq-q-number">{String(idx + 1).padStart(2, "0")}.</span>
+                    <span className="faq-question">{faq.q}</span>
+                    <span className="faq-icon-arrow">
+                      <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+                        <path d="M1 1L6 6L11 1" stroke="#101512" strokeWidth="2" strokeLinecap="round" />
+                      </svg>
+                    </span>
+                  </button>
+                  <div className="faq-answer-wrap">
+                    <div className="faq-answer">
+                      <p>{faq.a}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
