@@ -1008,7 +1008,6 @@
 
 .customised-page-container .faq-q-number {
   color: var(--forest);
-  font-family: monospace;
   font-size: 14px;
   font-weight: 800;
   margin-right: 8px;
@@ -1016,7 +1015,6 @@
 
 .customised-page-container .faq-question {
   flex: 1;
-  font-family: 'Outfit', sans-serif;
 }
 
 .customised-page-container .faq-icon-arrow {
