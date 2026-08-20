@@ -972,6 +972,23 @@
   padding: 90px 5vw 110px;
   border-top: 1px solid rgba(16, 21, 18, 0.08);
 }
+.customised-page-container .faq-section .section-kicker {
+  justify-content: center;
+}
+.customised-page-container .faq-section .section-heading {
+  display: block;
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 42px;
+}
+.customised-page-container .faq-section .section-heading h2 {
+  max-width: 100%;
+  margin-bottom: 14px;
+}
+.customised-page-container .faq-section .section-heading p {
+  max-width: 100%;
+  margin: 0 auto;
+}
 
 .customised-page-container .faq-accordion {
   max-width: 800px;
