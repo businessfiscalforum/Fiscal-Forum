@@ -824,7 +824,7 @@ export default function FathomSlider() {
                   </div>
                 </div>
                 <div>
-                  <Link href="/reports#customReport">
+                  <Link href="/reports/customised">
                     <button className="relative px-6 py-2.5 bg-black !text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-zinc-900 transition-all cursor-pointer button-border-animate-container hover:-translate-y-0.5 duration-200">
                       {/* Animated Border Overlay */}
                       <div className="absolute inset-0 pointer-events-none rounded-xl overflow-hidden z-20">
