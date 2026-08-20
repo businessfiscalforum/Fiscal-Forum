@@ -1482,7 +1482,7 @@ export default function ClientReportsPage({
                     {/* 5 Cards Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-8 text-left report-center-grid-container">
                       {/* Mutual Fund Card */}
-                      <div className="report-center-card" style={{
+                      <Link href="/reports/customised" className="report-center-card" style={{
                         "--border-color": "#A7F3D0",
                         "--bg-gradient": "linear-gradient(to bottom, #F0FDF4, #FFFFFF)",
                         "--title-color": "#065F46",
@@ -1492,7 +1492,8 @@ export default function ClientReportsPage({
                         "--btn-hover-bg": "#D1FAE5",
                         "--arrow-bg": "#065F46",
                         "--arrow-border": "#065F46",
-                        "--hover-shadow-color": "rgba(16, 185, 129, 0.12)"
+                        "--hover-shadow-color": "rgba(16, 185, 129, 0.12)",
+                        textDecoration: 'none'
                       } as React.CSSProperties}>
                         <div>
                           <div className="report-center-card-image-wrapper w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
@@ -1509,18 +1510,16 @@ export default function ClientReportsPage({
                           </p>
                         </div>
                         <div className="report-center-card-btn-row flex items-center gap-2 mt-4 pt-4 border-t border-emerald-50">
-                          <Link
-                            href="/reports/customised"
+                          <span
                             className="report-center-card-btn text-center block w-full"
-                            style={{ textDecoration: 'none' }}
                           >
                             Get Yours
-                          </Link>
+                          </span>
                         </div>
-                      </div>
+                      </Link>
 
                       {/* Stocks Card */}
-                      <div className="report-center-card" style={{
+                      <Link href="/reports/customised" className="report-center-card" style={{
                         "--border-color": "#BFDBFE",
                         "--bg-gradient": "linear-gradient(to bottom, #EFF6FF, #FFFFFF)",
                         "--title-color": "#1E40AF",
@@ -1530,7 +1529,8 @@ export default function ClientReportsPage({
                         "--btn-hover-bg": "#DBEAFE",
                         "--arrow-bg": "#1E40AF",
                         "--arrow-border": "#1E40AF",
-                        "--hover-shadow-color": "rgba(59, 130, 246, 0.12)"
+                        "--hover-shadow-color": "rgba(59, 130, 246, 0.12)",
+                        textDecoration: 'none'
                       } as React.CSSProperties}>
                         <div>
                           <div className="report-center-card-image-wrapper w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
@@ -1547,18 +1547,16 @@ export default function ClientReportsPage({
                           </p>
                         </div>
                         <div className="report-center-card-btn-row flex items-center gap-2 mt-4 pt-4 border-t border-blue-50">
-                          <Link
-                            href="/reports/customised"
+                          <span
                             className="report-center-card-btn text-center block w-full"
-                            style={{ textDecoration: 'none' }}
                           >
                             Get Yours
-                          </Link>
+                          </span>
                         </div>
-                      </div>
+                      </Link>
 
                       {/* Credit Card Card */}
-                      <div className="report-center-card" style={{
+                      <Link href="/reports/customised" className="report-center-card" style={{
                         "--border-color": "#DDD6FE",
                         "--bg-gradient": "linear-gradient(to bottom, #F5F3FF, #FFFFFF)",
                         "--title-color": "#5B21B6",
@@ -1568,7 +1566,8 @@ export default function ClientReportsPage({
                         "--btn-hover-bg": "#EDE9FE",
                         "--arrow-bg": "#5B21B6",
                         "--arrow-border": "#5B21B6",
-                        "--hover-shadow-color": "rgba(139, 92, 246, 0.12)"
+                        "--hover-shadow-color": "rgba(139, 92, 246, 0.12)",
+                        textDecoration: 'none'
                       } as React.CSSProperties}>
                         <div>
                           <div className="report-center-card-image-wrapper w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
@@ -1585,18 +1584,16 @@ export default function ClientReportsPage({
                           </p>
                         </div>
                         <div className="report-center-card-btn-row flex items-center gap-2 mt-4 pt-4 border-t border-purple-50">
-                          <Link
-                            href="/reports/customised"
+                          <span
                             className="report-center-card-btn text-center block w-full"
-                            style={{ textDecoration: 'none' }}
                           >
                             Get Yours
-                          </Link>
+                          </span>
                         </div>
-                      </div>
+                      </Link>
 
                       {/* Insurance Card */}
-                      <div className="report-center-card" style={{
+                      <Link href="/reports/customised" className="report-center-card" style={{
                         "--border-color": "#FDE68A",
                         "--bg-gradient": "linear-gradient(to bottom, #FEF3C7, #FFFFFF)",
                         "--title-color": "#92400E",
@@ -1606,7 +1603,8 @@ export default function ClientReportsPage({
                         "--btn-hover-bg": "#FDE68A",
                         "--arrow-bg": "#92400E",
                         "--arrow-border": "#92400E",
-                        "--hover-shadow-color": "rgba(245, 158, 11, 0.12)"
+                        "--hover-shadow-color": "rgba(245, 158, 11, 0.12)",
+                        textDecoration: 'none'
                       } as React.CSSProperties}>
                         <div>
                           <div className="report-center-card-image-wrapper w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
@@ -1623,18 +1621,16 @@ export default function ClientReportsPage({
                           </p>
                         </div>
                         <div className="report-center-card-btn-row flex items-center gap-2 mt-4 pt-4 border-t border-amber-50">
-                          <Link
-                            href="/reports/customised"
+                          <span
                             className="report-center-card-btn text-center block w-full"
-                            style={{ textDecoration: 'none' }}
                           >
                             Get Yours
-                          </Link>
+                          </span>
                         </div>
-                      </div>
+                      </Link>
 
                       {/* Loans Card */}
-                      <div className="report-center-card" style={{
+                      <Link href="/reports/customised" className="report-center-card" style={{
                         "--border-color": "#C7D2FE",
                         "--bg-gradient": "linear-gradient(to bottom, #EEF2FF, #FFFFFF)",
                         "--title-color": "#3730A3",
@@ -1644,7 +1640,8 @@ export default function ClientReportsPage({
                         "--btn-hover-bg": "#C7D2FE",
                         "--arrow-bg": "#3730A3",
                         "--arrow-border": "#3730A3",
-                        "--hover-shadow-color": "rgba(99, 102, 241, 0.12)"
+                        "--hover-shadow-color": "rgba(99, 102, 241, 0.12)",
+                        textDecoration: 'none'
                       } as React.CSSProperties}>
                         <div>
                           <div className="report-center-card-image-wrapper w-full h-32 relative rounded-[6px] overflow-hidden mb-4 border border-black/15 bg-gray-50 shadow-sm">
@@ -1661,15 +1658,13 @@ export default function ClientReportsPage({
                           </p>
                         </div>
                         <div className="report-center-card-btn-row flex items-center gap-2 mt-4 pt-4 border-t border-indigo-50">
-                          <Link
-                            href="/reports/customised"
+                          <span
                             className="report-center-card-btn text-center block w-full"
-                            style={{ textDecoration: 'none' }}
                           >
                             Get Yours
-                          </Link>
+                          </span>
                         </div>
-                      </div>
+                      </Link>
                     </div>
                   </div>
                 ) : (
