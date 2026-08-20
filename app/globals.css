@@ -4037,6 +4037,19 @@ body {
   border-color: rgba(37, 211, 102, 0.3);
 }
 
+.whatsapp-community-widget-wrap.icon-only {
+  padding: 8px;
+  padding-right: 8px;
+  width: 50px;
+  height: 50px;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.whatsapp-community-widget-wrap.icon-only:hover {
+  transform: translateY(-2px) scale(1.06);
+}
+
 .whatsapp-community-widget-link {
   display: flex;
   align-items: center;
