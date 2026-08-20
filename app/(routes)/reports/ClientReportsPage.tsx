@@ -1511,8 +1511,8 @@ export default function ClientReportsPage({
                         {/* Background Grid Lines inside the squarish box */}
                         <div className="squarish-box-grid-bg"></div>
 
-                        {/* Top-Left: Mutual Fund */}
-                        <div className="squarish-box-entity entity-top-left">
+                        {/* Card 1: Mutual Fund */}
+                        <div className="squarish-box-entity entity-1">
                           <div className="entity-image-wrap">
                             <Image
                               src="/images/wizard_mutual_fund.png"
@@ -1524,8 +1524,8 @@ export default function ClientReportsPage({
                           <span className="entity-label">Mutual Fund</span>
                         </div>
 
-                        {/* Top-Right: Stocks */}
-                        <div className="squarish-box-entity entity-top-right">
+                        {/* Card 2: Stocks */}
+                        <div className="squarish-box-entity entity-2">
                           <div className="entity-image-wrap">
                             <Image
                               src="/images/wizard_stocks.png"
@@ -1537,8 +1537,21 @@ export default function ClientReportsPage({
                           <span className="entity-label">Stocks</span>
                         </div>
 
-                        {/* Bottom-Left: Insurance */}
-                        <div className="squarish-box-entity entity-bottom-left">
+                        {/* Card 3: Credit Card */}
+                        <div className="squarish-box-entity entity-3">
+                          <div className="entity-image-wrap">
+                            <Image
+                              src="/images/wizard_credit_card.png"
+                              alt="Credit Card"
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                          <span className="entity-label">Credit Card</span>
+                        </div>
+
+                        {/* Card 4: Insurance */}
+                        <div className="squarish-box-entity entity-4">
                           <div className="entity-image-wrap">
                             <Image
                               src="/images/wizard_insurance.png"
@@ -1550,8 +1563,8 @@ export default function ClientReportsPage({
                           <span className="entity-label">Insurance</span>
                         </div>
 
-                        {/* Bottom-Right: Loans */}
-                        <div className="squarish-box-entity entity-bottom-right">
+                        {/* Card 5: Loans */}
+                        <div className="squarish-box-entity entity-5">
                           <div className="entity-image-wrap">
                             <Image
                               src="/images/wizard_loans.png"
@@ -1561,19 +1574,6 @@ export default function ClientReportsPage({
                             />
                           </div>
                           <span className="entity-label">Loans</span>
-                        </div>
-
-                        {/* Center: Credit Card */}
-                        <div className="squarish-box-entity entity-center">
-                          <div className="entity-image-wrap">
-                            <Image
-                              src="/images/wizard_credit_card.png"
-                              alt="Credit Card"
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-                          <span className="entity-label">Credit Card</span>
                         </div>
                       </div>
 
