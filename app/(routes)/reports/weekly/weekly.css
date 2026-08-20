@@ -435,17 +435,67 @@
   .weekly-page-container .report-content { padding: 82px 6vw 90px; }
   .weekly-page-container .section-heading { display: block; }
   .weekly-page-container .section-heading p { margin-top: 18px; }
-  .weekly-page-container .inside-grid { grid-template-columns: 1fr; }
+  .weekly-page-container .inside-grid { grid-template-columns: repeat(2, 1fr); }
+  .weekly-page-container .inside-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    min-height: auto;
+    padding: 18px;
+  }
+  .weekly-page-container .icon-box {
+    flex: 0 0 52px;
+    width: 52px;
+    height: 52px;
+  }
+  .weekly-page-container .icon-box svg {
+    width: 28px;
+    height: 28px;
+  }
+  .weekly-page-container .inside-copy h3 {
+    font-size: 16px;
+    padding-right: 24px;
+  }
+  .weekly-page-container .inside-copy p {
+    font-size: 12px;
+  }
   .weekly-page-container .report-cta { display: block; padding: 30px 26px; }
   .weekly-page-container .report-cta .cta { margin-top: 22px; }
 }
 
 @media (max-width: 560px) {
-  .weekly-page-container .inside-card { min-height: 118px; padding: 18px; gap: 15px; }
-  .weekly-page-container .icon-box { flex-basis: 56px; width: 56px; height: 56px; }
-  .weekly-page-container .icon-box svg { width: 31px; height: 31px; }
-  .weekly-page-container .inside-copy h3 { font-size: 17px; padding-right: 20px; }
-  .weekly-page-container .inside-copy p { font-size: 12px; }
+  .weekly-page-container .inside-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .weekly-page-container .inside-card {
+    padding: 14px 12px;
+    gap: 8px;
+  }
+  .weekly-page-container .icon-box {
+    flex-basis: 44px;
+    width: 44px;
+    height: 44px;
+  }
+  .weekly-page-container .icon-box svg {
+    width: 24px;
+    height: 24px;
+  }
+  .weekly-page-container .inside-copy h3 {
+    font-size: 14px;
+    padding-right: 18px;
+  }
+  .weekly-page-container .inside-copy p {
+    font-size: 11px;
+    line-height: 1.35;
+  }
+  .weekly-page-container .card-arrow {
+    right: 12px;
+    top: 12px;
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
 }
 
 /* ---------- CLAYMORPHISM DATABASE SECTION ---------- */
