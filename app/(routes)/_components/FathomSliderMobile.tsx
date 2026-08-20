@@ -498,18 +498,18 @@ export default function FathomSliderMobile() {
               <Link href="/reports" className="w-full block">
                 <button className="relative w-full py-2.5 bg-black !text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-zinc-900 transition-all cursor-pointer button-border-animate-container hover:-translate-y-0.5 duration-200">
                   {/* Animated Border Overlay */}
-                  <div className="absolute inset-0 pointer-events-none rounded-xl overflow-hidden z-20">
+                  <div className="absolute inset-0 pointer-events-none z-20">
                     <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
                       <rect
-                        rx="12"
+                        rx="11"
                         fill="none"
                         stroke="white"
                         strokeWidth="1.5"
                         style={{
-                          x: 0.75,
-                          y: 0.75,
-                          width: "calc(100% - 1.5px)",
-                          height: "calc(100% - 1.5px)",
+                          x: 1,
+                          y: 1,
+                          width: "calc(100% - 2px)",
+                          height: "calc(100% - 2px)",
                         }}
                         className="button-border-animate-line"
                       />
@@ -579,18 +579,18 @@ export default function FathomSliderMobile() {
               <Link href="/reports/customised" className="w-full block">
                 <button className="relative w-full py-2.5 bg-black !text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-zinc-900 transition-all cursor-pointer button-border-animate-container hover:-translate-y-0.5 duration-200">
                   {/* Animated Border Overlay */}
-                  <div className="absolute inset-0 pointer-events-none rounded-xl overflow-hidden z-20">
+                  <div className="absolute inset-0 pointer-events-none z-20">
                     <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
                       <rect
-                        rx="12"
+                        rx="11"
                         fill="none"
                         stroke="white"
                         strokeWidth="1.5"
                         style={{
-                          x: 0.75,
-                          y: 0.75,
-                          width: "calc(100% - 1.5px)",
-                          height: "calc(100% - 1.5px)",
+                          x: 1,
+                          y: 1,
+                          width: "calc(100% - 2px)",
+                          height: "calc(100% - 2px)",
                         }}
                         className="button-border-animate-line"
                       />
