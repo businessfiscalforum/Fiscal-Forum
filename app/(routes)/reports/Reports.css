@@ -2205,7 +2205,50 @@
   border-radius: 8px;
   overflow: hidden;
   margin-bottom: 12px;
-  border: 1px solid rgba(16, 21, 18, 0.08);
+  background: transparent;
+}
+
+.squarish-box-entity .entity-image-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  z-index: 1;
+  background: conic-gradient(
+    from 0deg,
+    #101512 0deg,
+    #101512 40deg,
+    transparent 80deg,
+    transparent 360deg
+  );
+  animation: rotateEntityImageBorder 3s linear infinite;
+}
+
+.squarish-box-entity .entity-image-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  background: #FFFFFF;
+  border-radius: 6px;
+  z-index: 2;
+}
+
+.squarish-box-entity .entity-image-wrap img {
+  position: absolute !important;
+  top: 2px !important;
+  left: 2px !important;
+  width: calc(100% - 4px) !important;
+  height: calc(100% - 4px) !important;
+  border-radius: 6px !important;
+  z-index: 3 !important;
+}
+
+@keyframes rotateEntityImageBorder {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .squarish-box-entity .entity-label {
