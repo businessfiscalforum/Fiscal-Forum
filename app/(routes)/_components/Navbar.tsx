@@ -26,8 +26,23 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const navRef = useRef<HTMLDivElement>(null);
+
+  // Handle scroll to add backdrop blur / background
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Auto-close logic when clicking outside
   useEffect(() => {
@@ -96,7 +111,13 @@ export default function Navbar() {
   return (
     <nav
       ref={navRef}
-      className="fixed top-0 z-[100] w-full bg-white border-b border-black px-4 py-3 md:py-4 shadow-none"
+      className={`fixed top-0 z-[100] w-full transition-all duration-300 px-4 py-3 md:py-4 ${
+        mobileMenuOpen
+          ? "bg-white border-b border-black shadow-sm"
+          : scrolled
+          ? "bg-white/80 backdrop-blur-md border-b border-black/10 shadow-sm"
+          : "bg-transparent border-b border-transparent shadow-none"
+      }`}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center relative">
 
