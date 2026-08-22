@@ -195,7 +195,7 @@ export default function LifeInsuranceFormPage() {
       }, 3000);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      // eslint-disable-next-line no-console
+       
       console.error("Submission error:", error);
       setMessage({ text: error.message || "Failed to submit the form. Please try again.", type: "error" });
     } finally {

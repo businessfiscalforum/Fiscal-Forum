@@ -92,7 +92,7 @@ export default function CreateLeadForm({
     fetchPartnerRequests();
   }, [userDetail?.id]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   const onSubmit = async (data: ApplicationForm) => {
     if (!userDetail?.id) {
       alert("User not found. Please log in.");

@@ -203,7 +203,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true, data: saved }, { status: 201, headers: corsHeaders(origin) as HeadersInit  });
   } catch (error: unknown) {
-    // eslint-disable-next-line no-console
+     
     console.error("Commercial vehicle insurance POST error:", error);
     const message = error instanceof Error ? error.message : "Internal error";
     return NextResponse.json({ success: false, error: message }, { status: 500, headers: corsHeaders(origin) as HeadersInit });
