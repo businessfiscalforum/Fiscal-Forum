@@ -1240,23 +1240,6 @@ export default function ClientReportsPage({
                 Research Reports Portal
               </span>
               <h1>Institutional-grade<br />research,<br /><em>made readable.</em></h1>
-              <p className="sub">
-                <span className="hero-line-mask">
-                  <span className="hero-line hero-line-ltr" style={{ animationDelay: "0ms" }}>
-                    Understand the market
-                  </span>
-                </span>
-                <span className="hero-line-mask">
-                  <span className="hero-line hero-line-rtl" style={{ animationDelay: "280ms" }}>
-                    before you invest your
-                  </span>
-                </span>
-                <span className="hero-line-mask">
-                  <span className="hero-line hero-line-ltr" style={{ animationDelay: "460ms" }}>
-                    money.
-                  </span>
-                </span>
-              </p>
               
               <div className="hero-ctas">
                 <button
