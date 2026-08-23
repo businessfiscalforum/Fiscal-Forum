@@ -39,6 +39,20 @@ export async function GET(request: Request) {
   const origin = request.headers.get("origin");
 
   try {
+    if (!process.env.DATABASE_URL || process.env.DATABASE_URL.includes("placeholder")) {
+      return NextResponse.json(
+        {
+          news: [],
+          pagination: {
+            currentPage: 1,
+            totalPages: 0,
+            totalCount: 0,
+          },
+        },
+        { headers: corsHeaders(origin) }
+      );
+    }
+
     const whereClause = and(
       search ? like(newsTable.title, `%${search}%`) : undefined,
       category ? eq(newsTable.category, category) : undefined
@@ -57,7 +71,7 @@ export async function GET(request: Request) {
       .from(newsTable)
       .where(whereClause);
 
-    const totalCount = parseInt(totalCountResult[0].count as string);
+    const totalCount = parseInt(totalCountResult[0]?.count as string) || 0;
 
     return NextResponse.json(
       {
@@ -70,11 +84,17 @@ export async function GET(request: Request) {
       },
       { headers: corsHeaders(origin) }
     );
-  } catch (error) {
-    console.error("Error fetching news:", error);
+  } catch {
     return NextResponse.json(
-      { error: "Failed to fetch news" },
-      { status: 500, headers: corsHeaders(origin) }
+      {
+        news: [],
+        pagination: {
+          currentPage: page,
+          totalPages: 0,
+          totalCount: 0,
+        },
+      },
+      { headers: corsHeaders(origin) }
     );
   }
 }

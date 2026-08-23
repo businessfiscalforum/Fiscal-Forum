@@ -13,14 +13,14 @@ export const metadata = {
 export default async function WeeklyReportsPage() {
   let reports: SelectResearchReport[] = [];
   try {
-    if (process.env.DATABASE_URL || process.env.NEON_DATABASE_URL) {
+    if (process.env.DATABASE_URL && !process.env.DATABASE_URL.includes("placeholder")) {
       reports = await db
         .select()
         .from(researchReportsTable)
         .orderBy(desc(researchReportsTable.publishDate));
     }
-  } catch (error) {
-    console.error("Failed to fetch weekly reports from DB:", error);
+  } catch {
+    console.warn("Weekly: Database connection unavailable. Using fallback view.");
   }
 
   const weeklyReports = reports.filter(

@@ -7,14 +7,14 @@ import { desc } from "drizzle-orm";
 export default async function ReportsPage() {
   let reports: SelectResearchReport[] = [];
   try {
-    if (process.env.DATABASE_URL || process.env.NEON_DATABASE_URL) {
+    if (process.env.DATABASE_URL && !process.env.DATABASE_URL.includes("placeholder")) {
       reports = await db
         .select()
         .from(researchReportsTable)
         .orderBy(desc(researchReportsTable.publishDate));
     }
-  } catch (error) {
-    console.error("Failed to fetch reports from DB:", error);
+  } catch {
+    console.warn("Reports: Database connection unavailable. Using fallback view.");
   }
 
   // Serialize data (remove BigInt, ensure plain JSON)

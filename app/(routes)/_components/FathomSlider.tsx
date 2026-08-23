@@ -804,6 +804,7 @@ export default function FathomSlider() {
                   src="/images/report_banner.jpg"
                   alt="Personalized Report Center Banner"
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover"
                 />
               </div>
@@ -879,6 +880,7 @@ export default function FathomSlider() {
             alt="Enlarged view of the Fiscal Forum pre market report."
             width={640}
             height={900}
+            style={{ width: "auto", height: "auto" }}
           />
         </div>
       </div>

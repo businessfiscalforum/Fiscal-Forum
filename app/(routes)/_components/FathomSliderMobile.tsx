@@ -556,6 +556,7 @@ export default function FathomSliderMobile() {
               src="/images/report_banner.jpg"
               alt="Personalized Report Center Banner"
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -656,6 +657,7 @@ export default function FathomSliderMobile() {
                 alt="Enlarged Pre Market Report"
                 width={560}
                 height={800}
+                style={{ width: "auto", height: "auto" }}
                 className="rounded-lg max-h-[75vh] object-contain shadow-2xl bg-white p-1"
               />
             </motion.div>

@@ -111,6 +111,7 @@ export default function Navbar() {
             alt="Fiscal Forum"
             width={85}
             height={65}
+            style={{ width: "auto", height: "auto" }}
             className="transition-transform active:scale-95"
             priority
           />

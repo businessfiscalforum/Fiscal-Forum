@@ -33,6 +33,9 @@ export async function OPTIONS(req: Request) {
 export async function GET(request: Request) {
   const origin = request.headers.get("origin");
   try {
+    if (!process.env.DATABASE_URL || process.env.DATABASE_URL.includes("placeholder")) {
+      return NextResponse.json([], { headers: corsHeaders(origin) });
+    }
     const reportItems = await db
       .select()
       .from(researchReportsTable)
@@ -45,11 +48,9 @@ export async function GET(request: Request) {
     return NextResponse.json(reportItems, {
       headers: corsHeaders(origin),
     });
-  } catch (error) {
-    console.error('Error fetching Thematic Research Report:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch Thematic Research Report' },
-      { status: 500, headers: corsHeaders(origin) }
-    );
+  } catch {
+    return NextResponse.json([], {
+      headers: corsHeaders(origin),
+    });
   }
 }

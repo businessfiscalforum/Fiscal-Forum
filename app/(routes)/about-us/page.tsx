@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 
 export default function AboutUs() {
   return (
@@ -73,7 +72,7 @@ export default function AboutUs() {
 
         .about-page-container .founders {
           display: grid;
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: minmax(0, 580px);
           gap: 40px;
           align-items: stretch;
           margin-top: 120px;
@@ -88,7 +87,7 @@ export default function AboutUs() {
           position: relative;
           opacity: 0;
           transform: translateY(24px);
-          animation: aboutRise 0.8s ease forwards;
+          animation: aboutRise 0.8s ease 0.7s forwards;
           transition: transform 0.35s ease, box-shadow 0.35s ease;
           box-shadow: 0 10px 28px rgba(14,37,30,0.08);
         }
@@ -96,8 +95,6 @@ export default function AboutUs() {
           transform: translateY(-6px);
           box-shadow: 0 24px 48px rgba(14,37,30,0.18);
         }
-        .about-page-container .card.left { animation-delay: 0.7s; }
-        .about-page-container .card.right { animation-delay: 0.85s; }
 
         .about-page-container .photo-frame {
           width: 112px;
@@ -206,30 +203,6 @@ export default function AboutUs() {
                 <span className="chip">Equity Research</span>
                 <span className="chip">Product Engineering</span>
                 <span className="chip">Data &amp; Models</span>
-              </div>
-            </div>
-
-            {/* Arihant Card */}
-            <div className="card right">
-              <div className="photo-frame">
-                <Image
-                  src="/founder-arihant.png"
-                  alt="Arihant Mehta"
-                  width={102}
-                  height={102}
-                  priority
-                />
-              </div>
-              <span className="role-label">Co-Founder</span>
-              <h3 className="name">ARIHANT MEHTA</h3>
-              <p className="title-line">Client Relations, Sales &amp; People Management</p>
-              <p className="bio">
-                Arihant is the reason Fiscal Forum feels human. He runs the relationships, the sales motion and the culture that turn a product into a community — sitting closest to users, translating what they actually need back into how Fiscal Forum teaches and grows.
-              </p>
-              <div className="chips">
-                <span className="chip">Client Relations</span>
-                <span className="chip">Sales Strategy</span>
-                <span className="chip">Team &amp; Culture</span>
               </div>
             </div>
           </div>
