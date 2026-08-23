@@ -1,6 +1,6 @@
 // app/(routes)/reports/weekly/page.tsx
 import { db } from "../../../../config/db";
-import { researchReportsTable } from "../../../../config/schema";
+import { researchReportsTable, SelectResearchReport } from "../../../../config/schema";
 import { desc } from "drizzle-orm";
 import { format } from "date-fns";
 import "./weekly.css";
@@ -11,10 +11,17 @@ export const metadata = {
 };
 
 export default async function WeeklyReportsPage() {
-  const reports = await db
-    .select()
-    .from(researchReportsTable)
-    .orderBy(desc(researchReportsTable.publishDate));
+  let reports: SelectResearchReport[] = [];
+  try {
+    if (process.env.DATABASE_URL || process.env.NEON_DATABASE_URL) {
+      reports = await db
+        .select()
+        .from(researchReportsTable)
+        .orderBy(desc(researchReportsTable.publishDate));
+    }
+  } catch (error) {
+    console.error("Failed to fetch weekly reports from DB:", error);
+  }
 
   const weeklyReports = reports.filter(
     (report) =>

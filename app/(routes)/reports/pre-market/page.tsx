@@ -1,7 +1,6 @@
 // app/(routes)/reports/pre-market/page.tsx
-import Link from "next/link";
 import { db } from "../../../../config/db";
-import { researchReportsTable } from "../../../../config/schema";
+import { researchReportsTable, SelectResearchReport } from "../../../../config/schema";
 import { desc } from "drizzle-orm";
 import { format } from "date-fns";
 import "./premarket.css";
@@ -12,10 +11,17 @@ export const metadata = {
 };
 
 export default async function PreMarketLandingPage() {
-  const reports = await db
-    .select()
-    .from(researchReportsTable)
-    .orderBy(desc(researchReportsTable.publishDate));
+  let reports: SelectResearchReport[] = [];
+  try {
+    if (process.env.DATABASE_URL || process.env.NEON_DATABASE_URL) {
+      reports = await db
+        .select()
+        .from(researchReportsTable)
+        .orderBy(desc(researchReportsTable.publishDate));
+    }
+  } catch (error) {
+    console.error("Failed to fetch pre-market reports from DB:", error);
+  }
 
   const preMarketReports = reports.filter(
     (report) =>
