@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "../../../config/db";
 import { b2bPartner } from "../../../config/schema";
 
+export const dynamic = "force-dynamic";
+
 const allowedOrigins = [
   "https://www.fiscalforum.in",
   "https://fiscalforum.in",
