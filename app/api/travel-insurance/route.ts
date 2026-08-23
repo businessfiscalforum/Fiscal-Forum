@@ -91,10 +91,10 @@ export async function POST(req: NextRequest) {
 
     let coverageOptions: string[] = [];
     let insurerPrefs: string[] = [];
-    try { coverageOptions = JSON.parse(coverageOptionsRaw); if (!Array.isArray(coverageOptions)) coverageOptions = []; } catch {}
-    try { insurerPrefs = JSON.parse(insurerPrefsRaw); if (!Array.isArray(insurerPrefs)) insurerPrefs = []; } catch {}
+    try { coverageOptions = JSON.parse(coverageOptionsRaw); if (!Array.isArray(coverageOptions)) coverageOptions = []; } catch { }
+    try { insurerPrefs = JSON.parse(insurerPrefsRaw); if (!Array.isArray(insurerPrefs)) insurerPrefs = []; } catch { }
 
-    const hasExistingPolicy = ["true","1","on","yes"].includes(hasExistingPolicyRaw.toLowerCase());
+    const hasExistingPolicy = ["true", "1", "on", "yes"].includes(hasExistingPolicyRaw.toLowerCase());
 
     // --- Resolve Clerk user to local UUID
     let userId: string | null = null;
@@ -151,4 +151,4 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export const config = { api: { bodyParser: false } };
+

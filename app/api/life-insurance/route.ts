@@ -52,18 +52,18 @@ export async function POST(req: NextRequest) {
     const otherInsurer = ((form.get("otherInsurer") as string) || "").trim();
 
     if (!name) {
-      return NextResponse.json({ success: false, error: "Name is required" }, { status: 400, headers: corsHeaders(origin)  as HeadersInit});
+      return NextResponse.json({ success: false, error: "Name is required" }, { status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
     if (!/^\d{10}$/.test(phone)) {
-      return NextResponse.json({ success: false, error: "Phone must be 10 digits" }, { status: 400, headers: corsHeaders(origin)  as HeadersInit});
+      return NextResponse.json({ success: false, error: "Phone must be 10 digits" }, { status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
     if (email && !/^([^\s@]+)@([^\s@]+)\.[^\s@]+$/.test(email)) {
-      return NextResponse.json({ success: false, error: "Invalid email format" }, { status: 400, headers: corsHeaders(origin)  as HeadersInit});
+      return NextResponse.json({ success: false, error: "Invalid email format" }, { status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
 
     const sumAssured = sumAssuredRaw ? Number(sumAssuredRaw) : null;
     if (sumAssuredRaw && (Number.isNaN(sumAssured) || sumAssured! <= 0)) {
-      return NextResponse.json({ success: false, error: "Sum assured must be a positive number" }, { status: 400, headers: corsHeaders(origin)  as HeadersInit});
+      return NextResponse.json({ success: false, error: "Sum assured must be a positive number" }, { status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
     const policyTermYears = policyTermYearsRaw ? Number(policyTermYearsRaw) : null;
     if (policyTermYearsRaw && (Number.isNaN(policyTermYears) || policyTermYears! <= 0)) {
@@ -103,7 +103,7 @@ export async function POST(req: NextRequest) {
         } else {
           const [created] = await db
             .insert(usersTable)
-            .values({ id: cu?.id,  name: fullName, email: clerkEmail, age: 18, password: "", role: "USER", status: "PENDING" })
+            .values({ id: cu?.id, name: fullName, email: clerkEmail, age: 18, password: "", role: "USER", status: "PENDING" })
             .returning();
           userId = created.id as string;
         }
@@ -139,10 +139,8 @@ export async function POST(req: NextRequest) {
   } catch (error: unknown) {
     console.error("Life insurance POST error:", error);
     const message = error instanceof Error ? error.message : "Internal error";
-    return NextResponse.json({ success: false, error: message }, { status: 500, headers: corsHeaders(origin)  as HeadersInit});
+    return NextResponse.json({ success: false, error: message }, { status: 500, headers: corsHeaders(origin) as HeadersInit });
   }
 }
 
-export const config = {
-  api: { bodyParser: false },
-};
+

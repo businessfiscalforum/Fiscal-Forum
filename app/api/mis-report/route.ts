@@ -30,7 +30,7 @@ export async function OPTIONS(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   const origin = req.headers.get("origin");
-  
+
   try {
     const body = await req.json();
     const name = (body.name || "").trim();
@@ -98,8 +98,3 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};

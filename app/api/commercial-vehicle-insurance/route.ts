@@ -22,7 +22,7 @@ function corsHeaders(origin: string | null) {
 }
 export async function OPTIONS(req: NextRequest) {
   const origin = req.headers.get("origin");
-  return NextResponse.json({}, { headers: corsHeaders(origin) as HeadersInit});
+  return NextResponse.json({}, { headers: corsHeaders(origin) as HeadersInit });
 }
 
 
@@ -76,47 +76,47 @@ export async function POST(req: NextRequest) {
 
     // Validation
     if (!name) {
-      return NextResponse.json({ success: false, error: "Name is required" }, { status: 400, headers: corsHeaders(origin) as HeadersInit});
+      return NextResponse.json({ success: false, error: "Name is required" }, { status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
     if (!/^\d{10}$/.test(phone)) {
-      return NextResponse.json({ success: false, error: "Phone must be 10 digits" },{ status: 400, headers: corsHeaders(origin) as HeadersInit});
+      return NextResponse.json({ success: false, error: "Phone must be 10 digits" }, { status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
     if (!vehicleType) {
-      return NextResponse.json({ success: false, error: "Vehicle type is required" }, { status: 400, headers: corsHeaders(origin) as HeadersInit});
+      return NextResponse.json({ success: false, error: "Vehicle type is required" }, { status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
 
     if (email && !/^([^\s@]+)@([^\s@]+)\.[^\s@]+$/.test(email)) {
-      return NextResponse.json({ success: false, error: "Invalid email format" },{ status: 400, headers: corsHeaders(origin) as HeadersInit});
+      return NextResponse.json({ success: false, error: "Invalid email format" }, { status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
 
     // GST validation (if provided)
     if (gstNumber && !/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/.test(gstNumber)) {
-      return NextResponse.json({ success: false, error: "Invalid GST number format" }, { status: 400, headers: corsHeaders(origin) as HeadersInit});
+      return NextResponse.json({ success: false, error: "Invalid GST number format" }, { status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
 
     // Vehicle year validation
     if (vehicleYear && (!/^\d{4}$/.test(vehicleYear) || parseInt(vehicleYear) < 1900 || parseInt(vehicleYear) > new Date().getFullYear() + 1)) {
-      return NextResponse.json({ success: false, error: "Invalid vehicle year" }, { status: 400, headers: corsHeaders(origin) as HeadersInit});
+      return NextResponse.json({ success: false, error: "Invalid vehicle year" }, { status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
 
     // Policy expiry validation
     if (policyExpiry && !/^\d{2}\/\d{2}\/\d{4}$/.test(policyExpiry)) {
-      return NextResponse.json({ success: false, error: "Policy expiry must be in dd/mm/yyyy format" }, { status: 400, headers: corsHeaders(origin) as HeadersInit});
+      return NextResponse.json({ success: false, error: "Policy expiry must be in dd/mm/yyyy format" }, { status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
 
     // Google Drive link validation
     const isDrive = (link: string) => /^(https?:\/\/)?(www\.)?drive\.google\.com\//i.test(link);
     if (rcLink && !isDrive(rcLink)) {
-      return NextResponse.json({ success: false, error: "RC link must be a public Google Drive URL" },{ status: 400, headers: corsHeaders(origin) as HeadersInit});
+      return NextResponse.json({ success: false, error: "RC link must be a public Google Drive URL" }, { status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
     if (prevInsuranceLink && !isDrive(prevInsuranceLink)) {
-      return NextResponse.json({ success: false, error: "Previous insurance link must be a public Google Drive URL" }, { status: 400, headers: corsHeaders(origin) as HeadersInit});
+      return NextResponse.json({ success: false, error: "Previous insurance link must be a public Google Drive URL" }, { status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
     if (businessLicenseLink && !isDrive(businessLicenseLink)) {
-      return NextResponse.json({ success: false, error: "Business license link must be a public Google Drive URL" }, { status: 400, headers: corsHeaders(origin) as HeadersInit});
+      return NextResponse.json({ success: false, error: "Business license link must be a public Google Drive URL" }, { status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
     if (gstCertificateLink && !isDrive(gstCertificateLink)) {
-      return NextResponse.json({ success: false, error: "GST certificate link must be a public Google Drive URL" },{ status: 400, headers: corsHeaders(origin) as HeadersInit});
+      return NextResponse.json({ success: false, error: "GST certificate link must be a public Google Drive URL" }, { status: 400, headers: corsHeaders(origin) as HeadersInit });
     }
 
     // Parse JSON arrays
@@ -201,7 +201,7 @@ export async function POST(req: NextRequest) {
       })
       .returning();
 
-    return NextResponse.json({ success: true, data: saved }, { status: 201, headers: corsHeaders(origin) as HeadersInit  });
+    return NextResponse.json({ success: true, data: saved }, { status: 201, headers: corsHeaders(origin) as HeadersInit });
   } catch (error: unknown) {
     // eslint-disable-next-line no-console
     console.error("Commercial vehicle insurance POST error:", error);
@@ -210,6 +210,4 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export const config = {
-  api: { bodyParser: false },
-};
+

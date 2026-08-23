@@ -76,9 +76,9 @@ export async function POST(req: NextRequest) {
     let coverageType: string[] = [];
     let coverageOptions: string[] = [];
     let insurerPrefs: string[] = [];
-    try { coverageType = JSON.parse(coverageTypeRaw); if (!Array.isArray(coverageType)) coverageType = []; } catch {}
-    try { coverageOptions = JSON.parse(coverageOptionsRaw); if (!Array.isArray(coverageOptions)) coverageOptions = []; } catch {}
-    try { insurerPrefs = JSON.parse(insurerPrefsRaw); if (!Array.isArray(insurerPrefs)) insurerPrefs = []; } catch {}
+    try { coverageType = JSON.parse(coverageTypeRaw); if (!Array.isArray(coverageType)) coverageType = []; } catch { }
+    try { coverageOptions = JSON.parse(coverageOptionsRaw); if (!Array.isArray(coverageOptions)) coverageOptions = []; } catch { }
+    try { insurerPrefs = JSON.parse(insurerPrefsRaw); if (!Array.isArray(insurerPrefs)) insurerPrefs = []; } catch { }
 
     const hasExistingPolicy = ["true", "1", "on", "yes"].includes(hasExistingPolicyRaw.toLowerCase());
 
@@ -135,4 +135,3 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export const config = { api: { bodyParser: false } };
