@@ -482,6 +482,7 @@ export default function FathomSliderMobile() {
               src="/images/research_banner.jpg"
               alt="Research Reports Banner"
               fill
+              sizes="100vw"
               className="object-cover"
             />
           </div>

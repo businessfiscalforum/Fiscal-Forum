@@ -730,6 +730,7 @@ export default function FathomSlider() {
                   src="/images/research_banner.jpg"
                   alt="Research Reports Banner"
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
                   className="object-cover"
                 />
               </div>
