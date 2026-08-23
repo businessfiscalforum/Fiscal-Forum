@@ -1,0 +1,40 @@
+export const metadata = {
+  title: "Privacy Policy | Fiscal Forum",
+  description: "Learn how Fiscal Forum collects, uses, and protects your personal information. Read our privacy policy for data security and user rights.",
+  keywords: [
+    "privacy policy",
+    "Fiscal Forum privacy",
+    "data protection",
+    "personal information",
+    "user data security",
+    "privacy rights India",
+    "GDPR compliance",
+  ],
+  authors: [{ name: "Fiscal Forum Team", url: "https://www.fiscalforum.in" }],
+  creator: "Fiscal Forum",
+  publisher: "Fiscal Forum",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    title: "Privacy Policy – Fiscal Forum",
+    description: "Understand how Fiscal Forum protects your privacy and handles your personal data across our financial services platform.",
+    url: "https://www.fiscalforum.in/privacy",
+    siteName: "Fiscal Forum",
+    locale: "en_IN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy | Fiscal Forum",
+    description: "Read Fiscal Forum's privacy policy to understand data collection, usage, and protection practices.",
+  },
+};

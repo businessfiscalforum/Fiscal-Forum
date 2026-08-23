@@ -1,0 +1,158 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
+import { personalLoanApplications } from '../../../config/schema';
+import { db } from '../../../config/db';
+
+const allowedOrigins = [
+  "https://www.fiscalforum.in",
+  "https://fiscalforum.in",
+  "http://localhost:3000"
+];
+
+function corsHeaders(origin: string | null): HeadersInit {
+  if (origin && allowedOrigins.includes(origin)) {
+    return {
+      "Access-Control-Allow-Origin": origin,
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    };
+  }
+  return {};
+}
+
+// Zod schema - EXACT MATCH with frontend
+const personalLoanSchema = z.object({
+  firstName: z.string().min(1, "First name is required"),
+  middleName: z.string().optional(),
+  lastName: z.string().min(1, "Last name is required"),
+  fatherName: z.string().min(1, "Father's name is required"),
+  dateOfBirth: z.string().min(1, "Date of birth is required"),
+  panNumber: z.string().regex(/^[A-Z]{5}[0-9]{4}[A-Z]$/, "Invalid format"),
+  maritalStatus: z.enum(["Married", "Unmarried", "Others"]),
+  gender: z.enum(["Male", "Female", "Others"]),
+  mobileNo: z.string().min(10).max(15),
+  emailId: z.string().email("Invalid email address"),
+
+  // Current Address
+  currentHomeAddress1: z.string().min(1),
+  currentHomeAddress2: z.string().optional(),
+  currentResidenceType: z.enum(['Owned', 'Rented']),
+  currentPincode: z.string().length(6),
+  currentState: z.string().min(1),
+  currentCity: z.string().min(1),
+  permanentAddressSame: z.boolean(),
+  permanentHomeAddress1: z.string().min(1),
+  permanentHomeAddress2: z.string().optional(),
+  permanentResidenceType: z.enum(['Owned', 'Rented']),
+  permanentPincode: z.string().length(6),
+  permanentState: z.string().min(1),
+  permanentCity: z.string().min(1),
+
+  // Employment Details
+  employmentType: z.enum(["Company", "Self-Employed"]),
+  companyName: z.string().optional(),
+  designation: z.string().optional(),
+  netMonthlySalary: z
+    .preprocess(val => (val === "" || val === undefined ? undefined : Number(val)), z.number().optional())
+    .optional(),
+
+  // Loan Amount
+  loanAmountRequired: z.number().min(1, "Loan amount is required"),
+
+  // Existing Obligations
+  noOfCurrentLoans: z.number().min(0).max(10),
+  existingLoanType: z.enum(["None", "Personal", "Car", "Education", "Other"]).optional(),
+
+  // References
+  reference1: z.object({
+    name: z.string().min(1),
+    mobile: z.string().min(10),
+    address: z.string().min(1),
+  }),
+  reference2: z.object({
+    name: z.string().min(1),
+    mobile: z.string().min(10),
+    address: z.string().min(1),
+  }),
+});
+
+export async function POST(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  try {
+    const body = await req.json();
+    const parsed = personalLoanSchema.parse(body);
+
+    const insertData = {
+      firstName: parsed.firstName,
+      middleName: parsed.middleName || null,
+      lastName: parsed.lastName,
+      fatherName: parsed.fatherName,
+      dateOfBirth: parsed.dateOfBirth,
+      panNumber: parsed.panNumber,
+      emailId: parsed.emailId,
+      mobileNo: parsed.mobileNo,
+      gender: parsed.gender,
+      maritalStatus: parsed.maritalStatus,
+      currentHomeAddress1: parsed.currentHomeAddress1,
+      currentHomeAddress2: parsed.currentHomeAddress2 || null,
+      currentResidenceType: parsed.currentResidenceType,
+      currentCity: parsed.currentCity,
+      currentState: parsed.currentState,
+      currentPincode: parsed.currentPincode,
+      permanentHomeAddress1: parsed.permanentHomeAddress1,
+      permanentHomeAddress2: parsed.permanentHomeAddress2 || null,
+      permanentResidenceType: parsed.permanentResidenceType,
+      permanentCity: parsed.permanentCity,
+      permanentState: parsed.permanentState,
+      permanentPincode: parsed.permanentPincode,
+      permanentAddressSame: parsed.permanentAddressSame,
+      employmentType: parsed.employmentType,
+      companyName: parsed.companyName || null,
+      designation: parsed.designation || null,
+      netMonthlySalary: parsed.netMonthlySalary || null,
+      loanAmountRequired: parsed.loanAmountRequired,
+      noOfCurrentLoans: parsed.noOfCurrentLoans,
+      existingLoanType: parsed.existingLoanType || null,
+      reference1Name: parsed.reference1.name,
+      reference1Mobile: parsed.reference1.mobile,
+      reference1Address: parsed.reference1.address,
+      reference2Name: parsed.reference2.name,
+      reference2Mobile: parsed.reference2.mobile,
+      reference2Address: parsed.reference2.address,
+    };
+
+    const [result] = await db.insert(personalLoanApplications).values(insertData).returning();
+
+    return NextResponse.json(
+      { message: "Personal loan application submitted successfully", result },
+      { status: 201, headers: corsHeaders(origin) }
+    );
+  } catch (error) {
+    console.error("Personal Loan Application Error:", error);
+
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: "Validation failed", details: error },
+        { status: 400, headers: corsHeaders(origin) }
+      );
+    }
+
+    return NextResponse.json(
+      { error: "Internal server error", details: (error as Error).message },
+      { status: 500, headers: corsHeaders(origin) }
+    );
+  }
+}
+
+export async function GET(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  return NextResponse.json(
+    { message: "Personal Loan Application API endpoint", method: "POST" },
+    { headers: corsHeaders(origin) }
+  );
+}
+
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  return NextResponse.json({}, { headers: corsHeaders(origin) });
+}
