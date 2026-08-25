@@ -183,7 +183,7 @@ export default function AboutUs() {
 
           <div className="founders">
             {/* Harsh Card */}
-            <div className="card left">
+            <div className="card">
               <div className="photo-frame">
                 <Image
                   src="/founder-harsh.png"
@@ -193,7 +193,7 @@ export default function AboutUs() {
                   priority
                 />
               </div>
-              <span className="role-label">Co-Founder</span>
+              <span className="role-label">Founder</span>
               <h3 className="name">HARSH MAHTO</h3>
               <p className="title-line">Finance, Research &amp; Technology</p>
               <p className="bio">
