@@ -33,6 +33,9 @@ export async function OPTIONS(req: Request) {
 export async function GET(request: Request) {
   const origin = request.headers.get("origin");
   try {
+    if (!process.env.DATABASE_URL || process.env.DATABASE_URL.includes("placeholder")) {
+      return NextResponse.json([], { headers: corsHeaders(origin) });
+    }
     const newsItems = await db
       .select()
       .from(newsTable)
@@ -45,11 +48,9 @@ export async function GET(request: Request) {
     return NextResponse.json(newsItems, {
       headers: corsHeaders(origin),
     });
-  } catch (error) {
-    console.error('Error fetching News Buzz:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch News Buzz items' },
-      { status: 500, headers: corsHeaders(origin) }
-    );
+  } catch {
+    return NextResponse.json([], {
+      headers: corsHeaders(origin),
+    });
   }
 }

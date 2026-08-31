@@ -1,15 +1,21 @@
 // app/(routes)/reports/page.tsx
 import ClientReportsPage from "./ClientReportsPage";
 import { db } from "../../../config/db";
-import { researchReportsTable } from "../../../config/schema";
+import { researchReportsTable, SelectResearchReport } from "../../../config/schema";
 import { desc } from "drizzle-orm";
 
 export default async function ReportsPage() {
-  // Fetch all published research reports
-  const reports = await db
-    .select()
-    .from(researchReportsTable)
-    .orderBy(desc(researchReportsTable.publishDate));
+  let reports: SelectResearchReport[] = [];
+  try {
+    if (process.env.DATABASE_URL && !process.env.DATABASE_URL.includes("placeholder")) {
+      reports = await db
+        .select()
+        .from(researchReportsTable)
+        .orderBy(desc(researchReportsTable.publishDate));
+    }
+  } catch {
+    console.warn("Reports: Database connection unavailable. Using fallback view.");
+  }
 
   // Serialize data (remove BigInt, ensure plain JSON)
   const serializedReports = reports.map((report) => ({

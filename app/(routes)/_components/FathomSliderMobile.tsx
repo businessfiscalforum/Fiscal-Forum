@@ -265,7 +265,7 @@ export default function FathomSliderMobile() {
                 Want recommendations like this?
               </p>
               <Link
-                href="/services/learning-centre"
+                href="/services/learn-earn"
                 className="relative overflow-hidden button-border-animate-container inline-flex w-full max-w-[280px] py-3 bg-black hover:bg-zinc-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
               >
                 <div className="absolute inset-0 pointer-events-none rounded-full overflow-hidden z-20">
@@ -482,6 +482,7 @@ export default function FathomSliderMobile() {
               src="/images/research_banner.jpg"
               alt="Research Reports Banner"
               fill
+              sizes="100vw"
               className="object-cover"
             />
           </div>
@@ -555,6 +556,7 @@ export default function FathomSliderMobile() {
               src="/images/report_banner.jpg"
               alt="Personalized Report Center Banner"
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -655,6 +657,7 @@ export default function FathomSliderMobile() {
                 alt="Enlarged Pre Market Report"
                 width={560}
                 height={800}
+                style={{ width: "auto", height: "auto" }}
                 className="rounded-lg max-h-[75vh] object-contain shadow-2xl bg-white p-1"
               />
             </motion.div>

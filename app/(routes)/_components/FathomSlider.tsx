@@ -498,7 +498,7 @@ export default function FathomSlider() {
                       />
                     </div>
                     <p className="stock-recommend__prompt">Want recommendations like this?</p>
-                    <Link href="/services/learning-centre" className="btn btn--black relative overflow-hidden button-border-animate-container">
+                    <Link href="/services/learn-earn" className="btn btn--black relative overflow-hidden button-border-animate-container">
                       <div className="absolute inset-0 pointer-events-none rounded-[999px] overflow-hidden z-20">
                         <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
                           <rect
@@ -730,6 +730,7 @@ export default function FathomSlider() {
                   src="/images/research_banner.jpg"
                   alt="Research Reports Banner"
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
                   className="object-cover"
                 />
               </div>
@@ -803,6 +804,7 @@ export default function FathomSlider() {
                   src="/images/report_banner.jpg"
                   alt="Personalized Report Center Banner"
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover"
                 />
               </div>
@@ -878,6 +880,7 @@ export default function FathomSlider() {
             alt="Enlarged view of the Fiscal Forum pre market report."
             width={640}
             height={900}
+            style={{ width: "auto", height: "auto" }}
           />
         </div>
       </div>

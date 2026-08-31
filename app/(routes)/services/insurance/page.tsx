@@ -345,7 +345,7 @@ const InsurancePage = () => {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <button
-              onClick={() => router.push("/services/learning-centre/contact")}
+              onClick={() => router.push("/services/learn-earn/contact")}
               className="bg-white border border-[#111315] text-[#111315] hover:bg-[#F2F8F4] px-6 py-3 rounded-full font-bold text-xs transition shadow-sm flex items-center gap-2 cursor-pointer"
             >
               <Phone className="w-4 h-4" />

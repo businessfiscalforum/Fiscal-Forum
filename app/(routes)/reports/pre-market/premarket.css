@@ -18,7 +18,7 @@
   color: var(--ink);
   overflow-x: hidden;
   position: relative;
-  padding-top: 80px; /* offset fixed global navbar */
+  padding-top: 64px; /* offset fixed global navbar */
 }
 
 .premarket-page-container .mono {
@@ -28,14 +28,13 @@
 /* ---------- HERO ---------- */
 .premarket-page-container .hero {
   position: relative;
-  min-height: calc(100vh - 80px);
   background: var(--cream);
   color: var(--ink);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 5vw;
+  padding: 24px 4vw 30px;
   border-bottom: 1px solid rgba(16, 21, 18, 0.1);
 }
 
@@ -97,28 +96,28 @@
 .premarket-page-container .hero-inner {
   position: relative;
   z-index: 2;
-  max-width: 1280px;
+  max-width: 1440px;
   width: 100%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 64px;
+  grid-template-columns: 0.9fr 1.25fr;
+  gap: 48px;
   align-items: center;
-  padding-top: 34px;
+  padding-top: 0;
 }
 
 .premarket-page-container .eyebrow-row {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 30px;
+  margin-bottom: 18px;
 }
 .premarket-page-container .pill {
   font-family: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: .14em;
   text-transform: uppercase;
-  padding: 7px 14px;
+  padding: 8px 16px;
   border: 1px solid rgba(16, 21, 18, 0.16);
   border-radius: 20px;
   color: var(--ink);
@@ -126,6 +125,7 @@
   align-items: center;
   gap: 8px;
   background: var(--paper);
+  font-weight: 600;
 }
 .premarket-page-container .pill.accent {
   background: var(--forest);
@@ -145,34 +145,33 @@
 }
 
 .premarket-page-container h1.headline {
-  font-size: clamp(40px, 5vw, 68px);
-  line-height: 1.04;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  margin-bottom: 22px;
+  font-size: clamp(48px, 5.8vw, 82px);
+  line-height: 1.02;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
   color: var(--ink);
 }
 .premarket-page-container h1.headline em {
   font-style: normal;
-  color: var(--forest);
-  position: relative;
+  color: #0E251E;
+  background: #25A976;
+  padding: 2px 14px 4px;
+  border-radius: 8px;
+  display: inline-block;
+  line-height: 1.05;
 }
 .premarket-page-container h1.headline em::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: 6px;
-  height: 10px;
-  background: var(--mint-pale);
-  z-index: -1;
+  display: none;
 }
 
 .premarket-page-container .sub {
-  font-size: 16px !important;
+  font-size: clamp(18px, 1.8vw, 22px) !important;
   font-style: italic;
   color: var(--muted);
-  max-width: 460px;
-  line-height: 1.55;
-  margin-bottom: 40px;
+  max-width: 580px;
+  line-height: 1.45;
+  margin-bottom: 28px;
 }
 
 .premarket-page-container .cta-row {
@@ -184,14 +183,14 @@
 .premarket-page-container .cta {
   font-family: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
   font-weight: 700;
-  font-size: 14.5px;
+  font-size: 16px;
   letter-spacing: .03em;
   text-transform: uppercase;
   background: var(--forest);
   color: var(--paper);
   border: 1.5px solid var(--forest);
-  border-radius: 3px;
-  padding: 17px 30px;
+  border-radius: 4px;
+  padding: 16px 34px;
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -224,22 +223,29 @@
   background: #B3432B;
 }
 
-/* ---------- REPORT CARD ---------- */
+/* ---------- REPORT CARD & HERO IMAGE ---------- */
 .premarket-page-container .card-stage {
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
+  width: 100%;
 }
 .premarket-page-container .hero-img-wrap {
+  position: relative;
   width: 100%;
-  max-width: 500px;
-  height: 350px;
+  max-width: 860px;
+  aspect-ratio: 16 / 10.2;
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: 20px;
   border: 1px solid rgba(16, 21, 18, 0.14);
-  box-shadow: 0 20px 44px rgba(16, 21, 18, 0.12);
+  box-shadow: 0 24px 50px rgba(16, 21, 18, 0.14), 0 4px 12px rgba(16, 21, 18, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.premarket-page-container .hero-img-wrap:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 60px rgba(16, 21, 18, 0.18), 0 6px 16px rgba(16, 21, 18, 0.08);
 }
 .premarket-page-container .hero-image {
   width: 100%;
@@ -341,14 +347,17 @@
 /* scroll cue */
 .premarket-page-container .scroll-cue {
   position: absolute;
-  bottom: 30px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
-  width: 40px; height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   border: 1px solid rgba(16, 21, 18, .14);
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: var(--paper);
   box-shadow: 0 2px 8px rgba(16, 21, 18, 0.06);
   animation: premarketBob 2.2s ease-in-out infinite;
@@ -359,17 +368,20 @@
 }
 
 @media (max-width: 880px) {
-  .premarket-page-container .hero { padding: 8vw 6vw; }
+  .premarket-page-container .hero { padding: 24px 5vw 36px; }
   .premarket-page-container .hero-inner {
     grid-template-columns: 1fr;
-    gap: 52px;
+    gap: 32px;
     text-align: left;
-    padding-top: 56px;
+    padding-top: 0;
   }
-  .premarket-page-container .card-stage { order: -1; }
+  .premarket-page-container .card-stage {
+    order: -1;
+    align-items: center;
+  }
   .premarket-page-container .hero-img-wrap {
     max-width: 100%;
-    height: 240px;
+    aspect-ratio: 16 / 10.2;
     margin-bottom: 0px;
   }
 }
@@ -387,7 +399,7 @@
 .premarket-page-container .report-content {
   position: relative;
   background: var(--paper);
-  padding: 110px 5vw 120px;
+  padding: 56px 5vw 64px;
   overflow: hidden;
   border-bottom: 1px solid rgba(16, 21, 18, .1);
 }
@@ -571,8 +583,8 @@
 }
 
 .premarket-page-container .report-cta {
-  margin-top: 70px;
-  padding: 34px 38px;
+  margin-top: 48px;
+  padding: 30px 36px;
   background: var(--forest);
   color: var(--paper);
   display: flex;
@@ -581,6 +593,7 @@
   gap: 30px;
   position: relative;
   overflow: hidden;
+  border-radius: 4px;
 }
 .premarket-page-container .report-cta::after {
   content: "";
@@ -695,7 +708,7 @@
 
 /* ---------- CLAYMORPHISM DATABASE SECTION ---------- */
 .premarket-page-container .clay-database-section {
-  padding: 80px 5vw;
+  padding: 44px 5vw 56px;
   background: var(--cream);
   position: relative;
   overflow: hidden;
@@ -704,7 +717,7 @@
 
 .premarket-page-container .clay-heading-wrap {
   max-width: 1280px;
-  margin: 0 auto 40px;
+  margin: 0 auto 28px;
 }
 
 .premarket-page-container .clay-title {

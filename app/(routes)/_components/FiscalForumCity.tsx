@@ -15,7 +15,7 @@ const hotspots = [
     color: "#10B981",
     bgColor: "bg-emerald-50",
     borderColor: "border-emerald-400",
-    link: "/services/learning-centre/equity-etfs",
+    link: "/services/learn-earn/equity-etfs",
     icon: "📈",
     xOffset: -120,
     yOffset: -20,
@@ -30,7 +30,7 @@ const hotspots = [
     color: "#3B82F6",
     bgColor: "bg-blue-50",
     borderColor: "border-blue-400",
-    link: "/services/learning-centre/commodities",
+    link: "/services/learn-earn/commodities",
     icon: "🪙",
     xOffset: -100,
     yOffset: 100,
@@ -45,7 +45,7 @@ const hotspots = [
     color: "#F59E0B",
     bgColor: "bg-yellow-50",
     borderColor: "border-yellow-400",
-    link: "/services/learning-centre/mtf",
+    link: "/services/learn-earn/mtf",
     icon: "⚡",
     xOffset: -100,
     yOffset: -100,
@@ -59,7 +59,7 @@ const hotspots = [
     color: "#1FA463",
     bgColor: "bg-emerald-50",
     borderColor: "border-emerald-500",
-    link: "/services/learning-centre",
+    link: "/services/learn-earn",
     icon: "🏛️",
     xOffset: 0,
     yOffset: -120,
@@ -88,7 +88,7 @@ const hotspots = [
     color: "#F97316",
     bgColor: "bg-orange-50",
     borderColor: "border-orange-400",
-    link: "/services/learning-centre/futures-options",
+    link: "/services/learn-earn/futures-options",
     icon: "🎯",
     xOffset: 120,
     yOffset: 80,
@@ -102,7 +102,7 @@ const hotspots = [
     color: "#A855F7",
     bgColor: "bg-purple-50",
     borderColor: "border-purple-400",
-    link: "/services/learning-centre/ipo",
+    link: "/services/learn-earn/ipo",
     icon: "🚀",
     xOffset: 100,
     yOffset: -100,
@@ -426,7 +426,7 @@ export default function FiscalForumCity() {
         <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-black px-6 sm:px-12 max-w-7xl mx-auto leading-relaxed">
           While others are building wealth, what&apos;s stopping you? Start Clicking{" "}
           <Link
-            href="/services/learning-centre"
+            href="/services/learn-earn"
             className="inline-block bg-yellow-300 hover:bg-yellow-400 text-black border-2 border-black px-3 py-1 rounded-xl shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:-translate-y-0.5 active:translate-y-0 mx-1.5 align-middle"
           >
             here

@@ -105,10 +105,10 @@ export default function IPOPage() {
               <button className="btn" onClick={() => scrollTo("s-sim")}>
                 Try the allotment simulator
               </button>
-              <Link href="/services/learning-centre/ipo/apply" className="btn" style={{ display: "inline-block", textDecoration: "none", textAlign: "center" }}>
+              <Link href="/services/learn-earn/ipo/apply" className="btn" style={{ display: "inline-block", textDecoration: "none", textAlign: "center" }}>
                 Apply for IPO
               </Link>
-              <Link href="/services/learning-centre/open-demat-account" className="btn" style={{ display: "inline-block", textDecoration: "none", textAlign: "center" }}>
+              <Link href="/services/learn-earn/open-demat-account" className="btn" style={{ display: "inline-block", textDecoration: "none", textAlign: "center" }}>
                 Open Demat Account
               </Link>
             </div>
@@ -485,10 +485,10 @@ export default function IPOPage() {
             Submit your IPO application form online and start your investment journey today.
           </p>
           <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
-            <Link href="/services/learning-centre/ipo/apply" className="btn primary" style={{ display: "inline-block", textDecoration: "none" }}>
+            <Link href="/services/learn-earn/ipo/apply" className="btn primary" style={{ display: "inline-block", textDecoration: "none" }}>
               Apply for IPO now
             </Link>
-            <Link href="/services/learning-centre/open-demat-account" className="btn" style={{ display: "inline-block", textDecoration: "none" }}>
+            <Link href="/services/learn-earn/open-demat-account" className="btn" style={{ display: "inline-block", textDecoration: "none" }}>
               Open Demat Account
             </Link>
           </div>

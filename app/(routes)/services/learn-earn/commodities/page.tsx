@@ -960,7 +960,7 @@ export default function CommoditiesPage() {
       {/* BOTTOM CTA */}
       <section className="cta-section">
         <h3>Ready to start trading commodities?</h3>
-        <Link href="/services/learning-centre/commodities/apply" className="intro-cta">
+        <Link href="/services/learn-earn/commodities/apply" className="intro-cta">
           Explore Commodities <span className="intro-cta-arrow">→</span>
         </Link>
       </section>

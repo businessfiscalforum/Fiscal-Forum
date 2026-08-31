@@ -565,7 +565,7 @@ export default function UnlistedSharesPage() {
                 Open your Demat account with us to start navigating pre-IPO deals and unlisted share opportunities safely.
               </p>
               <button
-                onClick={() => router.push("/services/learning-centre/open-demat-account")}
+                onClick={() => router.push("/services/learn-earn/open-demat-account")}
                 className={`${styles.btn} ${styles["btn-large"]} ${styles["btn-primary"]} mt-4`}
               >
                 Open Demat Account
