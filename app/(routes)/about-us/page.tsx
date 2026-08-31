@@ -23,10 +23,6 @@ export default function AboutUs() {
           --line: rgba(242,238,226,0.14);
 
           background-color: var(--panel);
-          background-image:
-            linear-gradient(rgba(14,37,30,0.09) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(14,37,30,0.09) 1px, transparent 1px);
-          background-size: 42px 42px;
           color: var(--text-dark);
           font-family: 'Manrope', sans-serif;
           min-height: 100vh;
