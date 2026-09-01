@@ -68,8 +68,8 @@ export default function AboutUs() {
 
         .about-page-container .founders {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 36px;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 76px 36px;
           align-items: stretch;
           margin-top: 120px;
         }
@@ -94,12 +94,15 @@ export default function AboutUs() {
         }
 
         .about-page-container .card.c1 {
-          animation: aboutRise 0.8s ease 0.4s forwards;
+          animation: aboutRise 0.8s ease 0.35s forwards;
         }
         .about-page-container .card.c2 {
-          animation: aboutRise 0.8s ease 0.6s forwards;
+          animation: aboutRise 0.8s ease 0.5s forwards;
         }
         .about-page-container .card.c3 {
+          animation: aboutRise 0.8s ease 0.65s forwards;
+        }
+        .about-page-container .card.c4 {
           animation: aboutRise 0.8s ease 0.8s forwards;
         }
 
@@ -176,14 +179,7 @@ export default function AboutUs() {
           to { opacity: 1; transform: translateY(0); }
         }
 
-        @media (max-width: 1024px) {
-          .about-page-container .founders {
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 80px 28px;
-          }
-        }
-
-        @media (max-width: 760px) {
+        @media (max-width: 860px) {
           .about-page-container .wrap { padding: 56px 20px 70px; }
           .about-page-container .founders {
             grid-template-columns: 1fr;
@@ -214,7 +210,7 @@ export default function AboutUs() {
                   priority
                 />
               </div>
-              <span className="role-label">Founder</span>
+              <span className="role-label">Co-Founder</span>
               <h3 className="name">HARSH MAHTO</h3>
               <p className="title-line">Finance, Research &amp; Technology</p>
               <p className="bio">
@@ -227,8 +223,32 @@ export default function AboutUs() {
               </div>
             </div>
 
-            {/* Rishita Card */}
+            {/* Arihant Card */}
             <div className="card c2">
+              <div className="photo-frame">
+                <Image
+                  src="/founder-arihant.png"
+                  alt="Arihant Mehta"
+                  width={102}
+                  height={102}
+                  priority
+                />
+              </div>
+              <span className="role-label">Co-Founder</span>
+              <h3 className="name">ARIHANT MEHTA</h3>
+              <p className="title-line">Sales, Client Relations &amp; Management</p>
+              <p className="bio">
+                Arihant spearheads client-facing relationships, strategic sales initiatives, and cross-functional management at Fiscal Forum. Dedicated to client success and organizational growth, he ensures seamless partnerships, top-tier advisory delivery, and lasting value for every investor and institutional client.
+              </p>
+              <div className="chips">
+                <span className="chip">Sales &amp; Growth</span>
+                <span className="chip">Client Relations</span>
+                <span className="chip">Strategic Management</span>
+              </div>
+            </div>
+
+            {/* Rishita Card */}
+            <div className="card c3">
               <div className="photo-frame">
                 <Image
                   src="/team-rishita.png"
@@ -252,7 +272,7 @@ export default function AboutUs() {
             </div>
 
             {/* Nakul Card */}
-            <div className="card c3">
+            <div className="card c4">
               <div className="photo-frame">
                 <Image
                   src="/team-nakul.png"
