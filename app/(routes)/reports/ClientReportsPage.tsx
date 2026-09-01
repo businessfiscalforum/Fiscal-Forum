@@ -381,6 +381,7 @@ export default function ClientReportsPage({
   /* ============ PAGE TABS ============ */
   const [activeTab, setActiveTab] = useState(tabs[0].id);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  const [activeThemeFaq, setActiveThemeFaq] = useState<number | null>(null);
 
   /* ============ SEARCH / FILTER REPORTS (DB DATA) ============ */
   const [dbReports, setDbReports] = useState<ResearchReport[]>(initialReports);
@@ -3133,6 +3134,67 @@ export default function ClientReportsPage({
                 </div>
               );
             })}
+          </div>
+
+          {/* ================= THEME BASED SECTORS FAQ ================= */}
+          <div className="theme-faq-container" style={{ marginTop: "72px", paddingTop: "56px", borderTop: "1px solid rgba(17,20,17,0.12)" }}>
+            <div className="theme-faq-kicker">
+              <span className="theme-faq-kicker-line"></span>
+              FAQS
+            </div>
+            <div className="theme-faq-heading">
+              <h2>Frequently Asked <em>Questions</em></h2>
+              <p>Everything you need to know about theme-based sectors, market heatmaps, and screener metrics.</p>
+            </div>
+
+            <div className="theme-faq-accordion">
+              {[
+                {
+                  q: "What theme-based sector indices are covered on the page?",
+                  a: "The page covers theme-based indices including Nifty India Defence, Nifty IPO, Nifty Sugar & Ethanol, Nifty Commodities, Nifty EV & New Age Automotive, Nifty India New Age Consumption, Nifty100 ESG, Nifty500 Ahimsa, Nifty India Tourism, Nifty50 Shariah, and Nifty India Digital."
+                },
+                {
+                  q: "What filters can I use in the NSE Equity Screener to find specific stocks?",
+                  a: "You can filter all listed NSE equities across market-cap tiers (Large, Mid, Small, Micro), quarterly operating profit margins (OPM %), broad and sectoral indices, and financial valuation ranges like P/E, ROE (%), and ROCE (%)."
+                },
+                {
+                  q: "How do I read and interpret the Sector Heatmap?",
+                  a: "The heatmap visualizes sector momentum at a glance. The bubble size corresponds to the magnitude of the Year-to-Date (YTD) return, while the color indicates direction (green for positive gains, yellow/orange for moderate drops, and red for steep corrections)."
+                },
+                {
+                  q: "How frequently are the sector returns, heatmaps, and stock screener data updated?",
+                  a: "All market indices, thematic performances, and screener metrics (including P/E, ROCE, and market cap) are synced daily with official NSE end-of-day market closing data."
+                },
+                {
+                  q: "How does the NSE Equity Screener help in identifying stocks?",
+                  a: "The NSE Equity Screener allows users to search and filter NSE-listed equities using criteria such as market-cap tier, market capitalization, quarterly OPM, broad and sectoral indices, P/E ratio, ROE, and ROCE. Users can then view detailed stock information directly from the results table."
+                }
+              ].map((faq, idx) => {
+                const isOpen = activeThemeFaq === idx;
+                return (
+                  <div key={idx} className={`theme-faq-item ${isOpen ? "open" : ""}`}>
+                    <button
+                      className="theme-faq-trigger"
+                      onClick={() => setActiveThemeFaq(isOpen ? null : idx)}
+                      aria-expanded={isOpen}
+                    >
+                      <span className="theme-faq-q-number">{String(idx + 1).padStart(2, "0")}.</span>
+                      <span className="theme-faq-question">{faq.q}</span>
+                      <span className="theme-faq-icon-arrow">
+                        <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+                          <path d="M1 1L6 6L11 1" stroke="#101512" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
+                    </button>
+                    <div className="theme-faq-answer-wrap">
+                      <div className="theme-faq-answer">
+                        <p>{faq.a}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
