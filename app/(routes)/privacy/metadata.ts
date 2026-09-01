@@ -1,6 +1,7 @@
 export const metadata = {
-  title: "Privacy Policy | Fiscal Forum",
-  description: "Learn how Fiscal Forum collects, uses, and protects your personal information. Read our privacy policy for data security and user rights.",
+  title: "Privacy Policy — Fiscal Forum Finserv",
+  description:
+    "Privacy Policy for Fiscal Forum Finserv. Learn how we collect, use, share, and protect your personal information.",
   keywords: [
     "privacy policy",
     "Fiscal Forum privacy",
@@ -8,11 +9,10 @@ export const metadata = {
     "personal information",
     "user data security",
     "privacy rights India",
-    "GDPR compliance",
   ],
-  authors: [{ name: "Fiscal Forum Team", url: "https://www.fiscalforum.in" }],
-  creator: "Fiscal Forum",
-  publisher: "Fiscal Forum",
+  authors: [{ name: "Fiscal Forum Finserv", url: "https://www.fiscalforum.in" }],
+  creator: "Fiscal Forum Finserv",
+  publisher: "Fiscal Forum Finserv",
   robots: {
     index: true,
     follow: true,
@@ -25,16 +25,18 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Privacy Policy – Fiscal Forum",
-    description: "Understand how Fiscal Forum protects your privacy and handles your personal data across our financial services platform.",
+    title: "Privacy Policy — Fiscal Forum Finserv",
+    description:
+      "Understand how Fiscal Forum Finserv protects your privacy and handles your personal data across our financial services platform.",
     url: "https://www.fiscalforum.in/privacy",
-    siteName: "Fiscal Forum",
+    siteName: "Fiscal Forum Finserv",
     locale: "en_IN",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Privacy Policy | Fiscal Forum",
-    description: "Read Fiscal Forum's privacy policy to understand data collection, usage, and protection practices.",
+    title: "Privacy Policy — Fiscal Forum Finserv",
+    description:
+      "Read Fiscal Forum Finserv's privacy policy to understand data collection, usage, and protection practices.",
   },
 };
