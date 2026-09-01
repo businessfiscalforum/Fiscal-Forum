@@ -187,7 +187,7 @@ const Footer = () => {
 
         {/* Bottom Section */}
         <div className="py-8">
-          <div className="max-w-4xl mx-auto px-4">
+          <div className="max-w-5xl mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <p className="text-gray-400 text-sm">
                 © {new Date().getFullYear()} Fiscal Forum Finserv. All rights reserved.
@@ -195,6 +195,7 @@ const Footer = () => {
               <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</Link>
               <Link href="/terms-and-conditions" className="text-gray-400 hover:text-white text-sm transition-colors">Terms & Conditions</Link>
               <Link href="/refund" className="text-gray-400 hover:text-white text-sm transition-colors">Refund Policy</Link>
+              <Link href="/shipping-policy" className="text-gray-400 hover:text-white text-sm transition-colors">Shipping Policy</Link>
               <Link href="/contact" className="text-gray-400 hover:text-white text-sm transition-colors">Contacts</Link>
               <div className="flex gap-6">
                 <button

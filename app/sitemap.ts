@@ -13,6 +13,7 @@ export default function sitemap() {
     { url: `${base}/about-us`, lastModified: new Date() },
     { url: `${base}/referrals`, lastModified: new Date() },
     { url: `${base}/refund`, lastModified: new Date() },
+    { url: `${base}/shipping-policy`, lastModified: new Date() },
     { url: `${base}/terms-and-conditions`, lastModified: new Date() },
 
     { url: `${base}/services/learn-earn`, lastModified: new Date() },
