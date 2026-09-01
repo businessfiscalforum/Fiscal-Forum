@@ -39,7 +39,7 @@ const Footer = () => {
 
   const supportLinks = [
     { name: "Help Center", href: "/help" },
-    { name: "Contact Support", href: "/support" },
+    { name: "Contact Support", href: "/contact" },
     { name: "Live Chat", href: "/chat" },
     { name: "Document Upload", href: "/upload" },
     { name: "Branch Locator", href: "/branches" },
@@ -195,6 +195,7 @@ const Footer = () => {
               <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</Link>
               <Link href="/terms-and-conditions" className="text-gray-400 hover:text-white text-sm transition-colors">Terms & Conditions</Link>
               <Link href="/refund" className="text-gray-400 hover:text-white text-sm transition-colors">Refund Policy</Link>
+              <Link href="/contact" className="text-gray-400 hover:text-white text-sm transition-colors">Contacts</Link>
               <div className="flex gap-6">
                 <button
                   onClick={scrollToTop}
