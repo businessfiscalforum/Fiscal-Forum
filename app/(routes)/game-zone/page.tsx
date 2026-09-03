@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
-import FallingNotes from "../../../components/FallingNotes";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -453,8 +452,6 @@ export default function GameZone() {
 
   return (
     <div className={`min-h-screen pt-24 pb-16 bg-[#FFF8E7] ${spaceGrotesk.className}`}>
-      <FallingNotes />
-
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         
         {/* HEADER BAR */}
