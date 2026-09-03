@@ -383,16 +383,6 @@ export default function ClientReportsPage({
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const [activeThemeFaq, setActiveThemeFaq] = useState<number | null>(null);
 
-  /* ============ SEARCH / FILTER REPORTS (DB DATA) ============ */
-  const [dbReports, setDbReports] = useState<ResearchReport[]>(initialReports);
-  const [reportsSearch, setReportsSearch] = useState("");
-  const [reportsFilter, setReportsFilter] = useState("all");
-  const [reportsPage, setReportsPage] = useState(1);
-
-  useEffect(() => {
-    setReportsPage(1);
-  }, [reportsFilter, reportsSearch]);
-
 
 
   /* ============ RADIAL BOX VIEWPORT OBSERVER ============ */
@@ -709,27 +699,6 @@ export default function ClientReportsPage({
     return Math.max(...sectorUniverse.map(s => Math.abs(s.ytd)));
   }, []);
 
-  /* ============ FILTER & SORT RESEARCH REPORTS (DATABASE DATA) ============ */
-  const filteredDbReports = useMemo(() => {
-    return dbReports.filter(r => {
-      const titleMatches = (r.title || "").toLowerCase().includes(reportsSearch.toLowerCase()) ||
-                            (r.company || "").toLowerCase().includes(reportsSearch.toLowerCase()) ||
-                            (r.stock || "").toLowerCase().includes(reportsSearch.toLowerCase());
-      
-      let typeMatches = true;
-      if (reportsFilter !== "all") {
-        typeMatches = (r.reportType || "").toLowerCase().replace(/ /g, "-") === reportsFilter;
-      }
-      return titleMatches && typeMatches;
-    });
-  }, [dbReports, reportsSearch, reportsFilter]);
-
-  const ITEMS_PER_PAGE = 3;
-  const totalReportsPages = Math.ceil(filteredDbReports.length / ITEMS_PER_PAGE);
-  const displayedDbReports = useMemo(() => {
-    const start = (reportsPage - 1) * ITEMS_PER_PAGE;
-    return filteredDbReports.slice(start, start + ITEMS_PER_PAGE);
-  }, [filteredDbReports, reportsPage]);
 
   /* ============ SCREENER FILTER LOGIC ============ */
   const filteredStocks = useMemo(() => {
@@ -1209,24 +1178,6 @@ export default function ClientReportsPage({
     }
   };
 
-  /* ============ CORE UTILITY RATING COLORS ============ */
-  const getRatingClass = (rating: string | null) => {
-    switch (rating) {
-      case "BUY": return "buy";
-      case "HOLD": return "hold";
-      case "SELL": return "sell";
-      default: return "";
-    }
-  };
-
-  const formatDate = (dateStr: string | null) => {
-    if (!dateStr) return "N/A";
-    return new Date(dateStr).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  };
 
   return (
     <div className="min-h-screen bg-[#F5F1E6] pt-24 pb-20">
@@ -2141,6 +2092,7 @@ export default function ClientReportsPage({
           </div>
         </div>
       </section>
+
 
       {/* ================= SECTION 6B: NSE EQUITY SCREENER ================= */}
       <section className="section screener-embed-section" id="equity-screener" style={{ borderTop: '1px solid rgba(17,20,17,0.1)' }}>
