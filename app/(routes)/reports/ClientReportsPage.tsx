@@ -1480,27 +1480,27 @@ export default function ClientReportsPage({
                 {!wizardCategory ? (
                   <div className="personalized-report-center-landing">
                     {/* Hero Section */}
-                    <div className="report-center-hero flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
-                      <div className="flex-1 text-left space-y-4">
-                        <div className="flex items-center gap-2 text-amber-600 font-extrabold text-sm uppercase tracking-wider">
+                    <div className="report-center-hero flex flex-row items-center justify-between gap-4 md:gap-8 mb-12">
+                      <div className="flex-1 text-left space-y-2 md:space-y-4">
+                        <div className="flex items-center gap-2 text-amber-600 font-extrabold text-xs md:text-sm uppercase tracking-wider">
                           <span>✦</span> Welcome to your
                         </div>
-                        <h2 className="text-4xl md:text-5xl report-center-title">
+                        <h2 className="text-2xl sm:text-3xl md:text-5xl report-center-title">
                           Personalized
                           <br />
                           Report Center
                         </h2>
-                        <div className="w-24 h-1 bg-amber-400 rounded-full mt-2 mb-4"></div>
-                        <p className="text-base text-gray-600 font-bold">
+                        <div className="w-16 md:w-24 h-1 bg-amber-400 rounded-full mt-2 mb-3 md:mb-4"></div>
+                        <p className="text-xs sm:text-sm md:text-base text-gray-600 font-bold">
                           Curated insights and recommendations, designed for your financial growth.
                         </p>
                       </div>
-                      <div className="w-64 h-64 md:w-80 md:h-80 shrink-0 relative rounded-2xl overflow-hidden bg-transparent">
+                      <div className="report-center-hero-image-wrap w-28 h-28 sm:w-36 sm:h-36 md:w-80 md:h-80 shrink-0 relative rounded-2xl overflow-hidden bg-transparent self-center ml-auto">
                         <Image
                           src="/images/report_hero.png"
                           alt="Personalized Report Center Illustration"
                           fill
-                          className="object-contain"
+                          className="object-contain object-right"
                           priority
                         />
                       </div>

@@ -2344,6 +2344,14 @@
 
 /* Mobile Responsive Styles */
 @media (max-width: 800px) {
+  .report-center-hero {
+    padding: 20px 16px;
+  }
+
+  .report-center-hero-image-wrap {
+    margin-right: -4px;
+  }
+
   .report-center-squarish-box {
     display: flex;
     flex-direction: column;
