@@ -383,16 +383,6 @@ export default function ClientReportsPage({
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const [activeThemeFaq, setActiveThemeFaq] = useState<number | null>(null);
 
-  /* ============ SEARCH / FILTER REPORTS (DB DATA) ============ */
-  const [dbReports, setDbReports] = useState<ResearchReport[]>(initialReports);
-  const [reportsSearch, setReportsSearch] = useState("");
-  const [reportsFilter, setReportsFilter] = useState("all");
-  const [reportsPage, setReportsPage] = useState(1);
-
-  useEffect(() => {
-    setReportsPage(1);
-  }, [reportsFilter, reportsSearch]);
-
 
 
   /* ============ RADIAL BOX VIEWPORT OBSERVER ============ */
@@ -709,27 +699,6 @@ export default function ClientReportsPage({
     return Math.max(...sectorUniverse.map(s => Math.abs(s.ytd)));
   }, []);
 
-  /* ============ FILTER & SORT RESEARCH REPORTS (DATABASE DATA) ============ */
-  const filteredDbReports = useMemo(() => {
-    return dbReports.filter(r => {
-      const titleMatches = (r.title || "").toLowerCase().includes(reportsSearch.toLowerCase()) ||
-                            (r.company || "").toLowerCase().includes(reportsSearch.toLowerCase()) ||
-                            (r.stock || "").toLowerCase().includes(reportsSearch.toLowerCase());
-      
-      let typeMatches = true;
-      if (reportsFilter !== "all") {
-        typeMatches = (r.reportType || "").toLowerCase().replace(/ /g, "-") === reportsFilter;
-      }
-      return titleMatches && typeMatches;
-    });
-  }, [dbReports, reportsSearch, reportsFilter]);
-
-  const ITEMS_PER_PAGE = 3;
-  const totalReportsPages = Math.ceil(filteredDbReports.length / ITEMS_PER_PAGE);
-  const displayedDbReports = useMemo(() => {
-    const start = (reportsPage - 1) * ITEMS_PER_PAGE;
-    return filteredDbReports.slice(start, start + ITEMS_PER_PAGE);
-  }, [filteredDbReports, reportsPage]);
 
   /* ============ SCREENER FILTER LOGIC ============ */
   const filteredStocks = useMemo(() => {
@@ -1209,24 +1178,6 @@ export default function ClientReportsPage({
     }
   };
 
-  /* ============ CORE UTILITY RATING COLORS ============ */
-  const getRatingClass = (rating: string | null) => {
-    switch (rating) {
-      case "BUY": return "buy";
-      case "HOLD": return "hold";
-      case "SELL": return "sell";
-      default: return "";
-    }
-  };
-
-  const formatDate = (dateStr: string | null) => {
-    if (!dateStr) return "N/A";
-    return new Date(dateStr).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  };
 
   return (
     <div className="min-h-screen bg-[#F5F1E6] pt-24 pb-20">
@@ -1480,27 +1431,27 @@ export default function ClientReportsPage({
                 {!wizardCategory ? (
                   <div className="personalized-report-center-landing">
                     {/* Hero Section */}
-                    <div className="report-center-hero flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
-                      <div className="flex-1 text-left space-y-4">
-                        <div className="flex items-center gap-2 text-amber-600 font-extrabold text-sm uppercase tracking-wider">
+                    <div className="report-center-hero flex flex-row items-center justify-between gap-4 md:gap-8 mb-12">
+                      <div className="flex-1 text-left space-y-2 md:space-y-4">
+                        <div className="flex items-center gap-2 text-amber-600 font-extrabold text-xs md:text-sm uppercase tracking-wider">
                           <span>✦</span> Welcome to your
                         </div>
-                        <h2 className="text-4xl md:text-5xl report-center-title">
+                        <h2 className="text-2xl sm:text-3xl md:text-5xl report-center-title">
                           Personalized
                           <br />
                           Report Center
                         </h2>
-                        <div className="w-24 h-1 bg-amber-400 rounded-full mt-2 mb-4"></div>
-                        <p className="text-base text-gray-600 font-bold">
+                        <div className="w-16 md:w-24 h-1 bg-amber-400 rounded-full mt-2 mb-3 md:mb-4"></div>
+                        <p className="text-xs sm:text-sm md:text-base text-gray-600 font-bold">
                           Curated insights and recommendations, designed for your financial growth.
                         </p>
                       </div>
-                      <div className="w-64 h-64 md:w-80 md:h-80 shrink-0 relative rounded-2xl overflow-hidden bg-transparent">
+                      <div className="report-center-hero-image-wrap w-28 h-28 sm:w-36 sm:h-36 md:w-80 md:h-80 shrink-0 relative rounded-2xl overflow-hidden bg-transparent self-center ml-auto">
                         <Image
                           src="/images/report_hero.png"
                           alt="Personalized Report Center Illustration"
                           fill
-                          className="object-contain"
+                          className="object-contain object-right"
                           priority
                         />
                       </div>
@@ -2142,131 +2093,7 @@ export default function ClientReportsPage({
         </div>
       </section>
 
-      {/* ================= SECTION 4: REPORTS TABLE ================= */}
-      <section className="section reports-table-section" id="table" style={{ borderTop: '1px solid rgba(17,20,17,0.1)' }}>
-        <div className="wrap">
-          <div className="section-head">
-            <div>
-              <h2>Research Reports Database</h2>
-              <p>Explore full institutional-grade analysis from our research desk.</p>
-            </div>
-          </div>
 
-          <div className="filter-tabs">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                type="button"
-                className={`filter-tab ${reportsFilter === (tab.id === 'all' ? 'all' : tab.id) ? "active" : ""}`}
-                onClick={() => setReportsFilter(tab.id === 'all' ? 'all' : tab.id)}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          {/* REPORTS ROW LIST */}
-          <div className="reports-table">
-            <div className="reports-table-head">
-              <div>Report Info</div>
-              <div>Stock</div>
-              <div>Author</div>
-              <div>Date</div>
-              <div>Rating</div>
-              <div style={{ textAlign: "center" }}>Action</div>
-            </div>
-
-            {displayedDbReports.length === 0 ? (
-              <div className="p-12 text-center text-gray-500 font-bold bg-[#FFFFFF]">
-                No reports found matching your selection.
-              </div>
-            ) : (
-              displayedDbReports.map((report) => (
-                <div className="reports-row" key={report.id} onClick={() => { if (report.pdfUrl) window.open(report.pdfUrl, '_blank', 'noopener,noreferrer'); }}>
-                  <div className="col-info">
-                    <div className="row-title">{report.title}</div>
-                    <div className="row-tags">
-                      {(report.tags || []).map((t, idx) => (
-                        <span className="row-tag" key={idx}>{t}</span>
-                      ))}
-                      {report.reportType && <span className="row-tag">{report.reportType}</span>}
-                    </div>
-                  </div>
-
-                  <div className="col-stock">
-                    <span className="stock-main">{report.stock || "N/A"}</span>
-                    {report.company && <span className="stock-sub">{report.company}</span>}
-                  </div>
-
-                  <div className="col-author">
-                    <span className="author-avatar">
-                      <FaUser />
-                    </span>
-                    <div>
-                      <div className="author-name">{report.author || "Fiscal Forum"}</div>
-                      <div className="author-sub">{report.authorFirm || "Research Desk"}</div>
-                    </div>
-                  </div>
-
-                  <div className="col-date">
-                    <FaCalendarAlt style={{ opacity: 0.6 }} />
-                    {formatDate(report.publishDate)}
-                  </div>
-
-                  <div className="col-rating">
-                    <span className={`rating-pill ${getRatingClass(report.rating)}`}>
-                      {report.rating || "HOLD"}
-                    </span>
-                  </div>
-
-                  <div className="col-action" onClick={(e) => e.stopPropagation()}>
-                    <button className="view-report-btn" onClick={() => { if (report.pdfUrl) window.open(report.pdfUrl, '_blank', 'noopener,noreferrer'); }}>
-                      View Report
-                    </button>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-
-          {/* PAGINATION CONTROLS */}
-          {totalReportsPages > 1 && (
-            <div className="pagination-wrap">
-              <button
-                type="button"
-                className="pagination-btn"
-                onClick={() => setReportsPage(prev => Math.max(prev - 1, 1))}
-                disabled={reportsPage === 1}
-              >
-                Previous
-              </button>
-              
-              {Array.from({ length: totalReportsPages }, (_, idx) => {
-                const pageNum = idx + 1;
-                return (
-                  <button
-                    key={pageNum}
-                    type="button"
-                    className={`pagination-btn ${reportsPage === pageNum ? "active" : ""}`}
-                    onClick={() => setReportsPage(pageNum)}
-                  >
-                    {pageNum}
-                  </button>
-                );
-              })}
-
-              <button
-                type="button"
-                className="pagination-btn"
-                onClick={() => setReportsPage(prev => Math.min(prev + 1, totalReportsPages))}
-                disabled={reportsPage === totalReportsPages}
-              >
-                Next
-              </button>
-            </div>
-          )}
-        </div>
-      </section>
       {/* ================= SECTION 6B: NSE EQUITY SCREENER ================= */}
       <section className="section screener-embed-section" id="equity-screener" style={{ borderTop: '1px solid rgba(17,20,17,0.1)' }}>
         <div className="wrap" style={{ paddingBottom: '0' }}>
@@ -3109,10 +2936,10 @@ export default function ClientReportsPage({
           </div>
 
           <div className="theme-bars">
-            {themeSectorBars.map((s, idx) => {
+            {themeSectorBars.map((s) => {
               const isGain = s.ytd >= 0;
               const maxAbs = Math.max(...themeSectorBars.map(bar => Math.abs(bar.ytd)));
-              const widthPct = Math.max(6, (Math.abs(s.ytd) / maxAbs) * 84).toFixed(1);
+              const widthPct = Math.max(6, (Math.abs(s.ytd) / maxAbs) * 64).toFixed(1);
               const valueText = `${s.ytd > 0 ? '+' : ''}${s.ytd.toFixed(2)}%`;
 
               return (
