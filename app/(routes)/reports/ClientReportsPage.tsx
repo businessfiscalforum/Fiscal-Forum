@@ -2936,10 +2936,10 @@ export default function ClientReportsPage({
           </div>
 
           <div className="theme-bars">
-            {themeSectorBars.map((s, idx) => {
+            {themeSectorBars.map((s) => {
               const isGain = s.ytd >= 0;
               const maxAbs = Math.max(...themeSectorBars.map(bar => Math.abs(bar.ytd)));
-              const widthPct = Math.max(6, (Math.abs(s.ytd) / maxAbs) * 84).toFixed(1);
+              const widthPct = Math.max(6, (Math.abs(s.ytd) / maxAbs) * 64).toFixed(1);
               const valueText = `${s.ytd > 0 ? '+' : ''}${s.ytd.toFixed(2)}%`;
 
               return (

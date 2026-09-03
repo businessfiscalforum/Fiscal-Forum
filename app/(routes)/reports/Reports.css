@@ -1301,33 +1301,84 @@
 .theme-bar-value-outside.gain { color: rgba(17,20,17,0.6); background: rgba(31,74,50,0.1); }
 .theme-bar-value-outside.loss { color: rgba(17,20,17,0.6); background: rgba(196,72,53,0.1); }
 
-@media (max-width: 720px) {
-  .theme-bar-row {
-    flex-wrap: wrap;
-    padding: 10px 14px;
+@media (max-width: 768px) {
+  .theme-bars {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 10px 0 20px;
   }
-  .theme-bar-icon {
-    height: 34px;
-    width: 56px;
-  }
-  .theme-bar-name {
-    width: auto;
-    font-size: 12.5px;
-    flex: 1;
-  }
-  .theme-bar-track {
-    flex-basis: 100%;
-    height: 10px;
-  }
-  .theme-bar-value-outside {
-    font-size: 11.5px;
-    min-width: 54px;
-  }
-}
 
-@media (max-width: 640px) {
+  .theme-bar-row {
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    grid-template-rows: auto auto;
+    align-items: center;
+    gap: 6px 10px;
+    padding: 10px 10px 8px;
+    background: var(--paper);
+    border: 1.5px solid var(--ink);
+    border-radius: 12px;
+    box-sizing: border-box;
+    min-height: auto;
+    height: 100%;
+  }
+
+  .theme-bar-row:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .theme-bar-icon {
+    grid-column: 1;
+    grid-row: 1;
+    height: 28px;
+    width: 42px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1.2px solid var(--ink);
+    flex-shrink: 0;
+  }
+
+  .theme-bar-name {
+    grid-column: 2;
+    grid-row: 1;
+    width: auto;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 1.25;
+    color: rgba(17, 20, 17, 0.85);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-word;
+  }
+
+  .theme-bar-track {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    align-self: start;
+    width: 100%;
+    height: 8px;
+    margin-top: 2px;
+    position: relative;
+    background: rgba(17, 20, 17, 0.08);
+    border-radius: 999px;
+    overflow: visible;
+  }
+
+  .theme-bar-value-outside {
+    font-size: 10px;
+    font-weight: 500;
+    min-width: 40px;
+    padding: 1.5px 6px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
   .theme-based-sectors-section {
-    padding: 40px 0 60px;
+    padding: 30px 0 50px;
   }
 }
 
