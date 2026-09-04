@@ -378,9 +378,6 @@ export default function ClientReportsPage({
   initialReports,
 }: ClientReportsPageProps) {
   const { userDetail } = useContext(UserDetailContext);
-  /* ============ PAGE TABS ============ */
-  const [activeTab, setActiveTab] = useState(tabs[0].id);
-  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const [activeThemeFaq, setActiveThemeFaq] = useState<number | null>(null);
 
 

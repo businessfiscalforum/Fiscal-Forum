@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Gem,
   Coins,
@@ -23,7 +23,6 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 // import { BrokerInfiniteScroll } from "../../_components/Broker";
 import PortfolioSplitStudio from "./PortfolioSplitStudio";
 
@@ -150,98 +149,7 @@ export default function StockInvestmentPage() {
   const [hoveredOption, setHoveredOption] = useState<(typeof investmentOptions)[0] | null>(
     investmentOptions[0]
   );
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
-  useEffect(() => {
-    // This runs only on the client
-    const handleResize = () => setIsSmallScreen(window.innerWidth < 768);
-    handleResize(); // Check on first load
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
-  const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState<{ text: string; type: string } | null>(
-    null
-  );
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) {
-      setMessage({ text: "Please enter your email address", type: "error" });
-      return;
-    }
-
-    // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setMessage({ text: "Please enter a valid email address", type: "error" });
-      return;
-    }
-
-    setIsSubmitting(true);
-    setMessage(null);
-
-    try {
-      // Simulate API call
-
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/subscribe`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email }),
-        }
-      );
-      const data = await response.json();
-      if (response.ok) {
-        setMessage({ text: data.message, type: "success" });
-        setEmail("");
-      } else {
-        setMessage({
-          text: data.error || "Subscription failed",
-          type: "error",
-        });
-      }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      setMessage({
-        text: "Subscription failed. Please sign-in to subscribe.",
-        type: "error",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-  const [monthlyAmount, setMonthlyAmount] = useState<number>(5000);
-  const [duration, setDuration] = useState<number>(11);
-  const [expectedReturn, setExpectedReturn] = useState<number>(15.51);
-
-  // Calculate the future value of SIP investment
-  const calculateFutureValue = () => {
-    const amount = monthlyAmount;
-    const years = duration;
-    const rate = expectedReturn / 100;
-
-    // Future Value of SIP formula: FV = P * (((1 + r)^n - 1) / r)
-    const futureValue =
-      amount * ((Math.pow(1 + rate / 12, years * 12) - 1) / (rate / 12));
-
-    return Math.round(futureValue);
-  };
-
-  const totalInvestedAmount = monthlyAmount * 12 * duration;
-  const estimatedReturns = calculateFutureValue() - totalInvestedAmount;
-
-  const circumference = 2 * Math.PI * 45; // for r=45
-  const investedPortion =
-    (totalInvestedAmount / calculateFutureValue()) * circumference;
-  const returnsPortion =
-    (estimatedReturns / calculateFutureValue()) * circumference;
-  const formatNumber = (num: number) =>
-    new Intl.NumberFormat("en-IN").format(num);
   return (
     <>
       {/* Main Layout: Content */}
@@ -557,17 +465,17 @@ export default function StockInvestmentPage() {
           </div>
 
           {/* Features Section */}
-          <div className="border border-black bg-white rounded-3xl p-8 md:p-10 shadow-md">
-            <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-              <h2 className="text-3xl md:text-4xl font-bold uppercase text-black leading-none">
+          <div className="border border-black bg-white rounded-3xl p-4 sm:p-8 md:p-10 shadow-md">
+            <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-12 space-y-2 sm:space-y-3">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold uppercase text-black leading-tight sm:leading-none">
                 Grow Smarter, Invest Better
               </h2>
-              <p className="text-base text-gray-600 font-medium">
+              <p className="text-xs sm:text-base text-gray-600 font-medium">
                 Everything you need to succeed in the markets — all in one powerful, transparent platform.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
               {[
                 {
                   title: "Free Premarket Reports",
@@ -594,15 +502,15 @@ export default function StockInvestmentPage() {
                 return (
                   <div
                     key={idx}
-                    className="bg-[#F4FBF7] border border-black p-6 rounded-2xl shadow-sm hover:-translate-y-0.5 transition-all flex flex-col space-y-3"
+                    className="bg-[#F4FBF7] border border-black p-3.5 sm:p-6 rounded-2xl shadow-sm hover:-translate-y-0.5 transition-all flex flex-col space-y-2 sm:space-y-3 h-full"
                   >
-                    <div className="p-2.5 bg-white border border-black rounded-lg w-fit shadow-sm">
-                      <Icon className="text-black w-5 h-5" />
+                    <div className="p-2 sm:p-2.5 bg-white border border-black rounded-lg w-fit shadow-sm">
+                      <Icon className="text-black w-4 h-4 sm:w-5 sm:h-5" />
                     </div>
-                    <h3 className="text-lg font-bold uppercase text-black leading-tight">
+                    <h3 className="text-xs sm:text-lg font-bold uppercase text-black leading-tight">
                       {feat.title}
                     </h3>
-                    <p className="text-sm text-gray-700 font-medium leading-relaxed">
+                    <p className="text-[11px] sm:text-sm text-gray-700 font-medium leading-normal sm:leading-relaxed">
                       {feat.desc}
                     </p>
                   </div>
