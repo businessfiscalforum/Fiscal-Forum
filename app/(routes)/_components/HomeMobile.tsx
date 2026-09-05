@@ -626,20 +626,20 @@ export default function HomeMobile() {
               <motion.div
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="bg-white border border-black rounded-2xl p-5 shadow-sm flex flex-col justify-between h-full min-h-[220px]"
+                className="bg-white border border-black rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col justify-between h-full min-h-[145px]"
               >
-                <div className="space-y-3">
+                <div>
                   {/* Title and Image Row */}
-                  <div className="flex justify-between items-start gap-3">
-                    <div className="space-y-2 flex-1">
+                  <div className="flex justify-between items-center gap-3">
+                    <div className="flex-1 min-w-0">
                       {/* Title */}
-                      <h3 className="font-bold text-black text-base leading-snug">
+                      <h3 className="font-bold text-black text-sm sm:text-base leading-snug">
                         {item.title}
                       </h3>
                     </div>
                     {/* Cropped illustration image */}
                     {(item as { image?: string }).image && (
-                      <div className="flex-shrink-0 w-20 h-20 relative rounded-xl overflow-hidden border border-black/10 shadow-sm">
+                      <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 relative rounded-xl overflow-hidden border border-black/10 shadow-sm aspect-square bg-gray-50/50">
                         <Image
                           src={(item as { image?: string }).image!}
                           alt={item.title}
@@ -649,11 +649,6 @@ export default function HomeMobile() {
                       </div>
                     )}
                   </div>
-
-                  {/* Description */}
-                  <p className="text-xs text-black font-semibold">
-                    {item.description}
-                  </p>
                 </div>
                 <div className="mt-4">
                   <span className="revolving-border-btn shadow-sm">

@@ -853,8 +853,8 @@ export default function HomeDesktop() {
                   >
                     <div className="space-y-4">
                       {/* Title and Image Row */}
-                      <div className="flex justify-between items-start gap-4">
-                        <div className="space-y-3 flex-1">
+                      <div className="flex justify-between items-center gap-4">
+                        <div className="flex-1 min-w-0">
                           {/* Title */}
                           <h4 className="text-xl font-bold text-black leading-snug">
                             {item.title}
@@ -862,7 +862,7 @@ export default function HomeDesktop() {
                         </div>
                         {/* Cropped illustration image */}
                         {(item as { image?: string }).image && (
-                          <div className="flex-shrink-0 w-24 h-24 relative rounded-2xl overflow-hidden border border-black/10 shadow-sm">
+                          <div className="flex-shrink-0 w-20 h-20 sm:w-22 sm:h-22 relative rounded-2xl overflow-hidden border border-black/10 shadow-sm aspect-square bg-gray-50/50">
                             <Image
                               src={(item as { image?: string }).image!}
                               alt={item.title}
@@ -872,13 +872,6 @@ export default function HomeDesktop() {
                           </div>
                         )}
                       </div>
-
-                      {/* Description */}
-                      {!isSmallScreen && (
-                        <p className="text-xs sm:text-sm leading-relaxed text-black font-semibold">
-                          {item.description}
-                        </p>
-                      )}
                     </div>
 
                     {/* Learn More Button */}
