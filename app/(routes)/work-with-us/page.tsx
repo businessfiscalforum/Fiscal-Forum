@@ -189,7 +189,14 @@ const WorkWithUsPage = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 py-20">
+      <div
+        className="min-h-screen bg-[#f5f8f5] py-20 relative font-sans"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(20, 110, 80, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(20, 110, 80, 0.04) 1px, transparent 1px)",
+          backgroundSize: "36px 36px",
+        }}
+      >
         <div className="relative z-10">
           {/* Hero Section */}
           <section className="pt-10 px-6">

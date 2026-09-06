@@ -472,25 +472,25 @@ export default function StockInvestmentPage() {
           <PortfolioSplitStudio />
 
           {/* Call to Action (Kickstart & Level Up) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-2 gap-3 sm:gap-6 md:gap-8 items-stretch">
             {/* CTA 1 */}
-            <div className="relative bg-[#1FA463] text-black border border-black rounded-3xl p-8 md:p-10 shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between overflow-hidden">
-              <div className="space-y-6 z-10">
-                <div className="flex items-center gap-4">
-                  <div className="p-3 bg-white border border-black rounded-xl shadow-sm">
-                    <FolderOpen className="w-6 h-6 text-black" />
+            <div className="relative bg-[#1FA463] text-black border border-black rounded-2xl md:rounded-3xl p-3.5 sm:p-6 md:p-10 shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between overflow-hidden h-full">
+              <div className="space-y-3 sm:space-y-4 md:space-y-6 z-10 flex-1 flex flex-col">
+                <div className="flex flex-col xs:flex-row items-start xs:items-center gap-2 sm:gap-4">
+                  <div className="p-2 sm:p-3 bg-white border border-black rounded-lg sm:rounded-xl shadow-sm flex-shrink-0">
+                    <FolderOpen className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-black" />
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-black">
+                  <h2 className="text-xs sm:text-xl md:text-3xl font-bold uppercase tracking-tight text-black leading-tight flex-1">
                     Start Your Wealth Journey
                   </h2>
                 </div>
-                <p className="text-black font-semibold text-base leading-relaxed">
+                <p className="text-black font-semibold text-[11px] sm:text-sm md:text-base leading-tight sm:leading-relaxed flex-1">
                   Ready to take the first step? Open your Demat & Trading account in minutes and begin investing with confidence. Zero paperwork, instant approval, and dedicated live support.
                 </p>
               </div>
-              <div className="pt-8 z-10">
-                <Link href="/services/learn-earn/open-demat-account">
-                  <button className="w-full sm:w-auto bg-white text-black border border-black px-6 py-3.5 rounded-xl font-bold hover:bg-yellow-100 hover:shadow-sm  transition-all shadow-sm uppercase text-sm">
+              <div className="pt-3 sm:pt-6 md:pt-8 z-10 mt-auto">
+                <Link href="/services/learn-earn/open-demat-account" className="block w-full md:w-auto">
+                  <button className="w-full md:w-auto bg-white text-black border border-black px-2 py-2 sm:px-6 sm:py-3.5 rounded-lg sm:rounded-xl font-bold hover:bg-yellow-100 hover:shadow-sm transition-all shadow-sm uppercase text-[9px] xs:text-[10px] sm:text-xs md:text-sm text-center leading-tight">
                     Start Investing Now
                   </button>
                 </Link>
@@ -498,23 +498,23 @@ export default function StockInvestmentPage() {
             </div>
 
             {/* CTA 2 */}
-            <div className="relative bg-white text-black border border-black rounded-3xl p-8 md:p-10 shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between overflow-hidden">
-              <div className="space-y-6 z-10">
-                <div className="flex items-center gap-4">
-                  <div className="p-3 bg-emerald-50 border border-black rounded-xl shadow-sm">
-                    <UserCheck className="w-6 h-6 text-black" />
+            <div className="relative bg-white text-black border border-black rounded-2xl md:rounded-3xl p-3.5 sm:p-6 md:p-10 shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between overflow-hidden h-full">
+              <div className="space-y-3 sm:space-y-4 md:space-y-6 z-10 flex-1 flex flex-col">
+                <div className="flex flex-col xs:flex-row items-start xs:items-center gap-2 sm:gap-4">
+                  <div className="p-2 sm:p-3 bg-emerald-50 border border-black rounded-lg sm:rounded-xl shadow-sm flex-shrink-0">
+                    <UserCheck className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-black" />
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-black">
+                  <h2 className="text-xs sm:text-xl md:text-3xl font-bold uppercase tracking-tight text-black leading-tight flex-1">
                     Level Up Your Portfolio
                   </h2>
                 </div>
-                <p className="text-gray-700 font-semibold text-base leading-relaxed">
+                <p className="text-gray-700 font-semibold text-[11px] sm:text-sm md:text-base leading-tight sm:leading-relaxed flex-1">
                   Already investing? Supercharge your trading strategy with advanced analytical tools, real-time index data, and customized expert insights. Unlock higher financial potential with us.
                 </p>
               </div>
-              <div className="pt-8 z-10">
-                <Link href="/services/learn-earn/already-have-an-account">
-                  <button className="w-full sm:w-auto bg-[#1FA463] text-white border border-black px-6 py-3.5 rounded-xl font-bold hover:bg-[#15824D] hover:shadow-sm  transition-all shadow-sm uppercase text-sm">
+              <div className="pt-3 sm:pt-6 md:pt-8 z-10 mt-auto">
+                <Link href="/services/learn-earn/already-have-an-account" className="block w-full md:w-auto">
+                  <button className="w-full md:w-auto bg-[#1FA463] text-white border border-black px-2 py-2 sm:px-6 sm:py-3.5 rounded-lg sm:rounded-xl font-bold hover:bg-[#15824D] hover:shadow-sm transition-all shadow-sm uppercase text-[9px] xs:text-[10px] sm:text-xs md:text-sm text-center leading-tight">
                     Continue Your Journey
                   </button>
                 </Link>
