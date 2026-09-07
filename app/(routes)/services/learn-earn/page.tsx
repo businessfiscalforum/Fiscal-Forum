@@ -557,17 +557,17 @@ export default function StockInvestmentPage() {
           </div>
 
           {/* Features Section */}
-          <div className="border border-black bg-white rounded-3xl p-8 md:p-10 shadow-md">
-            <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-              <h2 className="text-3xl md:text-4xl font-bold uppercase text-black leading-none">
+          <div className="border border-black bg-white rounded-3xl p-6 sm:p-8 md:p-10 shadow-md">
+            <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12 space-y-3">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold uppercase text-black leading-none">
                 Grow Smarter, Invest Better
               </h2>
-              <p className="text-base text-gray-600 font-medium">
+              <p className="text-sm sm:text-base text-gray-600 font-medium">
                 Everything you need to succeed in the markets — all in one powerful, transparent platform.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
               {[
                 {
                   title: "Free Premarket Reports",
@@ -594,15 +594,15 @@ export default function StockInvestmentPage() {
                 return (
                   <div
                     key={idx}
-                    className="bg-[#F4FBF7] border border-black p-6 rounded-2xl shadow-sm hover:-translate-y-0.5 transition-all flex flex-col space-y-3"
+                    className="bg-[#F4FBF7] border border-black p-4 sm:p-6 rounded-2xl shadow-sm hover:-translate-y-0.5 transition-all flex flex-col space-y-2 sm:space-y-3 h-full"
                   >
-                    <div className="p-2.5 bg-white border border-black rounded-lg w-fit shadow-sm">
-                      <Icon className="text-black w-5 h-5" />
+                    <div className="p-2 sm:p-2.5 bg-white border border-black rounded-lg w-fit shadow-sm">
+                      <Icon className="text-black w-4 h-4 sm:w-5 sm:h-5" />
                     </div>
-                    <h3 className="text-lg font-bold uppercase text-black leading-tight">
+                    <h3 className="text-sm sm:text-lg font-bold uppercase text-black leading-tight">
                       {feat.title}
                     </h3>
-                    <p className="text-sm text-gray-700 font-medium leading-relaxed">
+                    <p className="text-xs sm:text-sm text-gray-700 font-medium leading-relaxed">
                       {feat.desc}
                     </p>
                   </div>
