@@ -345,6 +345,72 @@ const WorkWithUsPage = () => {
           .wwu-cta-section { border-radius: 14px; padding: 2rem 1.25rem; }
           .wwu-tab { padding: 8px 14px; font-size: 0.85rem; }
         }
+        /* Mobile-only horizontal scroll for partnership cards */
+        @media (max-width: 767px) {
+          .partnership-scroll-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            gap: 12px;
+            padding-bottom: 12px;
+            padding-left: 4px;
+            padding-right: 4px;
+            scrollbar-width: none;
+          }
+          .partnership-scroll-container::-webkit-scrollbar {
+            display: none;
+          }
+          .partnership-card-wrapper {
+            flex: 0 0 auto;
+            width: 42vw;
+            min-width: 150px;
+            max-width: 185px;
+            scroll-snap-align: start;
+          }
+          .partnership-card-wrapper .wwu-card {
+            height: 100%;
+          }
+          .partnership-card-wrapper .relative.h-40 {
+            height: 90px;
+          }
+          .partnership-card-wrapper .relative.h-40 .w-20 {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+          }
+          .partnership-card-wrapper .relative.h-40 .w-20 svg {
+            font-size: 1rem;
+          }
+          .partnership-card-wrapper .flex.flex-col.flex-grow.p-6 {
+            padding: 10px;
+          }
+          .partnership-card-wrapper .text-xl.font-bold {
+            font-size: 0.78rem;
+            line-height: 1.3;
+          }
+          .partnership-card-wrapper .btn-primary {
+            padding: 7px 8px;
+            font-size: 0.72rem;
+            gap: 4px;
+          }
+          .partnership-card-wrapper .badge-yellow {
+            font-size: 0.52rem;
+            padding: 2px 6px;
+          }
+          .partnership-card-wrapper .absolute.top-4.left-4 {
+            top: 6px;
+            left: 6px;
+          }
+          .partnership-card-wrapper .absolute.top-4.right-4 {
+            top: 6px;
+            right: 6px;
+            width: 16px;
+            height: 16px;
+          }
+        }
       `}</style>
 
       <div className="wwu-page min-h-screen py-20 relative font-sans">
@@ -421,7 +487,8 @@ const WorkWithUsPage = () => {
                 </p>
               </motion.div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 h-full">
+              {/* Mobile: horizontal scrollable row | Desktop: 3-column grid */}
+              <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 h-full">
                 {partnerships.map((partnership, index) => (
                   <motion.div
                     key={partnership.id}
@@ -488,6 +555,77 @@ const WorkWithUsPage = () => {
                       </div>
                     </div>
                   </motion.div>
+                ))}
+              </div>
+
+              {/* Mobile-only: horizontal scroll row */}
+              <div className="partnership-scroll-container md:hidden">
+                {partnerships.map((partnership, index) => (
+                  <div key={partnership.id} className="partnership-card-wrapper">
+                    <motion.div
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.1 * index }}
+                      className={`flex flex-col wwu-card relative cursor-pointer h-full ${
+                        activePartnership === index ? "wwu-card-active" : ""
+                      }`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActivePartnership(index);
+                      }}
+                    >
+                      <div className="absolute top-4 left-4 z-10">
+                        <span className="badge-yellow">FEATURED</span>
+                      </div>
+
+                      {activePartnership === index && (
+                        <div className="absolute top-4 right-4 z-10 w-6 h-6 bg-yellow-400 border border-yellow-600 rounded-full flex items-center justify-center">
+                          <FaCheckCircle className="text-yellow-800 text-xs" />
+                        </div>
+                      )}
+
+                      <div className="relative h-40 flex items-center justify-center bg-gradient-to-br from-green-50 to-emerald-100 border-b border-gray-200">
+                        <div className="w-20 h-20 bg-green-600 rounded-2xl flex items-center justify-center shadow-md">
+                          <partnership.icon className="text-2xl text-white" />
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col flex-grow p-6">
+                        <div className="text-center mb-4 flex-grow">
+                          <h3 className="text-xl font-bold text-gray-900 mb-2">
+                            {partnership.title}
+                          </h3>
+                        </div>
+
+                        <div className="mt-auto">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.location.href =
+                                partnership.id === 1
+                                  ? "/work-with-us/business-development-partnership"
+                                  : partnership.id === 2
+                                    ? "/work-with-us/remisorship"
+                                    : "/work-with-us/b2b-partnership";
+                            }}
+                            className="btn-primary w-full px-6 py-3 flex items-center justify-center gap-2 text-sm"
+                          >
+                            Learn More
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              className="w-4 h-4"
+                            >
+                              <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
