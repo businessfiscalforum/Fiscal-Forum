@@ -2660,7 +2660,35 @@ body {
     .main-hero-grid { flex-direction: column; text-align: center; }
     .main-hero-inner { text-align: center; max-width: 560px; }
     .sub { margin: 0 auto 40px; }
-    .hero-cta-row { justify-content: center; }
+    .hero-cta-row {
+      justify-content: center;
+      flex-direction: column;
+      width: 100%;
+      gap: 12px;
+    }
+    .hero-cta-secondary-group {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr 1fr;
+      gap: 8px;
+      width: 100%;
+      align-items: center;
+    }
+    .btn-hero-primary {
+      width: 100%;
+      padding: 15px 16px;
+    }
+    .btn-hero-secondary {
+      width: 100%;
+      height: 48px;
+      padding: 0 6px;
+      font-size: clamp(11.5px, 3.1vw, 13.5px);
+      white-space: nowrap;
+      box-sizing: border-box;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
     .main-hero-visual { width: 340px; order: -1; margin-bottom: 10px; }
   }
 
@@ -2668,7 +2696,13 @@ body {
     display: flex;
     gap: 14px;
     justify-content: flex-start;
+    align-items: center;
     flex-wrap: wrap;
+  }
+  .hero-cta-secondary-group {
+    display: flex;
+    gap: 14px;
+    align-items: center;
   }
   .btn-hero-primary {
     font-size: 14px;
@@ -2683,6 +2717,10 @@ body {
     cursor: pointer;
     box-shadow: 0 6px 16px rgba(0,0,0,0.05);
     transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
   .btn-hero-primary:hover { background: #3f7a54; transform: none; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
   
@@ -2699,6 +2737,10 @@ body {
     cursor: pointer;
     box-shadow: 0 6px 16px rgba(0,0,0,0.05);
     transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
   .btn-hero-secondary:hover { background: var(--gold-pale); transform: none; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
 
