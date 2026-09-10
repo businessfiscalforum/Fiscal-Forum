@@ -939,7 +939,7 @@ export default function HomeMobile() {
                 <div className="space-y-0">
                   {/* Header Image with Overlapping Icon */}
                   <div className="relative w-full">
-                    <div className="relative w-full aspect-[4/3] overflow-hidden border-b border-black/10">
+                    <div className="relative w-full h-40 sm:h-44 overflow-hidden border-b border-black/10">
                       <Image
                         src={p.image}
                         alt={p.title}
