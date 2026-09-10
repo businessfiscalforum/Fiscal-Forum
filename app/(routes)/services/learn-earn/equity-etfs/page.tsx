@@ -307,19 +307,21 @@ export default function EquityETFsPage() {
               Invest in India&apos;s leading companies or diversify instantly with ETFs.{" "}
               <b>Start with as little as ₹100</b> — then let the allocation engine below build the right mix for you.
             </p>
-            <div className="hero-cta-row flex flex-wrap gap-4 mt-6">
+            <div className="hero-cta-row mt-6">
               <button className="btn-hero-primary" onClick={() => scrollTo(quizRef)}>
                 Build My Allocation →
               </button>
-              <button className="btn-hero-secondary" onClick={() => scrollTo(compareRef)}>
-                Equity vs ETF
-              </button>
-              <Link href="/services/learn-earn/equity-etfs/apply" className="btn-hero-secondary" style={{ display: "inline-flex", alignItems: "center" }}>
-                Apply
-              </Link>
-              <Link href="/services/learn-earn/open-demat-account" className="btn-hero-secondary" style={{ display: "inline-flex", alignItems: "center" }}>
-                Explore
-              </Link>
+              <div className="hero-cta-secondary-group">
+                <button className="btn-hero-secondary" onClick={() => scrollTo(compareRef)}>
+                  Equity vs ETF
+                </button>
+                <Link href="/services/learn-earn/equity-etfs/apply" className="btn-hero-secondary">
+                  Apply
+                </Link>
+                <Link href="/services/learn-earn/open-demat-account" className="btn-hero-secondary">
+                  Explore
+                </Link>
+              </div>
             </div>
           </div>
           <div className="main-hero-visual">
@@ -393,15 +395,15 @@ export default function EquityETFsPage() {
           <div className="hero-stats">
             <div className="hstat">
               <span className="v mono">07</span>
-              <span className="l">Segments tracked</span>
+              <span className="l">Segments<br className="mobile-br" /> tracked</span>
             </div>
             <div className="hstat">
               <span className="v mono">05</span>
-              <span className="l">Inputs required</span>
+              <span className="l">Inputs<br className="mobile-br" /> required</span>
             </div>
             <div className="hstat">
               <span className="v mono">&lt;1s</span>
-              <span className="l">Engine compute time</span>
+              <span className="l">Engine compute<br className="mobile-br" /> time</span>
             </div>
           </div>
         </div>
