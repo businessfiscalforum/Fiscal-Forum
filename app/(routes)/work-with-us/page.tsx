@@ -189,35 +189,249 @@ const WorkWithUsPage = () => {
 
   return (
     <>
-      <div
-        className="min-h-screen bg-[#f5f8f5] py-20 relative font-sans"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(20, 110, 80, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(20, 110, 80, 0.04) 1px, transparent 1px)",
-          backgroundSize: "36px 36px",
-        }}
-      >
+      <style>{`
+        .wwu-page {
+          background-color: #f0f5f0;
+          background-image:
+            linear-gradient(to right, rgba(0,0,0,0.07) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(0,0,0,0.07) 1px, transparent 1px);
+          background-size: 40px 40px;
+        }
+        .btn-primary {
+          background-color: #16a34a;
+          color: #ffffff;
+          border: none;
+          border-radius: 8px;
+          font-weight: 600;
+          transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .btn-primary:hover {
+          background-color: #15803d;
+          box-shadow: 0 4px 14px rgba(22,163,74,0.35);
+        }
+        .badge-yellow {
+          background-color: #fde047;
+          color: #713f12;
+          border-radius: 6px;
+          font-size: 0.65rem;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          padding: 3px 10px;
+          display: inline-block;
+        }
+        .wwu-card {
+          background: #ffffff;
+          border: 1.5px solid #111827;
+          border-radius: 14px;
+          overflow: hidden;
+          transition: box-shadow 0.25s ease, transform 0.25s ease;
+        }
+        .wwu-card:hover {
+          box-shadow: 4px 4px 0px #111827;
+          transform: translate(-2px, -2px);
+        }
+        .wwu-card-active {
+          border-color: #ca8a04 !important;
+          box-shadow: 4px 4px 0px #ca8a04 !important;
+        }
+        .wwu-stat-card {
+          background: #ffffff;
+          border: 1.5px solid #111827;
+          border-radius: 14px;
+          transition: box-shadow 0.2s ease;
+        }
+        .wwu-stat-card:hover {
+          box-shadow: 3px 3px 0 #111827;
+        }
+        .wwu-detail-panel {
+          background: #ffffff;
+          border: 1.5px solid #111827;
+          border-radius: 14px;
+        }
+        .wwu-benefits-panel {
+          background: #f0fdf4;
+          border: 1.5px solid #111827;
+          border-radius: 14px;
+        }
+        .wwu-benefit-item {
+          background: #ffffff;
+          border: 1px solid #d1d5db;
+          border-radius: 10px;
+        }
+        .wwu-feature-tile {
+          background: #ffffff;
+          border: 1px solid #d1d5db;
+          border-radius: 10px;
+        }
+        .wwu-cta-section {
+          background-color: #14532d;
+          border: 2px solid #111827;
+          border-radius: 20px;
+        }
+        .btn-cta-white {
+          background: #ffffff;
+          color: #15803d;
+          border-radius: 10px;
+          font-weight: 600;
+          border: 1.5px solid #111827;
+          transition: background-color 0.2s ease;
+        }
+        .btn-cta-white:hover { background-color: #f0fdf4; }
+        .btn-cta-yellow {
+          background: #fde047;
+          color: #111827;
+          border-radius: 10px;
+          font-weight: 600;
+          border: 1.5px solid #111827;
+          transition: background-color 0.2s ease;
+        }
+        .btn-cta-yellow:hover { background-color: #fbbf24; }
+        .btn-cta-green {
+          background: #16a34a;
+          color: #ffffff;
+          border-radius: 10px;
+          font-weight: 600;
+          border: 1.5px solid #111827;
+          transition: background-color 0.2s ease;
+        }
+        .btn-cta-green:hover { background-color: #15803d; }
+        .wwu-tab {
+          border: 1.5px solid #d1d5db;
+          border-radius: 8px;
+          background: #ffffff;
+          color: #374151;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          padding: 10px 22px;
+        }
+        .wwu-tab.active {
+          background: #fde047;
+          border-color: #ca8a04;
+          color: #111827;
+          font-weight: 700;
+        }
+        .wwu-tab:hover:not(.active) {
+          border-color: #16a34a;
+          color: #16a34a;
+        }
+        .wwu-hero-badge {
+          background: #fde047;
+          border: 1.5px solid #ca8a04;
+          border-radius: 999px;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 20px;
+          color: #713f12;
+          font-weight: 700;
+        }
+        .wwu-divider {
+          border: none;
+          border-top: 1.5px solid #d1d5db;
+          margin: 0;
+        }
+        .wwu-heading-accent::after {
+          content: '';
+          display: block;
+          width: 56px;
+          height: 3px;
+          background: #16a34a;
+          margin: 10px auto 0;
+          border-radius: 2px;
+        }
+        @media (max-width: 640px) {
+          .wwu-card { border-radius: 12px; }
+          .wwu-cta-section { border-radius: 14px; padding: 2rem 1.25rem; }
+          .wwu-tab { padding: 8px 14px; font-size: 0.85rem; }
+        }
+        /* Mobile-only horizontal scroll for partnership cards */
+        @media (max-width: 767px) {
+          .partnership-scroll-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            gap: 12px;
+            padding-bottom: 12px;
+            padding-left: 4px;
+            padding-right: 4px;
+            scrollbar-width: none;
+          }
+          .partnership-scroll-container::-webkit-scrollbar {
+            display: none;
+          }
+          .partnership-card-wrapper {
+            flex: 0 0 auto;
+            width: 42vw;
+            min-width: 150px;
+            max-width: 185px;
+            scroll-snap-align: start;
+          }
+          .partnership-card-wrapper .wwu-card {
+            height: 100%;
+          }
+          .partnership-card-wrapper .relative.h-40 {
+            height: 90px;
+          }
+          .partnership-card-wrapper .relative.h-40 .w-20 {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+          }
+          .partnership-card-wrapper .relative.h-40 .w-20 svg {
+            font-size: 1rem;
+          }
+          .partnership-card-wrapper .flex.flex-col.flex-grow.p-6 {
+            padding: 10px;
+          }
+          .partnership-card-wrapper .text-xl.font-bold {
+            font-size: 0.78rem;
+            line-height: 1.3;
+          }
+          .partnership-card-wrapper .btn-primary {
+            padding: 7px 8px;
+            font-size: 0.72rem;
+            gap: 4px;
+          }
+          .partnership-card-wrapper .badge-yellow {
+            font-size: 0.52rem;
+            padding: 2px 6px;
+          }
+          .partnership-card-wrapper .absolute.top-4.left-4 {
+            top: 6px;
+            left: 6px;
+          }
+          .partnership-card-wrapper .absolute.top-4.right-4 {
+            top: 6px;
+            right: 6px;
+            width: 16px;
+            height: 16px;
+          }
+        }
+      `}</style>
+
+      <div className="wwu-page min-h-screen py-20 relative font-sans">
         <div className="relative z-10">
-          {/* Hero Section */}
-          <section className="pt-10 px-6">
+          <section className="pt-10 px-4 sm:px-6">
             <div className="max-w-7xl mx-auto text-center">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-100 to-teal-100 px-6 py-3 rounded-full mb-8 border border-emerald-200 shadow-sm"
+                className="wwu-hero-badge mb-8 mx-auto w-fit"
               >
-                <FaLightbulb className="text-emerald-600" />
-                <span className="text-emerald-700 font-semibold">
-                  Partnership Opportunities
-                </span>
+                <FaLightbulb className="text-yellow-700" />
+                <span>Partnership Opportunities</span>
               </motion.div>
 
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-slate-900 via-blue-800 to-purple-800 bg-clip-text text-transparent mb-6"
+                className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 tracking-tight"
               >
                 Work With Us
               </motion.h1>
@@ -233,89 +447,86 @@ const WorkWithUsPage = () => {
                 Choose the partnership model that fits your goals.
               </motion.p>
 
-              {/* Stats */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16"
+                className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-16"
               >
                 {stats.map((stat, index) => (
-                  <div
-                    key={index}
-                    className="bg-white/70 backdrop-blur-sm p-6 rounded-2xl border border-emerald-100 shadow-md hover:shadow-lg transition-all duration-300"
-                  >
-                    <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <div key={index} className="wwu-stat-card p-6 text-center">
+                    <div className="w-14 h-14 bg-green-600 rounded-xl flex items-center justify-center mx-auto mb-4">
                       <stat.icon className="text-2xl text-white" />
                     </div>
-                    <h3 className="text-3xl font-bold text-gray-800 mb-2">
+                    <h3 className="text-3xl font-bold text-gray-900 mb-1">
                       {stat.value}
                     </h3>
-                    <p className="text-gray-600">{stat.label}</p>
+                    <p className="text-gray-500 text-sm font-medium">{stat.label}</p>
                   </div>
                 ))}
               </motion.div>
             </div>
           </section>
 
-          {/* Partnership Cards */}
-          <section className="py-8 px-6">
+          <hr className="wwu-divider mx-6 mb-2" />
+
+          <section className="py-12 px-4 sm:px-6">
             <div className="max-w-7xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="text-center mb-16"
+                className="text-center mb-12"
               >
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3 wwu-heading-accent">
                   Choose Your Partnership Path
                 </h2>
-                <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                <p className="text-lg text-gray-500 max-w-2xl mx-auto mt-4">
                   Explore our three partnership models and find the perfect fit
                   for your business goals and expertise.
                 </p>
               </motion.div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 h-full">
+              {/* Mobile: horizontal scrollable row | Desktop: 3-column grid */}
+              <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 h-full">
                 {partnerships.map((partnership, index) => (
                   <motion.div
                     key={partnership.id}
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 * index }}
-                    whileHover={{ y: -10 }}
-                    className={`flex flex-col bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden transition-all duration-500 hover:shadow-xl relative ${
-                      activePartnership === index
-                        ? "ring-2 ring-emerald-500"
-                        : ""
+                    whileHover={{ y: -6 }}
+                    className={`flex flex-col wwu-card relative cursor-pointer ${
+                      activePartnership === index ? "wwu-card-active" : ""
                     }`}
                     onClick={(e) => {
-                      // Prevent event propagation to avoid triggering card selection
                       e.stopPropagation();
                       setActivePartnership(index);
                     }}
                   >
-                    {/* Card Header with Gradient Background */}
-                    <div
-                      className={`relative h-40 flex items-center justify-center ${partnership.bgColor} bg-opacity-20`}
-                    >
-                      <div
-                        className={`relative z-10 w-20 h-20 bg-gradient-to-r ${partnership.color} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
-                      >
+                    <div className="absolute top-4 left-4 z-10">
+                      <span className="badge-yellow">FEATURED</span>
+                    </div>
+
+                    {activePartnership === index && (
+                      <div className="absolute top-4 right-4 z-10 w-6 h-6 bg-yellow-400 border border-yellow-600 rounded-full flex items-center justify-center">
+                        <FaCheckCircle className="text-yellow-800 text-xs" />
+                      </div>
+                    )}
+
+                    <div className="relative h-40 flex items-center justify-center bg-gradient-to-br from-green-50 to-emerald-100 border-b border-gray-200">
+                      <div className="w-20 h-20 bg-green-600 rounded-2xl flex items-center justify-center shadow-md">
                         <partnership.icon className="text-2xl text-white" />
                       </div>
                     </div>
 
-                    {/* Card Body - Flex grow to fill space */}
                     <div className="flex flex-col flex-grow p-6">
                       <div className="text-center mb-4 flex-grow">
-                        <h3 className="text-xl font-bold text-gray-800 mb-2">
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">
                           {partnership.title}
                         </h3>
-                        {/* <p className="text-gray-600 leading-relaxed">{partnership.description}</p> */}
                       </div>
 
-                      {/* CTA Button */}
                       <div className="mt-auto">
                         <button
                           onClick={(e) => {
@@ -327,7 +538,7 @@ const WorkWithUsPage = () => {
                                   ? "/work-with-us/remisorship"
                                   : "/work-with-us/b2b-partnership";
                           }}
-                          className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-6 py-3 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 shadow-lg group-hover:shadow-2xl transform group-hover:scale-105"
+                          className="btn-primary w-full px-6 py-3 flex items-center justify-center gap-2 text-sm"
                         >
                           Learn More
                           <svg
@@ -336,82 +547,162 @@ const WorkWithUsPage = () => {
                             fill="none"
                             stroke="currentColor"
                             strokeWidth="2"
-                            className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
+                            className="w-4 h-4"
                           >
                             <path d="M5 12h14M12 5l7 7-7 7" />
                           </svg>
                         </button>
                       </div>
                     </div>
-
-                    {/* Active indicator */}
-                    {activePartnership === index && (
-                      <div className="absolute top-4 right-4 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center">
-                        <FaCheckCircle className="text-white text-xs" />
-                      </div>
-                    )}
                   </motion.div>
+                ))}
+              </div>
+
+              {/* Mobile-only: horizontal scroll row */}
+              <div className="partnership-scroll-container md:hidden">
+                {partnerships.map((partnership, index) => (
+                  <div key={partnership.id} className="partnership-card-wrapper">
+                    <motion.div
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.1 * index }}
+                      className={`flex flex-col wwu-card relative cursor-pointer h-full ${
+                        activePartnership === index ? "wwu-card-active" : ""
+                      }`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActivePartnership(index);
+                      }}
+                    >
+                      <div className="absolute top-4 left-4 z-10">
+                        <span className="badge-yellow">FEATURED</span>
+                      </div>
+
+                      {activePartnership === index && (
+                        <div className="absolute top-4 right-4 z-10 w-6 h-6 bg-yellow-400 border border-yellow-600 rounded-full flex items-center justify-center">
+                          <FaCheckCircle className="text-yellow-800 text-xs" />
+                        </div>
+                      )}
+
+                      <div className="relative h-40 flex items-center justify-center bg-gradient-to-br from-green-50 to-emerald-100 border-b border-gray-200">
+                        <div className="w-20 h-20 bg-green-600 rounded-2xl flex items-center justify-center shadow-md">
+                          <partnership.icon className="text-2xl text-white" />
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col flex-grow p-6">
+                        <div className="text-center mb-4 flex-grow">
+                          <h3 className="text-xl font-bold text-gray-900 mb-2">
+                            {partnership.title}
+                          </h3>
+                        </div>
+
+                        <div className="mt-auto">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.location.href =
+                                partnership.id === 1
+                                  ? "/work-with-us/business-development-partnership"
+                                  : partnership.id === 2
+                                    ? "/work-with-us/remisorship"
+                                    : "/work-with-us/b2b-partnership";
+                            }}
+                            className="btn-primary w-full px-6 py-3 flex items-center justify-center gap-2 text-sm"
+                          >
+                            Learn More
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              className="w-4 h-4"
+                            >
+                              <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
           </section>
 
-          {/* Partnership Details Section */}
-          <section className="pb-16 px-6">
+          <hr className="wwu-divider mx-6 my-2" />
+
+          <section className="py-12 px-4 sm:px-6">
             <div className="max-w-7xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-center mb-8"
+                className="text-center mb-10"
               >
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3 wwu-heading-accent">
                   Detailed Partnership Overview
                 </h2>
-                <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-4">
                   Dive deeper into the specifics of each partnership model
                 </p>
               </motion.div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="flex flex-wrap gap-3 justify-center mb-10">
+                {partnerships.map((p, idx) => (
+                  <button
+                    key={idx}
+                    className={`wwu-tab ${activePartnership === idx ? "active" : ""}`}
+                    onClick={() => setActivePartnership(idx)}
+                  >
+                    {p.title}
+                  </button>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-start">
                 <motion.div
                   initial={{ opacity: 0, x: -30 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
-                  className="bg-white rounded-3xl shadow-xl p-8 border border-emerald-100"
+                  className="wwu-detail-panel p-6 sm:p-8"
                 >
                   <div className="flex items-center gap-4 mb-6">
-                    <div
-                      className={`w-16 h-16 bg-gradient-to-r ${partnerships[activePartnership].color} rounded-2xl flex items-center justify-center`}
-                    >
+                    <div className="w-14 h-14 bg-green-600 rounded-xl flex items-center justify-center flex-shrink-0">
                       {partnerships[activePartnership].icon &&
                         React.createElement(
                           partnerships[activePartnership].icon,
                           { className: "text-2xl text-white" }
                         )}
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-800">
-                      {partnerships[activePartnership].title}
-                    </h3>
+                    <div>
+                      <span className="badge-yellow mb-1 block">FEATURED</span>
+                      <h3 className="text-xl font-bold text-gray-900">
+                        {partnerships[activePartnership].title}
+                      </h3>
+                    </div>
                   </div>
 
                   <div
-                    className="prose prose-emerald max-w-none"
+                    className="prose prose-sm prose-gray max-w-none text-gray-600 leading-relaxed"
                     dangerouslySetInnerHTML={{
                       __html: partnerships[activePartnership].details,
                     }}
                   ></div>
 
-                  <div className="mt-8">
-                    <h4 className="text-xl font-bold text-gray-800 mb-4">
+                  <hr className="wwu-divider my-6" />
+
+                  <div>
+                    <h4 className="text-lg font-bold text-gray-900 mb-4">
                       Key Features
                     </h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {partnerships[activePartnership].features.map(
                         (feature, idx) => (
                           <div key={idx} className="flex items-start gap-3">
-                            <FaCheckCircle className="text-emerald-500 mt-1 flex-shrink-0" />
-                            <span className="text-gray-700">{feature}</span>
+                            <FaCheckCircle className="text-green-600 mt-0.5 flex-shrink-0" />
+                            <span className="text-gray-700 text-sm">{feature}</span>
                           </div>
                         )
                       )}
@@ -423,13 +714,13 @@ const WorkWithUsPage = () => {
                   initial={{ opacity: 0, x: 30 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 0.4 }}
-                  className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-3xl p-8 border border-emerald-200"
+                  className="wwu-benefits-panel p-6 sm:p-8"
                 >
-                  <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+                  <h3 className="text-xl font-bold text-gray-900 mb-6 text-center wwu-heading-accent">
                     Partnership Benefits
                   </h3>
 
-                  <div className="space-y-6">
+                  <div className="space-y-4 mt-6">
                     {partnerships[activePartnership].benefits.map(
                       (benefit, idx) => (
                         <motion.div
@@ -437,15 +728,15 @@ const WorkWithUsPage = () => {
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.3, delay: 0.1 * idx }}
-                          className="flex items-start gap-4 p-4 bg-white rounded-2xl shadow-sm border border-emerald-100"
+                          className="wwu-benefit-item flex items-start gap-4 p-4"
                         >
-                          <div className="mt-1">
-                            <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
-                              <FaStarIcon className="text-emerald-600 text-sm" />
+                          <div className="mt-0.5">
+                            <div className="w-8 h-8 bg-yellow-100 border border-yellow-300 rounded-full flex items-center justify-center flex-shrink-0">
+                              <FaStarIcon className="text-yellow-600 text-sm" />
                             </div>
                           </div>
                           <div>
-                            <h4 className="font-semibold text-gray-800">
+                            <h4 className="font-semibold text-gray-900 text-sm">
                               {benefit}
                             </h4>
                           </div>
@@ -454,17 +745,17 @@ const WorkWithUsPage = () => {
                     )}
                   </div>
 
-                  <div className="mt-8 grid grid-cols-3 gap-4">
+                  <div className="mt-8 grid grid-cols-3 gap-3">
                     {featureIcons.slice(0, 6).map((Icon, idx) => (
                       <motion.div
                         key={idx}
                         initial={{ opacity: 0, scale: 0.5 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.3, delay: 0.1 * idx }}
-                        className="flex flex-col items-center justify-center p-4 bg-white rounded-xl shadow-sm border border-emerald-100"
+                        className="wwu-feature-tile flex flex-col items-center justify-center p-4"
                       >
-                        <Icon className="text-emerald-600 text-2xl mb-2" />
-                        <span className="text-xs text-center text-gray-600"></span>
+                        <Icon className="text-green-600 text-2xl mb-1" />
+                        <span className="text-xs text-center text-gray-500"></span>
                       </motion.div>
                     ))}
                   </div>
@@ -473,27 +764,33 @@ const WorkWithUsPage = () => {
             </div>
           </section>
 
-          {/* CTA Section */}
-          <section className="py-20 px-6">
+          <hr className="wwu-divider mx-6 my-2" />
+
+          <section className="py-16 sm:py-20 px-4 sm:px-6">
             <div className="max-w-4xl mx-auto text-center">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="bg-gradient-to-br from-emerald-600 via-teal-600 to-green-700 rounded-3xl p-12 text-white relative overflow-hidden shadow-xl"
+                className="wwu-cta-section p-8 sm:p-12 text-white relative overflow-hidden"
               >
-                {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-20">
+                <div className="absolute inset-0 opacity-10 pointer-events-none">
                   <div className="absolute top-10 left-10 w-32 h-32 bg-white rounded-full blur-2xl"></div>
-                  <div className="absolute bottom-10 right-10 w-40 h-40 bg-emerald-300 rounded-full blur-2xl"></div>
+                  <div className="absolute bottom-10 right-10 w-40 h-40 bg-yellow-300 rounded-full blur-2xl"></div>
                 </div>
 
                 <div className="relative z-10 text-center">
+                  <div className="mb-4 flex justify-center">
+                    <span className="badge-yellow text-sm px-4 py-1">
+                      GET STARTED TODAY
+                    </span>
+                  </div>
+
                   <motion.h2
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
-                    className="text-3xl md:text-4xl font-bold mb-6 text-white"
+                    className="text-3xl md:text-4xl font-bold mb-4 text-white"
                   >
                     Ready to Partner with Us?
                   </motion.h2>
@@ -508,7 +805,6 @@ const WorkWithUsPage = () => {
                     started on your journey to success.
                   </motion.p>
 
-                  {/* Action Buttons */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -517,7 +813,7 @@ const WorkWithUsPage = () => {
                   >
                     <a
                       href="tel:+918696060387"
-                      className="bg-white text-emerald-700 px-8 py-4 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:bg-emerald-50 transition-all duration-300 group shadow-lg"
+                      className="btn-cta-white px-8 py-4 flex items-center justify-center gap-3 group"
                     >
                       <FaPhoneAlt />
                       Call Us Now
@@ -526,7 +822,7 @@ const WorkWithUsPage = () => {
 
                     <a
                       href="mailto:support@fiscalforum.in"
-                      className="bg-emerald-500 text-white px-8 py-4 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:bg-emerald-600 transition-all duration-300 group shadow-lg"
+                      className="btn-cta-yellow px-8 py-4 flex items-center justify-center gap-3 group"
                     >
                       <FaEnvelope />
                       Send Inquiry
@@ -537,7 +833,7 @@ const WorkWithUsPage = () => {
                       href="https://wa.me/918696060387"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="bg-green-500 text-white px-8 py-4 rounded-2xl font-semibold flex items-center justify-center gap-3 hover:bg-green-600 transition-all duration-300 group shadow-lg"
+                      className="btn-cta-green px-8 py-4 flex items-center justify-center gap-3 group"
                     >
                       <FaWhatsapp />
                       Chat on WhatsApp
@@ -545,24 +841,23 @@ const WorkWithUsPage = () => {
                     </a>
                   </motion.div>
 
-                  {/* Contact Info */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.4 }}
                     className="mt-8 pt-8 border-t border-white/30"
                   >
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-white/90">
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-white/90 text-sm">
                       <div className="flex items-center gap-2">
-                        <FaPhoneAlt className="text-white" />
+                        <FaPhoneAlt className="text-yellow-300" />
                         <span>+91 8696060387</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <FaEnvelope className="text-white" />
+                        <FaEnvelope className="text-yellow-300" />
                         <span>support@fiscalforum.in</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <FaGlobe className="text-white" />
+                        <FaGlobe className="text-yellow-300" />
                         <span>www.fiscalforum.in</span>
                       </div>
                     </div>
@@ -573,7 +868,6 @@ const WorkWithUsPage = () => {
           </section>
         </div>
 
-        {/* WhatsApp Float Button */}
         <motion.div
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -585,7 +879,7 @@ const WorkWithUsPage = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <button className="w-14 h-14 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 group hover:cursor-pointer">
+            <button className="w-14 h-14 bg-green-600 hover:bg-green-700 border-2 border-gray-900 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 group hover:cursor-pointer">
               <svg
                 className="w-8 h-8 text-white group-hover:scale-110 transition-transform"
                 fill="currentColor"
