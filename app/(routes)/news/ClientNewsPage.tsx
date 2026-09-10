@@ -461,15 +461,21 @@ const ClientNewsPage = ({ initialNews, initialTab }: ClientNewsPageProps) => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Page Header */}
-        <header className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-black text-black tracking-tight uppercase mb-3">
-            {activeTab === "ipo-scoop" ? "IPO SCOOP" : "FINANCIAL NEWS HUB"}
-          </h1>
-          <p className="text-slate-600 font-medium text-sm md:text-base max-w-2xl mx-auto">
-            {activeTab === "ipo-scoop"
-              ? "All the latest information and updates on current and upcoming IPOs"
-              : "Curated insights and breaking news from global markets"}
-          </p>
+        <header className="text-center mb-10 max-w-4xl mx-auto">
+          <div className="bg-white border-2 border-black rounded-3xl p-6 sm:p-8 shadow-[6px_6px_0px_#000000] inline-block w-full">
+            <div className="inline-flex items-center gap-2 bg-yellow-100 border border-black px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest mb-3 shadow-[2px_2px_0px_#000]">
+              <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
+              LIVE IPO TRACKER
+            </div>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-black tracking-tight uppercase mb-3">
+              {activeTab === "ipo-scoop" ? "IPO SCOOP" : "FINANCIAL NEWS HUB"}
+            </h1>
+            <p className="text-gray-800 font-bold text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+              {activeTab === "ipo-scoop"
+                ? "All the latest information and updates on current and upcoming IPOs"
+                : "Curated insights and breaking news from global markets"}
+            </p>
+          </div>
         </header>
 
         {/* Tab Filters */}
