@@ -462,8 +462,8 @@ const ClientNewsPage = ({ initialNews, initialTab }: ClientNewsPageProps) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Page Header */}
         <header className="text-center mb-10 max-w-4xl mx-auto">
-          <div className="bg-white border-2 border-black rounded-3xl p-6 sm:p-8 shadow-[6px_6px_0px_#000000] inline-block w-full">
-            <div className="inline-flex items-center gap-2 bg-yellow-100 border border-black px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest mb-3 shadow-[2px_2px_0px_#000]">
+          <div className="bg-white border-2 border-black rounded-3xl p-6 sm:p-8 shadow-sm inline-block w-full">
+            <div className="inline-flex items-center gap-2 bg-yellow-100 border border-black px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest mb-3">
               <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
               LIVE IPO TRACKER
             </div>

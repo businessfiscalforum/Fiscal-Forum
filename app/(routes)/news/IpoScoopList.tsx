@@ -158,7 +158,7 @@ const IpoScoopList: React.FC<IpoScoopListProps> = ({
     bgClass: string;
   }> = ({ icon: Icon, title, value, valueClass = "", bgClass }) => (
     <div
-      className={`p-3 rounded-2xl border border-black ${bgClass} text-center flex flex-col justify-center items-center h-full shadow-[2px_2px_0px_rgba(0,0,0,0.12)] transition-all`}
+      className={`p-3 rounded-2xl border border-black/80 ${bgClass} text-center flex flex-col justify-center items-center h-full shadow-sm transition-all`}
     >
       <div className="flex items-center gap-1 mb-1">
         <Icon className="text-xs text-black/70" />
@@ -172,7 +172,7 @@ const IpoScoopList: React.FC<IpoScoopListProps> = ({
 
   return (
     <div className="max-w-6xl mx-auto p-2 sm:p-4">
-      <div className="space-y-8">
+      <div className="space-y-6">
         {currentNews.map((news, index) => {
           const ipoStatus = getIpoStatus(news.openDate, news.closeDate);
 
@@ -193,13 +193,13 @@ const IpoScoopList: React.FC<IpoScoopListProps> = ({
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.08 }}
-              className="bg-white border-2 border-black rounded-3xl p-5 md:p-6 shadow-[5px_5px_0px_#000000] hover:shadow-[7px_7px_0px_#000000] transition-all duration-200"
+              className="bg-white border-2 border-black rounded-3xl p-5 md:p-6 shadow-sm hover:border-[#1FA463] hover:shadow-md transition-all duration-200"
             >
               {/* IPO Title & Rating Header */}
               <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-black/10">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="bg-yellow-200 text-black border border-black px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-[1px_1px_0px_#000]">
+                    <span className="bg-yellow-200 text-black border border-black px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest">
                       IPO SCOOP
                     </span>
                     {news.companyName && (
@@ -217,7 +217,7 @@ const IpoScoopList: React.FC<IpoScoopListProps> = ({
                 </div>
 
                 <div className="flex items-center gap-2 shrink-0">
-                  <div className="bg-emerald-400 text-black border border-black px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 shadow-[2px_2px_0px_#000]">
+                  <div className="bg-emerald-400 text-black border border-black px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5">
                     <FaThumbsUp className="text-black text-xs" />
                     MAY APPLY
                   </div>
@@ -229,10 +229,10 @@ const IpoScoopList: React.FC<IpoScoopListProps> = ({
               <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
                 {/* Left: Image Container */}
                 <div className="md:col-span-4 lg:col-span-3">
-                  <div className="relative w-full aspect-[16/10] md:aspect-square rounded-2xl overflow-hidden border-2 border-black shadow-[3px_3px_0px_#000] bg-emerald-50">
+                  <div className="relative w-full aspect-[16/10] md:aspect-square rounded-2xl overflow-hidden border-2 border-black bg-emerald-50 shadow-sm">
                     <IpoCardImage src={news.image} title={news.title} />
                     {/* Status Badge */}
-                    <div className={`absolute top-2.5 right-2.5 border border-black px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider flex items-center gap-1.5 shadow-[1px_1px_0px_#000] ${ipoStatus.badgeClass}`}>
+                    <div className={`absolute top-2.5 right-2.5 border border-black px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider flex items-center gap-1.5 ${ipoStatus.badgeClass}`}>
                       <span className={`w-2 h-2 rounded-full ${ipoStatus.dotClass}`} />
                       {ipoStatus.status}
                     </div>
@@ -267,7 +267,7 @@ const IpoScoopList: React.FC<IpoScoopListProps> = ({
                   </div>
 
                   {/* Dates Timeline Strip */}
-                  <div className="p-3 bg-[#F4FBF7] border border-black rounded-2xl shadow-[2px_2px_0px_#000] grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-bold text-black">
+                  <div className="p-3 bg-[#F4FBF7] border border-black rounded-2xl shadow-sm grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-bold text-black">
                     <div className="flex items-center gap-1.5">
                       <span>Open-Close:</span>
                       <span className="text-emerald-800 font-black">
@@ -300,10 +300,10 @@ const IpoScoopList: React.FC<IpoScoopListProps> = ({
                         if (ipoStatus.status !== "LIVE") e.preventDefault();
                         e.stopPropagation();
                       }}
-                      className={`text-center py-2.5 px-3 rounded-xl border border-black font-black text-xs sm:text-sm uppercase tracking-wider transition-all shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] ${
+                      className={`text-center py-2.5 px-3 rounded-xl border border-black font-black text-xs sm:text-sm uppercase tracking-wider transition-all ${
                         ipoStatus.status === "LIVE"
-                          ? "bg-[#1FA463] text-white hover:bg-emerald-600 cursor-pointer"
-                          : "bg-gray-200 text-gray-500 border-gray-400 cursor-not-allowed shadow-none"
+                          ? "bg-[#1FA463] text-white hover:bg-emerald-600 cursor-pointer shadow-sm"
+                          : "bg-gray-200 text-gray-500 border-gray-400 cursor-not-allowed"
                       }`}
                     >
                       {ipoStatus.status === "LIVE" ? "Apply Now" : ipoStatus.status === "UPCOMING" ? "Upcoming" : "Closed"}
@@ -314,7 +314,7 @@ const IpoScoopList: React.FC<IpoScoopListProps> = ({
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="text-center py-2.5 px-3 rounded-xl border border-black bg-yellow-100 hover:bg-yellow-200 text-black font-black text-xs sm:text-sm uppercase tracking-wider transition-all shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px]"
+                      className="text-center py-2.5 px-3 rounded-xl border border-black bg-yellow-100 hover:bg-yellow-200 text-black font-black text-xs sm:text-sm uppercase tracking-wider transition-all shadow-sm"
                     >
                       Allotment
                     </a>
@@ -324,7 +324,7 @@ const IpoScoopList: React.FC<IpoScoopListProps> = ({
                         e.stopPropagation();
                         handleNewsClick(news.id);
                       }}
-                      className="text-center py-2.5 px-3 rounded-xl border border-black bg-black text-white hover:bg-gray-800 font-black text-xs sm:text-sm uppercase tracking-wider transition-all shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px]"
+                      className="text-center py-2.5 px-3 rounded-xl border border-black bg-black text-white hover:bg-gray-800 font-black text-xs sm:text-sm uppercase tracking-wider transition-all shadow-sm"
                     >
                       More Info
                     </button>
