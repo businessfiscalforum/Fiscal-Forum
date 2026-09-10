@@ -2970,6 +2970,46 @@ body {
   .hstat { display: flex; flex-direction: column; gap: 4px; }
   .hstat .v { font-family: 'JetBrains Mono', monospace; font-size: 24px; color: var(--text); font-weight: 600; }
   .hstat .l { font-size: 11px; color: var(--muted-2); text-transform: none; letter-spacing: 1px; }
+  .mobile-br { display: none; }
+
+  @media (max-width: 768px) {
+    .mobile-br { display: inline; }
+    .hero {
+      padding: 40px 0 32px;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 7.5vw, 38px);
+      margin: 0 0 16px;
+    }
+    .hero p {
+      font-size: 15px;
+      line-height: 1.6;
+      margin: 0 0 24px;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .hstat {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+      text-align: left;
+    }
+    .hstat .v {
+      font-size: 22px;
+      line-height: 1.1;
+    }
+    .hstat .l {
+      font-size: 11px;
+      line-height: 1.35;
+      letter-spacing: 0.2px;
+      color: var(--muted-2);
+    }
+  }
 
   /* ===== STEPPER ===== */
   .section-title {

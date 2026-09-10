@@ -395,15 +395,15 @@ export default function EquityETFsPage() {
           <div className="hero-stats">
             <div className="hstat">
               <span className="v mono">07</span>
-              <span className="l">Segments tracked</span>
+              <span className="l">Segments<br className="mobile-br" /> tracked</span>
             </div>
             <div className="hstat">
               <span className="v mono">05</span>
-              <span className="l">Inputs required</span>
+              <span className="l">Inputs<br className="mobile-br" /> required</span>
             </div>
             <div className="hstat">
               <span className="v mono">&lt;1s</span>
-              <span className="l">Engine compute time</span>
+              <span className="l">Engine compute<br className="mobile-br" /> time</span>
             </div>
           </div>
         </div>
