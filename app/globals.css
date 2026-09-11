@@ -3962,6 +3962,7 @@ body {
   }
   .hero p.lede { margin-top: 22px; font-size: 17px; color: var(--ink-soft); max-width: 520px; line-height: 1.65; font-weight: 500; }
   .hero-cta { margin-top: 32px; display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .hero-cta-duo { display: flex; gap: 14px; align-items: center; }
   .btn {
     font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: .02em;
     padding: 13px 24px; border-radius: 12px; border: 1px solid rgba(10,10,10,0.16);
@@ -3971,6 +3972,18 @@ body {
   .btn.primary { background: var(--accent); color: #0a0a0a; border: none; box-shadow: 0 6px 16px rgba(91,146,121,0.2); }
   .btn.primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(91,146,121,0.28); background: var(--accent-deep); color: #fff; }
   .btn:not(.primary):hover { transform: translateY(-1px); box-shadow: var(--shadow-md); background: var(--bg-soft); }
+
+  @media (max-width: 768px) {
+    .hero-cta { flex-direction: column; width: 100%; gap: 12px; align-items: flex-start; }
+    .hero-cta-btn-start { width: auto; align-self: flex-start; display: inline-flex; align-items: center; justify-content: center; text-align: center; box-sizing: border-box; }
+    .hero-cta-btn-full { width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; box-sizing: border-box; }
+    .hero-cta-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; align-items: stretch; }
+    .hero-cta-btn-half {
+      width: 100%; height: 100%; min-height: 48px; padding: 12px 6px;
+      font-size: clamp(11px, 2.9vw, 13px); display: flex; align-items: center; justify-content: center;
+      text-align: center; box-sizing: border-box;
+    }
+  }
 
   .hero-frame {
     position: relative; width: 100%; border-radius: 18px; overflow: hidden;
