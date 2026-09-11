@@ -3973,12 +3973,20 @@ body {
   .btn.primary:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(91,146,121,0.28); background: var(--accent-deep); color: #fff; }
   .btn:not(.primary):hover { transform: translateY(-1px); box-shadow: var(--shadow-md); background: var(--bg-soft); }
 
+  .apply-cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; align-items: center; }
+
   @media (max-width: 768px) {
     .hero-cta { flex-direction: column; width: 100%; gap: 12px; align-items: flex-start; }
     .hero-cta-btn-start { width: auto; align-self: flex-start; display: inline-flex; align-items: center; justify-content: center; text-align: center; box-sizing: border-box; }
     .hero-cta-btn-full { width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; box-sizing: border-box; }
     .hero-cta-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; align-items: stretch; }
     .hero-cta-btn-half {
+      width: 100%; height: 100%; min-height: 48px; padding: 12px 6px;
+      font-size: clamp(11px, 2.9vw, 13px); display: flex; align-items: center; justify-content: center;
+      text-align: center; box-sizing: border-box;
+    }
+    .apply-cta-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; align-items: stretch; }
+    .apply-cta-btn {
       width: 100%; height: 100%; min-height: 48px; padding: 12px 6px;
       font-size: clamp(11px, 2.9vw, 13px); display: flex; align-items: center; justify-content: center;
       text-align: center; box-sizing: border-box;
@@ -4090,7 +4098,39 @@ body {
     margin-top: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
   }
   @media (max-width: 900px) { .cardgrid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 600px) { .cardgrid { grid-template-columns: 1fr; } }
+  @media (max-width: 768px) {
+    .players .cardgrid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+      grid-auto-rows: 1fr;
+    }
+    .players .pcard {
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      box-sizing: border-box;
+      border-radius: 14px;
+    }
+    .players .pcard .ic {
+      width: 36px;
+      height: 36px;
+      font-size: 16px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    .players .pcard h4 {
+      margin-top: 12px;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+    .players .pcard p {
+      margin-top: 6px;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+  }
   .pcard {
     background: var(--surface); padding: 24px; border: var(--bw) solid var(--line); border-radius: 16px;
     box-shadow: var(--shadow-sm); transition: all 0.2s ease; cursor: default;
@@ -4143,6 +4183,92 @@ body {
   .sim-listbar { height: 90px; flex: none; display: flex; align-items: flex-end; gap: 7px; margin-top: 26px; }
   .sim-listbar i { flex: 1; border-radius: 3px 3px 0 0; transition: height .4s ease, background .4s ease; min-width: 4px; }
   .sim-verdict { margin-top: 18px; font-size: 13.5px; padding: 13px 16px; border-radius: 9px; font-family: var(--font-mono); line-height: 1.5; font-weight: 600; border: 1.5px solid rgba(255,255,255,.25); }
+
+  @media (max-width: 768px) {
+    .sim {
+      padding: 44px 16px;
+    }
+    .sim .section-head {
+      margin-bottom: 20px;
+    }
+    .sim .section-head h2 {
+      font-size: clamp(22px, 5.5vw, 30px);
+    }
+    .sim .section-head p {
+      margin-top: 8px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .sim-grid {
+      margin-top: 20px;
+      gap: 16px;
+    }
+    .sim-panel {
+      padding: 16px 14px;
+      border-radius: 14px;
+    }
+    .sim-row {
+      margin-bottom: 12px;
+    }
+    .sim-row label {
+      font-size: 10px;
+    }
+    .sim-panel input[type=range] {
+      margin-top: 6px;
+      height: 5px;
+    }
+    .sim-panel input[type=range]::-webkit-slider-thumb {
+      width: 16px;
+      height: 16px;
+    }
+    .sim-panel input[type=range]::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+    }
+    .sim-note {
+      margin-top: 6px;
+      padding-top: 10px;
+      font-size: 10.5px;
+      line-height: 1.4;
+    }
+
+    .sim-result {
+      padding: 16px 14px;
+      border-radius: 14px;
+      min-height: auto;
+    }
+    .sim-result .ticker-name {
+      font-size: 9.5px;
+    }
+    .sim-result .ticker-val {
+      font-size: 15px;
+      margin-top: 2px;
+    }
+    .sim-result #popVal {
+      font-size: 16px !important;
+      margin-top: 2px !important;
+    }
+    .sim-result .alloc {
+      font-size: 24px;
+      margin-top: 10px;
+    }
+    .sim-result .alloc small {
+      font-size: 11px;
+      margin-top: 2px;
+    }
+    .sim-listbar {
+      height: 48px;
+      margin-top: 12px;
+      gap: 4px;
+    }
+    .sim-verdict {
+      margin-top: 10px;
+      font-size: 11px;
+      padding: 8px 10px;
+      line-height: 1.4;
+      border-radius: 8px;
+    }
+  }
 
   /* ---------- RISK ---------- */
   .risk { background: var(--surface); }

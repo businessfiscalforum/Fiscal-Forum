@@ -475,11 +475,11 @@ export default function IPOPage() {
           <p style={{ color: "var(--ink-soft)", marginTop: "14px", marginBottom: "28px", maxWidth: "480px", marginLeft: "auto", marginRight: "auto", fontSize: "15px", lineHeight: "1.6" }}>
             Submit your IPO application form online and start your investment journey today.
           </p>
-          <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
-            <Link href="/services/learn-earn/ipo/apply" className="btn primary" style={{ display: "inline-block", textDecoration: "none" }}>
+          <div className="apply-cta-btns">
+            <Link href="/services/learn-earn/ipo/apply" className="btn primary apply-cta-btn" style={{ textDecoration: "none" }}>
               Apply for IPO now
             </Link>
-            <Link href="/services/learn-earn/open-demat-account" className="btn" style={{ display: "inline-block", textDecoration: "none" }}>
+            <Link href="/services/learn-earn/open-demat-account" className="btn apply-cta-btn" style={{ textDecoration: "none" }}>
               Open Demat Account
             </Link>
           </div>
