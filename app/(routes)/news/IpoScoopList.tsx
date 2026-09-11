@@ -158,21 +158,21 @@ const IpoScoopList: React.FC<IpoScoopListProps> = ({
     bgClass: string;
   }> = ({ icon: Icon, title, value, valueClass = "", bgClass }) => (
     <div
-      className={`p-3 rounded-2xl border border-black/80 ${bgClass} text-center flex flex-col justify-center items-center h-full shadow-sm transition-all`}
+      className={`p-2.5 rounded-2xl border border-black/80 ${bgClass} text-center flex flex-col justify-center items-center h-full shadow-sm transition-all`}
     >
       <div className="flex items-center gap-1 mb-1">
         <Icon className="text-xs text-black/70" />
         <span className="text-[10px] font-black text-black uppercase tracking-wider">{title}</span>
       </div>
-      <p className={`text-sm sm:text-base font-black text-black ${valueClass} line-clamp-1`}>
+      <p className={`text-xs sm:text-sm font-black text-black ${valueClass} line-clamp-1`}>
         {value}
       </p>
     </div>
   );
 
   return (
-    <div className="max-w-6xl mx-auto p-2 sm:p-4">
-      <div className="space-y-6">
+    <div className="max-w-7xl mx-auto p-2 sm:p-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
         {currentNews.map((news, index) => {
           const ipoStatus = getIpoStatus(news.openDate, news.closeDate);
 
@@ -193,143 +193,133 @@ const IpoScoopList: React.FC<IpoScoopListProps> = ({
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.08 }}
-              className="bg-white border-2 border-black rounded-3xl p-5 md:p-6 shadow-sm hover:border-[#1FA463] hover:shadow-md transition-all duration-200"
+              className="bg-white border-2 border-black rounded-3xl p-5 shadow-sm hover:border-[#1FA463] hover:shadow-md transition-all duration-200 flex flex-col justify-between h-full"
             >
-              {/* IPO Title & Rating Header */}
-              <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-black/10">
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
+              <div>
+                {/* Header Row: Category Badge + Status + Rating + Share */}
+                <div className="flex items-center justify-between gap-2 mb-3 pb-2 border-b border-black/10">
+                  <div className="flex items-center gap-2">
                     <span className="bg-yellow-200 text-black border border-black px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest">
                       IPO SCOOP
                     </span>
-                    {news.companyName && (
-                      <span className="text-xs font-bold text-gray-500 truncate">
-                        {news.companyName}
-                      </span>
-                    )}
+                    <span className={`border border-black px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider flex items-center gap-1 ${ipoStatus.badgeClass}`}>
+                      <span className={`w-1.5 h-1.5 rounded-full ${ipoStatus.dotClass}`} />
+                      {ipoStatus.status}
+                    </span>
                   </div>
+
+                  <div className="flex items-center gap-2">
+                    <div className="bg-emerald-400 text-black border border-black px-2.5 py-1 rounded-lg text-[11px] font-black flex items-center gap-1">
+                      <FaThumbsUp className="text-black text-[10px]" />
+                      MAY APPLY
+                    </div>
+                    <ShareButton id={news.id} title={news.ipoName || news.title} />
+                  </div>
+                </div>
+
+                {/* Title & Image Section */}
+                <div className="space-y-3 mb-4">
                   <h3
-                    className="text-lg md:text-xl font-black text-black leading-snug cursor-pointer hover:text-emerald-700 transition-colors"
+                    className="text-base sm:text-lg font-black text-black leading-snug cursor-pointer hover:text-emerald-700 transition-colors line-clamp-2"
                     onClick={() => handleNewsClick(news.id)}
                   >
                     {news.ipoName || news.title}
                   </h3>
+
+                  {/* Image Banner */}
+                  <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden border-2 border-black bg-emerald-50 shadow-sm">
+                    <IpoCardImage src={news.image} title={news.title} />
+                  </div>
                 </div>
 
-                <div className="flex items-center gap-2 shrink-0">
-                  <div className="bg-emerald-400 text-black border border-black px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5">
-                    <FaThumbsUp className="text-black text-xs" />
-                    MAY APPLY
-                  </div>
-                  <ShareButton id={news.id} title={news.ipoName || news.title} />
+                {/* Metrics Grid (3 Columns) */}
+                <div className="grid grid-cols-3 gap-2 mb-3">
+                  <IpoDataBox
+                    icon={FaRupeeSign}
+                    title="Offer Price"
+                    value={news.offerPrice || "N/A"}
+                    bgClass="bg-emerald-50/80"
+                    valueClass="text-emerald-950"
+                  />
+                  <IpoDataBox
+                    icon={FaArrowUp}
+                    title="GMP"
+                    value={news.listingGain || "N/A"}
+                    bgClass="bg-blue-50/80"
+                    valueClass={gmpColorClass}
+                  />
+                  <IpoDataBox
+                    icon={FaBolt}
+                    title="Subscription"
+                    value={news.subscriptionRate || "0x"}
+                    bgClass="bg-amber-50/80"
+                    valueClass="text-amber-950"
+                  />
                 </div>
+
+                {/* Dates Timeline Strip */}
+                <div className="p-2.5 bg-[#F4FBF7] border border-black rounded-2xl text-[11px] font-bold text-black space-y-1 mb-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Open - Close:</span>
+                    <span className="text-emerald-800 font-black">
+                      {formatDate(news.openDate)} - {formatDate(news.closeDate)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center border-t border-black/10 pt-1">
+                    <span className="text-gray-600">Allotment:</span>
+                    <span className="text-blue-900 font-black">{formatDate(news.allotmentDate)}</span>
+                  </div>
+                  <div className="flex justify-between items-center border-t border-black/10 pt-1">
+                    <span className="text-gray-600">Listing:</span>
+                    <span className="text-purple-900 font-black">{formatDate(news.listingDate)}</span>
+                  </div>
+                </div>
+
+                {/* Description */}
+                <p className="text-xs font-semibold text-gray-700 line-clamp-2 leading-relaxed mb-4">
+                  {news.description ||
+                    "No detailed description available. Click 'More Info' to view full prospectus and financial updates."}
+                </p>
               </div>
 
-              {/* Main Content Body */}
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
-                {/* Left: Image Container */}
-                <div className="md:col-span-4 lg:col-span-3">
-                  <div className="relative w-full aspect-[16/10] md:aspect-square rounded-2xl overflow-hidden border-2 border-black bg-emerald-50 shadow-sm">
-                    <IpoCardImage src={news.image} title={news.title} />
-                    {/* Status Badge */}
-                    <div className={`absolute top-2.5 right-2.5 border border-black px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider flex items-center gap-1.5 ${ipoStatus.badgeClass}`}>
-                      <span className={`w-2 h-2 rounded-full ${ipoStatus.dotClass}`} />
-                      {ipoStatus.status}
-                    </div>
-                  </div>
-                </div>
+              {/* Action Buttons Grid */}
+              <div className="grid grid-cols-3 gap-2 pt-3 border-t border-black/10">
+                <Link
+                  href={news.applyLink || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    if (ipoStatus.status !== "LIVE") e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                  className={`text-center py-2 px-2 rounded-xl border border-black font-black text-xs uppercase tracking-wider transition-all truncate ${
+                    ipoStatus.status === "LIVE"
+                      ? "bg-[#1FA463] text-white hover:bg-emerald-600 cursor-pointer shadow-sm"
+                      : "bg-gray-200 text-gray-500 border-gray-400 cursor-not-allowed"
+                  }`}
+                >
+                  {ipoStatus.status === "LIVE" ? "Apply Now" : ipoStatus.status === "UPCOMING" ? "Upcoming" : "Closed"}
+                </Link>
 
-                {/* Right: Details & Actions */}
-                <div className="md:col-span-8 lg:col-span-9 space-y-4">
-                  {/* Stats Grid */}
-                  <div className="grid grid-cols-3 gap-3">
-                    <IpoDataBox
-                      icon={FaRupeeSign}
-                      title="Offer Price"
-                      value={news.offerPrice || "N/A"}
-                      bgClass="bg-emerald-50/80"
-                      valueClass="text-emerald-950"
-                    />
-                    <IpoDataBox
-                      icon={FaArrowUp}
-                      title="GMP"
-                      value={news.listingGain || "N/A"}
-                      bgClass="bg-blue-50/80"
-                      valueClass={gmpColorClass}
-                    />
-                    <IpoDataBox
-                      icon={FaBolt}
-                      title="Subscription"
-                      value={news.subscriptionRate || "0x"}
-                      bgClass="bg-amber-50/80"
-                      valueClass="text-amber-950"
-                    />
-                  </div>
+                <a
+                  href={news.link || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="text-center py-2 px-2 rounded-xl border border-black bg-yellow-100 hover:bg-yellow-200 text-black font-black text-xs uppercase tracking-wider transition-all shadow-sm truncate"
+                >
+                  Allotment
+                </a>
 
-                  {/* Dates Timeline Strip */}
-                  <div className="p-3 bg-[#F4FBF7] border border-black rounded-2xl shadow-sm grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-bold text-black">
-                    <div className="flex items-center gap-1.5">
-                      <span>Open-Close:</span>
-                      <span className="text-emerald-800 font-black">
-                        {formatDate(news.openDate)} - {formatDate(news.closeDate)}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1.5 border-t sm:border-t-0 sm:border-l border-black/10 pt-1 sm:pt-0 sm:pl-3">
-                      <span>Allotment:</span>
-                      <span className="text-blue-900 font-black">{formatDate(news.allotmentDate)}</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 border-t sm:border-t-0 sm:border-l border-black/10 pt-1 sm:pt-0 sm:pl-3">
-                      <span>Listing:</span>
-                      <span className="text-purple-900 font-black">{formatDate(news.listingDate)}</span>
-                    </div>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-xs sm:text-sm font-semibold text-gray-800 line-clamp-2 leading-relaxed">
-                    {news.description ||
-                      "No detailed description available. Click 'More Info' to view full prospectus and financial updates."}
-                  </p>
-
-                  {/* Action Buttons */}
-                  <div className="grid grid-cols-3 gap-3 pt-1">
-                    <Link
-                      href={news.applyLink || "#"}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => {
-                        if (ipoStatus.status !== "LIVE") e.preventDefault();
-                        e.stopPropagation();
-                      }}
-                      className={`text-center py-2.5 px-3 rounded-xl border border-black font-black text-xs sm:text-sm uppercase tracking-wider transition-all ${
-                        ipoStatus.status === "LIVE"
-                          ? "bg-[#1FA463] text-white hover:bg-emerald-600 cursor-pointer shadow-sm"
-                          : "bg-gray-200 text-gray-500 border-gray-400 cursor-not-allowed"
-                      }`}
-                    >
-                      {ipoStatus.status === "LIVE" ? "Apply Now" : ipoStatus.status === "UPCOMING" ? "Upcoming" : "Closed"}
-                    </Link>
-
-                    <a
-                      href={news.link || "#"}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="text-center py-2.5 px-3 rounded-xl border border-black bg-yellow-100 hover:bg-yellow-200 text-black font-black text-xs sm:text-sm uppercase tracking-wider transition-all shadow-sm"
-                    >
-                      Allotment
-                    </a>
-
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleNewsClick(news.id);
-                      }}
-                      className="text-center py-2.5 px-3 rounded-xl border border-black bg-black text-white hover:bg-gray-800 font-black text-xs sm:text-sm uppercase tracking-wider transition-all shadow-sm"
-                    >
-                      More Info
-                    </button>
-                  </div>
-                </div>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleNewsClick(news.id);
+                  }}
+                  className="text-center py-2 px-2 rounded-xl border border-black bg-black text-white hover:bg-gray-800 font-black text-xs uppercase tracking-wider transition-all shadow-sm truncate"
+                >
+                  More Info
+                </button>
               </div>
             </motion.div>
           );
