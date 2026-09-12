@@ -4067,6 +4067,16 @@ body {
   }
   .stage-frame .stage-chrome { border-bottom: var(--bw) solid var(--line); }
   .stage-imgwrap { position: relative; height: 380px; background: #0c1420; }
+  @media (max-width: 768px) {
+    .why-grid .stage-frame {
+      max-width: 340px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .stage-imgwrap {
+      height: 270px;
+    }
+  }
   .stage-imgwrap img {
     position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
     opacity: 0; transition: opacity 0.5s ease;
