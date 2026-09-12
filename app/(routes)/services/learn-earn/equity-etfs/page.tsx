@@ -4,18 +4,6 @@ import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-// Ticker tape data
-const tickerData = [
-  ["NIFTY 50", "24,812.40", "+0.62%", true],
-  ["SENSEX", "81,540.10", "+0.58%", true],
-  ["NIFTY MIDCAP 100", "58,210.75", "+0.91%", true],
-  ["NIFTY SMALLCAP 100", "18,940.30", "-0.34%", false],
-  ["NIFTY BANK", "52,118.60", "+0.21%", true],
-  ["GOLD (MCX)", "₹71,240/10g", "+0.15%", true],
-  ["INDIA VIX", "13.42", "-2.10%", false],
-  ["NIFTY IT", "41,205.80", "+1.12%", true],
-  ["FII FLOW", "+₹1,842 Cr", "NET BUY", true],
-];
 
 interface Option {
   label: string;

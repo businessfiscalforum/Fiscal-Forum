@@ -4,17 +4,6 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-// Ticker tape data
-const tickerData = [
-  { t: "BHARATTHREADS", p: 412, d: "+18.2%", up: true },
-  { t: "NSE", p: 24812, d: "+0.6%", up: true },
-  { t: "SENSEX", p: 81230, d: "-0.3%", up: false },
-  { t: "GREENWAVE ENERGY", p: 88, d: "-4.1%", up: false },
-  { t: "QUANTLOGIX", p: 765, d: "+27.5%", up: true },
-  { t: "NIFTY BANK", p: 53410, d: "+0.9%", up: true },
-  { t: "URBANCRAFT IPO", p: 0, d: "OPENS TOMORROW", up: true },
-  { t: "PORTSIDE LOGISTICS", p: 241, d: "+2.2%", up: true },
-];
 
 const stageMeta = [
   { caption: "Startup", img: "/01-startup.png" },
@@ -99,18 +88,20 @@ export default function IPOPage() {
               founder control for founder capital, and a quiet balance sheet for a quoted one. Scroll to watch it happen.
             </p>
             <div className="hero-cta">
-              <button className="btn primary" onClick={() => scrollTo("s-journey")}>
+              <button className="btn primary hero-cta-btn-start" onClick={() => scrollTo("s-journey")}>
                 Begin the journey →
               </button>
-              <button className="btn" onClick={() => scrollTo("s-sim")}>
+              <button className="btn hero-cta-btn-full" onClick={() => scrollTo("s-sim")}>
                 Try the allotment simulator
               </button>
-              <Link href="/services/learn-earn/ipo/apply" className="btn" style={{ display: "inline-block", textDecoration: "none", textAlign: "center" }}>
-                Apply for IPO
-              </Link>
-              <Link href="/services/learn-earn/open-demat-account" className="btn" style={{ display: "inline-block", textDecoration: "none", textAlign: "center" }}>
-                Open Demat Account
-              </Link>
+              <div className="hero-cta-duo">
+                <Link href="/services/learn-earn/ipo/apply" className="btn hero-cta-btn-half" style={{ textDecoration: "none" }}>
+                  Apply for IPO
+                </Link>
+                <Link href="/services/learn-earn/open-demat-account" className="btn hero-cta-btn-half" style={{ textDecoration: "none" }}>
+                  Open Demat Account
+                </Link>
+              </div>
             </div>
           </div>
           <div className="hero-frame">
@@ -484,11 +475,11 @@ export default function IPOPage() {
           <p style={{ color: "var(--ink-soft)", marginTop: "14px", marginBottom: "28px", maxWidth: "480px", marginLeft: "auto", marginRight: "auto", fontSize: "15px", lineHeight: "1.6" }}>
             Submit your IPO application form online and start your investment journey today.
           </p>
-          <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
-            <Link href="/services/learn-earn/ipo/apply" className="btn primary" style={{ display: "inline-block", textDecoration: "none" }}>
+          <div className="apply-cta-btns">
+            <Link href="/services/learn-earn/ipo/apply" className="btn primary apply-cta-btn" style={{ textDecoration: "none" }}>
               Apply for IPO now
             </Link>
-            <Link href="/services/learn-earn/open-demat-account" className="btn" style={{ display: "inline-block", textDecoration: "none" }}>
+            <Link href="/services/learn-earn/open-demat-account" className="btn apply-cta-btn" style={{ textDecoration: "none" }}>
               Open Demat Account
             </Link>
           </div>
