@@ -206,7 +206,7 @@ export default function FuturesOptionsPage() {
       cx.stroke();
       cx.setLineDash([]);
 
-      cx.font = "9px Space Mono, monospace";
+      cx.font = "800 9px 'Plus Jakarta Sans', sans-serif";
       cx.fillStyle = "#1E5C3A";
       cx.fillText("PROFIT", PAD + 4, zeroY - 5);
       cx.fillStyle = "#B5181E";
@@ -270,7 +270,7 @@ export default function FuturesOptionsPage() {
     // P&L Label Pill
     const curPL = plFn(currentPrice);
     const label = (curPL >= 0 ? "+₹" : "−₹") + Math.abs(Math.round(curPL)).toLocaleString("en-IN");
-    cx.font = "bold 11px Space Mono, monospace";
+    cx.font = "800 11px 'Plus Jakarta Sans', sans-serif";
     const textW = cx.measureText(label).width;
     const pillH = 18;
     const pillPad = 6;
@@ -290,7 +290,7 @@ export default function FuturesOptionsPage() {
     cx.fillText(label, lx, ly + 12);
 
     // X-axis Tick Labels
-    cx.font = "9px Space Mono, monospace";
+    cx.font = "600 9px 'Plus Jakarta Sans', sans-serif";
     cx.fillStyle = "#aaa";
     cx.fillText("₹" + priceRange[0], PAD, H - 2);
     const midP = Math.round((priceRange[0] + priceRange[1]) / 2);
@@ -589,7 +589,7 @@ export default function FuturesOptionsPage() {
       <section id="playground" className="playground-section">
         <div className="section-eyebrow">Interactive Simulator</div>
         <h2 className="section-title">
-          Futures vs Options <em className="text-[var(--green)] italic font-serif font-black">Playground</em>
+          Futures vs Options <em className="text-[var(--green)] italic font-black">Playground</em>
         </h2>
         <p className="section-sub font-semibold">
           Instead of explaining differences — interact with them. Move the sliders, switch positions, and watch your
