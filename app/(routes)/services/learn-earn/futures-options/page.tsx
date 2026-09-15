@@ -69,20 +69,24 @@ export default function FuturesOptionsPage() {
       const usableW = W - padL - padR;
       const gap = usableW / NUM;
       const candleW = Math.max(Math.floor(gap * 0.58), 8);
-      const yStart = H * 0.82;
-      const yEnd = H * 0.12;
+      const yStart = H * 0.78;
+      const yEnd = H * 0.28;
+
+      const scaleY = Math.min(1, Math.max(0.45, H / 380));
 
       for (let i = 0; i < NUM; i++) {
         const d = candleData[i];
         const cx = padL + gap * i + gap / 2;
         const floatY =
-          Math.sin(phases[i] + tick * speeds[i]) * 18 +
-          Math.sin(phases2[i] + tick * speeds2[i]) * 9;
+          (Math.sin(phases[i] + tick * speeds[i]) * 18 +
+            Math.sin(phases2[i] + tick * speeds2[i]) * 9) *
+          scaleY;
         const trendY = yStart + (yEnd - yStart) * (i / (NUM - 1)) + floatY;
-        const baseH = d.bull
-          ? 52 + i * 3.2 + Math.sin(i * 1.1) * 10
-          : 72 + i * 3.8 + Math.sin(i * 0.9) * 14;
-        const bodyH = Math.max(baseH * d.bodyPct, 12);
+        const baseH =
+          (d.bull
+            ? 52 + i * 3.2 + Math.sin(i * 1.1) * 10
+            : 72 + i * 3.8 + Math.sin(i * 0.9) * 14) * scaleY;
+        const bodyH = Math.max(baseH * d.bodyPct, 8);
         const wickTopH = baseH * d.wickTop;
         const wickBotH = baseH * d.wickBot;
         const bodyTop = trendY - bodyH / 2;
@@ -168,7 +172,7 @@ export default function FuturesOptionsPage() {
     if (!cx) return;
 
     canvas.width = canvas.parentElement?.clientWidth || 250;
-    canvas.height = 120;
+    canvas.height = canvas.parentElement?.clientHeight || 120;
     const W = canvas.width;
     const H = canvas.height;
 
@@ -202,7 +206,7 @@ export default function FuturesOptionsPage() {
       cx.stroke();
       cx.setLineDash([]);
 
-      cx.font = "9px Space Mono, monospace";
+      cx.font = "800 9px 'Plus Jakarta Sans', sans-serif";
       cx.fillStyle = "#1E5C3A";
       cx.fillText("PROFIT", PAD + 4, zeroY - 5);
       cx.fillStyle = "#B5181E";
@@ -266,13 +270,13 @@ export default function FuturesOptionsPage() {
     // P&L Label Pill
     const curPL = plFn(currentPrice);
     const label = (curPL >= 0 ? "+₹" : "−₹") + Math.abs(Math.round(curPL)).toLocaleString("en-IN");
-    cx.font = "bold 11px Space Mono, monospace";
+    cx.font = "800 11px 'Plus Jakarta Sans', sans-serif";
     const textW = cx.measureText(label).width;
     const pillH = 18;
     const pillPad = 6;
     let lx = cpX + 10;
     if (lx + textW + pillPad * 2 > W) lx = cpX - textW - pillPad * 2 - 10;
-    const ly = Math.max(cpY - 10, 4);
+    const ly = Math.min(Math.max(cpY - 10, 2), H - pillH - 12);
 
     cx.fillStyle = "#ffffff";
     cx.strokeStyle = "#0D0D0D";
@@ -286,7 +290,7 @@ export default function FuturesOptionsPage() {
     cx.fillText(label, lx, ly + 12);
 
     // X-axis Tick Labels
-    cx.font = "9px Space Mono, monospace";
+    cx.font = "600 9px 'Plus Jakarta Sans', sans-serif";
     cx.fillStyle = "#aaa";
     cx.fillText("₹" + priceRange[0], PAD, H - 2);
     const midP = Math.round((priceRange[0] + priceRange[1]) / 2);
@@ -561,7 +565,7 @@ export default function FuturesOptionsPage() {
               def: "F&O contracts are traded in fixed bundles. NIFTY has a lot size of 75. You can't trade just 1 unit — you trade in lots.",
             },
             {
-              term: "In The Money (ITM)",
+              term: "In the Money (ITM)",
               def: "When your option has real value right now. A Call is ITM if the market price is above your strike price — you're already in profit.",
             },
             {
@@ -585,7 +589,7 @@ export default function FuturesOptionsPage() {
       <section id="playground" className="playground-section">
         <div className="section-eyebrow">Interactive Simulator</div>
         <h2 className="section-title">
-          Futures vs Options <em className="text-[var(--green)] italic font-serif font-black">Playground</em>
+          Futures vs Options <em className="text-[var(--green)] italic font-black">Playground</em>
         </h2>
         <p className="section-sub font-semibold">
           Instead of explaining differences — interact with them. Move the sliders, switch positions, and watch your
@@ -772,7 +776,7 @@ export default function FuturesOptionsPage() {
         <div>
           <Link
             href="/services/learn-earn/open-demat-account"
-            className="btn-primary inline-block px-8 py-3.5 text-center font-bold"
+            className="btn-primary inline-block px-5 py-2.5 sm:px-8 sm:py-3.5 text-center font-bold"
             style={{ textDecoration: 'none' }}
           >
             Explore Demat Account →
