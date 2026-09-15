@@ -565,7 +565,7 @@ export default function FuturesOptionsPage() {
               def: "F&O contracts are traded in fixed bundles. NIFTY has a lot size of 75. You can't trade just 1 unit — you trade in lots.",
             },
             {
-              term: "In The Money (ITM)",
+              term: "In the Money (ITM)",
               def: "When your option has real value right now. A Call is ITM if the market price is above your strike price — you're already in profit.",
             },
             {

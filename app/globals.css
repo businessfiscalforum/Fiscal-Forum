@@ -3617,9 +3617,6 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: 28px;
   }
-  @media (max-width: 760px) {
-    .fo-grid { grid-template-columns: 1fr; }
-  }
   .fo-card {
     background: #fff;
     border: var(--fo-border);
@@ -3685,6 +3682,61 @@ body {
     color: var(--red);
     background: var(--red-bg);
     border-color: var(--red);
+  }
+
+  @media (max-width: 768px) {
+    .foDecodedTerminal section {
+      padding: 40px 16px;
+    }
+    .foDecodedTerminal .section-title {
+      font-size: clamp(24px, 6vw, 32px);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .foDecodedTerminal .section-sub {
+      font-size: 14.5px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+    .fo-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      width: 100%;
+    }
+    .fo-card {
+      padding: 20px 18px;
+      gap: 12px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .fo-card-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+    }
+    .fo-card-icon {
+      font-size: 26px;
+      margin-bottom: 6px;
+    }
+    .fo-card-img {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+    }
+    .fo-card h3 {
+      font-size: 19px;
+      line-height: 1.25;
+    }
+    .fo-card p {
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+    .fo-card .tag {
+      font-size: 9.5px;
+      padding: 4px 10px;
+      margin-top: 4px;
+    }
   }
 
   /* ── ANALOGY SECTION ── */
@@ -3800,6 +3852,26 @@ body {
     letter-spacing: -0.005em;
   }
   .glossary-card .hover-hint { display: none; }
+
+  @media (max-width: 768px) {
+    .glossary-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .glossary-card {
+      padding: 16px 18px;
+    }
+    .glossary-card .term {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      margin-bottom: 8px;
+    }
+    .glossary-card .def {
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+  }
 
   /* ── PLAYGROUND SIMULATOR ── */
   .playground-section { background: var(--cream); }
