@@ -172,7 +172,7 @@ export default function FuturesOptionsPage() {
     if (!cx) return;
 
     canvas.width = canvas.parentElement?.clientWidth || 250;
-    canvas.height = 120;
+    canvas.height = canvas.parentElement?.clientHeight || 120;
     const W = canvas.width;
     const H = canvas.height;
 
@@ -276,7 +276,7 @@ export default function FuturesOptionsPage() {
     const pillPad = 6;
     let lx = cpX + 10;
     if (lx + textW + pillPad * 2 > W) lx = cpX - textW - pillPad * 2 - 10;
-    const ly = Math.max(cpY - 10, 4);
+    const ly = Math.min(Math.max(cpY - 10, 2), H - pillH - 12);
 
     cx.fillStyle = "#ffffff";
     cx.strokeStyle = "#0D0D0D";

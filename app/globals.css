@@ -3889,10 +3889,6 @@ body {
     grid-template-columns: 1fr 1fr;
     border-bottom: var(--fo-border);
   }
-  @media (max-width: 860px) {
-    .playground-split { grid-template-columns: 1fr; }
-    .playground-panel:first-child { border-right: none; border-bottom: var(--fo-border); }
-  }
   .playground-panel {
     padding: 32px;
     display: flex;
@@ -3986,9 +3982,6 @@ body {
     grid-template-columns: repeat(3, 1fr);
     gap: 28px;
   }
-  @media (max-width: 860px) {
-    .playground-sliders { grid-template-columns: 1fr; gap: 20px; }
-  }
   .slider-group { display: flex; flex-direction: column; gap: 8px; }
   .slider-head { display: flex; justify-content: space-between; align-items: center; }
   .slider-label {
@@ -4058,6 +4051,50 @@ body {
     line-height: 1.6;
     color: #333;
     letter-spacing: -0.005em;
+  }
+
+  @media (max-width: 860px) {
+    .playground-wrap { margin-top: 24px; }
+    .playground-split { grid-template-columns: 1fr; }
+    .playground-panel { padding: 16px; gap: 12px; }
+    .playground-panel:first-child { border-right: none; border-bottom: var(--fo-border); }
+    .panel-stat-row { gap: 8px; }
+    .pstat-label { font-size: 9.5px; }
+    .pstat-val { font-size: 12.5px; }
+    .panel-pl-box { padding: 12px 14px; }
+    .pl-label { font-size: 9.5px; }
+    .pl-value { font-size: 18px; margin-top: 2px; }
+    .pl-breakeven { margin-top: 6px; padding-top: 4px; font-size: 9.5px; }
+    .panel-chart-wrap { height: 95px; margin-top: 6px; }
+
+    .playground-sliders { grid-template-columns: 1fr; gap: 12px; padding: 16px; }
+    .slider-group { gap: 6px; }
+
+    .playground-positions { padding: 16px; }
+    .pos-label { margin-bottom: 10px; }
+    .pos-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .pos-btn {
+      width: 100%;
+      padding: 10px 6px;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .pos-btn:first-child {
+      grid-column: 1 / -1;
+    }
+    .pos-explain {
+      padding: 12px 14px;
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
   }
 
   footer {
