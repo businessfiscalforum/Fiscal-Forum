@@ -69,20 +69,24 @@ export default function FuturesOptionsPage() {
       const usableW = W - padL - padR;
       const gap = usableW / NUM;
       const candleW = Math.max(Math.floor(gap * 0.58), 8);
-      const yStart = H * 0.82;
-      const yEnd = H * 0.12;
+      const yStart = H * 0.78;
+      const yEnd = H * 0.28;
+
+      const scaleY = Math.min(1, Math.max(0.45, H / 380));
 
       for (let i = 0; i < NUM; i++) {
         const d = candleData[i];
         const cx = padL + gap * i + gap / 2;
         const floatY =
-          Math.sin(phases[i] + tick * speeds[i]) * 18 +
-          Math.sin(phases2[i] + tick * speeds2[i]) * 9;
+          (Math.sin(phases[i] + tick * speeds[i]) * 18 +
+            Math.sin(phases2[i] + tick * speeds2[i]) * 9) *
+          scaleY;
         const trendY = yStart + (yEnd - yStart) * (i / (NUM - 1)) + floatY;
-        const baseH = d.bull
-          ? 52 + i * 3.2 + Math.sin(i * 1.1) * 10
-          : 72 + i * 3.8 + Math.sin(i * 0.9) * 14;
-        const bodyH = Math.max(baseH * d.bodyPct, 12);
+        const baseH =
+          (d.bull
+            ? 52 + i * 3.2 + Math.sin(i * 1.1) * 10
+            : 72 + i * 3.8 + Math.sin(i * 0.9) * 14) * scaleY;
+        const bodyH = Math.max(baseH * d.bodyPct, 8);
         const wickTopH = baseH * d.wickTop;
         const wickBotH = baseH * d.wickBot;
         const bodyTop = trendY - bodyH / 2;

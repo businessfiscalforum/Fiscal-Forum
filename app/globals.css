@@ -3544,8 +3544,42 @@ body {
 
   @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; }
-    .hero-left { border-right: none; border-bottom: var(--fo-border); padding: 60px 24px; }
-    .hero-right { min-height: 300px; }
+    .hero-left { border-right: none; border-bottom: var(--fo-border); padding: 50px 24px; }
+    .hero-right {
+      min-height: 210px;
+      height: 230px;
+      max-height: 250px;
+    }
+    .bull-bear {
+      top: 14px;
+      left: 14px;
+    }
+    .badge-bull, .badge-bear {
+      font-size: 9px;
+      padding: 3px 8px;
+    }
+    .hero-label {
+      bottom: 14px;
+      right: 14px;
+      font-size: 8px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-left { padding: 40px 18px; }
+    .hero-right {
+      min-height: 195px;
+      height: 215px;
+      max-height: 225px;
+    }
+    .bull-bear {
+      top: 12px;
+      left: 12px;
+    }
+    .hero-label {
+      bottom: 12px;
+      right: 12px;
+    }
   }
 
   /* ── F&O CARDS ── */
