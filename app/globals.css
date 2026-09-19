@@ -1836,11 +1836,41 @@ body {
   .intro-cta:hover .intro-cta-arrow { transform: translateX(3px); }
   
   @media (max-width: 640px) {
-    .intro-stmt { padding: 1.3rem 1.4rem; gap: 1rem; }
-    .intro-stmt:hover { padding-left: 1.8rem; }
-    .intro-stmt-text { font-size: 1.05rem; }
-    .intro-sub-wrap { flex-direction: column; align-items: flex-start; }
-    .intro-stmt-img-wrap { display: none; }
+    .intro {
+      padding: 2.5rem 1.2rem 3.5rem;
+    }
+    .intro-stmt {
+      padding: 0.95rem 1.25rem;
+      gap: 1rem;
+    }
+    .intro-stmt:hover {
+      padding-left: 1.5rem;
+    }
+    .intro-stmt-chip {
+      min-width: 4.5rem;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .intro-stmt-text {
+      font-size: 1.05rem;
+    }
+    .intro-sub-wrap {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 1.8rem;
+      gap: 1.15rem;
+    }
+    .intro-sub {
+      max-width: 330px;
+    }
+    .intro-cta {
+      padding: .65rem 1.7rem;
+    }
+    .intro-stmt-img-wrap {
+      display: none;
+    }
   }
 
   /* ---------------- journey ---------------- */
