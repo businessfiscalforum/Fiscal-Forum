@@ -1835,9 +1835,21 @@ body {
   
   .intro-cta:hover .intro-cta-arrow { transform: translateX(3px); }
   
+  @media (max-width: 768px) {
+    .intro {
+      padding: 2.5rem 1.2rem 1.4rem;
+    }
+    .journey {
+      padding: 1.2rem 1.2rem 5rem;
+    }
+    .journey-head {
+      margin-bottom: 2rem;
+    }
+  }
+
   @media (max-width: 640px) {
     .intro {
-      padding: 2.5rem 1.2rem 3.5rem;
+      padding: 2.5rem 1.2rem 1.4rem;
     }
     .intro-stmt {
       padding: 0.95rem 1.25rem;
@@ -1870,6 +1882,9 @@ body {
     }
     .intro-stmt-img-wrap {
       display: none;
+    }
+    .journey {
+      padding: 1.2rem 1.2rem 4rem;
     }
   }
 
