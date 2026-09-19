@@ -1585,16 +1585,69 @@ body {
   }
   
   @media (max-width: 900px) {
-    .hero-inner { flex-direction: column; gap: 2rem; }
-    .hero-copy { flex: none; max-width: 100%; text-align: center; }
-    .hero-sub { margin-left: auto; margin-right: auto; }
-    .hero-visual { min-height: 260px; width: 100%; }
-    .hero-person { max-width: 300px; }
+    .hero {
+      padding: 2.2rem 1.5rem 0.75rem;
+    }
+    .hero-inner {
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .hero-copy {
+      flex: none;
+      max-width: 100%;
+      text-align: center;
+    }
+    .hero-copy .eyebrow {
+      font-size: 0.85rem;
+      letter-spacing: .12em;
+      max-width: 320px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-title {
+      margin-top: 0.6rem;
+      font-size: clamp(2.2rem, 7vw, 3.2rem);
+    }
+    .hero-sub {
+      margin-top: 0.8rem;
+      font-size: 1.05rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-visual {
+      min-height: auto;
+      width: 100%;
+      justify-content: center;
+      margin-top: 0.25rem;
+    }
+    .hero-person {
+      max-width: 270px;
+      border-radius: 2rem;
+    }
   }
   
   @media (max-width: 600px) {
-    .hero-person { max-width: 240px; }
-    .hero-visual { min-height: 200px; }
+    .hero {
+      padding: 1.8rem 1.2rem 0.5rem;
+    }
+    .hero-copy .eyebrow {
+      font-size: 0.8rem;
+      max-width: 270px;
+    }
+    .hero-title {
+      margin-top: 0.5rem;
+    }
+    .hero-sub {
+      margin-top: 0.75rem;
+      font-size: 0.98rem;
+    }
+    .hero-person {
+      max-width: 215px;
+      border-radius: 1.75rem;
+    }
+    .hero-visual {
+      min-height: auto;
+    }
   }
 
   /* ---------------- intro strip ---------------- */
