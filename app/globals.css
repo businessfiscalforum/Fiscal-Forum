@@ -1844,6 +1844,22 @@ body {
     }
     .journey-head {
       margin-bottom: 2rem;
+      text-align: center;
+    }
+    .journey-head .eyebrow {
+      font-size: clamp(1.5rem, 6vw, 1.85rem);
+      font-weight: 800;
+      letter-spacing: .14em;
+      color: var(--sage);
+      display: block;
+      margin-bottom: 0.5rem;
+      line-height: 1.25;
+    }
+    .journey-head h2 {
+      font-size: clamp(1.1rem, 3.8vw, 1.25rem);
+      font-weight: 700;
+      margin-top: 0;
+      line-height: 1.35;
     }
   }
 
