@@ -195,14 +195,22 @@
 .fact-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:22px; max-width:1200px; margin:0 auto; }
 .fact-card{ padding:28px 24px; text-align:left; }
 .fact-icon{ font-size:1.5rem; display:block; margin-bottom:14px; }
-.fact-card h4{ font-size:1.08rem; margin-bottom:0; }
+.fact-card h4{ font-size:1.08rem; margin-bottom:0; font-weight:700; }
 .fact-card .card-meta{ font-weight:500; line-height:1.6; font-size:0.9rem; }
 
 @media (max-width:960px){
-  .fact-grid{ grid-template-columns:1fr 1fr; }
+  .fact-grid{ grid-template-columns:1fr 1fr; gap:18px; }
 }
-@media (max-width:520px){
-  .fact-grid{ grid-template-columns:1fr; }
+@media (max-width:768px){
+  .section-divider{ margin:32px 0 24px; }
+  .fact-head{ margin:0 auto 20px; text-align:left; }
+  .fact-head h3{ font-size:1.4rem; line-height:1.28; }
+  .fact-grid{ grid-template-columns:1fr; gap:16px; width:100%; }
+  .fact-card{ padding:22px 20px; width:100%; }
+  .fact-card h4{ font-size:1.15rem; font-weight:700; }
+  .fact-card .card-divider{ margin:14px 0; }
+  .fact-card .card-meta{ font-size:0.92rem; line-height:1.55; }
+  .from-left, .from-right{ transform:translateY(24px) scale(0.98); }
 }
 
 /* ============ JOURNEY ============ */
