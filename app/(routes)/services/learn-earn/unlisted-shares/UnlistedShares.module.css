@@ -354,14 +354,15 @@
   .hero-visual{ max-width:280px; }
 }
 
+@media (max-width:768px){
+  .nav-inner{ flex-direction:column; align-items:center; justify-content:center; gap:8px; padding:12px 16px; text-align:center; }
+  .brand{ font-size:1.1rem; flex-shrink:0; }
+  .nav-links{ width:100%; display:flex; align-items:center; justify-content:center; gap:14px; font-size:0.75rem; font-weight:600; white-space:nowrap; }
+}
+
 @media (max-width:640px){
   .holder-grid{ grid-template-columns:1fr; }
   .hero-buttons{ flex-direction:column; align-items:flex-start; }
-  .nav-inner{ flex-direction:row; align-items:center; justify-content:space-between; gap:8px; padding:10px 12px; }
-  .brand{ font-size:0.88rem; flex-shrink:0; }
-  .nav-links{ width:auto; flex-shrink:1; display:flex; align-items:center; gap:10px; font-size:0.72rem; font-weight:600; justify-content:flex-end; overflow-x:auto; white-space:nowrap; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
-  .nav-links::-webkit-scrollbar{ display:none; }
-  .nav-links a{ flex-shrink:0; opacity:0.75; padding:2px 0; }
   .ticker-track{ padding:6px 0; font-size:0.65rem; gap:14px; }
   .why-card{ padding:18px 18px 20px; }
   .why-visual{ width:98px; height:98px; border-radius:14px; }
