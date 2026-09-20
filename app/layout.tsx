@@ -7,7 +7,6 @@ import Footer from "./(routes)/_components/Footer";
 import { GoogleAnalytics } from "./(routes)/_components/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import PopupController from "./(routes)/_components/PopupController";
 import { Inter } from "next/font/google";
 import WhatsAppCommunityWidget from "./(routes)/_components/WhatsAppCommunityWidget";
 

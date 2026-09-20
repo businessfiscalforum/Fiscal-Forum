@@ -7,7 +7,6 @@ import {
   CheckCircle,
   User,
   Bell,
-  Star,
   Zap,
   Phone,
   Mail,

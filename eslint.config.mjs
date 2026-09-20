@@ -17,6 +17,7 @@ const eslintConfig = [
       "out/**",
       "public/**",
       "**/screener-data.js",
+      "next-env.d.ts",
     ],
   },
   ...compat.extends("next/core-web-vitals", "next/typescript"),
