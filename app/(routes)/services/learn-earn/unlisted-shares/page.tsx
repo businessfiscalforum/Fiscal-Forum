@@ -57,8 +57,12 @@ export default function UnlistedSharesPage() {
     // Size rail
     const journeyRail = track.querySelector(`.${styles["journey-rail"]}`) as HTMLElement;
     const sizeRail = () => {
-      if (journeyRail) {
-        journeyRail.style.width = Math.max(track.scrollWidth - 40, 0) + "px";
+      if (journeyRail && track) {
+        const computed = window.getComputedStyle(track);
+        const paddingLeft = parseFloat(computed.paddingLeft) || 20;
+        const paddingRight = parseFloat(computed.paddingRight) || 20;
+        journeyRail.style.left = paddingLeft + "px";
+        journeyRail.style.width = Math.max(track.scrollWidth - paddingLeft - paddingRight, 0) + "px";
       }
     };
     sizeRail();
