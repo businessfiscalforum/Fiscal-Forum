@@ -159,26 +159,13 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* Changes to this Privacy Policy */}
-          <div className="pb-6 border-b border-[#D9D0BC]/60 space-y-4">
+          <div className="pb-6 space-y-4">
             <h2 className="font-[family-name:var(--font-source-serif)] font-bold text-[20px] sm:text-[22px] text-[#171512]">
               Changes to this Privacy Policy
             </h2>
             <p className="m-0">
               We may update this Privacy Policy to reflect changes in our information practices, and will notify you of significant changes as required under applicable law. Please check this page periodically.
             </p>
-          </div>
-
-          {/* Grievance Officer */}
-          <div className="pb-6 border-b border-[#D9D0BC]/60 space-y-4">
-            <h2 className="font-[family-name:var(--font-source-serif)] font-bold text-[20px] sm:text-[22px] text-[#171512]">
-              Grievance Officer
-            </h2>
-            <div className="space-y-1 text-sm sm:text-[15px]">
-              <p className="m-0">Name of Officer: <em>&mdash;</em></p>
-              <p className="m-0">Designation: <em>&mdash;</em></p>
-              <p className="m-0">Company: <em>8696060387</em></p>
-              <p className="m-0">Contact hours: Monday &ndash; Friday, 9:00 &ndash; 18:00</p>
-            </div>
           </div>
         </section>
       </div>
