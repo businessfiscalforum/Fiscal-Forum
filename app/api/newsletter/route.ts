@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "../../../config/db";
 import { newsletter } from "../../../config/schema";
-import { and, desc, like, sql } from "drizzle-orm";
+import { and, desc, like } from "drizzle-orm";
 
 const allowedOrigins = [
   "https://www.fiscalforum.in",

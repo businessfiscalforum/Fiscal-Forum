@@ -7,7 +7,7 @@ interface LiquidProps {
   colors?: Record<string, string>;
 }
 
-export const Liquid: React.FC<LiquidProps> = ({ isHovered, colors }) => {
+export const Liquid: React.FC<LiquidProps> = ({ isHovered }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // Default green-mint theme colors to match the brand
