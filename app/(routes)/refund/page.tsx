@@ -15,6 +15,9 @@ export const metadata: Metadata = {
     "Refund, Cancellation and Return Policy for products and services on Fiscal Forum Finserv platform.",
 };
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function RefundPolicyPage() {
   const points = [
     {

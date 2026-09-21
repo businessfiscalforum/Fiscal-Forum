@@ -15,6 +15,9 @@ export const metadata: Metadata = {
     "Shipping Policy for orders and services on Fiscal Forum Finserv platform.",
 };
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function ShippingPolicyPage() {
   return (
     <div

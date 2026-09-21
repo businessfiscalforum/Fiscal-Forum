@@ -3,6 +3,9 @@ import { Source_Serif_4 } from "next/font/google";
 import { metadata } from "./metadata";
 export { metadata };
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
