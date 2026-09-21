@@ -1,136 +1,379 @@
-import React from 'react';
+import React from "react";
+import { Source_Serif_4 } from "next/font/google";
+import { metadata } from "./metadata";
+export { metadata };
 
-const PrivacyPolicyPage = () => {
+const sourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-source-serif",
+});
+
+export default function PrivacyPolicyPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100 pt-20">
-      <div className="max-w-4xl mx-auto px-4 py-12 sm:py-16">
-        <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-          <div className="text-center mb-10">
-            <h1 className="text-3xl sm:text-4xl font-bold text-emerald-800 mb-2">
-              Privacy Policy
-            </h1>
-            <p className="text-gray-600">
-              Last updated: 27th September 2025
+    <div
+      className={`min-h-screen bg-[#F3EEE3] text-[#171512] pt-24 sm:pt-28 pb-12 font-sans selection:bg-[#2F4A3C] selection:text-white ${sourceSerif.variable}`}
+    >
+      {/* Header */}
+      <div className="max-w-[800px] mx-auto px-6">
+        <header className="border-b border-[#D9D0BC] py-5">
+          <div className="flex justify-between items-baseline gap-4 flex-wrap">
+            <div className="font-[family-name:var(--font-source-serif)] font-semibold text-lg tracking-[0.01em]">
+              Fiscal Forum Finserv
+            </div>
+            <div className="text-xs text-[#4A453D]">
+              A Sole Proprietorship Firm
+            </div>
+          </div>
+        </header>
+      </div>
+
+      {/* Hero */}
+      <div className="max-w-[800px] mx-auto px-6">
+        <section className="pt-14 pb-10 border-b border-[#D9D0BC]">
+          <div className="text-[13px] text-[#2F4A3C] font-medium mb-3.5">
+            Last updated 01 September 2026
+          </div>
+          <h1 className="font-[family-name:var(--font-source-serif)] font-normal text-[32px] sm:text-[38px] leading-[1.18] mb-3.5 max-w-[14ch] tracking-[-0.01em]">
+            Privacy Policy
+          </h1>
+          <p className="text-base leading-[1.6] text-[#4A453D] max-w-[52ch] m-0">
+            Fiscal Forum Finserv (&quot;Fiscal Forum,&quot; &quot;we,&quot;
+            &quot;us,&quot; &quot;our&quot;), a sole proprietorship firm owned by
+            Sheela Mehta, operates www.fiscalforum.in and provides wealth
+            management, financial education, research, mutual fund distribution,
+            insurance POS, and loan/credit-card referral services. This policy
+            explains how we collect, use, share, and protect your personal
+            information. By using our Site or services, you consent to the
+            practices described below.
+          </p>
+        </section>
+      </div>
+
+      {/* Table of Contents */}
+      <div className="max-w-[800px] mx-auto px-6">
+        <nav className="py-8 border-b border-[#D9D0BC]">
+          <div className="text-xs text-[#4A453D] mb-3.5">On this page</div>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-7 gap-y-1.5 list-none m-0 p-0">
+            {[
+              { label: "1. Information we collect", num: "01", href: "#collect" },
+              { label: "2. How we use your information", num: "02", href: "#use" },
+              { label: "3. Sharing of information", num: "03", href: "#sharing" },
+              { label: "4. Cookies", num: "04", href: "#cookies" },
+              { label: "5. Data security", num: "05", href: "#security" },
+              { label: "6. Data retention", num: "06", href: "#retention" },
+              { label: "7. Your rights", num: "07", href: "#rights" },
+              { label: "8. Third-party links", num: "08", href: "#thirdparty" },
+              { label: "9. Children's privacy", num: "09", href: "#children" },
+              { label: "10. Changes to this policy", num: "10", href: "#changes" },
+              { label: "11. Contact", num: "11", href: "#contact" },
+            ].map((item) => (
+              <li key={item.num}>
+                <a
+                  href={item.href}
+                  className="flex justify-between gap-3 text-[13.5px] py-1.5 border-b border-[#D9D0BC] text-[#171512] hover:text-[#2F4A3C] transition-colors no-underline"
+                >
+                  <span>{item.label}</span>
+                  <span className="text-[#4A453D]">{item.num}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+
+      {/* Policy Body */}
+      <div className="max-w-[800px] mx-auto px-6">
+        <section className="pt-12 pb-2">
+          {/* 01. Information we collect */}
+          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="collect">
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">01</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              Information we collect
+            </h2>
+
+            <h3 className="font-[family-name:var(--font-source-serif)] text-[15.5px] font-semibold mt-1 mb-2.5">
+              Information you provide directly
+            </h3>
+            <ul className="list-none m-0 mb-1 p-0 max-w-[62ch]">
+              {[
+                "Name, email address, phone number, city/address",
+                "PAN, Aadhaar (last 4 digits or as required), bank/demat account details — only where required to facilitate account opening with our broking, mutual fund, or insurance partners",
+                "KYC documents submitted for onboarding with partner platforms (Angel One, Alice Blue, Fyers, AMCs, insurers, or lending partners)",
+                "Communications you send us — queries, feedback, support requests",
+              ].map((item, index, arr) => (
+                <li
+                  key={index}
+                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
+                    }`}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            <h3 className="font-[family-name:var(--font-source-serif)] text-[15.5px] font-semibold mt-[22px] mb-2.5">
+              Information collected automatically
+            </h3>
+            <ul className="list-none m-0 mb-1 p-0 max-w-[62ch]">
+              {[
+                "IP address, browser type, device information",
+                "Pages visited, time spent, referral source, via cookies and analytics tools",
+                "WhatsApp/Telegram interactions if you subscribe to our research or report channels",
+              ].map((item, index, arr) => (
+                <li
+                  key={index}
+                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
+                    }`}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            <h3 className="font-[family-name:var(--font-source-serif)] text-[15.5px] font-semibold mt-[22px] mb-2.5">
+              Information from third parties
+            </h3>
+            <ul className="list-none m-0 mb-1 p-0 max-w-[62ch]">
+              {[
+                "Confirmation of account opening or transaction status from broker, AMC, insurer, or bank/NBFC partners we refer you to",
+              ].map((item, index, arr) => (
+                <li
+                  key={index}
+                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
+                    }`}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* 02. How we use your information */}
+          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="use">
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">02</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              How we use your information
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] mb-3 max-w-[62ch]">
+              We use your information to:
+            </p>
+            <ul className="list-none m-0 mb-1 p-0 max-w-[62ch]">
+              {[
+                "Facilitate account opening and referrals with our broker, AMC, insurer, and lending partners",
+                "Deliver research reports, newsletters, and market updates you've subscribed to",
+                "Respond to your queries and provide customer support",
+                "Improve our Site, content, and services",
+                "Comply with SEBI, AMFI, IRDAI, RBI, and other applicable regulatory requirements",
+                "Send you service updates, and — where you've opted in — promotional communications",
+              ].map((item, index, arr) => (
+                <li
+                  key={index}
+                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
+                    }`}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-3.5 p-3.5 sm:p-4 bg-[#FBF8F1] border border-[#D9D0BC] text-[13.5px] leading-[1.6] text-[#4A453D] max-w-[62ch]">
+              We do not use your data for stock recommendations or trading calls;
+              our content is factual and educational in nature, consistent with
+              our regulatory positioning.
+            </div>
+          </div>
+
+          {/* 03. Sharing of information */}
+          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="sharing">
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">03</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              Sharing of information
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] mb-3 max-w-[62ch]">
+              We share information only:
+            </p>
+            <ul className="list-none m-0 mb-1 p-0 max-w-[62ch]">
+              {[
+                "With the broking, AMC, insurance, or lending partner you choose to be referred to, solely to complete your onboarding or transaction",
+                "With service providers who help us operate the Site — hosting, analytics, email/WhatsApp delivery — under confidentiality obligations",
+                "When required by law, regulation, court order, or a request from SEBI, AMFI, IRDAI, RBI, or other authorities",
+                "With your explicit consent",
+              ].map((item, index, arr) => (
+                <li
+                  key={index}
+                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
+                    }`}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-3.5 p-3.5 sm:p-4 bg-[#FBF8F1] border border-[#D9D0BC] text-[13.5px] leading-[1.6] text-[#4A453D] max-w-[62ch]">
+              We do not sell your personal data to third parties.
+            </div>
+          </div>
+
+          {/* 04. Cookies */}
+          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="cookies">
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">04</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              Cookies
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
+              Our Site may use cookies to remember preferences, understand usage
+              patterns, and improve user experience. You can disable cookies
+              through your browser settings, though some features may not function
+              properly as a result.
             </p>
           </div>
 
-          <div className="prose prose-emerald max-w-none text-gray-700 space-y-8">
-            {/* Introduction */}
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-emerald-800 mb-3 border-b border-emerald-200 pb-2">
-                Introduction
-              </h2>
-              <p className="leading-relaxed">
-                This Privacy Policy describes how <strong>8696060387</strong> and its affiliates (collectively &quot;8696060387, we, our, us&quot;) collect, use, share, protect or otherwise process your information/ personal data through our website <a href="https://www.fiscalforum.in" className="text-emerald-700 font-medium hover:underline">https://www.fiscalforum.in</a> (hereinafter referred to as Platform). Please note that you may be able to browse certain sections of the Platform without registering with us. We do not offer any product/service under this Platform outside India and your personal data will primarily be stored and processed in India. By visiting this Platform, providing your information or availing any product/service offered on the Platform, you expressly agree to be bound by the terms and conditions of this Privacy Policy, the Terms of Use and the applicable service/product terms and conditions, and agree to be governed by the laws of India including but not limited to the laws applicable to data protection and privacy. If you do not agree please do not use or access our Platform.
-              </p>
-            </div>
+          {/* 05. Data security */}
+          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="security">
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">05</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              Data security
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
+              We use reasonable administrative, technical, and physical safeguards
+              to protect your information.
+            </p>
+          </div>
 
-            {/* Collection */}
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-emerald-800 mb-3 border-b border-emerald-200 pb-2">
-                Collection
-              </h2>
-              <p className="leading-relaxed">
-                We collect your personal data when you use our Platform, services or otherwise interact with us during the course of our relationship.and related information provided from time to time. Some of the information that we may collect includes but is not limited to personal data / information provided to us during sign-up/registering or using our Platform such as name, date of birth, address, telephone/mobile number, email IDand/or any such information shared as proof of identity or address. Some of the sensitive personal data may be collected with your consent, such as your bank account or credit or debit card or other payment instrument information or biometric information such as your facial features or physiological information (in order to enable use of certain features when opted for, available on the Platform) etc all of the above being in accordance with applicable law(s) You always have the option to not provide information, by choosing not to use a particular service or feature on the Platform. We may track your behaviour, preferences, and other information that you choose to provide on our Platform. This information is compiled and analysed on an aggregated basis. We will also collect your information related to your transactions on Platform and such third-party business partner platforms. When such a third-party business partner collects your personal data directly from you, you will be governed by their privacy policies. We shall not be responsible for the third-party business partner’s privacy practices or the content of their privacy policies, and we request you to read their privacy policies prior to disclosing any information. If you receive an email, a call from a person/association claiming to be 8696060387 seeking any personal data like debit/credit card PIN, net-banking or mobile banking password, we request you to never provide such information. If you have already revealed such information, report it immediately to an appropriate law enforcement agency.
-              </p>
-            </div>
+          {/* 06. Data retention */}
+          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="retention">
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">06</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              Data retention
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
+              We retain personal information only as long as necessary to fulfil
+              the purposes described above, or as required by applicable law and
+              regulatory record-keeping norms, such as SEBI/AMFI KYC retention
+              requirements.
+            </p>
+          </div>
 
-            {/* Usage */}
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-emerald-800 mb-3 border-b border-emerald-200 pb-2">
-                Usage
-              </h2>
-              <p className="leading-relaxed">
-                We use personal data to provide the services you request. To the extent we use your personal data to market to you, we will provide you the ability to opt-out of such uses. We use your personal data to assist sellers and business partners in handling and fulfilling orders; enhancing customer experience; to resolve disputes; troubleshoot problems; inform you about online and offline offers, products, services, and updates; customise your experience; detect and protect us against error, fraud and other criminal activity; enforce our terms and conditions; conduct marketing research, analysis and surveys; and as otherwise described to you at the time of collection of information. You understand that your access to these products/services may be affected in the event permission is not provided to us.
-              </p>
-            </div>
+          {/* 07. Your rights */}
+          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="rights">
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">07</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              Your rights
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] mb-3 max-w-[62ch]">
+              You may:
+            </p>
+            <ul className="list-none m-0 mb-3 p-0 max-w-[62ch]">
+              {[
+                "Request access to, or correction of, your personal information",
+                "Withdraw consent for marketing communications at any time",
+                "Request deletion of your data, subject to regulatory record-retention obligations",
+              ].map((item, index, arr) => (
+                <li
+                  key={index}
+                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
+                    }`}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
+              To exercise these rights, contact us at{" "}
+              <a
+                href="mailto:support@fiscalforum.in"
+                className="text-[#2F4A3C] border-b border-[#D9D0BC] no-underline pb-px hover:border-[#2F4A3C] transition-colors"
+              >
+                support@fiscalforum.in
+              </a>
+              .
+            </p>
+          </div>
 
-            {/* Sharing */}
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-emerald-800 mb-3 border-b border-emerald-200 pb-2">
-                Sharing
-              </h2>
-              <p className="leading-relaxed">
-                We may share your personal data internally within our group entities, our other corporate entities, and affiliates to provide you access to the services and products offered by them. These entities and affiliates may market to you as a result of such sharing unless you explicitly opt-out. We may disclose personal data to third parties such as sellers, business partners, third party service providers including logistics partners, prepaid payment instrument issuers, third-party reward programs and other payment opted by you. These disclosure may be required for us to provide you access to our services and products offered to you, to comply with our legal obligations, to enforce our user agreement, to facilitate our marketing and advertising activities, to prevent, detect, mitigate, and investigate fraudulent or illegal activities related to our services. We may disclose personal and sensitive personal data to government agencies or other authorised law enforcement agencies if required to do so by law or in the good faith belief that such disclosure is reasonably necessary to respond to subpoenas, court orders, or other legal process. We may disclose personal data to law enforcement offices, third party rights owners, or others in the good faith belief that such disclosure is reasonably necessary to: enforce our Terms of Use or Privacy Policy; respond to claims that an advertisement, posting or other content violates the rights of a third party; or protect the rights, property or personal safety of our users or the general public.
-              </p>
-            </div>
+          {/* 08. Third-party links */}
+          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="thirdparty">
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">08</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              Third-party links
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
+              Our Site may link to third-party platforms — brokers, AMCs, insurers,
+              lenders. We are not responsible for the privacy practices of these
+              third parties; please review their respective privacy policies.
+            </p>
+          </div>
 
-            {/* Security Precautions */}
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-emerald-800 mb-3 border-b border-emerald-200 pb-2">
-                Security Precautions
-              </h2>
-              <p className="leading-relaxed">
-                To protect your personal data from unauthorised access or disclosure, loss or misuse we adopt reasonable security practices and procedures. Once your information is in our possession or whenever you access your account information, we adhere to our security guidelines to protect it against unauthorised access and offer the use of a secure server. However, the transmission of information is not completely secure for reasons beyond our control. By using the Platform, the users accept the security implications of data transmission over the internet and the World Wide Web which cannot always be guaranteed as completely secure, and therefore, there would always remain certain inherent risks regarding use of the Platform. Users are responsible for ensuring the protection of login and password records for their account.
-              </p>
-            </div>
+          {/* 09. Children's privacy */}
+          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="children">
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">09</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              Children&apos;s privacy
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
+              Our services are not directed at individuals under 18. We do not
+              knowingly collect data from minors.
+            </p>
+          </div>
 
-            {/* Data Deletion and Retention */}
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-emerald-800 mb-3 border-b border-emerald-200 pb-2">
-                Data Deletion and Retention
-              </h2>
-              <p className="leading-relaxed">
-                You have an option to delete your account by visiting your profile and settings on our Platform , this action would result in you losing all information related to your account. You may also write to us at the contact information provided below to assist you with these requests. We may in event of any pending grievance, claims, pending shipments or any other services we may refuse or delay deletion of the account. Once the account is deleted, you will lose access to the account. We retain your personal data information for a period no longer than is required for the purpose for which it was collected or as required under any applicable law. However, we may retain data related to you if we believe it may be necessary to prevent fraud or future abuse or for other legitimate purposes. We may continue to retain your data in anonymised form for analytical and research purposes.
-              </p>
-            </div>
+          {/* 10. Changes to this policy */}
+          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="changes">
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">10</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              Changes to this policy
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
+              We may update this Privacy Policy periodically. Changes will be
+              posted on this page with a revised &quot;Last updated&quot; date.
+            </p>
+          </div>
 
-            {/* Your Rights */}
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-emerald-800 mb-3 border-b border-emerald-200 pb-2">
-                Your Rights
-              </h2>
-              <p className="leading-relaxed">
-                You may access, rectify, and update your personal data directly through the functionalities provided on the Platform.
-              </p>
-            </div>
+          {/* 11. Contact */}
+          <div className="py-8 scroll-mt-24" id="contact">
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">11</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              Contact
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
+              For privacy-related concerns, reach out to our proprietor directly.
+            </p>
+          </div>
+        </section>
+      </div>
 
-            {/* Consent */}
+      {/* Privacy Contact Panel */}
+      <div className="max-w-[800px] mx-auto px-6">
+        <section className="pt-10 pb-14">
+          <div className="bg-[#FBF8F1] border border-[#D9D0BC] p-7 sm:p-8 flex justify-between items-center gap-6 flex-wrap">
             <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-emerald-800 mb-3 border-b border-emerald-200 pb-2">
-                Consent
-              </h2>
-              <p className="leading-relaxed">
-                By visiting our Platform or by providing your information, you consent to the collection, use, storage, disclosure and otherwise processing of your information on the Platform in accordance with this Privacy Policy. If you disclose to us any personal data relating to other people, you represent that you have the authority to do so and permit us to use the information in accordance with this Privacy Policy. You, while providing your personal data over the Platform or any partner platforms or establishments, consent to us (including our other corporate entities, affiliates, lending partners, technology partners, marketing channels, business partners and other third parties) to contact you through SMS, instant messaging apps, call and/or e-mail for the purposes specified in this Privacy Policy. You have an option to withdraw your consent that you have already provided by writing to the Grievance Officer at the contact information provided below. Please mention &ldquo;Withdrawal of consent for processing personal data&rdquo; in your subject line of your communication. We may verify such requests before acting on our request. However, please note that your withdrawal of consent will not be retrospective and will be in accordance with the Terms of Use, this Privacy Policy, and applicable laws. In the event you withdraw consent given to us under this Privacy Policy, we reserve the right to restrict or deny the provision of our services for which we consider such information to be necessary.
-              </p>
-            </div>
-
-            {/* Changes to this Privacy Policy */}
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-emerald-800 mb-3 border-b border-emerald-200 pb-2">
-                Changes to this Privacy Policy
-              </h2>
-              <p className="leading-relaxed">
-                Please check our Privacy Policy periodically for changes. We may update this Privacy Policy to reflect changes to our information practices. We may alert / notify you about the significant changes to the Privacy Policy, in the manner as may be required under applicable laws.
-              </p>
-            </div>
-
-            {/* Grievance Officer */}
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-emerald-800 mb-3 border-b border-emerald-200 pb-2">
-                Grievance Officer
-              </h2>
-              <div className="space-y-1 text-gray-700">
-                <p>Insert Name of the Office:</p>
-                <p>Designation:</p>
-                <p>Insert Name and Address of the Company:</p>
+              <div className="font-[family-name:var(--font-source-serif)] text-[13px] text-[#4A453D] mb-2">
+                Privacy contact
+              </div>
+              <div className="text-[17px] font-medium text-[#171512]">
+                Sheela Mehta
+              </div>
+              <div className="text-[13px] text-[#4A453D] mt-0.5 leading-[1.6]">
+                Proprietor, Fiscal Forum Finserv
+                <br />
+                581, Azad Nagar, Bhilwara, Rajasthan · 86960 60387
               </div>
             </div>
-
-            {/* Contact us */}
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-emerald-800 mb-3 border-b border-emerald-200 pb-2">
-                Contact us
-              </h2>
-              <p className="leading-relaxed">
-                Phone: Time: Monday - Friday(9:00 - 18:00)
-              </p>
-            </div>
+            <a
+              href="mailto:support@fiscalforum.in"
+              className="text-[13.5px] text-[#171512] border-b border-[#D9D0BC] pb-0.5 hover:border-[#2F4A3C] transition-colors"
+            >
+              support@fiscalforum.in
+            </a>
           </div>
-        </div>
+        </section>
+      </div>
+
+      {/* Page Footer Note */}
+      <div className="max-w-[800px] mx-auto px-6">
+        <footer className="border-t border-[#D9D0BC] py-5 text-xs text-[#4A453D] flex justify-between flex-wrap gap-2">
+          <span>© 2026 Fiscal Forum Finserv</span>
+          <span>Bhilwara, Rajasthan, India</span>
+        </footer>
       </div>
     </div>
   );
-};
-
-export default PrivacyPolicyPage;
+}

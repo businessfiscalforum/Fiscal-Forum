@@ -1,74 +1,402 @@
-import React from 'react';
+import React from "react";
+import { Source_Serif_4 } from "next/font/google";
+import { metadata } from "./metadata";
+export { metadata };
 
-const TermsAndConditionsPage = () => {
+const sourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-source-serif",
+});
+
+export default function TermsAndConditionsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100 pt-20">
-      <div className="max-w-4xl mx-auto px-4 py-12 sm:py-16">
-        <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-          <div className="text-center mb-10">
-            <h1 className="text-3xl sm:text-4xl font-bold text-emerald-800 mb-2">
-              Terms & Conditions
-            </h1>
-            <p className="text-gray-600">
-              Last updated: 27th September 2025
+    <div
+      className={`min-h-screen bg-[#F3EEE3] text-[#171512] pt-24 sm:pt-28 pb-12 font-sans selection:bg-[#2F4A3C] selection:text-white ${sourceSerif.variable}`}
+    >
+      {/* Header */}
+      <div className="max-w-[800px] mx-auto px-6">
+        <header className="border-b border-[#D9D0BC] py-5">
+          <div className="flex justify-between items-baseline gap-4 flex-wrap">
+            <div className="font-[family-name:var(--font-source-serif)] font-semibold text-lg tracking-[0.01em]">
+              Fiscal Forum Finserv
+            </div>
+            <div className="text-xs text-[#4A453D]">
+              A Sole Proprietorship Firm
+            </div>
+          </div>
+        </header>
+      </div>
+
+      {/* Hero */}
+      <div className="max-w-[800px] mx-auto px-6">
+        <section className="pt-14 pb-10 border-b border-[#D9D0BC]">
+          <div className="text-[13px] text-[#2F4A3C] font-medium mb-3.5">
+            Last updated 01 September 2026
+          </div>
+          <h1 className="font-[family-name:var(--font-source-serif)] font-normal text-[32px] sm:text-[38px] leading-[1.18] mb-3.5 max-w-[14ch] tracking-[-0.01em]">
+            Terms &amp; Conditions
+          </h1>
+          <p className="text-base leading-[1.6] text-[#4A453D] max-w-[56ch] m-0">
+            Welcome to www.fiscalforum.in, owned and operated by Fiscal Forum
+            Finserv, a sole proprietorship firm owned by Sheela Mehta. By
+            accessing or using this Site, you agree to be bound by these Terms
+            &amp; Conditions. If you do not agree, please do not use the Site.
+          </p>
+        </section>
+      </div>
+
+      {/* Table of Contents */}
+      <div className="max-w-[800px] mx-auto px-6">
+        <nav className="py-8 border-b border-[#D9D0BC]">
+          <div className="text-xs text-[#4A453D] mb-3.5">On this page</div>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-7 gap-y-1.5 list-none m-0 p-0">
+            {[
+              { label: "1. About us", num: "01", href: "#about" },
+              { label: "2. Nature of services", num: "02", href: "#services" },
+              {
+                label: "3. No investment advice",
+                num: "03",
+                href: "#noadvice",
+              },
+              { label: "4. Eligibility", num: "04", href: "#eligibility" },
+              {
+                label: "5. User responsibilities",
+                num: "05",
+                href: "#responsibilities",
+              },
+              {
+                label: "6. Intellectual property",
+                num: "06",
+                href: "#ip",
+              },
+              {
+                label: "7. Third-party platforms",
+                num: "07",
+                href: "#thirdparty",
+              },
+              {
+                label: "8. Limitation of liability",
+                num: "08",
+                href: "#liability",
+              },
+              {
+                label: "9. Regulatory compliance",
+                num: "09",
+                href: "#compliance",
+              },
+              { label: "10. Termination", num: "10", href: "#termination" },
+              { label: "11. Governing law", num: "11", href: "#law" },
+              { label: "12. Changes to terms", num: "12", href: "#changes" },
+              { label: "13. Contact us", num: "13", href: "#contact" },
+            ].map((item) => (
+              <li key={item.num}>
+                <a
+                  href={item.href}
+                  className="flex justify-between gap-3 text-[13.5px] py-1.5 border-b border-[#D9D0BC] text-[#171512] hover:text-[#2F4A3C] transition-colors no-underline"
+                >
+                  <span>{item.label}</span>
+                  <span className="text-[#4A453D]">{item.num}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+
+      {/* Policy Body */}
+      <div className="max-w-[800px] mx-auto px-6">
+        <section className="pt-12 pb-2">
+          {/* 01. About us */}
+          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="about">
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">01</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              About us
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
+              Fiscal Forum Finserv is a sole proprietorship, wealth management,
+              financial education, and research firm. We earn revenue through
+              referral and affiliate arrangements with stockbroking platforms —
+              such as Angel One, Alice Blue, and Fyers — mutual fund distribution
+              under our AMFI Registration Number (ARN), insurance POS
+              partnerships, and bank/NBFC DSA loan and credit card tie-ups.
             </p>
           </div>
 
-          <div className="prose prose-emerald max-w-none text-gray-700 space-y-6">
-            <ol className="list-decimal pl-6 space-y-4 leading-relaxed">
-              <li>
-                This document is an electronic record in terms of Information Technology Act, 2000 and rules there under as applicable and the amended provisions pertaining to electronic records in various statutes as amended by the Information Technology Act, 2000. This electronic record is generated by a computer system and does not require any physical or digital signatures.
-              </li>
-              <li>
-                This document is published in accordance with the provisions of Rule 3 (1) of the Information Technology (Intermediaries guidelines) Rules, 2011 that require publishing the rules and regulations, privacy policy and Terms of Use for access or usage of domain name <a href="https://www.fiscalforum.in" className="text-emerald-700 font-medium hover:underline">https://www.fiscalforum.in</a> (&apos;Website&apos;), including the related mobile site and mobile application (hereinafter referred to as &apos;Platform&apos;).
-              </li>
-              <li>
-                The Platform is owned by <strong>8696060387</strong>, a company incorporated under the Companies Act, 1956 with its registered office at <strong>A-581 Azad Nagar bhilwara</strong> (hereinafter referred to as &apos;Platform Owner&apos;, &apos;we&apos;, &apos;us&apos;, &apos;our&apos;)..
-              </li>
-              <li>
-                Your use of the Platform and services and tools are governed by the following terms and conditions (&ldquo;Terms of Use&rdquo;) as applicable to the Platform including the applicable policies which are incorporated herein by way of reference. If You transact on the Platform, You shall be subject to the policies that are applicable to the Platform for such transaction. By mere use of the Platform, You shall be contracting with the Platform Owner and these terms and conditions including the policies constitute Your binding obligations, with Platform Owner. These Terms of Use relate to your use of our website, goods (as applicable) or services (as applicable) (collectively, &apos;Services&apos;). Any terms and conditions proposed by You which are in addition to or which conflict with these Terms of Use are expressly rejected by the Platform Owner and shall be of no force or effect. These Terms of Use can be modified at any time without assigning any reason. It is your responsibility to periodically review these Terms of Use to stay informed of updates..
-              </li>
-              <li>
-                For the purpose of these Terms of Use, wherever the context so requires &lsquo;you&rsquo;, &apos;your&apos; or &lsquo;user&rsquo; shall mean any natural or legal person who has agreed to become a user/buyer on the Platform..
-              </li>
-              <li className="font-semibold text-gray-900">
-                ACCESSING, BROWSING OR OTHERWISE USING THE PLATFORM INDICATES YOUR AGREEMENT TO ALL THE TERMS AND CONDITIONS UNDER THESE TERMS OF USE, SO PLEASE READ THE TERMS OF USE CAREFULLY BEFORE PROCEEDING..
-              </li>
-              <li>
-                The use of Platform and/or availing of our Services is subject to the following Terms of Use:
-                <ol className="list-[decimal] pl-6 mt-3 space-y-3 font-normal">
-                  <li>To access and use the Services, you agree to provide true, accurate and complete information to us during and after registration, and you shall be responsible for all acts done through the use of your registered account on the Platform..</li>
-                  <li>Neither we nor any third parties provide any warranty or guarantee as to the accuracy, timeliness, performance, completeness or suitability of the information and materials offered on this website or through the Services, for any specific purpose. You acknowledge that such information and materials may contain inaccuracies or errors and we expressly exclude liability for any such inaccuracies or errors to the fullest extent permitted by law..</li>
-                  <li>Your use of our Services and the Platform is solely and entirely at your own risk and discretion for which we shall not be liable to you in any manner. You are required to independently assess and ensure that the Services meet your requirements..</li>
-                  <li>The contents of the Platform and the Services are proprietary to us and are licensed to us. You will not have any authority to claim any intellectual property rights, title, or interest in its contents. The contents includes and is not limited to the design, layout, look and graphics..</li>
-                  <li>You acknowledge that unauthorized use of the Platform and/or the Services may lead to action against you as per these Terms of Use and/or applicable laws..</li>
-                  <li>You agree to pay us the charges associated with availing the Services..</li>
-                  <li>You agree not to use the Platform and/ or Services for any purpose that is unlawful, illegal or forbidden by these Terms, or Indian or local laws that might apply to you.</li>
-                  <li>You agree and acknowledge that website and the Services may contain links to other third party websites. On accessing these links, you will be governed by the terms of use, privacy policy and such other policies of such third party websites. These links are provided for your convenience for provide further information..</li>
-                  <li>You understand that upon initiating a transaction for availing the Services you are entering into a legally binding and enforceable contract with the Platform Owner for the Services..</li>
-                </ol>
-              </li>
-              <li>
-                You shall indemnify and hold harmless Platform Owner, its affiliates, group companies (as applicable) and their respective officers, directors, agents, and employees, from any claim or demand, or actions including reasonable attorney&apos;s fees, made by any third party or penalty imposed due to or arising out of Your breach of this Terms of Use, privacy Policy and other Policies, or Your violation of any law, rules or regulations or the rights (including infringement of intellectual property rights) of a third party.
-              </li>
-              <li>
-                Notwithstanding anything contained in these Terms of Use, the parties shall not be liable for any failure to perform an obligation under these Terms if performance is prevented or delayed by a force majeure event..
-              </li>
-              <li>
-                These Terms and any dispute or claim relating to it, or its enforceability, shall be governed by and construed in accordance with the laws of India..
-              </li>
-              <li>
-                All disputes arising out of or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts in <strong>Bhilwara</strong> and <strong>Rajasthan</strong>.
-              </li>
-              <li>
-                All concerns or communications relating to these Terms must be communicated to us using the contact information provided on this website
-              </li>
-            </ol>
+          {/* 02. Nature of services */}
+          <div
+            className="py-8 border-b border-[#D9D0BC] scroll-mt-24"
+            id="services"
+          >
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">02</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              Nature of services
+            </h2>
+
+            <div className="mt-1">
+              {[
+                {
+                  title: "Research & educational content",
+                  desc: "Reports, newsletters, and market updates published by us are for informational and educational purposes only. They do not constitute investment advice, a recommendation to buy or sell any security, or a guarantee of returns.",
+                },
+                {
+                  title: "Mutual fund distribution",
+                  desc: "We distribute mutual fund schemes as an AMFI-registered distributor. We are not a SEBI-registered Investment Adviser unless separately stated, and commissions may be earned from AMCs on distribution.",
+                },
+                {
+                  title: "Broking / demat referrals",
+                  desc: "Account opening with our broking partners is governed entirely by that broker's own terms, KYC process, and regulatory obligations. Fiscal Forum acts only as a referral partner.",
+                },
+                {
+                  title: "Insurance POS",
+                  desc: "Insurance products are facilitated under applicable IRDAI POS regulations; the insurer's policy terms govern the actual contract.",
+                },
+                {
+                  title: "Loan / credit card DSA",
+                  desc: "Loan and credit card facilitation is subject to the sole discretion, terms, and approval process of the respective bank or NBFC.",
+                },
+              ].map((service, index, arr) => (
+                <div
+                  key={index}
+                  className={`py-4.5 border-t border-[#D9D0BC] ${index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
+                    }`}
+                >
+                  <div className="font-[family-name:var(--font-source-serif)] text-[15px] font-medium text-[#171512] mb-1.5">
+                    {service.title}
+                  </div>
+                  <div className="text-sm leading-[1.65] text-[#4A453D] max-w-[62ch]">
+                    {service.desc}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+
+          {/* 03. No investment advice */}
+          <div
+            className="py-8 border-b border-[#D9D0BC] scroll-mt-24"
+            id="noadvice"
+          >
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">03</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              No investment advice / no guarantee
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] mb-3 max-w-[62ch]">
+              Investments in securities, mutual funds, and insurance are subject
+              to market risks. Past performance is not indicative of future
+              results. You are solely responsible for your investment decisions.
+            </p>
+            <div className="mt-3.5 p-3.5 sm:p-4 bg-[#FBF8F1] border border-[#D9D0BC] text-[13.5px] leading-[1.6] text-[#4A453D] max-w-[62ch]">
+              Please read all scheme-related and product-related documents
+              carefully before investing.
+            </div>
+          </div>
+
+          {/* 04. Eligibility */}
+          <div
+            className="py-8 border-b border-[#D9D0BC] scroll-mt-24"
+            id="eligibility"
+          >
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">04</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              Eligibility
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
+              You must be at least 18 years old and legally capable of entering
+              into a binding contract to use our services.
+            </p>
+          </div>
+
+          {/* 05. User responsibilities */}
+          <div
+            className="py-8 border-b border-[#D9D0BC] scroll-mt-24"
+            id="responsibilities"
+          >
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">05</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              User responsibilities
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] mb-3 max-w-[62ch]">
+              You agree to:
+            </p>
+            <ul className="list-none m-0 mb-1 p-0 max-w-[62ch]">
+              {[
+                "Provide accurate and complete information during onboarding and KYC",
+                "Not use the Site for any unlawful purpose",
+                "Not misrepresent, reproduce, or redistribute our proprietary research or reports without permission",
+              ].map((item, index, arr) => (
+                <li
+                  key={index}
+                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
+                    }`}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* 06. Intellectual property */}
+          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="ip">
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">06</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              Intellectual property
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
+              All content on this Site — including reports, logos, graphics, and
+              text — is the property of Fiscal Forum Finserv unless otherwise
+              stated, and may not be copied, reproduced, or distributed without
+              prior written consent.
+            </p>
+          </div>
+
+          {/* 07. Third-party platforms */}
+          <div
+            className="py-8 border-b border-[#D9D0BC] scroll-mt-24"
+            id="thirdparty"
+          >
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">07</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              Third-party platforms
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
+              We are not liable for the acts, omissions, service quality,
+              execution, or outcomes of third-party brokers, AMCs, insurers,
+              banks, or NBFCs we refer you to. Your relationship with such
+              entities is governed independently by their own terms and
+              agreements.
+            </p>
+          </div>
+
+          {/* 08. Limitation of liability */}
+          <div
+            className="py-8 border-b border-[#D9D0BC] scroll-mt-24"
+            id="liability"
+          >
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">08</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              Limitation of liability
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
+              To the fullest extent permitted by law, Fiscal Forum Finserv shall
+              not be liable for any direct, indirect, incidental, or
+              consequential loss — including trading or investment losses —
+              arising from your use of the Site, our content, or third-party
+              services referred through us.
+            </p>
+          </div>
+
+          {/* 09. Regulatory compliance */}
+          <div
+            className="py-8 border-b border-[#D9D0BC] scroll-mt-24"
+            id="compliance"
+          >
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">09</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              Regulatory compliance
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
+              Our services are provided in accordance with applicable SEBI, AMFI,
+              IRDAI, and RBI regulations, as relevant to each business line. Any
+              regulatory registration numbers — ARN, POS certification, and so
+              on — applicable to us will be displayed on the Site or provided on
+              request.
+            </p>
+          </div>
+
+          {/* 10. Termination */}
+          <div
+            className="py-8 border-b border-[#D9D0BC] scroll-mt-24"
+            id="termination"
+          >
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">10</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              Termination
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
+              We reserve the right to suspend or terminate access to the Site or
+              our services at our discretion, including for suspected misuse or
+              violation of these Terms.
+            </p>
+          </div>
+
+          {/* 11. Governing law */}
+          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="law">
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">11</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              Governing law
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
+              These Terms are governed by the laws of India, and any disputes
+              shall be subject to the exclusive jurisdiction of the courts at
+              Bhilwara, Rajasthan, India.
+            </p>
+          </div>
+
+          {/* 12. Changes to terms */}
+          <div
+            className="py-8 border-b border-[#D9D0BC] scroll-mt-24"
+            id="changes"
+          >
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">12</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              Changes to terms
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
+              We may revise these Terms at any time. Continued use of the Site
+              after changes constitutes acceptance of the updated Terms.
+            </p>
+          </div>
+
+          {/* 13. Contact us */}
+          <div className="py-8 scroll-mt-24" id="contact">
+            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">13</div>
+            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
+              Contact us
+            </h2>
+            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
+              For questions about these Terms, reach out to our proprietor
+              directly.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      {/* Terms Contact Panel */}
+      <div className="max-w-[800px] mx-auto px-6">
+        <section className="pt-10 pb-14">
+          <div className="bg-[#FBF8F1] border border-[#D9D0BC] p-7 sm:p-8 flex justify-between items-center gap-6 flex-wrap">
+            <div>
+              <div className="font-[family-name:var(--font-source-serif)] text-[13px] text-[#4A453D] mb-2">
+                Terms contact
+              </div>
+              <div className="text-[17px] font-medium text-[#171512]">
+                Sheela Mehta
+              </div>
+              <div className="text-[13px] text-[#4A453D] mt-0.5 leading-[1.6]">
+                Proprietor, Fiscal Forum Finserv
+                <br />
+                581, Azad Nagar, Bhilwara, Rajasthan · 86960 60387
+              </div>
+            </div>
+            <a
+              href="mailto:support@fiscalforum.in"
+              className="text-[13.5px] text-[#171512] border-b border-[#D9D0BC] pb-0.5 hover:border-[#2F4A3C] transition-colors"
+            >
+              support@fiscalforum.in
+            </a>
+          </div>
+        </section>
+      </div>
+
+      {/* Page Footer Note */}
+      <div className="max-w-[800px] mx-auto px-6">
+        <footer className="border-t border-[#D9D0BC] py-5 text-xs text-[#4A453D] flex justify-between flex-wrap gap-2">
+          <span>© 2026 Fiscal Forum Finserv</span>
+          <span>Bhilwara, Rajasthan, India</span>
+        </footer>
       </div>
     </div>
   );
-};
-
-export default TermsAndConditionsPage;
+}

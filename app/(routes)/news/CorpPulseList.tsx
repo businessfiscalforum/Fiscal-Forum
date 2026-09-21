@@ -40,6 +40,30 @@ interface CorpPulseListProps {
   ShareButton: React.ComponentType<{ id: string; title: string }>; // Received from parent
 }
 
+// Helper Component for Robust News Image Rendering
+const CorpCardImage: React.FC<{ src?: string | null; title: string }> = ({ src, title }) => {
+  const defaultImg = "/images/why-market-updates.png";
+  const validSrc = (src && src !== "null" && src !== "undefined" && src.trim() !== "") ? src : defaultImg;
+  const [imgSrc, setImgSrc] = React.useState<string>(validSrc);
+  const [hasError, setHasError] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    const nextSrc = (src && src !== "null" && src !== "undefined" && src.trim() !== "") ? src : defaultImg;
+    setImgSrc(nextSrc);
+    setHasError(false);
+  }, [src]);
+
+  return (
+    <Image
+      src={hasError || !imgSrc ? defaultImg : imgSrc}
+      alt={title}
+      fill
+      className="object-cover transition-transform duration-500 group-hover:scale-110"
+      onError={() => setHasError(true)}
+    />
+  );
+};
+
 // --- Component ---
 const CorpPulseList: React.FC<CorpPulseListProps> = ({
   currentNews,
@@ -65,18 +89,7 @@ const CorpPulseList: React.FC<CorpPulseListProps> = ({
           >
             {/* Left Side: Image / Brand Icon */}
             <div className="relative w-full md:w-48 h-32 md:h-32 flex-shrink-0 overflow-hidden rounded-2xl bg-emerald-50">
-              {news.image ? (
-                <Image
-                  src={news.image}
-                  alt={news.title}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center">
-                  <FaBriefcase className="text-3xl text-emerald-200" />
-                </div>
-              )}
+              <CorpCardImage src={news.image} title={news.title} />
               {/* Floating Badge */}
               <div className="absolute top-2 left-2">
                 <span className="bg-emerald-600/90 backdrop-blur-md text-white text-[10px] font-black px-2 py-0.5 rounded-full uppercase">

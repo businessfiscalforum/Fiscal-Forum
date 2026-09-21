@@ -67,6 +67,7 @@ const getIpoStatus = (
   if (!openDateStr || !closeDateStr) {
     return {
       status: "N/A",
+      badgeClass: "bg-gray-100 text-gray-800 border-gray-400",
       dotClass: "bg-gray-400",
       textClass: "text-gray-600",
     };
@@ -78,6 +79,7 @@ const getIpoStatus = (
   if (isNaN(openTimestamp) || isNaN(closeTimestamp)) {
     return {
       status: "Invalid",
+      badgeClass: "bg-gray-100 text-gray-800 border-gray-400",
       dotClass: "bg-gray-400",
       textClass: "text-gray-600",
     };
@@ -88,20 +90,23 @@ const getIpoStatus = (
   if (isLive) {
     return {
       status: "Live",
-      dotClass: "bg-green-500",
-      textClass: "text-green-600",
+      badgeClass: "bg-emerald-400 text-black border-black font-extrabold",
+      dotClass: "bg-emerald-900 animate-pulse",
+      textClass: "text-emerald-800",
     };
   } else if (today < openTimestamp) {
     return {
       status: "Upcoming",
-      dotClass: "bg-yellow-500",
-      textClass: "text-yellow-600",
+      badgeClass: "bg-amber-300 text-black border-black font-extrabold",
+      dotClass: "bg-amber-900",
+      textClass: "text-amber-800",
     };
   } else {
     return {
       status: "Closed",
-      dotClass: "bg-red-500",
-      textClass: "text-red-600",
+      badgeClass: "bg-rose-200 text-black border-black font-extrabold",
+      dotClass: "bg-rose-700",
+      textClass: "text-rose-800",
     };
   }
 };
@@ -114,13 +119,37 @@ interface IpoScoopListProps {
   ShareButton: React.ComponentType<{ id: string; title: string }>;
 }
 
+// Helper Component for Robust IPO Image Rendering
+const IpoCardImage: React.FC<{ src?: string | null; title: string }> = ({ src, title }) => {
+  const defaultImg = "/images/service-ipo.png";
+  const validSrc = (src && src !== "null" && src !== "undefined" && src.trim() !== "") ? src : defaultImg;
+  const [imgSrc, setImgSrc] = React.useState<string>(validSrc);
+  const [hasError, setHasError] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    const nextSrc = (src && src !== "null" && src !== "undefined" && src.trim() !== "") ? src : defaultImg;
+    setImgSrc(nextSrc);
+    setHasError(false);
+  }, [src]);
+
+  return (
+    <Image
+      src={hasError || !imgSrc ? defaultImg : imgSrc}
+      alt={title}
+      fill
+      className="w-full h-full object-cover"
+      onError={() => setHasError(true)}
+    />
+  );
+};
+
 // --- Component ---
 const IpoScoopList: React.FC<IpoScoopListProps> = ({
   currentNews,
   handleNewsClick,
   ShareButton,
 }) => {
-  // Helper Component for Data Boxes
+  // Helper Component for Claymorphic Stat Boxes
   const IpoDataBox: React.FC<{
     icon: React.ElementType;
     title: string;
@@ -129,203 +158,168 @@ const IpoScoopList: React.FC<IpoScoopListProps> = ({
     bgClass: string;
   }> = ({ icon: Icon, title, value, valueClass = "", bgClass }) => (
     <div
-      className={`p-2 rounded-lg border ${bgClass} text-center flex flex-col justify-center items-center h-full`}
+      className={`p-2.5 rounded-2xl border border-black/80 ${bgClass} text-center flex flex-col justify-center items-center h-full shadow-sm transition-all`}
     >
-      <Icon className="text-base text-emerald-700" />
-      <p className="text-[10px] font-medium text-gray-600 truncate">{title}</p>
-      <p className={`text-sm font-bold text-gray-900 ${valueClass} line-clamp-1`}>
+      <div className="flex items-center gap-1 mb-1">
+        <Icon className="text-xs text-black/70" />
+        <span className="text-[10px] font-black text-black uppercase tracking-wider">{title}</span>
+      </div>
+      <p className={`text-xs sm:text-sm font-black text-black ${valueClass} line-clamp-1`}>
         {value}
       </p>
     </div>
   );
 
   return (
-    // Max width added here for better appearance on large screens
-    <div className="max-w-6xl mx-auto p-4 sm:p-6">
-      <div className="space-y-6 gap-10">
+    <div className="max-w-7xl mx-auto p-2 sm:p-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
         {currentNews.map((news, index) => {
           const ipoStatus = getIpoStatus(news.openDate, news.closeDate);
 
           // Determine GMP color class
           const gmpValue = news.listingGain || "";
-          let gmpColorClass = "text-gray-700";
+          let gmpColorClass = "text-gray-900";
           if (gmpValue.includes("+") || (parseFloat(gmpValue.replace(/[^\d.-]/g, '')) > 0)) {
-            gmpColorClass = "text-green-600";
+            gmpColorClass = "text-emerald-700";
           } else if (gmpValue.includes("-") || (parseFloat(gmpValue.replace(/[^\d.-]/g, '')) < 0)) {
-            gmpColorClass = "text-red-500";
+            gmpColorClass = "text-rose-700";
           } else if (gmpValue === "N/A" || gmpValue.toLowerCase().includes("na")) {
-             gmpColorClass = "text-gray-500";
+             gmpColorClass = "text-gray-600";
           }
-
 
           return (
             <motion.div
               key={news.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="border-b border-emerald-200 pb-4  group hover:bg-emerald-50/50 p-3 rounded-xl transition-colors duration-200 bg-white"
+              transition={{ delay: index * 0.08 }}
+              className="bg-white border-2 border-black rounded-3xl p-5 shadow-sm hover:border-[#1FA463] hover:shadow-md transition-all duration-200 flex flex-col justify-between h-full"
             >
-              
-              {/* IPO Title and Consideration (Prominent at the top) */}
-              <div className="flex items-center justify-between mb-3 border-b border-emerald-100 pb-2">
-                <h3
-                  className="text-base sm:text-lg font-bold text-emerald-900 line-clamp-2 cursor-pointer group-hover:text-emerald-700 transition-colors flex-1 min-w-0 pr-3"
-                  onClick={() => handleNewsClick(news.id)}
-                >
-                  {news.ipoName || news.title}
-                  <span className="block text-xs font-normal text-gray-500 mt-0.5">
-                      {news.companyName || news.category}
-                  </span>
-                </h3>
-                {/* Consideration/Rating Box */}
-                <div 
-                  className="bg-emerald-600 text-white px-3 py-1 rounded-lg text-xs font-bold flex items-center shadow-md flex-shrink-0"
-                  onClick={(e) => e.stopPropagation()} // Prevent list item click
-                >
-                  <FaThumbsUp className="mr-1 text-yellow-300" />
-                  MAY APPLY
-                </div>
-                <div onClick={(e) => e.stopPropagation()}>
+              <div>
+                {/* Header Row: Category Badge + Status + Rating + Share */}
+                <div className="flex items-center justify-between gap-2 mb-3 pb-2 border-b border-black/10">
+                  <div className="flex items-center gap-2">
+                    <span className="bg-yellow-200 text-black border border-black px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest">
+                      IPO SCOOP
+                    </span>
+                    <span className={`border border-black px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider flex items-center gap-1 ${ipoStatus.badgeClass}`}>
+                      <span className={`w-1.5 h-1.5 rounded-full ${ipoStatus.dotClass}`} />
+                      {ipoStatus.status}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <div className="bg-emerald-400 text-black border border-black px-2.5 py-1 rounded-lg text-[11px] font-black flex items-center gap-1">
+                      <FaThumbsUp className="text-black text-[10px]" />
+                      MAY APPLY
+                    </div>
                     <ShareButton id={news.id} title={news.ipoName || news.title} />
                   </div>
+                </div>
+
+                {/* Title & Image Section */}
+                <div className="space-y-3 mb-4">
+                  <h3
+                    className="text-base sm:text-lg font-black text-black leading-snug cursor-pointer hover:text-emerald-700 transition-colors line-clamp-2"
+                    onClick={() => handleNewsClick(news.id)}
+                  >
+                    {news.ipoName || news.title}
+                  </h3>
+
+                  {/* Image Banner */}
+                  <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden border-2 border-black bg-emerald-50 shadow-sm">
+                    <IpoCardImage src={news.image} title={news.title} />
+                  </div>
+                </div>
+
+                {/* Metrics Grid (3 Columns) */}
+                <div className="grid grid-cols-3 gap-2 mb-3">
+                  <IpoDataBox
+                    icon={FaRupeeSign}
+                    title="Offer Price"
+                    value={news.offerPrice || "N/A"}
+                    bgClass="bg-emerald-50/80"
+                    valueClass="text-emerald-950"
+                  />
+                  <IpoDataBox
+                    icon={FaArrowUp}
+                    title="GMP"
+                    value={news.listingGain || "N/A"}
+                    bgClass="bg-blue-50/80"
+                    valueClass={gmpColorClass}
+                  />
+                  <IpoDataBox
+                    icon={FaBolt}
+                    title="Subscription"
+                    value={news.subscriptionRate || "0x"}
+                    bgClass="bg-amber-50/80"
+                    valueClass="text-amber-950"
+                  />
+                </div>
+
+                {/* Dates Timeline Strip */}
+                <div className="p-2.5 bg-[#F4FBF7] border border-black rounded-2xl text-[11px] font-bold text-black space-y-1 mb-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Open - Close:</span>
+                    <span className="text-emerald-800 font-black">
+                      {formatDate(news.openDate)} - {formatDate(news.closeDate)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center border-t border-black/10 pt-1">
+                    <span className="text-gray-600">Allotment:</span>
+                    <span className="text-blue-900 font-black">{formatDate(news.allotmentDate)}</span>
+                  </div>
+                  <div className="flex justify-between items-center border-t border-black/10 pt-1">
+                    <span className="text-gray-600">Listing:</span>
+                    <span className="text-purple-900 font-black">{formatDate(news.listingDate)}</span>
+                  </div>
+                </div>
+
+                {/* Description */}
+                <p className="text-xs font-semibold text-gray-700 line-clamp-2 leading-relaxed mb-4">
+                  {news.description ||
+                    "No detailed description available. Click 'More Info' to view full prospectus and financial updates."}
+                </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                
-                {/* Left Side: Image and Status */}
-                <div className="w-full sm:w-1/3 lg:w-1/4 flex-shrink-0 order-1 sm:order-1">
-                  <div className="relative h-28 w-full rounded-lg overflow-hidden shadow-md">
-                    {news.image ? (
-                      <Image
-                        src={news.image}
-                        alt={news.title}
-                        width={300}
-                        height={120} // Adjusted height
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="bg-gradient-to-br from-emerald-100 to-teal-100 w-full h-full flex items-center justify-center">
-                        <FaChartLine className="text-4xl text-emerald-500" />
-                      </div>
-                    )}
-                    {/* IPO Status Dot/Text on Image */}
-                    <div className="absolute top-2 right-2 flex items-center gap-1 bg-white/90 px-2 py-1 rounded-full text-xs font-semibold shadow">
-                      <span
-                        className={`w-2 h-2 rounded-full ${ipoStatus.dotClass}`}
-                      ></span>
-                      <span className={ipoStatus.textClass}>
-                        {ipoStatus.status}
-                      </span>
-                    </div>
-                  </div>
-                </div>
+              {/* Action Buttons Grid */}
+              <div className="grid grid-cols-3 gap-2 pt-3 border-t border-black/10">
+                <Link
+                  href={news.applyLink || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    if (ipoStatus.status !== "LIVE") e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                  className={`text-center py-2 px-2 rounded-xl border border-black font-black text-xs uppercase tracking-wider transition-all truncate ${
+                    ipoStatus.status === "LIVE"
+                      ? "bg-[#1FA463] text-white hover:bg-emerald-600 cursor-pointer shadow-sm"
+                      : "bg-gray-200 text-gray-500 border-gray-400 cursor-not-allowed"
+                  }`}
+                >
+                  {ipoStatus.status === "LIVE" ? "Apply Now" : ipoStatus.status === "UPCOMING" ? "Upcoming" : "Closed"}
+                </Link>
 
-                {/* Right Side: Compact Details and Actions */}
-                <div className="w-full sm:w-2/3 lg:w-3/4 space-y-3 order-2 sm:order-2">
-                  
-                  {/* Row 1: Key Financial Details (Offer Price + GMP + Subscription) */}
-                  <div className="grid grid-cols-3 gap-2">
-                    {/* 1. Offer Price */}
-                    <IpoDataBox
-                      icon={FaRupeeSign}
-                      title="Offer Price"
-                      value={news.offerPrice || "N/A"}
-                      bgClass="bg-red-50 border-red-100"
-                      valueClass="text-red-700"
-                    />
-                    
-                    {/* 2. GMP (Now inline with Offer Price) */}
-                    <div className="col-span-1">
-                       <div className="w-full p-2 bg-gray-50 rounded-lg border border-gray-200 flex flex-col justify-center items-center h-full">
-                         <FaArrowUp className={`text-base ${gmpColorClass}`} />
-                         <p className="text-[10px] font-medium text-gray-600">GMP</p>
-                         <p className={`text-sm font-bold ${gmpColorClass} line-clamp-1`}>
-                            {news.listingGain || "N/A"}
-                         </p>
-                       </div>
-                    </div>
-                    
-                    {/* 3. Subscription */}
-                    <IpoDataBox
-                      icon={FaBolt}
-                      title="Subscription"
-                      value={news.subscriptionRate || "0x"}
-                      bgClass="bg-orange-50 border-orange-100"
-                      valueClass="text-orange-700"
-                    />
-                  </div>
+                <a
+                  href={news.link || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="text-center py-2 px-2 rounded-xl border border-black bg-yellow-100 hover:bg-yellow-200 text-black font-black text-xs uppercase tracking-wider transition-all shadow-sm truncate"
+                >
+                  Allotment
+                </a>
 
-                  {/* Row 2: Dates (Horizontal Flex - Wrapped and Compact) */}
-                  <div className="flex flex-wrap gap-2 p-2 bg-indigo-50/50 rounded-lg border border-indigo-100 justify-between items-center text-xs">
-                    <div className="font-medium text-indigo-700 flex-1 min-w-[45%] sm:min-w-0">
-                      Open: <span className="font-bold text-green-600">{formatDate(news.openDate)}</span>
-                      <span className="mx-1 text-black">-</span>
-                      Close: <span className="font-bold text-red-600">{formatDate(news.closeDate)}</span>
-                    </div>
-                    <div className="font-medium text-blue-700 flex-1 min-w-[45%] sm:min-w-0">
-                      Allotment: <span className="font-bold text-blue-900">{formatDate(news.allotmentDate)}</span>
-                    </div>
-                    <div className="font-medium text-yellow-700 flex-1 min-w-[45%] sm:min-w-0">
-                      Listing: <span className="font-bold text-yellow-900">{formatDate(news.listingDate)}</span>
-                    </div>
-                  </div>
-
-                  {/* Row 3: Description and Actions */}
-                  <div className="w-full flex flex-col">
-                    <p className="text-gray-800 text-sm font-semibold mb-1">Description:</p>
-                    <p className="text-gray-600 text-sm mb-3 line-clamp-2">
-                      {news.description ||
-                        "No detailed description available. Click 'More Info' to view the full news article."}
-                    </p>
-
-                    <div className="grid grid-cols-3 gap-2">
-                      {/* Apply Now Button */}
-                      <Link
-                        href={news.applyLink || "#"}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => {
-                          if (ipoStatus.status !== "Live") e.preventDefault();
-                          e.stopPropagation();
-                        }}
-                        className={`col-span-1 text-center px-3 py-2 text-sm font-bold rounded-lg transition-colors duration-300 ${
-                          ipoStatus.status === "Live"
-                            ? "bg-indigo-600 text-white hover:bg-indigo-700 shadow-md"
-                            : "bg-gray-400 text-gray-700 cursor-not-allowed opacity-70"
-                        }`}
-                      >
-                        {ipoStatus.status === "Live"
-                          ? "Apply Now"
-                          : ipoStatus.status === "Upcoming"
-                          ? "Upcoming"
-                          : "Closed"}
-                      </Link>
-                      
-                      {/* View Allotment Button - uses news.link */}
-                      <a
-                        href={news.link || "#"}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="col-span-1 text-center px-3 py-2 text-sm font-bold rounded-lg transition-colors duration-300 bg-emerald-500 text-white hover:bg-emerald-600 shadow-md"
-                      >
-                        Allotment
-                      </a>
-                      
-                      {/* More Info Button */}
-                      <button
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            handleNewsClick(news.id);
-                        }}
-                        className="col-span-1 text-center px-3 py-2 text-sm font-bold rounded-lg transition-colors duration-300 bg-gray-700 text-white hover:bg-gray-800 shadow-md"
-                      >
-                        More Info
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleNewsClick(news.id);
+                  }}
+                  className="text-center py-2 px-2 rounded-xl border border-black bg-black text-white hover:bg-gray-800 font-black text-xs uppercase tracking-wider transition-all shadow-sm truncate"
+                >
+                  More Info
+                </button>
               </div>
             </motion.div>
           );
