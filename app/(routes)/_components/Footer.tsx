@@ -48,11 +48,9 @@ const Footer = () => {
 
   const legalLinks = [
     { name: "Privacy Policy", href: "/privacy" },
-    { name: "Terms of Service", href: "/terms" },
-    { name: "Cookie Policy", href: "/cookies" },
-    { name: "Compliance", href: "/compliance" },
-    { name: "Regulatory Disclosures", href: "/disclosures" },
-    { name: "Grievance Redressal", href: "/grievance" },
+    { name: "Terms & Conditions", href: "/terms-and-conditions" },
+    { name: "Refund Policy", href: "/refund" },
+    { name: "Shipping Policy", href: "/shipping-policy" },
   ];
 
   const socialLinks = [
@@ -187,22 +185,23 @@ const Footer = () => {
 
         {/* Bottom Section */}
         <div className="py-8">
-          <div className="max-w-4xl mx-auto px-4">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              <p className="text-gray-400 text-sm">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 text-sm text-gray-400">
+              <p className="whitespace-nowrap">
                 © {new Date().getFullYear()} Fiscal Forum Finserv. All rights reserved.
               </p>
-              <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</Link>
-              <Link href="/terms-and-conditions" className="text-gray-400 hover:text-white text-sm transition-colors">Terms & Conditions</Link>
-              <Link href="/refund" className="text-gray-400 hover:text-white text-sm transition-colors">Refund Policy</Link>
-              <div className="flex gap-6">
-                <button
-                  onClick={scrollToTop}
-                  className="text-gray-400 hover:text-white text-sm transition-colors flex items-center gap-1"
-                >
-                  Back to Top
-                </button>
+              <div className="flex flex-wrap md:flex-nowrap items-center justify-center gap-4 sm:gap-6 lg:gap-8">
+                <Link href="/privacy" className="hover:text-white transition-colors whitespace-nowrap">Privacy Policy</Link>
+                <Link href="/terms-and-conditions" className="hover:text-white transition-colors whitespace-nowrap">Terms & Conditions</Link>
+                <Link href="/refund" className="hover:text-white transition-colors whitespace-nowrap">Refund Policy</Link>
+                <Link href="/shipping-policy" className="hover:text-white transition-colors whitespace-nowrap">Shipping Policy</Link>
               </div>
+              <button
+                onClick={scrollToTop}
+                className="hover:text-white transition-colors flex items-center gap-1 whitespace-nowrap"
+              >
+                Back to Top
+              </button>
             </div>
           </div>
         </div>
