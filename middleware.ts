@@ -98,7 +98,7 @@ export default clerkMiddleware(async (auth, req) => {
   if (isAdminRoute(req) && user?.sessionClaims?.metadata?.role !== "ADMIN") {
     return NextResponse.redirect(new URL("/", req.url), 302);
   }
-  
+
   if (isPartnerRoute(req) && user?.sessionClaims?.metadata?.role !== "PARTNER") {
     return NextResponse.redirect(new URL("/", req.url), 302);
   }

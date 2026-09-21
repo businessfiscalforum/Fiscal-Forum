@@ -105,9 +105,8 @@ export default function PrivacyPolicyPage() {
               ].map((item, index, arr) => (
                 <li
                   key={index}
-                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${
-                    index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
-                  }`}
+                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
+                    }`}
                 >
                   {item}
                 </li>
@@ -125,9 +124,8 @@ export default function PrivacyPolicyPage() {
               ].map((item, index, arr) => (
                 <li
                   key={index}
-                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${
-                    index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
-                  }`}
+                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
+                    }`}
                 >
                   {item}
                 </li>
@@ -143,9 +141,8 @@ export default function PrivacyPolicyPage() {
               ].map((item, index, arr) => (
                 <li
                   key={index}
-                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${
-                    index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
-                  }`}
+                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
+                    }`}
                 >
                   {item}
                 </li>
@@ -173,9 +170,8 @@ export default function PrivacyPolicyPage() {
               ].map((item, index, arr) => (
                 <li
                   key={index}
-                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${
-                    index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
-                  }`}
+                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
+                    }`}
                 >
                   {item}
                 </li>
@@ -206,9 +202,8 @@ export default function PrivacyPolicyPage() {
               ].map((item, index, arr) => (
                 <li
                   key={index}
-                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${
-                    index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
-                  }`}
+                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
+                    }`}
                 >
                   {item}
                 </li>
@@ -276,9 +271,8 @@ export default function PrivacyPolicyPage() {
               ].map((item, index, arr) => (
                 <li
                   key={index}
-                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${
-                    index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
-                  }`}
+                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
+                    }`}
                 >
                   {item}
                 </li>

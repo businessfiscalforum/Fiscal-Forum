@@ -15,6 +15,7 @@ export default function sitemap() {
     { url: `${base}/refund`, lastModified: new Date() },
     { url: `${base}/shipping-policy`, lastModified: new Date() },
     { url: `${base}/terms-and-conditions`, lastModified: new Date() },
+    { url: `${base}/shipping-policy`, lastModified: new Date() },
 
     { url: `${base}/services/learn-earn`, lastModified: new Date() },
     { url: `${base}/services/mutual-funds`, lastModified: new Date() },

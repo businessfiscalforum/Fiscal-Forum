@@ -48,11 +48,9 @@ const Footer = () => {
 
   const legalLinks = [
     { name: "Privacy Policy", href: "/privacy" },
-    { name: "Terms of Service", href: "/terms" },
-    { name: "Cookie Policy", href: "/cookies" },
-    { name: "Compliance", href: "/compliance" },
-    { name: "Regulatory Disclosures", href: "/disclosures" },
-    { name: "Grievance Redressal", href: "/grievance" },
+    { name: "Terms & Conditions", href: "/terms-and-conditions" },
+    { name: "Refund Policy", href: "/refund" },
+    { name: "Shipping Policy", href: "/shipping-policy" },
   ];
 
   const socialLinks = [
