@@ -41,31 +41,6 @@ type PreferencesFormData = {
 
 // --- DATA ---
 const brokers: Broker[] = [
-  // {
-  //   name: "Choice",
-  //   logo: "/choice.png",
-  //   link: "https://choiceindia.com/register?refercode=QzAwODcwMTU=&source=Q0hPSUNFX0NPTk5FQ1Q=",
-  //   brokerage:[
-  //     "• Smart mutual fund investing with expert recommendations",
-  //     "• Research-driven suggestions to grow your portfolio",
-  //     "• Smooth, flexible tracking of investments",
-  //     "• User-friendly platform for all experience levels",
-  //     "• Hassle-free wealth creation made simple",
-  //     "• 0 AMC charges — more money stays invested"
-  //   ]
-  // },
-  {
-    name: "Nuvama",
-    logo: "/nuvama.png",
-    link: "https://onboarding.nuvamawealth.com/Partner?utm_source=EMPLOYEE&utm_campaign=43065&utm_content=ELITE&utm_term=1572814",
-    brokerage:[
-      "• 30+ years of wealth management expertise",
-      "• ₹4.6+ trillion client assets under management",
-      "• Personalized wealth and investment solutions",
-      "• Alternative strategies for steady returns",
-      "• Private markets, EDGE funds, Infinity portfolios",
-    ]
-  },
   {
     name: "NJ Wealth",
     logo: "/Nj-wealth.png",
@@ -77,19 +52,6 @@ const brokers: Broker[] = [
       "• Seamless, paperless transactions",
       "• Empowers investors to grow wealth smartly",
       "• 0 AMC charges — invest more, pay less"
-    ]
-  },
-  {
-    name: "Prudent",
-    logo: "/prudent.png",
-    link: "https://fundzbazar.com/Link/jRkmixvcvvw",
-    brokerage:[
-      "• Trusted investment platform with 25+ years of expertise",
-      "• Powerful research support for informed decisions",
-      "• Personalized investment guidance for all investors",
-      "• Simplifies mutual fund investments",
-      "• Backed by a strong track record of trust",
-      "• 0 AMC charges — maximum savings for clients"
     ]
   },
   {
