@@ -81,21 +81,6 @@ const brokers: Broker[] = [
   //   ],
   // },
   {
-    name: "Nuvama",
-    logo: "/nuvama.png",
-    link: "https://onboarding.nuvamawealth.com/Partner?utm_source=EMPLOYEE&utm_campaign=43065&utm_content=ELITE&utm_term=1572814v",
-    brokerage: [
-      "• Equity Delivery: 0.30%",
-      "• Equity Intraday: 0.03%",
-      "• Equity Futures: 0.03%",
-      "• Equity Options: ₹75 per lot",
-      "• Currency Futures: 0.02%",
-      "• Currency Options: ₹20 per lot",
-      "• Commodity Futures: 0.015%",
-      "• Commodity Options: ₹30 per lot",
-    ],
-  },
-  {
     name: "Dhan",
     logo: "/dhan.png",
     link: "https://invite.dhan.co/?join=DITA87",
