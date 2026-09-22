@@ -2,20 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
   FaGift,
-  FaHeadset,
   FaLightbulb,
-  FaRupeeSign,
-  FaShieldAlt,
-  FaUserTie,
   FaWallet,
-  FaSpinner, 
   FaCheck
 } from "react-icons/fa";
-import { CheckCircle, ChevronDown, ChevronUp, X } from "lucide-react"; 
+import { X } from "lucide-react"; 
 import { motion } from "framer-motion";
 import {
   Dialog,
@@ -30,13 +24,6 @@ type Broker = {
   logo: string;
   link: string;
   brokerage: string[];
-};
-
-type PreferencesFormData = {
-  name: string;
-  clientId: string;
-  fundType: string[]; // Changed to array for checkboxes
-  company: string;
 };
 
 // --- DATA ---
@@ -252,8 +239,6 @@ const DematAccountModal = ({ isOpen, closeModal, broker }: { isOpen: boolean, cl
 
 // --- MAIN PAGE COMPONENT ---
 export default function Page() {
-  const router = useRouter();
-  
   // --- MODAL STATE ---
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBroker, setSelectedBroker] = useState<Broker | null>(null);
@@ -268,176 +253,6 @@ export default function Page() {
     setSelectedBroker(null);
   };
   // --- END MODAL STATE ---
-
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState<{ text: string; type: string } | null>(
-    null
-  );
-  const [preferencesForm, setPreferencesForm] = useState<PreferencesFormData>({
-    name: "",
-    clientId: "",
-    fundType: [], // Initialize as empty array
-    company: "",
-  });
-  const [preferencesErrors, setPreferencesErrors] = useState<Record<string, string>>({});
-  const [isPreferencesSubmitting, setIsPreferencesSubmitting] = useState(false);
-  const [preferencesMessage, setPreferencesMessage] = useState<{ text: string; type: string } | null>(null);
-
-  // Add handler for preferences form
-  const handlePreferencesChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    
-    // Handle fundType checkboxes specially
-    if (name === "fundType") {
-      const checked = (e.target as HTMLInputElement).checked;
-      setPreferencesForm(prev => {
-        const newFundTypes = checked
-          ? [...prev.fundType, value] // Add value if checked
-          : prev.fundType.filter(type => type !== value); // Remove value if unchecked
-        return { ...prev, fundType: newFundTypes };
-      });
-      
-      // Clear error when user selects an option
-      if (preferencesErrors.fundType) {
-        setPreferencesErrors(prev => {
-          const newErrors = { ...prev };
-          delete newErrors.fundType;
-          return newErrors;
-        });
-      }
-    } else {
-      // Handle other fields normally
-      setPreferencesForm(prev => ({ ...prev, [name]: value }));
-      
-      // Clear error when user types
-      if (preferencesErrors[name]) {
-        setPreferencesErrors(prev => {
-          const newErrors = { ...prev };
-          delete newErrors[name];
-          return newErrors;
-        });
-      }
-    }
-  };
-
-  // Add validation for preferences form
-  const validatePreferencesForm = () => {
-    const newErrors: Record<string, string> = {};
-    
-    if (!preferencesForm.name.trim()) {
-      newErrors.name = "Name is required";
-    }
-    
-    if (!preferencesForm.clientId.trim()) {
-      newErrors.clientId = "Client ID is required";
-    }
-    
-    if (preferencesForm.fundType.length === 0) {
-      newErrors.fundType = "Select at least one fund type";
-    }
-    
-    if (!preferencesForm.company.trim()) {
-      newErrors.company = "Company is required";
-    }
-    
-    setPreferencesErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  // Add submit handler for preferences form
-  const handlePreferencesSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!validatePreferencesForm()) {
-      return;
-    }
-    
-    setIsPreferencesSubmitting(true);
-    setPreferencesMessage(null);
-    
-    try {
-      const response = await fetch("/api/mfpreferences", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...preferencesForm,
-          fundType: preferencesForm.fundType.join(',') // Convert array to comma-separated string
-        }),
-      });
-      
-      const data = await response.json();
-      
-      if (response.ok) {
-        setPreferencesMessage({
-          text: "Thank you for submitting your preferences!",
-          type: "success",
-        });
-        
-        // Reset form
-        setPreferencesForm({
-          name: "",
-          clientId: "",
-          fundType: [],
-          company: "",
-        });
-        
-        // Clear errors
-        setPreferencesErrors({});
-      } else {
-        throw new Error(data.error || "Failed to submit preferences");
-      }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      setPreferencesMessage({
-        text: error.message || "Failed to submit preferences. Please try again.",
-        type: "error",
-      });
-    } finally {
-      setIsPreferencesSubmitting(false);
-    }
-  };
-
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) {
-      setMessage({ text: "Please enter your email address", type: "error" });
-      return;
-    }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setMessage({ text: "Please enter a valid email address", type: "error" });
-      return;
-    }
-    setIsSubmitting(true);
-    setMessage(null);
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/subscribe`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        setMessage({ text: data.message, type: "success" });
-        setEmail("");
-      } else {
-        setMessage({
-          text: data.error || "Subscription failed",
-          type: "error",
-        });
-      }
-    } catch (error) {
-      setMessage({
-        text: "Subscription failed. Please sign-in to subscribe.",
-        type: "error",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 py-30 px-4 sm:px-6">

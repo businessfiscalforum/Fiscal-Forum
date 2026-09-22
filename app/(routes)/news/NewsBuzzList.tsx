@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 import React from "react";
 import { FaGlobe, FaStar, FaBolt, FaCalendarAlt, FaTags, FaUserCircle } from "react-icons/fa";
 import Image from "next/image";

@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
   FaCheck, // Added FaCheck for the modal list items
@@ -328,7 +327,6 @@ const DematAccountModal = ({
 
 // --- MAIN PAGE COMPONENT ---
 export default function Page() {
-  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBroker, setSelectedBroker] = useState<Broker | null>(null);
 
