@@ -933,6 +933,9 @@ background: var(--navy); border-color: var(--navy); color: var(--white); box-sha
 .mf-screener-container .page-btn:disabled {
 opacity: 0.3; cursor: not-allowed;
 }
+.mf-screener-container .page-dots {
+padding: 0 4px; color: var(--text-muted); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px;
+}
 .mf-screener-container .footer {
 background: var(--off-white); border-top: 1px solid var(--border); padding: 44px 48px;
 }
@@ -1350,11 +1353,46 @@ grid-template-columns: 1fr; gap: 12px;
 .mf-screener-container .fund-card {
 padding: 16px;
 }
-.mf-screener-container .page-btn {
-min-width: 44px; height: 44px; font-size: 14px;
-}
 .mf-screener-container .pagination {
-gap: 4px; margin-top: 32px;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 5px;
+  margin-top: 32px;
+  width: 100%;
+  max-width: 100%;
+  white-space: nowrap;
+  box-sizing: border-box;
+  padding: 0 4px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.mf-screener-container .pagination::-webkit-scrollbar {
+  display: none;
+}
+.mf-screener-container .page-btn {
+  min-width: 44px;
+  max-width: 46px;
+  height: 44px;
+  padding: 0 4px;
+  font-size: 13.5px;
+  font-weight: 600;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+.mf-screener-container .page-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 44px;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 14px;
+  flex-shrink: 0;
+  padding: 0 2px;
 }
 .mf-screener-container .modal {
 top: auto; bottom: 0; left: 0; right: 0;
@@ -1414,6 +1452,21 @@ font-size: 17px;
 }
 .mf-screener-container .counter-lbl {
 font-size: 9px; letter-spacing: 0.5px;
+}
+.mf-screener-container .pagination {
+  gap: 4px;
+}
+.mf-screener-container .page-btn {
+  min-width: 42px;
+  max-width: 44px;
+  height: 42px;
+  font-size: 13px;
+  padding: 0 2px;
+}
+.mf-screener-container .page-dots {
+  height: 42px;
+  min-width: 14px;
+  font-size: 13px;
 }
 }
 .mf-screener-container .nav-hamburger {

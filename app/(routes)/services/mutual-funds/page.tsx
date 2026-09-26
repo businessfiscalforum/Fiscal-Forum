@@ -354,13 +354,26 @@ export default function MutualFundScreenerPage() {
   const exploreRange = useMemo(() => {
     const current = explorePage;
     const total = totalPages;
+
+    if (isMobile) {
+      if (total <= 5) return Array.from({ length: total }, (_, i) => i + 1);
+      if (current <= 2) return [1, 2, 3, "...", total];
+      if (current >= total - 2) {
+        return [total - 3, total - 2, total - 1, total];
+      }
+      if (current + 1 < total - 1) {
+        return [current - 1, current, current + 1, "...", total];
+      }
+      return [current - 1, current, current + 1, total];
+    }
+
     if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
     if (current <= 4) return [1, 2, 3, 4, 5, "...", total];
     if (current >= total - 3) {
       return [1, "...", total - 4, total - 3, total - 2, total - 1, total];
     }
     return [1, "...", current - 1, current, current + 1, "...", total];
-  }, [explorePage, totalPages]);
+  }, [explorePage, totalPages, isMobile]);
 
   // Clear filters
   const handleClearFilters = () => {
@@ -1099,7 +1112,7 @@ export default function MutualFundScreenerPage() {
                 return (
                   <span
                     key={`dots-${index}`}
-                    style={{ padding: "0 4px", color: "#4a5568", display: "flex", alignItems: "center" }}
+                    className="page-dots"
                   >
                     &hellip;
                   </span>
