@@ -730,7 +730,21 @@
 @media (max-width:560px){
   .showcase-top{flex-direction:column;align-items:stretch;text-align:left;}
   .showcase-img-stage{width:100%;aspect-ratio:16/10;}
-  .inside-list{grid-template-columns:1fr;}
+  .inside-list{
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .inside-list li{
+    padding: 7px 8px;
+    gap: 8px;
+  }
+  .inside-list img{
+    width: 30px;
+    height: 30px;
+  }
+  .inside-list span{
+    font-size: 11.5px;
+  }
 }
 
 /* ================= SECTION 6 : TESTIMONIALS ================= */

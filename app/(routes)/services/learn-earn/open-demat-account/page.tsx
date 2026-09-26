@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
   FaCheck, // Added FaCheck for the modal list items
@@ -29,7 +28,7 @@ const brokers: Broker[] = [
   {
     name: "Angel One",
     logo: "/angel-one.png",
-    link: "https://angel-one.onelink.me/Wjgr/34yk9lib",
+    link: "https://a.aonelink.in/ANGOne/IFhX19N",
     brokerage: [
       "• Equity Delivery: ₹20 or 0.1% whichever is lower per executed order (minimum brokerage of INR 2 will be levied)",
       "• Equity Intraday: ₹20 or 0.03% (whichever is lower) per executed order",
@@ -80,21 +79,6 @@ const brokers: Broker[] = [
   //     "• Equity Intraday: ₹20 or 0.05% (whichever is lower)",
   //   ],
   // },
-  {
-    name: "Nuvama",
-    logo: "/nuvama.png",
-    link: "https://onboarding.nuvamawealth.com/Partner?utm_source=EMPLOYEE&utm_campaign=43065&utm_content=ELITE&utm_term=1572814v",
-    brokerage: [
-      "• Equity Delivery: 0.30%",
-      "• Equity Intraday: 0.03%",
-      "• Equity Futures: 0.03%",
-      "• Equity Options: ₹75 per lot",
-      "• Currency Futures: 0.02%",
-      "• Currency Options: ₹20 per lot",
-      "• Commodity Futures: 0.015%",
-      "• Commodity Options: ₹30 per lot",
-    ],
-  },
   {
     name: "Dhan",
     logo: "/dhan.png",
@@ -343,7 +327,6 @@ const DematAccountModal = ({
 
 // --- MAIN PAGE COMPONENT ---
 export default function Page() {
-  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBroker, setSelectedBroker] = useState<Broker | null>(null);
 

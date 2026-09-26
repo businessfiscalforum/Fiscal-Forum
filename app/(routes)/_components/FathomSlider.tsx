@@ -743,7 +743,7 @@ export default function FathomSlider() {
                     Everything you need to invest smarter, all in one place. Get actionable market insights, in-depth research, and reports personalized to your investment goals.
                   </p>
                 </div>
-                <div>
+                <div className="flex items-center gap-3 flex-wrap">
                   <Link href="/reports">
                     <button className="relative px-6 py-2.5 bg-black !text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-zinc-900 transition-all cursor-pointer button-border-animate-container hover:-translate-y-0.5 duration-200">
                       {/* Animated Border Overlay */}
@@ -765,6 +765,12 @@ export default function FathomSlider() {
                         </svg>
                       </div>
                       <span className="relative z-10">CLICK HERE</span>
+                    </button>
+                  </Link>
+
+                  <Link href="/reports">
+                    <button className="px-5 py-2.5 bg-yellow-400 text-black font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 transition-all cursor-pointer hover:-translate-y-0.5 duration-200 border border-black/20">
+                      At just Rs. 399
                     </button>
                   </Link>
                 </div>
@@ -825,7 +831,7 @@ export default function FathomSlider() {
                     </p>
                   </div>
                 </div>
-                <div>
+                <div className="flex items-center gap-3 flex-wrap">
                   <Link href="/reports/customised">
                     <button className="relative px-6 py-2.5 bg-black !text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-zinc-900 transition-all cursor-pointer button-border-animate-container hover:-translate-y-0.5 duration-200">
                       {/* Animated Border Overlay */}
@@ -847,6 +853,12 @@ export default function FathomSlider() {
                         </svg>
                       </div>
                       <span className="relative z-10">CLICK HERE</span>
+                    </button>
+                  </Link>
+
+                  <Link href="/reports/customised">
+                    <button className="px-5 py-2.5 bg-yellow-400 text-black font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 transition-all cursor-pointer hover:-translate-y-0.5 duration-200 border border-black/20">
+                      At just Rs. 699
                     </button>
                   </Link>
                 </div>

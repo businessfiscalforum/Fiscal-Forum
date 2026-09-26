@@ -68,8 +68,8 @@ export default function AboutUs() {
 
         .about-page-container .founders {
           display: grid;
-          grid-template-columns: minmax(0, 580px);
-          gap: 40px;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 76px 36px;
           align-items: stretch;
           margin-top: 120px;
         }
@@ -83,13 +83,27 @@ export default function AboutUs() {
           position: relative;
           opacity: 0;
           transform: translateY(24px);
-          animation: aboutRise 0.8s ease 0.7s forwards;
           transition: transform 0.35s ease, box-shadow 0.35s ease;
           box-shadow: 0 10px 28px rgba(14,37,30,0.08);
+          display: flex;
+          flex-direction: column;
         }
         .about-page-container .card:hover {
           transform: translateY(-6px);
           box-shadow: 0 24px 48px rgba(14,37,30,0.18);
+        }
+
+        .about-page-container .card.c1 {
+          animation: aboutRise 0.8s ease 0.35s forwards;
+        }
+        .about-page-container .card.c2 {
+          animation: aboutRise 0.8s ease 0.5s forwards;
+        }
+        .about-page-container .card.c3 {
+          animation: aboutRise 0.8s ease 0.65s forwards;
+        }
+        .about-page-container .card.c4 {
+          animation: aboutRise 0.8s ease 0.8s forwards;
         }
 
         .about-page-container .photo-frame {
@@ -120,11 +134,12 @@ export default function AboutUs() {
           color: var(--rust);
           margin-bottom: 8px;
           display: block;
+          font-weight: 500;
         }
         .about-page-container h3.name {
           font-family: 'Fraunces', serif;
           font-weight: 600;
-          font-size: 27px;
+          font-size: 25px;
           letter-spacing: 0.01em;
           margin: 0 0 4px;
           color: var(--text-dark);
@@ -132,19 +147,21 @@ export default function AboutUs() {
         .about-page-container p.title-line {
           font-size: 13.5px;
           color: var(--text-dark-muted);
-          margin: 0 0 18px;
+          margin: 0 0 16px;
           font-weight: 600;
         }
         .about-page-container p.bio {
-          font-size: 15px;
+          font-size: 14.5px;
           line-height: 1.65;
           color: var(--text-dark-muted);
           margin: 0 0 22px;
+          flex-grow: 1;
         }
         .about-page-container .chips {
           display: flex;
           flex-wrap: wrap;
           gap: 8px;
+          margin-top: auto;
         }
         .about-page-container .chip {
           font-family: 'IBM Plex Mono', monospace;
@@ -162,9 +179,13 @@ export default function AboutUs() {
           to { opacity: 1; transform: translateY(0); }
         }
 
-        @media (max-width: 760px) {
+        @media (max-width: 860px) {
           .about-page-container .wrap { padding: 56px 20px 70px; }
-          .about-page-container .founders { grid-template-columns: 1fr; gap: 96px; margin-top: 120px; }
+          .about-page-container .founders {
+            grid-template-columns: 1fr;
+            gap: 88px;
+            margin-top: 100px;
+          }
         }
       `}</style>
 
@@ -179,7 +200,7 @@ export default function AboutUs() {
 
           <div className="founders">
             {/* Harsh Card */}
-            <div className="card">
+            <div className="card c1">
               <div className="photo-frame">
                 <Image
                   src="/founder-harsh.png"
@@ -189,7 +210,7 @@ export default function AboutUs() {
                   priority
                 />
               </div>
-              <span className="role-label">Founder</span>
+              <span className="role-label">Co-Founder</span>
               <h3 className="name">HARSH MAHTO</h3>
               <p className="title-line">Finance, Research &amp; Technology</p>
               <p className="bio">
@@ -199,6 +220,78 @@ export default function AboutUs() {
                 <span className="chip">Equity Research</span>
                 <span className="chip">Product Engineering</span>
                 <span className="chip">Data &amp; Models</span>
+              </div>
+            </div>
+
+            {/* Arihant Card */}
+            <div className="card c2">
+              <div className="photo-frame">
+                <Image
+                  src="/founder-arihant.png"
+                  alt="Arihant Mehta"
+                  width={102}
+                  height={102}
+                  priority
+                />
+              </div>
+              <span className="role-label">Co-Founder</span>
+              <h3 className="name">ARIHANT MEHTA</h3>
+              <p className="title-line">Sales, Client Relations &amp; Management</p>
+              <p className="bio">
+                Arihant spearheads client-facing relationships, strategic sales initiatives, and cross-functional management at Fiscal Forum. Dedicated to client success and organizational growth, he ensures seamless partnerships, top-tier advisory delivery, and lasting value for every investor and institutional client.
+              </p>
+              <div className="chips">
+                <span className="chip">Sales &amp; Growth</span>
+                <span className="chip">Client Relations</span>
+                <span className="chip">Strategic Management</span>
+              </div>
+            </div>
+
+            {/* Rishita Card */}
+            <div className="card c3">
+              <div className="photo-frame">
+                <Image
+                  src="/team-rishita.png"
+                  alt="Rishita Soni"
+                  width={102}
+                  height={102}
+                  priority
+                />
+              </div>
+              <span className="role-label">Marketing</span>
+              <h3 className="name">RISHITA SONI</h3>
+              <p className="title-line">Brand, Growth &amp; Community</p>
+              <p className="bio">
+                Rishita leads marketing and brand strategy at Fiscal Forum, turning intricate market concepts into compelling, digestible stories. She drives multi-channel audience engagement, creative brand positioning, and digital campaigns that make financial literacy accessible to every ambitious investor.
+              </p>
+              <div className="chips">
+                <span className="chip">Brand Strategy</span>
+                <span className="chip">Content &amp; Growth</span>
+                <span className="chip">Digital Campaigns</span>
+              </div>
+            </div>
+
+            {/* Nakul Card */}
+            <div className="card c4">
+              <div className="photo-frame">
+                <Image
+                  src="/team-nakul.png"
+                  alt="Nakul Prajapat"
+                  width={102}
+                  height={102}
+                  priority
+                />
+              </div>
+              <span className="role-label">HR &amp; Operations</span>
+              <h3 className="name">NAKUL PRAJAPAT</h3>
+              <p className="title-line">People, Culture &amp; Execution</p>
+              <p className="bio">
+                Nakul steers human resources and organizational operations at Fiscal Forum. From talent acquisition and team alignment to streamlining daily execution workflows, he builds the operational backbone and vibrant work culture that powers Fiscal Forum&apos;s continuous scale.
+              </p>
+              <div className="chips">
+                <span className="chip">People &amp; Culture</span>
+                <span className="chip">Operations</span>
+                <span className="chip">Talent Acquisition</span>
               </div>
             </div>
           </div>

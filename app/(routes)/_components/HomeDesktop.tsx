@@ -1224,7 +1224,7 @@ export default function HomeDesktop() {
                   <div className="space-y-0">
                     {/* Header Image with Overlapping Icon */}
                     <div className="relative w-full">
-                      <div className="relative w-full aspect-[4/3] overflow-hidden border-b border-black/10">
+                      <div className="relative w-full h-44 sm:h-48 overflow-hidden border-b border-black/10">
                         <Image
                           src={partner.image}
                           alt={partner.title}

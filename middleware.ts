@@ -56,12 +56,14 @@ const isPublicRoute = createRouteMatcher([
   "/api/travel-insurance",
   "/api/two-wheeler-insurance",
   "/work-with-us/:path*",
-  "/ipo",
   "/contact",
+  "/contacts",
   "/privacy",
   "/terms-and-conditions",
+  "/terms",
   "/refund",
   "/shipping-policy",
+  "/shipping",
   "/api/referrals",
   "/sitemap.xml",
   "/robots.txt",
@@ -96,7 +98,7 @@ export default clerkMiddleware(async (auth, req) => {
   if (isAdminRoute(req) && user?.sessionClaims?.metadata?.role !== "ADMIN") {
     return NextResponse.redirect(new URL("/", req.url), 302);
   }
-  
+
   if (isPartnerRoute(req) && user?.sessionClaims?.metadata?.role !== "PARTNER") {
     return NextResponse.redirect(new URL("/", req.url), 302);
   }

@@ -1,74 +1,144 @@
-import React from 'react';
+import React from "react";
+import Link from "next/link";
+import { Source_Serif_4 } from "next/font/google";
+import type { Metadata } from "next";
 
-const TermsAndConditionsPage = () => {
+export const metadata: Metadata = {
+  title: "Terms & Conditions | Fiscal Forum",
+  description:
+    "Terms & Conditions for access to and use of Fiscal Forum platform.",
+};
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+const sourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-source-serif",
+});
+
+export default function TermsAndConditionsPage() {
+  const conditions = [
+    "To access and use the Services, you agree to provide true, accurate and complete information during and after registration, and you are responsible for all acts done through your registered account.",
+    "Neither we nor any third parties warrant the accuracy, timeliness, performance, completeness or suitability of information and materials offered on the Platform for any specific purpose. Such information may contain inaccuracies or errors, and we exclude liability for these to the fullest extent permitted by law.",
+    "Your use of the Services and the Platform is entirely at your own risk and discretion, for which we are not liable. You must independently assess whether the Services meet your requirements.",
+    "All content on the Platform and the Services is proprietary to us or licensed to us. You have no authority to claim any intellectual property rights, title or interest in that content, including its design, layout, look and graphics.",
+    "Unauthorised use of the Platform and/or Services may lead to action against you under these Terms and/or applicable law.",
+    "You agree to pay the charges associated with availing the Services.",
+    "You agree not to use the Platform or Services for any purpose that is unlawful, illegal or forbidden by these Terms or by Indian or local laws applicable to you.",
+    "The Platform and Services may contain links to third-party websites. Accessing these links subjects you to the terms of use, privacy policy and other policies of those third-party websites. These links are provided solely for your convenience.",
+    "Initiating a transaction for the Services creates a legally binding and enforceable contract between you and the Platform Owner.",
+    "You shall indemnify and hold harmless the Platform Owner, its affiliates and group companies, and their respective officers, directors, agents and employees, from any claim, demand or action (including reasonable attorney's fees) arising from your breach of these Terms, the Privacy Policy, other policies, or your violation of any law or third-party rights (including intellectual property rights).",
+    "Neither party shall be liable for failure to perform an obligation under these Terms where performance is prevented or delayed by a force majeure event.",
+    "These Terms, and any dispute or claim relating to them or their enforceability, are governed by and construed in accordance with the laws of India.",
+    "All disputes arising out of or in connection with these Terms are subject to the exclusive jurisdiction of the courts in Bhilwara, Rajasthan.",
+    "All concerns or communications relating to these Terms should be sent using the contact information provided on the Platform.",
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100 pt-20">
-      <div className="max-w-4xl mx-auto px-4 py-12 sm:py-16">
-        <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-          <div className="text-center mb-10">
-            <h1 className="text-3xl sm:text-4xl font-bold text-emerald-800 mb-2">
-              Terms & Conditions
-            </h1>
-            <p className="text-gray-600">
-              Last updated: 27th September 2025
-            </p>
+    <div
+      className={`min-h-screen bg-[#F3EEE3] text-[#171512] pt-24 sm:pt-28 pb-16 font-sans selection:bg-[#2F4A3C] selection:text-white ${sourceSerif.variable}`}
+    >
+      {/* Header */}
+      <div className="max-w-[850px] mx-auto px-6">
+        <header className="border-b border-[#D9D0BC] py-5">
+          <div className="flex justify-between items-baseline gap-4 flex-wrap">
+            <div className="font-[family-name:var(--font-source-serif)] font-semibold text-lg tracking-[0.01em]">
+              FISCAL <span className="text-[#2F4A3C]">FORUM</span>
+            </div>
+            <div className="text-xs text-[#4A453D]">
+              Terms of Use
+            </div>
+          </div>
+        </header>
+
+        {/* Policy Navigation Bar */}
+        <nav className="flex flex-wrap gap-2 sm:gap-4 py-4 border-b border-[#D9D0BC] text-xs sm:text-sm font-medium text-[#4A453D]">
+          <Link href="/terms-and-conditions" className="px-3 py-1.5 rounded-md bg-[#2F4A3C] text-white font-semibold">
+            Terms &amp; Conditions
+          </Link>
+          <Link href="/privacy" className="px-3 py-1.5 rounded-md hover:bg-[#EAE2D2] transition-colors">
+            Privacy Policy
+          </Link>
+          <Link href="/refund" className="px-3 py-1.5 rounded-md hover:bg-[#EAE2D2] transition-colors">
+            Refund &amp; Cancellation
+          </Link>
+          <Link href="/return-policy" className="px-3 py-1.5 rounded-md hover:bg-[#EAE2D2] transition-colors">
+            Return Policy
+          </Link>
+          <Link href="/shipping-policy" className="px-3 py-1.5 rounded-md hover:bg-[#EAE2D2] transition-colors">
+            Shipping Policy
+          </Link>
+        </nav>
+      </div>
+
+      {/* Hero Header */}
+      <div className="max-w-[850px] mx-auto px-6">
+        <section className="pt-10 pb-8 border-b border-[#D9D0BC]">
+          <span className="inline-block px-3 py-1 bg-[#2F4A3C] text-white text-xs font-semibold tracking-wider uppercase rounded-full mb-3">
+            Legal
+          </span>
+          <h1 className="font-[family-name:var(--font-source-serif)] font-bold text-[32px] sm:text-[40px] leading-[1.18] mb-4 text-[#171512]">
+            Terms &amp; Conditions
+          </h1>
+        </section>
+      </div>
+
+      {/* Content Body */}
+      <div className="max-w-[850px] mx-auto px-6">
+        <section className="py-10 space-y-6 text-[15px] sm:text-[15.5px] leading-[1.75] text-[#2C2825]">
+          {/* Notice Box 1 */}
+          <div className="p-4 sm:p-5 bg-[#EAE2D2] border border-[#D9D0BC] rounded-md text-[#171512] text-sm sm:text-[14.5px] leading-[1.65]">
+            This document is an electronic record generated under the Information Technology Act, 2000 and does not require any physical or digital signature. Published per Rule 3(1) of the IT (Intermediaries Guidelines) Rules, 2011.
           </div>
 
-          <div className="prose prose-emerald max-w-none text-gray-700 space-y-6">
-            <ol className="list-decimal pl-6 space-y-4 leading-relaxed">
-              <li>
-                This document is an electronic record in terms of Information Technology Act, 2000 and rules there under as applicable and the amended provisions pertaining to electronic records in various statutes as amended by the Information Technology Act, 2000. This electronic record is generated by a computer system and does not require any physical or digital signatures.
-              </li>
-              <li>
-                This document is published in accordance with the provisions of Rule 3 (1) of the Information Technology (Intermediaries guidelines) Rules, 2011 that require publishing the rules and regulations, privacy policy and Terms of Use for access or usage of domain name <a href="https://www.fiscalforum.in" className="text-emerald-700 font-medium hover:underline">https://www.fiscalforum.in</a> (&apos;Website&apos;), including the related mobile site and mobile application (hereinafter referred to as &apos;Platform&apos;).
-              </li>
-              <li>
-                The Platform is owned by <strong>8696060387</strong>, a company incorporated under the Companies Act, 1956 with its registered office at <strong>A-581 Azad Nagar bhilwara</strong> (hereinafter referred to as &apos;Platform Owner&apos;, &apos;we&apos;, &apos;us&apos;, &apos;our&apos;)..
-              </li>
-              <li>
-                Your use of the Platform and services and tools are governed by the following terms and conditions (&ldquo;Terms of Use&rdquo;) as applicable to the Platform including the applicable policies which are incorporated herein by way of reference. If You transact on the Platform, You shall be subject to the policies that are applicable to the Platform for such transaction. By mere use of the Platform, You shall be contracting with the Platform Owner and these terms and conditions including the policies constitute Your binding obligations, with Platform Owner. These Terms of Use relate to your use of our website, goods (as applicable) or services (as applicable) (collectively, &apos;Services&apos;). Any terms and conditions proposed by You which are in addition to or which conflict with these Terms of Use are expressly rejected by the Platform Owner and shall be of no force or effect. These Terms of Use can be modified at any time without assigning any reason. It is your responsibility to periodically review these Terms of Use to stay informed of updates..
-              </li>
-              <li>
-                For the purpose of these Terms of Use, wherever the context so requires &lsquo;you&rsquo;, &apos;your&apos; or &lsquo;user&rsquo; shall mean any natural or legal person who has agreed to become a user/buyer on the Platform..
-              </li>
-              <li className="font-semibold text-gray-900">
-                ACCESSING, BROWSING OR OTHERWISE USING THE PLATFORM INDICATES YOUR AGREEMENT TO ALL THE TERMS AND CONDITIONS UNDER THESE TERMS OF USE, SO PLEASE READ THE TERMS OF USE CAREFULLY BEFORE PROCEEDING..
-              </li>
-              <li>
-                The use of Platform and/or availing of our Services is subject to the following Terms of Use:
-                <ol className="list-[decimal] pl-6 mt-3 space-y-3 font-normal">
-                  <li>To access and use the Services, you agree to provide true, accurate and complete information to us during and after registration, and you shall be responsible for all acts done through the use of your registered account on the Platform..</li>
-                  <li>Neither we nor any third parties provide any warranty or guarantee as to the accuracy, timeliness, performance, completeness or suitability of the information and materials offered on this website or through the Services, for any specific purpose. You acknowledge that such information and materials may contain inaccuracies or errors and we expressly exclude liability for any such inaccuracies or errors to the fullest extent permitted by law..</li>
-                  <li>Your use of our Services and the Platform is solely and entirely at your own risk and discretion for which we shall not be liable to you in any manner. You are required to independently assess and ensure that the Services meet your requirements..</li>
-                  <li>The contents of the Platform and the Services are proprietary to us and are licensed to us. You will not have any authority to claim any intellectual property rights, title, or interest in its contents. The contents includes and is not limited to the design, layout, look and graphics..</li>
-                  <li>You acknowledge that unauthorized use of the Platform and/or the Services may lead to action against you as per these Terms of Use and/or applicable laws..</li>
-                  <li>You agree to pay us the charges associated with availing the Services..</li>
-                  <li>You agree not to use the Platform and/ or Services for any purpose that is unlawful, illegal or forbidden by these Terms, or Indian or local laws that might apply to you.</li>
-                  <li>You agree and acknowledge that website and the Services may contain links to other third party websites. On accessing these links, you will be governed by the terms of use, privacy policy and such other policies of such third party websites. These links are provided for your convenience for provide further information..</li>
-                  <li>You understand that upon initiating a transaction for availing the Services you are entering into a legally binding and enforceable contract with the Platform Owner for the Services..</li>
-                </ol>
-              </li>
-              <li>
-                You shall indemnify and hold harmless Platform Owner, its affiliates, group companies (as applicable) and their respective officers, directors, agents, and employees, from any claim or demand, or actions including reasonable attorney&apos;s fees, made by any third party or penalty imposed due to or arising out of Your breach of this Terms of Use, privacy Policy and other Policies, or Your violation of any law, rules or regulations or the rights (including infringement of intellectual property rights) of a third party.
-              </li>
-              <li>
-                Notwithstanding anything contained in these Terms of Use, the parties shall not be liable for any failure to perform an obligation under these Terms if performance is prevented or delayed by a force majeure event..
-              </li>
-              <li>
-                These Terms and any dispute or claim relating to it, or its enforceability, shall be governed by and construed in accordance with the laws of India..
-              </li>
-              <li>
-                All disputes arising out of or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts in <strong>Bhilwara</strong> and <strong>Rajasthan</strong>.
-              </li>
-              <li>
-                All concerns or communications relating to these Terms must be communicated to us using the contact information provided on this website
-              </li>
-            </ol>
+          <p className="m-0">
+            This document governs access to and use of <strong className="font-bold text-[#171512]">https://www.fiscalforum.in</strong> (&quot;Website&quot;), including the related mobile site and mobile application (together, the &quot;Platform&quot;).
+          </p>
+
+          <p className="m-0">
+            The Platform is owned by <strong className="font-bold text-[#171512]">8696060387</strong>, a company incorporated under the Companies Act, 1956, with its registered office at A-581 Azad Nagar, Bhilwara (&quot;Platform Owner&quot;, &quot;we&quot;, &quot;us&quot;, &quot;our&quot;).
+          </p>
+
+          <p className="m-0">
+            Your use of the Platform, its services and tools is governed by the following Terms of Use, together with all applicable policies incorporated herein by reference. If you transact on the Platform, you are subject to the policies applicable to that transaction. By using the Platform, you contract with the Platform Owner and these Terms, along with the applicable policies, constitute your binding obligations. Any additional or conflicting terms you propose are expressly rejected. These Terms may be modified at any time without notice; it is your responsibility to review them periodically.
+          </p>
+
+          <p className="m-0">
+            For the purposes of these Terms, &quot;you&quot;, &quot;your&quot; or &quot;user&quot; means any natural or legal person who has agreed to become a user/buyer on the Platform.
+          </p>
+
+          {/* Notice Box 2 */}
+          <div className="p-4 sm:p-5 bg-[#EAE2D2] border border-[#D9D0BC] rounded-md text-[#171512] font-semibold leading-[1.65]">
+            By accessing, browsing or otherwise using the Platform, you indicate your agreement to all the Terms and Conditions below. Please read them carefully before proceeding.
           </div>
-        </div>
+
+          <h2 className="font-[family-name:var(--font-source-serif)] font-bold text-[22px] sm:text-[26px] text-[#171512] pt-6 pb-2 border-b border-[#D9D0BC]/60">
+            Conditions of Use
+          </h2>
+
+          <div className="space-y-4 pt-2">
+            {conditions.map((item, index) => (
+              <div key={index} className="py-3 border-b border-[#D9D0BC]/60 flex gap-4 items-start">
+                <span className="font-semibold text-[#171512] min-w-[24px]">
+                  {index + 1}.
+                </span>
+                <p className="m-0">{item}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {/* Page Footer Note */}
+      <div className="max-w-[850px] mx-auto px-6 mt-6">
+        <footer className="border-t border-[#D9D0BC] py-6 text-xs text-[#4A453D] flex justify-between flex-wrap gap-2">
+          <span>&copy; Fiscal Forum &middot; <a href="mailto:contact@fiscalforum.in" className="hover:underline">contact@fiscalforum.in</a></span>
+          <span>Bhilwara, Rajasthan, India</span>
+        </footer>
       </div>
     </div>
   );
-};
-
-export default TermsAndConditionsPage;
+}

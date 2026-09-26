@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import {
-  Home, Users, FileText, Calculator, CreditCard,
+  Home, FileText, Calculator,
   Shield,
   TrendingUp,
   Zap,

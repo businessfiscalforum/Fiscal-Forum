@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
 
   trailingSlash: false,
+  allowedDevOrigins: ["192.168.1.9"],
   /* config options here */
   images: {
     remotePatterns: [
@@ -13,7 +14,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "img.etimg.com", 
+        hostname: "img.etimg.com",
       },
       {
         protocol: "https",
@@ -25,11 +26,11 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "economictimes.indiatimes.com", 
+        hostname: "economictimes.indiatimes.com",
       },
       {
         protocol: "https",
-        hostname: "images.news18.com", 
+        hostname: "images.news18.com",
       },
       {
         protocol: "https",
@@ -61,28 +62,28 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
       {
-        protocol:"https",
-        hostname:"drive.google.com",
+        protocol: "https",
+        hostname: "drive.google.com",
         pathname: '/**',
       },
       {
-        protocol:"https",
-        hostname:"www.chittorgarh.net",
+        protocol: "https",
+        hostname: "www.chittorgarh.net",
         pathname: '/**',
       },
       {
-        protocol:"https",
-        hostname:"m.economictimes.com",
+        protocol: "https",
+        hostname: "m.economictimes.com",
         pathname: '/**',
       },
       {
-        protocol:"https",
-        hostname:"substackcdn.com",
+        protocol: "https",
+        hostname: "substackcdn.com",
         pathname: '/**',
       }
     ],
   },
-  
+
   // Serve uploaded files from the uploads directory
   async headers() {
     return [
