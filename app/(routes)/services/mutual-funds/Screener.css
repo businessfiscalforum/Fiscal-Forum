@@ -1617,3 +1617,76 @@ display: none;
     padding: 32px 24px;
   }
 }
+
+@media (max-width: 768px) {
+  .mf-screener-container .services-links-section {
+    padding: 24px 16px 40px;
+  }
+  .mf-screener-container .services-links-section .section-header {
+    margin: 0 auto 20px;
+  }
+  .mf-screener-container .services-links-section .section-tag {
+    margin-bottom: 8px;
+    padding: 4px 12px;
+    font-size: 10.5px;
+    letter-spacing: 1.2px;
+  }
+  .mf-screener-container .services-links-section .section-header h2 {
+    font-size: 24px;
+    line-height: 1.25;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .mf-screener-container .services-links-section .section-header p {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--text-muted);
+    text-align: center;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .mf-screener-container .services-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 20px;
+  }
+  .mf-screener-container .service-promo-card,
+  .mf-screener-container .service-promo-card.minor {
+    grid-column: span 1;
+    padding: 20px 18px;
+    border-radius: 20px;
+  }
+  .mf-screener-container .promo-corner-circle {
+    width: 70px;
+    height: 70px;
+    top: -15px;
+    right: -15px;
+  }
+  .mf-screener-container .promo-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+  }
+  .mf-screener-container .promo-icon-wrap svg {
+    width: 20px;
+    height: 20px;
+  }
+  .mf-screener-container .promo-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .mf-screener-container .promo-desc {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+  .mf-screener-container .promo-btn {
+    padding: 9px 20px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+}
+
