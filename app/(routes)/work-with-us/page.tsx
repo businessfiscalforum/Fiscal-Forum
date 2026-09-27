@@ -47,7 +47,6 @@ import {
 } from "react-icons/fa";
 import "swiper/css";
 import "swiper/css/pagination";
-import Link from "next/link";
 import { motion } from "framer-motion";
 
 const WorkWithUsPage = () => {

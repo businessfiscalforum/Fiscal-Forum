@@ -1,7 +1,7 @@
 import React from "react";
+import Link from "next/link";
 import { Source_Serif_4 } from "next/font/google";
-import { metadata } from "./metadata";
-export { metadata };
+import type { Metadata } from "next";
 
 const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
@@ -10,367 +10,170 @@ const sourceSerif = Source_Serif_4({
   variable: "--font-source-serif",
 });
 
+export const metadata: Metadata = {
+  title: "Privacy Policy | Fiscal Forum",
+  description:
+    "Privacy Policy describing how 8696060387 collects, uses, and protects your information on Fiscal Forum platform.",
+};
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function PrivacyPolicyPage() {
   return (
     <div
-      className={`min-h-screen bg-[#F3EEE3] text-[#171512] pt-24 sm:pt-28 pb-12 font-sans selection:bg-[#2F4A3C] selection:text-white ${sourceSerif.variable}`}
+      className={`min-h-screen bg-[#F3EEE3] text-[#171512] pt-24 sm:pt-28 pb-16 font-sans selection:bg-[#2F4A3C] selection:text-white ${sourceSerif.variable}`}
     >
       {/* Header */}
-      <div className="max-w-[800px] mx-auto px-6">
+      <div className="max-w-[850px] mx-auto px-6">
         <header className="border-b border-[#D9D0BC] py-5">
           <div className="flex justify-between items-baseline gap-4 flex-wrap">
             <div className="font-[family-name:var(--font-source-serif)] font-semibold text-lg tracking-[0.01em]">
-              Fiscal Forum Finserv
+              FISCAL <span className="text-[#2F4A3C]">FORUM</span>
             </div>
             <div className="text-xs text-[#4A453D]">
-              A Sole Proprietorship Firm
+              Privacy Policy
             </div>
           </div>
         </header>
-      </div>
 
-      {/* Hero */}
-      <div className="max-w-[800px] mx-auto px-6">
-        <section className="pt-14 pb-10 border-b border-[#D9D0BC]">
-          <div className="text-[13px] text-[#2F4A3C] font-medium mb-3.5">
-            Last updated 01 September 2026
-          </div>
-          <h1 className="font-[family-name:var(--font-source-serif)] font-normal text-[32px] sm:text-[38px] leading-[1.18] mb-3.5 max-w-[14ch] tracking-[-0.01em]">
+        {/* Policy Navigation Bar */}
+        <nav className="flex flex-wrap gap-2 sm:gap-4 py-4 border-b border-[#D9D0BC] text-xs sm:text-sm font-medium text-[#4A453D]">
+          <Link href="/terms-and-conditions" className="px-3 py-1.5 rounded-md hover:bg-[#EAE2D2] transition-colors">
+            Terms &amp; Conditions
+          </Link>
+          <Link href="/privacy" className="px-3 py-1.5 rounded-md bg-[#2F4A3C] text-white font-semibold">
             Privacy Policy
-          </h1>
-          <p className="text-base leading-[1.6] text-[#4A453D] max-w-[52ch] m-0">
-            Fiscal Forum Finserv (&quot;Fiscal Forum,&quot; &quot;we,&quot;
-            &quot;us,&quot; &quot;our&quot;), a sole proprietorship firm owned by
-            Sheela Mehta, operates www.fiscalforum.in and provides wealth
-            management, financial education, research, mutual fund distribution,
-            insurance POS, and loan/credit-card referral services. This policy
-            explains how we collect, use, share, and protect your personal
-            information. By using our Site or services, you consent to the
-            practices described below.
-          </p>
-        </section>
-      </div>
-
-      {/* Table of Contents */}
-      <div className="max-w-[800px] mx-auto px-6">
-        <nav className="py-8 border-b border-[#D9D0BC]">
-          <div className="text-xs text-[#4A453D] mb-3.5">On this page</div>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-7 gap-y-1.5 list-none m-0 p-0">
-            {[
-              { label: "1. Information we collect", num: "01", href: "#collect" },
-              { label: "2. How we use your information", num: "02", href: "#use" },
-              { label: "3. Sharing of information", num: "03", href: "#sharing" },
-              { label: "4. Cookies", num: "04", href: "#cookies" },
-              { label: "5. Data security", num: "05", href: "#security" },
-              { label: "6. Data retention", num: "06", href: "#retention" },
-              { label: "7. Your rights", num: "07", href: "#rights" },
-              { label: "8. Third-party links", num: "08", href: "#thirdparty" },
-              { label: "9. Children's privacy", num: "09", href: "#children" },
-              { label: "10. Changes to this policy", num: "10", href: "#changes" },
-              { label: "11. Contact", num: "11", href: "#contact" },
-            ].map((item) => (
-              <li key={item.num}>
-                <a
-                  href={item.href}
-                  className="flex justify-between gap-3 text-[13.5px] py-1.5 border-b border-[#D9D0BC] text-[#171512] hover:text-[#2F4A3C] transition-colors no-underline"
-                >
-                  <span>{item.label}</span>
-                  <span className="text-[#4A453D]">{item.num}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
+          </Link>
+          <Link href="/refund" className="px-3 py-1.5 rounded-md hover:bg-[#EAE2D2] transition-colors">
+            Refund &amp; Cancellation
+          </Link>
+          <Link href="/return-policy" className="px-3 py-1.5 rounded-md hover:bg-[#EAE2D2] transition-colors">
+            Return Policy
+          </Link>
+          <Link href="/shipping-policy" className="px-3 py-1.5 rounded-md hover:bg-[#EAE2D2] transition-colors">
+            Shipping Policy
+          </Link>
         </nav>
       </div>
 
-      {/* Policy Body */}
-      <div className="max-w-[800px] mx-auto px-6">
-        <section className="pt-12 pb-2">
-          {/* 01. Information we collect */}
-          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="collect">
-            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">01</div>
-            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
-              Information we collect
-            </h2>
-
-            <h3 className="font-[family-name:var(--font-source-serif)] text-[15.5px] font-semibold mt-1 mb-2.5">
-              Information you provide directly
-            </h3>
-            <ul className="list-none m-0 mb-1 p-0 max-w-[62ch]">
-              {[
-                "Name, email address, phone number, city/address",
-                "PAN, Aadhaar (last 4 digits or as required), bank/demat account details — only where required to facilitate account opening with our broking, mutual fund, or insurance partners",
-                "KYC documents submitted for onboarding with partner platforms (Angel One, Alice Blue, Fyers, AMCs, insurers, or lending partners)",
-                "Communications you send us — queries, feedback, support requests",
-              ].map((item, index, arr) => (
-                <li
-                  key={index}
-                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
-                    }`}
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-
-            <h3 className="font-[family-name:var(--font-source-serif)] text-[15.5px] font-semibold mt-[22px] mb-2.5">
-              Information collected automatically
-            </h3>
-            <ul className="list-none m-0 mb-1 p-0 max-w-[62ch]">
-              {[
-                "IP address, browser type, device information",
-                "Pages visited, time spent, referral source, via cookies and analytics tools",
-                "WhatsApp/Telegram interactions if you subscribe to our research or report channels",
-              ].map((item, index, arr) => (
-                <li
-                  key={index}
-                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
-                    }`}
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-
-            <h3 className="font-[family-name:var(--font-source-serif)] text-[15.5px] font-semibold mt-[22px] mb-2.5">
-              Information from third parties
-            </h3>
-            <ul className="list-none m-0 mb-1 p-0 max-w-[62ch]">
-              {[
-                "Confirmation of account opening or transaction status from broker, AMC, insurer, or bank/NBFC partners we refer you to",
-              ].map((item, index, arr) => (
-                <li
-                  key={index}
-                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
-                    }`}
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* 02. How we use your information */}
-          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="use">
-            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">02</div>
-            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
-              How we use your information
-            </h2>
-            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] mb-3 max-w-[62ch]">
-              We use your information to:
-            </p>
-            <ul className="list-none m-0 mb-1 p-0 max-w-[62ch]">
-              {[
-                "Facilitate account opening and referrals with our broker, AMC, insurer, and lending partners",
-                "Deliver research reports, newsletters, and market updates you've subscribed to",
-                "Respond to your queries and provide customer support",
-                "Improve our Site, content, and services",
-                "Comply with SEBI, AMFI, IRDAI, RBI, and other applicable regulatory requirements",
-                "Send you service updates, and — where you've opted in — promotional communications",
-              ].map((item, index, arr) => (
-                <li
-                  key={index}
-                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
-                    }`}
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-3.5 p-3.5 sm:p-4 bg-[#FBF8F1] border border-[#D9D0BC] text-[13.5px] leading-[1.6] text-[#4A453D] max-w-[62ch]">
-              We do not use your data for stock recommendations or trading calls;
-              our content is factual and educational in nature, consistent with
-              our regulatory positioning.
-            </div>
-          </div>
-
-          {/* 03. Sharing of information */}
-          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="sharing">
-            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">03</div>
-            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
-              Sharing of information
-            </h2>
-            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] mb-3 max-w-[62ch]">
-              We share information only:
-            </p>
-            <ul className="list-none m-0 mb-1 p-0 max-w-[62ch]">
-              {[
-                "With the broking, AMC, insurance, or lending partner you choose to be referred to, solely to complete your onboarding or transaction",
-                "With service providers who help us operate the Site — hosting, analytics, email/WhatsApp delivery — under confidentiality obligations",
-                "When required by law, regulation, court order, or a request from SEBI, AMFI, IRDAI, RBI, or other authorities",
-                "With your explicit consent",
-              ].map((item, index, arr) => (
-                <li
-                  key={index}
-                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
-                    }`}
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-3.5 p-3.5 sm:p-4 bg-[#FBF8F1] border border-[#D9D0BC] text-[13.5px] leading-[1.6] text-[#4A453D] max-w-[62ch]">
-              We do not sell your personal data to third parties.
-            </div>
-          </div>
-
-          {/* 04. Cookies */}
-          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="cookies">
-            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">04</div>
-            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
-              Cookies
-            </h2>
-            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
-              Our Site may use cookies to remember preferences, understand usage
-              patterns, and improve user experience. You can disable cookies
-              through your browser settings, though some features may not function
-              properly as a result.
-            </p>
-          </div>
-
-          {/* 05. Data security */}
-          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="security">
-            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">05</div>
-            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
-              Data security
-            </h2>
-            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
-              We use reasonable administrative, technical, and physical safeguards
-              to protect your information.
-            </p>
-          </div>
-
-          {/* 06. Data retention */}
-          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="retention">
-            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">06</div>
-            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
-              Data retention
-            </h2>
-            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
-              We retain personal information only as long as necessary to fulfil
-              the purposes described above, or as required by applicable law and
-              regulatory record-keeping norms, such as SEBI/AMFI KYC retention
-              requirements.
-            </p>
-          </div>
-
-          {/* 07. Your rights */}
-          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="rights">
-            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">07</div>
-            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
-              Your rights
-            </h2>
-            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] mb-3 max-w-[62ch]">
-              You may:
-            </p>
-            <ul className="list-none m-0 mb-3 p-0 max-w-[62ch]">
-              {[
-                "Request access to, or correction of, your personal information",
-                "Withdraw consent for marketing communications at any time",
-                "Request deletion of your data, subject to regulatory record-retention obligations",
-              ].map((item, index, arr) => (
-                <li
-                  key={index}
-                  className={`relative py-2 pl-[18px] pr-0 text-[14.5px] leading-[1.6] text-[#171512] border-t border-[#D9D0BC] before:content-[''] before:absolute before:left-0 before:top-4 before:w-1.5 before:h-1.5 before:bg-[#2F4A3C] ${index === arr.length - 1 ? "border-b border-[#D9D0BC]" : ""
-                    }`}
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
-              To exercise these rights, contact us at{" "}
-              <a
-                href="mailto:support@fiscalforum.in"
-                className="text-[#2F4A3C] border-b border-[#D9D0BC] no-underline pb-px hover:border-[#2F4A3C] transition-colors"
-              >
-                support@fiscalforum.in
-              </a>
-              .
-            </p>
-          </div>
-
-          {/* 08. Third-party links */}
-          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="thirdparty">
-            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">08</div>
-            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
-              Third-party links
-            </h2>
-            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
-              Our Site may link to third-party platforms — brokers, AMCs, insurers,
-              lenders. We are not responsible for the privacy practices of these
-              third parties; please review their respective privacy policies.
-            </p>
-          </div>
-
-          {/* 09. Children's privacy */}
-          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="children">
-            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">09</div>
-            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
-              Children&apos;s privacy
-            </h2>
-            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
-              Our services are not directed at individuals under 18. We do not
-              knowingly collect data from minors.
-            </p>
-          </div>
-
-          {/* 10. Changes to this policy */}
-          <div className="py-8 border-b border-[#D9D0BC] scroll-mt-24" id="changes">
-            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">10</div>
-            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
-              Changes to this policy
-            </h2>
-            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
-              We may update this Privacy Policy periodically. Changes will be
-              posted on this page with a revised &quot;Last updated&quot; date.
-            </p>
-          </div>
-
-          {/* 11. Contact */}
-          <div className="py-8 scroll-mt-24" id="contact">
-            <div className="text-[13px] text-[#2F4A3C] font-medium mb-2">11</div>
-            <h2 className="font-[family-name:var(--font-source-serif)] text-[21px] font-normal mb-3.5">
-              Contact
-            </h2>
-            <p className="text-[14.5px] leading-[1.7] text-[#4A453D] m-0 max-w-[62ch]">
-              For privacy-related concerns, reach out to our proprietor directly.
-            </p>
-          </div>
+      {/* Hero Header */}
+      <div className="max-w-[850px] mx-auto px-6">
+        <section className="pt-10 pb-8 border-b border-[#D9D0BC]">
+          <span className="inline-block px-3 py-1 bg-[#2F4A3C] text-white text-xs font-semibold tracking-wider uppercase rounded-full mb-3">
+            Legal
+          </span>
+          <h1 className="font-[family-name:var(--font-source-serif)] font-bold text-[32px] sm:text-[40px] leading-[1.18] mb-4 text-[#171512]">
+            Privacy Policy
+          </h1>
         </section>
       </div>
 
-      {/* Privacy Contact Panel */}
-      <div className="max-w-[800px] mx-auto px-6">
-        <section className="pt-10 pb-14">
-          <div className="bg-[#FBF8F1] border border-[#D9D0BC] p-7 sm:p-8 flex justify-between items-center gap-6 flex-wrap">
-            <div>
-              <div className="font-[family-name:var(--font-source-serif)] text-[13px] text-[#4A453D] mb-2">
-                Privacy contact
-              </div>
-              <div className="text-[17px] font-medium text-[#171512]">
-                Sheela Mehta
-              </div>
-              <div className="text-[13px] text-[#4A453D] mt-0.5 leading-[1.6]">
-                Proprietor, Fiscal Forum Finserv
-                <br />
-                581, Azad Nagar, Bhilwara, Rajasthan · 86960 60387
-              </div>
-            </div>
-            <a
-              href="mailto:support@fiscalforum.in"
-              className="text-[13.5px] text-[#171512] border-b border-[#D9D0BC] pb-0.5 hover:border-[#2F4A3C] transition-colors"
-            >
-              support@fiscalforum.in
-            </a>
+      {/* Content Body */}
+      <div className="max-w-[850px] mx-auto px-6">
+        <section className="py-10 space-y-8 text-[15px] sm:text-[15.5px] leading-[1.75] text-[#2C2825]">
+          {/* Introduction */}
+          <div className="pb-6 border-b border-[#D9D0BC]/60 space-y-4">
+            <h2 className="font-[family-name:var(--font-source-serif)] font-bold text-[20px] sm:text-[22px] text-[#171512]">
+              Introduction
+            </h2>
+            <p className="m-0">
+              This Privacy Policy describes how <strong className="font-bold text-[#171512]">8696060387</strong> and its affiliates (&quot;8696060387&quot;, &quot;we&quot;, &quot;our&quot;, &quot;us&quot;) collect, use, share, protect or otherwise process your information/personal data through <strong className="font-bold text-[#171512]">https://www.fiscalforum.in</strong> (&quot;Platform&quot;). You may browse certain sections of the Platform without registering. We do not offer products or services under this Platform outside India, and your personal data is primarily stored and processed in India.
+            </p>
+            <p className="m-0">
+              By visiting the Platform, providing your information, or availing any product/service offered on it, you expressly agree to be bound by this Privacy Policy, the Terms of Use, and applicable service/product terms, and to be governed by the laws of India, including those applicable to data protection and privacy. If you do not agree, please do not use or access the Platform.
+            </p>
+          </div>
+
+          {/* Collection */}
+          <div className="pb-6 border-b border-[#D9D0BC]/60 space-y-4">
+            <h2 className="font-[family-name:var(--font-source-serif)] font-bold text-[20px] sm:text-[22px] text-[#171512]">
+              Collection
+            </h2>
+            <p className="m-0">
+              We collect your personal data when you use the Platform, our services, or otherwise interact with us. Information collected may include name, date of birth, address, telephone/mobile number, email ID, and proof of identity or address. Some sensitive personal data — such as bank account, credit or debit card, other payment instrument information, or biometric/physiological information — may be collected with your consent to enable certain features. You always have the option not to provide information by choosing not to use a particular service or feature. We may track your behaviour and preferences on the Platform on an aggregated basis, and collect information related to your transactions on the Platform and with third-party business partners.
+            </p>
+            <p className="m-0">
+              Where a third-party business partner collects your personal data directly, you are governed by their privacy policy, and we are not responsible for their privacy practices. If you receive an email or call from anyone claiming to represent 8696060387 asking for your debit/credit card PIN or net-banking/mobile-banking password, never provide it — report any such disclosure to law enforcement immediately.
+            </p>
+          </div>
+
+          {/* Usage */}
+          <div className="pb-6 border-b border-[#D9D0BC]/60 space-y-4">
+            <h2 className="font-[family-name:var(--font-source-serif)] font-bold text-[20px] sm:text-[22px] text-[#171512]">
+              Usage
+            </h2>
+            <p className="m-0">
+              We use personal data to provide the requested services, assist sellers and business partners with order fulfilment, enhance customer experience, resolve disputes, troubleshoot problems, inform you of offers and updates, customise your experience, detect and prevent fraud and other criminal activity, enforce our terms, and conduct marketing research and analysis. Where we use your data for marketing, we will provide an option to opt out. Your access to certain products/services may be affected if permission to use data is not provided.
+            </p>
+          </div>
+
+          {/* Sharing */}
+          <div className="pb-6 border-b border-[#D9D0BC]/60 space-y-4">
+            <h2 className="font-[family-name:var(--font-source-serif)] font-bold text-[20px] sm:text-[22px] text-[#171512]">
+              Sharing
+            </h2>
+            <p className="m-0">
+              We may share personal data within our group entities and affiliates to provide access to their services, and disclose it to third parties such as sellers, business partners, logistics partners, payment instrument issuers and reward programs where necessary to provide services, comply with legal obligations, enforce our user agreement, or support marketing and fraud-prevention activities. We may disclose personal and sensitive personal data to government or law enforcement agencies where required by law, or in the good-faith belief that disclosure is reasonably necessary to comply with legal process, enforce our Terms of Use or Privacy Policy, respond to third-party rights claims, or protect the rights, property or safety of our users or the public.
+            </p>
+          </div>
+
+          {/* Security Precautions */}
+          <div className="pb-6 border-b border-[#D9D0BC]/60 space-y-4">
+            <h2 className="font-[family-name:var(--font-source-serif)] font-bold text-[20px] sm:text-[22px] text-[#171512]">
+              Security Precautions
+            </h2>
+            <p className="m-0">
+              We adopt reasonable security practices and procedures to protect your personal data from unauthorised access, disclosure, loss or misuse, and use a secure server for account information. However, transmission of information over the internet is not completely secure, and by using the Platform you accept the inherent risks of data transmission online. You are responsible for protecting your own login and password.
+            </p>
+          </div>
+
+          {/* Data Deletion and Retention */}
+          <div className="pb-6 border-b border-[#D9D0BC]/60 space-y-4">
+            <h2 className="font-[family-name:var(--font-source-serif)] font-bold text-[20px] sm:text-[22px] text-[#171512]">
+              Data Deletion and Retention
+            </h2>
+            <p className="m-0">
+              You may delete your account via your profile and settings, which results in loss of all account-related information, or you may write to us for assistance. We may delay or refuse deletion where there are pending grievances, claims or shipments. We retain personal data only as long as required for the purpose it was collected, or as required by law, and may retain data to prevent fraud or abuse, or keep it in anonymised form for analytics and research.
+            </p>
+          </div>
+
+          {/* Your Rights */}
+          <div className="pb-6 border-b border-[#D9D0BC]/60 space-y-4">
+            <h2 className="font-[family-name:var(--font-source-serif)] font-bold text-[20px] sm:text-[22px] text-[#171512]">
+              Your Rights
+            </h2>
+            <p className="m-0">
+              You may access, rectify and update your personal data directly through the functionalities provided on the Platform.
+            </p>
+          </div>
+
+          {/* Consent */}
+          <div className="pb-6 border-b border-[#D9D0BC]/60 space-y-4">
+            <h2 className="font-[family-name:var(--font-source-serif)] font-bold text-[20px] sm:text-[22px] text-[#171512]">
+              Consent
+            </h2>
+            <p className="m-0">
+              By visiting the Platform or providing information, you consent to the collection, use, storage, disclosure and processing of your information as described in this Privacy Policy. If you disclose personal data relating to others, you represent that you have authority to do so. You consent to being contacted via SMS, instant messaging, call and/or email for the purposes described here. You may withdraw consent by writing to the Grievance Officer with the subject line &quot;Withdrawal of consent for processing personal data&quot;; withdrawal is not retrospective, and we may restrict or deny services where the withdrawn information was necessary to provide them.
+            </p>
+          </div>
+
+          {/* Changes to this Privacy Policy */}
+          <div className="pb-6 space-y-4">
+            <h2 className="font-[family-name:var(--font-source-serif)] font-bold text-[20px] sm:text-[22px] text-[#171512]">
+              Changes to this Privacy Policy
+            </h2>
+            <p className="m-0">
+              We may update this Privacy Policy to reflect changes in our information practices, and will notify you of significant changes as required under applicable law. Please check this page periodically.
+            </p>
           </div>
         </section>
       </div>
 
       {/* Page Footer Note */}
-      <div className="max-w-[800px] mx-auto px-6">
-        <footer className="border-t border-[#D9D0BC] py-5 text-xs text-[#4A453D] flex justify-between flex-wrap gap-2">
-          <span>© 2026 Fiscal Forum Finserv</span>
+      <div className="max-w-[850px] mx-auto px-6 mt-6">
+        <footer className="border-t border-[#D9D0BC] py-6 text-xs text-[#4A453D] flex justify-between flex-wrap gap-2">
+          <span>&copy; Fiscal Forum &middot; <a href="mailto:contact@fiscalforum.in" className="hover:underline">contact@fiscalforum.in</a></span>
           <span>Bhilwara, Rajasthan, India</span>
         </footer>
       </div>

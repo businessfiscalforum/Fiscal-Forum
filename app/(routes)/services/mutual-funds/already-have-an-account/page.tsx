@@ -1,12 +1,8 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
 import { useState } from "react";
 import {
-  FaBell,
-  FaChartLine,
   FaCheck,
-  FaFileAlt,
   FaFileInvoice,
   FaGift,
   FaHeadset,
@@ -15,42 +11,11 @@ import {
   FaSpinner,
   FaUser,
   FaDownload,
-  FaEnvelope,
   FaPhone,
   FaWhatsapp,
 } from "react-icons/fa";
-import { CheckCircle, TrendingUp } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
-import { TbReportSearch } from "react-icons/tb";
-
-type Broker = {
-  name: string;
-  logo: string;
-  link: string;
-};
-
-const existingAccounts: Broker[] = [
-  {
-    name: "Choice",
-    logo: "/choice.png",
-    link: "https://choiceindia.com/register?refercode=QzAwODcwMTU=&source=Q0hPSUNFX0NPTk5FQ1Q=",
-  },
-  {
-    name: "Nuvama",
-    logo: "/nuvama.png",
-    link: "  https://onboarding.nuvamawealth.com/Partner?utm_source=EMPLOYEE&utm_campaign=43065&utm_content=ELITE&utm_term=1572814",
-  },
-  {
-    name: "NJ Wealth",
-    logo: "/Nj-wealth.png",
-    link: "http://p.njw.bz/47283",
-  },
-  {
-    name: "Prudent",
-    logo: "/prudent.png",
-    link: "  https://fundzbazar.com/Link/jRkmixvcvvw  ",
-  },
-];
 
 export default function AlreadyHaveAccount() {
   const [isTransferSubmitting, setIsTransferSubmitting] = useState(false);

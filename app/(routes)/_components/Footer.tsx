@@ -193,6 +193,7 @@ const Footer = () => {
               <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</Link>
               <Link href="/terms-and-conditions" className="text-gray-400 hover:text-white text-sm transition-colors">Terms & Conditions</Link>
               <Link href="/refund" className="text-gray-400 hover:text-white text-sm transition-colors">Refund Policy</Link>
+              <Link href="/return-policy" className="text-gray-400 hover:text-white text-sm transition-colors">Return Policy</Link>
               <Link href="/shipping-policy" className="text-gray-400 hover:text-white text-sm transition-colors">Shipping Policy</Link>
               <Link href="/contact" className="text-gray-400 hover:text-white text-sm transition-colors">Contacts</Link>
               <div className="flex gap-6">

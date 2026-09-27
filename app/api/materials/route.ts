@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "../../../config/db";
-import { and, desc, eq, like, sql } from "drizzle-orm";
+import { and, like, sql } from "drizzle-orm";
 import { materials } from "../../../config/schema";
 
 const allowedOrigins = [
@@ -34,7 +34,6 @@ export async function GET(request: Request) {
   const page = parseInt(searchParams.get("page") || "1");
   const limit = parseInt(searchParams.get("limit") || "10");
   const search = searchParams.get("search") || "";
-  const category = searchParams.get("category") || "";
   const offset = (page - 1) * limit;
   const origin = request.headers.get("origin");
 

@@ -182,12 +182,18 @@ const ResearchReportsSection = () => {
             </div>
           )}
 
-          <div className="text-center pt-6 border-t border-black flex justify-center">
+          <div className="text-center pt-6 border-t border-black flex justify-center items-center gap-3 flex-wrap">
             <Link
               href="/reports"
               className="inline-block px-8 py-3.5 bg-[#1FA463] text-white border border-black font-bold text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-md  hover:-translate-y-0.5 hover:shadow-md  active:translate-y-0 active:shadow-sm transition-all"
             >
               View All Reports
+            </Link>
+            <Link
+              href="/reports"
+              className="inline-block px-6 py-3.5 bg-yellow-400 text-black border border-black font-extrabold text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-md hover:bg-yellow-500 hover:-translate-y-0.5 transition-all"
+            >
+              At just Rs. 399
             </Link>
           </div>
 

@@ -1,5 +1,5 @@
 // components/news/IpoScoopList.tsx
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 import React from "react";
 import { motion } from "framer-motion";
 import {

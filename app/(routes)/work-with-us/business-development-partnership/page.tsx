@@ -10,7 +10,6 @@ import {
   FaArrowRight,
   FaUserTie,
   FaRupeeSign,
-  FaStar,
   FaThumbsUp,
   FaShieldAlt,
   FaNetworkWired,
