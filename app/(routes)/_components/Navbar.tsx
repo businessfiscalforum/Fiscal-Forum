@@ -13,9 +13,6 @@ import {
   CreditCard,
   Landmark,
   FileText,
-  Sparkles,
-  Star,
-  Zap,
   BarChart3,
 } from "lucide-react";
 import { SignedIn, SignedOut, SignOutButton, useUser } from "@clerk/nextjs";

@@ -13,13 +13,6 @@ interface NewsItem {
   featured: boolean;
 }
 
-function formatViews(views: string | number) {
-  const num = typeof views === "string" ? parseInt(views) : views;
-  if (isNaN(num)) return "0";
-  if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
-  return num.toString();
-}
-
 function formatDate(dateString: string) {
   const date = new Date(dateString);
   return date.toLocaleDateString("en-US", {
