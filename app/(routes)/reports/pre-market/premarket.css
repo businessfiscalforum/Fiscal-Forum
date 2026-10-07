@@ -637,7 +637,7 @@
 }
 
 @media (max-width: 880px) {
-  .premarket-page-container .report-content { padding: 82px 6vw 90px; }
+  .premarket-page-container .report-content { padding: 56px 6vw 64px; }
   .premarket-page-container .section-heading { display: block; }
   .premarket-page-container .section-heading p { margin-top: 18px; }
   .premarket-page-container .inside-grid { grid-template-columns: repeat(2, 1fr); }
