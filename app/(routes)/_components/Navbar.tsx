@@ -13,9 +13,6 @@ import {
   CreditCard,
   Landmark,
   FileText,
-  Sparkles,
-  Star,
-  Zap,
   BarChart3,
 } from "lucide-react";
 import { SignedIn, SignedOut, SignOutButton, useUser } from "@clerk/nextjs";
@@ -82,9 +79,7 @@ export default function Navbar() {
     { label: "Reports", href: "/reports" },
     { label: "LEARN & EARN", href: "/services/learn-earn" },
     { label: "For Women", href: "/for-women" },
-    { label: "News", href: "/news?tab=news-buzz" },
-    { label: "IPOs", href: "/news?tab=ipo-scoop" },
-    { label: "Game Zone", href: "/game-zone" },
+    { label: "News & IPOs", href: "/news" },
     { label: "About Us", href: "/about-us" },
     { label: "Work With Us", href: "/work-with-us" },
   ];

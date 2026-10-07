@@ -13,13 +13,6 @@ interface NewsItem {
   featured: boolean;
 }
 
-function formatViews(views: string | number) {
-  const num = typeof views === "string" ? parseInt(views) : views;
-  if (isNaN(num)) return "0";
-  if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
-  return num.toString();
-}
-
 function formatDate(dateString: string) {
   const date = new Date(dateString);
   return date.toLocaleDateString("en-US", {
@@ -92,10 +85,10 @@ export default function HomeNewsAndResearchSection() {
               <GiNewspaper className="text-black text-2xl" />
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black uppercase tracking-tight">
-              Financial News Hub
+              Financial News & IPOs Hub
             </h2>
             <p className="text-xs sm:text-sm text-gray-500 font-semibold mt-2 max-w-md mx-auto">
-              Curated insights and breaking news from global markets
+              Curated market news, corporate updates, and live IPO insights
             </p>
           </motion.div>
         </div>
@@ -178,7 +171,7 @@ export default function HomeNewsAndResearchSection() {
                 href="/news"
                 className="px-8 py-3.5 bg-[#1FA463] text-white border border-black font-bold text-xs sm:text-sm uppercase tracking-widest rounded-xl shadow-md  hover:-translate-y-0.5 hover:shadow-md  active:translate-y-0 active:shadow-sm transition-all"
               >
-                View All News
+                View All News & IPOs
               </Link>
             </div>
           </div>

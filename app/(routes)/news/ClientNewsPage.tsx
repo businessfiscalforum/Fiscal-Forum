@@ -465,39 +465,35 @@ const ClientNewsPage = ({ initialNews, initialTab }: ClientNewsPageProps) => {
           <div className="bg-white border-2 border-black rounded-3xl p-6 sm:p-8 shadow-sm inline-block w-full">
             <div className="inline-flex items-center gap-2 bg-yellow-100 border border-black px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest mb-3">
               <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
-              LIVE IPO TRACKER
+              {activeTab === "ipo-scoop" ? "LIVE IPO TRACKER" : "MARKET INSIGHTS"}
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-black tracking-tight uppercase mb-3">
-              {activeTab === "ipo-scoop" ? "IPO SCOOP" : "FINANCIAL NEWS HUB"}
+              NEWS & IPOS
             </h1>
             <p className="text-gray-800 font-bold text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
               {activeTab === "ipo-scoop"
                 ? "All the latest information and updates on current and upcoming IPOs"
-                : "Curated insights and breaking news from global markets"}
+                : "Curated insights, corporate updates, and breaking news from global markets"}
             </p>
           </div>
         </header>
 
         {/* Tab Filters */}
-        {activeTab !== "ipo-scoop" && (
-          <div className="flex justify-center gap-3 md:gap-4 mb-8 flex-wrap">
-            {tabs
-              .filter((tab) => tab.id !== "ipo-scoop")
-              .map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`px-6 py-2.5 rounded-full border border-black text-xs md:text-sm font-extrabold tracking-wider transition-all duration-200 cursor-pointer ${
-                    activeTab === tab.id
-                      ? "bg-[#e6f4ea] text-black shadow-sm"
-                      : "bg-white text-black hover:bg-[#f0f4f1]"
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
-          </div>
-        )}
+        <div className="flex justify-center gap-3 md:gap-4 mb-8 flex-wrap">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-6 py-2.5 rounded-full border border-black text-xs md:text-sm font-extrabold tracking-wider transition-all duration-200 cursor-pointer ${
+                activeTab === tab.id
+                  ? "bg-[#e6f4ea] text-black shadow-sm"
+                  : "bg-white text-black hover:bg-[#f0f4f1]"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
 
         {/* Horizontal Divider Line */}
         <div className="w-full border-t border-slate-300 mb-10" />

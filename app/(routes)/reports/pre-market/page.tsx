@@ -3,6 +3,7 @@ import { db } from "../../../../config/db";
 import { researchReportsTable, SelectResearchReport } from "../../../../config/schema";
 import { desc } from "drizzle-orm";
 import { format } from "date-fns";
+import Image from "next/image";
 import "./premarket.css";
 
 export const metadata = {
@@ -37,8 +38,6 @@ export default async function PreMarketLandingPage() {
         <div className="grid-field"></div>
         <div className="sunrise"></div>
         
-
-
         <div className="hero-inner">
           <div className="hero-copy">
             <div className="eyebrow-row">
@@ -74,7 +73,7 @@ export default async function PreMarketLandingPage() {
 
           <div className="card-stage">
             <div className="hero-img-wrap">
-              <img src="/premarket-header.png" alt="Pre-Market Report Banner" className="hero-image" />
+              <Image src="/premarket-header.png" alt="Pre-Market Report Banner" className="hero-image" width={860} height={537} priority />
             </div>
           </div>
         </div>
@@ -89,6 +88,68 @@ export default async function PreMarketLandingPage() {
               strokeLinejoin="round"
             />
           </svg>
+        </div>
+      </section>      <section className="clay-database-section" id="table">
+        <div className="clay-heading-wrap">
+          <h2 className="clay-title">Research Reports Database</h2>
+          <p className="clay-subtitle">Explore full institutional-grade analysis from our research desk.</p>
+        </div>
+
+        <div className="clay-table-container">
+          <div className="clay-table-header">
+            <div>Report Info</div>
+            <div>Date</div>
+            <div style={{ textAlign: "center" }}>Action</div>
+          </div>
+
+          {preMarketReports.length === 0 ? (
+            <div style={{ padding: "48px", textAlign: "center", color: "var(--muted)", fontWeight: "bold" }}>
+              No Pre-Market reports found.
+            </div>
+          ) : (
+            preMarketReports.map((report) => {
+              return (
+                <div className="clay-table-row" key={report.id}>
+                  <div>
+                    <div style={{ fontWeight: "700", fontSize: "16px", color: "var(--ink)", marginBottom: "6px" }}>
+                      {report.title}
+                    </div>
+                    <div>
+                      {(report.tags || []).map((tag, idx) => (
+                        <span className="clay-tag" key={idx}>{tag}</span>
+                      ))}
+                      {report.reportType && <span className="clay-tag">{report.reportType}</span>}
+                    </div>
+                  </div>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "var(--muted)" }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ opacity: 0.6 }}>
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                      <line x1="16" y1="2" x2="16" y2="6" />
+                      <line x1="8" y1="2" x2="8" y2="6" />
+                      <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                    {report.publishDate ? format(new Date(report.publishDate), "MMM d, yyyy") : "N/A"}
+                  </div>
+
+                  <div style={{ textAlign: "center" }}>
+                    {report.pdfUrl ? (
+                      <a 
+                        href={report.pdfUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="clay-btn"
+                      >
+                        View Report
+                      </a>
+                    ) : (
+                      <span style={{ fontSize: "12px", color: "var(--muted)" }}>No PDF</span>
+                    )}
+                  </div>
+                </div>
+              );
+            })
+          )}
         </div>
       </section>
 
@@ -190,7 +251,7 @@ export default async function PreMarketLandingPage() {
               <div className="icon-box">
                 <svg viewBox="0 0 48 48" fill="none" strokeWidth="2">
                   <circle cx="24" cy="24" r="15" />
-                  <path d="M9 24h30M24 9c5 5 7 10 7 15s-2 10-7 15M24 9c-5 5-7 10-7 15s2 10 7 15" />
+                  <path d="M9 24h30M24 9c5 5 7 10 7 15s-2 10-7 15M24 9c-5 5-7 10-7 15" />
                   <path d="M13 15h22M13 33h22" />
                 </svg>
               </div>
@@ -202,8 +263,6 @@ export default async function PreMarketLandingPage() {
               <span className="card-arrow">↗</span>
             </div>
           </div>
-
-
 
           <div className="report-cta">
             <div>
@@ -223,70 +282,6 @@ export default async function PreMarketLandingPage() {
               </svg>
             </a>
           </div>
-        </div>
-      </section>
-
-      <section className="clay-database-section" id="table">
-        <div className="clay-heading-wrap">
-          <h2 className="clay-title">Research Reports Database</h2>
-          <p className="clay-subtitle">Explore full institutional-grade analysis from our research desk.</p>
-        </div>
-
-        <div className="clay-table-container">
-          <div className="clay-table-header">
-            <div>Report Info</div>
-            <div>Date</div>
-            <div style={{ textAlign: "center" }}>Action</div>
-          </div>
-
-          {preMarketReports.length === 0 ? (
-            <div style={{ padding: "48px", textAlign: "center", color: "var(--muted)", fontWeight: "bold" }}>
-              No Pre-Market reports found.
-            </div>
-          ) : (
-            preMarketReports.map((report) => {
-              return (
-                <div className="clay-table-row" key={report.id}>
-                  <div>
-                    <div style={{ fontWeight: "700", fontSize: "16px", color: "var(--ink)", marginBottom: "6px" }}>
-                      {report.title}
-                    </div>
-                    <div>
-                      {(report.tags || []).map((tag, idx) => (
-                        <span className="clay-tag" key={idx}>{tag}</span>
-                      ))}
-                      {report.reportType && <span className="clay-tag">{report.reportType}</span>}
-                    </div>
-                  </div>
-
-                  <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "var(--muted)" }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ opacity: 0.6 }}>
-                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                      <line x1="16" y1="2" x2="16" y2="6" />
-                      <line x1="8" y1="2" x2="8" y2="6" />
-                      <line x1="3" y1="10" x2="21" y2="10" />
-                    </svg>
-                    {report.publishDate ? format(new Date(report.publishDate), "MMM d, yyyy") : "N/A"}
-                  </div>
-
-                  <div style={{ textAlign: "center" }}>
-                    {report.pdfUrl ? (
-                      <a 
-                        href={report.pdfUrl} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="clay-btn"
-                      >
-                        View Report
-                      </a>
-                    ) : (
-                      <span style={{ fontSize: "12px", color: "var(--muted)" }}>No PDF</span>
-                    )}
-                  </div>
-                </div>
-              );
-            })
-          )}
         </div>
       </section>
     </div>

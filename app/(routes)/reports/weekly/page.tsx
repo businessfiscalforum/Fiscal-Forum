@@ -3,6 +3,7 @@ import { db } from "../../../../config/db";
 import { researchReportsTable, SelectResearchReport } from "../../../../config/schema";
 import { desc } from "drizzle-orm";
 import { format } from "date-fns";
+import Image from "next/image";
 import "./weekly.css";
 
 export const metadata = {
@@ -59,10 +60,13 @@ export default async function WeeklyReportsPage() {
 
           <div className="card-stage">
             <div className="hero-img-wrap">
-              <img 
+              <Image 
                 src="/weekly-header.jpg" 
                 alt="Weekly Market Report Banner" 
                 className="hero-image"
+                width={860}
+                height={537}
+                priority
               />
             </div>
           </div>
@@ -72,6 +76,70 @@ export default async function WeeklyReportsPage() {
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M2 6L8 12L14 6" stroke="#101512" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
+        </div>
+      </section>
+
+      <section className="clay-database-section" id="table">
+        <div className="clay-heading-wrap">
+          <h2 className="clay-title">Research Reports Database</h2>
+          <p className="clay-subtitle">Explore full institutional-grade analysis from our research desk.</p>
+        </div>
+
+        <div className="clay-table-container">
+          <div className="clay-table-header">
+            <div>Report Info</div>
+            <div>Date</div>
+            <div style={{ textAlign: "center" }}>Action</div>
+          </div>
+
+          {weeklyReports.length === 0 ? (
+            <div style={{ padding: "48px", textAlign: "center", color: "var(--muted)", fontWeight: "bold" }}>
+              No Weekly reports found.
+            </div>
+          ) : (
+            weeklyReports.map((report) => {
+              return (
+                <div className="clay-table-row" key={report.id}>
+                  <div>
+                    <div style={{ fontWeight: "700", fontSize: "16px", color: "var(--ink)", marginBottom: "6px" }}>
+                      {report.title}
+                    </div>
+                    <div>
+                      {(report.tags || []).map((tag, idx) => (
+                        <span className="clay-tag" key={idx}>{tag}</span>
+                      ))}
+                      {report.reportType && <span className="clay-tag">{report.reportType}</span>}
+                    </div>
+                  </div>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "var(--muted)" }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ opacity: 0.6 }}>
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                      <line x1="16" y1="2" x2="16" y2="6" />
+                      <line x1="8" y1="2" x2="8" y2="6" />
+                      <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                    {report.publishDate ? format(new Date(report.publishDate), "MMM d, yyyy") : "N/A"}
+                  </div>
+
+                  <div style={{ textAlign: "center" }}>
+                    {report.pdfUrl ? (
+                      <a 
+                        href={report.pdfUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="clay-btn"
+                      >
+                        View Report
+                      </a>
+                    ) : (
+                      <span style={{ fontSize: "12px", color: "var(--muted)" }}>No PDF</span>
+                    )}
+                  </div>
+                </div>
+              );
+            })
+          )}
         </div>
       </section>
 
@@ -222,70 +290,6 @@ export default async function WeeklyReportsPage() {
               </svg>
             </a>
           </div>
-        </div>
-      </section>
-
-      <section className="clay-database-section" id="table">
-        <div className="clay-heading-wrap">
-          <h2 className="clay-title">Research Reports Database</h2>
-          <p className="clay-subtitle">Explore full institutional-grade analysis from our research desk.</p>
-        </div>
-
-        <div className="clay-table-container">
-          <div className="clay-table-header">
-            <div>Report Info</div>
-            <div>Date</div>
-            <div style={{ textAlign: "center" }}>Action</div>
-          </div>
-
-          {weeklyReports.length === 0 ? (
-            <div style={{ padding: "48px", textAlign: "center", color: "var(--muted)", fontWeight: "bold" }}>
-              No Weekly reports found.
-            </div>
-          ) : (
-            weeklyReports.map((report) => {
-              return (
-                <div className="clay-table-row" key={report.id}>
-                  <div>
-                    <div style={{ fontWeight: "700", fontSize: "16px", color: "var(--ink)", marginBottom: "6px" }}>
-                      {report.title}
-                    </div>
-                    <div>
-                      {(report.tags || []).map((tag, idx) => (
-                        <span className="clay-tag" key={idx}>{tag}</span>
-                      ))}
-                      {report.reportType && <span className="clay-tag">{report.reportType}</span>}
-                    </div>
-                  </div>
-
-                  <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "var(--muted)" }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ opacity: 0.6 }}>
-                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                      <line x1="16" y1="2" x2="16" y2="6" />
-                      <line x1="8" y1="2" x2="8" y2="6" />
-                      <line x1="3" y1="10" x2="21" y2="10" />
-                    </svg>
-                    {report.publishDate ? format(new Date(report.publishDate), "MMM d, yyyy") : "N/A"}
-                  </div>
-
-                  <div style={{ textAlign: "center" }}>
-                    {report.pdfUrl ? (
-                      <a 
-                        href={report.pdfUrl} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="clay-btn"
-                      >
-                        View Report
-                      </a>
-                    ) : (
-                      <span style={{ fontSize: "12px", color: "var(--muted)" }}>No PDF</span>
-                    )}
-                  </div>
-                </div>
-              );
-            })
-          )}
         </div>
       </section>
     </div>
