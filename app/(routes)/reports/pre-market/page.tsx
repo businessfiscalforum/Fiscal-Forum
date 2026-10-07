@@ -3,6 +3,7 @@ import { db } from "../../../../config/db";
 import { researchReportsTable, SelectResearchReport } from "../../../../config/schema";
 import { desc } from "drizzle-orm";
 import { format } from "date-fns";
+import Image from "next/image";
 import "./premarket.css";
 
 export const metadata = {
@@ -37,8 +38,6 @@ export default async function PreMarketLandingPage() {
         <div className="grid-field"></div>
         <div className="sunrise"></div>
         
-
-
         <div className="hero-inner">
           <div className="hero-copy">
             <div className="eyebrow-row">
@@ -74,7 +73,7 @@ export default async function PreMarketLandingPage() {
 
           <div className="card-stage">
             <div className="hero-img-wrap">
-              <img src="/premarket-header.png" alt="Pre-Market Report Banner" className="hero-image" />
+              <Image src="/premarket-header.png" alt="Pre-Market Report Banner" className="hero-image" width={860} height={537} priority />
             </div>
           </div>
         </div>
