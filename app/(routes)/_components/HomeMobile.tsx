@@ -583,7 +583,30 @@ export default function HomeMobile() {
   const [showVideoPopup, setShowVideoPopup] = useState<boolean>(false);
   const [hasTriggeredPopup, setHasTriggeredPopup] = useState<boolean>(false);
   const videoTriggerRef = useRef<HTMLDivElement>(null);
-  const popupVideoRef = useRef<HTMLVideoElement>(null);
+  const popupVideoRef = useRef<HTMLVideoElement | null>(null);
+
+  const startVideoPlayback = (node: HTMLVideoElement | null) => {
+    if (!node) return;
+    node.defaultMuted = true;
+    node.muted = true;
+    node.volume = 0;
+    node.playsInline = true;
+    node.setAttribute("muted", "");
+    node.setAttribute("playsinline", "");
+
+    if (node.readyState === 0) {
+      try {
+        node.load();
+      } catch {}
+    }
+
+    const playPromise = node.play();
+    if (playPromise !== undefined) {
+      playPromise.catch((err) => {
+        console.log("Homepage video autoplay waiting for gesture:", err);
+      });
+    }
+  };
 
   const handleVideoFinish = () => {
     if (typeof document !== "undefined") {
@@ -599,6 +622,31 @@ export default function HomeMobile() {
       }
     }, 150);
   };
+
+  /* Global Unmute / Autoplay Unlocker for Logged-Out Guests */
+  useEffect(() => {
+    const unlockMedia = () => {
+      if (popupVideoRef.current && popupVideoRef.current.paused) {
+        startVideoPlayback(popupVideoRef.current);
+      }
+    };
+
+    window.addEventListener("scroll", unlockMedia, { passive: true });
+    window.addEventListener("touchstart", unlockMedia, { passive: true });
+    window.addEventListener("pointerdown", unlockMedia, { passive: true });
+    window.addEventListener("click", unlockMedia, { passive: true });
+    window.addEventListener("mousemove", unlockMedia, { passive: true });
+    window.addEventListener("keydown", unlockMedia, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", unlockMedia);
+      window.removeEventListener("touchstart", unlockMedia);
+      window.removeEventListener("pointerdown", unlockMedia);
+      window.removeEventListener("click", unlockMedia);
+      window.removeEventListener("mousemove", unlockMedia);
+      window.removeEventListener("keydown", unlockMedia);
+    };
+  }, []);
 
   useEffect(() => {
     if (hasTriggeredPopup) return;
@@ -629,49 +677,20 @@ export default function HomeMobile() {
     const vid = popupVideoRef.current;
     if (!vid) return;
 
-    vid.defaultMuted = true;
-    vid.muted = true;
-    vid.playsInline = true;
+    startVideoPlayback(vid);
 
-    const tryPlay = () => {
-      if (!vid) return;
-      vid.defaultMuted = true;
-      vid.muted = true;
-      const p = vid.play();
-      if (p !== undefined) {
-        p.catch(() => {});
-      }
-    };
+    const handleCanPlay = () => startVideoPlayback(vid);
 
-    tryPlay();
-
-    vid.addEventListener("canplay", tryPlay);
-    vid.addEventListener("loadeddata", tryPlay);
-    vid.addEventListener("loadedmetadata", tryPlay);
-    vid.addEventListener("pause", tryPlay);
-
-    const handleUserInteraction = () => {
-      if (popupVideoRef.current && popupVideoRef.current.paused) {
-        tryPlay();
-      }
-    };
-
-    window.addEventListener("scroll", handleUserInteraction, { passive: true });
-    window.addEventListener("click", handleUserInteraction, { passive: true });
-    window.addEventListener("touchstart", handleUserInteraction, { passive: true });
-    window.addEventListener("mousemove", handleUserInteraction, { passive: true });
-    window.addEventListener("pointerdown", handleUserInteraction, { passive: true });
+    vid.addEventListener("canplay", handleCanPlay);
+    vid.addEventListener("canplaythrough", handleCanPlay);
+    vid.addEventListener("loadeddata", handleCanPlay);
+    vid.addEventListener("loadedmetadata", handleCanPlay);
 
     return () => {
-      vid.removeEventListener("canplay", tryPlay);
-      vid.removeEventListener("loadeddata", tryPlay);
-      vid.removeEventListener("loadedmetadata", tryPlay);
-      vid.removeEventListener("pause", tryPlay);
-      window.removeEventListener("scroll", handleUserInteraction);
-      window.removeEventListener("click", handleUserInteraction);
-      window.removeEventListener("touchstart", handleUserInteraction);
-      window.removeEventListener("mousemove", handleUserInteraction);
-      window.removeEventListener("pointerdown", handleUserInteraction);
+      vid.removeEventListener("canplay", handleCanPlay);
+      vid.removeEventListener("canplaythrough", handleCanPlay);
+      vid.removeEventListener("loadeddata", handleCanPlay);
+      vid.removeEventListener("loadedmetadata", handleCanPlay);
     };
   }, [showVideoPopup]);
 
@@ -711,26 +730,11 @@ export default function HomeMobile() {
               className="relative w-full max-h-[85vh] aspect-video rounded-xl overflow-hidden shadow-2xl bg-black border border-white/10"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Skip / Close Button */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleVideoFinish();
-                }}
-                className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-3 py-1.5 bg-black/60 hover:bg-black/90 text-white rounded-full border border-white/20 text-xs font-semibold backdrop-blur-sm transition-all shadow-lg hover:scale-105 active:scale-95"
-              >
-                <span>Skip</span>
-                <span className="text-base leading-none">&times;</span>
-              </button>
-
               <video
-                ref={(el) => {
-                  popupVideoRef.current = el;
-                  if (el) {
-                    el.defaultMuted = true;
-                    el.muted = true;
-                    el.playsInline = true;
-                    el.play().catch(() => {});
+                ref={(node) => {
+                  popupVideoRef.current = node;
+                  if (node) {
+                    startVideoPlayback(node);
                   }
                 }}
                 src="/fiscal_forum_edited_v3.mp4"
@@ -739,21 +743,9 @@ export default function HomeMobile() {
                 muted
                 autoPlay
                 preload="auto"
-                onCanPlay={(e) => {
-                  e.currentTarget.defaultMuted = true;
-                  e.currentTarget.muted = true;
-                  e.currentTarget.play().catch(() => {});
-                }}
-                onLoadedData={(e) => {
-                  e.currentTarget.defaultMuted = true;
-                  e.currentTarget.muted = true;
-                  e.currentTarget.play().catch(() => {});
-                }}
-                onPause={(e) => {
-                  e.currentTarget.defaultMuted = true;
-                  e.currentTarget.muted = true;
-                  e.currentTarget.play().catch(() => {});
-                }}
+                onCanPlay={(e) => startVideoPlayback(e.currentTarget)}
+                onLoadedData={(e) => startVideoPlayback(e.currentTarget)}
+                onLoadedMetadata={(e) => startVideoPlayback(e.currentTarget)}
                 onEnded={handleVideoFinish}
                 className="w-full h-full object-contain rounded-xl block bg-black"
               />
