@@ -391,8 +391,23 @@ export default function ClientReportsPage({
   const heroVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (heroVideoRef.current) {
-      heroVideoRef.current.play().catch(() => {});
+    const video = heroVideoRef.current;
+    if (video) {
+      video.defaultMuted = true;
+      video.muted = true;
+      video.playsInline = true;
+      video.loop = true;
+      const playVideo = () => {
+        video.muted = true;
+        video.play().catch(() => {});
+      };
+      playVideo();
+      video.addEventListener("canplay", playVideo);
+      video.addEventListener("loadeddata", playVideo);
+      return () => {
+        video.removeEventListener("canplay", playVideo);
+        video.removeEventListener("loadeddata", playVideo);
+      };
     }
   }, []);
 
@@ -1281,16 +1296,29 @@ export default function ClientReportsPage({
             </div>
 
             <div className="report-mock-stage flex justify-center lg:justify-end items-center">
-              <div className="relative z-10 w-full max-w-[360px] sm:max-w-[400px] md:max-w-[440px] rounded-3xl overflow-hidden shadow-[0_25px_50px_-12px_rgba(16,21,18,0.25)] border-2 border-black/10 bg-black">
+              <div className="relative z-10 w-full max-w-[360px] sm:max-w-[400px] md:max-w-[440px] rounded-3xl overflow-hidden shadow-[0_25px_50px_-12px_rgba(16,21,18,0.25)] border-2 border-black/10 bg-[#F5F1E6]">
                 <video
                   ref={heroVideoRef}
-                  src="/ff_clear_text_slow.mp4"
                   autoPlay
                   loop
                   muted
                   playsInline
+                  controls={false}
+                  preload="auto"
+                  onCanPlay={(e) => {
+                    e.currentTarget.muted = true;
+                    e.currentTarget.play().catch(() => {});
+                  }}
+                  onEnded={(e) => {
+                    e.currentTarget.currentTime = 0;
+                    e.currentTarget.muted = true;
+                    e.currentTarget.play().catch(() => {});
+                  }}
                   className="w-full h-auto object-cover rounded-3xl block"
-                />
+                  style={{ width: "100%", height: "auto", display: "block", borderRadius: "1.5rem" }}
+                >
+                  <source src="/ff_clear_text_slow.mp4" type="video/mp4" />
+                </video>
               </div>
             </div>
           </div>
