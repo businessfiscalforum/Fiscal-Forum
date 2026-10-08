@@ -445,6 +445,7 @@ export default function HomeDesktop() {
   /* ============ SMOOTH POP-UP VIDEO AFTER EMPIRE SECTION ============ */
   const [showVideoPopup, setShowVideoPopup] = useState<boolean>(false);
   const [hasTriggeredPopup, setHasTriggeredPopup] = useState<boolean>(false);
+  const [isVideoPaused, setIsVideoPaused] = useState<boolean>(false);
   const videoTriggerRef = useRef<HTMLDivElement>(null);
   const popupVideoRef = useRef<HTMLVideoElement>(null);
 
@@ -456,9 +457,7 @@ export default function HomeDesktop() {
         nextSec.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }
-    setTimeout(() => {
-      setShowVideoPopup(false);
-    }, 200);
+    setShowVideoPopup(false);
   };
 
   useEffect(() => {
@@ -486,41 +485,56 @@ export default function HomeDesktop() {
   }, [hasTriggeredPopup]);
 
   useEffect(() => {
-    if (showVideoPopup && popupVideoRef.current) {
-      const vid = popupVideoRef.current;
-      vid.defaultMuted = true;
+    if (!showVideoPopup) return;
+    const vid = popupVideoRef.current;
+    if (!vid) return;
+
+    vid.defaultMuted = true;
+    vid.muted = true;
+    vid.playsInline = true;
+
+    const tryPlay = async () => {
+      if (!vid) return;
       vid.muted = true;
-      vid.playsInline = true;
+      try {
+        await vid.play();
+        setIsVideoPaused(false);
+      } catch (err) {
+        console.log("Autoplay pending interaction:", err);
+        setIsVideoPaused(true);
+      }
+    };
 
-      const tryPlay = () => {
-        if (!vid) return;
-        vid.muted = true;
-        const p = vid.play();
-        if (p !== undefined) {
-          p.catch(() => {});
-        }
-      };
+    vid.load();
+    tryPlay();
 
-      tryPlay();
-      vid.addEventListener("canplay", tryPlay);
-      vid.addEventListener("loadeddata", tryPlay);
+    const onPlay = () => setIsVideoPaused(false);
+    const onPause = () => setIsVideoPaused(true);
 
-      const handleUserInteraction = () => {
+    vid.addEventListener("play", onPlay);
+    vid.addEventListener("playing", onPlay);
+    vid.addEventListener("pause", onPause);
+
+    const handleUserInteraction = () => {
+      if (popupVideoRef.current && popupVideoRef.current.paused) {
         tryPlay();
-      };
+      }
+    };
 
-      window.addEventListener("scroll", handleUserInteraction, { passive: true });
-      window.addEventListener("click", handleUserInteraction, { passive: true });
-      window.addEventListener("touchstart", handleUserInteraction, { passive: true });
+    window.addEventListener("scroll", handleUserInteraction, { passive: true });
+    window.addEventListener("click", handleUserInteraction, { passive: true });
+    window.addEventListener("touchstart", handleUserInteraction, { passive: true });
+    window.addEventListener("mousemove", handleUserInteraction, { passive: true });
 
-      return () => {
-        vid.removeEventListener("canplay", tryPlay);
-        vid.removeEventListener("loadeddata", tryPlay);
-        window.removeEventListener("scroll", handleUserInteraction);
-        window.removeEventListener("click", handleUserInteraction);
-        window.removeEventListener("touchstart", handleUserInteraction);
-      };
-    }
+    return () => {
+      vid.removeEventListener("play", onPlay);
+      vid.removeEventListener("playing", onPlay);
+      vid.removeEventListener("pause", onPause);
+      window.removeEventListener("scroll", handleUserInteraction);
+      window.removeEventListener("click", handleUserInteraction);
+      window.removeEventListener("touchstart", handleUserInteraction);
+      window.removeEventListener("mousemove", handleUserInteraction);
+    };
   }, [showVideoPopup]);
 
   const handleNextSlide = () => {
@@ -882,28 +896,72 @@ export default function HomeDesktop() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0, transition: { duration: 0.5, ease: "easeInOut" } }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
+              exit={{ opacity: 0, transition: { duration: 0.4, ease: "easeInOut" } }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
               onClick={handleVideoFinish}
-              className="fixed inset-0 z-[99999] bg-black/92 backdrop-blur-md flex items-center justify-center p-4 md:p-8 cursor-pointer"
+              className="fixed inset-0 z-[99999] bg-black/90 backdrop-blur-md flex items-center justify-center p-4 md:p-8 cursor-pointer"
             >
               <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
+                initial={{ scale: 0.92, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="relative w-full max-w-6xl max-h-[85vh] aspect-video rounded-2xl overflow-hidden shadow-2xl bg-black"
+                exit={{ scale: 0.92, opacity: 0 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="relative w-full max-w-6xl max-h-[85vh] aspect-video rounded-2xl overflow-hidden shadow-2xl bg-black border border-white/10"
                 onClick={(e) => e.stopPropagation()}
               >
+                {/* Skip / Close Button */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleVideoFinish();
+                  }}
+                  className="absolute top-4 right-4 z-20 flex items-center gap-2 px-4 py-2 bg-black/60 hover:bg-black/90 text-white rounded-full border border-white/20 text-xs sm:text-sm font-semibold backdrop-blur-sm transition-all shadow-lg hover:scale-105 active:scale-95"
+                >
+                  <span>Skip Video</span>
+                  <span className="text-lg leading-none">&times;</span>
+                </button>
+
+                {/* Center Play Button Overlay if Paused */}
+                {isVideoPaused && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (popupVideoRef.current) {
+                        popupVideoRef.current.muted = true;
+                        popupVideoRef.current.play().then(() => setIsVideoPaused(false)).catch(() => {});
+                      }
+                    }}
+                    className="absolute inset-0 m-auto z-10 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/40 flex items-center justify-center text-white shadow-2xl transition-all transform hover:scale-110 active:scale-95 group"
+                    aria-label="Play Video"
+                  >
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#1FA463] flex items-center justify-center pl-1 shadow-lg group-hover:bg-[#188a52] transition-colors">
+                      <svg className="w-7 h-7 sm:w-8 sm:h-8 text-white fill-current" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                  </button>
+                )}
+
                 <video
                   ref={popupVideoRef}
                   src="/fiscal_forum_edited_v3.mp4"
+                  poster="/fiscal_forum_edited_v3_poster.jpg"
                   playsInline
                   muted
                   autoPlay
                   preload="auto"
                   onEnded={handleVideoFinish}
-                  className="w-full h-full object-contain rounded-2xl block"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (popupVideoRef.current) {
+                      if (popupVideoRef.current.paused) {
+                        popupVideoRef.current.play().then(() => setIsVideoPaused(false)).catch(() => {});
+                      } else {
+                        popupVideoRef.current.pause();
+                      }
+                    }
+                  }}
+                  className="w-full h-full object-contain rounded-2xl block bg-black cursor-pointer"
                 />
               </motion.div>
             </motion.div>

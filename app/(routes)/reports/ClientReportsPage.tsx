@@ -399,63 +399,71 @@ export default function ClientReportsPage({
     video.playsInline = true;
     video.loop = true;
 
-    const forcePlay = () => {
+    const playVideo = async () => {
       if (!video) return;
       video.defaultMuted = true;
       video.muted = true;
       video.loop = true;
-      const promise = video.play();
-      if (promise !== undefined) {
-        promise.catch(() => {});
+      try {
+        await video.play();
+      } catch (err) {
+        console.log("Reports hero video autoplay waiting for user interaction:", err);
       }
     };
 
-    forcePlay();
     video.load();
-    forcePlay();
+    playVideo();
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            forcePlay();
+          if (entry.isIntersecting && video) {
+            playVideo();
           }
         });
       },
-      { threshold: 0.05 }
+      { threshold: 0.01 }
     );
     observer.observe(video);
 
     const handleEnded = () => {
       if (!video) return;
       video.currentTime = 0;
-      forcePlay();
+      playVideo();
     };
-
-    video.addEventListener("canplay", forcePlay);
-    video.addEventListener("loadeddata", forcePlay);
-    video.addEventListener("ended", handleEnded);
 
     const handleInteraction = () => {
-      forcePlay();
+      if (video && video.paused) {
+        playVideo();
+      }
     };
+
+    video.addEventListener("canplay", playVideo);
+    video.addEventListener("canplaythrough", playVideo);
+    video.addEventListener("loadeddata", playVideo);
+    video.addEventListener("loadedmetadata", playVideo);
+    video.addEventListener("ended", handleEnded);
 
     window.addEventListener("scroll", handleInteraction, { passive: true });
     window.addEventListener("click", handleInteraction, { passive: true });
     window.addEventListener("touchstart", handleInteraction, { passive: true });
     window.addEventListener("mousemove", handleInteraction, { passive: true });
-    window.addEventListener("focus", forcePlay);
+    window.addEventListener("pointerdown", handleInteraction, { passive: true });
+    window.addEventListener("focus", playVideo);
 
     return () => {
       observer.disconnect();
-      video.removeEventListener("canplay", forcePlay);
-      video.removeEventListener("loadeddata", forcePlay);
+      video.removeEventListener("canplay", playVideo);
+      video.removeEventListener("canplaythrough", playVideo);
+      video.removeEventListener("loadeddata", playVideo);
+      video.removeEventListener("loadedmetadata", playVideo);
       video.removeEventListener("ended", handleEnded);
       window.removeEventListener("scroll", handleInteraction);
       window.removeEventListener("click", handleInteraction);
       window.removeEventListener("touchstart", handleInteraction);
       window.removeEventListener("mousemove", handleInteraction);
-      window.removeEventListener("focus", forcePlay);
+      window.removeEventListener("pointerdown", handleInteraction);
+      window.removeEventListener("focus", playVideo);
     };
   }, []);
 
@@ -1356,17 +1364,32 @@ export default function ClientReportsPage({
                   controls={false}
                   preload="auto"
                   onCanPlay={(e) => {
+                    e.currentTarget.defaultMuted = true;
+                    e.currentTarget.muted = true;
+                    e.currentTarget.loop = true;
+                    e.currentTarget.play().catch(() => {});
+                  }}
+                  onLoadedData={(e) => {
+                    e.currentTarget.defaultMuted = true;
                     e.currentTarget.muted = true;
                     e.currentTarget.loop = true;
                     e.currentTarget.play().catch(() => {});
                   }}
                   onEnded={(e) => {
                     e.currentTarget.currentTime = 0;
+                    e.currentTarget.defaultMuted = true;
                     e.currentTarget.muted = true;
                     e.currentTarget.loop = true;
                     e.currentTarget.play().catch(() => {});
                   }}
-                  className="w-full h-full object-cover rounded-2xl md:rounded-3xl block"
+                  onClick={() => {
+                    if (heroVideoRef.current) {
+                      heroVideoRef.current.defaultMuted = true;
+                      heroVideoRef.current.muted = true;
+                      heroVideoRef.current.play().catch(() => {});
+                    }
+                  }}
+                  className="w-full h-full object-cover rounded-2xl md:rounded-3xl block cursor-pointer"
                   style={{ width: "100%", height: "100%", display: "block", objectFit: "cover", borderRadius: "1.5rem" }}
                 >
                   <source src="/ff_clear_text_slow.mp4" type="video/mp4" />
