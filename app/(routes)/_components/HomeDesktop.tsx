@@ -495,7 +495,7 @@ export default function HomeDesktop() {
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0, rootMargin: "0px 0px 100px 0px" }
     );
 
     observer.observe(triggerEl);
@@ -508,16 +508,34 @@ export default function HomeDesktop() {
       vid.defaultMuted = true;
       vid.muted = true;
       vid.playsInline = true;
-      const playVideo = () => {
+
+      const tryPlay = () => {
+        if (!vid) return;
         vid.muted = true;
-        vid.play().catch(() => {});
+        const p = vid.play();
+        if (p !== undefined) {
+          p.catch(() => {});
+        }
       };
-      playVideo();
-      vid.addEventListener("canplay", playVideo);
-      vid.addEventListener("loadeddata", playVideo);
+
+      tryPlay();
+      vid.addEventListener("canplay", tryPlay);
+      vid.addEventListener("loadeddata", tryPlay);
+
+      const handleUserInteraction = () => {
+        tryPlay();
+      };
+
+      window.addEventListener("scroll", handleUserInteraction, { passive: true });
+      window.addEventListener("click", handleUserInteraction, { passive: true });
+      window.addEventListener("touchstart", handleUserInteraction, { passive: true });
+
       return () => {
-        vid.removeEventListener("canplay", playVideo);
-        vid.removeEventListener("loadeddata", playVideo);
+        vid.removeEventListener("canplay", tryPlay);
+        vid.removeEventListener("loadeddata", tryPlay);
+        window.removeEventListener("scroll", handleUserInteraction);
+        window.removeEventListener("click", handleUserInteraction);
+        window.removeEventListener("touchstart", handleUserInteraction);
       };
     }
   }, [showFullscreenVideo]);
@@ -874,7 +892,7 @@ export default function HomeDesktop() {
 
         {/* Scroll Trigger Anchor for Intro Video */}
         {!videoPlayed && isMounted && (
-          <div ref={videoTriggerRef} className="h-1 w-full bg-transparent" />
+          <div ref={videoTriggerRef} className="h-16 w-full bg-transparent opacity-0 pointer-events-none" />
         )}
 
         {/* Fullscreen Video Overlay (Played Once Automatically) */}
