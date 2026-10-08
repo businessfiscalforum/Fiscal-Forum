@@ -396,8 +396,18 @@ export default function ClientReportsPage({
     if (!node) return;
     node.defaultMuted = true;
     node.muted = true;
+    node.volume = 0;
     node.loop = true;
     node.playsInline = true;
+    node.setAttribute("muted", "");
+    node.setAttribute("playsinline", "");
+
+    if (node.readyState === 0) {
+      try {
+        node.load();
+      } catch {}
+    }
+
     const playPromise = node.play();
     if (playPromise !== undefined) {
       playPromise.catch((err) => {
@@ -406,14 +416,34 @@ export default function ClientReportsPage({
     }
   };
 
+  /* Global Unmute / Autoplay Unlocker for Logged-Out Guests */
+  useEffect(() => {
+    const unlockMedia = () => {
+      if (heroVideoRef.current && heroVideoRef.current.paused) {
+        startVideoPlayback(heroVideoRef.current);
+      }
+    };
+
+    window.addEventListener("scroll", unlockMedia, { passive: true });
+    window.addEventListener("touchstart", unlockMedia, { passive: true });
+    window.addEventListener("pointerdown", unlockMedia, { passive: true });
+    window.addEventListener("click", unlockMedia, { passive: true });
+    window.addEventListener("mousemove", unlockMedia, { passive: true });
+    window.addEventListener("keydown", unlockMedia, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", unlockMedia);
+      window.removeEventListener("touchstart", unlockMedia);
+      window.removeEventListener("pointerdown", unlockMedia);
+      window.removeEventListener("click", unlockMedia);
+      window.removeEventListener("mousemove", unlockMedia);
+      window.removeEventListener("keydown", unlockMedia);
+    };
+  }, []);
+
   useEffect(() => {
     const video = heroVideoRef.current;
     if (!video) return;
-
-    video.defaultMuted = true;
-    video.muted = true;
-    video.playsInline = true;
-    video.loop = true;
 
     startVideoPlayback(video);
 
@@ -436,29 +466,12 @@ export default function ClientReportsPage({
     );
     observer.observe(video);
 
-    const handleUserGesture = () => {
-      if (video && video.paused) {
-        startVideoPlayback(video);
-      }
-    };
-
-    window.addEventListener("scroll", handleUserGesture, { passive: true });
-    window.addEventListener("click", handleUserGesture, { passive: true });
-    window.addEventListener("touchstart", handleUserGesture, { passive: true });
-    window.addEventListener("mousemove", handleUserGesture, { passive: true });
-    window.addEventListener("pointerdown", handleUserGesture, { passive: true });
-
     return () => {
       observer.disconnect();
       video.removeEventListener("canplay", handleCanPlay);
       video.removeEventListener("canplaythrough", handleCanPlay);
       video.removeEventListener("loadeddata", handleCanPlay);
       video.removeEventListener("loadedmetadata", handleCanPlay);
-      window.removeEventListener("scroll", handleUserGesture);
-      window.removeEventListener("click", handleUserGesture);
-      window.removeEventListener("touchstart", handleUserGesture);
-      window.removeEventListener("mousemove", handleUserGesture);
-      window.removeEventListener("pointerdown", handleUserGesture);
     };
   }, []);
 
