@@ -399,8 +399,9 @@ export default function ClientReportsPage({
     video.playsInline = true;
     video.loop = true;
 
-    const playVideo = () => {
+    const forcePlay = () => {
       if (!video) return;
+      video.defaultMuted = true;
       video.muted = true;
       video.loop = true;
       const promise = video.play();
@@ -409,34 +410,52 @@ export default function ClientReportsPage({
       }
     };
 
+    forcePlay();
+    video.load();
+    forcePlay();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            forcePlay();
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(video);
+
     const handleEnded = () => {
       if (!video) return;
       video.currentTime = 0;
-      playVideo();
+      forcePlay();
     };
 
-    playVideo();
-    video.addEventListener("canplay", playVideo);
-    video.addEventListener("loadeddata", playVideo);
+    video.addEventListener("canplay", forcePlay);
+    video.addEventListener("loadeddata", forcePlay);
     video.addEventListener("ended", handleEnded);
 
-    const handleUserInteraction = () => {
-      playVideo();
+    const handleInteraction = () => {
+      forcePlay();
     };
 
-    window.addEventListener("click", handleUserInteraction, { passive: true });
-    window.addEventListener("touchstart", handleUserInteraction, { passive: true });
-    window.addEventListener("scroll", handleUserInteraction, { passive: true });
-    window.addEventListener("focus", playVideo);
+    window.addEventListener("scroll", handleInteraction, { passive: true });
+    window.addEventListener("click", handleInteraction, { passive: true });
+    window.addEventListener("touchstart", handleInteraction, { passive: true });
+    window.addEventListener("mousemove", handleInteraction, { passive: true });
+    window.addEventListener("focus", forcePlay);
 
     return () => {
-      video.removeEventListener("canplay", playVideo);
-      video.removeEventListener("loadeddata", playVideo);
+      observer.disconnect();
+      video.removeEventListener("canplay", forcePlay);
+      video.removeEventListener("loadeddata", forcePlay);
       video.removeEventListener("ended", handleEnded);
-      window.removeEventListener("click", handleUserInteraction);
-      window.removeEventListener("touchstart", handleUserInteraction);
-      window.removeEventListener("scroll", handleUserInteraction);
-      window.removeEventListener("focus", playVideo);
+      window.removeEventListener("scroll", handleInteraction);
+      window.removeEventListener("click", handleInteraction);
+      window.removeEventListener("touchstart", handleInteraction);
+      window.removeEventListener("mousemove", handleInteraction);
+      window.removeEventListener("focus", forcePlay);
     };
   }, []);
 

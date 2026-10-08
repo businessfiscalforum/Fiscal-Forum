@@ -579,27 +579,13 @@ export default function HomeMobile() {
     text: string;
     type: "success" | "error";
   } | null>(null);
-  /* ============ INTRO VIDEO (SHOWN ONCE FULLSCREEN AFTER EMPIRE CITY) ============ */
-  const [videoPlayed, setVideoPlayed] = useState<boolean>(true);
-  const [isMounted, setIsMounted] = useState<boolean>(false);
-  const [showFullscreenVideo, setShowFullscreenVideo] = useState<boolean>(false);
+  /* ============ SMOOTH POP-UP VIDEO AFTER EMPIRE SECTION ============ */
+  const [showVideoPopup, setShowVideoPopup] = useState<boolean>(false);
+  const [hasTriggeredPopup, setHasTriggeredPopup] = useState<boolean>(false);
   const videoTriggerRef = useRef<HTMLDivElement>(null);
-  const fullscreenVideoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    setIsMounted(true);
-    const played = localStorage.getItem("ff_intro_v3_played");
-    if (!played) {
-      setVideoPlayed(false);
-    }
-  }, []);
+  const popupVideoRef = useRef<HTMLVideoElement>(null);
 
   const handleVideoFinish = () => {
-    try {
-      localStorage.setItem("ff_intro_v3_played", "true");
-    } catch {
-      // ignore
-    }
     if (typeof document !== "undefined") {
       document.body.style.overflow = "auto";
       const nextSec = document.getElementById("services-section-mobile");
@@ -608,37 +594,37 @@ export default function HomeMobile() {
       }
     }
     setTimeout(() => {
-      setShowFullscreenVideo(false);
-      setVideoPlayed(true);
-    }, 250);
+      setShowVideoPopup(false);
+    }, 200);
   };
 
   useEffect(() => {
-    if (videoPlayed || !isMounted || showFullscreenVideo) return;
+    if (hasTriggeredPopup) return;
     const triggerEl = videoTriggerRef.current;
     if (!triggerEl) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && !showFullscreenVideo) {
-            setShowFullscreenVideo(true);
+          if (entry.isIntersecting && !hasTriggeredPopup) {
+            setHasTriggeredPopup(true);
+            setShowVideoPopup(true);
             if (typeof document !== "undefined") {
               document.body.style.overflow = "hidden";
             }
           }
         });
       },
-      { threshold: 0, rootMargin: "0px 0px 100px 0px" }
+      { threshold: 0, rootMargin: "0px 0px 50px 0px" }
     );
 
     observer.observe(triggerEl);
     return () => observer.disconnect();
-  }, [videoPlayed, isMounted, showFullscreenVideo]);
+  }, [hasTriggeredPopup]);
 
   useEffect(() => {
-    if (showFullscreenVideo && fullscreenVideoRef.current) {
-      const vid = fullscreenVideoRef.current;
+    if (showVideoPopup && popupVideoRef.current) {
+      const vid = popupVideoRef.current;
       vid.defaultMuted = true;
       vid.muted = true;
       vid.playsInline = true;
@@ -672,7 +658,7 @@ export default function HomeMobile() {
         window.removeEventListener("touchstart", handleUserInteraction);
       };
     }
-  }, [showFullscreenVideo]);
+  }, [showVideoPopup]);
 
   const [activeTab, setActiveTab] = useState<
     "investment-products" | "banking-products"
@@ -688,56 +674,42 @@ export default function HomeMobile() {
       <FathomSliderMobile />
       <FiscalForumCityMobile />
 
-      {/* Scroll Trigger Anchor for Intro Video */}
-      {!videoPlayed && isMounted && (
-        <div ref={videoTriggerRef} className="h-12 w-full bg-transparent opacity-0 pointer-events-none" />
-      )}
+      {/* Scroll Trigger Anchor right after Empire Section */}
+      <div ref={videoTriggerRef} className="h-10 w-full bg-transparent opacity-0 pointer-events-none" />
 
-      {/* Fullscreen Video Overlay (Played Once Automatically) */}
-      {!videoPlayed && isMounted && (
-        <AnimatePresence>
-          {showFullscreenVideo && (
+      {/* Clean Pop-Up Video Overlay (No extra entities around it) */}
+      <AnimatePresence>
+        {showVideoPopup && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.5, ease: "easeInOut" } }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            onClick={handleVideoFinish}
+            className="fixed inset-0 z-[99999] bg-black/92 backdrop-blur-md flex items-center justify-center p-4 cursor-pointer"
+          >
             <motion.div
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed inset-0 z-[99999] bg-black/92 backdrop-blur-xl flex flex-col items-center justify-center p-4"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="relative w-full max-h-[85vh] aspect-video rounded-xl overflow-hidden shadow-2xl bg-black"
+              onClick={(e) => e.stopPropagation()}
             >
-              {/* Header Controls */}
-              <div className="absolute top-4 left-4 right-4 flex justify-between items-center z-10 w-full">
-                <span className="text-xs font-semibold tracking-widest text-emerald-400 uppercase flex items-center gap-2 bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-emerald-500/30 shadow-lg">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  Fiscal Forum Overview
-                </span>
-                <button
-                  onClick={handleVideoFinish}
-                  type="button"
-                  className="text-xs font-medium text-gray-200 hover:text-white bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-full transition-all border border-white/20 flex items-center gap-1.5 cursor-pointer select-none backdrop-blur-md shadow-lg"
-                >
-                  <span>Skip</span>
-                  <span className="font-bold">✕</span>
-                </button>
-              </div>
-
-              {/* Video Player Box */}
-              <div className="w-full max-h-[80vh] aspect-video rounded-xl overflow-hidden shadow-[0_0_90px_rgba(0,0,0,0.8)] border border-white/15 bg-black relative flex items-center justify-center">
-                <video
-                  ref={fullscreenVideoRef}
-                  src="/fiscal_forum_edited_v3.mp4"
-                  playsInline
-                  muted
-                  autoPlay
-                  preload="auto"
-                  controls={false}
-                  onEnded={handleVideoFinish}
-                  className="w-full h-full object-contain rounded-xl block"
-                />
-              </div>
+              <video
+                ref={popupVideoRef}
+                src="/fiscal_forum_edited_v3.mp4"
+                playsInline
+                muted
+                autoPlay
+                preload="auto"
+                onEnded={handleVideoFinish}
+                className="w-full h-full object-contain rounded-xl block"
+              />
             </motion.div>
-          )}
-        </AnimatePresence>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* 🔹 Tabbed Services (Cards Grid) */}
       <section className="px-4 py-8 bg-[#F4FBF7] border-b border-black" id="services-section-mobile">
