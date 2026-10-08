@@ -443,7 +443,7 @@
 /* featured report card mock */
 .report-mock-stage{
   position:relative;
-  max-width:400px;margin-left:auto;
+  max-width:580px; width:100%; margin-left:auto;
 }
 .report-mock-stage::before{
   content:"";

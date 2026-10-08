@@ -399,14 +399,24 @@ export default function ClientReportsPage({
       video.loop = true;
       const playVideo = () => {
         video.muted = true;
-        video.play().catch(() => {});
+        video.loop = true;
+        const promise = video.play();
+        if (promise !== undefined) {
+          promise.catch(() => {});
+        }
+      };
+      const handleEnded = () => {
+        video.currentTime = 0;
+        playVideo();
       };
       playVideo();
       video.addEventListener("canplay", playVideo);
       video.addEventListener("loadeddata", playVideo);
+      video.addEventListener("ended", handleEnded);
       return () => {
         video.removeEventListener("canplay", playVideo);
         video.removeEventListener("loadeddata", playVideo);
+        video.removeEventListener("ended", handleEnded);
       };
     }
   }, []);
@@ -1295,10 +1305,12 @@ export default function ClientReportsPage({
 
             </div>
 
-            <div className="report-mock-stage flex justify-center lg:justify-end items-center">
-              <div className="relative z-10 w-full max-w-[360px] sm:max-w-[400px] md:max-w-[440px] rounded-3xl overflow-hidden shadow-[0_25px_50px_-12px_rgba(16,21,18,0.25)] border-2 border-black/10 bg-[#F5F1E6]">
+            <div className="report-mock-stage flex justify-center lg:justify-end items-center w-full">
+              <div className="relative z-10 w-full max-w-[580px] rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_20px_40px_-10px_rgba(16,21,18,0.25)] border border-black/15 bg-black aspect-video">
                 <video
                   ref={heroVideoRef}
+                  src="/ff_clear_text_slow.mp4"
+                  poster="/ff_clear_text_slow_poster.png"
                   autoPlay
                   loop
                   muted
@@ -1307,15 +1319,17 @@ export default function ClientReportsPage({
                   preload="auto"
                   onCanPlay={(e) => {
                     e.currentTarget.muted = true;
+                    e.currentTarget.loop = true;
                     e.currentTarget.play().catch(() => {});
                   }}
                   onEnded={(e) => {
                     e.currentTarget.currentTime = 0;
                     e.currentTarget.muted = true;
+                    e.currentTarget.loop = true;
                     e.currentTarget.play().catch(() => {});
                   }}
-                  className="w-full h-auto object-cover rounded-3xl block"
-                  style={{ width: "100%", height: "auto", display: "block", borderRadius: "1.5rem" }}
+                  className="w-full h-full object-cover rounded-2xl md:rounded-3xl block"
+                  style={{ width: "100%", height: "100%", display: "block", objectFit: "cover", borderRadius: "1.5rem" }}
                 >
                   <source src="/ff_clear_text_slow.mp4" type="video/mp4" />
                 </video>
