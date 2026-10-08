@@ -457,12 +457,6 @@ export default function HomeDesktop() {
     node.setAttribute("muted", "");
     node.setAttribute("playsinline", "");
 
-    if (node.readyState === 0) {
-      try {
-        node.load();
-      } catch {}
-    }
-
     const playPromise = node.play();
     if (playPromise !== undefined) {
       playPromise.catch((err) => {
@@ -930,12 +924,7 @@ export default function HomeDesktop() {
                 onClick={(e) => e.stopPropagation()}
               >
                 <video
-                  ref={(node) => {
-                    popupVideoRef.current = node;
-                    if (node) {
-                      startVideoPlayback(node);
-                    }
-                  }}
+                  ref={popupVideoRef}
                   src="/fiscal_forum_edited_v3.mp4"
                   poster="/fiscal_forum_edited_v3_poster.jpg"
                   playsInline

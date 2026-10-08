@@ -402,12 +402,6 @@ export default function ClientReportsPage({
     node.setAttribute("muted", "");
     node.setAttribute("playsinline", "");
 
-    if (node.readyState === 0) {
-      try {
-        node.load();
-      } catch {}
-    }
-
     const playPromise = node.play();
     if (playPromise !== undefined) {
       playPromise.catch((err) => {
@@ -1362,16 +1356,7 @@ export default function ClientReportsPage({
             <div className="report-mock-stage flex justify-center lg:justify-end items-center w-full">
               <div className="relative z-10 w-full max-w-[920px] rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_30px_70px_-15px_rgba(16,21,18,0.35)] border border-black/15 bg-black aspect-video">
                 <video
-                  ref={(node) => {
-                    heroVideoRef.current = node;
-                    if (node) {
-                      node.defaultMuted = true;
-                      node.muted = true;
-                      node.loop = true;
-                      node.playsInline = true;
-                      startVideoPlayback(node);
-                    }
-                  }}
+                  ref={heroVideoRef}
                   src="/ff_clear_text_slow.mp4"
                   poster="/ff_clear_text_slow_poster.png"
                   autoPlay
@@ -1383,8 +1368,7 @@ export default function ClientReportsPage({
                   onCanPlay={(e) => startVideoPlayback(e.currentTarget)}
                   onLoadedData={(e) => startVideoPlayback(e.currentTarget)}
                   onLoadedMetadata={(e) => startVideoPlayback(e.currentTarget)}
-                  onClick={(e) => startVideoPlayback(e.currentTarget)}
-                  className="w-full h-full object-cover rounded-2xl md:rounded-3xl block cursor-pointer"
+                  className="w-full h-full object-cover rounded-2xl md:rounded-3xl block"
                   style={{ width: "100%", height: "100%", display: "block", objectFit: "cover", borderRadius: "1.5rem" }}
                 />
               </div>
