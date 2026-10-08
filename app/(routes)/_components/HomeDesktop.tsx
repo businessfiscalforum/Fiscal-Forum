@@ -511,6 +511,7 @@ export default function HomeDesktop() {
     vid.addEventListener("canplay", tryPlay);
     vid.addEventListener("loadeddata", tryPlay);
     vid.addEventListener("loadedmetadata", tryPlay);
+    vid.addEventListener("pause", tryPlay);
 
     const handleUserInteraction = () => {
       if (popupVideoRef.current && popupVideoRef.current.paused) {
@@ -522,15 +523,18 @@ export default function HomeDesktop() {
     window.addEventListener("click", handleUserInteraction, { passive: true });
     window.addEventListener("touchstart", handleUserInteraction, { passive: true });
     window.addEventListener("mousemove", handleUserInteraction, { passive: true });
+    window.addEventListener("pointerdown", handleUserInteraction, { passive: true });
 
     return () => {
       vid.removeEventListener("canplay", tryPlay);
       vid.removeEventListener("loadeddata", tryPlay);
       vid.removeEventListener("loadedmetadata", tryPlay);
+      vid.removeEventListener("pause", tryPlay);
       window.removeEventListener("scroll", handleUserInteraction);
       window.removeEventListener("click", handleUserInteraction);
       window.removeEventListener("touchstart", handleUserInteraction);
       window.removeEventListener("mousemove", handleUserInteraction);
+      window.removeEventListener("pointerdown", handleUserInteraction);
     };
   }, [showVideoPopup]);
 
@@ -919,13 +923,36 @@ export default function HomeDesktop() {
                 </button>
 
                 <video
-                  ref={popupVideoRef}
+                  ref={(el) => {
+                    popupVideoRef.current = el;
+                    if (el) {
+                      el.defaultMuted = true;
+                      el.muted = true;
+                      el.playsInline = true;
+                      el.play().catch(() => {});
+                    }
+                  }}
                   src="/fiscal_forum_edited_v3.mp4"
                   poster="/fiscal_forum_edited_v3_poster.jpg"
                   playsInline
                   muted
                   autoPlay
                   preload="auto"
+                  onCanPlay={(e) => {
+                    e.currentTarget.defaultMuted = true;
+                    e.currentTarget.muted = true;
+                    e.currentTarget.play().catch(() => {});
+                  }}
+                  onLoadedData={(e) => {
+                    e.currentTarget.defaultMuted = true;
+                    e.currentTarget.muted = true;
+                    e.currentTarget.play().catch(() => {});
+                  }}
+                  onPause={(e) => {
+                    e.currentTarget.defaultMuted = true;
+                    e.currentTarget.muted = true;
+                    e.currentTarget.play().catch(() => {});
+                  }}
                   onEnded={handleVideoFinish}
                   className="w-full h-full object-contain rounded-2xl block bg-black"
                 />

@@ -388,7 +388,23 @@ export default function ClientReportsPage({
   /* ============ RADIAL BOX VIEWPORT OBSERVER ============ */
   const [isBoxVisible, setIsBoxVisible] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
-  const heroVideoRef = useRef<HTMLVideoElement>(null);
+
+  /* ============ HERO VIDEO AUTOPLAY ON LOOP ============ */
+  const heroVideoRef = useRef<HTMLVideoElement | null>(null);
+
+  const startVideoPlayback = (node: HTMLVideoElement | null) => {
+    if (!node) return;
+    node.defaultMuted = true;
+    node.muted = true;
+    node.loop = true;
+    node.playsInline = true;
+    const playPromise = node.play();
+    if (playPromise !== undefined) {
+      playPromise.catch((err) => {
+        console.log("Autoplay waiting for interaction:", err);
+      });
+    }
+  };
 
   useEffect(() => {
     const video = heroVideoRef.current;
@@ -399,24 +415,20 @@ export default function ClientReportsPage({
     video.playsInline = true;
     video.loop = true;
 
-    const playVideo = () => {
-      if (!video) return;
-      video.defaultMuted = true;
-      video.muted = true;
-      video.loop = true;
-      const p = video.play();
-      if (p !== undefined) {
-        p.catch(() => {});
-      }
-    };
+    startVideoPlayback(video);
 
-    playVideo();
+    const handleCanPlay = () => startVideoPlayback(video);
+
+    video.addEventListener("canplay", handleCanPlay);
+    video.addEventListener("canplaythrough", handleCanPlay);
+    video.addEventListener("loadeddata", handleCanPlay);
+    video.addEventListener("loadedmetadata", handleCanPlay);
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && video) {
-            playVideo();
+            startVideoPlayback(video);
           }
         });
       },
@@ -424,36 +436,29 @@ export default function ClientReportsPage({
     );
     observer.observe(video);
 
-    const handleInteraction = () => {
+    const handleUserGesture = () => {
       if (video && video.paused) {
-        playVideo();
+        startVideoPlayback(video);
       }
     };
 
-    video.addEventListener("canplay", playVideo);
-    video.addEventListener("loadeddata", playVideo);
-    video.addEventListener("loadedmetadata", playVideo);
-    video.addEventListener("pause", playVideo);
-
-    window.addEventListener("scroll", handleInteraction, { passive: true });
-    window.addEventListener("click", handleInteraction, { passive: true });
-    window.addEventListener("touchstart", handleInteraction, { passive: true });
-    window.addEventListener("mousemove", handleInteraction, { passive: true });
-    window.addEventListener("pointerdown", handleInteraction, { passive: true });
-    window.addEventListener("focus", playVideo);
+    window.addEventListener("scroll", handleUserGesture, { passive: true });
+    window.addEventListener("click", handleUserGesture, { passive: true });
+    window.addEventListener("touchstart", handleUserGesture, { passive: true });
+    window.addEventListener("mousemove", handleUserGesture, { passive: true });
+    window.addEventListener("pointerdown", handleUserGesture, { passive: true });
 
     return () => {
       observer.disconnect();
-      video.removeEventListener("canplay", playVideo);
-      video.removeEventListener("loadeddata", playVideo);
-      video.removeEventListener("loadedmetadata", playVideo);
-      video.removeEventListener("pause", playVideo);
-      window.removeEventListener("scroll", handleInteraction);
-      window.removeEventListener("click", handleInteraction);
-      window.removeEventListener("touchstart", handleInteraction);
-      window.removeEventListener("mousemove", handleInteraction);
-      window.removeEventListener("pointerdown", handleInteraction);
-      window.removeEventListener("focus", playVideo);
+      video.removeEventListener("canplay", handleCanPlay);
+      video.removeEventListener("canplaythrough", handleCanPlay);
+      video.removeEventListener("loadeddata", handleCanPlay);
+      video.removeEventListener("loadedmetadata", handleCanPlay);
+      window.removeEventListener("scroll", handleUserGesture);
+      window.removeEventListener("click", handleUserGesture);
+      window.removeEventListener("touchstart", handleUserGesture);
+      window.removeEventListener("mousemove", handleUserGesture);
+      window.removeEventListener("pointerdown", handleUserGesture);
     };
   }, []);
 
@@ -1344,14 +1349,14 @@ export default function ClientReportsPage({
             <div className="report-mock-stage flex justify-center lg:justify-end items-center w-full">
               <div className="relative z-10 w-full max-w-[920px] rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_30px_70px_-15px_rgba(16,21,18,0.35)] border border-black/15 bg-black aspect-video">
                 <video
-                  ref={(el) => {
-                    heroVideoRef.current = el;
-                    if (el) {
-                      el.defaultMuted = true;
-                      el.muted = true;
-                      el.loop = true;
-                      el.playsInline = true;
-                      el.play().catch(() => {});
+                  ref={(node) => {
+                    heroVideoRef.current = node;
+                    if (node) {
+                      node.defaultMuted = true;
+                      node.muted = true;
+                      node.loop = true;
+                      node.playsInline = true;
+                      startVideoPlayback(node);
                     }
                   }}
                   src="/ff_clear_text_slow.mp4"
@@ -1362,36 +1367,13 @@ export default function ClientReportsPage({
                   playsInline
                   controls={false}
                   preload="auto"
-                  onCanPlay={(e) => {
-                    e.currentTarget.defaultMuted = true;
-                    e.currentTarget.muted = true;
-                    e.currentTarget.loop = true;
-                    e.currentTarget.play().catch(() => {});
-                  }}
-                  onLoadedData={(e) => {
-                    e.currentTarget.defaultMuted = true;
-                    e.currentTarget.muted = true;
-                    e.currentTarget.loop = true;
-                    e.currentTarget.play().catch(() => {});
-                  }}
-                  onPause={(e) => {
-                    e.currentTarget.defaultMuted = true;
-                    e.currentTarget.muted = true;
-                    e.currentTarget.loop = true;
-                    e.currentTarget.play().catch(() => {});
-                  }}
-                  onEnded={(e) => {
-                    e.currentTarget.currentTime = 0;
-                    e.currentTarget.defaultMuted = true;
-                    e.currentTarget.muted = true;
-                    e.currentTarget.loop = true;
-                    e.currentTarget.play().catch(() => {});
-                  }}
-                  className="w-full h-full object-cover rounded-2xl md:rounded-3xl block"
+                  onCanPlay={(e) => startVideoPlayback(e.currentTarget)}
+                  onLoadedData={(e) => startVideoPlayback(e.currentTarget)}
+                  onLoadedMetadata={(e) => startVideoPlayback(e.currentTarget)}
+                  onClick={(e) => startVideoPlayback(e.currentTarget)}
+                  className="w-full h-full object-cover rounded-2xl md:rounded-3xl block cursor-pointer"
                   style={{ width: "100%", height: "100%", display: "block", objectFit: "cover", borderRadius: "1.5rem" }}
-                >
-                  <source src="/ff_clear_text_slow.mp4" type="video/mp4" />
-                </video>
+                />
               </div>
             </div>
           </div>
