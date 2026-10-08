@@ -63,14 +63,11 @@
 }
 
 /* ================= SECTION 1 : HERO ================= */
-.hero{
-  padding:64px 0 60px;
-  
-  position:relative;
-  overflow:hidden;
+.hero .wrap{
+  max-width:1440px;
 }
 .hero-grid{
-  display:grid;grid-template-columns:1fr 1.25fr;gap:44px;align-items:center;
+  display:grid;grid-template-columns:1fr 1.4fr;gap:40px;align-items:center;
 }
 .eyebrow{
   display:inline-flex;align-items:center;gap:8px;
@@ -443,7 +440,7 @@
 /* featured report card mock */
 .report-mock-stage{
   position:relative;
-  max-width:760px; width:100%; margin-left:auto;
+  max-width:920px; width:100%; margin-left:auto;
 }
 .report-mock-stage::before{
   content:"";

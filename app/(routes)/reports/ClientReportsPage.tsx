@@ -1306,7 +1306,7 @@ export default function ClientReportsPage({
             </div>
 
             <div className="report-mock-stage flex justify-center lg:justify-end items-center w-full">
-              <div className="relative z-10 w-full max-w-[760px] rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_25px_60px_-15px_rgba(16,21,18,0.3)] border border-black/15 bg-black aspect-video">
+              <div className="relative z-10 w-full max-w-[920px] rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_30px_70px_-15px_rgba(16,21,18,0.35)] border border-black/15 bg-black aspect-video">
                 <video
                   ref={heroVideoRef}
                   src="/ff_clear_text_slow.mp4"
