@@ -392,33 +392,52 @@ export default function ClientReportsPage({
 
   useEffect(() => {
     const video = heroVideoRef.current;
-    if (video) {
-      video.defaultMuted = true;
+    if (!video) return;
+
+    video.defaultMuted = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.loop = true;
+
+    const playVideo = () => {
+      if (!video) return;
       video.muted = true;
-      video.playsInline = true;
       video.loop = true;
-      const playVideo = () => {
-        video.muted = true;
-        video.loop = true;
-        const promise = video.play();
-        if (promise !== undefined) {
-          promise.catch(() => {});
-        }
-      };
-      const handleEnded = () => {
-        video.currentTime = 0;
-        playVideo();
-      };
+      const promise = video.play();
+      if (promise !== undefined) {
+        promise.catch(() => {});
+      }
+    };
+
+    const handleEnded = () => {
+      if (!video) return;
+      video.currentTime = 0;
       playVideo();
-      video.addEventListener("canplay", playVideo);
-      video.addEventListener("loadeddata", playVideo);
-      video.addEventListener("ended", handleEnded);
-      return () => {
-        video.removeEventListener("canplay", playVideo);
-        video.removeEventListener("loadeddata", playVideo);
-        video.removeEventListener("ended", handleEnded);
-      };
-    }
+    };
+
+    playVideo();
+    video.addEventListener("canplay", playVideo);
+    video.addEventListener("loadeddata", playVideo);
+    video.addEventListener("ended", handleEnded);
+
+    const handleUserInteraction = () => {
+      playVideo();
+    };
+
+    window.addEventListener("click", handleUserInteraction, { passive: true });
+    window.addEventListener("touchstart", handleUserInteraction, { passive: true });
+    window.addEventListener("scroll", handleUserInteraction, { passive: true });
+    window.addEventListener("focus", playVideo);
+
+    return () => {
+      video.removeEventListener("canplay", playVideo);
+      video.removeEventListener("loadeddata", playVideo);
+      video.removeEventListener("ended", handleEnded);
+      window.removeEventListener("click", handleUserInteraction);
+      window.removeEventListener("touchstart", handleUserInteraction);
+      window.removeEventListener("scroll", handleUserInteraction);
+      window.removeEventListener("focus", playVideo);
+    };
   }, []);
 
   useEffect(() => {
@@ -1212,7 +1231,7 @@ export default function ClientReportsPage({
 
 
   return (
-    <div className="min-h-screen bg-[#F5F1E6] pt-24 pb-20">
+    <div className="reports-portal-container min-h-screen pt-24 pb-20">
       
       {/* ================= SECTION 1: HERO ================= */}
       <section className="hero">
