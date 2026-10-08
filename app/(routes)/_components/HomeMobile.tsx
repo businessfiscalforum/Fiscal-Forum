@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   FaCoins,
   FaHandshake,
@@ -579,17 +579,108 @@ export default function HomeMobile() {
     text: string;
     type: "success" | "error";
   } | null>(null);
+  /* ============ INTRO VIDEO (SHOWN ONCE FULLSCREEN AFTER EMPIRE CITY) ============ */
+  const [videoPlayed, setVideoPlayed] = useState<boolean>(true);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+  const [showFullscreenVideo, setShowFullscreenVideo] = useState<boolean>(false);
+  const videoTriggerRef = useRef<HTMLDivElement>(null);
+  const fullscreenVideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    setIsMounted(true);
+    const played = localStorage.getItem("ff_intro_v3_played");
+    if (!played) {
+      setVideoPlayed(false);
+    }
+  }, []);
+
+  const handleVideoFinish = () => {
+    try {
+      localStorage.setItem("ff_intro_v3_played", "true");
+    } catch {
+      // ignore
+    }
+    if (typeof document !== "undefined") {
+      document.body.style.overflow = "auto";
+      const nextSec = document.getElementById("services-section-mobile");
+      if (nextSec) {
+        nextSec.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+    setTimeout(() => {
+      setShowFullscreenVideo(false);
+      setVideoPlayed(true);
+    }, 250);
+  };
+
+  useEffect(() => {
+    if (videoPlayed || !isMounted || showFullscreenVideo) return;
+    const triggerEl = videoTriggerRef.current;
+    if (!triggerEl) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !showFullscreenVideo) {
+            setShowFullscreenVideo(true);
+            if (typeof document !== "undefined") {
+              document.body.style.overflow = "hidden";
+            }
+          }
+        });
+      },
+      { threshold: 0, rootMargin: "0px 0px 100px 0px" }
+    );
+
+    observer.observe(triggerEl);
+    return () => observer.disconnect();
+  }, [videoPlayed, isMounted, showFullscreenVideo]);
+
+  useEffect(() => {
+    if (showFullscreenVideo && fullscreenVideoRef.current) {
+      const vid = fullscreenVideoRef.current;
+      vid.defaultMuted = true;
+      vid.muted = true;
+      vid.playsInline = true;
+
+      const tryPlay = () => {
+        if (!vid) return;
+        vid.muted = true;
+        const p = vid.play();
+        if (p !== undefined) {
+          p.catch(() => {});
+        }
+      };
+
+      tryPlay();
+      vid.addEventListener("canplay", tryPlay);
+      vid.addEventListener("loadeddata", tryPlay);
+
+      const handleUserInteraction = () => {
+        tryPlay();
+      };
+
+      window.addEventListener("scroll", handleUserInteraction, { passive: true });
+      window.addEventListener("click", handleUserInteraction, { passive: true });
+      window.addEventListener("touchstart", handleUserInteraction, { passive: true });
+
+      return () => {
+        vid.removeEventListener("canplay", tryPlay);
+        vid.removeEventListener("loadeddata", tryPlay);
+        window.removeEventListener("scroll", handleUserInteraction);
+        window.removeEventListener("click", handleUserInteraction);
+        window.removeEventListener("touchstart", handleUserInteraction);
+      };
+    }
+  }, [showFullscreenVideo]);
+
   const [activeTab, setActiveTab] = useState<
     "investment-products" | "banking-products"
   >("investment-products");
   const { user } = useUser();
 
-  // 🛠️ Reuse `slides`, `partners`, `features`, `content` from original — ensure they’re in scope
-  // (For submission, assume they’re imported or defined above)
-
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    // ✅ Same logic as desktop — keep it
   };
 
   return (
@@ -597,8 +688,59 @@ export default function HomeMobile() {
       <FathomSliderMobile />
       <FiscalForumCityMobile />
 
+      {/* Scroll Trigger Anchor for Intro Video */}
+      {!videoPlayed && isMounted && (
+        <div ref={videoTriggerRef} className="h-12 w-full bg-transparent opacity-0 pointer-events-none" />
+      )}
+
+      {/* Fullscreen Video Overlay (Played Once Automatically) */}
+      {!videoPlayed && isMounted && (
+        <AnimatePresence>
+          {showFullscreenVideo && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.97 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed inset-0 z-[99999] bg-black/92 backdrop-blur-xl flex flex-col items-center justify-center p-4"
+            >
+              {/* Header Controls */}
+              <div className="absolute top-4 left-4 right-4 flex justify-between items-center z-10 w-full">
+                <span className="text-xs font-semibold tracking-widest text-emerald-400 uppercase flex items-center gap-2 bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-emerald-500/30 shadow-lg">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  Fiscal Forum Overview
+                </span>
+                <button
+                  onClick={handleVideoFinish}
+                  type="button"
+                  className="text-xs font-medium text-gray-200 hover:text-white bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-full transition-all border border-white/20 flex items-center gap-1.5 cursor-pointer select-none backdrop-blur-md shadow-lg"
+                >
+                  <span>Skip</span>
+                  <span className="font-bold">✕</span>
+                </button>
+              </div>
+
+              {/* Video Player Box */}
+              <div className="w-full max-h-[80vh] aspect-video rounded-xl overflow-hidden shadow-[0_0_90px_rgba(0,0,0,0.8)] border border-white/15 bg-black relative flex items-center justify-center">
+                <video
+                  ref={fullscreenVideoRef}
+                  src="/fiscal_forum_edited_v3.mp4"
+                  playsInline
+                  muted
+                  autoPlay
+                  preload="auto"
+                  controls={false}
+                  onEnded={handleVideoFinish}
+                  className="w-full h-full object-contain rounded-xl block"
+                />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
+
       {/* 🔹 Tabbed Services (Cards Grid) */}
-      <section className="px-4 py-8 bg-[#F4FBF7] border-b border-black">
+      <section className="px-4 py-8 bg-[#F4FBF7] border-b border-black" id="services-section-mobile">
         <h2 className="text-xl sm:text-2xl font-bold text-black uppercase tracking-tight text-center mb-6">
           Our Financial Premium Services
         </h2>
