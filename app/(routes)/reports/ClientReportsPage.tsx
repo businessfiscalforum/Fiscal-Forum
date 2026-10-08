@@ -388,6 +388,13 @@ export default function ClientReportsPage({
   /* ============ RADIAL BOX VIEWPORT OBSERVER ============ */
   const [isBoxVisible, setIsBoxVisible] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (heroVideoRef.current) {
+      heroVideoRef.current.play().catch(() => {});
+    }
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -1273,29 +1280,17 @@ export default function ClientReportsPage({
 
             </div>
 
-            <div className="report-mock-stage">
-              <div className="phone-frame">
-                <div className="phone-notch"></div>
-                <span className="phone-btn phone-btn-power"></span>
-                <span className="phone-btn phone-btn-vol1"></span>
-                <span className="phone-btn phone-btn-vol2"></span>
-                <div className="phone-screen">
-                  <div className="report-mock in-phone" style={{ cursor: "default" }}>
-                    <div className="report-cover-img has-photo">
-                      <img className="cover-photo" src="research-report-cover.png" alt="Fiscal Forum Research Report cover" />
-                    </div>
-                    <div className="report-mock-footer">
-                      <div className="mock-meta"><span>44 Pages</span><span>12 min read</span><span>May 2026</span></div>
-                      <div className="mock-tags">
-                        <span className="tag" style={{ background: "#DCF3E7" }}>Business Overview</span>
-                        <span className="tag" style={{ background: "#DCF3E7" }}>Financial Highlights</span>
-                        <span className="tag" style={{ background: "#DCF3E7" }}>Valuation</span>
-                      </div>
-                      <div className="mock-rating" style={{ color: "#E8A33D", fontWeight: "bold" }}>★★★★★ 4.9</div>
-                    </div>
-                  </div>
-                  <div className="phone-glare"></div>
-                </div>
+            <div className="report-mock-stage flex justify-center lg:justify-end items-center">
+              <div className="relative z-10 w-full max-w-[360px] sm:max-w-[400px] md:max-w-[440px] rounded-3xl overflow-hidden shadow-[0_25px_50px_-12px_rgba(16,21,18,0.25)] border-2 border-black/10 bg-black">
+                <video
+                  ref={heroVideoRef}
+                  src="/ff_clear_text_slow.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-auto object-cover rounded-3xl block"
+                />
               </div>
             </div>
           </div>
