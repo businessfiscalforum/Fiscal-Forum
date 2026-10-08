@@ -582,19 +582,22 @@ export default function HomeMobile() {
   /* ============ SMOOTH POP-UP VIDEO AFTER EMPIRE SECTION ============ */
   const [showVideoPopup, setShowVideoPopup] = useState<boolean>(false);
   const [hasTriggeredPopup, setHasTriggeredPopup] = useState<boolean>(false);
-  const [isVideoPaused, setIsVideoPaused] = useState<boolean>(false);
   const videoTriggerRef = useRef<HTMLDivElement>(null);
   const popupVideoRef = useRef<HTMLVideoElement>(null);
 
   const handleVideoFinish = () => {
     if (typeof document !== "undefined") {
       document.body.style.overflow = "auto";
-      const nextSec = document.getElementById("services-section-mobile");
-      if (nextSec) {
-        nextSec.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
     }
     setShowVideoPopup(false);
+    setTimeout(() => {
+      if (typeof document !== "undefined") {
+        const nextSec = document.getElementById("services-section-mobile");
+        if (nextSec) {
+          nextSec.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    }, 150);
   };
 
   useEffect(() => {
@@ -630,27 +633,21 @@ export default function HomeMobile() {
     vid.muted = true;
     vid.playsInline = true;
 
-    const tryPlay = async () => {
+    const tryPlay = () => {
       if (!vid) return;
+      vid.defaultMuted = true;
       vid.muted = true;
-      try {
-        await vid.play();
-        setIsVideoPaused(false);
-      } catch (err) {
-        console.log("Autoplay pending interaction:", err);
-        setIsVideoPaused(true);
+      const p = vid.play();
+      if (p !== undefined) {
+        p.catch(() => {});
       }
     };
 
-    vid.load();
     tryPlay();
 
-    const onPlay = () => setIsVideoPaused(false);
-    const onPause = () => setIsVideoPaused(true);
-
-    vid.addEventListener("play", onPlay);
-    vid.addEventListener("playing", onPlay);
-    vid.addEventListener("pause", onPause);
+    vid.addEventListener("canplay", tryPlay);
+    vid.addEventListener("loadeddata", tryPlay);
+    vid.addEventListener("loadedmetadata", tryPlay);
 
     const handleUserInteraction = () => {
       if (popupVideoRef.current && popupVideoRef.current.paused) {
@@ -664,9 +661,9 @@ export default function HomeMobile() {
     window.addEventListener("mousemove", handleUserInteraction, { passive: true });
 
     return () => {
-      vid.removeEventListener("play", onPlay);
-      vid.removeEventListener("playing", onPlay);
-      vid.removeEventListener("pause", onPause);
+      vid.removeEventListener("canplay", tryPlay);
+      vid.removeEventListener("loadeddata", tryPlay);
+      vid.removeEventListener("loadedmetadata", tryPlay);
       window.removeEventListener("scroll", handleUserInteraction);
       window.removeEventListener("click", handleUserInteraction);
       window.removeEventListener("touchstart", handleUserInteraction);
@@ -697,16 +694,16 @@ export default function HomeMobile() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.4, ease: "easeInOut" } }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
             onClick={handleVideoFinish}
             className="fixed inset-0 z-[99999] bg-black/90 backdrop-blur-md flex items-center justify-center p-4 cursor-pointer"
           >
             <motion.div
-              initial={{ scale: 0.92, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.92, opacity: 0 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               className="relative w-full max-h-[85vh] aspect-video rounded-xl overflow-hidden shadow-2xl bg-black border border-white/10"
               onClick={(e) => e.stopPropagation()}
             >
@@ -722,27 +719,6 @@ export default function HomeMobile() {
                 <span className="text-base leading-none">&times;</span>
               </button>
 
-              {/* Center Play Button Overlay if Paused */}
-              {isVideoPaused && (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    if (popupVideoRef.current) {
-                      popupVideoRef.current.muted = true;
-                      popupVideoRef.current.play().then(() => setIsVideoPaused(false)).catch(() => {});
-                    }
-                  }}
-                  className="absolute inset-0 m-auto z-10 w-16 h-16 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/40 flex items-center justify-center text-white shadow-2xl transition-all transform hover:scale-110 active:scale-95 group"
-                  aria-label="Play Video"
-                >
-                  <div className="w-12 h-12 rounded-full bg-[#1FA463] flex items-center justify-center pl-0.5 shadow-lg group-hover:bg-[#188a52] transition-colors">
-                    <svg className="w-6 h-6 text-white fill-current" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                </button>
-              )}
-
               <video
                 ref={popupVideoRef}
                 src="/fiscal_forum_edited_v3.mp4"
@@ -752,17 +728,7 @@ export default function HomeMobile() {
                 autoPlay
                 preload="auto"
                 onEnded={handleVideoFinish}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (popupVideoRef.current) {
-                    if (popupVideoRef.current.paused) {
-                      popupVideoRef.current.play().then(() => setIsVideoPaused(false)).catch(() => {});
-                    } else {
-                      popupVideoRef.current.pause();
-                    }
-                  }
-                }}
-                className="w-full h-full object-contain rounded-xl block bg-black cursor-pointer"
+                className="w-full h-full object-contain rounded-xl block bg-black"
               />
             </motion.div>
           </motion.div>

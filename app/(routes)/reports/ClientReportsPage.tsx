@@ -399,19 +399,17 @@ export default function ClientReportsPage({
     video.playsInline = true;
     video.loop = true;
 
-    const playVideo = async () => {
+    const playVideo = () => {
       if (!video) return;
       video.defaultMuted = true;
       video.muted = true;
       video.loop = true;
-      try {
-        await video.play();
-      } catch (err) {
-        console.log("Reports hero video autoplay waiting for user interaction:", err);
+      const p = video.play();
+      if (p !== undefined) {
+        p.catch(() => {});
       }
     };
 
-    video.load();
     playVideo();
 
     const observer = new IntersectionObserver(
@@ -426,12 +424,6 @@ export default function ClientReportsPage({
     );
     observer.observe(video);
 
-    const handleEnded = () => {
-      if (!video) return;
-      video.currentTime = 0;
-      playVideo();
-    };
-
     const handleInteraction = () => {
       if (video && video.paused) {
         playVideo();
@@ -439,10 +431,9 @@ export default function ClientReportsPage({
     };
 
     video.addEventListener("canplay", playVideo);
-    video.addEventListener("canplaythrough", playVideo);
     video.addEventListener("loadeddata", playVideo);
     video.addEventListener("loadedmetadata", playVideo);
-    video.addEventListener("ended", handleEnded);
+    video.addEventListener("pause", playVideo);
 
     window.addEventListener("scroll", handleInteraction, { passive: true });
     window.addEventListener("click", handleInteraction, { passive: true });
@@ -454,10 +445,9 @@ export default function ClientReportsPage({
     return () => {
       observer.disconnect();
       video.removeEventListener("canplay", playVideo);
-      video.removeEventListener("canplaythrough", playVideo);
       video.removeEventListener("loadeddata", playVideo);
       video.removeEventListener("loadedmetadata", playVideo);
-      video.removeEventListener("ended", handleEnded);
+      video.removeEventListener("pause", playVideo);
       window.removeEventListener("scroll", handleInteraction);
       window.removeEventListener("click", handleInteraction);
       window.removeEventListener("touchstart", handleInteraction);
@@ -1354,7 +1344,16 @@ export default function ClientReportsPage({
             <div className="report-mock-stage flex justify-center lg:justify-end items-center w-full">
               <div className="relative z-10 w-full max-w-[920px] rounded-2xl md:rounded-3xl overflow-hidden shadow-[0_30px_70px_-15px_rgba(16,21,18,0.35)] border border-black/15 bg-black aspect-video">
                 <video
-                  ref={heroVideoRef}
+                  ref={(el) => {
+                    heroVideoRef.current = el;
+                    if (el) {
+                      el.defaultMuted = true;
+                      el.muted = true;
+                      el.loop = true;
+                      el.playsInline = true;
+                      el.play().catch(() => {});
+                    }
+                  }}
                   src="/ff_clear_text_slow.mp4"
                   poster="/ff_clear_text_slow_poster.png"
                   autoPlay
@@ -1375,6 +1374,12 @@ export default function ClientReportsPage({
                     e.currentTarget.loop = true;
                     e.currentTarget.play().catch(() => {});
                   }}
+                  onPause={(e) => {
+                    e.currentTarget.defaultMuted = true;
+                    e.currentTarget.muted = true;
+                    e.currentTarget.loop = true;
+                    e.currentTarget.play().catch(() => {});
+                  }}
                   onEnded={(e) => {
                     e.currentTarget.currentTime = 0;
                     e.currentTarget.defaultMuted = true;
@@ -1382,14 +1387,7 @@ export default function ClientReportsPage({
                     e.currentTarget.loop = true;
                     e.currentTarget.play().catch(() => {});
                   }}
-                  onClick={() => {
-                    if (heroVideoRef.current) {
-                      heroVideoRef.current.defaultMuted = true;
-                      heroVideoRef.current.muted = true;
-                      heroVideoRef.current.play().catch(() => {});
-                    }
-                  }}
-                  className="w-full h-full object-cover rounded-2xl md:rounded-3xl block cursor-pointer"
+                  className="w-full h-full object-cover rounded-2xl md:rounded-3xl block"
                   style={{ width: "100%", height: "100%", display: "block", objectFit: "cover", borderRadius: "1.5rem" }}
                 >
                   <source src="/ff_clear_text_slow.mp4" type="video/mp4" />
