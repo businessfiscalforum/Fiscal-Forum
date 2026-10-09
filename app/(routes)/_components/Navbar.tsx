@@ -44,8 +44,8 @@ export default function Navbar() {
 
   const servicesDropdown = [
     {
-      name: "LEARN & EARN",
-      href: "/services/learn-earn",
+      name: "FINANCIAL SERVICES",
+      href: "/services/financial-services",
       icon: <LineChart className="w-5 h-5 text-black" />,
     },
     {
@@ -77,7 +77,7 @@ export default function Navbar() {
 
   const navItems = [
     { label: "Reports", href: "/reports" },
-    { label: "LEARN & EARN", href: "/services/learn-earn" },
+    { label: "FINANCIAL SERVICES", href: "/services/financial-services" },
     { label: "For Women", href: "/for-women" },
     { label: "News & IPOs", href: "/news" },
     { label: "NSE Screener", href: "/screener" },
@@ -192,12 +192,12 @@ export default function Navbar() {
                 </Link>
               );
             }
-            if (item.label === "LEARN & EARN") {
+            if (item.label === "FINANCIAL SERVICES") {
               return (
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="relative overflow-hidden group flex items-center justify-center w-48 h-[2.5em] rounded-full bg-black/20 p-[1.5px] transition-all duration-300 shadow-sm hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:shadow-sm"
+                  className="relative overflow-hidden group flex items-center justify-center w-36 h-[2.6em] rounded-full bg-black/20 p-[1.5px] transition-all duration-300 shadow-sm hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:shadow-sm"
                 >
                   {/* Rotating border shine layer */}
                   <motion.div
@@ -216,9 +216,12 @@ export default function Navbar() {
                   />
 
                   {/* Front content panel */}
-                  <div className="absolute inset-[1.5px] rounded-full bg-[#FEF08A] flex items-center justify-center gap-1.5 z-10 pointer-events-none">
-                    <LineChart size={13} className="text-black stroke-[2.5]" />
-                    <span className="text-xs font-bold text-black uppercase tracking-wider">{item.label}</span>
+                  <div className="absolute inset-[1.5px] rounded-full bg-[#FEF08A] flex items-center justify-center gap-1.5 z-10 pointer-events-none px-2.5">
+                    <LineChart size={13} className="text-black stroke-[2.5] flex-shrink-0" />
+                    <span className="text-[10px] leading-[1.05] font-bold text-black uppercase tracking-wider flex flex-col items-center justify-center text-center">
+                      <span>FINANCIAL</span>
+                      <span>SERVICES</span>
+                    </span>
                   </div>
                 </Link>
               );
@@ -395,13 +398,13 @@ export default function Navbar() {
                       </Link>
                     );
                   }
-                  if (item.label === "LEARN & EARN") {
+                  if (item.label === "FINANCIAL SERVICES") {
                     return (
                       <Link
                         key={item.label}
                         href={item.href}
                         onClick={closeAll}
-                        className="relative overflow-hidden group flex items-center justify-center w-full h-[3em] rounded-full bg-black/20 p-[1.5px] transition-all duration-300 shadow-sm hover:shadow-md"
+                        className="relative overflow-hidden group flex items-center justify-center w-full h-[3.2em] rounded-full bg-black/20 p-[1.5px] transition-all duration-300 shadow-sm hover:shadow-md"
                       >
                         {/* Rotating border shine layer */}
                         <motion.div
@@ -420,9 +423,12 @@ export default function Navbar() {
                         />
 
                         {/* Front content panel */}
-                        <div className="absolute inset-[1.5px] rounded-full bg-[#FEF08A] flex items-center gap-2 px-5 z-10 pointer-events-none">
-                          <LineChart size={16} className="text-black stroke-[2.5]" />
-                          <span className="text-base font-bold text-black uppercase tracking-wider">{item.label}</span>
+                        <div className="absolute inset-[1.5px] rounded-full bg-[#FEF08A] flex items-center gap-2.5 px-5 z-10 pointer-events-none">
+                          <LineChart size={16} className="text-black stroke-[2.5] flex-shrink-0" />
+                          <span className="text-xs leading-tight font-bold text-black uppercase tracking-wider flex flex-col text-left">
+                            <span>FINANCIAL</span>
+                            <span>SERVICES</span>
+                          </span>
                         </div>
                       </Link>
                     );

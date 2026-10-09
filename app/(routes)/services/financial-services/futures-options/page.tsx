@@ -775,7 +775,7 @@ export default function FuturesOptionsPage() {
         </p>
         <div>
           <Link
-            href="/services/learn-earn/open-demat-account"
+            href="/services/financial-services/open-demat-account"
             className="btn-primary inline-block px-5 py-2.5 sm:px-8 sm:py-3.5 text-center font-bold"
             style={{ textDecoration: 'none' }}
           >

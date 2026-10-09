@@ -283,7 +283,7 @@ export default function ClientScreenerPage() {
           <div className="section-head" style={{ marginBottom: '20px' }}>
             <div>
               <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#111411]">NSE Equity Screener</h1>
-              <p className="text-gray-600 mt-2 text-sm md:text-base">Search, filter and rank every live NSE-listed equity by valuation, profitability, market-cap tier and index membership — right on this page.</p>
+              <p className="text-gray-600 mt-2 text-sm md:text-base">Screen the NSE equity market smarter, compare opportunities, and make more informed investment decisions</p>
             </div>
           </div>
         </div>

@@ -265,7 +265,7 @@ export default function FathomSliderMobile() {
                 Want recommendations like this?
               </p>
               <Link
-                href="/services/learn-earn"
+                href="/services/financial-services"
                 className="relative overflow-hidden button-border-animate-container inline-flex w-full max-w-[280px] py-3 bg-black hover:bg-zinc-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md items-center justify-center gap-2 active:scale-98 transition-all border border-black/10"
               >
                 <div className="absolute inset-0 pointer-events-none rounded-full overflow-hidden z-20">
@@ -519,11 +519,7 @@ export default function FathomSliderMobile() {
                   <span className="relative z-10">CLICK HERE</span>
                 </button>
               </Link>
-              <Link href="/reports" className="w-full block">
-                <button className="w-full py-2.5 bg-yellow-400 text-black font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 transition-all cursor-pointer hover:-translate-y-0.5 duration-200 border border-black/20">
-                  At just Rs. 399
-                </button>
-              </Link>
+
             </div>
           </div>
         </motion.div>
@@ -606,11 +602,7 @@ export default function FathomSliderMobile() {
                   <span className="relative z-10">CLICK HERE</span>
                 </button>
               </Link>
-              <Link href="/reports/customised" className="w-full block">
-                <button className="w-full py-2.5 bg-yellow-400 text-black font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 transition-all cursor-pointer hover:-translate-y-0.5 duration-200 border border-black/20">
-                  At just Rs. 699
-                </button>
-              </Link>
+
             </div>
           </div>
         </motion.div>

@@ -498,7 +498,7 @@ export default function FathomSlider() {
                       />
                     </div>
                     <p className="stock-recommend__prompt">Want recommendations like this?</p>
-                    <Link href="/services/learn-earn" className="btn btn--black relative overflow-hidden button-border-animate-container">
+                    <Link href="/services/financial-services" className="btn btn--black relative overflow-hidden button-border-animate-container">
                       <div className="absolute inset-0 pointer-events-none rounded-[999px] overflow-hidden z-20">
                         <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
                           <rect
@@ -768,11 +768,7 @@ export default function FathomSlider() {
                     </button>
                   </Link>
 
-                  <Link href="/reports">
-                    <button className="px-5 py-2.5 bg-yellow-400 text-black font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 transition-all cursor-pointer hover:-translate-y-0.5 duration-200 border border-black/20">
-                      At just Rs. 399
-                    </button>
-                  </Link>
+
                 </div>
               </div>
             </motion.div>
@@ -856,11 +852,7 @@ export default function FathomSlider() {
                     </button>
                   </Link>
 
-                  <Link href="/reports/customised">
-                    <button className="px-5 py-2.5 bg-yellow-400 text-black font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-yellow-500 transition-all cursor-pointer hover:-translate-y-0.5 duration-200 border border-black/20">
-                      At just Rs. 699
-                    </button>
-                  </Link>
+
                 </div>
               </div>
             </motion.div>

@@ -95,10 +95,10 @@ export default function IPOPage() {
                 Try the allotment simulator
               </button>
               <div className="hero-cta-duo">
-                <Link href="/services/learn-earn/ipo/apply" className="btn hero-cta-btn-half" style={{ textDecoration: "none" }}>
+                <Link href="/services/financial-services/ipo/apply" className="btn hero-cta-btn-half" style={{ textDecoration: "none" }}>
                   Apply for IPO
                 </Link>
-                <Link href="/services/learn-earn/open-demat-account" className="btn hero-cta-btn-half" style={{ textDecoration: "none" }}>
+                <Link href="/services/financial-services/open-demat-account" className="btn hero-cta-btn-half" style={{ textDecoration: "none" }}>
                   Open Demat Account
                 </Link>
               </div>
@@ -476,10 +476,10 @@ export default function IPOPage() {
             Submit your IPO application form online and start your investment journey today.
           </p>
           <div className="apply-cta-btns">
-            <Link href="/services/learn-earn/ipo/apply" className="btn primary apply-cta-btn" style={{ textDecoration: "none" }}>
+            <Link href="/services/financial-services/ipo/apply" className="btn primary apply-cta-btn" style={{ textDecoration: "none" }}>
               Apply for IPO now
             </Link>
-            <Link href="/services/learn-earn/open-demat-account" className="btn apply-cta-btn" style={{ textDecoration: "none" }}>
+            <Link href="/services/financial-services/open-demat-account" className="btn apply-cta-btn" style={{ textDecoration: "none" }}>
               Open Demat Account
             </Link>
           </div>

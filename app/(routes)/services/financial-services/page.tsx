@@ -59,8 +59,8 @@ const investmentOptions = [
     description:
       "Own company shares or diversify smartly with ETFs.",
     icon: BarChart3,
-    link: "/services/learn-earn/equity-etfs",
-    alink: "/services/learn-earn/equity-etfs/apply",
+    link: "/services/financial-services/equity-etfs",
+    alink: "/services/financial-services/equity-etfs/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-blue-100",
     iconColor: "text-blue-600",
@@ -72,8 +72,8 @@ const investmentOptions = [
     description:
       "Hedge risk or speculate on price moves.",
     icon: TrendingUp,
-    link: "/services/learn-earn/futures-options",
-    alink: "/services/learn-earn/futures-options/apply",
+    link: "/services/financial-services/futures-options",
+    alink: "/services/financial-services/futures-options/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-purple-100",
     iconColor: "text-purple-600",
@@ -85,8 +85,8 @@ const investmentOptions = [
     description:
       "Invest early in growing companies.",
     icon: Sparkles,
-    link: "/services/learn-earn/ipo",
-    alink: "/services/learn-earn/ipo/apply",
+    link: "/services/financial-services/ipo",
+    alink: "/services/financial-services/ipo/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-emerald-100",
     iconColor: "text-emerald-600",
@@ -98,8 +98,8 @@ const investmentOptions = [
     description:
       "Buy stocks with borrowed broker funds for leverage.",
     icon: Zap,
-    link: "/services/learn-earn/mtf",
-    alink: "/services/learn-earn/mtf/apply",
+    link: "/services/financial-services/mtf",
+    alink: "/services/financial-services/mtf/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-orange-100",
     iconColor: "text-orange-600",
@@ -111,8 +111,8 @@ const investmentOptions = [
     description:
       "Trade real assets like gold, silver, crude oil.",
     icon: Coins,
-    link: "/services/learn-earn/commodities",
-    alink: "/services/learn-earn/commodities/apply",
+    link: "/services/financial-services/commodities",
+    alink: "/services/financial-services/commodities/apply",
     bgColor: "bg-gradient-to-br from-green-500 to-green-700",
     iconBgColor: "bg-yellow-100",
     iconColor: "text-yellow-600",
@@ -124,8 +124,8 @@ const investmentOptions = [
     description:
       "Invest early in companies before listing.",
     icon: Gem,
-    link: "/services/learn-earn/unlisted-shares",
-    alink: "/services/learn-earn/unlisted-shares/apply",
+    link: "/services/financial-services/unlisted-shares",
+    alink: "/services/financial-services/unlisted-shares/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-indigo-100",
     iconColor: "text-indigo-600",
@@ -489,7 +489,7 @@ export default function StockInvestmentPage() {
                 </p>
               </div>
               <div className="pt-3 sm:pt-6 md:pt-8 z-10 mt-auto">
-                <Link href="/services/learn-earn/open-demat-account" className="block w-full md:w-auto">
+                <Link href="/services/financial-services/open-demat-account" className="block w-full md:w-auto">
                   <button className="w-full md:w-auto bg-white text-black border border-black px-2 py-2 sm:px-6 sm:py-3.5 rounded-lg sm:rounded-xl font-bold hover:bg-yellow-100 hover:shadow-sm transition-all shadow-sm uppercase text-[9px] xs:text-[10px] sm:text-xs md:text-sm text-center leading-tight">
                     Start Investing Now
                   </button>
@@ -513,7 +513,7 @@ export default function StockInvestmentPage() {
                 </p>
               </div>
               <div className="pt-3 sm:pt-6 md:pt-8 z-10 mt-auto">
-                <Link href="/services/learn-earn/already-have-an-account" className="block w-full md:w-auto">
+                <Link href="/services/financial-services/already-have-an-account" className="block w-full md:w-auto">
                   <button className="w-full md:w-auto bg-[#1FA463] text-white border border-black px-2 py-2 sm:px-6 sm:py-3.5 rounded-lg sm:rounded-xl font-bold hover:bg-[#15824D] hover:shadow-sm transition-all shadow-sm uppercase text-[9px] xs:text-[10px] sm:text-xs md:text-sm text-center leading-tight">
                     Continue Your Journey
                   </button>
