@@ -811,8 +811,12 @@ export default function ClientScreenerPage() {
 
           {/* ================= SCREENER DETAILS MODAL ================= */}
           {screenerSelectedStock && (
-            <div className="screener-modal-overlay modal-overlay open" onClick={() => setScreenerSelectedStock(null)}>
-              <div className="modal" onClick={(e) => e.stopPropagation()} style={{ border: '1px solid #111411' }}>
+            <div
+              className="screener-modal-overlay modal-overlay open"
+              onClick={() => setScreenerSelectedStock(null)}
+              style={{ zIndex: 200, paddingTop: '100px', paddingBottom: '40px', alignItems: 'flex-start', overflowY: 'auto' }}
+            >
+              <div className="modal" onClick={(e) => e.stopPropagation()} style={{ border: '1px solid #111411', marginTop: '20px' }}>
                 <button className="modal-close" onClick={() => setScreenerSelectedStock(null)}>✕</button>
                 <span className="modal-sym">{screenerSelectedStock.sym}</span>
                 <h3>{screenerSelectedStock.name}</h3>
@@ -889,25 +893,33 @@ export default function ClientScreenerPage() {
                   </div>
                 </div>
 
-                <div className="flex gap-4 mt-6">
+                <div className="flex flex-col sm:flex-row gap-3 mt-6">
+                  <Link
+                    href={`https://www.nseindia.com/get-quotes/equity?symbol=${encodeURIComponent(screenerSelectedStock.sym)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 py-3 px-3 text-center font-bold bg-white text-black border border-[#111411] rounded-xl hover:bg-gray-100 transition-colors text-xs sm:text-sm flex items-center justify-center gap-1"
+                  >
+                    View on NSE ↗
+                  </Link>
                   <Link
                     href={`https://www.screener.in/company/${encodeURIComponent(screenerSelectedStock.sym)}/`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 py-3 text-center font-bold bg-[#111411] text-white rounded-xl hover:bg-emerald-700 transition-colors text-sm"
+                    className="flex-1 py-3 px-3 text-center font-bold bg-white text-black border border-[#111411] rounded-xl hover:bg-gray-100 transition-colors text-xs sm:text-sm flex items-center justify-center gap-1"
                   >
-                    View on Screener.in ↗
+                    View on Screener ↗
                   </Link>
                   <button
                     type="button"
                     onClick={() => toggleStar(screenerSelectedStock.sym)}
-                    className={`px-4 py-3 border border-[#111411] rounded-xl font-bold text-sm transition-all ${
+                    className={`px-3 py-3 border border-[#111411] rounded-xl font-bold text-xs sm:text-sm transition-all ${
                       watchlist.has(screenerSelectedStock.sym)
                         ? "bg-amber-100 text-amber-900 border-amber-400"
                         : "bg-white text-black hover:bg-gray-100"
                     }`}
                   >
-                    {watchlist.has(screenerSelectedStock.sym) ? "★ Starred" : "☆ Add to Watchlist"}
+                    {watchlist.has(screenerSelectedStock.sym) ? "★ Starred" : "☆ Watchlist"}
                   </button>
                 </div>
               </div>
