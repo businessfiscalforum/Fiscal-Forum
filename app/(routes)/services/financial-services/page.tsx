@@ -24,8 +24,7 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-// import { BrokerInfiniteScroll } from "../../_components/Broker";
-import PortfolioSplitStudio from "./PortfolioSplitStudio";
+
 
 const NestIcon = ({ size, className, ...props }: React.SVGProps<SVGSVGElement> & { size?: number | string }) => (
   <svg
@@ -468,54 +467,25 @@ export default function StockInvestmentPage() {
             </div>
           </div>
 
-          {/* Portfolio Split Studio */}
-          <PortfolioSplitStudio />
 
-          {/* Call to Action (Kickstart & Level Up) */}
-          <div className="grid grid-cols-2 gap-3 sm:gap-6 md:gap-8 items-stretch">
-            {/* CTA 1 */}
-            <div className="relative bg-[#1FA463] text-black border border-black rounded-2xl md:rounded-3xl p-3.5 sm:p-6 md:p-10 shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between overflow-hidden h-full">
-              <div className="space-y-3 sm:space-y-4 md:space-y-6 z-10 flex-1 flex flex-col">
-                <div className="flex flex-col xs:flex-row items-start xs:items-center gap-2 sm:gap-4">
-                  <div className="p-2 sm:p-3 bg-white border border-black rounded-lg sm:rounded-xl shadow-sm flex-shrink-0">
-                    <FolderOpen className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-black" />
-                  </div>
-                  <h2 className="text-xs sm:text-xl md:text-3xl font-bold uppercase tracking-tight text-black leading-tight flex-1">
-                    Start Your Wealth Journey
-                  </h2>
-                </div>
-                <p className="text-black font-semibold text-[11px] sm:text-sm md:text-base leading-tight sm:leading-relaxed flex-1">
+
+          {/* Call to Action (Start Your Wealth Journey) */}
+          <div className="relative bg-transparent border border-black rounded-3xl p-6 sm:p-8 md:p-10 shadow-sm transition-all overflow-hidden">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-10">
+              <div className="space-y-3 flex-1 max-w-3xl">
+
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold uppercase tracking-tight text-[#111411] leading-tight">
+                  Start Your Wealth Journey
+                </h2>
+                <p className="text-gray-700 font-medium text-sm sm:text-base md:text-lg leading-relaxed">
                   Ready to take the first step? Open your Demat & Trading account in minutes and begin investing with confidence. Zero paperwork, instant approval, and dedicated live support.
                 </p>
               </div>
-              <div className="pt-3 sm:pt-6 md:pt-8 z-10 mt-auto">
+              <div className="flex-shrink-0 w-full md:w-auto pt-2 md:pt-0">
                 <Link href="/services/financial-services/open-demat-account" className="block w-full md:w-auto">
-                  <button className="w-full md:w-auto bg-white text-black border border-black px-2 py-2 sm:px-6 sm:py-3.5 rounded-lg sm:rounded-xl font-bold hover:bg-yellow-100 hover:shadow-sm transition-all shadow-sm uppercase text-[9px] xs:text-[10px] sm:text-xs md:text-sm text-center leading-tight">
-                    Start Investing Now
-                  </button>
-                </Link>
-              </div>
-            </div>
-
-            {/* CTA 2 */}
-            <div className="relative bg-white text-black border border-black rounded-2xl md:rounded-3xl p-3.5 sm:p-6 md:p-10 shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between overflow-hidden h-full">
-              <div className="space-y-3 sm:space-y-4 md:space-y-6 z-10 flex-1 flex flex-col">
-                <div className="flex flex-col xs:flex-row items-start xs:items-center gap-2 sm:gap-4">
-                  <div className="p-2 sm:p-3 bg-emerald-50 border border-black rounded-lg sm:rounded-xl shadow-sm flex-shrink-0">
-                    <UserCheck className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-black" />
-                  </div>
-                  <h2 className="text-xs sm:text-xl md:text-3xl font-bold uppercase tracking-tight text-black leading-tight flex-1">
-                    Level Up Your Portfolio
-                  </h2>
-                </div>
-                <p className="text-gray-700 font-semibold text-[11px] sm:text-sm md:text-base leading-tight sm:leading-relaxed flex-1">
-                  Already investing? Supercharge your trading strategy with advanced analytical tools, real-time index data, and customized expert insights. Unlock higher financial potential with us.
-                </p>
-              </div>
-              <div className="pt-3 sm:pt-6 md:pt-8 z-10 mt-auto">
-                <Link href="/services/financial-services/already-have-an-account" className="block w-full md:w-auto">
-                  <button className="w-full md:w-auto bg-[#1FA463] text-white border border-black px-2 py-2 sm:px-6 sm:py-3.5 rounded-lg sm:rounded-xl font-bold hover:bg-[#15824D] hover:shadow-sm transition-all shadow-sm uppercase text-[9px] xs:text-[10px] sm:text-xs md:text-sm text-center leading-tight">
-                    Continue Your Journey
+                  <button className="w-full md:w-auto bg-black text-white hover:bg-zinc-800 border border-black px-6 py-4 rounded-xl font-bold uppercase tracking-wider text-xs sm:text-sm shadow-md hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer">
+                    <span>Start Investing Now</span>
+                    <span className="text-base">↗</span>
                   </button>
                 </Link>
               </div>

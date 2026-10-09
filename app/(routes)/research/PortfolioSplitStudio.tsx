@@ -540,8 +540,8 @@ export default function PortfolioSplitStudio() {
           width: 100%;
           display: flex;
           justify-content: center;
-          padding: 60px 16px;
-          background: #f4fbf7;
+          padding: 10px 0;
+          background: transparent;
         }
 
         .studio-card {

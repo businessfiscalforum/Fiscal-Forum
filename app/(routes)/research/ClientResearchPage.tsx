@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo, useRef } from "react";
 import Image from "next/image";
+import PortfolioSplitStudio from "./PortfolioSplitStudio";
 
 const themeSectorBars = [
   { name: 'Nifty India Defence',              icon: 'sector-icon-defence.png',       pdf: 'nifty-india-defence-report.pdf', ytd: 21.06 },
@@ -272,11 +273,16 @@ export default function ClientResearchPage() {
         <div className="wrap" style={{ paddingBottom: '0' }}>
           <div className="section-head" style={{ marginBottom: '20px' }}>
             <div>
-              <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#111411]">Your one stop Research at one sinlge place !</h1>
-              <p className="text-gray-600 mt-2 text-sm md:text-base">Comprehensive sectoral overviews, interactive heatmaps, and theme-based index performance metrics.</p>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#111411]">Your one stop Research &amp; Analysis at one single place !</h1>
+              <p className="text-gray-700 mt-4 text-lg sm:text-xl md:text-2xl font-medium leading-relaxed max-w-4xl">Comprehensive sectoral overviews, interactive heatmaps, and theme-based index performance metrics.</p>
             </div>
           </div>
         </div>
+      </section>
+
+      {/* ================= SECTION: PORTFOLIO PRODUCT MIX STUDIO ================= */}
+      <section className="section portfolio-studio-section max-w-7xl mx-auto" id="portfolio-studio" style={{ borderTop: '1px solid rgba(17,20,17,0.1)', paddingTop: '40px' }}>
+        <PortfolioSplitStudio />
       </section>
 
       {/* ================= SECTION: ONE STOP SECTORAL OVERVIEW ================= */}

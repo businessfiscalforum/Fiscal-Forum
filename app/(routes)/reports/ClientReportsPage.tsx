@@ -737,36 +737,7 @@ export default function ClientReportsPage({
                 </span>
               </p>
               
-              <div className="hero-ctas">
-                <button
-                  type="button"
-                  className="hero-cta-btn"
-                  onClick={() => scrollToSection("equity-screener")}
-                >
-                  TRY NSE SCREENER
-                </button>
-                <button
-                  type="button"
-                  className="hero-cta-btn"
-                  onClick={() => scrollToSection("sectoral-overview")}
-                >
-                  One Stop Sectoral Overview
-                </button>
-                <button
-                  type="button"
-                  className="hero-cta-btn"
-                  onClick={() => scrollToSection("theme-based-sectors")}
-                >
-                  Theme Based Sectoral Overview
-                </button>
-                <button
-                  type="button"
-                  className="hero-cta-btn"
-                  onClick={() => scrollToSection("sectoral-heatmap")}
-                >
-                  SEE SECTORAL HEATMAP
-                </button>
-              </div>
+
               
               {/* Get Customised Report Button */}
               <div className="relative mt-4 flex justify-start select-none">

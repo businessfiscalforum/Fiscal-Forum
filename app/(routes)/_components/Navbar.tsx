@@ -81,7 +81,7 @@ export default function Navbar() {
     { label: "For Women", href: "/for-women" },
     { label: "News & IPOs", href: "/news" },
     { label: "NSE Screener", href: "/screener" },
-    { label: "Research", href: "/research" },
+    { label: "Research & Analysis", href: "/research" },
     { label: "About Us", href: "/about-us" },
     { label: "Work With Us", href: "/work-with-us" },
   ];
@@ -223,6 +223,18 @@ export default function Navbar() {
                       <span>SERVICES</span>
                     </span>
                   </div>
+                </Link>
+              );
+            }
+            if (item.label === "Research & Analysis") {
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="px-3 py-1 text-[11px] font-bold transition-colors uppercase tracking-wider text-black hover:text-emerald-700 flex flex-col items-center justify-center text-center leading-[1.05]"
+                >
+                  <span>RESEARCH</span>
+                  <span>&amp; ANALYSIS</span>
                 </Link>
               );
             }
@@ -430,6 +442,19 @@ export default function Navbar() {
                             <span>SERVICES</span>
                           </span>
                         </div>
+                      </Link>
+                    );
+                  }
+                  if (item.label === "Research & Analysis") {
+                    return (
+                      <Link
+                        key={item.label}
+                        href={item.href}
+                        onClick={closeAll}
+                        className="text-base font-bold uppercase tracking-wider text-black flex flex-col items-start leading-tight"
+                      >
+                        <span>RESEARCH</span>
+                        <span>&amp; ANALYSIS</span>
                       </Link>
                     );
                   }

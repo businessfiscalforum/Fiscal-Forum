@@ -603,6 +603,7 @@
 .section-head p{max-width:460px;font-size:14.5px;opacity:.72;margin:8px 0 0;line-height:1.5;}
 .market-metrics-section .section-head p{font-size:20px;font-weight:700;opacity:.85;max-width:none;}
 .custom-report-section .section-head p{font-size:17px;max-width:520px;}
+.research-embed-section .section-head p{font-size:1.35rem !important;opacity:.9 !important;max-width:880px !important;line-height:1.6 !important;font-weight:500 !important;margin-top:14px !important;}
 .showcase-heading{font-size:48px;font-weight:800;letter-spacing:-0.02em;line-height:1.1;}
 @media (max-width:768px){.showcase-heading{font-size:32px;}}
 
