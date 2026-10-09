@@ -1863,6 +1863,58 @@
   #screener-app .modal{
     max-height: none;
   }
+  #screener-app .control-deck {
+    padding: 14px 12px;
+  }
+  #screener-app .chip-row {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+  #screener-app .chip {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+    display: flex !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    font-size: 0.8rem !important;
+    padding: 8px 6px !important;
+    min-height: 40px !important;
+    word-break: break-word !important;
+    white-space: normal !important;
+    line-height: 1.2 !important;
+  }
+  #screener-app .filter-dropdown .chip-row {
+    padding: 0 10px 12px !important;
+  }
+  #screener-app .range-filters {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+  #screener-app .range-field {
+    width: 100% !important;
+  }
+  #screener-app .range-inputs {
+    display: flex !important;
+    width: 100% !important;
+    gap: 8px !important;
+  }
+  #screener-app .range-inputs input {
+    flex: 1 !important;
+    width: 100% !important;
+  }
+  #screener-app .search-row {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  #screener-app #sortSelect,
+  #screener-app select {
+    width: 100% !important;
+  }
 }
 
 @media (prefers-reduced-motion:reduce){

@@ -295,12 +295,12 @@ export default function ClientScreenerPage() {
       {/* ================= PAGE HEADER ================= */}
       <section className="section screener-embed-section max-w-7xl mx-auto" id="equity-screener">
         <div className="wrap" style={{ paddingBottom: '0' }}>
-          <div className="section-head mb-8" style={{ marginBottom: '32px' }}>
-            <div className="max-w-4xl">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#111411]">NSE Equity Screener</h1>
-              <p className="text-gray-700 mt-3 text-base md:text-lg font-medium leading-relaxed">Screen the NSE equity market smarter, compare opportunities, and make more informed investment decisions</p>
+          <div className="flex flex-col lg:flex-row items-center lg:items-center text-center lg:text-left justify-between gap-8 lg:gap-12 mb-10">
+            <div className="max-w-2xl">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#111411]">NSE Equity Screener</h1>
+              <p className="text-gray-700 mt-3 text-sm sm:text-base md:text-lg font-medium leading-relaxed max-w-xl mx-auto lg:mx-0">Screen the NSE equity market smarter, compare opportunities, and make more informed investment decisions</p>
             </div>
-            <div className="mt-6 w-full max-w-[320px] sm:max-w-[360px] mx-auto relative aspect-square rounded-2xl overflow-hidden shadow-xl border border-black/10 screener-image-border-animate group bg-slate-900/5 backdrop-blur-md p-1.5">
+            <div className="shrink-0 w-full max-w-[260px] sm:max-w-[300px] md:max-w-[320px] mx-auto lg:mx-0 relative aspect-square rounded-2xl overflow-hidden shadow-xl border border-black/10 screener-image-border-animate group bg-slate-900/5 backdrop-blur-md p-1.5">
               <div className="w-full h-full grid grid-cols-3 grid-rows-3 gap-1 rounded-xl overflow-hidden bg-white/80 shadow-inner">
                 {MATRIX_TILES.map((tile) => (
                   <motion.div
@@ -682,12 +682,16 @@ export default function ClientScreenerPage() {
                   CLICK ON THE EQUITIES TO KNOW MORE …
                 </div>
 
-                <div className="result-bar">
+                <div className="result-bar flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1">
                   <span>{filteredStocks.length.toLocaleString()} stocks matched</span>
                   <span className="result-bar-note">Click a row for full detail. Star to add to watchlist.</span>
                 </div>
 
-                <div id="screener-table-section" className="table-wrap in-view" style={{ border: '1px solid #111411' }}>
+                <div className="md:hidden text-xs text-gray-700 font-semibold my-2 flex items-center justify-between px-3 bg-amber-500/10 border border-amber-500/30 rounded-lg py-1.5">
+                  <span>👈 Scroll table horizontally to view ratios & metrics 👉</span>
+                </div>
+
+                <div id="screener-table-section" className="table-wrap in-view overflow-x-auto" style={{ border: '1px solid #111411' }}>
                   <table>
                     <thead>
                       <tr>
