@@ -80,6 +80,8 @@ export default function Navbar() {
     { label: "LEARN & EARN", href: "/services/learn-earn" },
     { label: "For Women", href: "/for-women" },
     { label: "News & IPOs", href: "/news" },
+    { label: "NSE Screener", href: "/screener" },
+    { label: "Research", href: "/research" },
     { label: "About Us", href: "/about-us" },
     { label: "Work With Us", href: "/work-with-us" },
   ];
