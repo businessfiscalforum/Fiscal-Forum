@@ -35,6 +35,7 @@ export default function ClientScreenerPage() {
   const [highlightedStockSym, setHighlightedStockSym] = useState<string | null>(null);
   const [showScreenerSuggestions, setShowScreenerSuggestions] = useState(false);
   const [showScreenerIndexWarn, setShowScreenerIndexWarn] = useState(false);
+  const [activeScreenerFaq, setActiveScreenerFaq] = useState<number | null>(null);
 
   const SCREENER_PAGE_SIZE = 15;
 
@@ -913,6 +914,71 @@ export default function ClientScreenerPage() {
             </div>
           )}
 
+        </div>
+      </section>
+
+      {/* ================= SECTION: FREQUENTLY ASKED QUESTIONS ================= */}
+      <section className="section screener-faq-section max-w-7xl mx-auto" style={{ borderTop: '1px solid rgba(17,20,17,0.1)', paddingTop: '40px', paddingBottom: '60px' }}>
+        <div className="wrap">
+          <div className="theme-faq-container" style={{ marginTop: '0px', paddingTop: '0px', borderTop: 'none' }}>
+            <div className="theme-faq-kicker">
+              <span className="theme-faq-kicker-line"></span>
+              FAQS
+            </div>
+            <div className="theme-faq-heading">
+              <h2>Frequently Asked <em>Questions</em></h2>
+              <p>Everything you need to know about using the NSE Stock Screener.</p>
+            </div>
+
+            <div className="theme-faq-accordion">
+              {[
+                {
+                  q: "What is a Stock Screener?",
+                  a: "A stock screener helps you filter and discover stocks based on market data, financial ratios, and performance indicators."
+                },
+                {
+                  q: "How can I filter stocks by market cap?",
+                  a: "Choose Large Cap, Mid Cap, Small Cap, or Micro Cap to narrow your search by company size."
+                },
+                {
+                  q: "Can I filter stocks using financial ratios?",
+                  a: "Yes. Use P/E Ratio, ROE, and ROCE minimum and maximum values to find stocks matching your preferred criteria."
+                },
+                {
+                  q: "What other filters are available?",
+                  a: "You can filter by market capitalization, quarterly operating profit margin (OPM), broad market indices, and sectoral indices."
+                },
+                {
+                  q: "How can I quickly find a particular stock?",
+                  a: "Search by stock symbol, company name, or ISIN. You can also sort results by name and clear all filters to start again."
+                }
+              ].map((faq, idx) => {
+                const isOpen = activeScreenerFaq === idx;
+                return (
+                  <div key={idx} className={`theme-faq-item ${isOpen ? "open" : ""}`}>
+                    <button
+                      className="theme-faq-trigger"
+                      onClick={() => setActiveScreenerFaq(isOpen ? null : idx)}
+                      aria-expanded={isOpen}
+                    >
+                      <span className="theme-faq-q-number">{String(idx + 1).padStart(2, "0")}.</span>
+                      <span className="theme-faq-question">{faq.q}</span>
+                      <span className="theme-faq-icon-arrow">
+                        <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+                          <path d="M1 1L6 6L11 1" stroke="#101512" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
+                    </button>
+                    <div className="theme-faq-answer-wrap">
+                      <div className="theme-faq-answer">
+                        <p>{faq.a}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </section>
     </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo, useRef } from "react";
+import Image from "next/image";
 
 const themeSectorBars = [
   { name: 'Nifty India Defence',              icon: 'sector-icon-defence.png',       pdf: 'nifty-india-defence-report.pdf', ytd: 21.06 },
@@ -271,7 +272,7 @@ export default function ClientResearchPage() {
         <div className="wrap" style={{ paddingBottom: '0' }}>
           <div className="section-head" style={{ marginBottom: '20px' }}>
             <div>
-              <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#111411]">Sector & Thematic Research</h1>
+              <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#111411]">Your one stop Research at one sinlge place !</h1>
               <p className="text-gray-600 mt-2 text-sm md:text-base">Comprehensive sectoral overviews, interactive heatmaps, and theme-based index performance metrics.</p>
             </div>
           </div>
@@ -281,9 +282,9 @@ export default function ClientResearchPage() {
       {/* ================= SECTION: ONE STOP SECTORAL OVERVIEW ================= */}
       <section className="section sectoral-overview-section max-w-7xl mx-auto" id="sectoral-overview" style={{ borderTop: '1px solid rgba(17,20,17,0.1)', paddingTop: '40px' }}>
         <div className="wrap">
-          <div className="section-head text-center mx-auto" style={{ marginBottom: "28px" }}>
-            <h2 className="text-3xl font-bold uppercase text-black text-center" style={{ margin: '0 auto 10px' }}>One Stop Sectoral Overview</h2>
-            <p className="text-center" style={{ margin: '0 auto' }}>Select a sector below, then click through to open its full performance report PDF.</p>
+          <div className="section-head" style={{ display: 'block', marginBottom: "28px" }}>
+            <h2 className="text-3xl font-bold uppercase text-black" style={{ marginBottom: '8px' }}>One Stop Sectoral Overview</h2>
+            <p className="text-gray-600 text-sm md:text-base" style={{ margin: '0', maxWidth: 'none' }}>Select a sector below, then click through to open its full performance report PDF.</p>
           </div>
 
           <div className="sector-picker">
@@ -313,7 +314,7 @@ export default function ClientResearchPage() {
                   if (sector.pdf) window.open(`/${sector.pdf}`, '_blank', 'noopener,noreferrer');
                 }}
               >
-                <img src={sector.img} alt={sector.name} />
+                <Image src={sector.img} alt={sector.name} width={28} height={28} />
                 <span>{sector.name}</span>
               </button>
             ))}
@@ -324,11 +325,9 @@ export default function ClientResearchPage() {
       {/* ================= SECTION: SECTOR UNIVERSE BUBBLE MAP ================= */}
       <section id="sectoral-heatmap" className="section sector-universe-section max-w-7xl mx-auto" style={{ borderTop: '1px solid rgba(17,20,17,0.1)', paddingTop: '40px' }}>
         <div className="wrap">
-          <div className="section-head">
-            <div>
-              <h2 className="text-3xl font-bold uppercase text-black">Single Heatmap for All Sectors</h2>
-              <p className="text-gray-600 mt-2 text-sm md:text-base">Bubble size reflects the size of the YTD return, color shows direction. Click a sector bubble to open its full report.</p>
-            </div>
+          <div className="section-head" style={{ display: 'block', marginBottom: "28px" }}>
+            <h2 className="text-3xl font-bold uppercase text-black" style={{ marginBottom: '8px' }}>Single Heatmap for All Sectors</h2>
+            <p className="text-gray-600 text-sm md:text-base" style={{ margin: '0', maxWidth: 'none' }}>Bubble size reflects the size of the YTD return, color shows direction. Click a sector bubble to open its full report.</p>
           </div>
 
           <div className="universe-layout">
@@ -407,9 +406,9 @@ export default function ClientResearchPage() {
       {/* ================= SECTION: THEME BASED SECTORS ================= */}
       <section className="section theme-based-sectors-section max-w-7xl mx-auto" id="theme-based-sectors" style={{ borderTop: '1px solid rgba(17,20,17,0.1)', paddingTop: '40px' }}>
         <div className="wrap">
-          <div className="section-head text-center mx-auto" style={{ marginBottom: "28px" }}>
-            <h2 className="text-3xl font-bold uppercase text-black text-center" style={{ margin: '0 auto 10px' }}>Theme Based Sectors at One Place</h2>
-            <p className="text-center text-gray-600 text-sm md:text-base" style={{ margin: '0 auto' }}>Click on any index box below to open its official performance report PDF.</p>
+          <div className="section-head" style={{ display: 'block', marginBottom: "28px" }}>
+            <h2 className="text-3xl font-bold uppercase text-black" style={{ marginBottom: '8px' }}>Theme Based Sectors at One Place</h2>
+            <p className="text-gray-600 text-sm md:text-base" style={{ margin: '0', maxWidth: 'none' }}>Click on any index box below to open its official performance report PDF.</p>
           </div>
 
           <div className="theme-bars">
@@ -427,7 +426,7 @@ export default function ClientResearchPage() {
                     if (s.pdf) window.open(`/${s.pdf}`, '_blank', 'noopener,noreferrer');
                   }}
                 >
-                  <img className="theme-bar-icon" src={`/${s.icon}`} alt={s.name} />
+                  <Image className="theme-bar-icon" src={`/${s.icon}`} alt={s.name} width={32} height={32} />
                   <span className="theme-bar-name">{s.name}</span>
                   <div className="theme-bar-track">
                     <div className={`theme-bar-fill ${isGain ? "gain" : "loss"}`} style={{ width: `${widthPct}%` }}></div>

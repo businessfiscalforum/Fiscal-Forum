@@ -164,6 +164,7 @@ export default function ClientReportsPage({
   /* ============ PAGE TABS ============ */
   const [activeTab, setActiveTab] = useState(tabs[0].id);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  const [activeReportsFaq, setActiveReportsFaq] = useState<number | null>(null);
 
 
 
@@ -717,10 +718,6 @@ export default function ClientReportsPage({
         <div className="wrap">
           <div className="hero-grid">
             <div className="hero-copy">
-              <span className="eyebrow">
-                <span className="dot"></span>
-                Research Reports Portal
-              </span>
               <h1>Institutional-grade<br />research,<br /><em>made readable.</em></h1>
               <p className="sub">
                 <span className="hero-line-mask">
@@ -1663,6 +1660,71 @@ export default function ClientReportsPage({
                 </div>
               </div>
             )}
+          </div>
+        </div>
+      </section>
+
+      {/* ================= SECTION: FREQUENTLY ASKED QUESTIONS ================= */}
+      <section className="section reports-faq-section" style={{ borderTop: '1px solid rgba(17,20,17,0.1)', paddingTop: '40px', paddingBottom: '60px' }}>
+        <div className="wrap">
+          <div className="theme-faq-container" style={{ marginTop: '0px', paddingTop: '0px', borderTop: 'none' }}>
+            <div className="theme-faq-kicker">
+              <span className="theme-faq-kicker-line"></span>
+              FAQS
+            </div>
+            <div className="theme-faq-heading">
+              <h2>Frequently Asked <em>Questions</em></h2>
+              <p>Everything you need to know about our research reports, pre-market updates, and market coverage.</p>
+            </div>
+
+            <div className="theme-faq-accordion">
+              {[
+                {
+                  q: "What types of reports are available?",
+                  a: "We provide pre-market reports and weekly market outlooks to help you stay informed about market trends."
+                },
+                {
+                  q: "What is a pre-market report?",
+                  a: "It highlights key market cues, global developments, and factors that may influence the market before trading begins."
+                },
+                {
+                  q: "What does the weekly report cover?",
+                  a: "It summarises the week’s market performance, major events, sector trends, and outlook for the upcoming week."
+                },
+                {
+                  q: "How often are reports updated?",
+                  a: "Pre-market reports are updated on trading days, while weekly reports are published once a week."
+                },
+                {
+                  q: "Can these reports help me make investment decisions?",
+                  a: "Our reports provide market insights for informed decision-making but should not be considered guaranteed predictions or personalised investment advice."
+                }
+              ].map((faq, idx) => {
+                const isOpen = activeReportsFaq === idx;
+                return (
+                  <div key={idx} className={`theme-faq-item ${isOpen ? "open" : ""}`}>
+                    <button
+                      className="theme-faq-trigger"
+                      onClick={() => setActiveReportsFaq(isOpen ? null : idx)}
+                      aria-expanded={isOpen}
+                    >
+                      <span className="theme-faq-q-number">{String(idx + 1).padStart(2, "0")}.</span>
+                      <span className="theme-faq-question">{faq.q}</span>
+                      <span className="theme-faq-icon-arrow">
+                        <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+                          <path d="M1 1L6 6L11 1" stroke="#101512" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
+                    </button>
+                    <div className="theme-faq-answer-wrap">
+                      <div className="theme-faq-answer">
+                        <p>{faq.a}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
