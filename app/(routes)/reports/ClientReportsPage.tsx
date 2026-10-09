@@ -13,6 +13,8 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import { UserDetailContext } from "../../../context/UserDetailContext";
 import useEmblaCarousel from "embla-carousel-react";
 
@@ -378,6 +380,14 @@ export default function ClientReportsPage({
   initialReports,
 }: ClientReportsPageProps) {
   const { userDetail } = useContext(UserDetailContext);
+  const { isLoaded, isSignedIn } = useUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isLoaded && !isSignedIn) {
+      router.push("/sign-in?redirect_url=" + encodeURIComponent("/reports"));
+    }
+  }, [isLoaded, isSignedIn, router]);
   /* ============ PAGE TABS ============ */
   const [activeTab, setActiveTab] = useState(tabs[0].id);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);

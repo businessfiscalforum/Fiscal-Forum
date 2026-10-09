@@ -3,8 +3,15 @@ import ClientReportsPage from "./ClientReportsPage";
 import { db } from "../../../config/db";
 import { researchReportsTable, SelectResearchReport } from "../../../config/schema";
 import { desc } from "drizzle-orm";
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 export default async function ReportsPage() {
+  const user = await currentUser();
+  if (!user || !user.emailAddresses?.[0]?.emailAddress) {
+    redirect("/sign-in?redirect_url=" + encodeURIComponent("/reports"));
+  }
+
   let reports: SelectResearchReport[] = [];
   try {
     if (process.env.DATABASE_URL && !process.env.DATABASE_URL.includes("placeholder")) {
