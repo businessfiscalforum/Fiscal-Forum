@@ -6,6 +6,7 @@ import {
   FaInfoCircle,
 } from "react-icons/fa";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ClientScreenerPage() {
 
@@ -280,10 +281,20 @@ export default function ClientScreenerPage() {
       {/* ================= PAGE HEADER ================= */}
       <section className="section screener-embed-section max-w-7xl mx-auto" id="equity-screener">
         <div className="wrap" style={{ paddingBottom: '0' }}>
-          <div className="section-head" style={{ marginBottom: '20px' }}>
-            <div>
-              <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#111411]">NSE Equity Screener</h1>
-              <p className="text-gray-600 mt-2 text-sm md:text-base">Screen the NSE equity market smarter, compare opportunities, and make more informed investment decisions</p>
+          <div className="section-head mb-8" style={{ marginBottom: '32px' }}>
+            <div className="mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#111411]">NSE Equity Screener</h1>
+              <p className="text-gray-700 mt-3 text-base md:text-lg font-medium leading-relaxed max-w-3xl">Screen the NSE equity market smarter, compare opportunities, and make more informed investment decisions</p>
+            </div>
+            <div className="w-full relative aspect-[21/9] md:aspect-[24/8] rounded-2xl overflow-hidden shadow-lg border border-black/10">
+              <Image
+                src="/images/nse-screener-header.jpg"
+                alt="NSE Equity Screener Banner"
+                fill
+                sizes="100vw"
+                className="object-cover hover:scale-105 transition-transform duration-500"
+                priority
+              />
             </div>
           </div>
         </div>
