@@ -30,7 +30,8 @@ import { BarChart3, BookOpen, Shield, TrendingUp, Wallet, Coins, Rocket, Chevron
 import ResearchReportsSection from "./ResearchReportsSection";
 import Head from "next/head";
 
-import { useUser } from "@clerk/nextjs";
+import { useUser, useClerk } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import { UsersDetail } from "../../provider";
 import HomeNewsAndResearchSection from "./HomeResearchAndNewsSection";
 import FathomSlider from "./FathomSlider";
@@ -437,12 +438,16 @@ const additionalServices = [
 // ];
 
 export default function HomeDesktop() {
+  const { user, isLoaded } = useUser();
+  const { openSignIn } = useClerk();
+  const router = useRouter();
+
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-  /* ============ SMOOTH POP-UP VIDEO AFTER EMPIRE SECTION ============ */
+  /* ============ SMOOTH POP-UP VIDEO / LOGIN TRIGGER AFTER EMPIRE SECTION ============ */
   const [showVideoPopup, setShowVideoPopup] = useState<boolean>(false);
   const [hasTriggeredPopup, setHasTriggeredPopup] = useState<boolean>(false);
   const videoTriggerRef = useRef<HTMLDivElement>(null);
@@ -515,9 +520,17 @@ export default function HomeDesktop() {
         entries.forEach((entry) => {
           if (entry.isIntersecting && !hasTriggeredPopup) {
             setHasTriggeredPopup(true);
-            setShowVideoPopup(true);
-            if (typeof document !== "undefined") {
-              document.body.style.overflow = "hidden";
+            if (isLoaded && !user) {
+              if (openSignIn) {
+                openSignIn();
+              } else {
+                router.push("/sign-in");
+              }
+            } else {
+              setShowVideoPopup(true);
+              if (typeof document !== "undefined") {
+                document.body.style.overflow = "hidden";
+              }
             }
           }
         });
@@ -527,7 +540,7 @@ export default function HomeDesktop() {
 
     observer.observe(triggerEl);
     return () => observer.disconnect();
-  }, [hasTriggeredPopup]);
+  }, [hasTriggeredPopup, isLoaded, user, openSignIn, router]);
 
   useEffect(() => {
     if (!showVideoPopup) return;
@@ -791,7 +804,6 @@ export default function HomeDesktop() {
   };
 
   const [userDetail, setUserDetail] = useState<UsersDetail | null>(null);
-  const { user, isLoaded } = useUser();
 
   useEffect(() => {
     if (!isLoaded || !user) return;

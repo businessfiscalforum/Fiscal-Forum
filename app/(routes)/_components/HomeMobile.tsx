@@ -19,7 +19,8 @@ import FiscalForumCityMobile from "./FiscalForumCityMobile";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import { BarChart3, BookOpen, Shield, TrendingUp, Wallet, Coins, Rocket, ChevronLeft, ChevronRight } from "lucide-react";
-import { useUser } from "@clerk/nextjs";
+import { useUser, useClerk } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import HomeNewsAndResearchSectionMobile from "./HomeResearchAndNewsSection";
 import ResearchReportsSectionMobile from "./ResearchReportsSection";
 
@@ -490,6 +491,10 @@ const content = {
 };
 
 export default function HomeMobile() {
+  const { user, isLoaded } = useUser();
+  const { openSignIn } = useClerk();
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [direction, setDirection] = useState(0);
@@ -652,9 +657,17 @@ export default function HomeMobile() {
         entries.forEach((entry) => {
           if (entry.isIntersecting && !hasTriggeredPopup) {
             setHasTriggeredPopup(true);
-            setShowVideoPopup(true);
-            if (typeof document !== "undefined") {
-              document.body.style.overflow = "hidden";
+            if (isLoaded && !user) {
+              if (openSignIn) {
+                openSignIn();
+              } else {
+                router.push("/sign-in");
+              }
+            } else {
+              setShowVideoPopup(true);
+              if (typeof document !== "undefined") {
+                document.body.style.overflow = "hidden";
+              }
             }
           }
         });
@@ -664,7 +677,7 @@ export default function HomeMobile() {
 
     observer.observe(triggerEl);
     return () => observer.disconnect();
-  }, [hasTriggeredPopup]);
+  }, [hasTriggeredPopup, isLoaded, user, openSignIn, router]);
 
   useEffect(() => {
     if (!showVideoPopup) return;
@@ -691,7 +704,6 @@ export default function HomeMobile() {
   const [activeTab, setActiveTab] = useState<
     "investment-products" | "banking-products"
   >("investment-products");
-  const { user } = useUser();
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
