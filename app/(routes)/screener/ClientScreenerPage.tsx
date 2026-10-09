@@ -7,6 +7,20 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
+
+const MATRIX_TILES = [
+  { id: 1, src: "/images/screener-grid/tile-1.jpg", alt: "Reliance Industries", initial: { x: -160, y: -160, opacity: 0, scale: 0.6, rotate: -8 }, delay: 0.05 },
+  { id: 2, src: "/images/screener-grid/tile-2.jpg", alt: "Bharti Airtel", initial: { x: 0, y: -180, opacity: 0, scale: 0.6, rotate: 0 }, delay: 0.1 },
+  { id: 3, src: "/images/screener-grid/tile-3.jpg", alt: "HDFC Bank", initial: { x: 160, y: -160, opacity: 0, scale: 0.6, rotate: 8 }, delay: 0.15 },
+  { id: 4, src: "/images/screener-grid/tile-4.jpg", alt: "ICICI Bank", initial: { x: -180, y: 0, opacity: 0, scale: 0.6, rotate: -5 }, delay: 0.2 },
+  { id: 5, src: "/images/screener-grid/tile-5.jpg", alt: "State Bank of India", initial: { x: 0, y: 0, opacity: 0, scale: 0.2, rotate: 0 }, delay: 0.25 },
+  { id: 6, src: "/images/screener-grid/tile-6.jpg", alt: "Tata Consultancy Services", initial: { x: 180, y: 0, opacity: 0, scale: 0.6, rotate: 5 }, delay: 0.3 },
+  { id: 7, src: "/images/screener-grid/tile-7.jpg", alt: "Bajaj Finance", initial: { x: -160, y: 160, opacity: 0, scale: 0.6, rotate: -8 }, delay: 0.35 },
+  { id: 8, src: "/images/screener-grid/tile-8.jpg", alt: "Larsen & Toubro", initial: { x: 0, y: 180, opacity: 0, scale: 0.6, rotate: 0 }, delay: 0.4 },
+  { id: 9, src: "/images/screener-grid/tile-9.jpg", alt: "Life Insurance Corporation of India", initial: { x: 160, y: 160, opacity: 0, scale: 0.6, rotate: 8 }, delay: 0.45 },
+];
+
 
 export default function ClientScreenerPage() {
 
@@ -286,16 +300,34 @@ export default function ClientScreenerPage() {
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#111411]">NSE Equity Screener</h1>
               <p className="text-gray-700 mt-3 text-base md:text-lg font-medium leading-relaxed">Screen the NSE equity market smarter, compare opportunities, and make more informed investment decisions</p>
             </div>
-            <div className="mt-6 w-full max-w-3xl relative aspect-[16/9] sm:aspect-[21/9] rounded-2xl overflow-hidden shadow-lg border border-black/10 screener-image-border-animate group">
-              <Image
-                src="/images/nse-screener-header.jpg"
-                alt="NSE Equity Screener Banner"
-                fill
-                sizes="(max-width: 1024px) 100vw, 768px"
-                className="object-cover hover:scale-105 transition-transform duration-500"
-                priority
-              />
-              {/* Smooth Animated Thin Black Border Overlay around edges */}
+            <div className="mt-6 w-full max-w-[320px] sm:max-w-[360px] mx-auto relative aspect-square rounded-2xl overflow-hidden shadow-xl border border-black/10 screener-image-border-animate group bg-slate-900/5 backdrop-blur-md p-1.5">
+              <div className="w-full h-full grid grid-cols-3 grid-rows-3 gap-1 rounded-xl overflow-hidden bg-white/80 shadow-inner">
+                {MATRIX_TILES.map((tile) => (
+                  <motion.div
+                    key={tile.id}
+                    initial={tile.initial}
+                    animate={{ x: 0, y: 0, opacity: 1, scale: 1, rotate: 0 }}
+                    transition={{
+                      duration: 0.8,
+                      delay: tile.delay,
+                      type: "spring",
+                      stiffness: 110,
+                      damping: 14,
+                    }}
+                    className="relative w-full h-full overflow-hidden rounded-md shadow-sm"
+                  >
+                    <Image
+                      src={tile.src}
+                      alt={tile.alt}
+                      fill
+                      sizes="(max-width: 768px) 33vw, 120px"
+                      className="object-cover hover:scale-105 transition-transform duration-300"
+                      priority
+                    />
+                  </motion.div>
+                ))}
+              </div>
+              {/* Smooth Animated Thin White Border Overlay around edges */}
               <div className="absolute inset-0 pointer-events-none rounded-2xl overflow-hidden z-20">
                 <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
                   <rect
