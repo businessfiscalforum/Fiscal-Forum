@@ -756,11 +756,11 @@ export default function HomeMobile() {
       </AnimatePresence>
 
       {/* 🔹 Tabbed Services (Cards Grid) */}
-      <section className="px-4 py-8 bg-[#F4FBF7] border-b border-black" id="services-section-mobile">
-        <h2 className="text-xl sm:text-2xl font-bold text-black uppercase tracking-tight text-center mb-6">
+      <section className="px-4 py-6 sm:py-8 bg-[#F4FBF7] border-b border-black" id="services-section-mobile">
+        <h2 className="text-lg sm:text-2xl font-bold text-black uppercase tracking-tight text-center mb-4 sm:mb-6">
           Our Financial Premium Services
         </h2>
-        <div className="flex justify-center gap-2 mb-6">
+        <div className="flex justify-center gap-2 mb-4 sm:mb-6">
           {([
             { id: "investment-products", label: "Investment" },
             { id: "banking-products", label: "Banking" },
@@ -768,7 +768,7 @@ export default function HomeMobile() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2 border border-black rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${activeTab === tab.id
+              className={`px-4 py-1.5 sm:py-2 border border-black rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${activeTab === tab.id
                 ? "bg-yellow-100 text-black shadow-sm"
                 : "bg-white text-black"
                 }`}
@@ -778,26 +778,26 @@ export default function HomeMobile() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
           {content[activeTab].map((item, i) => (
-            <Link key={i} href={item.link} className="block">
+            <Link key={i} href={item.link} className="block h-full">
               <motion.div
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="bg-white border border-black rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col justify-between h-full min-h-[145px]"
+                className="bg-white border border-black rounded-2xl p-3 sm:p-4 shadow-sm flex flex-col justify-between h-full min-h-[140px] sm:min-h-[155px]"
               >
                 <div>
                   {/* Title and Image Row */}
-                  <div className="flex justify-between items-center gap-3">
-                    <div className="flex-1 min-w-0">
+                  <div className="flex justify-between items-start gap-2">
+                    <div className="flex-1 min-w-0 pr-1">
                       {/* Title */}
-                      <h3 className="font-bold text-black text-sm sm:text-base leading-snug">
+                      <h3 className="font-bold text-black text-xs sm:text-sm leading-tight break-words">
                         {item.title}
                       </h3>
                     </div>
                     {/* Cropped illustration image */}
                     {(item as { image?: string }).image && (
-                      <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 relative rounded-xl overflow-hidden border border-black/10 shadow-sm aspect-square bg-gray-50/50">
+                      <div className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 relative rounded-xl overflow-hidden border border-black/10 shadow-sm aspect-square bg-gray-50/50">
                         <Image
                           src={(item as { image?: string }).image!}
                           alt={item.title}
@@ -808,9 +808,9 @@ export default function HomeMobile() {
                     )}
                   </div>
                 </div>
-                <div className="mt-4">
-                  <span className="revolving-border-btn shadow-sm">
-                    <span className="revolving-border-btn-content py-2 text-xs tracking-wider gap-1.5">
+                <div className="mt-3">
+                  <span className="revolving-border-btn shadow-sm block w-full">
+                    <span className="revolving-border-btn-content py-1.5 sm:py-2 text-[10px] sm:text-xs font-bold tracking-wider gap-1">
                       EXPLORE HERE
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -818,7 +818,7 @@ export default function HomeMobile() {
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="3"
-                        className="w-4 h-4"
+                        className="w-3.5 h-3.5 flex-shrink-0"
                       >
                         <path d="M5 12h14M12 5l7 7-7 7" />
                       </svg>
