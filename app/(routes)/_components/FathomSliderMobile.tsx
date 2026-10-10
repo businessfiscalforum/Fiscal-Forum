@@ -448,7 +448,7 @@ export default function FathomSliderMobile() {
       <div className="w-full h-px bg-black z-10 relative" aria-hidden="true" />
 
       {/* Closing CTA */}
-      <div className="relative z-10 w-full bg-[#F4FBF7] py-12 px-6 flex flex-col gap-6 select-none border-b border-black">
+      <div className="relative z-10 w-full bg-[#F4FBF7] py-10 px-5 sm:px-6 flex flex-col gap-6 select-none border-b border-black">
         {/* Left Card: Research Reports */}
         <motion.div
           initial={{ opacity: 0, x: -60 }}
@@ -477,7 +477,7 @@ export default function FathomSliderMobile() {
           </div>
 
           {/* Cover Image Showcase */}
-          <div className="w-full relative aspect-[3/2] border-b border-black/10 bg-white">
+          <div className="w-full relative aspect-[16/9] border-b border-black/10 bg-white">
             <Image
               src="/images/research_banner.jpg"
               alt="Research Reports Banner"
@@ -486,18 +486,18 @@ export default function FathomSliderMobile() {
               className="object-cover"
             />
           </div>
-          <div className="p-5 flex-1 flex flex-col justify-between space-y-4 text-center">
+          <div className="p-4 sm:p-4.5 flex-1 flex flex-col justify-between space-y-3 text-center">
             <div>
-              <h3 className="text-lg font-extrabold text-black uppercase tracking-tight leading-tight">
+              <h3 className="text-[21px] sm:text-[22px] font-extrabold text-black uppercase tracking-tight leading-tight">
                 Research Reports
               </h3>
-              <p className="text-xs font-semibold text-gray-800 leading-snug mt-2">
+              <p className="text-[14px] font-medium text-gray-800 leading-snug mt-2">
                 Everything you need to invest smarter, all in one place. Get actionable market insights, in-depth research, and reports personalized to your investment goals.
               </p>
             </div>
             <div className="w-full relative z-10 flex flex-col sm:flex-row items-center justify-center gap-2">
               <Link href="/reports" className="w-full block">
-                <button className="relative w-full py-2.5 bg-black !text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-zinc-900 transition-all cursor-pointer button-border-animate-container hover:-translate-y-0.5 duration-200">
+                <button className="relative w-full h-[44px] bg-black !text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-zinc-900 transition-all cursor-pointer button-border-animate-container hover:-translate-y-0.5 duration-200 flex items-center justify-center">
                   {/* Animated Border Overlay */}
                   <div className="absolute inset-0 pointer-events-none z-20">
                     <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -519,7 +519,6 @@ export default function FathomSliderMobile() {
                   <span className="relative z-10">CLICK HERE</span>
                 </button>
               </Link>
-
             </div>
           </div>
         </motion.div>
@@ -552,7 +551,7 @@ export default function FathomSliderMobile() {
           </div>
 
           {/* Banner Image (spanning full width of the card) */}
-          <div className="w-full relative aspect-[3/2] border-b border-black/10 bg-white">
+          <div className="w-full relative aspect-[16/9] border-b border-black/10 bg-white">
             <Image
               src="/images/report_banner.jpg"
               alt="Personalized Report Center Banner"
@@ -561,26 +560,26 @@ export default function FathomSliderMobile() {
               className="object-cover"
             />
           </div>
-          <div className="p-5 flex-1 flex flex-col justify-between space-y-4 text-center">
+          <div className="p-4 sm:p-4.5 flex-1 flex flex-col justify-between space-y-3 text-center">
             <div>
-              <h3 className="text-lg font-extrabold text-black uppercase tracking-tight leading-tight">
+              <h3 className="text-[21px] sm:text-[22px] font-extrabold text-black uppercase tracking-tight leading-tight">
                 Want Customised Reports ?
               </h3>
               <div className="mt-2 space-y-1 text-center">
-                <p className="text-[11px] font-semibold text-gray-700 leading-tight">
+                <p className="text-[14px] font-medium text-gray-800 leading-snug">
                   Your financial journey is unique.
                 </p>
-                <p className="text-[11px] font-semibold text-gray-700 leading-tight">
+                <p className="text-[14px] font-medium text-gray-800 leading-snug">
                   So why settle for generic recommendations?
                 </p>
-                <p className="text-[11px] font-semibold text-gray-700 leading-tight">
+                <p className="text-[14px] font-medium text-gray-800 leading-snug">
                   Get insights designed specifically for you...
                 </p>
               </div>
             </div>
             <div className="w-full relative z-10 flex flex-col sm:flex-row items-center justify-center gap-2">
               <Link href="/reports/customised" className="w-full block">
-                <button className="relative w-full py-2.5 bg-black !text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-zinc-900 transition-all cursor-pointer button-border-animate-container hover:-translate-y-0.5 duration-200">
+                <button className="relative w-full h-[44px] bg-black !text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-sm hover:bg-zinc-900 transition-all cursor-pointer button-border-animate-container hover:-translate-y-0.5 duration-200 flex items-center justify-center">
                   {/* Animated Border Overlay */}
                   <div className="absolute inset-0 pointer-events-none z-20">
                     <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -602,7 +601,6 @@ export default function FathomSliderMobile() {
                   <span className="relative z-10">CLICK HERE</span>
                 </button>
               </Link>
-
             </div>
           </div>
         </motion.div>

@@ -1061,7 +1061,7 @@ export default function HomeMobile() {
               key={i}
               className="bg-white border border-black rounded-2xl shadow-sm flex flex-col h-full text-center overflow-hidden"
             >
-              <div className="relative w-full aspect-[16/10] overflow-hidden border-b border-black/10">
+              <div className="relative w-full aspect-[16/7.5] overflow-hidden border-b border-black/10">
                 <Image
                   src={f.image}
                   alt={f.title}
@@ -1069,8 +1069,8 @@ export default function HomeMobile() {
                   className="object-cover"
                 />
               </div>
-              <div className="p-3 flex-1 flex flex-col justify-center">
-                <h4 className="font-bold text-black text-[12px] leading-snug">
+              <div className="px-2.5 py-2 flex-1 flex flex-col justify-center items-center">
+                <h4 className="font-bold text-black text-[13px] sm:text-[14px] leading-tight text-center line-clamp-2">
                   {f.title}
                 </h4>
               </div>
