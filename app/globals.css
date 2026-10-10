@@ -4488,7 +4488,7 @@ body {
     position: sticky;
     top: 72px; /* Offset under main header */
     z-index: 95;
-    background: var(--bg);
+    background: transparent;
     border-bottom: var(--bw) solid var(--line);
     transition: box-shadow .3s;
   }

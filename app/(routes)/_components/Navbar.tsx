@@ -93,7 +93,7 @@ export default function Navbar() {
   return (
     <nav
       ref={navRef}
-      className="fixed top-0 z-[100] w-full bg-white border-b border-black px-4 sm:px-6 lg:px-8 py-3 md:py-4 shadow-none"
+      className="fixed top-0 z-[100] w-full bg-transparent backdrop-blur-md border-b border-black/10 px-4 sm:px-6 lg:px-8 py-3 md:py-4 shadow-none"
     >
       <div className="w-full flex justify-between items-center relative">
 

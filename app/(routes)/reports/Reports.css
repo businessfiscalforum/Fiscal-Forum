@@ -44,7 +44,7 @@
 /* ---------- nav ---------- */
 .topnav{
   position:sticky;top:0;z-index:60;
-  background:var(--cream);
+  background:transparent;
   
 }
 .topnav-inner{
