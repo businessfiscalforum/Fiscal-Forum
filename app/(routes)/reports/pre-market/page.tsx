@@ -2,7 +2,6 @@
 import { db } from "../../../../config/db";
 import { researchReportsTable, SelectResearchReport } from "../../../../config/schema";
 import { desc } from "drizzle-orm";
-import Image from "next/image";
 import PreMarketDatabaseTable from "./PreMarketDatabaseTable";
 import "./premarket.css";
 
@@ -71,7 +70,14 @@ export default async function PreMarketLandingPage() {
 
           <div className="card-stage">
             <div className="hero-img-wrap">
-              <Image src="/premarket-header.png" alt="Pre-Market Report Banner" className="hero-image" width={860} height={537} priority />
+              <video
+                src="/videos/fiscal_forum_premarket_india_pro_report.mp4"
+                className="hero-image object-cover w-full h-full"
+                autoPlay
+                loop
+                muted
+                playsInline
+              />
             </div>
           </div>
         </div>
