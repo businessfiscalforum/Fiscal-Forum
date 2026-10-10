@@ -987,15 +987,15 @@ export default function HomeMobile() {
         </div>
 
         {/* Women's Section & IPO WORLD */}
-        <div className="flex flex-col gap-3.5 mb-8 text-left">
+        <div className="flex flex-col gap-3 mb-8 text-left">
           {/* Women's Section Card */}
-          <div className="bg-white border border-black rounded-2xl p-4 shadow-sm flex flex-col justify-between">
-            <div className="space-y-2.5">
-              <div className="flex justify-between items-start gap-3">
-                <h3 className="text-[19px] font-bold text-black uppercase tracking-tight flex-1 pt-0.5">
+          <div className="bg-white border border-black rounded-2xl p-3 sm:p-3.5 shadow-sm flex flex-col justify-between">
+            <div className="space-y-1.5">
+              <div className="flex justify-between items-start gap-2.5">
+                <h3 className="text-[16px] font-bold text-black uppercase tracking-tight flex-1 pt-0.5">
                   Womens Section
                 </h3>
-                <div className="flex-shrink-0 w-[68px] h-[68px] relative rounded-xl overflow-hidden border border-black/10 shadow-sm">
+                <div className="flex-shrink-0 w-[52px] h-[52px] relative rounded-lg overflow-hidden border border-black/10 shadow-sm">
                   <Image
                     src="/images/service-women.png"
                     alt="Womens Section"
@@ -1004,16 +1004,14 @@ export default function HomeMobile() {
                   />
                 </div>
               </div>
-              <p className="text-[14px] sm:text-[15px] text-gray-700 font-medium leading-relaxed">
-                {"When a woman understands money, the whole family's future becomes stronger."}
-                <br />
-                {"Start your financial learning journey with easy, bite-sized insights..."}
+              <p className="text-[13px] text-gray-700 font-medium leading-snug line-clamp-2">
+                {"When a woman understands money, the whole family's future becomes stronger. Start your financial learning journey with easy, bite-sized insights..."}
               </p>
             </div>
-            <div className="pt-3">
+            <div className="pt-2">
               <Link href="/for-women" className="inline-block">
-                <button className="revolving-border-btn inline shadow-sm">
-                  <span className="revolving-border-btn-content px-4 py-2 text-xs font-bold tracking-wider">
+                <button className="revolving-border-btn inline h-[36px] shadow-sm">
+                  <span className="revolving-border-btn-content px-3.5 text-[13px] font-bold tracking-wider">
                     Womens Section
                   </span>
                 </button>
@@ -1022,13 +1020,13 @@ export default function HomeMobile() {
           </div>
 
           {/* IPO World Card */}
-          <div className="bg-white border border-black rounded-2xl p-4 shadow-sm flex flex-col justify-between">
-            <div className="space-y-2.5">
-              <div className="flex justify-between items-start gap-3">
-                <h3 className="text-[19px] font-bold text-black uppercase tracking-tight flex-1 pt-0.5">
+          <div className="bg-white border border-black rounded-2xl p-3 sm:p-3.5 shadow-sm flex flex-col justify-between">
+            <div className="space-y-1.5">
+              <div className="flex justify-between items-start gap-2.5">
+                <h3 className="text-[16px] font-bold text-black uppercase tracking-tight flex-1 pt-0.5">
                   IPO WORLD
                 </h3>
-                <div className="flex-shrink-0 w-[68px] h-[68px] relative rounded-xl overflow-hidden border border-black/10 shadow-sm">
+                <div className="flex-shrink-0 w-[52px] h-[52px] relative rounded-lg overflow-hidden border border-black/10 shadow-sm">
                   <Image
                     src="/images/service-ipo.png"
                     alt="IPO WORLD"
@@ -1037,16 +1035,14 @@ export default function HomeMobile() {
                   />
                 </div>
               </div>
-              <p className="text-[14px] sm:text-[15px] text-gray-700 font-medium leading-relaxed">
-                {"Every successful company was once a new opportunity."}
-                <br />
-                {"Discover IPOs explained simply before you decide to invest..."}
+              <p className="text-[13px] text-gray-700 font-medium leading-snug line-clamp-2">
+                {"Every successful company was once a new opportunity. Discover IPOs explained simply before you decide to invest..."}
               </p>
             </div>
-            <div className="pt-3">
+            <div className="pt-2">
               <Link href="/news?tab=ipo-scoop" className="inline-block">
-                <button className="revolving-border-btn inline shadow-sm">
-                  <span className="revolving-border-btn-content px-4 py-2 text-xs font-bold tracking-wider">
+                <button className="revolving-border-btn inline h-[36px] shadow-sm">
+                  <span className="revolving-border-btn-content px-3.5 text-[13px] font-bold tracking-wider">
                     Explore IPO Universe
                   </span>
                 </button>
