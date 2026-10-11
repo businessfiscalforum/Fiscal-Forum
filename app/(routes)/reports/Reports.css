@@ -1972,6 +1972,36 @@
   #screener-app select {
     width: 100% !important;
   }
+  #screener-app .pager {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: clamp(3px, 1.2vw, 6px) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    margin-top: 18px !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  #screener-app .pager::-webkit-scrollbar {
+    display: none !important;
+  }
+  #screener-app .page-btn {
+    padding: 6px clamp(5px, 1.8vw, 10px) !important;
+    font-size: clamp(0.7rem, 2.5vw, 0.82rem) !important;
+    line-height: 1 !important;
+    min-width: clamp(28px, 7.5vw, 36px) !important;
+    height: 32px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+    box-sizing: border-box !important;
+  }
 }
 
 @media (prefers-reduced-motion:reduce){
