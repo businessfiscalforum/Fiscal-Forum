@@ -8,11 +8,14 @@ import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
 import {
+  FaSearch,
+  FaFilter,
   FaChevronLeft,
   FaChevronRight,
   FaArrowUp,
   FaNewspaper,
   FaShareAlt,
+  FaMagic,
   FaCheck,
 } from "react-icons/fa";
 import { useRouter } from "next/navigation";
@@ -105,6 +108,14 @@ export interface Newsletter {
   publishDate: string;
 }
 
+interface ApiIndexData {
+  symbol: string;
+  name: string;
+  value: number;
+  change: number;
+  percentageChange: number;
+  error?: string;
+}
 
 const formatDate = (dateString: string | undefined | null): string => {
   if (!dateString) return "N/A";
@@ -114,7 +125,7 @@ const formatDate = (dateString: string | undefined | null): string => {
       month: "short",
       day: "numeric",
     });
-  } catch {
+  } catch (e) {
     return dateString;
   }
 };
@@ -144,7 +155,7 @@ const ClientNewsPage = ({ initialNews, initialTab }: ClientNewsPageProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const sortBy = "latest";
+  const [sortBy, setSortBy] = useState<"latest" | "popular">("latest");
   const itemsPerPage = 6;
 
   const [newsByTab, setNewsByTab] = useState<Record<string, NewsItem[]>>({
@@ -152,8 +163,12 @@ const ClientNewsPage = ({ initialNews, initialTab }: ClientNewsPageProps) => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [, setNewsletter] = useState<Newsletter[]>([]);
-  const [, setNewsletterLoading] = useState(true);
+  const [newsletter, setNewsletter] = useState<Newsletter[]>([]);
+  const [newsletterLoading, setNewsletterLoading] = useState(true);
+
+  const [stockIndices, setStockIndices] = useState<ApiIndexData[]>([]);
+  const [stockLoading, setStockLoading] = useState(true);
+  const [stockError, setStockError] = useState<string | null>(null);
 
   // --- API Fetching Effects (Keep unchanged) ---
 
@@ -272,6 +287,10 @@ const ClientNewsPage = ({ initialNews, initialTab }: ClientNewsPageProps) => {
 
   // --- Data Processing (Keep unchanged) ---
   const currentNewsData = newsByTab[activeTab] || [];
+  const categories = [
+    "all",
+    ...new Set(currentNewsData.map((news) => news.category || "Uncategorized")),
+  ];
 
   const filteredNews = currentNewsData
     .filter(
@@ -303,6 +322,9 @@ const ClientNewsPage = ({ initialNews, initialTab }: ClientNewsPageProps) => {
 
   const handleNewsClick = (id: string) => {
     router.push(`/news/${id}`);
+  };
+  const handleNewsletterClick = (id: string) => {
+    router.push(`/newsletter/${id}`);
   };
 
   // --- RENDER LOGIC (UPDATED) ---
@@ -440,13 +462,14 @@ const ClientNewsPage = ({ initialNews, initialTab }: ClientNewsPageProps) => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Page Header Banner */}
-        <header className="mb-10 max-w-4xl mx-auto flex justify-center">
-          <div className="relative w-full aspect-[16/9] max-w-3xl rounded-3xl overflow-hidden shadow-md border-2 border-black">
+        <header className="text-center mb-8 max-w-4xl mx-auto">
+          <h1 className="sr-only">NEWS & IPOS</h1>
+          <div className="relative w-full aspect-[16/9] rounded-2xl sm:rounded-3xl overflow-hidden shadow-md border border-black/10">
             <Image
-              src="/images/news-ipo-header.jpg"
-              alt="News & IPO"
+              src="/images/news-ipo-banner.jpg"
+              alt="News & IPOs Banner - Fiscal Forum"
               fill
-              sizes="(max-width: 768px) 100vw, 768px"
+              sizes="(max-width: 1024px) 100vw, 896px"
               className="object-cover"
               priority
             />
