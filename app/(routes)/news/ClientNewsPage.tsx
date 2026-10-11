@@ -3,6 +3,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -460,21 +461,17 @@ const ClientNewsPage = ({ initialNews, initialTab }: ClientNewsPageProps) => {
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        {/* Page Header */}
-        <header className="text-center mb-10 max-w-4xl mx-auto">
-          <div className="bg-white border-2 border-black rounded-3xl p-6 sm:p-8 shadow-sm inline-block w-full">
-            <div className="inline-flex items-center gap-2 bg-yellow-100 border border-black px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest mb-3">
-              <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
-              {activeTab === "ipo-scoop" ? "LIVE IPO TRACKER" : "MARKET INSIGHTS"}
-            </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-black tracking-tight uppercase mb-3">
-              NEWS & IPOS
-            </h1>
-            <p className="text-gray-800 font-bold text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
-              {activeTab === "ipo-scoop"
-                ? "All the latest information and updates on current and upcoming IPOs"
-                : "Curated insights, corporate updates, and breaking news from global markets"}
-            </p>
+        {/* Page Header Banner */}
+        <header className="mb-10 max-w-4xl mx-auto flex justify-center">
+          <div className="relative w-full aspect-[16/9] max-w-3xl rounded-3xl overflow-hidden shadow-md border-2 border-black">
+            <Image
+              src="/images/news-ipo-header.jpg"
+              alt="News & IPO"
+              fill
+              sizes="(max-width: 768px) 100vw, 768px"
+              className="object-cover"
+              priority
+            />
           </div>
         </header>
 
