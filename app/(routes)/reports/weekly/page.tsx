@@ -3,7 +3,6 @@ import { db } from "../../../../config/db";
 import { researchReportsTable, SelectResearchReport } from "../../../../config/schema";
 import { desc } from "drizzle-orm";
 import { format } from "date-fns";
-import Image from "next/image";
 import "./weekly.css";
 
 export const metadata = {
@@ -60,13 +59,13 @@ export default async function WeeklyReportsPage() {
 
           <div className="card-stage">
             <div className="hero-img-wrap">
-              <Image 
-                src="/weekly-header.jpg" 
-                alt="Weekly Market Report Banner" 
-                className="hero-image"
-                width={860}
-                height={537}
-                priority
+              <video
+                src="/videos/FiscalForum_Balcony_WeeklyMarket_HD_sharp.mp4"
+                className="hero-image object-cover w-full h-full"
+                autoPlay
+                loop
+                muted
+                playsInline
               />
             </div>
           </div>
