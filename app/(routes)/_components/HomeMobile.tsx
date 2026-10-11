@@ -1093,7 +1093,7 @@ export default function HomeMobile() {
                 <div className="space-y-0">
                   {/* Header Image with Overlapping Icon */}
                   <div className="relative w-full">
-                    <div className="relative w-full h-40 sm:h-44 overflow-hidden border-b border-black/10">
+                    <div className="relative w-full h-[138px] sm:h-44 overflow-hidden border-b border-black/10">
                       <Image
                         src={p.image}
                         alt={p.title}
@@ -1102,26 +1102,26 @@ export default function HomeMobile() {
                       />
                     </div>
                     {/* Icon */}
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-12 h-12 bg-white border border-black rounded-full flex items-center justify-center shadow-md z-10">
-                      <p.icon className="text-[#1FA463] text-xl" />
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 bg-white border border-black rounded-full flex items-center justify-center shadow-md z-10">
+                      <p.icon className="text-[#1FA463] text-lg sm:text-xl" />
                     </div>
                   </div>
 
                   {/* Text content with offset padding for overlapping icon */}
-                  <div className="pt-8 px-5 pb-3 space-y-2">
-                    <h5 className="font-bold text-black text-sm leading-snug">
+                  <div className="pt-6 px-4 pb-2 space-y-1.5">
+                    <h5 className="font-bold text-black text-[16px] sm:text-[18px] leading-snug">
                       {p.title}
                     </h5>
-                    <p className="text-xs text-gray-500 font-semibold leading-relaxed">
+                    <p className="text-[14px] sm:text-[15px] text-gray-600 font-medium leading-relaxed">
                       {p.desc}
                     </p>
                   </div>
                 </div>
 
-                <div className="px-5 pb-5">
-                  <span className="revolving-border-btn shadow-sm">
-                    <span className="revolving-border-btn-content py-2 text-xs font-bold uppercase tracking-wider">
-                      Join Now
+                <div className="px-4 pb-3.5">
+                  <span className="revolving-border-btn h-[44px] shadow-sm">
+                    <span className="revolving-border-btn-content text-xs sm:text-sm font-bold uppercase tracking-wider">
+                      JOIN NOW
                     </span>
                   </span>
                 </div>
