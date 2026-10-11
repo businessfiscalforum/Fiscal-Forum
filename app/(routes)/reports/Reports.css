@@ -1940,6 +1940,33 @@
   #screener-app .search-row {
     flex-direction: column !important;
     gap: 10px !important;
+    margin-bottom: 16px !important;
+  }
+  #screener-app .search-input-wrapper {
+    flex: none !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+  }
+  #screener-app .search-input-wrapper input {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  #screener-app .search-input-wrapper .screener-suggestions-dropdown {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    margin-top: 6px !important;
+    margin-bottom: 4px !important;
+    max-height: 200px !important;
+    overflow-y: auto !important;
+    border: 1px solid var(--ink) !important;
+    border-radius: 4px !important;
+    box-shadow: 0 2px 8px rgba(17, 20, 17, 0.1) !important;
+    z-index: 10 !important;
   }
   #screener-app #sortSelect,
   #screener-app select {
