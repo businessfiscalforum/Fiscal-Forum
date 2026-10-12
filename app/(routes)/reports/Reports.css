@@ -2687,7 +2687,7 @@
 }
 
 .theme-faq-heading h2 {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Calibri', sans-serif;
   font-size: clamp(30px, 4vw, 48px);
   font-weight: 700;
   color: var(--ink);
@@ -2725,7 +2725,7 @@
   padding: 24px 0;
   background: none;
   border: none;
-  font-family: 'Inter', sans-serif !important;
+  font-family: 'Calibri', sans-serif !important;
   font-size: clamp(16px, 2vw, 19px);
   font-weight: 700;
   color: #101512 !important;
