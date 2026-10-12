@@ -2600,7 +2600,7 @@
 }
 
 .theme-faq-heading h2 {
-  font-family: 'Fraunces', serif, 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: clamp(30px, 4vw, 48px);
   font-weight: 700;
   color: var(--ink);
