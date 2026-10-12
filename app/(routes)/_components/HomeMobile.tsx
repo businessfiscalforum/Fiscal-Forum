@@ -756,11 +756,11 @@ export default function HomeMobile() {
       </AnimatePresence>
 
       {/* 🔹 Tabbed Services (Cards Grid) */}
-      <section className="px-4 py-8 bg-[#F4FBF7] border-b border-black" id="services-section-mobile">
-        <h2 className="text-xl sm:text-2xl font-bold text-black uppercase tracking-tight text-center mb-6">
+      <section className="px-4 py-6 sm:py-8 bg-[#F4FBF7] border-b border-black" id="services-section-mobile">
+        <h2 className="text-lg sm:text-2xl font-bold text-black uppercase tracking-tight text-center mb-4 sm:mb-6">
           Our Financial Premium Services
         </h2>
-        <div className="flex justify-center gap-2 mb-6">
+        <div className="flex justify-center gap-2 mb-4 sm:mb-6">
           {([
             { id: "investment-products", label: "Investment" },
             { id: "banking-products", label: "Banking" },
@@ -768,7 +768,7 @@ export default function HomeMobile() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2 border border-black rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${activeTab === tab.id
+              className={`px-4 py-1.5 sm:py-2 border border-black rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${activeTab === tab.id
                 ? "bg-yellow-100 text-black shadow-sm"
                 : "bg-white text-black"
                 }`}
@@ -778,26 +778,26 @@ export default function HomeMobile() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
           {content[activeTab].map((item, i) => (
-            <Link key={i} href={item.link} className="block">
+            <Link key={i} href={item.link} className="block h-full">
               <motion.div
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="bg-white border border-black rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col justify-between h-full min-h-[145px]"
+                className="bg-white border border-black rounded-2xl p-3 sm:p-4 shadow-sm flex flex-col justify-between h-full min-h-[140px] sm:min-h-[155px]"
               >
                 <div>
                   {/* Title and Image Row */}
-                  <div className="flex justify-between items-center gap-3">
-                    <div className="flex-1 min-w-0">
+                  <div className="flex justify-between items-start gap-2">
+                    <div className="flex-1 min-w-0 pr-1">
                       {/* Title */}
-                      <h3 className="font-bold text-black text-sm sm:text-base leading-snug">
+                      <h3 className="font-bold text-black text-xs sm:text-sm leading-tight break-words">
                         {item.title}
                       </h3>
                     </div>
                     {/* Cropped illustration image */}
                     {(item as { image?: string }).image && (
-                      <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 relative rounded-xl overflow-hidden border border-black/10 shadow-sm aspect-square bg-gray-50/50">
+                      <div className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 relative rounded-xl overflow-hidden border border-black/10 shadow-sm aspect-square bg-gray-50/50">
                         <Image
                           src={(item as { image?: string }).image!}
                           alt={item.title}
@@ -808,9 +808,9 @@ export default function HomeMobile() {
                     )}
                   </div>
                 </div>
-                <div className="mt-4">
-                  <span className="revolving-border-btn shadow-sm">
-                    <span className="revolving-border-btn-content py-2 text-xs tracking-wider gap-1.5">
+                <div className="mt-3">
+                  <span className="revolving-border-btn shadow-sm block w-full">
+                    <span className="revolving-border-btn-content py-1.5 sm:py-2 text-[10px] sm:text-xs font-bold tracking-wider gap-1">
                       EXPLORE HERE
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -818,7 +818,7 @@ export default function HomeMobile() {
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="3"
-                        className="w-4 h-4"
+                        className="w-3.5 h-3.5 flex-shrink-0"
                       >
                         <path d="M5 12h14M12 5l7 7-7 7" />
                       </svg>
@@ -987,15 +987,15 @@ export default function HomeMobile() {
         </div>
 
         {/* Women's Section & IPO WORLD */}
-        <div className="flex flex-col gap-4 mb-8 text-left">
+        <div className="flex flex-col gap-3 mb-8 text-left">
           {/* Women's Section Card */}
-          <div className="bg-white border border-black rounded-2xl p-5 shadow-sm flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="flex justify-between items-start gap-3">
-                <h3 className="text-lg font-bold text-black uppercase tracking-tight flex-1">
+          <div className="bg-white border border-black rounded-2xl p-3 sm:p-3.5 shadow-sm flex flex-col justify-between">
+            <div className="space-y-1.5">
+              <div className="flex justify-between items-start gap-2.5">
+                <h3 className="text-[16px] font-bold text-black uppercase tracking-tight flex-1 pt-0.5">
                   Womens Section
                 </h3>
-                <div className="flex-shrink-0 w-20 h-20 relative rounded-xl overflow-hidden border border-black/10 shadow-sm">
+                <div className="flex-shrink-0 w-[52px] h-[52px] relative rounded-lg overflow-hidden border border-black/10 shadow-sm">
                   <Image
                     src="/images/service-women.png"
                     alt="Womens Section"
@@ -1004,16 +1004,14 @@ export default function HomeMobile() {
                   />
                 </div>
               </div>
-              <p className="text-xs sm:text-sm text-gray-700 font-medium leading-relaxed">
-                {"When a woman understands money, the whole family's future becomes stronger."}
-                <br />
-                {"Start your financial learning journey with easy, bite-sized insights..."}
+              <p className="text-[13px] text-gray-700 font-medium leading-snug line-clamp-2">
+                {"When a woman understands money, the whole family's future becomes stronger. Start your financial learning journey with easy, bite-sized insights..."}
               </p>
             </div>
-            <div className="pt-4">
+            <div className="pt-2">
               <Link href="/for-women" className="inline-block">
-                <button className="revolving-border-btn shadow-sm min-w-[140px]">
-                  <span className="revolving-border-btn-content py-2 text-xs font-bold tracking-wider">
+                <button className="revolving-border-btn inline h-[36px] shadow-sm">
+                  <span className="revolving-border-btn-content px-3.5 text-[13px] font-bold tracking-wider">
                     Womens Section
                   </span>
                 </button>
@@ -1022,13 +1020,13 @@ export default function HomeMobile() {
           </div>
 
           {/* IPO World Card */}
-          <div className="bg-white border border-black rounded-2xl p-5 shadow-sm flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="flex justify-between items-start gap-3">
-                <h3 className="text-lg font-bold text-black uppercase tracking-tight flex-1">
+          <div className="bg-white border border-black rounded-2xl p-3 sm:p-3.5 shadow-sm flex flex-col justify-between">
+            <div className="space-y-1.5">
+              <div className="flex justify-between items-start gap-2.5">
+                <h3 className="text-[16px] font-bold text-black uppercase tracking-tight flex-1 pt-0.5">
                   IPO WORLD
                 </h3>
-                <div className="flex-shrink-0 w-20 h-20 relative rounded-xl overflow-hidden border border-black/10 shadow-sm">
+                <div className="flex-shrink-0 w-[52px] h-[52px] relative rounded-lg overflow-hidden border border-black/10 shadow-sm">
                   <Image
                     src="/images/service-ipo.png"
                     alt="IPO WORLD"
@@ -1037,16 +1035,14 @@ export default function HomeMobile() {
                   />
                 </div>
               </div>
-              <p className="text-xs sm:text-sm text-gray-700 font-medium leading-relaxed">
-                {"Every successful company was once a new opportunity."}
-                <br />
-                {"Discover IPOs explained simply before you decide to invest..."}
+              <p className="text-[13px] text-gray-700 font-medium leading-snug line-clamp-2">
+                {"Every successful company was once a new opportunity. Discover IPOs explained simply before you decide to invest..."}
               </p>
             </div>
-            <div className="pt-4">
+            <div className="pt-2">
               <Link href="/news?tab=ipo-scoop" className="inline-block">
-                <button className="revolving-border-btn shadow-sm min-w-[180px]">
-                  <span className="revolving-border-btn-content py-2 text-xs font-bold tracking-wider">
+                <button className="revolving-border-btn inline h-[36px] shadow-sm">
+                  <span className="revolving-border-btn-content px-3.5 text-[13px] font-bold tracking-wider">
                     Explore IPO Universe
                   </span>
                 </button>
@@ -1065,7 +1061,7 @@ export default function HomeMobile() {
               key={i}
               className="bg-white border border-black rounded-2xl shadow-sm flex flex-col h-full text-center overflow-hidden"
             >
-              <div className="relative w-full aspect-[16/10] overflow-hidden border-b border-black/10">
+              <div className="relative w-full aspect-[16/7.5] overflow-hidden border-b border-black/10">
                 <Image
                   src={f.image}
                   alt={f.title}
@@ -1073,8 +1069,8 @@ export default function HomeMobile() {
                   className="object-cover"
                 />
               </div>
-              <div className="p-3 flex-1 flex flex-col justify-center">
-                <h4 className="font-bold text-black text-[12px] leading-snug">
+              <div className="px-2.5 py-2 flex-1 flex flex-col justify-center items-center">
+                <h4 className="font-bold text-black text-[13px] sm:text-[14px] leading-tight text-center line-clamp-2">
                   {f.title}
                 </h4>
               </div>
@@ -1097,7 +1093,7 @@ export default function HomeMobile() {
                 <div className="space-y-0">
                   {/* Header Image with Overlapping Icon */}
                   <div className="relative w-full">
-                    <div className="relative w-full h-40 sm:h-44 overflow-hidden border-b border-black/10">
+                    <div className="relative w-full h-[138px] sm:h-44 overflow-hidden border-b border-black/10">
                       <Image
                         src={p.image}
                         alt={p.title}
@@ -1106,26 +1102,26 @@ export default function HomeMobile() {
                       />
                     </div>
                     {/* Icon */}
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-12 h-12 bg-white border border-black rounded-full flex items-center justify-center shadow-md z-10">
-                      <p.icon className="text-[#1FA463] text-xl" />
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 bg-white border border-black rounded-full flex items-center justify-center shadow-md z-10">
+                      <p.icon className="text-[#1FA463] text-lg sm:text-xl" />
                     </div>
                   </div>
 
                   {/* Text content with offset padding for overlapping icon */}
-                  <div className="pt-8 px-5 pb-3 space-y-2">
-                    <h5 className="font-bold text-black text-sm leading-snug">
+                  <div className="pt-6 px-4 pb-2 space-y-1.5">
+                    <h5 className="font-bold text-black text-[16px] sm:text-[18px] leading-snug">
                       {p.title}
                     </h5>
-                    <p className="text-xs text-gray-500 font-semibold leading-relaxed">
+                    <p className="text-[14px] sm:text-[15px] text-gray-600 font-medium leading-relaxed">
                       {p.desc}
                     </p>
                   </div>
                 </div>
 
-                <div className="px-5 pb-5">
-                  <span className="revolving-border-btn shadow-sm">
-                    <span className="revolving-border-btn-content py-2 text-xs font-bold uppercase tracking-wider">
-                      Join Now
+                <div className="px-4 pb-3.5">
+                  <span className="revolving-border-btn h-[44px] shadow-sm">
+                    <span className="revolving-border-btn-content text-xs sm:text-sm font-bold uppercase tracking-wider">
+                      JOIN NOW
                     </span>
                   </span>
                 </div>

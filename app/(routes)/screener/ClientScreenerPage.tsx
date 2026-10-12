@@ -684,7 +684,6 @@ export default function ClientScreenerPage() {
 
                 <div className="result-bar flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1">
                   <span>{filteredStocks.length.toLocaleString()} stocks matched</span>
-                  <span className="result-bar-note">Click a row for full detail. Star to add to watchlist.</span>
                 </div>
 
                 <div className="md:hidden text-xs text-gray-700 font-semibold my-2 flex items-center justify-between px-3 bg-amber-500/10 border border-amber-500/30 rounded-lg py-1.5">

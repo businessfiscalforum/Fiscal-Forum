@@ -8,14 +8,11 @@ import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
 import {
-  FaSearch,
-  FaFilter,
   FaChevronLeft,
   FaChevronRight,
   FaArrowUp,
   FaNewspaper,
   FaShareAlt,
-  FaMagic,
   FaCheck,
 } from "react-icons/fa";
 import { useRouter } from "next/navigation";
@@ -108,14 +105,6 @@ export interface Newsletter {
   publishDate: string;
 }
 
-interface ApiIndexData {
-  symbol: string;
-  name: string;
-  value: number;
-  change: number;
-  percentageChange: number;
-  error?: string;
-}
 
 const formatDate = (dateString: string | undefined | null): string => {
   if (!dateString) return "N/A";
@@ -125,7 +114,7 @@ const formatDate = (dateString: string | undefined | null): string => {
       month: "short",
       day: "numeric",
     });
-  } catch (e) {
+  } catch {
     return dateString;
   }
 };
@@ -155,7 +144,7 @@ const ClientNewsPage = ({ initialNews, initialTab }: ClientNewsPageProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [sortBy, setSortBy] = useState<"latest" | "popular">("latest");
+  const sortBy = "latest";
   const itemsPerPage = 6;
 
   const [newsByTab, setNewsByTab] = useState<Record<string, NewsItem[]>>({
@@ -163,12 +152,8 @@ const ClientNewsPage = ({ initialNews, initialTab }: ClientNewsPageProps) => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [newsletter, setNewsletter] = useState<Newsletter[]>([]);
-  const [newsletterLoading, setNewsletterLoading] = useState(true);
-
-  const [stockIndices, setStockIndices] = useState<ApiIndexData[]>([]);
-  const [stockLoading, setStockLoading] = useState(true);
-  const [stockError, setStockError] = useState<string | null>(null);
+  const [, setNewsletter] = useState<Newsletter[]>([]);
+  const [, setNewsletterLoading] = useState(true);
 
   // --- API Fetching Effects (Keep unchanged) ---
 
@@ -287,10 +272,6 @@ const ClientNewsPage = ({ initialNews, initialTab }: ClientNewsPageProps) => {
 
   // --- Data Processing (Keep unchanged) ---
   const currentNewsData = newsByTab[activeTab] || [];
-  const categories = [
-    "all",
-    ...new Set(currentNewsData.map((news) => news.category || "Uncategorized")),
-  ];
 
   const filteredNews = currentNewsData
     .filter(
@@ -322,9 +303,6 @@ const ClientNewsPage = ({ initialNews, initialTab }: ClientNewsPageProps) => {
 
   const handleNewsClick = (id: string) => {
     router.push(`/news/${id}`);
-  };
-  const handleNewsletterClick = (id: string) => {
-    router.push(`/newsletter/${id}`);
   };
 
   // --- RENDER LOGIC (UPDATED) ---
