@@ -50,7 +50,6 @@ export async function GET(req: NextRequest) {
             pages: researchReportsTable.pages,
             recommendation: researchReportsTable.recommendation,
             summary: researchReportsTable.summary,
-            pdfUrl: researchReportsTable.pdfUrl,
             tags: researchReportsTable.tags,
             published: researchReportsTable.published,
           })
@@ -75,7 +74,6 @@ export async function GET(req: NextRequest) {
             pages: researchReportsTable.pages,
             recommendation: researchReportsTable.recommendation,
             summary: researchReportsTable.summary,
-            pdfUrl: researchReportsTable.pdfUrl,
             tags: researchReportsTable.tags,
             published: researchReportsTable.published,
           })
@@ -84,11 +82,14 @@ export async function GET(req: NextRequest) {
 
     const sanitizedReports = reports.map((r) => ({
       ...r,
+      pdfUrl: `/api/reports/${r.id}/pdf`,
       publishDate: r.publishDate?.toString(),
     }));
 
     return NextResponse.json(sanitizedReports);
-  } catch {
+  } catch (error: unknown) {
+    const errMsg = error instanceof Error ? error.message.replace(/postgresql:\/\/[^@\s]+@/g, "postgresql://[redacted]@") : String(error);
+    console.warn("GET /api/reports query failed. Error:", errMsg);
     return NextResponse.json([]);
   }
 }

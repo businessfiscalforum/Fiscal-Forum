@@ -1,0 +1,5933 @@
+{
+  "id": "8ff0bf68-f723-469f-8ebd-8ca05ff3b9ed",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.b2b_partner": {
+      "name": "b2b_partner",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mobile": {
+          "name": "mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pan_number": {
+          "name": "pan_number",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "account_number": {
+          "name": "account_number",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ifsc_code": {
+          "name": "ifsc_code",
+          "type": "varchar(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "aadhaar_number": {
+          "name": "aadhaar_number",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.buisness_development_partner": {
+      "name": "buisness_development_partner",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mobile": {
+          "name": "mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pan_number": {
+          "name": "pan_number",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "account_number": {
+          "name": "account_number",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ifsc_code": {
+          "name": "ifsc_code",
+          "type": "varchar(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "aadhaar_number": {
+          "name": "aadhaar_number",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.business_loan_applications": {
+      "name": "business_loan_applications",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "middle_name": {
+          "name": "middle_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "father_name": {
+          "name": "father_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date_of_birth": {
+          "name": "date_of_birth",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pan_number": {
+          "name": "pan_number",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email_id": {
+          "name": "email_id",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mobile_no": {
+          "name": "mobile_no",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "gender": {
+          "name": "gender",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "marital_status": {
+          "name": "marital_status",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_home_address1": {
+          "name": "current_home_address1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_home_address2": {
+          "name": "current_home_address2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "current_residence_type": {
+          "name": "current_residence_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_pincode": {
+          "name": "current_pincode",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_state": {
+          "name": "current_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_city": {
+          "name": "current_city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_address_same": {
+          "name": "permanent_address_same",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "permanent_home_address1": {
+          "name": "permanent_home_address1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_home_address2": {
+          "name": "permanent_home_address2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "permanent_residence_type": {
+          "name": "permanent_residence_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_pincode": {
+          "name": "permanent_pincode",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_state": {
+          "name": "permanent_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_city": {
+          "name": "permanent_city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "employment_type": {
+          "name": "employment_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "company_name": {
+          "name": "company_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "designation": {
+          "name": "designation",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "net_monthly_salary": {
+          "name": "net_monthly_salary",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "business_name": {
+          "name": "business_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "business_type": {
+          "name": "business_type",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "years_in_business": {
+          "name": "years_in_business",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gst_number": {
+          "name": "gst_number",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "annual_turnover": {
+          "name": "annual_turnover",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "monthly_profit": {
+          "name": "monthly_profit",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loan_amount_required": {
+          "name": "loan_amount_required",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "no_of_current_loans": {
+          "name": "no_of_current_loans",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "existing_loan_type": {
+          "name": "existing_loan_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reference1_name": {
+          "name": "reference1_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference1_mobile": {
+          "name": "reference1_mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference1_address": {
+          "name": "reference1_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_name": {
+          "name": "reference2_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_mobile": {
+          "name": "reference2_mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_address": {
+          "name": "reference2_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.car_insurance_requests": {
+      "name": "car_insurance_requests",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "phone": {
+          "name": "phone",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "previous_insurer": {
+          "name": "previous_insurer",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "policy_expiry": {
+          "name": "policy_expiry",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rc_link": {
+          "name": "rc_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "prev_insurance_link": {
+          "name": "prev_insurance_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "insurer_prefs": {
+          "name": "insurer_prefs",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "other_insurer": {
+          "name": "other_insurer",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "registration_number": {
+          "name": "registration_number",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "vehicle_insurance_type": {
+          "name": "vehicle_insurance_type",
+          "type": "vehicle_insurance_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "car_insurance_requests_user_id_users_id_fk": {
+          "name": "car_insurance_requests_user_id_users_id_fk",
+          "tableFrom": "car_insurance_requests",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.car_loan_applications": {
+      "name": "car_loan_applications",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "middle_name": {
+          "name": "middle_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "father_name": {
+          "name": "father_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pan_number": {
+          "name": "pan_number",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date_of_birth": {
+          "name": "date_of_birth",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "marital_status": {
+          "name": "marital_status",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "gender": {
+          "name": "gender",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mobile_no": {
+          "name": "mobile_no",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email_id": {
+          "name": "email_id",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_home_address1": {
+          "name": "current_home_address1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_home_address2": {
+          "name": "current_home_address2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "current_residence_type": {
+          "name": "current_residence_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_pincode": {
+          "name": "current_pincode",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_state": {
+          "name": "current_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_city": {
+          "name": "current_city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_address_same": {
+          "name": "permanent_address_same",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "permanent_home_address1": {
+          "name": "permanent_home_address1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_home_address2": {
+          "name": "permanent_home_address2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "permanent_residence_type": {
+          "name": "permanent_residence_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_pincode": {
+          "name": "permanent_pincode",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_state": {
+          "name": "permanent_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_city": {
+          "name": "permanent_city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "employment_type": {
+          "name": "employment_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "company_name": {
+          "name": "company_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "designation": {
+          "name": "designation",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "net_monthly_salary": {
+          "name": "net_monthly_salary",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "car_type": {
+          "name": "car_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "year": {
+          "name": "year",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loan_type": {
+          "name": "loan_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loan_amount_required": {
+          "name": "loan_amount_required",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "no_of_current_loans": {
+          "name": "no_of_current_loans",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "existing_loan_type": {
+          "name": "existing_loan_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reference1_name": {
+          "name": "reference1_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference1_mobile": {
+          "name": "reference1_mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference1_address": {
+          "name": "reference1_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_name": {
+          "name": "reference2_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_mobile": {
+          "name": "reference2_mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_address": {
+          "name": "reference2_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.commercial_vehicle_insurance_requests": {
+      "name": "commercial_vehicle_insurance_requests",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "phone": {
+          "name": "phone",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "business_name": {
+          "name": "business_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "business_type": {
+          "name": "business_type",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gst_number": {
+          "name": "gst_number",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "vehicle_type": {
+          "name": "vehicle_type",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "vehicle_make": {
+          "name": "vehicle_make",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "vehicle_model": {
+          "name": "vehicle_model",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "vehicle_year": {
+          "name": "vehicle_year",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "vehicle_capacity": {
+          "name": "vehicle_capacity",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "vehicle_value": {
+          "name": "vehicle_value",
+          "type": "numeric(14, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "previous_insurer": {
+          "name": "previous_insurer",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "policy_expiry": {
+          "name": "policy_expiry",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "current_policy_number": {
+          "name": "current_policy_number",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "primary_use": {
+          "name": "primary_use",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "operating_area": {
+          "name": "operating_area",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "annual_mileage": {
+          "name": "annual_mileage",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "coverage_type": {
+          "name": "coverage_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "additional_covers": {
+          "name": "additional_covers",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rc_link": {
+          "name": "rc_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "prev_insurance_link": {
+          "name": "prev_insurance_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "business_license_link": {
+          "name": "business_license_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gst_certificate_link": {
+          "name": "gst_certificate_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "insurer_prefs": {
+          "name": "insurer_prefs",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "other_insurer": {
+          "name": "other_insurer",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "special_requirements": {
+          "name": "special_requirements",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "commercial_vehicle_insurance_requests_user_id_users_id_fk": {
+          "name": "commercial_vehicle_insurance_requests_user_id_users_id_fk",
+          "tableFrom": "commercial_vehicle_insurance_requests",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.custom_reports_request": {
+      "name": "custom_reports_request",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mobile": {
+          "name": "mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "topic": {
+          "name": "topic",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.custom_reports": {
+      "name": "custom_reports",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "clerk_user_id": {
+          "name": "clerk_user_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mobile": {
+          "name": "mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "age": {
+          "name": "age",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "category": {
+          "name": "category",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "capital": {
+          "name": "capital",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "return_expected": {
+          "name": "return_expected",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "investment_goal": {
+          "name": "investment_goal",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "risk_tolerance": {
+          "name": "risk_tolerance",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "investment_style": {
+          "name": "investment_style",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "monthly_savings": {
+          "name": "monthly_savings",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "details": {
+          "name": "details",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "occupation": {
+          "name": "occupation",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "investment_preference": {
+          "name": "investment_preference",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "annual_income": {
+          "name": "annual_income",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dependents": {
+          "name": "dependents",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "marital_status": {
+          "name": "marital_status",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "existing_insurance": {
+          "name": "existing_insurance",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "insurance_covers": {
+          "name": "insurance_covers",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loans_liabilities": {
+          "name": "loans_liabilities",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "monthly_spending": {
+          "name": "monthly_spending",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "spending_categories": {
+          "name": "spending_categories",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fly_frequency": {
+          "name": "fly_frequency",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "travel_type": {
+          "name": "travel_type",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lounge_importance": {
+          "name": "lounge_importance",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fee_comfort": {
+          "name": "fee_comfort",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loan_purpose": {
+          "name": "loan_purpose",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loan_employment": {
+          "name": "loan_employment",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loan_monthly_income": {
+          "name": "loan_monthly_income",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loan_income_stability": {
+          "name": "loan_income_stability",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loan_amount": {
+          "name": "loan_amount",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loan_has_collateral": {
+          "name": "loan_has_collateral",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loan_collateral_type": {
+          "name": "loan_collateral_type",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "order_id": {
+          "name": "order_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "payment_id": {
+          "name": "payment_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "payment_status": {
+          "name": "payment_status",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'PENDING'"
+        },
+        "processing_status": {
+          "name": "processing_status",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'PENDING'"
+        },
+        "amount": {
+          "name": "amount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 59900
+        },
+        "currency": {
+          "name": "currency",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'INR'"
+        },
+        "paid_at": {
+          "name": "paid_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "submitted_at": {
+          "name": "submitted_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.demat_applications": {
+      "name": "demat_applications",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "full_name": {
+          "name": "full_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "phone": {
+          "name": "phone",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pan": {
+          "name": "pan",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "city": {
+          "name": "city",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.demat_transfer_requests": {
+      "name": "demat_transfer_requests",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "full_name": {
+          "name": "full_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "client_code": {
+          "name": "client_code",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pan_no": {
+          "name": "pan_no",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mobile_no": {
+          "name": "mobile_no",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "consistency": {
+          "name": "consistency",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "trader_type": {
+          "name": "trader_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "existing_broker": {
+          "name": "existing_broker",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.document_submissions": {
+      "name": "document_submissions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mobile": {
+          "name": "mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "document_sent": {
+          "name": "document_sent",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.education_loan_applications": {
+      "name": "education_loan_applications",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "middle_name": {
+          "name": "middle_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "father_name": {
+          "name": "father_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pan_number": {
+          "name": "pan_number",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date_of_birth": {
+          "name": "date_of_birth",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "marital_status": {
+          "name": "marital_status",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gender": {
+          "name": "gender",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mobile_no": {
+          "name": "mobile_no",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email_id": {
+          "name": "email_id",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_home_address1": {
+          "name": "current_home_address1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_home_address2": {
+          "name": "current_home_address2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "current_residence_type": {
+          "name": "current_residence_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_pincode": {
+          "name": "current_pincode",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_state": {
+          "name": "current_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_city": {
+          "name": "current_city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_address_same": {
+          "name": "permanent_address_same",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "permanent_home_address1": {
+          "name": "permanent_home_address1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_home_address2": {
+          "name": "permanent_home_address2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "permanent_residence_type": {
+          "name": "permanent_residence_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_pincode": {
+          "name": "permanent_pincode",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_state": {
+          "name": "permanent_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_city": {
+          "name": "permanent_city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "employment_type": {
+          "name": "employment_type",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "company_name": {
+          "name": "company_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "designation": {
+          "name": "designation",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "net_monthly_salary": {
+          "name": "net_monthly_salary",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "course_type": {
+          "name": "course_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "course_name": {
+          "name": "course_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "university_name": {
+          "name": "university_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "country_name": {
+          "name": "country_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "loan_amount_required": {
+          "name": "loan_amount_required",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "no_of_current_loans": {
+          "name": "no_of_current_loans",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "existing_loan_type": {
+          "name": "existing_loan_type",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reference1_name": {
+          "name": "reference1_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference1_mobile": {
+          "name": "reference1_mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference1_address": {
+          "name": "reference1_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_name": {
+          "name": "reference2_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_mobile": {
+          "name": "reference2_mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_address": {
+          "name": "reference2_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "education_loan_applications_email_id_unique": {
+          "name": "education_loan_applications_email_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.gold_loan_applications": {
+      "name": "gold_loan_applications",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "middle_name": {
+          "name": "middle_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "father_name": {
+          "name": "father_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pan_number": {
+          "name": "pan_number",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date_of_birth": {
+          "name": "date_of_birth",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "marital_status": {
+          "name": "marital_status",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "gender": {
+          "name": "gender",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mobile_no": {
+          "name": "mobile_no",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email_id": {
+          "name": "email_id",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_home_address1": {
+          "name": "current_home_address1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_home_address2": {
+          "name": "current_home_address2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "current_residence_type": {
+          "name": "current_residence_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_pincode": {
+          "name": "current_pincode",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_state": {
+          "name": "current_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_city": {
+          "name": "current_city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_address_same": {
+          "name": "permanent_address_same",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "permanent_home_address1": {
+          "name": "permanent_home_address1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_home_address2": {
+          "name": "permanent_home_address2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "permanent_residence_type": {
+          "name": "permanent_residence_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_pincode": {
+          "name": "permanent_pincode",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_state": {
+          "name": "permanent_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_city": {
+          "name": "permanent_city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "gold_weight": {
+          "name": "gold_weight",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gold_purity": {
+          "name": "gold_purity",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loan_amount_required": {
+          "name": "loan_amount_required",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "no_of_current_loans": {
+          "name": "no_of_current_loans",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "existing_loan_type": {
+          "name": "existing_loan_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reference1_name": {
+          "name": "reference1_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference1_mobile": {
+          "name": "reference1_mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference1_address": {
+          "name": "reference1_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_name": {
+          "name": "reference2_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_mobile": {
+          "name": "reference2_mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_address": {
+          "name": "reference2_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.health_insurance_requests": {
+      "name": "health_insurance_requests",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "phone": {
+          "name": "phone",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "policy_type": {
+          "name": "policy_type",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "members_count": {
+          "name": "members_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "member_ages": {
+          "name": "member_ages",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pre_existing_diseases": {
+          "name": "pre_existing_diseases",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "previous_insurer": {
+          "name": "previous_insurer",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "policy_expiry": {
+          "name": "policy_expiry",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "prev_policy_link": {
+          "name": "prev_policy_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "insurer_prefs": {
+          "name": "insurer_prefs",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "other_insurer": {
+          "name": "other_insurer",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "health_insurance_requests_user_id_users_id_fk": {
+          "name": "health_insurance_requests_user_id_users_id_fk",
+          "tableFrom": "health_insurance_requests",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.home_loan_applications": {
+      "name": "home_loan_applications",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "middle_name": {
+          "name": "middle_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "father_name": {
+          "name": "father_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date_of_birth": {
+          "name": "date_of_birth",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "marital_status": {
+          "name": "marital_status",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "gender": {
+          "name": "gender",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mobile_no": {
+          "name": "mobile_no",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email_id": {
+          "name": "email_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pan_number": {
+          "name": "pan_number",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_home_address1": {
+          "name": "current_home_address1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_home_address2": {
+          "name": "current_home_address2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "current_residence_type": {
+          "name": "current_residence_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_pincode": {
+          "name": "current_pincode",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_state": {
+          "name": "current_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_city": {
+          "name": "current_city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_address_same": {
+          "name": "permanent_address_same",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "permanent_home_address1": {
+          "name": "permanent_home_address1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_home_address2": {
+          "name": "permanent_home_address2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "permanent_residence_type": {
+          "name": "permanent_residence_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_pincode": {
+          "name": "permanent_pincode",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_state": {
+          "name": "permanent_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_city": {
+          "name": "permanent_city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "employment_type": {
+          "name": "employment_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "company_name": {
+          "name": "company_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "designation": {
+          "name": "designation",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "net_monthly_salary": {
+          "name": "net_monthly_salary",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "property_type": {
+          "name": "property_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "agreement_value": {
+          "name": "agreement_value",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "loan_amount_required": {
+          "name": "loan_amount_required",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "property_address_line1": {
+          "name": "property_address_line1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "property_address_line2": {
+          "name": "property_address_line2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "property_city": {
+          "name": "property_city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "no_of_current_loans": {
+          "name": "no_of_current_loans",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "existing_loan_type": {
+          "name": "existing_loan_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "builder_name": {
+          "name": "builder_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "residence_since": {
+          "name": "residence_since",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "special_name": {
+          "name": "special_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reference1_name": {
+          "name": "reference1_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference1_mobile": {
+          "name": "reference1_mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference1_address": {
+          "name": "reference1_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_name": {
+          "name": "reference2_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_mobile": {
+          "name": "reference2_mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_address": {
+          "name": "reference2_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.lap_applications": {
+      "name": "lap_applications",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "middle_name": {
+          "name": "middle_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "father_name": {
+          "name": "father_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dob": {
+          "name": "dob",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pan_number": {
+          "name": "pan_number",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mobile_no": {
+          "name": "mobile_no",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gender": {
+          "name": "gender",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "marital_status": {
+          "name": "marital_status",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "current_home_address1": {
+          "name": "current_home_address1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_home_address2": {
+          "name": "current_home_address2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "current_residence_type": {
+          "name": "current_residence_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_pincode": {
+          "name": "current_pincode",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_state": {
+          "name": "current_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_city": {
+          "name": "current_city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_address_same": {
+          "name": "permanent_address_same",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "permanent_home_address1": {
+          "name": "permanent_home_address1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_home_address2": {
+          "name": "permanent_home_address2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "permanent_residence_type": {
+          "name": "permanent_residence_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_pincode": {
+          "name": "permanent_pincode",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_state": {
+          "name": "permanent_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_city": {
+          "name": "permanent_city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "employment_type": {
+          "name": "employment_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "company_name": {
+          "name": "company_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "designation": {
+          "name": "designation",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "company_address_1": {
+          "name": "company_address_1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "company_address_2": {
+          "name": "company_address_2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "company_city": {
+          "name": "company_city",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "company_state": {
+          "name": "company_state",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "monthly_salary": {
+          "name": "monthly_salary",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "experience_in_months": {
+          "name": "experience_in_months",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "current_job_stability": {
+          "name": "current_job_stability",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "property_type": {
+          "name": "property_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "agreement_value": {
+          "name": "agreement_value",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loan_amount_required": {
+          "name": "loan_amount_required",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "property_address_1": {
+          "name": "property_address_1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "property_address_2": {
+          "name": "property_address_2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "property_city": {
+          "name": "property_city",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "property_state": {
+          "name": "property_state",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "existing_loans_count": {
+          "name": "existing_loans_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "existing_loan_type": {
+          "name": "existing_loan_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reference1_name": {
+          "name": "reference1_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference1_mobile": {
+          "name": "reference1_mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference1_address": {
+          "name": "reference1_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_name": {
+          "name": "reference2_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_mobile": {
+          "name": "reference2_mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_address": {
+          "name": "reference2_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.loan_against_securities": {
+      "name": "loan_against_securities",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "middle_name": {
+          "name": "middle_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "father_name": {
+          "name": "father_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pan_number": {
+          "name": "pan_number",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date_of_birth": {
+          "name": "date_of_birth",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "marital_status": {
+          "name": "marital_status",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "gender": {
+          "name": "gender",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mobile_no": {
+          "name": "mobile_no",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email_id": {
+          "name": "email_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_home_address1": {
+          "name": "current_home_address1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_home_address2": {
+          "name": "current_home_address2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "current_residence_type": {
+          "name": "current_residence_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_pincode": {
+          "name": "current_pincode",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_state": {
+          "name": "current_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_city": {
+          "name": "current_city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_address_same": {
+          "name": "permanent_address_same",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "permanent_home_address1": {
+          "name": "permanent_home_address1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_home_address2": {
+          "name": "permanent_home_address2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "permanent_residence_type": {
+          "name": "permanent_residence_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_pincode": {
+          "name": "permanent_pincode",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_state": {
+          "name": "permanent_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_city": {
+          "name": "permanent_city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "security_type": {
+          "name": "security_type",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "security_value": {
+          "name": "security_value",
+          "type": "numeric(14, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "required_loan_amount": {
+          "name": "required_loan_amount",
+          "type": "numeric(14, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "loan_amount_required": {
+          "name": "loan_amount_required",
+          "type": "numeric(14, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "no_of_current_loans": {
+          "name": "no_of_current_loans",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "existing_loan_type": {
+          "name": "existing_loan_type",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reference1_name": {
+          "name": "reference1_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference1_mobile": {
+          "name": "reference1_mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference1_address": {
+          "name": "reference1_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_name": {
+          "name": "reference2_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_mobile": {
+          "name": "reference2_mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_address": {
+          "name": "reference2_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.life_insurance_requests": {
+      "name": "life_insurance_requests",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "phone": {
+          "name": "phone",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "dob": {
+          "name": "dob",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gender": {
+          "name": "gender",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "occupation": {
+          "name": "occupation",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "policy_types": {
+          "name": "policy_types",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sum_assured": {
+          "name": "sum_assured",
+          "type": "numeric(14, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "policy_term_years": {
+          "name": "policy_term_years",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "premium_frequency": {
+          "name": "premium_frequency",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "has_existing_policy": {
+          "name": "has_existing_policy",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "existing_insurer": {
+          "name": "existing_insurer",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "prev_policy_link": {
+          "name": "prev_policy_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "insurer_prefs": {
+          "name": "insurer_prefs",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "other_insurer": {
+          "name": "other_insurer",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "life_insurance_requests_user_id_users_id_fk": {
+          "name": "life_insurance_requests_user_id_users_id_fk",
+          "tableFrom": "life_insurance_requests",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.materials": {
+      "name": "materials",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "link": {
+          "name": "link",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.mf_preferences": {
+      "name": "mf_preferences",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "client_id": {
+          "name": "client_id",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fund_type": {
+          "name": "fund_type",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "company": {
+          "name": "company",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.mf_transfer_forms": {
+      "name": "mf_transfer_forms",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "full_name": {
+          "name": "full_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "client_code": {
+          "name": "client_code",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pan_no": {
+          "name": "pan_no",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mobile_no": {
+          "name": "mobile_no",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type_of_investment": {
+          "name": "type_of_investment",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "existing_broker": {
+          "name": "existing_broker",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.mis_report_submissions": {
+      "name": "mis_report_submissions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "document_link": {
+          "name": "document_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "submitted_at": {
+          "name": "submitted_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.news": {
+      "name": "news",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image": {
+          "name": "image",
+          "type": "varchar(500)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "category": {
+          "name": "category",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "author": {
+          "name": "author",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "publish_date": {
+          "name": "publish_date",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "read_time": {
+          "name": "read_time",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "link": {
+          "name": "link",
+          "type": "varchar(500)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "featured": {
+          "name": "featured",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "tags": {
+          "name": "tags",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ipo_name": {
+          "name": "ipo_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "company_name": {
+          "name": "company_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_range": {
+          "name": "price_range",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "issue_size": {
+          "name": "issue_size",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "listing_date": {
+          "name": "listing_date",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "current_price": {
+          "name": "current_price",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "listing_gain": {
+          "name": "listing_gain",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "subscription_rate": {
+          "name": "subscription_rate",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "apply_link": {
+          "name": "apply_link",
+          "type": "varchar(500)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "offer_price": {
+          "name": "offer_price",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "open_date": {
+          "name": "open_date",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "close_date": {
+          "name": "close_date",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "allotment_date": {
+          "name": "allotment_date",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "refund_date": {
+          "name": "refund_date",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.newsletter": {
+      "name": "newsletter",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image": {
+          "name": "image",
+          "type": "varchar(500)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "author": {
+          "name": "author",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "publish_date": {
+          "name": "publish_date",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.partner_requests": {
+      "name": "partner_requests",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "type": {
+          "name": "type",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sub_type": {
+          "name": "sub_type",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mobile": {
+          "name": "mobile",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "request_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Pending'"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.payment_attempts": {
+      "name": "payment_attempts",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "order_id": {
+          "name": "order_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "clerk_user_id": {
+          "name": "clerk_user_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_email": {
+          "name": "user_email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "report_id": {
+          "name": "report_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amount": {
+          "name": "amount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "currency": {
+          "name": "currency",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'INR'"
+        },
+        "receipt": {
+          "name": "receipt",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'created'"
+        },
+        "payment_id": {
+          "name": "payment_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "signature": {
+          "name": "signature",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "payment_attempts_report_id_research_reports_id_fk": {
+          "name": "payment_attempts_report_id_research_reports_id_fk",
+          "tableFrom": "payment_attempts",
+          "tableTo": "research_reports",
+          "columnsFrom": [
+            "report_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "payment_attempts_order_id_unique": {
+          "name": "payment_attempts_order_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "order_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.personal_accident_insurance_requests": {
+      "name": "personal_accident_insurance_requests",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "phone": {
+          "name": "phone",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "dob": {
+          "name": "dob",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "occupation": {
+          "name": "occupation",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "coverage_type": {
+          "name": "coverage_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sum_insured": {
+          "name": "sum_insured",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "policy_term_years": {
+          "name": "policy_term_years",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "coverage_options": {
+          "name": "coverage_options",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "has_existing_policy": {
+          "name": "has_existing_policy",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "existing_insurer": {
+          "name": "existing_insurer",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "prev_policy_link": {
+          "name": "prev_policy_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "insurer_prefs": {
+          "name": "insurer_prefs",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "other_insurer": {
+          "name": "other_insurer",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "personal_accident_insurance_requests_user_id_users_id_fk": {
+          "name": "personal_accident_insurance_requests_user_id_users_id_fk",
+          "tableFrom": "personal_accident_insurance_requests",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.personal_loan_applications": {
+      "name": "personal_loan_applications",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "middle_name": {
+          "name": "middle_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "father_name": {
+          "name": "father_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date_of_birth": {
+          "name": "date_of_birth",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pan_number": {
+          "name": "pan_number",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email_id": {
+          "name": "email_id",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mobile_no": {
+          "name": "mobile_no",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "gender": {
+          "name": "gender",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "marital_status": {
+          "name": "marital_status",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_home_address1": {
+          "name": "current_home_address1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_home_address2": {
+          "name": "current_home_address2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "current_residence_type": {
+          "name": "current_residence_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_pincode": {
+          "name": "current_pincode",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_state": {
+          "name": "current_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current_city": {
+          "name": "current_city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_address_same": {
+          "name": "permanent_address_same",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "permanent_home_address1": {
+          "name": "permanent_home_address1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_home_address2": {
+          "name": "permanent_home_address2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "permanent_residence_type": {
+          "name": "permanent_residence_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_pincode": {
+          "name": "permanent_pincode",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_state": {
+          "name": "permanent_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permanent_city": {
+          "name": "permanent_city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "employment_type": {
+          "name": "employment_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "company_name": {
+          "name": "company_name",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "designation": {
+          "name": "designation",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "net_monthly_salary": {
+          "name": "net_monthly_salary",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "loan_amount_required": {
+          "name": "loan_amount_required",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "no_of_current_loans": {
+          "name": "no_of_current_loans",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "existing_loan_type": {
+          "name": "existing_loan_type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reference1_name": {
+          "name": "reference1_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference1_mobile": {
+          "name": "reference1_mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference1_address": {
+          "name": "reference1_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_name": {
+          "name": "reference2_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_mobile": {
+          "name": "reference2_mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference2_address": {
+          "name": "reference2_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.property_insurance_requests": {
+      "name": "property_insurance_requests",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "phone": {
+          "name": "phone",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "property_address": {
+          "name": "property_address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "property_type": {
+          "name": "property_type",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "property_ownership": {
+          "name": "property_ownership",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "property_value": {
+          "name": "property_value",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contents_value": {
+          "name": "contents_value",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "construction_type": {
+          "name": "construction_type",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "year_of_construction": {
+          "name": "year_of_construction",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "coverage_options": {
+          "name": "coverage_options",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "has_existing_policy": {
+          "name": "has_existing_policy",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "existing_insurer": {
+          "name": "existing_insurer",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "policy_expiry": {
+          "name": "policy_expiry",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "prev_policy_link": {
+          "name": "prev_policy_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "insurer_prefs": {
+          "name": "insurer_prefs",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "other_insurer": {
+          "name": "other_insurer",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "property_insurance_requests_user_id_users_id_fk": {
+          "name": "property_insurance_requests_user_id_users_id_fk",
+          "tableFrom": "property_insurance_requests",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.purchase_entitlements": {
+      "name": "purchase_entitlements",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "clerk_user_id": {
+          "name": "clerk_user_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_email": {
+          "name": "user_email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "report_id": {
+          "name": "report_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "order_id": {
+          "name": "order_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "payment_id": {
+          "name": "payment_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amount": {
+          "name": "amount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'ACTIVE'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "purchase_entitlement_user_report_idx": {
+          "name": "purchase_entitlement_user_report_idx",
+          "columns": [
+            {
+              "expression": "clerk_user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "report_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "purchase_entitlements_report_id_research_reports_id_fk": {
+          "name": "purchase_entitlements_report_id_research_reports_id_fk",
+          "tableFrom": "purchase_entitlements",
+          "tableTo": "research_reports",
+          "columnsFrom": [
+            "report_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.quote_requests": {
+      "name": "quote_requests",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "phone": {
+          "name": "phone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "loan_type": {
+          "name": "loan_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "loan_amount": {
+          "name": "loan_amount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tenure": {
+          "name": "tenure",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "emi": {
+          "name": "emi",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.remisorship": {
+      "name": "remisorship",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mobile": {
+          "name": "mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pan_number": {
+          "name": "pan_number",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "account_number": {
+          "name": "account_number",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ifsc_code": {
+          "name": "ifsc_code",
+          "type": "varchar(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "aadhaar_number": {
+          "name": "aadhaar_number",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.research_reports": {
+      "name": "research_reports",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stock": {
+          "name": "stock",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "company": {
+          "name": "company",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "author": {
+          "name": "author",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "author_firm": {
+          "name": "author_firm",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "publish_date": {
+          "name": "publish_date",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sector": {
+          "name": "sector",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "report_type": {
+          "name": "report_type",
+          "type": "report_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rating": {
+          "name": "rating",
+          "type": "rating",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "target_price": {
+          "name": "target_price",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "current_price": {
+          "name": "current_price",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "upside": {
+          "name": "upside",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pages": {
+          "name": "pages",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "recommendation": {
+          "name": "recommendation",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tags": {
+          "name": "tags",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "summary": {
+          "name": "summary",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pdf_url": {
+          "name": "pdf_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "drive_file_id": {
+          "name": "drive_file_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price": {
+          "name": "price",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "published": {
+          "name": "published",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.savings_applications": {
+      "name": "savings_applications",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mobile_no": {
+          "name": "mobile_no",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pan_no": {
+          "name": "pan_no",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pincode": {
+          "name": "pincode",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "state": {
+          "name": "state",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "district": {
+          "name": "district",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "bank_type": {
+          "name": "bank_type",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "pan_regex_check": {
+          "name": "pan_regex_check",
+          "value": "\"savings_applications\".\"pan_no\" ~ '^[A-Z]{5}[0-9]{4}[A-Z]{1}$'"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.scheduled_calls": {
+      "name": "scheduled_calls",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "country_code": {
+          "name": "country_code",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "phone": {
+          "name": "phone",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date": {
+          "name": "date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "time": {
+          "name": "time",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "message": {
+          "name": "message",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "preferred_contact_method": {
+          "name": "preferred_contact_method",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'call'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.subscribers": {
+      "name": "subscribers",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "subscribers_email_unique": {
+          "name": "subscribers_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.subscription_payment_attempts": {
+      "name": "subscription_payment_attempts",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "order_id": {
+          "name": "order_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "clerk_user_id": {
+          "name": "clerk_user_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "customer_email": {
+          "name": "customer_email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "customer_name": {
+          "name": "customer_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "customer_phone": {
+          "name": "customer_phone",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "plan_id": {
+          "name": "plan_id",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "access_scope": {
+          "name": "access_scope",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "duration_months": {
+          "name": "duration_months",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amount": {
+          "name": "amount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "currency": {
+          "name": "currency",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'INR'"
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'PENDING'"
+        },
+        "payment_id": {
+          "name": "payment_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "signature": {
+          "name": "signature",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "subscription_payment_attempts_order_id_unique": {
+          "name": "subscription_payment_attempts_order_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "order_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.travel_insurance_requests": {
+      "name": "travel_insurance_requests",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "phone": {
+          "name": "phone",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "dob": {
+          "name": "dob",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "passport_number": {
+          "name": "passport_number",
+          "type": "varchar(30)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "travel_type": {
+          "name": "travel_type",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "destinations": {
+          "name": "destinations",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "start_date": {
+          "name": "start_date",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "end_date": {
+          "name": "end_date",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "num_travellers": {
+          "name": "num_travellers",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "traveller_ages": {
+          "name": "traveller_ages",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "coverage_options": {
+          "name": "coverage_options",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "has_existing_policy": {
+          "name": "has_existing_policy",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "existing_insurer": {
+          "name": "existing_insurer",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "prev_policy_link": {
+          "name": "prev_policy_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "insurer_prefs": {
+          "name": "insurer_prefs",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "other_insurer": {
+          "name": "other_insurer",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "travel_insurance_requests_user_id_users_id_fk": {
+          "name": "travel_insurance_requests_user_id_users_id_fk",
+          "tableFrom": "travel_insurance_requests",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.two_wheeler_insurance_requests": {
+      "name": "two_wheeler_insurance_requests",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "phone": {
+          "name": "phone",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "previous_insurer": {
+          "name": "previous_insurer",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "policy_expiry": {
+          "name": "policy_expiry",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rc_link": {
+          "name": "rc_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "prev_insurance_link": {
+          "name": "prev_insurance_link",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "insurer_prefs": {
+          "name": "insurer_prefs",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "other_insurer": {
+          "name": "other_insurer",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "registration_number": {
+          "name": "registration_number",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "vehicle_insurance_type": {
+          "name": "vehicle_insurance_type",
+          "type": "vehicle_insurance_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "two_wheeler_insurance_requests_user_id_users_id_fk": {
+          "name": "two_wheeler_insurance_requests_user_id_users_id_fk",
+          "tableFrom": "two_wheeler_insurance_requests",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.unlisted_shares": {
+      "name": "unlisted_shares",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "full_name": {
+          "name": "full_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "client_code": {
+          "name": "client_code",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pan_no": {
+          "name": "pan_no",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mobile_no": {
+          "name": "mobile_no",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "consistency": {
+          "name": "consistency",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "trader_type": {
+          "name": "trader_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "existing_broker": {
+          "name": "existing_broker",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "pan_regex_check": {
+          "name": "pan_regex_check",
+          "value": "\"unlisted_shares\".\"pan_no\" ~ '^[A-Z]{5}[0-9]{4}[A-Z]{1}$'"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.user_subscriptions": {
+      "name": "user_subscriptions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "clerk_user_id": {
+          "name": "clerk_user_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "customer_email": {
+          "name": "customer_email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "plan_id": {
+          "name": "plan_id",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "access_scope": {
+          "name": "access_scope",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "duration_months": {
+          "name": "duration_months",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "start_date": {
+          "name": "start_date",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "expiry_date": {
+          "name": "expiry_date",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'ACTIVE'"
+        },
+        "order_id": {
+          "name": "order_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "payment_id": {
+          "name": "payment_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amount": {
+          "name": "amount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "user_subscriptions_user_idx": {
+          "name": "user_subscriptions_user_idx",
+          "columns": [
+            {
+              "expression": "clerk_user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "user_subscriptions_user_scope_idx": {
+          "name": "user_subscriptions_user_scope_idx",
+          "columns": [
+            {
+              "expression": "clerk_user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "access_scope",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "age": {
+          "name": "age",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "role",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'USER'"
+        },
+        "status": {
+          "name": "status",
+          "type": "status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'PENDING'"
+        },
+        "refer_code": {
+          "name": "refer_code",
+          "type": "varchar(8)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "referrer_code": {
+          "name": "referrer_code",
+          "type": "varchar(8)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "users_email_unique": {
+          "name": "users_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        },
+        "users_refer_code_unique": {
+          "name": "users_refer_code_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "refer_code"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.webhook_events": {
+      "name": "webhook_events",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "event_id": {
+          "name": "event_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "event_type": {
+          "name": "event_type",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "payload": {
+          "name": "payload",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'PROCESSING'"
+        },
+        "processed_at": {
+          "name": "processed_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "webhook_events_event_id_unique": {
+          "name": "webhook_events_event_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "event_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.withdrawal_requests": {
+      "name": "withdrawal_requests",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mobile": {
+          "name": "mobile",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amount": {
+          "name": "amount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "withdrawal_requests_user_id_users_id_fk": {
+          "name": "withdrawal_requests_user_id_users_id_fk",
+          "tableFrom": "withdrawal_requests",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.request_status": {
+      "name": "request_status",
+      "schema": "public",
+      "values": [
+        "Pending",
+        "Approved",
+        "Rejected"
+      ]
+    },
+    "public.application_status": {
+      "name": "application_status",
+      "schema": "public",
+      "values": [
+        "INITIATED",
+        "IN_PROGRESS",
+        "SUBMITTED",
+        "UNDER_REVIEW",
+        "APPROVED",
+        "REJECTED",
+        "CANCELLED",
+        "DISBURSED"
+      ]
+    },
+    "public.car_type": {
+      "name": "car_type",
+      "schema": "public",
+      "values": [
+        "new",
+        "used"
+      ]
+    },
+    "public.course_type": {
+      "name": "course_type",
+      "schema": "public",
+      "values": [
+        "engineering",
+        "medical",
+        "management",
+        "law",
+        "other"
+      ]
+    },
+    "public.education_level": {
+      "name": "education_level",
+      "schema": "public",
+      "values": [
+        "undergraduate",
+        "postgraduate",
+        "professional",
+        "diploma"
+      ]
+    },
+    "public.employment_type": {
+      "name": "employment_type",
+      "schema": "public",
+      "values": [
+        "salaried",
+        "self-employed"
+      ]
+    },
+    "public.annual_income": {
+      "name": "annual_income",
+      "schema": "public",
+      "values": [
+        "3-5",
+        "5-10",
+        "10-15",
+        "15-25",
+        "25+"
+      ]
+    },
+    "public.insurance_type": {
+      "name": "insurance_type",
+      "schema": "public",
+      "values": [
+        "LIFE",
+        "HEALTH",
+        "CAR",
+        "TERM",
+        "TRAVEL",
+        "PROPERTY"
+      ]
+    },
+    "public.loan_type": {
+      "name": "loan_type",
+      "schema": "public",
+      "values": [
+        "home-loan",
+        "property",
+        "personal",
+        "business",
+        "gold",
+        "car",
+        "education",
+        "securities"
+      ]
+    },
+    "public.news_category": {
+      "name": "news_category",
+      "schema": "public",
+      "values": [
+        "blockchain",
+        "fintech",
+        "market-news",
+        "research",
+        "regulation",
+        "crypto",
+        "banking"
+      ]
+    },
+    "public.payment_method": {
+      "name": "payment_method",
+      "schema": "public",
+      "values": [
+        "UPI",
+        "CARD",
+        "NETBANKING",
+        "WALLET",
+        "EMI"
+      ]
+    },
+    "public.property_type": {
+      "name": "property_type",
+      "schema": "public",
+      "values": [
+        "residential",
+        "commercial",
+        "industrial"
+      ]
+    },
+    "public.property_usage": {
+      "name": "property_usage",
+      "schema": "public",
+      "values": [
+        "self-occupied",
+        "rented",
+        "under-construction",
+        "ready-to-move"
+      ]
+    },
+    "public.rating": {
+      "name": "rating",
+      "schema": "public",
+      "values": [
+        "BUY",
+        "HOLD",
+        "SELL"
+      ]
+    },
+    "public.report_type": {
+      "name": "report_type",
+      "schema": "public",
+      "values": [
+        "Pre-Market Research Report",
+        "Quarterly Results",
+        "Industry Analysis",
+        "Thematic Research Report",
+        "Company Analysis",
+        "Equity Research Report",
+        "Weekly Research Report"
+      ]
+    },
+    "public.role": {
+      "name": "role",
+      "schema": "public",
+      "values": [
+        "USER",
+        "ADMIN",
+        "AGENT",
+        "PARTNER"
+      ]
+    },
+    "public.securities_type": {
+      "name": "securities_type",
+      "schema": "public",
+      "values": [
+        "mutual-funds",
+        "shares",
+        "bonds",
+        "fixed-deposits"
+      ]
+    },
+    "public.status": {
+      "name": "status",
+      "schema": "public",
+      "values": [
+        "PENDING",
+        "APPROVED",
+        "REJECTED",
+        "BANNED"
+      ]
+    },
+    "public.transaction_type": {
+      "name": "transaction_type",
+      "schema": "public",
+      "values": [
+        "DEPOSIT",
+        "WITHDRAWAL",
+        "TRANSFER",
+        "PAYMENT"
+      ]
+    },
+    "public.vehicle_insurance_type": {
+      "name": "vehicle_insurance_type",
+      "schema": "public",
+      "values": [
+        "OD",
+        "Comprehensive",
+        "Third party"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

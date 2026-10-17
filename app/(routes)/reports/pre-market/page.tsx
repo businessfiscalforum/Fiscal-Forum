@@ -2,6 +2,8 @@
 import { db } from "../../../../config/db";
 import { researchReportsTable, SelectResearchReport } from "../../../../config/schema";
 import { desc } from "drizzle-orm";
+import { currentUser } from "@clerk/nextjs/server";
+import { hasActiveSubscriptionForCategory } from "../../../../lib/subscriptions";
 import PreMarketDatabaseTable from "./PreMarketDatabaseTable";
 import "./premarket.css";
 
@@ -19,8 +21,9 @@ export default async function PreMarketLandingPage() {
         .from(researchReportsTable)
         .orderBy(desc(researchReportsTable.publishDate));
     }
-  } catch {
-    console.warn("Pre-Market: Database connection unavailable. Using fallback view.");
+  } catch (error: unknown) {
+    const errMsg = error instanceof Error ? error.message.replace(/postgresql:\/\/[^@\s]+@/g, "postgresql://[redacted]@") : String(error);
+    console.warn("Pre-Market: Database query failed. Using fallback view. Error:", errMsg);
   }
 
   const preMarketReports = reports.filter(
@@ -28,6 +31,16 @@ export default async function PreMarketLandingPage() {
       (report.reportType || "").toLowerCase().replace(/ /g, "-") ===
       "pre-market-research-report"
   );
+
+  const user = await currentUser();
+  const clerkUserId = user?.id;
+  const userRole = user?.publicMetadata?.role as string;
+  const isAdmin = userRole === "ADMIN";
+
+  let hasPreMarketAccess = isAdmin;
+  if (!hasPreMarketAccess && clerkUserId) {
+    hasPreMarketAccess = await hasActiveSubscriptionForCategory(clerkUserId, "PRE_MARKET");
+  }
 
   return (
     <div className="premarket-page-container">
@@ -101,7 +114,7 @@ export default async function PreMarketLandingPage() {
           <p className="clay-subtitle">Explore full institutional-grade analysis from our research desk.</p>
         </div>
 
-        <PreMarketDatabaseTable reports={preMarketReports} />
+        <PreMarketDatabaseTable reports={preMarketReports} hasAccess={hasPreMarketAccess} />
       </section>
 
       <section className="report-content" id="report-inside">

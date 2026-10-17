@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import { db } from "../../../../../config/db";
 import { researchReportsTable } from "../../../../../config/schema";
 import { redirect } from "next/navigation";
+import { extractGoogleDriveFileId } from "../../../../../lib/googleDrive";
 
 // ✅ Define valid enums
 const reportTypeOptions = [
@@ -50,7 +51,10 @@ export default async function CreateReportPage() {
     const tagsStr = formData.get("tags") as string | null;
     const tags = tagsStr ? tagsStr.split(",").map(tag => tag.trim()).filter(Boolean) : undefined;
     const summary = (formData.get("summary") as string) || undefined;
-    const pdfUrl = (formData.get("pdfUrl") as string) || undefined;
+    const rawPdfUrl = (formData.get("pdfUrl") as string) || undefined;
+    const rawDriveFileId = (formData.get("driveFileId") as string) || undefined;
+    const driveFileId = rawDriveFileId || extractGoogleDriveFileId(rawPdfUrl) || undefined;
+    const pdfUrl = rawPdfUrl || (driveFileId ? `https://drive.google.com/file/d/${driveFileId}/view` : undefined);
 
     // ✅ Validate enums only if provided
     const reportType = rawReportType && isValidReportType(rawReportType) ? rawReportType : undefined;
@@ -214,7 +218,25 @@ export default async function CreateReportPage() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">PDF URL</label>
+          <label className="block text-sm font-medium mb-1">Price (₹ INR, default: 49 for Pre-Market, 99 for Weekly)</label>
+          <input
+            name="price"
+            type="number"
+            placeholder="49"
+            className="w-full border border-gray-300 rounded-lg p-2"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Google Drive File ID or Share URL (Restricted PDF)</label>
+          <input
+            name="driveFileId"
+            type="text"
+            placeholder="1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO or https://drive.google.com/file/d/..."
+            className="w-full border border-gray-300 rounded-lg p-2"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Legacy PDF URL (Optional)</label>
           <input
             name="pdfUrl"
             type="url"

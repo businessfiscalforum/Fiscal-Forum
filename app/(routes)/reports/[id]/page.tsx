@@ -7,6 +7,9 @@ import { format } from "date-fns";
 import { FaFilePdf, FaCalendarAlt, FaArrowLeft } from "react-icons/fa";
 import { ShareButton } from "../../_components/ShareButton";
 import Link from "next/link";
+import { currentUser } from "@clerk/nextjs/server";
+import { hasReportAccess } from "../../../../lib/entitlements";
+import ReportActionButton from "../../../../components/ReportActionButton";
 
 export default async function ReportDetailPage({
   params,
@@ -23,6 +26,12 @@ export default async function ReportDetailPage({
   if (!report) {
     return notFound();
   }
+
+  const user = await currentUser();
+  const clerkUserId = user?.id;
+  const userRole = user?.publicMetadata?.role as string;
+
+  const { hasAccess } = await hasReportAccess(clerkUserId, userRole, report.reportType);
 
   const getRatingColor = (rating: string | null) => {
     switch (rating) {
@@ -171,23 +180,18 @@ export default async function ReportDetailPage({
               )}
             </div>
             <div className="flex items-center gap-4">
-              {report.pdfUrl && (
-                <a
-                  href={report.pdfUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white px-6 py-3 rounded-lg font-medium transition-all shadow-md hover:shadow-lg"
-                >
-                  <FaFilePdf />
-                  View Full PDF
-                </a>
-              )}
-              {report.pdfUrl && (
-                <ShareButton
-                  title={report.title ?? "Untitled Report"}
-                  pdfUrl={report.pdfUrl}
-                />
-              )}
+              <ReportActionButton
+                reportId={report.id}
+                reportTitle={report.title}
+                reportType={report.reportType}
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white px-6 py-3 rounded-lg font-medium transition-all shadow-md hover:shadow-lg cursor-pointer"
+                buttonText="View Full PDF"
+                initiallyPurchased={hasAccess}
+              />
+              <ShareButton
+                title={report.title ?? "Fiscal Forum Research Report"}
+                pdfUrl={`/reports/${report.id}`}
+              />
             </div>
           </div>
         </article>

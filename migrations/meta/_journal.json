@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1791679001316,
+      "tag": "0000_daily_hawkeye",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791679002000,
+      "tag": "0001_add_report_purchase_system",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791679003000,
+      "tag": "0002_fix_weekly_report_pricing",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1791758837946,
+      "tag": "0003_universal_subscriptions_and_custom_reports",
+      "breakpoints": true
+    }
+  ]
+}

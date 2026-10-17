@@ -414,6 +414,19 @@ export default function CustomisedReportsPage() {
       loanCollateralType: isLoan ? (wizardAnswers.loanHasCollateral === "Yes" ? wizardAnswers.loanCollateralType : null) : null,
     };
 
+    const loadRazorpayScript = (): Promise<boolean> => {
+      return new Promise((resolve) => {
+        if (typeof window === "undefined") return resolve(false);
+        if ((window as unknown as { Razorpay?: unknown }).Razorpay) return resolve(true);
+
+        const script = document.createElement("script");
+        script.src = "https://checkout.razorpay.com/v1/checkout.js";
+        script.onload = () => resolve(true);
+        script.onerror = () => resolve(false);
+        document.body.appendChild(script);
+      });
+    };
+
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL || ""}/api/custom-reports`,
@@ -426,15 +439,83 @@ export default function CustomisedReportsPage() {
         }
       );
 
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
+      const resData = await response.json();
+      if (!response.ok || !resData.success) {
+        throw new Error(resData.error || `Error: ${response.status}`);
       }
 
-      setWizardStep("done");
-    } catch (err) {
+      const orderData = resData.data;
+
+      // Load Razorpay SDK
+      const scriptLoaded = await loadRazorpayScript();
+      if (!scriptLoaded) {
+        throw new Error("Unable to load payment gateway. Please check your internet connection.");
+      }
+
+      // Launch Razorpay Checkout Modal for ₹599
+      const options = {
+        key: orderData.keyId,
+        amount: orderData.amount,
+        currency: "INR",
+        name: "Fiscal Forum",
+        description: `Customized Report: ${orderData.category} (₹599)`,
+        image: "/logo.png",
+        order_id: orderData.orderId,
+        prefill: {
+          name: orderData.name,
+          email: orderData.email,
+          contact: orderData.mobile,
+        },
+        theme: {
+          color: "#14432A",
+        },
+        modal: {
+          ondismiss: () => {
+            setWizardLoading(false);
+            setWizardMessage("Payment was cancelled. Your request has been saved as pending.");
+          },
+        },
+        handler: async (paymentResponse: {
+          razorpay_order_id: string;
+          razorpay_payment_id: string;
+          razorpay_signature: string;
+        }) => {
+          try {
+            setWizardLoading(true);
+            const verifyRes = await fetch(
+              `${process.env.NEXT_PUBLIC_API_URL || ""}/api/custom-reports/verify-payment`,
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  razorpay_order_id: paymentResponse.razorpay_order_id,
+                  razorpay_payment_id: paymentResponse.razorpay_payment_id,
+                  razorpay_signature: paymentResponse.razorpay_signature,
+                }),
+              }
+            );
+
+            const verifyData = await verifyRes.json();
+            if (!verifyRes.ok || !verifyData.success) {
+              throw new Error(verifyData.error || "Payment verification failed.");
+            }
+
+            setWizardStep("done");
+          } catch (err: unknown) {
+            const msg = err instanceof Error ? err.message : "Payment verification failed.";
+            setWizardMessage(`❌ ${msg}`);
+          } finally {
+            setWizardLoading(false);
+          }
+        },
+      };
+
+      const rzp = new (window as unknown as { Razorpay: new (opts: unknown) => { open: () => void } }).Razorpay(options);
+      rzp.open();
+    } catch (err: unknown) {
       console.error("Failed to submit form:", err);
-      setWizardMessage("❌ Failed to submit request. Please try again.");
-    } finally {
+      const msg = err instanceof Error ? err.message : "Failed to initiate payment. Please try again.";
+      setWizardMessage(`❌ ${msg}`);
       setWizardLoading(false);
     }
   };
@@ -1209,7 +1290,7 @@ export default function CustomisedReportsPage() {
                     onClick={handleWizardSubmit}
                     disabled={wizardLoading || !wizardAnswers.name?.trim() || !wizardAnswers.email?.trim() || !wizardAnswers.mobile?.trim()}
                   >
-                    {wizardLoading ? "Submitting..." : "Submit Request"}
+                    {wizardLoading ? "Processing..." : "Pay ₹599 & Submit Request"}
                   </button>
                 </div>
               </div>
@@ -1218,8 +1299,8 @@ export default function CustomisedReportsPage() {
             {/* STEP: SUCCESS PANEL */}
             {wizardStep === "done" && (
               <div className="wizard-step active wizard-success">
-                <h3>Thanks — your custom request is in!</h3>
-                <p>We are processing your details and will send your customized report on your WhatsApp number shortly.</p>
+                <h3>Your payment was successful!</h3>
+                <p>Your report will be sent over WhatsApp or email.</p>
                 <button className="wizard-btn primary" onClick={handleCloseWizard}>
                   Close Window
                 </button>

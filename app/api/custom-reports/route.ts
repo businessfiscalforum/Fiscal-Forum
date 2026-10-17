@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "../../../config/db";
-import { customReportsTable } from "../../../config/schema";
+import { currentUser } from "@clerk/nextjs/server";
+import {
+  createCustomReportOrder,
+  CustomReportError,
+} from "../../../lib/customReports";
+import { logSafeDiagnostic } from "../../../lib/diagnosticLogger";
 
 const allowedOrigins = [
   "https://www.fiscalforum.in",
   "https://fiscalforum.in",
-  "http://localhost:3000"
+  "http://localhost:3000",
 ];
 
 function corsHeaders(origin: string | null) {
@@ -29,122 +33,87 @@ export async function OPTIONS(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   const origin = req.headers.get("origin");
+
   try {
-    const body = await req.json();
-    const name = (body.name || "").trim();
-    const email = (body.email || "").trim();
-    const mobile = (body.mobile || "").trim();
-    const age = body.age ? String(body.age).trim() : null;
-    const category = (body.category || "").trim();
-    const capitalInvestBorrow = body.capitalInvestBorrow ? String(body.capitalInvestBorrow).trim() : null;
-    const returnExpected = body.returnExpected ? String(body.returnExpected).trim() : null;
-    const investmentGoal = body.investmentGoal ? String(body.investmentGoal).trim() : null;
-    const riskTolerance = body.riskTolerance ? String(body.riskTolerance).trim() : null;
-    const investmentStyle = body.investmentStyle ? String(body.investmentStyle).trim() : null;
-    const monthlySavings = body.monthlySavings ? String(body.monthlySavings).trim() : null;
-    const addDetails = body.addDetails ? String(body.addDetails).trim() : null;
-
-    const occupation = body.occupation ? String(body.occupation).trim() : null;
-    const investmentPreference = body.investmentPreference ? String(body.investmentPreference).trim() : null;
-    const annualIncome = body.annualIncome ? String(body.annualIncome).trim() : null;
-    const dependents = body.dependents ? String(body.dependents).trim() : null;
-    const maritalStatus = body.maritalStatus ? String(body.maritalStatus).trim() : null;
-    const existingInsurance = body.existingInsurance ? String(body.existingInsurance).trim() : null;
-    const insuranceCovers = body.insuranceCovers ? String(body.insuranceCovers).trim() : null;
-    const loansLiabilities = body.loansLiabilities ? String(body.loansLiabilities).trim() : null;
-    const monthlySpending = body.monthlySpending ? String(body.monthlySpending).trim() : null;
-    const spendingCategories = body.spendingCategories ? String(body.spendingCategories).trim() : null;
-    const flyFrequency = body.flyFrequency ? String(body.flyFrequency).trim() : null;
-    const travelType = body.travelType ? String(body.travelType).trim() : null;
-    const loungeImportance = body.loungeImportance ? String(body.loungeImportance).trim() : null;
-    const feeComfort = body.feeComfort ? String(body.feeComfort).trim() : null;
-    const loanPurpose = body.loanPurpose ? String(body.loanPurpose).trim() : null;
-    const loanEmployment = body.loanEmployment ? String(body.loanEmployment).trim() : null;
-    const loanMonthlyIncome = body.loanMonthlyIncome ? String(body.loanMonthlyIncome).trim() : null;
-    const loanIncomeStability = body.loanIncomeStability ? String(body.loanIncomeStability).trim() : null;
-    const loanAmount = body.loanAmount ? String(body.loanAmount).trim() : null;
-    const loanHasCollateral = body.loanHasCollateral ? String(body.loanHasCollateral).trim() : null;
-    const loanCollateralType = body.loanCollateralType ? String(body.loanCollateralType).trim() : null;
-
-    if (!name) {
-      return NextResponse.json(
-        { success: false, error: "Name is required" },
-        { status: 400, headers: corsHeaders(origin) as HeadersInit }
-      );
+    let clerkUserId: string | null = null;
+    try {
+      const user = await currentUser();
+      if (user && user.id) {
+        clerkUserId = user.id;
+      }
+    } catch {
+      // Clerk user is optional for custom reports
     }
 
-    if (!category) {
-      return NextResponse.json(
-        { success: false, error: "Category is required" },
-        { status: 400, headers: corsHeaders(origin) as HeadersInit }
-      );
-    }
+    const body = await req.json().catch(() => ({}));
 
-    if (!/^\d{10}$/.test(mobile)) {
-      return NextResponse.json(
-        { success: false, error: "Phone must be 10 digits" },
-        { status: 400, headers: corsHeaders(origin) as HeadersInit }
-      );
-    }
-
-    const [saved] = await db
-      .insert(customReportsTable)
-      .values({
-        name,
-        email,
-        mobile,
-        age,
-        category,
-        capitalInvestBorrow,
-        returnExpected,
-        investmentGoal,
-        riskTolerance,
-        investmentStyle,
-        monthlySavings,
-        addDetails,
-        occupation,
-        investmentPreference,
-        annualIncome,
-        dependents,
-        maritalStatus,
-        existingInsurance,
-        insuranceCovers,
-        loansLiabilities,
-        monthlySpending,
-        spendingCategories,
-        flyFrequency,
-        travelType,
-        loungeImportance,
-        feeComfort,
-        loanPurpose,
-        loanEmployment,
-        loanMonthlyIncome,
-        loanIncomeStability,
-        loanAmount,
-        loanHasCollateral,
-        loanCollateralType,
-      })
-      .returning();
+    const result = await createCustomReportOrder({
+      name: body.name,
+      email: body.email,
+      mobile: body.mobile,
+      category: body.category,
+      clerkUserId,
+      age: body.age ? String(body.age).trim() : null,
+      capitalInvestBorrow: body.capitalInvestBorrow ? String(body.capitalInvestBorrow).trim() : null,
+      returnExpected: body.returnExpected ? String(body.returnExpected).trim() : null,
+      investmentGoal: body.investmentGoal ? String(body.investmentGoal).trim() : null,
+      riskTolerance: body.riskTolerance ? String(body.riskTolerance).trim() : null,
+      investmentStyle: body.investmentStyle ? String(body.investmentStyle).trim() : null,
+      monthlySavings: body.monthlySavings ? String(body.monthlySavings).trim() : null,
+      addDetails: body.addDetails ? String(body.addDetails).trim() : null,
+      occupation: body.occupation ? String(body.occupation).trim() : null,
+      investmentPreference: body.investmentPreference ? String(body.investmentPreference).trim() : null,
+      annualIncome: body.annualIncome ? String(body.annualIncome).trim() : null,
+      dependents: body.dependents ? String(body.dependents).trim() : null,
+      maritalStatus: body.maritalStatus ? String(body.maritalStatus).trim() : null,
+      existingInsurance: body.existingInsurance ? String(body.existingInsurance).trim() : null,
+      insuranceCovers: body.insuranceCovers ? String(body.insuranceCovers).trim() : null,
+      loansLiabilities: body.loansLiabilities ? String(body.loansLiabilities).trim() : null,
+      monthlySpending: body.monthlySpending ? String(body.monthlySpending).trim() : null,
+      spendingCategories: body.spendingCategories ? String(body.spendingCategories).trim() : null,
+      flyFrequency: body.flyFrequency ? String(body.flyFrequency).trim() : null,
+      travelType: body.travelType ? String(body.travelType).trim() : null,
+      loungeImportance: body.loungeImportance ? String(body.loungeImportance).trim() : null,
+      feeComfort: body.feeComfort ? String(body.feeComfort).trim() : null,
+      loanPurpose: body.loanPurpose ? String(body.loanPurpose).trim() : null,
+      loanEmployment: body.loanEmployment ? String(body.loanEmployment).trim() : null,
+      loanMonthlyIncome: body.loanMonthlyIncome ? String(body.loanMonthlyIncome).trim() : null,
+      loanIncomeStability: body.loanIncomeStability ? String(body.loanIncomeStability).trim() : null,
+      loanAmount: body.loanAmount ? String(body.loanAmount).trim() : null,
+      loanHasCollateral: body.loanHasCollateral ? String(body.loanHasCollateral).trim() : null,
+      loanCollateralType: body.loanCollateralType ? String(body.loanCollateralType).trim() : null,
+    });
 
     return NextResponse.json(
-      { success: true, data: saved },
+      {
+        success: true,
+        data: result,
+      },
       { status: 201, headers: corsHeaders(origin) as HeadersInit }
     );
   } catch (error: unknown) {
-    console.error("Custom report POST error:", error);
-    const message = error instanceof Error ? error.message : "Internal error";
+    if (error instanceof CustomReportError) {
+      return NextResponse.json(
+        { success: false, error: error.message, code: error.code },
+        { status: error.status, headers: corsHeaders(origin) as HeadersInit }
+      );
+    }
+
+    const diag = logSafeDiagnostic("Custom report create-order", error);
+    let clientMessage = "Failed to initialize custom report payment.";
+    let clientStatus = 500;
+
+    if (diag.httpStatus === 401 && diag.exceptionName === "RazorpayAPIError") {
+      clientMessage = "Payment gateway authentication failed. Please check server gateway credentials.";
+      clientStatus = 502;
+    } else if (diag.httpStatus === 400 && diag.providerErrorCode) {
+      clientMessage = `Payment gateway rejected order: ${diag.message}`;
+      clientStatus = 400;
+    }
+
     return NextResponse.json(
-      { success: false, error: message },
-      { status: 500, headers: corsHeaders(origin) as HeadersInit }
+      { success: false, error: clientMessage },
+      { status: clientStatus, headers: corsHeaders(origin) as HeadersInit }
     );
   }
 }
-
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
-

@@ -4,6 +4,7 @@ import { db } from "../../../../../../config/db";
 import { researchReportsTable } from "../../../../../../config/schema";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
+import { extractGoogleDriveFileId } from "../../../../../../lib/googleDrive";
 
 // ✅ Define valid enum values
 const reportTypeOptions = [
@@ -72,7 +73,10 @@ export default async function EditReportPage({
       ? tagsStr.split(",").map((tag) => tag.trim()).filter(Boolean)
       : undefined;
     const summary = (formData.get("summary") as string) || undefined;
-    const pdfUrl = (formData.get("pdfUrl") as string) || undefined;
+    const rawPdfUrl = (formData.get("pdfUrl") as string) || undefined;
+    const rawDriveFileId = (formData.get("driveFileId") as string) || undefined;
+    const driveFileId = rawDriveFileId || extractGoogleDriveFileId(rawPdfUrl) || undefined;
+    const pdfUrl = rawPdfUrl || (driveFileId ? `https://drive.google.com/file/d/${driveFileId}/view` : undefined);
     const published = formData.get("published") === "on";
 
     // ✅ Validate enums only if provided
@@ -269,7 +273,26 @@ export default async function EditReportPage({
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">PDF URL</label>
+          <label className="block text-sm font-medium mb-1">Price (₹ INR)</label>
+          <input
+            name="price"
+            type="number"
+            defaultValue={(report as { price?: number }).price ?? 49}
+            className="w-full border border-gray-300 rounded-lg p-2"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Google Drive File ID or Share URL (Restricted PDF)</label>
+          <input
+            name="driveFileId"
+            type="text"
+            defaultValue={extractGoogleDriveFileId(report.pdfUrl) || ""}
+            placeholder="1uUhlPCku0aDoWH88xQ2T0pzGBAL8fgfO or https://drive.google.com/file/d/..."
+            className="w-full border border-gray-300 rounded-lg p-2"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Legacy PDF URL (Optional)</label>
           <input
             name="pdfUrl"
             defaultValue={report.pdfUrl || ""}

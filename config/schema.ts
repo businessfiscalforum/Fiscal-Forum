@@ -5,11 +5,13 @@ import {
   check,
   date,
   decimal,
+  index,
   integer,
   pgEnum,
   pgTable,
   text,
   timestamp,
+  uniqueIndex,
   uuid,
   varchar,
 } from 'drizzle-orm/pg-core';
@@ -752,6 +754,88 @@ export const researchReportsTable = pgTable("research_reports", {
   updatedAt: timestamp("updated_at").$onUpdateFn(() => new Date()),
 });
 
+// 💳 Report Payment & Purchase Entitlement Tables
+export const paymentAttemptsTable = pgTable("payment_attempts", {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  orderId: varchar("order_id", { length: 255 }).notNull().unique(),
+  clerkUserId: varchar("clerk_user_id", { length: 255 }).notNull(),
+  userEmail: text("user_email").notNull(),
+  reportId: uuid("report_id").notNull().references(() => researchReportsTable.id, { onDelete: 'cascade' }),
+  amount: integer("amount").notNull(), // amount in paise
+  currency: varchar("currency", { length: 10 }).default("INR").notNull(),
+  receipt: varchar("receipt", { length: 255 }),
+  status: varchar("status", { length: 50 }).default("created").notNull(), // 'created', 'paid', 'failed'
+  paymentId: varchar("payment_id", { length: 255 }),
+  signature: text("signature"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").$onUpdateFn(() => new Date()),
+});
+
+export const purchaseEntitlementsTable = pgTable("purchase_entitlements", {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  clerkUserId: varchar("clerk_user_id", { length: 255 }).notNull(),
+  userEmail: text("user_email").notNull(),
+  reportId: uuid("report_id").notNull().references(() => researchReportsTable.id, { onDelete: 'cascade' }),
+  orderId: varchar("order_id", { length: 255 }).notNull(),
+  paymentId: varchar("payment_id", { length: 255 }).notNull(),
+  amount: integer("amount").notNull(), // amount in paise
+  status: varchar("status", { length: 50 }).default("ACTIVE").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (table) => [
+  uniqueIndex("purchase_entitlement_user_report_idx").on(table.clerkUserId, table.reportId),
+]);
+
+// 🎟️ Universal Subscription Payment Attempts Table
+export const subscriptionPaymentAttemptsTable = pgTable("subscription_payment_attempts", {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  orderId: varchar("order_id", { length: 255 }).unique(),
+  clerkUserId: varchar("clerk_user_id", { length: 255 }).notNull(),
+  customerEmail: text("customer_email").notNull(),
+  customerName: text("customer_name"),
+  customerPhone: varchar("customer_phone", { length: 20 }),
+  planId: varchar("plan_id", { length: 100 }).notNull(),
+  accessScope: varchar("access_scope", { length: 50 }).notNull(), // 'PRE_MARKET' | 'WEEKLY' | 'COMBINATION'
+  durationMonths: integer("duration_months").notNull(), // 1, 3, 6
+  amount: integer("amount").notNull(), // in paise
+  currency: varchar("currency", { length: 10 }).default("INR").notNull(),
+  status: varchar("status", { length: 50 }).default("PENDING").notNull(), // 'PENDING' | 'PAID' | 'FAILED'
+  paymentId: varchar("payment_id", { length: 255 }),
+  signature: text("signature"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").$onUpdateFn(() => new Date()),
+});
+
+// 🌟 Active User Subscriptions Table
+export const userSubscriptionsTable = pgTable("user_subscriptions", {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  clerkUserId: varchar("clerk_user_id", { length: 255 }).notNull(),
+  customerEmail: text("customer_email").notNull(),
+  planId: varchar("plan_id", { length: 100 }).notNull(),
+  accessScope: varchar("access_scope", { length: 50 }).notNull(), // 'PRE_MARKET' | 'WEEKLY' | 'COMBINATION'
+  durationMonths: integer("duration_months").notNull(),
+  startDate: timestamp("start_date").defaultNow().notNull(),
+  expiryDate: timestamp("expiry_date").notNull(),
+  status: varchar("status", { length: 50 }).default("ACTIVE").notNull(), // 'ACTIVE' | 'EXPIRED' | 'CANCELLED'
+  orderId: varchar("order_id", { length: 255 }).notNull(),
+  paymentId: varchar("payment_id", { length: 255 }).notNull(),
+  amount: integer("amount").notNull(), // in paise
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").$onUpdateFn(() => new Date()),
+}, (table) => [
+  index("user_subscriptions_user_idx").on(table.clerkUserId),
+  index("user_subscriptions_user_scope_idx").on(table.clerkUserId, table.accessScope),
+]);
+
+export const webhookEventsTable = pgTable("webhook_events", {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  eventId: varchar("event_id", { length: 255 }).notNull().unique(),
+  eventType: varchar("event_type", { length: 100 }).notNull(),
+  payload: text("payload"),
+  status: varchar("status", { length: 50 }).default("PROCESSING").notNull(),
+  processedAt: timestamp("processed_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 export const subscribers = pgTable('subscribers', {
   id: uuid('id').defaultRandom().notNull().primaryKey(),
   email: varchar('email', { length: 255 }).notNull().unique(),
@@ -1092,6 +1176,7 @@ export const customReportsRequest = pgTable('custom_reports_request', {
 
 export const customReportsTable = pgTable('custom_reports', {
   id: uuid('id').primaryKey().defaultRandom(),
+  clerkUserId: varchar('clerk_user_id', { length: 255 }),
   name: varchar('name', { length: 255 }).notNull(),
   email: varchar('email', { length: 255 }).notNull(),
   mobile: varchar('mobile', { length: 15 }).notNull(),
@@ -1125,6 +1210,14 @@ export const customReportsTable = pgTable('custom_reports', {
   loanAmount: varchar('loan_amount', { length: 100 }),
   loanHasCollateral: varchar('loan_has_collateral', { length: 50 }),
   loanCollateralType: varchar('loan_collateral_type', { length: 100 }),
+  // Payment tracking columns
+  orderId: varchar('order_id', { length: 255 }),
+  paymentId: varchar('payment_id', { length: 255 }),
+  paymentStatus: varchar('payment_status', { length: 50 }).default('PENDING').notNull(),
+  processingStatus: varchar('processing_status', { length: 50 }).default('PENDING').notNull(),
+  amount: integer('amount').default(59900).notNull(), // ₹599 in paise
+  currency: varchar('currency', { length: 10 }).default('INR').notNull(),
+  paidAt: timestamp('paid_at'),
   submittedAt: timestamp('submitted_at').defaultNow().notNull(),
 });
 
@@ -1282,3 +1375,18 @@ export type SelectMisReportSubmission = typeof misReportSubmissions.$inferInsert
 
 export type WithdrawalRequest = typeof withdrawalRequests.$inferSelect;
 export type NewWithdrawalRequest = typeof withdrawalRequests.$inferInsert;
+
+export type InsertPaymentAttempt = typeof paymentAttemptsTable.$inferInsert;
+export type SelectPaymentAttempt = typeof paymentAttemptsTable.$inferSelect;
+
+export type InsertPurchaseEntitlement = typeof purchaseEntitlementsTable.$inferInsert;
+export type SelectPurchaseEntitlement = typeof purchaseEntitlementsTable.$inferSelect;
+
+export type InsertWebhookEvent = typeof webhookEventsTable.$inferInsert;
+export type SelectWebhookEvent = typeof webhookEventsTable.$inferSelect;
+
+export type InsertSubscriptionPaymentAttempt = typeof subscriptionPaymentAttemptsTable.$inferInsert;
+export type SelectSubscriptionPaymentAttempt = typeof subscriptionPaymentAttemptsTable.$inferSelect;
+
+export type InsertUserSubscription = typeof userSubscriptionsTable.$inferInsert;
+export type SelectUserSubscription = typeof userSubscriptionsTable.$inferSelect;

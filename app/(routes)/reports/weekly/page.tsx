@@ -3,6 +3,9 @@ import { db } from "../../../../config/db";
 import { researchReportsTable, SelectResearchReport } from "../../../../config/schema";
 import { desc } from "drizzle-orm";
 import { format } from "date-fns";
+import { currentUser } from "@clerk/nextjs/server";
+import ReportActionButton from "../../../../components/ReportActionButton";
+import { hasActiveSubscriptionForCategory } from "../../../../lib/subscriptions";
 import "./weekly.css";
 
 export const metadata = {
@@ -19,8 +22,9 @@ export default async function WeeklyReportsPage() {
         .from(researchReportsTable)
         .orderBy(desc(researchReportsTable.publishDate));
     }
-  } catch {
-    console.warn("Weekly: Database connection unavailable. Using fallback view.");
+  } catch (error: unknown) {
+    const errMsg = error instanceof Error ? error.message.replace(/postgresql:\/\/[^@\s]+@/g, "postgresql://[redacted]@") : String(error);
+    console.warn("Weekly: Database query failed. Using fallback view. Error:", errMsg);
   }
 
   const weeklyReports = reports.filter(
@@ -28,6 +32,16 @@ export default async function WeeklyReportsPage() {
       (report.reportType || "").toLowerCase().replace(/ /g, "-") ===
       "weekly-research-report"
   );
+
+  const user = await currentUser();
+  const clerkUserId = user?.id;
+  const userRole = user?.publicMetadata?.role as string;
+  const isAdmin = userRole === "ADMIN";
+
+  let hasWeeklyAccess = isAdmin;
+  if (!hasWeeklyAccess && clerkUserId) {
+    hasWeeklyAccess = await hasActiveSubscriptionForCategory(clerkUserId, "WEEKLY");
+  }
 
   return (
     <div className="weekly-page-container">
@@ -122,18 +136,14 @@ export default async function WeeklyReportsPage() {
                   </div>
 
                   <div style={{ textAlign: "center" }}>
-                    {report.pdfUrl ? (
-                      <a 
-                        href={report.pdfUrl} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="clay-btn"
-                      >
-                        View Report
-                      </a>
-                    ) : (
-                      <span style={{ fontSize: "12px", color: "var(--muted)" }}>No PDF</span>
-                    )}
+                    <ReportActionButton
+                      reportId={report.id}
+                      reportTitle={report.title}
+                      reportType={report.reportType}
+                      className="clay-btn"
+                      buttonText="View Report"
+                      initiallyPurchased={hasWeeklyAccess}
+                    />
                   </div>
                 </div>
               );

@@ -45,10 +45,20 @@ export async function GET(request: Request) {
     revalidatePath("/reports");
     revalidatePath("/admin/reports");
 
-    return NextResponse.json(reportItems, {
+    const sanitized = reportItems.map((item) => {
+      const safe = item;
+      return {
+        ...safe,
+        pdfUrl: `/api/reports/${item.id}/pdf`,
+      };
+    });
+
+    return NextResponse.json(sanitized, {
       headers: corsHeaders(origin),
     });
-  } catch {
+  } catch (error: unknown) {
+    const errMsg = error instanceof Error ? error.message.replace(/postgresql:\/\/[^@\s]+@/g, "postgresql://[redacted]@") : String(error);
+    console.warn("GET /api/reports/thematic-report query failed. Error:", errMsg);
     return NextResponse.json([], {
       headers: corsHeaders(origin),
     });

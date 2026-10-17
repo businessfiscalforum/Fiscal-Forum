@@ -3,15 +3,8 @@ import ClientReportsPage from "./ClientReportsPage";
 import { db } from "../../../config/db";
 import { researchReportsTable, SelectResearchReport } from "../../../config/schema";
 import { desc } from "drizzle-orm";
-import { currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
 
 export default async function ReportsPage() {
-  const user = await currentUser();
-  if (!user || !user.emailAddresses?.[0]?.emailAddress) {
-    redirect("/sign-in?redirect_url=" + encodeURIComponent("/reports"));
-  }
-
   let reports: SelectResearchReport[] = [];
   try {
     if (process.env.DATABASE_URL && !process.env.DATABASE_URL.includes("placeholder")) {
@@ -20,8 +13,9 @@ export default async function ReportsPage() {
         .from(researchReportsTable)
         .orderBy(desc(researchReportsTable.publishDate));
     }
-  } catch {
-    console.warn("Reports: Database connection unavailable. Using fallback view.");
+  } catch (error: unknown) {
+    const errMsg = error instanceof Error ? error.message.replace(/postgresql:\/\/[^@\s]+@/g, "postgresql://[redacted]@") : String(error);
+    console.warn("Reports: Database query failed. Using fallback view. Error:", errMsg);
   }
 
   // Serialize data (remove BigInt, ensure plain JSON)
@@ -42,7 +36,7 @@ export default async function ReportsPage() {
     pages: report.pages ?? 0,
     recommendation: report.recommendation ?? "",
     summary: report.summary ?? "",
-    pdfUrl: report.pdfUrl ?? "",
+    pdfUrl: `/api/reports/${report.id}/pdf`,
     tags: report.tags || [],
   }));
 

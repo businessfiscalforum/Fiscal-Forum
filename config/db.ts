@@ -1,11 +1,18 @@
-import { neon } from '@neondatabase/serverless';
-import { drizzle } from 'drizzle-orm/neon-http';
+
+import postgres from "postgres";
+import { drizzle } from "drizzle-orm/postgres-js";
 
 const databaseUrl =
   process.env.DATABASE_URL ||
-  process.env.NEON_DATABASE_URL ||
-  'postgresql://placeholder:placeholder@localhost:5432/placeholder';
+  process.env.NEON_DATABASE_URL;
 
-const sql = neon(databaseUrl);
-export const db = drizzle({ client: sql });
+if (!databaseUrl || databaseUrl.includes("placeholder")) {
+  throw new Error("A valid DATABASE_URL is required.");
+}
 
+const client = postgres(databaseUrl, {
+  max: 1,
+  prepare: false,
+});
+
+export const db = drizzle({ client });

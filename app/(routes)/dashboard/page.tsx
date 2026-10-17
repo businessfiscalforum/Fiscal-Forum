@@ -3,6 +3,7 @@
 
 import React from "react";
 import ReferralSection from '../_components/ReferralSection';
+import SubscriptionStatusCard from '@/components/SubscriptionStatusCard';
 import { Wallet, Clock, Users, CheckCircle2, ArrowRight } from "lucide-react";
 
 const Dashboard = () => {
@@ -114,6 +115,7 @@ const Dashboard = () => {
 
           {/* Right Column: Earnings History & Recent Referrals (takes 5 cols) */}
           <div className="lg:col-span-5 space-y-8">
+            <SubscriptionStatusCard />
             
             {/* Earnings History panel */}
             <div className="bg-white border border-black rounded-3xl p-6 shadow-md">

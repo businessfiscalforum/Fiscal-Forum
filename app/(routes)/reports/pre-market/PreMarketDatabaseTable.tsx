@@ -3,14 +3,16 @@
 import React, { useState } from "react";
 import { format } from "date-fns";
 import { SelectResearchReport } from "../../../../config/schema";
+import ReportActionButton from "../../../../components/ReportActionButton";
 
 interface PreMarketDatabaseTableProps {
   reports: SelectResearchReport[];
+  hasAccess?: boolean;
 }
 
 const ITEMS_PER_PAGE = 5;
 
-export default function PreMarketDatabaseTable({ reports }: PreMarketDatabaseTableProps) {
+export default function PreMarketDatabaseTable({ reports, hasAccess = false }: PreMarketDatabaseTableProps) {
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.max(1, Math.ceil(reports.length / ITEMS_PER_PAGE));
@@ -77,18 +79,14 @@ export default function PreMarketDatabaseTable({ reports }: PreMarketDatabaseTab
               </div>
 
               <div style={{ textAlign: "center" }}>
-                {report.pdfUrl ? (
-                  <a 
-                    href={report.pdfUrl} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="clay-btn"
-                  >
-                    View Report
-                  </a>
-                ) : (
-                  <span style={{ fontSize: "12px", color: "var(--muted)" }}>No PDF</span>
-                )}
+                <ReportActionButton
+                  reportId={report.id}
+                  reportTitle={report.title}
+                  reportType={report.reportType}
+                  className="clay-btn"
+                  buttonText="View Report"
+                  initiallyPurchased={hasAccess}
+                />
               </div>
             </div>
           );

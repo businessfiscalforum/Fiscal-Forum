@@ -33,32 +33,41 @@ export async function OPTIONS(req: NextRequest) {
   return withCORS(req, new NextResponse(null, { status: 204 }));
 }
 
-// ✅ GET all reports
-export async function GET(req: NextRequest) {
-  try {
-    const reports = await db.select().from(researchReportsTable);
-
-    return withCORS(
-      req,
-      NextResponse.json(
-        reports.map((r) => ({
-          ...r,
-          date: r?.publishDate?.toString(),
-        }))
-      )
-    );
-  } catch (error) {
-    console.error("GET /api/reports error:", error);
-    return withCORS(
-      req,
-      NextResponse.json({ error: "Failed to fetch reports" }, { status: 500 })
-    );
-  }
-}
-
 type Context = {
   params: Promise<{ id: string }>;
 };
+
+// ✅ GET single report
+export async function GET(req: NextRequest, { params }: Context) {
+  try {
+    const { id } = await params;
+    const [report] = await db
+      .select()
+      .from(researchReportsTable)
+      .where(eq(researchReportsTable.id, id));
+
+    if (!report) {
+      return withCORS(req, NextResponse.json({ error: "Report not found" }, { status: 404 }));
+    }
+
+    const safeReport = report;
+    return withCORS(
+      req,
+      NextResponse.json({
+        ...safeReport,
+        pdfUrl: `/api/reports/${report.id}/pdf`,
+        date: report.publishDate?.toString(),
+      })
+    );
+  } catch (error: unknown) {
+    const errMsg = error instanceof Error ? error.message.replace(/postgresql:\/\/[^@\s]+@/g, "postgresql://[redacted]@") : String(error);
+    console.error("GET /api/reports/[id] error:", errMsg);
+    return withCORS(
+      req,
+      NextResponse.json({ error: "Failed to fetch report" }, { status: 500 })
+    );
+  }
+}
 
 export async function DELETE(request: Request, { params }: Context) {
   const { id } = await params;
