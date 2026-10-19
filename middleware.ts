@@ -1,5 +1,25 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+
+import {
+  clerkMiddleware,
+  createRouteMatcher,
+} from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+
+const isPreview = process.env.VERCEL_ENV === "preview";
+
+const clerkPublishableKey = isPreview
+  ? process.env.NEXT_PUBLIC_PREVIEW_CLERK_PUBLISHABLE_KEY
+  : process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
+const clerkSecretKey = isPreview
+  ? process.env.PREVIEW_CLERK_SECRET_KEY
+  : process.env.CLERK_SECRET_KEY;
+
+if (!clerkPublishableKey || !clerkSecretKey) {
+  throw new Error(
+    `Missing Clerk keys for ${isPreview ? "Preview" : "Production/Development"} environment.`
+  );
+}
 
 const isPublicRoute = createRouteMatcher([
   "/",
@@ -55,11 +75,9 @@ const isPublicRoute = createRouteMatcher([
   "/api/personal-accident-insurance",
   "/api/personal-loan",
   "/api/property-insurance",
-  // "/api/reports",
   "/api/rp",
   "/api/savings-account",
   "/api/schedule-call",
-  // "/api/send-quote",
   "/api/subscribe",
   "/api/transfer-demat",
   "/api/travel-insurance",
@@ -83,43 +101,48 @@ const isPublicRoute = createRouteMatcher([
 const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
 const isPartnerRoute = createRouteMatcher(["/crm(.*)"]);
 
-export default clerkMiddleware(async (auth, req) => {
-  //Google search engine bot bypass
-  const userAgent = req.headers.get('user-agent') || '';
-  const isBot = /googlebot|bingbot|yandex|baiduspider/i.test(userAgent);
+export default clerkMiddleware(
+  async (auth, req) => {
+    const userAgent = req.headers.get("user-agent") || "";
+    const isBot = /googlebot|bingbot|yandex|baiduspider/i.test(
+      userAgent
+    );
 
-  // Public routes → Clerk skip
-  if (isBot || isPublicRoute(req)) {
-    return NextResponse.next();
+    if (isBot || isPublicRoute(req)) {
+      return NextResponse.next();
+    }
+
+    await auth.protect();
+
+    const user = await auth();
+
+    if (process.env.NODE_ENV === "development") {
+      return NextResponse.next();
+    }
+
+    if (
+      isAdminRoute(req) &&
+      user?.sessionClaims?.metadata?.role !== "ADMIN"
+    ) {
+      return NextResponse.redirect(new URL("/", req.url), 302);
+    }
+
+    if (
+      isPartnerRoute(req) &&
+      user?.sessionClaims?.metadata?.role !== "PARTNER"
+    ) {
+      return NextResponse.redirect(new URL("/", req.url), 302);
+    }
+  },
+  {
+    publishableKey: clerkPublishableKey,
+    secretKey: clerkSecretKey,
   }
-
-  // Protected routes
-  await auth.protect();
-
-  // Role-based checks
-  const user = await auth();
-
-  // Bypass role metadata checks in local development to simplify testing
-  if (process.env.NODE_ENV === "development") {
-    return NextResponse.next();
-  }
-
-  if (isAdminRoute(req) && user?.sessionClaims?.metadata?.role !== "ADMIN") {
-    return NextResponse.redirect(new URL("/", req.url), 302);
-  }
-
-  if (isPartnerRoute(req) && user?.sessionClaims?.metadata?.role !== "PARTNER") {
-    return NextResponse.redirect(new URL("/", req.url), 302);
-  }
-});
-
-
+);
 
 export const config = {
   matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-    // Always run for API routes
     "/(api|trpc)(.*)",
   ],
 };

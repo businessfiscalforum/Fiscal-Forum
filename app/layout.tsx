@@ -1,12 +1,14 @@
+
 import type { Metadata } from "next";
-import './globals.css';
+import "./globals.css";
+
 import { ClerkProvider } from "@clerk/nextjs";
 import Navbar from "./(routes)/_components/Navbar";
 import Provider from "./provider";
 import Footer from "./(routes)/_components/Footer";
 import { GoogleAnalytics } from "./(routes)/_components/GoogleAnalytics";
-import { Analytics } from "@vercel/analytics/next"
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Inter } from "next/font/google";
 import WhatsAppCommunityWidget from "./(routes)/_components/WhatsAppCommunityWidget";
 
@@ -15,14 +17,29 @@ const inter = Inter({
   display: "swap",
 });
 
+// Use Development Clerk keys on Vercel Preview.
+// Keep existing Production Clerk keys unchanged.
+const isPreview = process.env.VERCEL_ENV === "preview";
+
+const clerkPublishableKey = isPreview
+  ? process.env.NEXT_PUBLIC_PREVIEW_CLERK_PUBLISHABLE_KEY
+  : process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.fiscalforum.in"),
   title: {
-    default: "Fiscal Forum", 
-    template: "%s | Fiscal Forum", 
+    default: "Fiscal Forum",
+    template: "%s | Fiscal Forum",
   },
-  description: "Join Fiscal Forum for the latest financial discussions, market insights, and expert advice.",
-  keywords: ["Finance", "Forum", "Fiscal Forum", "Investment", "India Finance"],
+  description:
+    "Join Fiscal Forum for the latest financial discussions, market insights, and expert advice.",
+  keywords: [
+    "Finance",
+    "Forum",
+    "Fiscal Forum",
+    "Investment",
+    "India Finance",
+  ],
   alternates: {
     canonical: "/",
   },
@@ -39,9 +56,9 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   openGraph: {
@@ -53,7 +70,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   other: {
-    "site_name": "Fiscal Forum",
+    site_name: "Fiscal Forum",
     "apple-mobile-web-app-title": "Fiscal Forum",
   },
 };
@@ -63,33 +80,37 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
   const siteNameJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Fiscal Forum",
-    "alternateName": ["FiscalForum"],
-    "url": "https://www.fiscalforum.in/",
+    name: "Fiscal Forum",
+    alternateName: ["FiscalForum"],
+    url: "https://www.fiscalforum.in/",
   };
 
   return (
-    <ClerkProvider>
+    <ClerkProvider publishableKey={clerkPublishableKey}>
       <html lang="en">
         <head>
           <script
             type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(siteNameJsonLd) }}
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(siteNameJsonLd),
+            }}
           />
         </head>
+
         <body className={inter.className}>
-          {/* <GlowCursor /> */}
-          <GoogleAnalytics/>
+          <GoogleAnalytics />
           <Analytics />
           <SpeedInsights />
+
           <Navbar />
-          {/* <PopupController /> */}
+
           <Provider>{children}</Provider>
+
           <WhatsAppCommunityWidget />
+
           <Footer />
         </body>
       </html>
