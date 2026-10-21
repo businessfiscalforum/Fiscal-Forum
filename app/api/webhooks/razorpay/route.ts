@@ -37,8 +37,9 @@ export async function POST(req: NextRequest) {
       id?: string;
       event?: string;
       payload?: {
-        payment?: { entity?: { id?: string; order_id?: string; status?: string; amount?: number; currency?: string } };
+        payment?: { entity?: { id?: string; order_id?: string; status?: string; amount?: number; currency?: string; amount_refunded?: number } };
         order?: { entity?: { id?: string; status?: string; amount?: number } };
+        refund?: { entity?: { id?: string; payment_id?: string; amount?: number; currency?: string; status?: string } };
       };
     };
     try {
@@ -223,7 +224,7 @@ export async function POST(req: NextRequest) {
       }
     } else if (eventType === "refund.processed") {
       // Process refund events: Distinguish full refund from partial refund
-      const refundEntity = (payload.payload as any)?.refund?.entity;
+      const refundEntity = payload.payload?.refund?.entity;
       const paymentEntity = payload.payload?.payment?.entity;
       const paymentId = refundEntity?.payment_id || paymentEntity?.id;
       const refundAmount = Number(refundEntity?.amount || 0);
