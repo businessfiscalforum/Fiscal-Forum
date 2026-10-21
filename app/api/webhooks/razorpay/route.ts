@@ -93,7 +93,7 @@ export async function POST(req: NextRequest) {
         .where(eq(webhookEventsTable.eventId, eventId));
     }
 
-    // 6. Handle supported events: payment.captured and order.paid
+    // 6. Handle supported events
     if (eventType === "payment.captured" || eventType === "order.paid") {
       const paymentEntity = payload.payload?.payment?.entity;
       const orderEntity = payload.payload?.order?.entity;
@@ -156,6 +156,92 @@ export async function POST(req: NextRequest) {
             console.warn(`Webhook ${eventId}: Untracked order ${orderId}.`);
             throw new Error(`Order ${orderId} not found in database records.`);
           }
+        }
+      }
+    } else if (eventType === "payment.failed") {
+      // Safely handle payment failure without granting access or overwriting captured state
+      const paymentEntity = payload.payload?.payment?.entity;
+      const orderEntity = payload.payload?.order?.entity;
+      const orderId = paymentEntity?.order_id || orderEntity?.id;
+      const paymentId = paymentEntity?.id;
+
+      if (orderId) {
+        const [subAttempt] = await db
+          .select()
+          .from(subscriptionPaymentAttemptsTable)
+          .where(eq(subscriptionPaymentAttemptsTable.orderId, orderId))
+          .limit(1);
+
+        if (subAttempt) {
+          // Late payment.failed must NEVER overwrite a captured/paid state
+          if (subAttempt.status.toUpperCase() === "PENDING") {
+            await db
+              .update(subscriptionPaymentAttemptsTable)
+              .set({
+                status: "FAILED",
+                ...(paymentId ? { paymentId } : {}),
+              })
+              .where(eq(subscriptionPaymentAttemptsTable.orderId, orderId));
+          }
+        } else {
+          const [customReport] = await db
+            .select()
+            .from(customReportsTable)
+            .where(eq(customReportsTable.orderId, orderId))
+            .limit(1);
+
+          if (customReport) {
+            if (customReport.paymentStatus.toUpperCase() === "PENDING") {
+              await db
+                .update(customReportsTable)
+                .set({
+                  paymentStatus: "FAILED",
+                  ...(paymentId ? { paymentId } : {}),
+                })
+                .where(eq(customReportsTable.orderId, orderId));
+            }
+          } else {
+            const [legacyAttempt] = await db
+              .select()
+              .from(paymentAttemptsTable)
+              .where(eq(paymentAttemptsTable.orderId, orderId))
+              .limit(1);
+
+            if (legacyAttempt) {
+              if (legacyAttempt.status.toLowerCase() === "pending") {
+                await db
+                  .update(paymentAttemptsTable)
+                  .set({
+                    status: "failed",
+                    ...(paymentId ? { paymentId } : {}),
+                  })
+                  .where(eq(paymentAttemptsTable.orderId, orderId));
+              }
+            }
+          }
+        }
+      }
+    } else if (eventType === "refund.processed") {
+      // Process refund events: Distinguish full refund from partial refund
+      const refundEntity = (payload.payload as any)?.refund?.entity;
+      const paymentEntity = payload.payload?.payment?.entity;
+      const paymentId = refundEntity?.payment_id || paymentEntity?.id;
+      const refundAmount = Number(refundEntity?.amount || 0);
+      const totalAmount = Number(paymentEntity?.amount || 0);
+
+      if (paymentId) {
+        const isFullRefund = totalAmount > 0 && refundAmount >= totalAmount;
+        const [subAttempt] = await db
+          .select()
+          .from(subscriptionPaymentAttemptsTable)
+          .where(eq(subscriptionPaymentAttemptsTable.paymentId, paymentId))
+          .limit(1);
+
+        if (subAttempt && isFullRefund) {
+          await db
+            .update(subscriptionPaymentAttemptsTable)
+            .set({ status: "REFUNDED" })
+            .where(eq(subscriptionPaymentAttemptsTable.id, subAttempt.id));
         }
       }
     }

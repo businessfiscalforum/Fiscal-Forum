@@ -100,9 +100,9 @@ export async function createCustomReportOrder(payload: {
   loanHasCollateral?: string | null;
   loanCollateralType?: string | null;
 }) {
-  const name = (payload.name || "").trim();
-  const email = (payload.email || "").trim();
-  const mobile = (payload.mobile || "").trim();
+  const name = typeof payload.name === "string" ? payload.name.trim() : "";
+  const email = typeof payload.email === "string" ? payload.email.trim() : "";
+  const mobile = typeof payload.mobile === "string" ? payload.mobile.trim() : "";
 
   if (!name) {
     throw new CustomReportError("Full name is required.", "MISSING_NAME", 400);

@@ -29,6 +29,13 @@
       "when": 1791758837946,
       "tag": "0003_universal_subscriptions_and_custom_reports",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1791850000000,
+      "tag": "0004_add_user_subscriptions_unique_constraints",
+      "breakpoints": true
     }
   ]
 }

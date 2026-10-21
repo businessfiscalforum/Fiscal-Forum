@@ -82,7 +82,15 @@ export function getSubscriptionPlan(
   plan: SubscriptionPlanConfig;
   durationConfig: { months: PlanDurationMonths; priceInRupees: number; priceInPaise: number };
 } {
-  const normalizedPlanId = (planId || "").trim().toLowerCase().replace(/-/g, "_");
+  if (!planId || typeof planId !== "string") {
+    throw new SubscriptionError(
+      "Subscription planId is required and must be a valid string.",
+      "INVALID_PLAN",
+      400
+    );
+  }
+
+  const normalizedPlanId = planId.trim().toLowerCase().replace(/-/g, "_");
   const plan = SUBSCRIPTION_PLANS[normalizedPlanId];
   if (!plan) {
     throw new SubscriptionError(
@@ -92,8 +100,8 @@ export function getSubscriptionPlan(
     );
   }
 
-  const duration = plan.durations[durationMonths as PlanDurationMonths];
-  if (!duration) {
+  const numDuration = Number(durationMonths);
+  if (!Number.isInteger(numDuration) || !(numDuration === 1 || numDuration === 3 || numDuration === 6)) {
     throw new SubscriptionError(
       `Invalid duration: '${durationMonths}' months for plan '${plan.title}'. Available: 1, 3, or 6 months.`,
       "INVALID_DURATION",
@@ -101,6 +109,7 @@ export function getSubscriptionPlan(
     );
   }
 
+  const duration = plan.durations[numDuration as PlanDurationMonths];
   return { plan, durationConfig: duration };
 }
 
@@ -324,7 +333,7 @@ export async function reconcileSubscriptionPayment(params: {
     await tx
       .update(subscriptionPaymentAttemptsTable)
       .set({
-        status: "paid",
+        status: "PAID",
         paymentId,
         ...(signature ? { signature } : {}),
       })
@@ -345,7 +354,7 @@ export async function reconcileSubscriptionPayment(params: {
         expiryDate,
         status: "ACTIVE",
       })
-      .onConflictDoNothing();
+      .onConflictDoNothing({ target: userSubscriptionsTable.paymentId });
   };
 
   if (typeof db.transaction === "function") {

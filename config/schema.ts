@@ -824,6 +824,8 @@ export const userSubscriptionsTable = pgTable("user_subscriptions", {
 }, (table) => [
   index("user_subscriptions_user_idx").on(table.clerkUserId),
   index("user_subscriptions_user_scope_idx").on(table.clerkUserId, table.accessScope),
+  uniqueIndex("user_subscriptions_payment_id_unique").on(table.paymentId),
+  uniqueIndex("user_subscriptions_order_id_unique").on(table.orderId),
 ]);
 
 export const webhookEventsTable = pgTable("webhook_events", {
