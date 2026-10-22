@@ -34,9 +34,9 @@ export const SUBSCRIPTION_PLANS: Record<string, SubscriptionPlanConfig> = {
     title: "Pre-Market Reports",
     scope: "PRE_MARKET",
     durations: {
-      1: { months: 1, priceInRupees: 119, priceInPaise: 11900 },
-      3: { months: 3, priceInRupees: 299, priceInPaise: 29900 },
-      6: { months: 6, priceInRupees: 569, priceInPaise: 56900 },
+      1: { months: 1, priceInRupees: 21, priceInPaise: 2100 },
+      3: { months: 3, priceInRupees: 41, priceInPaise: 4100 },
+      6: { months: 6, priceInRupees: 51, priceInPaise: 5100 },
     },
   },
   weekly: {
@@ -44,9 +44,9 @@ export const SUBSCRIPTION_PLANS: Record<string, SubscriptionPlanConfig> = {
     title: "Weekly Market Reports",
     scope: "WEEKLY",
     durations: {
-      1: { months: 1, priceInRupees: 89, priceInPaise: 8900 },
-      3: { months: 3, priceInRupees: 199, priceInPaise: 19900 },
-      6: { months: 6, priceInRupees: 499, priceInPaise: 49900 },
+      1: { months: 1, priceInRupees: 21, priceInPaise: 2100 },
+      3: { months: 3, priceInRupees: 41, priceInPaise: 4100 },
+      6: { months: 6, priceInRupees: 51, priceInPaise: 5100 },
     },
   },
   combination: {
@@ -54,9 +54,9 @@ export const SUBSCRIPTION_PLANS: Record<string, SubscriptionPlanConfig> = {
     title: "Pre-Market + Weekly Reports",
     scope: "COMBINATION",
     durations: {
-      1: { months: 1, priceInRupees: 169, priceInPaise: 16900 },
-      3: { months: 3, priceInRupees: 399, priceInPaise: 39900 },
-      6: { months: 6, priceInRupees: 649, priceInPaise: 64900 },
+      1: { months: 1, priceInRupees: 21, priceInPaise: 2100 },
+      3: { months: 3, priceInRupees: 41, priceInPaise: 4100 },
+      6: { months: 6, priceInRupees: 51, priceInPaise: 5100 },
     },
   },
 } as const;
