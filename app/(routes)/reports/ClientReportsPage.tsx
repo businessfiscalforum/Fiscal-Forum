@@ -259,7 +259,7 @@ export default function ClientReportsPage({
           setIsBoxVisible(true);
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.05 }
     );
 
     const currentBox = boxRef.current;
