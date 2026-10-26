@@ -38,7 +38,7 @@ const slides = [
       "Real-time market alerts",
       "Expert research & recommendations",
     ],
-    path: "services/financial-services",
+    path: "services/investment-verticals",
     stats: [
       { value: "100+", label: "Active Traders" },
       { value: "50+", label: "Stocks & ETFs" },
@@ -412,7 +412,7 @@ const content = {
       icon: BarChart3,
       description:
         "Own a part of India's leading companies and grow your wealth over time. Learn how stocks work, discover high-potential opportunities, and invest with confidence backed by research. Start your investing journey today.",
-      link: "/services/financial-services",
+      link: "/services/investment-verticals",
       image: "/images/service-stock.png",
     },
     {
@@ -756,7 +756,7 @@ export default function HomeMobile() {
       </AnimatePresence>
 
       {/* 🔹 Tabbed Services (Cards Grid) */}
-      <section className="px-4 py-8 bg-[#F4FBF7] border-b border-black" id="services-section-mobile">
+      <section className="px-3 sm:px-4 py-8 bg-[#F4FBF7] border-b border-black" id="services-section-mobile">
         <h2 className="text-xl sm:text-2xl font-bold text-black uppercase tracking-tight text-center mb-6">
           Our Financial Premium Services
         </h2>
@@ -778,26 +778,26 @@ export default function HomeMobile() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
           {content[activeTab].map((item, i) => (
-            <Link key={i} href={item.link} className="block">
+            <Link key={i} href={item.link} className="block h-full">
               <motion.div
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="bg-white border border-black rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col justify-between h-full min-h-[145px]"
+                className="bg-white border border-black rounded-xl sm:rounded-2xl p-2.5 min-[380px]:p-3 sm:p-5 shadow-sm flex flex-col justify-between h-full min-h-[125px] sm:min-h-[145px]"
               >
                 <div>
                   {/* Title and Image Row */}
-                  <div className="flex justify-between items-center gap-3">
+                  <div className="flex justify-between items-start gap-1.5 sm:gap-3">
                     <div className="flex-1 min-w-0">
                       {/* Title */}
-                      <h3 className="font-bold text-black text-sm sm:text-base leading-snug">
+                      <h3 className="font-bold text-black text-xs sm:text-base leading-tight sm:leading-snug">
                         {item.title}
                       </h3>
                     </div>
                     {/* Cropped illustration image */}
                     {(item as { image?: string }).image && (
-                      <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 relative rounded-xl overflow-hidden border border-black/10 shadow-sm aspect-square bg-gray-50/50">
+                      <div className="flex-shrink-0 w-10 h-10 min-[380px]:w-11 min-[380px]:h-11 sm:w-20 sm:h-20 relative rounded-lg sm:rounded-xl overflow-hidden border border-black/10 shadow-sm aspect-square bg-gray-50/50">
                         <Image
                           src={(item as { image?: string }).image!}
                           alt={item.title}
@@ -808,9 +808,9 @@ export default function HomeMobile() {
                     )}
                   </div>
                 </div>
-                <div className="mt-4">
+                <div className="mt-2.5 sm:mt-4">
                   <span className="revolving-border-btn shadow-sm">
-                    <span className="revolving-border-btn-content py-2 text-xs tracking-wider gap-1.5">
+                    <span className="revolving-border-btn-content py-1.5 sm:py-2 px-1 text-[9.5px] min-[360px]:text-[10px] sm:text-xs font-bold tracking-wider gap-1 sm:gap-1.5 whitespace-nowrap">
                       EXPLORE HERE
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -818,7 +818,7 @@ export default function HomeMobile() {
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="3"
-                        className="w-4 h-4"
+                        className="w-3 h-3 sm:w-4 sm:h-4 shrink-0"
                       >
                         <path d="M5 12h14M12 5l7 7-7 7" />
                       </svg>
@@ -976,7 +976,7 @@ export default function HomeMobile() {
           </div>
           {/* Button */}
           <div>
-            <Link href="/services/financial-services#portfolio-studio" className="w-full block">
+            <Link href="/services/investment-verticals#portfolio-studio" className="w-full block">
               <button className="revolving-border-btn shadow-sm w-full">
                 <span className="revolving-border-btn-content py-2.5 text-xs font-bold tracking-wider">
                   Click Here
@@ -987,15 +987,15 @@ export default function HomeMobile() {
         </div>
 
         {/* Women's Section & IPO WORLD */}
-        <div className="flex flex-col gap-4 mb-8 text-left">
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-4 mb-8 text-left">
           {/* Women's Section Card */}
-          <div className="bg-white border border-black rounded-2xl p-5 shadow-sm flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="flex justify-between items-start gap-3">
-                <h3 className="text-lg font-bold text-black uppercase tracking-tight flex-1">
+          <div className="bg-white border border-black rounded-xl sm:rounded-2xl p-2.5 min-[380px]:p-3 sm:p-5 shadow-sm flex flex-col justify-between h-full">
+            <div className="space-y-2 sm:space-y-3">
+              <div className="flex justify-between items-start gap-1.5 sm:gap-3">
+                <h3 className="text-xs min-[380px]:text-sm sm:text-lg font-bold text-black uppercase tracking-tight flex-1 leading-snug">
                   Womens Section
                 </h3>
-                <div className="flex-shrink-0 w-20 h-20 relative rounded-xl overflow-hidden border border-black/10 shadow-sm">
+                <div className="flex-shrink-0 w-10 h-10 min-[380px]:w-11 min-[380px]:h-11 sm:w-20 sm:h-20 relative rounded-lg sm:rounded-xl overflow-hidden border border-black/10 shadow-sm aspect-square bg-gray-50/50">
                   <Image
                     src="/images/service-women.png"
                     alt="Womens Section"
@@ -1004,16 +1004,14 @@ export default function HomeMobile() {
                   />
                 </div>
               </div>
-              <p className="text-xs sm:text-sm text-gray-700 font-medium leading-relaxed">
-                {"When a woman understands money, the whole family's future becomes stronger."}
-                <br />
-                {"Start your financial learning journey with easy, bite-sized insights..."}
+              <p className="text-[10px] min-[380px]:text-[11px] sm:text-sm text-gray-700 font-medium leading-relaxed line-clamp-3 sm:line-clamp-none">
+                {"When a woman understands money, the whole family's future becomes stronger. Start your financial learning journey with easy, bite-sized insights..."}
               </p>
             </div>
-            <div className="pt-4">
-              <Link href="/for-women" className="inline-block">
-                <button className="revolving-border-btn shadow-sm min-w-[140px]">
-                  <span className="revolving-border-btn-content py-2 text-xs font-bold tracking-wider">
+            <div className="pt-2.5 sm:pt-4">
+              <Link href="/for-women" className="block w-full">
+                <button className="revolving-border-btn shadow-sm w-full">
+                  <span className="revolving-border-btn-content py-1.5 sm:py-2 px-1 text-[9.5px] min-[380px]:text-[10.5px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap">
                     Womens Section
                   </span>
                 </button>
@@ -1022,13 +1020,13 @@ export default function HomeMobile() {
           </div>
 
           {/* IPO World Card */}
-          <div className="bg-white border border-black rounded-2xl p-5 shadow-sm flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="flex justify-between items-start gap-3">
-                <h3 className="text-lg font-bold text-black uppercase tracking-tight flex-1">
+          <div className="bg-white border border-black rounded-xl sm:rounded-2xl p-2.5 min-[380px]:p-3 sm:p-5 shadow-sm flex flex-col justify-between h-full">
+            <div className="space-y-2 sm:space-y-3">
+              <div className="flex justify-between items-start gap-1.5 sm:gap-3">
+                <h3 className="text-xs min-[380px]:text-sm sm:text-lg font-bold text-black uppercase tracking-tight flex-1 leading-snug">
                   IPO WORLD
                 </h3>
-                <div className="flex-shrink-0 w-20 h-20 relative rounded-xl overflow-hidden border border-black/10 shadow-sm">
+                <div className="flex-shrink-0 w-10 h-10 min-[380px]:w-11 min-[380px]:h-11 sm:w-20 sm:h-20 relative rounded-lg sm:rounded-xl overflow-hidden border border-black/10 shadow-sm aspect-square bg-gray-50/50">
                   <Image
                     src="/images/service-ipo.png"
                     alt="IPO WORLD"
@@ -1037,16 +1035,14 @@ export default function HomeMobile() {
                   />
                 </div>
               </div>
-              <p className="text-xs sm:text-sm text-gray-700 font-medium leading-relaxed">
-                {"Every successful company was once a new opportunity."}
-                <br />
-                {"Discover IPOs explained simply before you decide to invest..."}
+              <p className="text-[10px] min-[380px]:text-[11px] sm:text-sm text-gray-700 font-medium leading-relaxed line-clamp-3 sm:line-clamp-none">
+                {"Every successful company was once a new opportunity. Discover IPOs explained simply before you decide to invest..."}
               </p>
             </div>
-            <div className="pt-4">
-              <Link href="/news?tab=ipo-scoop" className="inline-block">
-                <button className="revolving-border-btn shadow-sm min-w-[180px]">
-                  <span className="revolving-border-btn-content py-2 text-xs font-bold tracking-wider">
+            <div className="pt-2.5 sm:pt-4">
+              <Link href="/news?tab=ipo-scoop" className="block w-full">
+                <button className="revolving-border-btn shadow-sm w-full">
+                  <span className="revolving-border-btn-content py-1.5 sm:py-2 px-1 text-[9px] min-[380px]:text-[10px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap">
                     Explore IPO Universe
                   </span>
                 </button>
@@ -1200,7 +1196,7 @@ export default function HomeMobile() {
             transparent 30%,
             transparent 100%
           );
-          animation: border-spin 4s linear infinite;
+          animation: border-spin 7.5s linear infinite;
         }
 
         .revolving-border-btn-content {

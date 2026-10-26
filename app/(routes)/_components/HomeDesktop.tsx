@@ -52,7 +52,7 @@ const slides = [
       "Real-time market alerts",
       "Expert research & recommendations",
     ],
-    path: "services/financial-services",
+    path: "services/investment-verticals",
     stats: [
       { value: "100+", label: "Active Traders" },
       { value: "50+", label: "Stocks & ETFs" },
@@ -725,7 +725,7 @@ export default function HomeDesktop() {
         icon: BarChart3,
         description:
           "Own a part of India's leading companies and grow your wealth over time. Learn how stocks work, discover high-potential opportunities, and invest with confidence backed by research. Start your investing journey today.",
-        link: "/services/financial-services",
+        link: "/services/investment-verticals",
         image: "/images/service-stock.png",
       },
       {
@@ -1219,7 +1219,7 @@ export default function HomeDesktop() {
                   </p>
                 </div>
                 <div>
-                  <Link href="/services/financial-services#portfolio-studio" className="inline-block">
+                  <Link href="/services/investment-verticals#portfolio-studio" className="inline-block">
                     <button className="revolving-border-btn inline shadow-sm hover:-translate-y-0.5 transition-all min-w-[140px]">
                       <span className="revolving-border-btn-content py-3 text-xs sm:text-sm font-bold tracking-wider">
                         Click Here
@@ -1505,7 +1505,7 @@ export default function HomeDesktop() {
               transparent 30%,
               transparent 100%
             );
-            animation: border-spin 4s linear infinite;
+            animation: border-spin 7.5s linear infinite;
           }
 
           .revolving-border-btn-content {

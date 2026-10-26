@@ -44,8 +44,8 @@ export default function Navbar() {
 
   const servicesDropdown = [
     {
-      name: "FINANCIAL SERVICES",
-      href: "/services/financial-services",
+      name: "INVESTMENT VERTICALS",
+      href: "/services/investment-verticals",
       icon: <LineChart className="w-5 h-5 text-black" />,
     },
     {
@@ -77,7 +77,7 @@ export default function Navbar() {
 
   const navItems = [
     { label: "Reports", href: "/reports" },
-    { label: "FINANCIAL SERVICES", href: "/services/financial-services" },
+    { label: "INVESTMENT VERTICALS", href: "/services/investment-verticals" },
     { label: "For Women", href: "/for-women" },
     { label: "News & IPOs", href: "/news" },
     { label: "NSE Screener", href: "/screener" },
@@ -192,7 +192,7 @@ export default function Navbar() {
                 </Link>
               );
             }
-            if (item.label === "FINANCIAL SERVICES") {
+            if (item.label === "INVESTMENT VERTICALS") {
               return (
                 <Link
                   key={item.label}
@@ -219,8 +219,8 @@ export default function Navbar() {
                   <div className="absolute inset-[1.5px] rounded-full bg-[#FEF08A] flex items-center justify-center gap-1.5 z-10 pointer-events-none px-2.5">
                     <LineChart size={13} className="text-black stroke-[2.5] flex-shrink-0" />
                     <span className="text-[10px] leading-[1.05] font-bold text-black uppercase tracking-wider flex flex-col items-center justify-center text-center">
-                      <span>FINANCIAL</span>
-                      <span>SERVICES</span>
+                      <span>INVESTMENT</span>
+                      <span>VERTICALS</span>
                     </span>
                   </div>
                 </Link>
@@ -410,7 +410,7 @@ export default function Navbar() {
                       </Link>
                     );
                   }
-                  if (item.label === "FINANCIAL SERVICES") {
+                  if (item.label === "INVESTMENT VERTICALS") {
                     return (
                       <Link
                         key={item.label}
@@ -438,8 +438,8 @@ export default function Navbar() {
                         <div className="absolute inset-[1.5px] rounded-full bg-[#FEF08A] flex items-center gap-2.5 px-5 z-10 pointer-events-none">
                           <LineChart size={16} className="text-black stroke-[2.5] flex-shrink-0" />
                           <span className="text-xs leading-tight font-bold text-black uppercase tracking-wider flex flex-col text-left">
-                            <span>FINANCIAL</span>
-                            <span>SERVICES</span>
+                            <span>INVESTMENT</span>
+                            <span>VERTICALS</span>
                           </span>
                         </div>
                       </Link>
