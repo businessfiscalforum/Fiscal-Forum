@@ -58,8 +58,8 @@ const investmentOptions = [
     description:
       "Own company shares or diversify smartly with ETFs.",
     icon: BarChart3,
-    link: "/services/financial-services/equity-etfs",
-    alink: "/services/financial-services/equity-etfs/apply",
+    link: "/services/investment-verticals/equity-etfs",
+    alink: "/services/investment-verticals/equity-etfs/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-blue-100",
     iconColor: "text-blue-600",
@@ -71,8 +71,8 @@ const investmentOptions = [
     description:
       "Hedge risk or speculate on price moves.",
     icon: TrendingUp,
-    link: "/services/financial-services/futures-options",
-    alink: "/services/financial-services/futures-options/apply",
+    link: "/services/investment-verticals/futures-options",
+    alink: "/services/investment-verticals/futures-options/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-purple-100",
     iconColor: "text-purple-600",
@@ -84,8 +84,8 @@ const investmentOptions = [
     description:
       "Invest early in growing companies.",
     icon: Sparkles,
-    link: "/services/financial-services/ipo",
-    alink: "/services/financial-services/ipo/apply",
+    link: "/services/investment-verticals/ipo",
+    alink: "/services/investment-verticals/ipo/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-emerald-100",
     iconColor: "text-emerald-600",
@@ -97,8 +97,8 @@ const investmentOptions = [
     description:
       "Buy stocks with borrowed broker funds for leverage.",
     icon: Zap,
-    link: "/services/financial-services/mtf",
-    alink: "/services/financial-services/mtf/apply",
+    link: "/services/investment-verticals/mtf",
+    alink: "/services/investment-verticals/mtf/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-orange-100",
     iconColor: "text-orange-600",
@@ -110,8 +110,8 @@ const investmentOptions = [
     description:
       "Trade real assets like gold, silver, crude oil.",
     icon: Coins,
-    link: "/services/financial-services/commodities",
-    alink: "/services/financial-services/commodities/apply",
+    link: "/services/investment-verticals/commodities",
+    alink: "/services/investment-verticals/commodities/apply",
     bgColor: "bg-gradient-to-br from-green-500 to-green-700",
     iconBgColor: "bg-yellow-100",
     iconColor: "text-yellow-600",
@@ -123,8 +123,8 @@ const investmentOptions = [
     description:
       "Invest early in companies before listing.",
     icon: Gem,
-    link: "/services/financial-services/unlisted-shares",
-    alink: "/services/financial-services/unlisted-shares/apply",
+    link: "/services/investment-verticals/unlisted-shares",
+    alink: "/services/investment-verticals/unlisted-shares/apply",
     bgColor: "bg-white",
     iconBgColor: "bg-indigo-100",
     iconColor: "text-indigo-600",
@@ -482,7 +482,7 @@ export default function StockInvestmentPage() {
                 </p>
               </div>
               <div className="flex-shrink-0 w-full md:w-auto pt-2 md:pt-0">
-                <Link href="/services/financial-services/open-demat-account" className="block w-full md:w-auto">
+                <Link href="/services/investment-verticals/open-demat-account" className="block w-full md:w-auto">
                   <button className="w-full md:w-auto bg-black text-white hover:bg-zinc-800 border border-black px-6 py-4 rounded-xl font-bold uppercase tracking-wider text-xs sm:text-sm shadow-md hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 cursor-pointer">
                     <span>Start Investing Now</span>
                     <span className="text-base">↗</span>
