@@ -19,7 +19,7 @@ export default function GovernmentBondsPage() {
         </p>
         <div>
           <Link
-            href="/services/investment-verticals/open-demat-account"
+            href="/services/financial-services/open-demat-account"
             className="cta-btn inline-block text-center font-bold px-8 py-3.5"
             style={{ textDecoration: 'none' }}
           >

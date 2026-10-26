@@ -44,8 +44,8 @@ export default function Navbar() {
 
   const servicesDropdown = [
     {
-      name: "INVESTMENT VERTICALS",
-      href: "/services/investment-verticals",
+      name: "Investment Verticals",
+      href: "/services/financial-services",
       icon: <LineChart className="w-5 h-5 text-black" />,
     },
     {
@@ -77,7 +77,7 @@ export default function Navbar() {
 
   const navItems = [
     { label: "Reports", href: "/reports" },
-    { label: "INVESTMENT VERTICALS", href: "/services/investment-verticals" },
+    { label: "Investment Verticals", href: "/services/financial-services" },
     { label: "For Women", href: "/for-women" },
     { label: "News & IPOs", href: "/news" },
     { label: "NSE Screener", href: "/screener" },
@@ -192,7 +192,7 @@ export default function Navbar() {
                 </Link>
               );
             }
-            if (item.label === "INVESTMENT VERTICALS") {
+            if (item.label === "Investment Verticals") {
               return (
                 <Link
                   key={item.label}
@@ -410,7 +410,7 @@ export default function Navbar() {
                       </Link>
                     );
                   }
-                  if (item.label === "INVESTMENT VERTICALS") {
+                  if (item.label === "Investment Verticals") {
                     return (
                       <Link
                         key={item.label}

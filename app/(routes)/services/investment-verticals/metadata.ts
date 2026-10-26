@@ -1,7 +1,7 @@
-// app/services/investment-verticals/metadata.ts
+// app/services/financial-services/metadata.ts
 
 export const metadata = {
-  title: "Investment Verticals | Fiscal Forum – Equity, F&O, IPO & More",
+  title: "Smart Stock Investment Plans | Fiscal Forum – Equity, F&O, IPO & More",
   description:
     "Invest in Equity, ETFs, Futures & Options, IPOs, Commodities & Unlisted Shares with Fiscal Forum. Open a Demat account, get real-time insights, and trade with confidence.",
   keywords: [
@@ -34,13 +34,13 @@ export const metadata = {
     },
   },
   alternates: {
-    canonical: "https://www.fiscalforum.in/services/investment-verticals",
+    canonical: "https://www.fiscalforum.in/services/financial-services",
   },
   openGraph: {
     title: "Start Stock Investing Today | Fiscal Forum",
     description:
       "Trade Equity, F&O, IPOs, Commodities & more. Get free premarket reports, 24/7 support, and brokerage cashback. Open your Demat account in minutes.",
-    url: "https://www.fiscalforum.in/services/investment-verticals",
+    url: "https://www.fiscalforum.in/services/financial-services",
     siteName: "Fiscal Forum",
     locale: "en_IN",
     type: "website",

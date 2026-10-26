@@ -98,20 +98,6 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  async redirects() {
-    return [
-      {
-        source: '/services/financial-services',
-        destination: '/services/investment-verticals',
-        permanent: true,
-      },
-      {
-        source: '/services/financial-services/:path*',
-        destination: '/services/investment-verticals/:path*',
-        permanent: true,
-      },
-    ];
-  },
 };
 
 export default nextConfig;
