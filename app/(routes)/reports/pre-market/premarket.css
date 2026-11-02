@@ -368,16 +368,22 @@
 }
 
 @media (max-width: 880px) {
-  .premarket-page-container .hero { padding: 24px 5vw 36px; }
+  .premarket-page-container .hero { padding: 24px 5vw 48px; }
   .premarket-page-container .hero-inner {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 22px;
     text-align: left;
     padding-top: 0;
   }
+  .premarket-page-container .hero-copy {
+    order: 1;
+  }
   .premarket-page-container .card-stage {
-    order: -1;
+    order: 2;
     align-items: center;
+  }
+  .premarket-page-container .sub {
+    margin-bottom: 0;
   }
   .premarket-page-container .hero-img-wrap {
     max-width: 100%;
@@ -637,72 +643,189 @@
 }
 
 @media (max-width: 880px) {
-  .premarket-page-container .report-content { padding: 56px 6vw 64px; }
+  .premarket-page-container .report-content { padding: 44px 5vw 36px; }
   .premarket-page-container .section-heading { display: block; }
-  .premarket-page-container .section-heading p { margin-top: 18px; }
-  .premarket-page-container .inside-grid { grid-template-columns: repeat(2, 1fr); }
+  .premarket-page-container .section-heading p { margin-top: 14px; }
+  .premarket-page-container .inside-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
   .premarket-page-container .inside-card {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
     min-height: auto;
-    padding: 18px;
+    padding: 18px 16px;
+    border-radius: 14px;
   }
   .premarket-page-container .icon-box {
-    flex: 0 0 52px;
-    width: 52px;
-    height: 52px;
+    flex: 0 0 50px;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
   }
   .premarket-page-container .icon-box svg {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
   }
   .premarket-page-container .inside-copy h3 {
-    font-size: 16px;
-    padding-right: 24px;
+    font-size: 15.5px;
+    padding-right: 20px;
   }
   .premarket-page-container .inside-copy p {
     font-size: 12px;
+    line-height: 1.4;
   }
   .premarket-page-container .reader-strip { grid-template-columns: 1fr; }
   .premarket-page-container .reader-point { border-right: none; border-bottom: 1px solid rgba(16, 21, 18, .10); }
   .premarket-page-container .reader-point:last-child { border-bottom: none; }
-  .premarket-page-container .report-cta { display: block; padding: 30px 26px; }
-  .premarket-page-container .report-cta .cta { margin-top: 22px; }
+  .premarket-page-container .report-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 28px 24px;
+    margin-top: 32px;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(20, 67, 42, 0.12);
+  }
+  .premarket-page-container .report-cta h3 {
+    font-size: 24px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .premarket-page-container .report-cta p {
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+  .premarket-page-container .report-cta .cta {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 14px 20px;
+    font-size: 14px;
+    letter-spacing: .05em;
+    border-radius: 12px;
+    box-sizing: border-box;
+    white-space: normal;
+    text-align: center;
+  }
 }
 
 @media (max-width: 560px) {
+  .premarket-page-container .report-content {
+    padding: 32px 4vw 24px;
+  }
+  .premarket-page-container .section-kicker {
+    margin-bottom: 10px;
+  }
+  .premarket-page-container .section-heading h2 {
+    font-size: clamp(22px, 6vw, 28px);
+    line-height: 1.15;
+  }
+  .premarket-page-container .section-heading p {
+    margin-top: 10px;
+    font-size: 13px;
+    line-height: 1.45;
+  }
   .premarket-page-container .inside-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-  .premarket-page-container .inside-card {
-    padding: 14px 12px;
     gap: 8px;
   }
+  .premarket-page-container .inside-card {
+    padding: 12px 10px;
+    gap: 8px;
+    border-radius: 12px;
+  }
   .premarket-page-container .icon-box {
-    flex-basis: 44px;
-    width: 44px;
-    height: 44px;
+    flex-basis: 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
   }
   .premarket-page-container .icon-box svg {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
   }
   .premarket-page-container .inside-copy h3 {
-    font-size: 14px;
-    padding-right: 18px;
+    font-size: 13px;
+    padding-right: 14px;
+    margin-bottom: 4px;
   }
   .premarket-page-container .inside-copy p {
-    font-size: 11px;
+    font-size: 10.5px;
     line-height: 1.35;
   }
   .premarket-page-container .card-arrow {
-    right: 12px;
-    top: 12px;
-    width: 24px;
-    height: 24px;
-    font-size: 11px;
+    right: 8px;
+    top: 8px;
+    width: 22px;
+    height: 22px;
+    font-size: 10px;
+  }
+  .premarket-page-container .report-cta {
+    padding: 22px 16px;
+    margin-top: 24px;
+    border-radius: 16px;
+  }
+  .premarket-page-container .report-cta h3 {
+    font-size: 20px;
+    line-height: 1.25;
+    margin-bottom: 6px;
+  }
+  .premarket-page-container .report-cta p {
+    font-size: 12.5px;
+    line-height: 1.4;
+  }
+  .premarket-page-container .report-cta .cta {
+    margin-top: 16px;
+    padding: 13px 16px;
+    font-size: 12.5px;
+    letter-spacing: .04em;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 380px) {
+  .premarket-page-container .report-content {
+    padding: 26px 3.5vw 20px;
+  }
+  .premarket-page-container .inside-grid {
+    gap: 6px;
+  }
+  .premarket-page-container .inside-card {
+    padding: 10px 8px;
+    border-radius: 10px;
+  }
+  .premarket-page-container .icon-box {
+    flex-basis: 36px;
+    width: 36px;
+    height: 36px;
+  }
+  .premarket-page-container .icon-box svg {
+    width: 20px;
+    height: 20px;
+  }
+  .premarket-page-container .inside-copy h3 {
+    font-size: 12px;
+    padding-right: 12px;
+  }
+  .premarket-page-container .inside-copy p {
+    font-size: 9.5px;
+    line-height: 1.3;
+  }
+  .premarket-page-container .report-cta {
+    padding: 18px 14px;
+    border-radius: 14px;
+  }
+  .premarket-page-container .report-cta h3 {
+    font-size: 18px;
+  }
+  .premarket-page-container .report-cta p {
+    font-size: 11.5px;
+  }
+  .premarket-page-container .report-cta .cta {
+    padding: 11px 12px;
+    font-size: 11.5px;
+    gap: 8px;
   }
 }
 

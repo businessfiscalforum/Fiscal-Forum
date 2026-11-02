@@ -1505,7 +1505,7 @@ export default function HomeDesktop() {
               transparent 30%,
               transparent 100%
             );
-            animation: border-spin 4s linear infinite;
+            animation: border-spin 7.5s linear infinite;
           }
 
           .revolving-border-btn-content {

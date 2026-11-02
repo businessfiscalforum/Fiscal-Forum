@@ -50,13 +50,6 @@ export default async function PreMarketLandingPage() {
 
         <div className="hero-inner">
           <div className="hero-copy">
-            <div className="eyebrow-row">
-              <span className="pill accent">
-                <span className="dot"></span>Pre-Market
-              </span>
-              <span className="pill">Today</span>
-            </div>
-
             <h1 className="headline">
               Before the<br />Market <em>Opens.</em>
             </h1>
@@ -64,21 +57,6 @@ export default async function PreMarketLandingPage() {
             <p className="sub">
               Everything you need to know before you make your first move.
             </p>
-
-            <div className="cta-row">
-              <a href="#report-inside" className="cta">
-                Read Report
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path
-                    d="M2 8H14M14 8L9 3M14 8L9 13"
-                    stroke="#FFFFFF"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </a>
-            </div>
           </div>
 
           <div className="card-stage">

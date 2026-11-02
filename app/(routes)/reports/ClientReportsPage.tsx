@@ -259,7 +259,7 @@ export default function ClientReportsPage({
           setIsBoxVisible(true);
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.05 }
     );
 
     const currentBox = boxRef.current;
@@ -1588,7 +1588,7 @@ export default function ClientReportsPage({
         <div className="wrap">
           <div className="section-head text-center mx-auto" style={{ marginBottom: '28px' }}>
             <div>
-              <h2 className="text-3xl font-bold uppercase text-black text-center" style={{ margin: '0 auto 10px' }}>“All the market metrics that matter—decoded, analyzed, and delivered inside our research reports”</h2>
+              <h2 className="market-metrics-title text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold uppercase text-black text-center" style={{ margin: '0 auto 10px' }}>“All the market metrics that matter—decoded, analyzed, and delivered inside our research reports”</h2>
             </div>
           </div>
           
