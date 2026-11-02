@@ -1,13 +1,13 @@
 import React from "react";
-import { Source_Serif_4 } from "next/font/google";
 import type { Metadata } from "next";
 
-const sourceSerif = Source_Serif_4({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-  variable: "--font-source-serif",
-});
+// Elegant transitional serif typography stack matching Source Serif 4.
+// Self-contained font stack that avoids external build-time network fetches to Google Fonts
+// in CI/CD environments (preventing Next.js @next/font loader regex parsing errors).
+const sourceSerif = {
+  variable:
+    "[--font-source-serif:'Source_Serif_4','Source_Serif_Pro',Charter,'Iowan_Old_Style','Palatino_Linotype',Palatino,Cambria,Georgia,serif]",
+};
 
 export const metadata: Metadata = {
   title: "Contact — Fiscal Forum Finserv",
@@ -19,6 +19,10 @@ export default function ContactPage() {
   return (
     <div
       className={`min-h-screen bg-[#F3EEE3] text-[#171512] pt-24 sm:pt-28 pb-12 font-sans selection:bg-[#2F4A3C] selection:text-white ${sourceSerif.variable}`}
+      style={{
+        ["--font-source-serif" as string]:
+          '"Source Serif 4", "Source Serif Pro", Charter, "Iowan Old Style", "Palatino Linotype", Palatino, Cambria, Georgia, serif',
+      }}
     >
       {/* Header */}
       <div className="max-w-[800px] mx-auto px-6">
