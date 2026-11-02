@@ -51,24 +51,13 @@ export default async function WeeklyReportsPage() {
         
         <div className="hero-inner">
           <div className="hero-copy">
-            <div className="eyebrow-row">
-              <span className="pill accent"><span className="dot"></span>Weekly Report</span>
-              <span className="pill">This Week</span>
-            </div>
-
             <h1 className="headline">Make Sense of<br />the <em>Week.</em></h1>
 
-            <p className="sub">One clear view of what moved markets, why it mattered, and what to watch next.</p>
-
-            <div className="cta-row">
-              <a href="#table" className="cta">
-                Read Weekly Report
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M2 8H14M14 8L9 3M14 8L9 13" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </a>
-              <span className="cta-note mono"><span className="clock-dot"></span>Weekly edition {"\u2022"} Friday close</span>
-            </div>
+            <p className="sub">
+              One clear view of what moved markets,<br />
+              why it mattered,<br />
+              and what to watch next.
+            </p>
           </div>
 
           <div className="card-stage">

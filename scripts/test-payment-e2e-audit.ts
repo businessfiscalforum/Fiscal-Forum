@@ -690,7 +690,7 @@ async function runComprehensiveAudit() {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       planId: "combination",
-      durationMonths: 3, // Canonical price is ₹399 = 39,900 paise
+      durationMonths: 3, // Canonical price is ₹41 = 4,100 paise
       amount: 100, // Client tries ₹1
       currency: "USD", // Client tries USD
     }),
@@ -699,16 +699,16 @@ async function runComprehensiveAudit() {
   const tamperData = await tamperRes.json();
   assert(
     tamperRes.status === 201 &&
-    tamperData.amount === 39900 &&
+    tamperData.amount === 4100 &&
     tamperData.currency === "INR",
-    "2.7 Client price/currency tampering strictly ignored: canonical ₹399 (39,900 paise) INR used"
+    "2.7 Client price/currency tampering strictly ignored: canonical ₹41 (4,100 paise) INR used"
   );
 
   // 2.8 Database attempt record links Razorpay orderId
   const dbAttempt = auditDb.subscriptionAttempts.find((a) => a.orderId === tamperData.orderId);
   assert(
     dbAttempt !== undefined &&
-    dbAttempt.amount === 39900 &&
+    dbAttempt.amount === 4100 &&
     dbAttempt.status === "PENDING" &&
     dbAttempt.clerkUserId === subscriberAlice.id,
     "2.8 Payment attempt successfully persisted in PENDING status with correct clerkUserId and amount"
@@ -1557,18 +1557,18 @@ async function runComprehensiveAudit() {
   const e2eOrderReq = new NextRequest("http://localhost:3000/api/subscriptions/create-order", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ planId: "combination", durationMonths: 6 }), // ₹649 = 64,900 paise
+    body: JSON.stringify({ planId: "combination", durationMonths: 6 }), // ₹51 = 5,100 paise
   });
   const e2eOrderRes = await createOrderRoute.POST(e2eOrderReq);
   const e2eOrderData = await e2eOrderRes.json();
-  assert(e2eOrderRes.status === 201 && e2eOrderData.amount === 64900, "Scenario A.1: Order created for Combination 6 Months (₹649)");
+  assert(e2eOrderRes.status === 201 && e2eOrderData.amount === 5100, "Scenario A.1: Order created for Combination 6 Months (₹51)");
 
   const e2ePaymentId = `pay_e2e_${Date.now()}`;
   razorpayPaymentsMap.set(e2ePaymentId, {
     id: e2ePaymentId,
     order_id: e2eOrderData.orderId,
     status: "captured",
-    amount: 64900,
+    amount: 5100,
     currency: "INR",
   });
 

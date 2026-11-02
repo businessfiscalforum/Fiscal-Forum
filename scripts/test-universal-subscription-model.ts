@@ -219,27 +219,27 @@ async function runTestSuite() {
 
   // Pre-Market Plan Checks
   const pm1 = getSubscriptionPlan("pre_market", 1);
-  assert(pm1.durationConfig.priceInRupees === 119 && pm1.durationConfig.priceInPaise === 11900, "Pre-Market 1 Month = ₹119 (11,900 paise)");
+  assert(pm1.durationConfig.priceInRupees === 21 && pm1.durationConfig.priceInPaise === 2100, "Pre-Market 1 Month = ₹21 (2,100 paise)");
   const pm3 = getSubscriptionPlan("pre_market", 3);
-  assert(pm3.durationConfig.priceInRupees === 299 && pm3.durationConfig.priceInPaise === 29900, "Pre-Market 3 Months = ₹299 (29,900 paise)");
+  assert(pm3.durationConfig.priceInRupees === 41 && pm3.durationConfig.priceInPaise === 4100, "Pre-Market 3 Months = ₹41 (4,100 paise)");
   const pm6 = getSubscriptionPlan("pre_market", 6);
-  assert(pm6.durationConfig.priceInRupees === 569 && pm6.durationConfig.priceInPaise === 56900, "Pre-Market 6 Months = ₹569 (56,900 paise)");
+  assert(pm6.durationConfig.priceInRupees === 51 && pm6.durationConfig.priceInPaise === 5100, "Pre-Market 6 Months = ₹51 (5,100 paise)");
 
   // Weekly Market Plan Checks
   const wk1 = getSubscriptionPlan("weekly", 1);
-  assert(wk1.durationConfig.priceInRupees === 89 && wk1.durationConfig.priceInPaise === 8900, "Weekly Market 1 Month = ₹89 (8,900 paise)");
+  assert(wk1.durationConfig.priceInRupees === 21 && wk1.durationConfig.priceInPaise === 2100, "Weekly Market 1 Month = ₹21 (2,100 paise)");
   const wk3 = getSubscriptionPlan("weekly", 3);
-  assert(wk3.durationConfig.priceInRupees === 199 && wk3.durationConfig.priceInPaise === 19900, "Weekly Market 3 Months = ₹199 (19,900 paise)");
+  assert(wk3.durationConfig.priceInRupees === 41 && wk3.durationConfig.priceInPaise === 4100, "Weekly Market 3 Months = ₹41 (4,100 paise)");
   const wk6 = getSubscriptionPlan("weekly", 6);
-  assert(wk6.durationConfig.priceInRupees === 499 && wk6.durationConfig.priceInPaise === 49900, "Weekly Market 6 Months = ₹499 (49,900 paise)");
+  assert(wk6.durationConfig.priceInRupees === 51 && wk6.durationConfig.priceInPaise === 5100, "Weekly Market 6 Months = ₹51 (5,100 paise)");
 
   // Combination Plan Checks
   const cb1 = getSubscriptionPlan("combination", 1);
-  assert(cb1.durationConfig.priceInRupees === 169 && cb1.durationConfig.priceInPaise === 16900, "Combination 1 Month = ₹169 (16,900 paise)");
+  assert(cb1.durationConfig.priceInRupees === 21 && cb1.durationConfig.priceInPaise === 2100, "Combination 1 Month = ₹21 (2,100 paise)");
   const cb3 = getSubscriptionPlan("combination", 3);
-  assert(cb3.durationConfig.priceInRupees === 399 && cb3.durationConfig.priceInPaise === 39900, "Combination 3 Months = ₹399 (39,900 paise)");
+  assert(cb3.durationConfig.priceInRupees === 41 && cb3.durationConfig.priceInPaise === 4100, "Combination 3 Months = ₹41 (4,100 paise)");
   const cb6 = getSubscriptionPlan("combination", 6);
-  assert(cb6.durationConfig.priceInRupees === 649 && cb6.durationConfig.priceInPaise === 64900, "Combination 6 Months = ₹649 (64,900 paise)");
+  assert(cb6.durationConfig.priceInRupees === 51 && cb6.durationConfig.priceInPaise === 5100, "Combination 6 Months = ₹51 (5,100 paise)");
 
   // Plan Normalization & Invalid Input Rejection
   assert(getSubscriptionPlan("PRE-MARKET", 1).plan.id === "pre_market", "Normalizes uppercase/hyphenated 'PRE-MARKET'");

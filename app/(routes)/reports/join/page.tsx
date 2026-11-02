@@ -48,29 +48,9 @@ const plans = [
 
 export default function ReportsPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100 px-6 py-20">
-      <div className="max-w-2xl w-full text-center space-y-8">
-        {/* Heading */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="space-y-3"
-        >
-          <Sparkles className="w-10 h-10 text-emerald-600 mx-auto" />
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-emerald-900 leading-tight">
-            How long do you need our report?
-          </h1>
-          <p className="text-base sm:text-lg text-emerald-700 max-w-md mx-auto">
-            Choose the plan that fits you best. Save more with longer subscriptions!
-          </p>
-        </motion.div> */}
-
-        <div className="flex justify-center">
-          {/* <PricingTable /> */}
-          <CustomPricingTable/>
-        </div>
-
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 via-green-50 to-teal-100 px-3 sm:px-6 py-6 sm:py-16">
+      <div className="w-full max-w-7xl mx-auto flex justify-center">
+        <CustomPricingTable />
       </div>
     </div>
   );
